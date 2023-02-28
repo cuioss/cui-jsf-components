@@ -28,17 +28,3 @@ Provides a number of JavaServer Faces modules
     </dependency>
 ----
 
-== Customization
-
-=== Credentials
-
-* `SONAR_TOKEN` -> Sonar-Cloud
-
-A sonar token can be derived from https://sonarcloud.io/account/security
-
-=== Further Steps
-
-* `pom.xml`: Adjust `name` and `description` elements
-* `src/site/asciidoc/about.adoc`: Adjust content
-* Review / Enable the elements under 'Security' Tab
-* Add (link) the resulting maven-documentation: https://github.com/cuioss/cuioss.github.io/edit/main/README.md[github.io-documentation] 
