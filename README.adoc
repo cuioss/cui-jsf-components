@@ -1,76 +1,38 @@
-= cui-java-module-template
+= cui-core-jsf
 
 == Status
 
-image:https://github.com/cuioss/cui-java-module-template/actions/workflows/maven.yml/badge.svg[Java CI with Maven,link=https://github.com/cuioss/cui-java-module-template/actions/workflows/maven.yml]
+image:https://github.com/cuioss/cui-core-jsf/actions/workflows/maven.yml/badge.svg[Java CI with Maven,link=https://github.com/cuioss/cui-core-jsf/actions/workflows/maven.yml]
 image:http://img.shields.io/:license-apache-blue.svg[License,link=http://www.apache.org/licenses/LICENSE-2.0.html]
-image:https://maven-badges.herokuapp.com/maven-central/io.github.cuioss/cui-java-module-template/badge.svg[Maven Central,link=https://maven-badges.herokuapp.com/maven-central/io.github.cuioss/cui-java-module-template]
+image:https://maven-badges.herokuapp.com/maven-central/io.github.cuioss.jsf/cui-core-jsf/badge.svg[Maven Central,link=https://maven-badges.herokuapp.com/maven-central/io.github.cuioss.jsf/cui-core-jsf]
 
-https://sonarcloud.io/summary/new_code?id=cuioss_cui-java-module-template[image:https://sonarcloud.io/api/project_badges/measure?project=cuioss_cui-java-module-template&metric=alert_status[Quality
+https://sonarcloud.io/summary/new_code?id=cuioss_cui-core-jsf[image:https://sonarcloud.io/api/project_badges/measure?project=cuioss_cui-core-jsf&metric=alert_status[Quality
 Gate Status]]
-image:https://sonarcloud.io/api/project_badges/measure?project=cuioss_cui-java-module-template&metric=ncloc[Lines of Code,link=https://sonarcloud.io/summary/new_code?id=cuioss_cui-java-module-template]
-image:https://sonarcloud.io/api/project_badges/measure?project=cuioss_cui-java-module-template&metric=coverage[Coverage,link=https://sonarcloud.io/summary/new_code?id=cuioss_cui-java-module-template]
+image:https://sonarcloud.io/api/project_badges/measure?project=cuioss_cui-core-jsf&metric=ncloc[Lines of Code,link=https://sonarcloud.io/summary/new_code?id=cuioss_cui-core-jsf]
+image:https://sonarcloud.io/api/project_badges/measure?project=cuioss_cui-core-jsf&metric=coverage[Coverage,link=https://sonarcloud.io/summary/new_code?id=cuioss_cui-core-jsf]
 
 
-https://cuioss.github.io/cui-java-module-template/index.html[Generated Documentation on github-pages]
+https://cuioss.github.io/cui-core-jsf/index.html[Generated Documentation on github-pages]
 
 == What is it?
 
-This is a template repository for creating java-modules for cui-open-source-projects. This incorporates all necessary java-structures, including `pom.xml`, sensible project-documentation, 
-an predefined github pipelines. 
-
-It is meant to be used as copy-paste-template.
+Provides a number of JavaServer Faces modules 
 
 === Maven Coordinates
 
 [source,xml]
 ----
     <dependency>
-        <groupId>io.github.cuioss</groupId>
-        <name>cui-java-module-template</name>
+        <groupId>io.github.cuioss.jsf</groupId>
+        <name>cui-core-jsf</name>
     </dependency>
 ----
 
 == Customization
 
-=== Names / Keys
-
-Create a new Repository by clicking "Use this template"
-Replace all  of `cui-java-module-template` with the new project 'key' / name, e.g. `my-java-module`. Relevant Files are:
-
-[CAUTION]
-====
-The key must *not* contain spaces. They are used for creating urls as well.
-
-====
-
-
-* `README.adoc` -> the badges on top
-* `pom.xml`
-* `SECURITY.adoc`
-* `.github/project.yml`
-* `src/site/site.xml`
-* `src/site/asciidoc/about.adoc`
-
 === Credentials
 
-Add the necessary credentials to the project: "Settings" -> "Secrets" -> "Actions", as there are: 
-
-* `GPG_PASSPHRASE` -> Code Signing
-* `GPG_PRIVATE_KEY` -> Code Signing
-* `OSS_SONATYPE_PASSWORD` -> Deploy to maven-central 
-* `OSS_SONATYPE_USERNAME` -> Deploy to maven-central
-* `PAGES_DEPLOY_TOKEN` -> Deploying the result of maven site to https://cuioss.github.io
 * `SONAR_TOKEN` -> Sonar-Cloud
-
-They are picked up in the predefined pipeline-configurations:
-
-* `.github/workflows/maven.yml`
-* `.github/workflows/maven-release.yml`
-
-Ensure that the actions are authorized correctly: Settings > Actions > General > Workflow permissions >  "Read and write permissions" must be selected *not* "Read repository contents permission"
-
-Documentation on how to create a signing key can be found https://github.com/cuioss/cui-parent-pom/blob/master/doc/signing_key.adoc[Documentation at cui-parent-pom] 
 
 A sonar token can be derived from https://sonarcloud.io/account/security
 
