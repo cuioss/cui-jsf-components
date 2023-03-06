@@ -24,7 +24,7 @@ Provides a number of JavaServer Faces modules
 ----
     <dependency>
         <groupId>io.github.cuioss.jsf</groupId>
-        <name>cui-core-jsf</name>
+        <artifactId>cui-core-jsf</artifactId>
     </dependency>
 ----
 
