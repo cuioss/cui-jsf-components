@@ -26,47 +26,104 @@
         <system>GitHub Issues</system>
     </issueManagement>
     <properties>
-        <version.jakarta.jakartaee-web-api>8.0.0</version.jakarta.jakartaee-web-api>
-        <version.omnifaces>3.14.1</version.omnifaces>
-        <version.jdom2>2.0.6.1</version.jdom2>
+        <version.cui.parent>0.2.1</version.cui.parent>
     </properties>
     <dependencyManagement>
         <dependencies>
             <!-- Incoming-->
-            <!-- https://mvnrepository.com/artifact/jakarta.platform/jakarta.jakartaee-web-api -->
             <dependency>
-                <groupId>jakarta.platform</groupId>
-                <artifactId>jakarta.jakartaee-web-api</artifactId>
-                <version>${version.jakarta.jakartaee-web-api}</version>
-                <scope>provided</scope>
+                <groupId>de.cuioss</groupId>
+                <artifactId>java-ee-8-bom</artifactId>
+                <version>${version.cui.parent}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.omnifaces/omnifaces -->
             <dependency>
-                <groupId>org.omnifaces</groupId>
-                <artifactId>omnifaces</artifactId>
-                <version>${version.omnifaces}</version>
-                <scope>compile</scope>
+                <groupId>de.cuioss</groupId>
+                <artifactId>java-ee-orthogonal</artifactId>
+                <version>${version.cui.parent}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
-            
-            <!-- Needed by ui-core-jsf-test-basic-->
-            <!-- https://mvnrepository.com/artifact/org.jdom/jdom2 -->
-            <dependency>
-                <groupId>org.jdom</groupId>
-                <artifactId>jdom2</artifactId>
-                <version>${version.jdom2}</version>
-                <scope>compile</scope>
-            </dependency>
-
             <!-- Outging-->
             <dependency>
                 <groupId>de.cuioss.jsf</groupId>
-                <artifactId>cui-jsf-components-test-basic</artifactId>
-                <version>{project.version}</version>
-                <scope>test</scope>
+                <artifactId>cui-jsf-api</artifactId>
+                <version>${project.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>de.cuioss.jsf</groupId>
+                <artifactId>cui-jsf-bootstrap</artifactId>
+                <version>${project.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>de.cuioss.jsf</groupId>
+                <artifactId>cui-jsf-dev</artifactId>
+                <version>${project.version}</version>
+                <scope>compile</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
     <modules>
         <module>modules</module>
     </modules>
+    <dependencies>
+        <!-- Provided -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-web-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.faces</artifactId>
+        </dependency>
+        <!-- Compile-->
+        <dependency>
+            <groupId>de.cuioss</groupId>
+            <artifactId>cui-java-tools</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.cuioss</groupId>
+            <artifactId>cui-core-ui-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnifaces</artifactId>
+        </dependency>
+        <!-- Test-->
+        <dependency>
+            <groupId>de.cuioss.test</groupId>
+            <artifactId>cui-jsf-test-basic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.cuioss.test</groupId>
+            <artifactId>cui-test-value-objects</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.cuioss.test</groupId>
+            <artifactId>cui-test-juli-logger</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.cuioss.test</groupId>
+            <artifactId>cui-test-generator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+        </dependency>
+    </dependencies>
 </project>
