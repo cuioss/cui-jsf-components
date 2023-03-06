@@ -23,7 +23,7 @@ Provides a number of JavaServer Faces modules
 [source,xml]
 ----
     <dependency>
-        <groupId>io.github.cuioss.jsf</groupId>
+        <groupId>de.cuioss.jsf</groupId>
         <artifactId>cui-core-jsf</artifactId>
     </dependency>
 ----

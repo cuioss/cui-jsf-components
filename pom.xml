@@ -2,18 +2,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>io.github.cuioss</groupId>
+        <groupId>de.cuioss</groupId>
         <artifactId>cui-java-parent</artifactId>
-        <version>0.1.2</version>
+        <version>0.2.1</version>
         <relativePath />
     </parent>
-    <groupId>io.github.cuioss.jsf</groupId>
+    <groupId>de.cuioss.jsf</groupId>
     <artifactId>cui-core-jsf</artifactId>
     <name>cui core jsf</name>
     <version>1.0.0-SNAPSHOT</version>
     <description>Provides a number of JavaServer Faces modules.
     </description>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <url>https://github.com/cuioss/cui-core-jsf/</url>
     <scm>
         <url>https://github.com/cuioss/cui-core-jsf/</url>
@@ -25,15 +25,48 @@
         <url>https://github.com/cuioss/cui-core-jsf/issues</url>
         <system>GitHub Issues</system>
     </issueManagement>
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <!-- Unit testing -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-        </dependency>
-    </dependencies>
+    <properties>
+        <version.jakarta.jakartaee-web-api>8.0.0</version.jakarta.jakartaee-web-api>
+        <version.omnifaces>3.14.1</version.omnifaces>
+        <version.jdom2>2.0.6.1</version.jdom2>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <!-- Incoming-->
+            <!-- https://mvnrepository.com/artifact/jakarta.platform/jakarta.jakartaee-web-api -->
+            <dependency>
+                <groupId>jakarta.platform</groupId>
+                <artifactId>jakarta.jakartaee-web-api</artifactId>
+                <version>${version.jakarta.jakartaee-web-api}</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.omnifaces/omnifaces -->
+            <dependency>
+                <groupId>org.omnifaces</groupId>
+                <artifactId>omnifaces</artifactId>
+                <version>${version.omnifaces}</version>
+                <scope>compile</scope>
+            </dependency>
+            
+            <!-- Needed by ui-core-jsf-test-basic-->
+            <!-- https://mvnrepository.com/artifact/org.jdom/jdom2 -->
+            <dependency>
+                <groupId>org.jdom</groupId>
+                <artifactId>jdom2</artifactId>
+                <version>${version.jdom2}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <!-- Outging-->
+            <dependency>
+                <groupId>de.cuioss.jsf</groupId>
+                <artifactId>cui-core-jsf-test-basic</artifactId>
+                <version>{project.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <modules>
+        <module>modules</module>
+    </modules>
 </project>
