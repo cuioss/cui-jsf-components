@@ -17,7 +17,7 @@
     <body>
         <links>
             <item name="Home"
-                href="https://github.com/cuioss/cui-core-jsf" />
+                href="https://github.com/cuioss/cui-jsf-components" />
         </links>
         <menu name="Overview">
         <item name="About" href="about.html"></item>

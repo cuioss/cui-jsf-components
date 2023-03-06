@@ -1,7 +1,7 @@
 # CUI Open Source Security Policies and Procedures
 
 This document outlines security procedures and general policies for the
-CUI Open Source projects as found on [https://github.com/cuioss/cui-core-jsf](https://github.com/cuioss/cui-core-jsf).
+CUI Open Source projects as found on [https://github.com/cuioss/cui-jsf-components](https://github.com/cuioss/cui-jsf-components).
 
   * [Reporting a Vulnerability](#reporting-a-vulnerability)
   * [Disclosure Policy](#disclosure-policy)
@@ -14,7 +14,7 @@ software. We appreciate your efforts and responsible disclosure and will
 make every effort to acknowledge your contributions.
 
 Report security vulnerabilities by using the github security reporting mechanism:
-* https://github.com/cuioss/cui-core-jsf/security
+* https://github.com/cuioss/cui-jsf-components/security
 * -> "Private vulnerability reporting"
 * -> "Report a vulnerability"
 
