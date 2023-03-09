@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/faces/markup/layout_markup.xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:markup="http://xmlns.jcp.org/jsf/composite/markup"
+	xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
+	xmlns:development="http://xmlns.jcp.org/jsf/composite/development"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<ui:define name="title">
+        Custom Markup Components: Header
+    </ui:define>
+	<ui:define name="content">
+
+		<development:printMetadata id="smpH1"
+			compositeLibrary="markup" compositeName="h1"
+			showAdvanced="false">
+			<f:facet name="sample">
+				<markup:h1 value="Content &nbsp; to be displayed" />
+			</f:facet>
+		</development:printMetadata>
+		<development:printMetadata id="smpH2"
+			compositeLibrary="markup" compositeName="h2"
+			showAdvanced="false">
+			<f:facet name="sample">
+				<markup:h2 value="Content to be displayed" />
+			</f:facet>
+		</development:printMetadata>
+		<development:printMetadata id="smpH3" 
+			compositeLibrary="markup" compositeName="h3"
+			showAdvanced="false">
+			<f:facet name="sample">
+				<markup:h3 value="Content to be displayed" />
+			</f:facet>
+		</development:printMetadata>
+	</ui:define>
+</ui:composition>

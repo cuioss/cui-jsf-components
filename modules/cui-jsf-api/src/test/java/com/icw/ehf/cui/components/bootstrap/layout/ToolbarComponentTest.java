@@ -1,0 +1,73 @@
+package com.icw.ehf.cui.components.bootstrap.layout;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import javax.faces.event.PreRenderComponentEvent;
+
+import org.junit.jupiter.api.Test;
+
+import com.icw.ehf.cui.components.bootstrap.BootstrapFamily;
+
+import de.cuioss.test.jsf.component.AbstractUiComponentTest;
+import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+
+@VerifyComponentProperties(of = { "pinBottomOffset", "pinTopOffset", "pinToBottom", "pinToTop" },
+        defaultValued = { "pinBottomOffset", "pinTopOffset" })
+class ToolbarComponentTest extends AbstractUiComponentTest<ToolbarComponent> {
+
+    @Test
+    void shouldProvideCorrectStyleClass() {
+        final var component = anyComponent();
+        assertEquals("toolbar toolbar-default", component.resolveStyleClass().getStyleClass());
+    }
+
+    @Test
+    void shouldProvideComplexStyleClass() {
+        final var component = anyComponent();
+        component.setPinToTop(true);
+        component.setSize("xl");
+        var expected = "toolbar pinned toolbar-xl";
+        assertEquals(expected, component.resolveStyleClass().getStyleClass());
+        component.setPinToBottom(true);
+        assertEquals(expected, component.resolveStyleClass().getStyleClass());
+        component.setPinToTop(false);
+        assertEquals(expected, component.resolveStyleClass().getStyleClass());
+    }
+
+    @Test
+    void shouldProvideCorrectMetadata() {
+        assertEquals(BootstrapFamily.LAYOUT_RENDERER, anyComponent().getRendererType());
+    }
+
+    @Test
+    void shouldNotSetPTAttributes() {
+        var component = anyComponent();
+        component.processEvent(new PreRenderComponentEvent(component));
+        assertTrue(component.getPassThroughAttributes().isEmpty());
+    }
+
+    @Test
+    void shouldHandlePTAttributesForTop() {
+        var component = anyComponent();
+        component.setPinToTop(true);
+        component.setPinTopOffset(10);
+        component.processEvent(new PreRenderComponentEvent(component));
+        var map = component.getPassThroughAttributes();
+        assertEquals(2, map.size());
+        assertEquals(ToolbarComponent.DATA_SPY_VALUE, map.get(ToolbarComponent.DATA_SPY_ATTRIBUTE));
+        assertEquals(10, map.get(ToolbarComponent.DATA_OFFSET_TOP));
+    }
+
+    @Test
+    void shouldHandlePTAttributesForBottom() {
+        var component = anyComponent();
+        component.setPinToBottom(true);
+        component.setPinBottomOffset(10);
+        component.processEvent(new PreRenderComponentEvent(component));
+        var map = component.getPassThroughAttributes();
+        assertEquals(2, map.size());
+        assertEquals(ToolbarComponent.DATA_SPY_VALUE, map.get(ToolbarComponent.DATA_SPY_ATTRIBUTE));
+        assertEquals(10, map.get(ToolbarComponent.DATA_OFFSET_BOTTOM));
+    }
+}

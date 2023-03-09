@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:cui="http://www.icw.de/commons-webui"
+    xmlns:taglib="http://xmlns.jcp.org/jsf/composite/taglib">
+
+<!-- INTERFACE -->
+<composite:interface>
+
+	<composite:attribute name="metaDataTitle" required="true"
+		type="java.lang.String" />
+
+	<composite:attribute name="libPrefix" required="true"
+		type="java.lang.String" />
+
+	<composite:attribute name="tagLibData" required="true"
+		type="com.icw.ehf.cui.dev.metadata.TagLib" />
+
+</composite:interface>
+
+<!-- IMPLEMENTATION -->
+<composite:implementation>
+
+	<ui:fragment
+		rendered="#{cc.attrs.tagLibData.componentMetadata.dataAvailable}">
+		<h3>
+			<h:outputText value="#{cc.attrs.metaDataTitle} Components" />
+		</h3>
+
+		<ui:repeat var="tagElement" id="ccRepeat"
+			value="#{cc.attrs.tagLibData.componentMetadata.data}">
+			<cui:panel headerValue="#{cc.attrs.libPrefix}:#{tagElement.name}"
+				collapsible="true" id="ccPanel" collapsed="true">
+				<p>
+					<h:outputText value="#{tagElement.description}"
+						escape="#{tagElement.name == 'metadata' ? true : false}" />
+				</p>
+				<ul class="list-unstyled">
+					<li><h:outputText
+							value="Component-Type: #{tagElement.componentType}" /></li>
+					<li><h:outputText
+							value="Renderer-Type: #{tagElement.rendererType}" /></li>
+				</ul>
+				<taglib:attributes attributeList="#{tagElement.attributes}" />
+			</cui:panel>
+		</ui:repeat>
+	</ui:fragment>
+
+	<ui:fragment
+		rendered="#{cc.attrs.tagLibData.validatorMetadata.dataAvailable}">
+		<h3>
+			<h:outputText value="#{cc.attrs.metaDataTitle} Validators" />
+		</h3>
+
+		<ui:repeat var="tagElement" id="valRepeat"
+			value="#{cc.attrs.tagLibData.validatorMetadata.data}">
+			<cui:panel headerValue="#{cc.attrs.libPrefix}:#{tagElement.name}"
+				collapsible="true" id="valPanel" collapsed="true">
+				<p>
+					<h:outputText value="#{tagElement.description}"
+						escape="#{tagElement.name == 'metadata' ? true : false}" />
+				</p>
+				<ul class="list-unstyled">
+					<li><h:outputText
+							value="Component-Type: #{tagElement.validatorId}" /></li>
+				</ul>
+				<taglib:attributes attributeList="#{tagElement.attributes}" />
+			</cui:panel>
+		</ui:repeat>
+	</ui:fragment>
+
+	<ui:fragment
+		rendered="#{cc.attrs.tagLibData.converterMetadata.dataAvailable}">
+		<h3>
+			<h:outputText value="#{cc.attrs.metaDataTitle} Converters" />
+		</h3>
+
+		<ui:repeat var="tagElement" id="conRepeat"
+			value="#{cc.attrs.tagLibData.converterMetadata.data}">
+			<cui:panel headerValue="#{cc.attrs.libPrefix}:#{tagElement.name}"
+				collapsible="true" id="conPanel" collapsed="true">
+				<p>
+					<h:outputText value="#{tagElement.description}"
+						escape="#{tagElement.name == 'metadata' ? true : false}" />
+				</p>
+				<ul class="list-unstyled">
+					<li><h:outputText
+							value="Component-Type: #{tagElement.converterId}" /></li>
+				</ul>
+				<taglib:attributes attributeList="#{tagElement.attributes}" />
+			</cui:panel>
+		</ui:repeat>
+	</ui:fragment>
+
+	<ui:fragment
+		rendered="#{cc.attrs.tagLibData.behaviorMetadata.dataAvailable}">
+		<h3>
+			<h:outputText value="#{cc.attrs.metaDataTitle} Behavior" />
+		</h3>
+
+		<ui:repeat var="tagElement" id="bRepeat"
+			value="#{cc.attrs.tagLibData.behaviorMetadata.data}">
+			<cui:panel headerValue="#{cc.attrs.libPrefix}:#{tagElement.name}"
+				collapsible="true" id="bPanel" collapsed="true">
+				<p>
+					<h:outputText value="#{tagElement.description}"
+						escape="#{tagElement.name == 'metadata' ? true : false}" />
+				</p>
+				<ul class="list-unstyled">
+					<li><h:outputText
+							value="Component-Type: #{tagElement.behaviorId}" /></li>
+					<li><h:outputText
+							value="Renderer-Type: #{tagElement.rendererType}" /></li>
+				</ul>
+				<taglib:attributes attributeList="#{tagElement.attributes}" />
+			</cui:panel>
+		</ui:repeat>
+	</ui:fragment>
+</composite:implementation>
+</html>

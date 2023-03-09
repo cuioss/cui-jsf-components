@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:component xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+   xmlns:cui="http://www.icw.de/commons-webui"
+   xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+   xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+   <cc:interface displayName="Advanced Metadata Display"
+      shortDescription="Prints the advanced metadata for a FeatureDescriptor">
+      <cc:attribute name="propertyWrapper"
+         type="com.icw.ehf.cui.dev.metadata.composite.attributes.AbstractPropertyWrapper"
+         required="true"
+         shortDescription="The wrapper for the FeatureDescriptor to be displayed" />
+   </cc:interface>
+
+   <cc:implementation>
+      <ui:repeat var="meta"
+         value="#{cc.attrs.propertyWrapper.advancedMetaData}">
+         <cui:labeledContainer labelValue="#{meta.label}">
+            <h:outputText value="#{meta.value}" />
+         </cui:labeledContainer>
+      </ui:repeat>
+   </cc:implementation>
+</ui:component>

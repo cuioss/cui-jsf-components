@@ -1,0 +1,3643 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facelet-taglib version="2.2"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd">
+	<namespace>http://www.icw.de/commons-webui-test</namespace>
+	<tag>
+		<description>Converter utilized for dropdown elements.
+		The instanceMap is utilized for the mapping between the serializable keys
+		and the corresponding model classes. The keys must be Serializable because
+		they are sent to the client. The corresponding toString() method must return
+		a String representation that can be used for key lookup within the map.
+		The lookup is implemented to fail fast, saying for both ways,
+		getAsObject(FacesContext, UIComponent, String) and
+		getAsString(FacesContext, UIComponent, Object) the references will be
+		checked, whether they are contained within the instanceMap,
+		throwing a ConverterException if it doesn't.
+	</description>
+		<tag-name>mapInstanceConverter</tag-name>
+		<converter>
+			<converter-id>mapInstanceConverter</converter-id>
+		</converter>
+		<attribute>
+		<description>The map being referenced</description>
+			<name>instanceMap</name>
+			<required>true</required>
+			<type>java.util.Map</type>
+		</attribute>
+	</tag>
+	<tag>
+		<description>
+			 Age Converter is able to convert de.cuioss.uimodel.model.DateOfBirth into a String
+			 representation :
+			 &lt;ul&gt;
+			 &lt;li&gt;If the age is &lt; 4 weeks (28 days) returns the age as DAYS&lt;/li&gt;
+			 &lt;li&gt;If the age is &lt; 4 months (120 days) returns the age as WEEKS&lt;/li&gt;
+			 &lt;li&gt;If the age is &lt; 1,5 years (548 days) returns the age as MONTHS&lt;/li&gt;
+			 &lt;li&gt;If the age is &gt;= 1,5 years (548 days) returns the age as YEARS&lt;/li&gt;
+			 &lt;/ul&gt;
+			 &lt;em&gt;Caution:&lt;/em&gt; Currently it works only for complete de.cuioss.uimodel.model.DateOfBirth
+			 elements, saying all attributes (month, day, year) must contain a valid
+			 value. In case of at least one missing it returns an empty String.
+			 &lt;em&gt;Attention:&lt;/em&gt; #getAsObject(FacesContext, UIComponent, String)}
+			 throws ConverterException because converter used as Formatter
+		</description>
+		<tag-name>ageConverter</tag-name>
+		<converter>
+			<converter-id>com.icw.ehf.cui.components.converter.AgeConverter</converter-id>
+		</converter>
+	</tag>
+	<tag>
+		<description>
+			 Joda Time based formatter for BirthDates. It can format the
+			de.cuioss.uimodel.model.DateOfBirth directly and put it in some formatting context as defined
+			 within #formattingTemplate
+
+			 &lt;em&gt;Caution:&lt;/em&gt; In case of using both #formattingTemplate and
+			 #datePattern it combines the information for #getAsObject(FacesContext, UIComponent, String)
+
+			 &lt;p&gt;
+			 The converter is capable of working in two modes:
+			 &lt;ul&gt;
+			 &lt;li&gt;Complete de.cuioss.uimodel.model.DateOfBirth, saying all attributes (month, day, year)
+			 are in place and valid: In this case the date is formatted according to the
+			 configured #datePattern&lt;/li&gt;
+			 &lt;li&gt;displayPartialDate: In case of this attribute being true (default) and
+			 the date having at least the year set it renders:
+			 &lt;ul&gt;
+			 &lt;li&gt;The year if no month is present&lt;/li&gt;
+			 &lt;li&gt;The year and month if the month is present. As formatting template the
+			 converter uses a java.util.ResourceBundle entry with the name
+			 java.DateOfBirthConverter.incomplete_date_month_formatting&lt;/li&gt;
+			 &lt;/ul&gt;
+			 &lt;/li&gt;
+			 &lt;li&gt;In caes none of the above applies the converter will return an empty
+			 String.&lt;/li&gt;
+			 &lt;/ul&gt;
+			 &lt;/p&gt;
+		</description>
+		<tag-name>dateOfBirthConverter</tag-name>
+		<converter>
+			<converter-id>com.icw.ehf.cui.components.converter.DateOfBirthConverter</converter-id>
+		</converter>
+		<attribute>
+			<description>
+				The pattern utilized for date formatting. Defaults to "yyyy-MM-dd". See
+				&lt;a href="http://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormat.html"
+				&gt; Joda -Documentation&lt;a/&gt; for details.
+			</description>
+			<name>datePattern</name>
+			<required>false</required>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+				Formatting template is used for cases, where you include the result into
+				an other formatted element, like (%s) resulting in '(01/01/2010)'. If it
+				is null no formatting will be done.
+			</description>
+			<name>formattingTemplate</name>
+			<required>false</required>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Boolean indicating whether a partial date is to be displayed as well.
+			On false only complete dates will be displayed.
+			On true(default) and if at least the year is available it will be rendered as well</description>
+			<name>displayPartialDate</name>
+			<required>false</required>
+			<type>boolean</type>
+		</attribute>
+	</tag>
+	<tag>
+		<description>Utilized for sanitizing String inputs in order to prevent script injection or Html code that possibly corrupts layout.</description>
+		<tag-name>sanitizer</tag-name>
+		<converter>
+			<converter-id>com.icw.ehf.cui.components.converter.HtmlSanitizingConverter</converter-id>
+		</converter>
+		<attribute>
+			<description>Defines the strategy for sanitizing. One of "PLAIN_TEXT", "SIMPLE_HTML", "COMPLEX_HTML" expected (Case insensitive).
+			See com.icw.ehf.cui.core.api.security.CuiSanitizer for details for the corresponding sanitizer. It defaults to "PLAIN_TEXT"</description>
+			<name>strategy</name>
+			<required>false</required>
+			<type>java.lang.String</type>
+		</attribute>
+	</tag>
+	<tag>
+		<description>Simple wrapping converter for de.cuioss.uimodel.util.TextSplitter. It is a formatting only converter </description>
+		<tag-name>textSplitter</tag-name>
+		<converter>
+			<converter-id>com.icw.ehf.cui.components.converter.TextSplittingConverter</converter-id>
+		</converter>
+		<attribute>
+			<description>Count of characters when a text break will forced, defaults to 15</description>
+			<name>forceLengthBreakCount</name>
+			<required>false</required>
+			<type>int</type>
+		</attribute>
+		<attribute>
+			<description>Count of characters until the complete text will be abridged, defaults to 4096</description>
+			<name>abridgedLengthCount</name>
+			<required>false</required>
+			<type>int</type>
+		</attribute>
+	</tag>
+	<tag>
+		<description>Converts a date value using joda time API</description>
+		<tag-name>jodaDateTimeConverter</tag-name>
+		<converter>
+			<converter-id>jodaDateTimeConverter</converter-id>
+		</converter>
+		<attribute>
+			<description>Joda date time format pattern</description>
+			<name>pattern</name>
+			<required>true</required>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>alternative type for time zone</description>
+			<name>dateTimeZone</name>
+			<required>false</required>
+			<type>org.joda.time.DateTimeZone</type>
+		</attribute>
+		<attribute>
+			<description>alternative type for time zone</description>
+			<name>timeZone</name>
+			<required>false</required>
+			<type>java.util.TimeZone</type>
+		</attribute>
+	</tag>
+
+	<tag>
+		<description>Converts a charArray to string</description>
+		<tag-name>charArrayConverter</tag-name>
+		<converter>
+			<converter-id>com.icw.ehf.cui.components.converter.CharArrayConverter</converter-id>
+		</converter>
+	</tag>
+
+	<tag>
+		<description>&lt;strike&gt;Converter for Timestamp strings.
+		The given timestamp does not contain any time zone information, it's always calculated,
+		based on the server time.
+		This class retrieves the time zone from the server and calculates the time for the given
+		timezone parameter. This value will be returned after beeing formatted with the given datePattern.&lt;/strike&gt;
+        &lt;b style=&quot;color: red; font-size: 16px;&quot;&gt;Converter is deprecated up from cui version 4.0!&lt;/b&gt;
+		</description>
+		<tag-name>timestampConverter</tag-name>
+		<converter>
+			<converter-id>timestampConverter</converter-id>
+		</converter>
+		<attribute>
+		<description>The Utilized datePattern</description>
+			<name>datePattern</name>
+			<required>true</required>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+		<description>The utilized Timezone, if the default timezone need to be overruled</description>
+			<name>timezone</name>
+			<required>false</required>
+			<type>java.util.TimeZone</type>
+		</attribute>
+	</tag>
+	<tag>
+		<description>Compares the content of two distinct fields with another.</description>
+		<tag-name>fieldComparisonValidator</tag-name>
+		<validator>
+			<validator-id>fieldComparisonValidator</validator-id>
+		</validator>
+		<attribute>
+			<description>The id referencing the the other input to be compared to</description>
+			<name>compareToId</name>
+			<required>true</required>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>The message to be displayed if the validation fails</description>
+			<name>validatorMessage</name>
+			<required>true</required>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Represents the id of the input this validator refers to.</description>
+			<name>for</name>
+			<required>true</required>
+			<type>java.lang.String</type>
+		</attribute>
+	</tag>
+    <tag>
+        <description>Compares the content of two distinct char[] fields with another.</description>
+        <tag-name>passwordComparisonValidator</tag-name>
+        <validator>
+            <validator-id>passwordComparisonValidator</validator-id>
+        </validator>
+        <attribute>
+            <description>The id referencing the the other input to be compared to</description>
+            <name>compareToId</name>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>The message to be displayed if the validation fails</description>
+            <name>validatorMessage</name>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Represents the id of the input this validator refers to.</description>
+            <name>for</name>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+    <tag>
+        <description>Validates the content of a input text as email.</description>
+        <tag-name>emailValidator</tag-name>
+        <validator>
+            <validator-id>emailValidator</validator-id>
+        </validator>
+        <attribute>
+            <description>The pattern to validate email against</description>
+            <name>pattern</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+	<tag>
+		<description>Renders a bootstrap conform div with the styleClass 'row'.</description>
+		<tag-name>row</tag-name>
+		<component>
+			<component-type>com.icw.ehf.cui.components.ui.layout.Row</component-type>
+			<renderer-type>javax.faces.Group</renderer-type>
+		</component>
+        <attribute>
+            <description>The component identifier for this component.  This value must be
+                unique within the closest parent component that is a naming
+                container. Caution: The component itself is not a naming container
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit.  The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+               Space-separated list of CSS style class(es) to be applied additionally when
+                this element is rendered.
+            </description>
+            <name>styleClass</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+	</tag>
+	<tag>
+		<description>Renders a message list.</description>
+		<tag-name>messages</tag-name>
+		<component>
+			<component-type>com.icw.ehf.cui.components.ui.basic.CuiMessages</component-type>
+			<renderer-type>javax.faces.Messages</renderer-type>
+		</component>
+	</tag>
+	<tag>
+		<description>Renders a fieldset.</description>
+		<tag-name>fieldset</tag-name>
+		<component>
+			<component-type>com.icw.ehf.cui.components.ui.basic.FieldSet</component-type>
+			<renderer-type>com.icw.ehf.cui.components.ui.renderer.FieldSetRenderer</renderer-type>
+		</component>
+        <attribute>
+            <description>The component identifier for this component.  This value must be
+                unique within the closest parent component that is a naming
+                container. Caution: The component itself is not a naming container
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+		<attribute>
+            <description>Defines whether all controls within this fieldset are disabled. Defaults to false.
+            </description>
+            <name>disabled</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit.  The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+               Space-separated list of CSS style class(es) to be applied additionally when
+                this element is rendered.
+            </description>
+            <name>styleClass</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+         <attribute>
+            <description>
+               The key for looking up the text display as the legend.
+				Although this attribute is not required the developer must provide either this or #labelValue if you want a legend to be displayed
+            </description>
+            <name>legendKey </name>
+            <required>false</required>
+             <type>java.lang.String</type>
+        </attribute>
+         <attribute>
+            <description>
+               The String displayed for the legend. This is a replacement for #legendKey.
+		     If both are present legendValue takes precedence. If the type is not java.lang.String the
+		     developer must ensure that an according converter for the exists.
+            </description>
+            <name>legendValue</name>
+            <required>false</required>
+             <type>java.io.Serializable</type>
+        </attribute>
+
+	</tag>
+	<tag>
+		<description>Renders a tile.</description>
+		<tag-name>tile</tag-name>
+		<component>
+			<component-type>com.icw.ehf.cui.components.ui.basic.Tile</component-type>
+			<renderer-type>com.icw.ehf.cui.components.ui.renderer.TileRenderer</renderer-type>
+		</component>
+        <attribute>
+            <description>The component identifier for this component.  This value must be
+                unique within the closest parent component that is a naming
+                container. Caution: The component itself is not a naming container
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+		<attribute>
+            <description>Defines whether all controls within this tile are disabled. Defaults to false.
+            </description>
+            <name>disabled</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit.  The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+               Space-separated list of CSS style class(es) to be applied additionally when
+                this element is rendered.
+            </description>
+            <name>styleClass</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+         <attribute>
+            <description>
+               The key for looking up the text display as the footer.
+				Although this attribute is not required the developer must provide either this or #footerValue if you want a legend to be displayed
+            </description>
+            <name>footerKey </name>
+            <required>false</required>
+             <type>java.lang.String</type>
+        </attribute>
+         <attribute>
+            <description>
+               The String displayed for the footer. This is a replacement for #footerKey.
+		     If both are present footerValue takes precedence. If the type is not java.lang.String the
+		     developer must ensure that an according converter for the exists.
+            </description>
+            <name>footerValue</name>
+            <required>false</required>
+             <type>java.io.Serializable</type>
+        </attribute>
+
+		<attribute>
+	        <description>
+	            Sets the size for the tile element, must be one of the appropriate bootstrap size prefixes, e.g. lg, sm or xs
+	        </description>
+	        <name>size</name>
+	        <required>false</required>
+	         <type>java.lang.String</type>
+	    </attribute>
+		<attribute>
+	        <description>
+	            Different general styles available (state): one of 'primary', 'success', 'info', 'warning', 'danger'.
+				If none of those is set it uses 'default'.
+	        </description>
+	        <name>state</name>
+	        <required>false</required>
+	         <type>java.lang.String</type>
+	    </attribute>
+	</tag>
+	<tag>
+		<description>Renders a bootstrap conform div with the styleClass 'form-group'.</description>
+		<tag-name>formGroup</tag-name>
+		<component>
+			<component-type>com.icw.ehf.cui.components.ui.layout.FormGroup</component-type>
+			<renderer-type>javax.faces.Group</renderer-type>
+		</component>
+        <attribute>
+            <description>The component identifier for this component.  This value must be
+                unique within the closest parent component that is a naming
+                container. Caution: The component itself is not a naming container
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit.  The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+               Space-separated list of CSS style class(es) to be applied additionally when
+                this element is rendered.
+            </description>
+            <name>styleClass</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+	</tag>
+	<tag>
+		<description>Renders a bootstrap conform "input-group" element. An input group groups a
+						number of input elements to be displayed as one element.</description>
+		<tag-name>inputGroup</tag-name>
+		<component>
+			<component-type>com.icw.ehf.cui.components.ui.layout.InputGroup</component-type>
+			<renderer-type>javax.faces.Group</renderer-type>
+		</component>
+        <attribute>
+            <description>The component identifier for this component.  This value must be
+                unique within the closest parent component that is a naming
+                container. Caution: The component itself is not a naming container
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit.  The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+               Space-separated list of CSS style class(es) to be applied additionally when
+                this element is rendered.
+            </description>
+            <name>styleClass</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+	</tag>
+	<tag>
+		<description>Wraps a number of buttons. Quick means solely appending the css-class
+		'quick-control-group-right' and the styleClass attribute, if set, will be attached
+		to the surrounding div. For more complex layouts use controlGroup.</description>
+		<tag-name>quickControlGroup</tag-name>
+		<component>
+			<component-type>com.icw.ehf.cui.components.ui.layout.QuickControlGroup</component-type>
+			<renderer-type>javax.faces.Group</renderer-type>
+		</component>
+        <attribute>
+            <description>The component identifier for this component.  This value must be
+                unique within the closest parent component that is a naming
+                container. Caution: The component itself is not a naming container
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+               Defines the optional float alignment of the component. Supported values are 'left' or 'right',
+               resulting in the additional corresponding css classes quick-control-group-right or
+			   quick-control-group-left being rendered. Defaults to right
+            </description>
+            <name>align</name>
+            <required>false </required>
+             <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit.  The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+               Space-separated list of CSS style class(es) to be applied additionally when
+                this element is rendered.
+            </description>
+            <name>
+                styleClass
+            </name>
+            <required>
+                false
+            </required>
+            <type>java.lang.String</type>
+        </attribute>
+	</tag>
+
+		<tag>
+		<description>Renders a bootstrap conform div with the appropriate column-class appended.</description>
+		<tag-name>column</tag-name>
+		<component>
+			<component-type>com.icw.ehf.cui.components.ui.layout.Column</component-type>
+			<renderer-type>javax.faces.Group</renderer-type>
+		</component>
+        <attribute>
+            <description>The component identifier for this component.  This value must be
+                unique within the closest parent component that is a naming
+                container. Caution: The component itself is not a naming container
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit.  The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+               Space-separated list of CSS style class(es) to be applied additionally when
+                this element is rendered.
+            </description>
+            <name>
+                styleClass
+            </name>
+            <required>
+                false
+            </required>
+           <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+        <description>The size of the appropriate column. Must be between 1-12</description>
+        <name>size</name>
+         <required>
+                true
+         </required>
+        <type>java.lang.Integer</type>
+        </attribute>
+        <attribute>
+        <description>The bootstrap specific class prefix, one of col-xs-, col-sm-, col-md-, col-lg-. Defaults to 'col-md-'</description>
+         <name>classPrefix</name>
+         <required>
+                false
+            </required>
+        <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+				<description>The offset-size of the appropriate column. Must be between 1-12</description>
+				<name>offsetSize</name>
+				<required>true</required>
+				<type>java.lang.Integer</type>
+		</attribute>
+	</tag>
+	<tag>
+		 <description>An extension to h:commandButton that conforms to Bootstrap styling and incorporates the display of icons.
+			Caution: do not use the value attribute but the corresponding labelKey / labelValue.
+			The same goes for the title element: use titleKey or titleValue.
+			It will always be rendered as a button (visually) unless you add the styleClass 'btn-link'
+         </description>
+		<tag-name>commandButton</tag-name>
+		<component>
+			<component-type>com.icw.ehf.cui.components.ui.basic.CuiCommandButton</component-type>
+			<renderer-type>javax.faces.Link</renderer-type>
+		</component>
+        <attribute>
+            <description>The component identifier for this component.  This value must be
+                unique within the closest parent component that is a naming
+                container. Caution: The component itself is not a naming container
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit.  The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+               Space-separated list of CSS style class(es) to be applied additionally when
+                this element is rendered.
+            </description>
+            <name>styleClass</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+	    <attribute>
+	    	<description>The key-binding for this button, aka keyboard shortcut. The key will be bound as onClickHandler. Caution: The implementor
+	    	must ensure that there is only one button for the same type existent per page, otherwise the behavior is non-deterministic.</description>
+	    	<name>keyBinding</name>
+	    	 <required>false</required>
+             <type>java.lang.String</type>
+	    </attribute>
+		<attribute>
+	        <description>
+	            Different general styles available (state): one of 'primary', 'success', 'info', 'warning', 'danger'.
+				If none of those is set it uses 'default'.
+	        </description>
+	        <name>state</name>
+	        <required>false</required>
+	         <type>java.lang.String</type>
+	    </attribute>
+		<attribute>
+	        <description>
+	            Sets the size for the button element, must be one of the appropriate bootstrap size prefixes, e.g. lg, sm or xs
+	        </description>
+	        <name>size</name>
+	        <required>false</required>
+	         <type>java.lang.String</type>
+	    </attribute>
+         <attribute>
+            <description>
+               The key for looking up the text display as the label.
+				Although this attribute is not required the developer must provide either this or #labelValue if you want a label to be displayed
+            </description>
+            <name>labelKey </name>
+            <required>false</required>
+             <type>java.lang.String</type>
+        </attribute>
+         <attribute>
+            <description>
+               The String displayed for the label. This is a replacement for #labelKey.
+		     If both are present labelValue takes precedence. If the type is not java.lang.String the
+		     developer must ensure that an according converter for the exists.
+            </description>
+            <name>labelValue</name>
+            <required>false</required>
+             <type>java.io.Serializable</type>
+        </attribute>
+        <attribute>
+            <description>The (optional) converterId for the labelValue </description>
+            <name>converterId</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+               The key for looking up the text display as the title.
+				Although this attribute is not required the developer must provide either this or #titleValue if you want a title to be displayed
+            </description>
+            <name>titleKey</name>
+            <required>false</required>
+             <type>java.lang.String</type>
+        </attribute>
+         <attribute>
+            <description>
+               The String displayed for the title. This is a replacement for #titleLabelKey.
+		     If both are present titleValue takes precedence.
+            </description>
+            <name>titleValue </name>
+            <required>false</required>
+             <type>java.lang.String</type>
+        </attribute>
+
+		 <attribute>
+            <description>
+               A defined icon class, defined within stylesheet, e.g.  cui-icon-warning.
+               In order to prevent improper usage the matching is restricted to the
+				prefixes: "cui-icon, cui-mime-type, ui-icon-". If none of them is matched the
+				access throws an IllegalArgumentException.
+            </description>
+            <name>icon</name>
+            <required>true</required>
+             <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+               Defines the optional float alignment of the component. Supported values are 'left' or 'right',
+               resulting in the additional css class 'pull-left' or 'pull-right'
+            </description>
+            <name>iconAlign</name>
+            <required>false </required>
+             <type>java.lang.String</type>
+        </attribute>
+		       <attribute>
+            <description>
+                <![CDATA[MethodExpression representing the application action to invoke
+                when this component is activated by the user.  The expression
+                must evaluate to a public method that takes no parameters, and
+                returns an Object (the toString() of which is called to derive
+                the logical outcome) which is passed to the NavigationHandler
+                for this application.]]>
+            </description>
+            <name>
+                action
+            </name>
+            <required>
+                false
+            </required>
+                <method-signature>
+                    java.lang.Object action()
+                </method-signature>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[
+
+                MethodExpression representing an action listener method that
+                will be notified when this component is activated by the user.
+                The expression must evaluate to a public method that takes an
+                ActionEvent parameter, with a return type of void, <span
+                class="changed_added_2_0">or to a public method that takes no
+                arguments with a return type of void.  In the latter case, the
+                method has no way of easily knowing where the event came from,
+                but this can be useful in cases where a notification is needed
+                that "some action happened".
+
+                ]]>
+            </description>
+            <name>
+                actionListener
+            </name>
+            <required>
+                false
+            </required>
+                <method-signature>
+                    void actionListener(javax.faces.event.ActionEvent)
+                </method-signature>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Flag indicating that, if this component is activated by the user,
+                notifications should be delivered to interested listeners and actions
+                immediately (that is, during Apply Request Values phase) rather than
+                waiting until Invoke Application phase.]]>
+            </description>
+            <name>
+                immediate
+            </name>
+            <required>
+                false
+            </required>
+                <type>
+                    boolean
+                </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Access key that, when pressed, transfers focus
+                to this element.]]>
+            </description>
+            <name>
+                accesskey
+            </name>
+            <required>
+                false
+            </required>
+                <type>
+                    java.lang.String
+                </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Alternate textual description of the
+                element rendered by this component.]]>
+            </description>
+            <name>
+                alt
+            </name>
+            <required>
+                false
+            </required>
+                <type>
+                    java.lang.String
+                </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Direction indication for text that does not inherit directionality.
+                Valid values are "LTR" (left-to-right) and "RTL" (right-to-left).
+                These attributes are case sensitive when rendering to XHTML, so
+                care must be taken to have the correct case.]]>
+            </description>
+            <name>
+                dir
+            </name>
+            <required>
+                false
+            </required>
+                <type>
+                    java.lang.String
+                </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Flag indicating that this element must never receive focus or
+                be included in a subsequent submit.  A value of false causes
+                no attribute to be rendered, while a value of true causes the
+                attribute to be rendered as disabled="disabled".]]>
+            </description>
+            <name>
+                disabled
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    boolean
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[
+                Absolute or relative URL of the
+                image to be displayed for this
+                button.  If specified, this
+                "input" element will be of type
+                "image".  Otherwise, it will be
+                of the type specified by the
+                "type" property with a label
+                specified by the "value"
+                property.  <span
+                class="changed_added_2_0">Note
+                that if the value of this
+                attribute starts with "/", the
+                rendered value for this
+                attribute will be prefixed with
+                the context-root for this
+                application.
+                ]]>
+            </description>
+            <name>
+                image
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Code describing the language used in the generated markup
+                for this component.]]>
+            </description>
+            <name>
+                lang
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when this element loses focus.]]>
+            </description>
+            <name>
+                onblur
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when this element loses focus
+                and its value has been modified since gaining focus.]]>
+            </description>
+            <name>
+                onchange
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                clicked over this element.]]>
+            </description>
+            <name>
+                onclick
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                double clicked over this element.]]>
+            </description>
+            <name>
+                ondblclick
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when this element receives focus.]]>
+            </description>
+            <name>
+                onfocus
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a key is
+                pressed down over this element.]]>
+            </description>
+            <name>
+                onkeydown
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a key is
+                pressed and released over this element.]]>
+            </description>
+            <name>
+                onkeypress
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a key is
+                released over this element.]]>
+            </description>
+            <name>
+                onkeyup
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                pressed down over this element.]]>
+            </description>
+            <name>
+                onmousedown
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                moved within this element.]]>
+            </description>
+            <name>
+                onmousemove
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                moved away from this element.]]>
+            </description>
+            <name>
+                onmouseout
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                moved onto this element.]]>
+            </description>
+            <name>
+                onmouseover
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                released over this element.]]>
+            </description>
+            <name>
+                onmouseup
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when text within this
+                element is selected by the user.]]>
+            </description>
+            <name>
+                onselect
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Flag indicating that this component will prohibit changes by
+                the user.  The element may receive focus unless it has also
+                been disabled.  A value of false causes
+                no attribute to be rendered, while a value of true causes the
+                attribute to be rendered as readonly="readonly".]]>
+            </description>
+            <name>
+                readonly
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    boolean
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Per the WAI-ARIA spec and its
+                relationship to HTML5 (Section title ARIA Role Attriubute),
+                every HTML element may have a "role" attribute whose value
+                must be passed through unmodified on the element on which it
+                is declared in the final rendered markup.  The attribute, if
+                specified, must have a value that is a string literal that is,
+                or an EL Expression that evaluates to, a set of
+                space-separated tokens representing the various WAI-ARIA roles
+                that the element belongs to.
+
+
+                It is the page author's
+                responsibility to ensure that the user agent is capable of
+                correctly interpreting the value of this attribute.]]>
+            </description>
+            <name>
+                role
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Position of this element in the tabbing order
+                for the current document.  This value must be
+                an integer between 0 and 32767.]]>
+            </description>
+            <name>
+                tabindex
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Type of button to create.  Valid values are "submit", "button",
+                and "reset".  If not specified, or not a valid value, the default
+                value is "submit".]]>
+            </description>
+            <name>
+                type
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                The ValueExpression linking this component to a property in a backing bean
+            </description>
+            <name>
+                binding
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    javax.faces.component.UIComponent
+                </type>
+
+        </attribute>
+	</tag>
+	<tag>
+	    <description>An extension to h:link that conforms to Bootstrap styling and incorporates the display of icons.
+	    	If icon is set without labelKey / labelValue than only the icon will be rendered.
+			Caution: do not use the value attribute but the corresponding labelKey / labelValue.
+			The same goes for the title element: use titleKey or titleValue.
+			It will always be rendered as a button (visually) unless you add the styleClass 'btn-link'
+            </description>
+		<tag-name>button</tag-name>
+		<component>
+			<component-type>com.icw.ehf.cui.components.ui.basic.CuiButton</component-type>
+			<renderer-type>javax.faces.Link</renderer-type>
+		</component>
+        <attribute>
+            <description>The component identifier for this component.  This value must be
+                unique within the closest parent component that is a naming
+                container. Caution: The component itself is not a naming container
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit.  The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+               Space-separated list of CSS style class(es) to be applied additionally when
+                this element is rendered.
+            </description>
+            <name>styleClass</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+		<attribute>
+	        <description>
+	            Different general styles available (state): one of 'primary', 'success', 'info', 'warning', 'danger'.
+				If none of those is set it uses 'default'.
+	        </description>
+	        <name>state</name>
+	        <required>false</required>
+	         <type>java.lang.String</type>
+	    </attribute>
+		<attribute>
+	        <description>
+	            Sets the size for the button element, must be one of the appropriate bootstrap size prefixes, e.g. lg, sm or xs
+	        </description>
+	        <name>size</name>
+	        <required>false</required>
+	         <type>java.lang.String</type>
+	    </attribute>
+	    <attribute>
+	    	<description>The key-binding for this button, aka keyboard shortcut. The key will be bound as onClickHandler. Caution: The implementor
+	    	must ensure that there is only one button for the same type existent per page, otherwise the behavior is non-deterministic.</description>
+	    	<name>keyBinding</name>
+	    	 <required>false</required>
+             <type>java.lang.String</type>
+	    </attribute>
+         <attribute>
+            <description>
+               The key for looking up the text display as the label.
+				Although this attribute is not required the developer must provide either this or #labelValue if you want a label to be displayed
+            </description>
+            <name>labelKey </name>
+            <required>false</required>
+             <type>java.lang.String</type>
+        </attribute>
+         <attribute>
+            <description>
+               The String displayed for the label. This is a replacement for #labelKey.
+		     If both are present labelValue takes precedence. If the type is not java.lang.String the
+		     developer must ensure that an according converter for the exists.
+            </description>
+            <name>labelValue</name>
+            <required>false</required>
+             <type>java.io.Serializable</type>
+        </attribute>
+        <attribute>
+            <description>The (optional) converterId for the labelValue </description>
+            <name>converterId</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+               The key for looking up the text display as the title.
+				Although this attribute is not required the developer must provide either this or #titleValue if you want a title to be displayed
+            </description>
+            <name>titleKey</name>
+            <required>false</required>
+             <type>java.lang.String</type>
+        </attribute>
+         <attribute>
+            <description>
+               The String displayed for the title. This is a replacement for #titleLabelKey.
+		     If both are present titleValue takes precedence.
+            </description>
+            <name>titleValue </name>
+            <required>false</required>
+             <type>java.lang.String</type>
+        </attribute>
+
+		 <attribute>
+            <description>
+               A defined icon class, defined within stylesheet, e.g.  cui-icon-warning.
+               In order to prevent improper usage the matching is restricted to the
+				prefixes: "cui-icon, cui-mime-type, ui-icon-". If none of them is matched the
+				access throws an IllegalArgumentException.
+            </description>
+            <name>icon</name>
+            <required>true</required>
+             <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+               Defines the optional float alignment of the component. Supported values are 'left' or 'right',
+               resulting in the additional css class 'pull-left' or 'pull-right'
+            </description>
+            <name>iconAlign</name>
+            <required>false </required>
+             <type>java.lang.String</type>
+        </attribute>
+		         <attribute>
+            <description>
+                <![CDATA[Per the WAI-ARIA spec and its
+                relationship to HTML5 (Section title ARIA Role Attriubute),
+                every HTML element may have a "role" attribute whose value
+                must be passed through unmodified on the element on which it
+                is declared in the final rendered markup.  The attribute, if
+                specified, must have a value that is a string literal that is,
+                or an EL Expression that evaluates to, a set of
+                space-separated tokens representing the various WAI-ARIA roles
+                that the element belongs to.
+
+
+                It is the page author's
+                responsibility to ensure that the user agent is capable of
+                correctly interpreting the value of this attribute.]]>
+            </description>
+            <name>role</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Disable appending the <code>ClientWindow</code> on the rendering of this element.]]>
+            </description>
+            <name>disableClientWindow</name>
+            <required>false</required>
+            <type>java.lang.Boolean</type>
+        </attribute>
+         <attribute>
+            <description>
+                <![CDATA[Whether to include page parameters in the target URI.]]>
+            </description>
+            <name>
+                includeViewParams
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.Boolean
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[The logical outcome used to resolve a navigation case.]]>
+            </description>
+            <name>
+                outcome
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+         <attribute>
+            <description>
+                <![CDATA[Access key that, when pressed, transfers focus
+                to this element.]]>
+            </description>
+            <name>
+                accesskey
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[The character encoding of the resource designated
+                by this hyperlink.]]>
+            </description>
+            <name>
+                charset
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[The position and shape of the hot spot on the screen
+                (for use in client-side image maps).]]>
+            </description>
+            <name>
+                coords
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Direction indication for text that does not inherit directionality.
+                Valid values are "LTR" (left-to-right) and "RTL" (right-to-left).]]>
+            </description>
+            <name>
+                dir
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Flag indicating that this element must never
+                receive focus or be included in a subsequent
+                submit.]]>
+            </description>
+            <name>
+                disabled
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                boolean
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[The identifier of the page fragment which should
+                be brought into focus when the target page is
+                rendered. The value of this attribute is appended
+                to the end of target URL following a hash (#) mark.
+                This notation is part of the standard URL syntax.]]>
+            </description>
+            <name>
+                fragment
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[The language code of the resource designated
+                by this hyperlink.]]>
+            </description>
+            <name>
+                hreflang
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Code describing the language used in the generated markup
+                for this component.]]>
+            </description>
+            <name>
+                lang
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when this element loses focus.]]>
+            </description>
+            <name>
+                onblur
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                clicked over this element.]]>
+            </description>
+            <name>
+                onclick
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                double clicked over this element.]]>
+            </description>
+            <name>
+                ondblclick
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when this element receives focus.]]>
+            </description>
+            <name>
+                onfocus
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a key is
+                pressed down over this element.]]>
+            </description>
+            <name>
+                onkeydown
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a key is
+                pressed and released over this element.]]>
+            </description>
+            <name>
+                onkeypress
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a key is
+                released over this element.]]>
+            </description>
+            <name>
+                onkeyup
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                pressed down over this element.]]>
+            </description>
+            <name>
+                onmousedown
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                moved within this element.]]>
+            </description>
+            <name>
+                onmousemove
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                moved away from this element.]]>
+            </description>
+            <name>
+                onmouseout
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                moved onto this element.]]>
+            </description>
+            <name>
+                onmouseover
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                released over this element.]]>
+            </description>
+            <name>
+                onmouseup
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[The relationship from the current document
+                to the anchor specified by this hyperlink.
+                The value of this attribute is a space-separated
+                list of link types.]]>
+            </description>
+            <name>
+                rel
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[A reverse link from the anchor specified
+                by this hyperlink to the current document.
+                The value of this attribute is a space-separated
+                list of link types.]]>
+            </description>
+            <name>
+                rev
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[The shape of the hot spot on the screen
+                (for use in client-side image maps).  Valid
+                values are:  default (entire region); rect
+                (rectangular region); circle (circular region);
+                and poly (polygonal region).]]>
+            </description>
+            <name>
+                shape
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+         <attribute>
+            <description>
+                <![CDATA[Position of this element in the tabbing order
+                for the current document.  This value must be
+                an integer between 0 and 32767.]]>
+            </description>
+            <name>
+                tabindex
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Name of a frame where the resource
+                retrieved via this hyperlink is to
+                be displayed.]]>
+            </description>
+            <name>
+                target
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[The content type of the resource designated
+                by this hyperlink.]]>
+            </description>
+            <name>
+                type
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                java.lang.String
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                The ValueExpression linking this component to a property in a
+                backing bean
+            </description>
+            <name>
+                binding
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                javax.faces.component.UIComponent
+            </type>
+        </attribute>
+	</tag>
+
+	<tag>
+	<description>Renders an MimeTypeIcon regarding to the cui-icon contract. It renders a
+	 span with the styleClass cui-mime-type and the given iconName.
+	The title is resolved using the cui standard label-resolving mechanism</description>
+	<tag-name>mimeTypeIcon</tag-name>
+	<component>
+		<component-type>com.icw.ehf.cui.components.ui.MimeTypeIcon</component-type>
+		<renderer-type>com.icw.ehf.cui.components.ui.renderer.MimeTypeIconRenderer</renderer-type>
+	</component>
+		<attribute>
+            <description>The component identifier for this component. This value must be
+                unique within the closest parent component that is a naming container.
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit.  The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+               Space-separated list of CSS style class(es) to be applied additionally when
+                this element is rendered.
+            </description>
+            <name>
+                styleClass
+            </name>
+            <required>
+                false
+            </required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+               In case of this class being present an additional layer will be rendered with
+                the decoratorStyleClass being applied.
+            </description>
+            <name>
+                decoratorClass
+            </name>
+            <required>
+                false
+            </required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+               A defined icon class, defined within stylesheet, e.g.  cui-icon-warning.
+               In order to prevent improper usage the matching is restricted to the
+				prefixes: "cui-icon, cui-mime-type, ui-icon-". If none of them is matched the
+				access throws an IllegalArgumentException.
+            </description>
+            <name>icon</name>
+            <required>true</required>
+             <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+               Defines the optional float alignment of the component. Supported values are 'left' or 'right',
+               resulting in the additional css class 'pull-left' or  'pull-right'
+            </description>
+            <name>align</name>
+            <required>false </required>
+             <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+               The key for looking up the text display on the label.
+				Although this attribute is not required the developer must provide either this or #titleValue if you want a title to be displayed
+            </description>
+            <name>
+                titleKey
+            </name>
+            <required>
+                false
+            </required>
+             <type>java.lang.String</type>
+        </attribute>
+         <attribute>
+            <description>
+               The String displayed for the label. This is a replacement for #titleLabelKey.
+		     If both are present titleValue takes precedence.
+            </description>
+            <name>
+                titleValue
+            </name>
+            <required>
+                false
+            </required>
+             <type>java.lang.String</type>
+        </attribute>
+
+	</tag>
+	<tag>
+	<description>Renders an Gender Icon regarding to the cui-icon contract. The icon is rendered within a span with the according classes.
+	The title is resolved using the cui standard label-resolving mechanism. If neither titleKey nor titleValue is set it defaults to
+	de.cuioss.uimodel.model.Gender#titleKey</description>
+	<tag-name>genderIcon</tag-name>
+	<component>
+		<component-type>com.icw.ehf.cui.components.ui.icon.GenderIcon</component-type>
+		<renderer-type>javax.faces.Text</renderer-type>
+	</component>
+		<attribute>
+            <description>The component identifier for this component.  This value must be
+                unique within the closest parent component that is a naming
+                container.
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit.  The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+               Space-separated list of CSS style class(es) to be applied additionally when
+                this element is rendered.
+            </description>
+            <name>styleClass</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+              A representation on a concrete gender icon. Must not be null. ValueExpressions are permitted.
+            </description>
+            <name>gender</name>
+            <required>true</required>
+             <type>de.cuioss.uimodel.model.Gender</type>
+        </attribute>
+        <attribute>
+            <description>
+               Defines the optional float alignment of the component. Supported values are 'left' or 'right',
+               resulting in the additional css class 'pull-left' or  'pull-right'
+            </description>
+            <name>align</name>
+            <required>false </required>
+             <type>java.lang.String</type>
+        </attribute>
+
+        <attribute>
+            <description>
+               The key for looking up the text display on the label.
+				Although this attribute is not required the developer must provide either this or #titleValue if you want a title to be displayed
+            </description>
+            <name>titleKey</name>
+            <required>false</required>
+             <type>java.lang.String</type>
+        </attribute>
+
+         <attribute>
+            <description>
+               The String displayed for the label. This is a replacement for #titleLabelKey.
+		     If both are present titleValue takes precedence.
+            </description>
+            <name>
+                titleValue
+            </name>
+            <required>
+                false
+            </required>
+             <type>java.lang.String</type>
+        </attribute>
+
+	</tag>
+	<tag>
+		<description>Renders a toolbar component that can be pinned to top or bottom. Therefore the
+		bootstrap affix plugin is utilized.
+		&lt;h2&gt;Styling&lt;/h2&gt;
+			The sass module is defined within ehf-styling, the name is 'com.icw.cui/_toolbar.scss
+			&lt;ul&gt;
+			&lt;li&gt;Renders the class 'toolbar'&lt;/li&gt;
+			&lt;li&gt;If the size is set it additionally renders the corresponding size -context class, e.g. toolbar-xl for size='xl'&lt;/li&gt;
+			&lt;li&gt;If it is pinned it additionally renders the class 'pinned'&lt;/li&gt;
+			&lt;li&gt;
+			&lt;/ul&gt;
+		 </description>
+		<tag-name>toolbar</tag-name>
+		<component>
+			<component-type>com.icw.ehf.cui.components.ui.layout.Toolbar</component-type>
+			<renderer-type>javax.faces.Group</renderer-type>
+		</component>
+        <attribute>
+            <description>The component identifier for this component.  This value must be
+                unique within the closest parent component that is a naming
+                container. Caution: The component itself is not a naming container
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit.  The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+               Space-separated list of CSS style class(es) to be applied additionally when
+                this element is rendered.
+            </description>
+            <name>styleClass</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+		<attribute>
+            <description>Indicates whether to pin this component to the top.
+			The default value for this property is false.
+            </description>
+            <name>pinToTop</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+		<attribute>
+            <description>Indicates whether to pin this component to the bottom.
+			The default value for this property is false.
+            </description>
+            <name>pinToBottom</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+		<attribute>
+            <description>Defines the offset of this component when pinned to top.
+			The default value for this property is 5.
+            </description>
+            <name>pinTopOffset</name>
+            <required>false</required>
+            <type>java.lang.Integer</type>
+        </attribute>
+		<attribute>
+            <description>Defines the offset of this component when pinned to bottom.
+			The default value for this property is 5.
+            </description>
+            <name>pinBottomOffset</name>
+            <required>false</required>
+            <type>java.lang.Integer</type>
+        </attribute>
+		<attribute>
+	        <description>
+	            Sets the size for the element, must be one of the appropriate bootstrap size prefixes, e.g. lg, sm or xs
+	        </description>
+	        <name>size</name>
+	        <required>false</required>
+	         <type>java.lang.String</type>
+	    </attribute>
+	</tag>
+		<tag>
+	<description>Renders an Icon with an according label.
+	The label and title is resolved using the cui standard label-resolving mechanism</description>
+	<tag-name>labeledIcon</tag-name>
+	<component>
+		<component-type>com.icw.ehf.cui.components.ui.LabeledIcon</component-type>
+		<renderer-type>javax.faces.Group</renderer-type>
+	</component>
+	  <attribute>
+            <description>The component identifier for this component.  This value must be
+                unique within the closest parent component that is a naming
+                container.
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit.  The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+               Space-separated list of CSS style class(es) to be applied additionally when
+                this element is rendered.
+            </description>
+            <name>
+                styleClass
+            </name>
+            <required>
+                false
+            </required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>The (optional) converterId.</description>
+            <name>converterId</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+         <attribute>
+            <description>
+               The key for looking up the text display as the label.
+				Although this attribute is not required the developer must provide either this or #labelValue if you want a label to be displayed
+            </description>
+            <name>
+                labelKey
+            </name>
+            <required>
+                false
+            </required>
+             <type>java.lang.String</type>
+        </attribute>
+
+         <attribute>
+            <description>
+               The String displayed for the label. This is a replacement for #labelKey.
+		     If both are present labelValue takes precedence. If the type is not java.lang.String the
+		     developer must ensure that an according converter for the exists.
+            </description>
+            <name>
+                labelValue
+            </name>
+            <required>
+                false
+            </required>
+             <type>java.io.Serializable</type>
+        </attribute>
+        <attribute>
+            <description>
+               The key for looking up the text display as the title.
+				Although this attribute is not required the developer must provide either this or #titleValue if you want a title to be displayed
+            </description>
+            <name>
+                titleKey
+            </name>
+            <required>
+                false
+            </required>
+             <type>java.lang.String</type>
+        </attribute>
+
+         <attribute>
+            <description>
+               The String displayed for the title. This is a replacement for #titleLabelKey.
+		     If both are present titleValue takes precedence.
+            </description>
+            <name>
+                titleValue
+            </name>
+            <required>
+                false
+            </required>
+             <type>java.lang.String</type>
+        </attribute>
+
+		 <attribute>
+            <description>
+               A defined icon class, defined within stylesheet, e.g.  cui-icon-warning.
+               In order to prevent improper usage the matching is restricted to the
+				prefixes: "cui-icon, cui-mime-type, ui-icon-". If none of them is matched the
+				access throws an IllegalArgumentException.
+            </description>
+            <name>
+                icon
+            </name>
+            <required>
+                true
+            </required>
+             <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+               Defines the optional float alignment of the icon. Supported values are 'left' or 'right',
+               resulting in the additional css class 'pull-left' or  'pull-right'
+            </description>
+            <name>
+                iconAlign
+            </name>
+            <required>
+                false
+            </required>
+             <type>java.lang.String</type>
+        </attribute>
+		<attribute>
+            <description>
+               Space-separated list of CSS style class(es) to be applied additionally to the icon element.
+            </description>
+            <name>
+                iconStyleClass
+            </name>
+            <required>
+                false
+            </required>
+            <type>java.lang.String</type>
+        </attribute>
+	</tag>
+	<tag>
+		<description>Creates a bootstrap based panel. The (body) content is expected as direct child. Supported facets are header and footer.
+		In case of the header it is also possible to user headerKey / headerValue. If headerkey/value and a header-facet is present the facet take precedence.
+		There are also different general styles available (state): one of 'primary', 'success', 'info', 'warning', 'danger'. If none of those is set it uses 'default'.
+		Caution: if you want to make it collapsible, and use it within ui:repeat you must set a ValueExpression for the collapsed flag or the collapseSwitch and store the
+		state within a given bean: reason: ui:repeat removes the state for the components.
+		</description>
+		<tag-name>panel</tag-name>
+		<component>
+			<component-type>com.icw.ehf.cui.components.ui.layout.BootstrapPanel</component-type>
+			<renderer-type>com.icw.ehf.cui.components.ui.renderer.BootstrapPanelRenderer</renderer-type>
+		</component>
+		<attribute>
+			<description>The component identifier for this component.  This value must be
+	                unique within the closest parent component that is a naming
+	                container.
+	            </description>
+			<name>id</name>
+			<required>false</required>
+			<type>boolean</type>
+		</attribute>
+		<attribute>
+			<description>Flag indicating whether or not this component should be rendered
+	                (during Render Response Phase), or processed on any subsequent
+	                form submit.  The default value for this property is true.
+	            </description>
+			<name>rendered</name>
+			<required>false</required>
+			<type>boolean</type>
+		</attribute>
+		<attribute>
+			<description>
+	                Different general styles available (state): one of 'primary', 'success', 'info', 'warning', 'danger'.
+					If none of those is set it uses 'default'.
+	            </description>
+			<name>state</name>
+			<required>false</required>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+	                Defines the html element to be used within the header. Defaults to 'h4'
+	            </description>
+			<name>headerHtml</name>
+			<required>false</required>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+	               Space-separated list of CSS style class(es) to be applied additionally when
+	                this element is rendered.
+	            </description>
+			<name>styleClass</name>
+			<required>false</required>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+	               The key for looking up the text display as the header.
+	            </description>
+			<name>headerTextKey</name>
+			<required>false</required>
+			<type>java.lang.String</type>
+		</attribute>
+
+		<attribute>
+			<description>
+	             The String displayed for the label. This is a replacement for #headerKey.
+			     If both are present headerValue takes precedence. If the type is not java.lang.String the
+			     developer must ensure that an according converter for the exists. If the header facet is available the facet takes precedence.
+	            </description>
+			<name>headerTextValue</name>
+			<required>false</required>
+			<type>java.io.Serializable</type>
+		</attribute>
+
+		<attribute>
+			<description>
+	               The key for looking up the text display as the footer.
+	            </description>
+			<name>footerTextKey</name>
+			<required>false</required>
+			<type>java.lang.String</type>
+		</attribute>
+
+		<attribute>
+			<description>
+	             The String displayed for the label. This is a replacement for #footerKey.
+			     If both are present footerValue takes precedence. If the type is not java.lang.String the
+			     developer must ensure that an according converter for the exists. If the footer facet is available the facet takes precedence.
+	            </description>
+			<name>footerTextValue</name>
+			<required>false</required>
+			<type>java.io.Serializable</type>
+		</attribute>
+
+		<attribute>
+			<description>Flag indicating whether the component should be collapsible. Defaults to false.
+            	</description>
+			<name>collapsible</name>
+			<required>false</required>
+			<type>boolean</type>
+		</attribute>
+		<attribute>
+			<description>Flag indicating whether the component is collapsed initially. Defaults to false.
+			Caution: Only used if collapsible=true if collapseSwitch is set it takes precedence.
+            </description>
+			<name>collapsed</name>
+			<required>false</required>
+			<type>boolean</type>
+		</attribute>
+		<attribute>
+			<description>The collapsed state as modifiable object. If it is set it takes precedence over collapsed.
+			Caution: Only used if collapsible=true</description>
+			<name>collapseSwitch</name>
+			<required>false</required>
+			<type>com.icw.ehf.cui.core.api.ui.model.ToggleSwitch</type>
+		</attribute>
+		<attribute>
+			<description>Flag indicating whether the component should automatically update on click instead of waiting for the form-submit.
+            </description>
+			<name>asyncUpdate</name>
+			<required>false</required>
+			<type>boolean</type>
+		</attribute>
+		<attribute>
+			<description>Flag provide deactivate internal component specific redering for header facet and use instead only facet included structure.
+            Attention in this way you need to care about collapsing icon structure by your own.
+            </description>
+			<name>externalHeaderOnly</name>
+			<required>false</required>
+			<type>boolean</type>
+		</attribute>
+	</tag>
+
+    <tag>
+        <description>Render a &lt;a href=&quot;http://getbootstrap.com/javascript/#modals-examples&quot;&gt;Bootstrap Modal Dialog&lt;/a&gt;. Supported facets are header, body and footer.
+        In case of the header it is also possible to use headerKey / headerValue. It's possible to use bodyKey /bodyValue as text content of body or some children elements.
+        It's possible to use footerKey /footerValue as text content for footer.
+        There are also different general styles available (state): one of 'primary', 'success', 'info', 'warning', 'danger'. If none of those is set it uses 'default'.
+        Caution: default setting of dialog is closable, if you deactivate this you should care about cose functionality of the dialog.
+        &lt;p&gt;&lt;b&gt;&lt;a href=&quot;../demo/dialog_demo.jsf&quot;&gt;@ see modal dialog demo&lt;/a&gt;&lt;/b&gt;&lt;/p&gt;
+        </description>
+        <tag-name>modalDialog</tag-name>
+        <component>
+            <component-type>com.icw.ehf.cui.components.ui.layout.BootstrapModalDialog</component-type>
+            <renderer-type>com.icw.ehf.cui.components.ui.renderer.BootstrapModalDialog</renderer-type>
+        </component>
+        <attribute>
+        	<description>If set true, script block will be rendered which provide a shortcut javascript calls.
+        	Generated javascript has dialogId as variable name and allow to call support show() / hide() functions,
+        	additional complete client id will be used as component id.
+        	Example dialogId="myDialog" corresponding javascript call myDialog.show(); / myDialog.hide();
+        	</description>
+        	<name>scriptMappingActive</name>
+        	<required>false</required>
+        	<type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <description>The dialog need a unique identifer for show / hide functionality. If no value will be set, fallback is component id</description>
+            <name>dialogId</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>The component identifier for this component.  This value must be
+                    unique within the closest parent component that is a naming
+                    container.
+                </description>
+            <name>id</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered
+                    (during Render Response Phase), or processed on any subsequent
+                    form submit.  The default value for this property is true.
+                </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+                    Different general styles available (state): one of 'primary', 'success', 'info', 'warning', 'danger'.
+                    If none of those is set it uses 'default'. Attention : currently only experimental.
+                </description>
+            <name>state</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Defines if the dialog is closable on click on overlay background or default close button. If value is set to false you need to provide a closing functionality by your own. Use Footer facet for. Default value is 'true'</description>
+            <name>closable</name>
+            <required>false</required>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+                   Space-separated list of CSS style class(es) to be applied additionally when
+                    this element is rendered.
+                </description>
+            <name>styleClass</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                   The key for looking up the text display as the header.
+                </description>
+            <name>headerTextKey</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+
+        <attribute>
+            <description>
+                 The String displayed for the label. This is a replacement for #headerKey.
+                 If both are present headerValue takes precedence. If the type is not java.lang.String the
+                 developer must ensure that an according converter for the exists. If the header facet is available the facet takes precedence.
+                </description>
+            <name>headerTextValue</name>
+            <required>false</required>
+            <type>java.io.Serializable</type>
+        </attribute>
+
+        <attribute>
+            <description>
+                   The key for looking up the text display as the body content.
+                </description>
+            <name>bodyTextKey</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+
+        <attribute>
+            <description>
+                 The String displayed for the body text content. This is a replacement for #bodyTextKey.
+                 If both are present bodyTextValue takes precedence. If the type is not java.lang.String the
+                 developer must ensure that an according converter for the exists. If the body facet is available the facet takes precedence.
+                </description>
+            <name>bodyTextValue</name>
+            <required>false</required>
+            <type>java.io.Serializable</type>
+        </attribute>
+
+        <attribute>
+            <description>
+                   The key for looking up the text display as the footer.
+                </description>
+            <name>footerTextKey</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+
+        <attribute>
+            <description>
+                 The String displayed for the label. This is a replacement for #footerKey.
+                 If both are present footerValue takes precedence. If the type is not java.lang.String the
+                 developer must ensure that an according converter for the exists. If the footer facet is available the facet takes precedence.
+                </description>
+            <name>footerTextValue</name>
+            <required>false</required>
+            <type>java.io.Serializable</type>
+        </attribute>
+
+        <attribute>
+            <description>
+                   Provide to adapt dialog size. Supported values are 'md', 'lg', 'xl' based on bootstrap screen sizes. 'fluid' use max width of screen.
+                   Default no size setting is set.
+                </description>
+            <name>dialogSize</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+
+	<tag>
+	<description>Renders a message for the given input component.
+	The component will be rendered into a bootstrap defined div with class='control-group'.
+	The input component is to be a child for this component and having the id 'input'
+	As an alternative to 'input' you can change the attribute 'forIdentifier'
+	In special cases you can provides a space separated list for the forIdentifier attribute
+	resulting in n message elements being appended.
+	The component itself will apply the (needed) styleClass "form-control" to the
+	given input if the corresponding component does not have a styleClass set already. If it has a styleClass
+	the implementer must ensure that it has a form-control specific styleClass set.</description>
+	<tag-name>inputWrapper</tag-name>
+	<component>
+		<component-type>com.icw.ehf.cui.components.ui.layout.InputWrapper</component-type>
+		<renderer-type>com.icw.ehf.cui.components.ui.renderer.InputWrapperRenderer</renderer-type>
+	</component>
+	  <attribute>
+            <description>The component identifier for this component.  This value must be
+                unique within the closest parent component that is a naming
+                container.
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit.  The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+               Space-separated list of CSS style class(es) to be applied additionally when
+                this element is rendered.
+            </description>
+            <name>
+                styleClass
+            </name>
+            <required>
+                false
+            </required>
+            <type>java.lang.String</type>
+        </attribute>
+
+         <attribute>
+            <description>
+               Class to be wrapped around the form-group on error, defaults to 'has-error'.
+            </description>
+            <name>errorClass</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+         <attribute>
+            <description>Indicates whether to render the message element or not. Defaults to true.
+            </description>
+            <name>renderMessage</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+
+		 <attribute>
+            <description>
+               The id of the child input component. Defaults to 'input'. Usually to be kept the same.
+               In special cases you can provides a space separated list for the forIdentifier attribute
+				resulting in n message elements being appended.
+            </description>
+            <name>forIdentifier</name>
+            <required>false</required>
+             <type>java.lang.String</type>
+        </attribute>
+         <attribute>
+            <description>
+               The key for looking up the text display as the placeholder.
+            </description>
+            <name>
+                placeholderKey
+            </name>
+            <required>
+                false
+            </required>
+             <type>java.lang.String</type>
+        </attribute>
+         <attribute>
+            <description>
+               The String displayed for the placeholder. This is a replacement for #placeholderKey.
+		     If both are present placeholderValue takes precedence. If the type is not java.lang.String the
+		     developer must ensure that an according converter for the exists.
+            </description>
+            <name>
+                placeholderValue
+            </name>
+            <required>
+                false
+            </required>
+             <type>java.io.Serializable</type>
+        </attribute>
+         <attribute>
+        <description>Defines how the layout will be rendered. Layout mode 'complex' renders component is form-group with column  structure.
+                     Mode 'plain' ignore columns size settings. Allowed are 'plain' and 'complex'. Default is currently 'complex'</description>
+            <name>layoutMode</name>
+              <required>
+                false
+            </required>
+            <type>java.lang.String</type>
+         </attribute>
+	 </tag>
+
+	 <tag>
+	  <description>Replaces the HtmlMessage and integrates with the bootstrap based theming.
+	  In addition to the usual behavior you can attach multiple ids to one message element,
+	  see attribute forIdentifier
+		Styling
+		In opposite to HtmlMessage the styling is to be done using central styling using styleClass attribute,
+		not one of the attributes errorClass, infoClass, .. . Depending on the severity of the faces Messages,
+		there will we be rendered the class attribute to the surrounding span:
+		"cui_msg_info", "cui_msg_warn", "cui_msg_error" or "cui_msg_fatal".</description>
+ 			<tag-name>message</tag-name>
+		<component>
+			<component-type>com.icw.ehf.cui.components.ui.basic.CuiMessage</component-type>
+			<renderer-type>com.icw.ehf.cui.components.ui.renderer.CuiMessageRenderer</renderer-type>
+		</component>
+        <attribute>
+            <description>
+               The id of the child input component. Defaults to 'input'. Usually to be kept the same.
+               In special cases you can provides a space separated list for the forIdentifier attribute
+				resulting in n message elements being appended.
+            </description>
+            <name>forIdentifier</name>
+            <required>false</required>
+             <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                The component identifier for this component.  This value must be
+                unique within the closest parent component that is a naming
+                container.
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit.  The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+                Flag indicating whether the detail portion of displayed messages
+                should be included.  Default value is "true".
+            </description>
+            <name>showDetail</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+                Flag indicating whether the detail portion of the
+                message should be displayed as a tooltip.
+            </description>
+            <name>tooltip</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+         <attribute>
+            <description>Flag indicating that characters that are sensitive
+                in HTML and XML markup must be escaped.  If omitted, this
+                flag is assumed to be "true".
+            </description>
+            <name>escape</name>
+            <required>false</required>
+            <type>boolean </type>
+        </attribute>
+	 </tag>
+	<tag>
+		<description>Renders a bootstrap conform div with the styleClass 'form-group' as a wrapper and column.
+			It is used to place buttons within a form context</description>
+			<tag-name>controlGroup</tag-name>
+			<component>
+				<component-type>com.icw.ehf.cui.components.ui.layout.ControlGroup</component-type>
+				<renderer-type>javax.faces.Group</renderer-type>
+			</component>
+			<attribute>
+				<description>The component identifier for this component.  This value must be
+					unique within the closest parent component that is a naming
+					container. Caution: The component itself is not a naming container
+				</description>
+				<name>id</name>
+				<required>false</required>
+				<type>boolean</type>
+			</attribute>
+			<attribute>
+				<description>Flag indicating whether or not this component should be rendered
+					(during Render Response Phase), or processed on any subsequent
+					form submit.  The default value for this property is true.
+				</description>
+				<name>rendered</name>
+				<required>false</required>
+				<type>boolean</type>
+			</attribute>
+			<attribute>
+				<description>
+				   Space-separated list of CSS style class(es) to be applied additionally when
+					this element is rendered.
+				</description>
+				<name>styleClass</name>
+				<required>false</required>
+				<type>java.lang.String</type>
+			</attribute>
+
+			<attribute>
+				<description>
+				   Space-separated list of CSS style class(es) to be applied additionally to the column when
+					this element is rendered.
+				</description>
+				<name>contentStyleClass</name>
+				<required>false</required>
+				<type>java.lang.String</type>
+			</attribute>
+			<attribute>
+				<description>The size of the appropriate column. Must be between 1-12. Default is 2.</description>
+				<name>contentSize</name>
+				<required>true</required>
+				<type>java.lang.Integer</type>
+			</attribute>
+			<attribute>
+				<description>The bootstrap specific class prefix, one of col-xs-, col-sm-, col-md-, col-lg-. Defaults to 'col-md-'</description>
+				<name>contentClassPrefix</name>
+				<required>false</required>
+				<type>java.lang.String</type>
+			</attribute>
+			<attribute>
+				<description>The size of the appropriate column. Must be between 1-12.</description>
+				<name>offsetSize</name>
+				<required>true</required>
+				<type>java.lang.Integer</type>
+			</attribute>
+	</tag>
+	<tag>
+		<description>Renders three distinct fields to be displayed as one input-group representing
+		birthdate The locale attribute is used to derive the correct order of the elements. If it is not set it derives the locale from the UIViewRoot
+		</description>
+		<tag-name>dateOfBirth</tag-name>
+		<component>
+			<component-type>com.icw.ehf.cui.components.ui.basic.DateOfBirthInput</component-type>
+			<renderer-type>javax.faces.Group</renderer-type>
+		</component>
+        <attribute>
+            <description>The component identifier for this component.  This value must be
+                unique within the closest parent component that is a naming
+                container. Caution: The component itself is not a naming container
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit.  The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+                Flag indicating whether input for this component is required.
+                The default value for this property is false.
+            </description>
+            <name>required</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+         <attribute>
+            <description>
+                <![CDATA[Flag indicating that this element must never receive focus or
+                be included in a subsequent submit.  A value of false causes
+                no attribute to be rendered, while a value of true causes the
+                attribute to be rendered as disabled="disabled".]]>
+            </description>
+            <name>disabled</name>
+            <required>false</required>
+                <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+               Space-separated list of CSS style class(es) to be applied additionally when
+                this element is rendered.
+            </description>
+            <name>styleClass</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+
+        <attribute>
+        	<description>The model to be utilized by the component.</description>
+        	<name>dobModel</name>
+        	<required>true</required>
+        	<type>de.cuioss.uimodel.model.DateOfBirth</type>
+        </attribute>
+		<attribute>
+			<description>
+               The locale attribute is used to derive the correct order of the
+				elements. If it is not set it derives the locale from the UIViewRoot
+            </description>
+            <name>locale</name>
+            <required>false</required>
+             <type>java.util.Locale</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not rendere Html5 based attributes that enable clientValidation.
+            Defaults to false.
+            </description>
+            <name>clientValidation</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not to add range validation to the single fields (e.g. 1-31 for day,
+            1-12 for month, 1700-2100 for year).
+            Defaults to true.
+            </description>
+            <name>fieldValidation</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+	</tag>
+	 <tag>
+		 <description>
+		 Deprecated: This component introduces more problems than it solves, Therefore deprecated in cui 4.2.0
+		Use standard h:selectOneMenu instead
+		 An Extension to javax.faces.component.html.HtmlSelectOneMenu introducing our own
+		 com.icw.ehf.cui.components.selection.SelectMenuModel and providing some convinience methods. </description>
+		 <tag-name>selectOneMenu</tag-name>
+		 <component>
+		 	<component-type>com.icw.ehf.cui.components.ui.basic.SelectOneMenu</component-type>
+		 	<renderer-type>javax.faces.Menu</renderer-type>
+		 </component>
+		<attribute>
+            <description>
+                The component identifier for this component.  This value must be
+                unique within the closest parent component that is a naming
+                container.
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+                Flag indicating whether input for this component is required.
+                The default value for this property is false.
+            </description>
+            <name>
+                required
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                boolean
+            </type>
+        </attribute>
+        <attribute>
+            <description>
+                Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit.  The default value for this property is true.
+            </description>
+            <name>
+                rendered
+            </name>
+            <required>
+                false
+            </required>
+            <type>
+                boolean
+            </type>
+        </attribute>
+        <attribute>
+        	<description>The model to be utilized by the selectOneMenue.</description>
+        	<name>selectMenuModel</name>
+        	<required>true</required>
+        	<type>com.icw.ehf.cui.components.selection.SelectMenuModel</type>
+        </attribute>
+ 		<attribute>
+ 			<description>Indicates whether to display an element 'Please select with null value (noSelectionOption)'.
+ 			Defaults to true</description>
+ 			<name>displayEmptyOption</name>
+ 			<required>false</required>
+            <type>java.lang.Boolean</type>
+ 		</attribute>
+         <attribute>
+            <description>
+               The key for looking up the text display of the required-message.
+				Although this attribute is not required the developer must provide either this or #requiredMessageValue
+				if you want a required message to be displayed. Defaults to 'message.error.validation.value.required'
+            </description>
+            <name>
+                requiredMessageKey
+            </name>
+            <required>
+                false
+            </required>
+             <type>java.lang.String</type>
+        </attribute>
+
+         <attribute>
+            <description>
+               The String displayed for the required-message. This is a replacement for #requiredMessageKey.
+		     If both are present requiredMessageValue takes precedence.
+		     If the type is not java.lang.String the
+		     developer must ensure that an according converter for the exists.
+            </description>
+            <name>
+                requiredMessageValue
+            </name>
+            <required>
+                false
+            </required>
+             <type>java.io.Serializable</type>
+        </attribute>
+		         <attribute>
+            <description>
+               The key for looking up the text display of the "Please select" label (displayEmptyOption) .
+				Although this attribute is not required the developer must provide either this or #noSelectionMessageValue if you want a required message to be displayed. Defaults to 'common.fields.please.select
+            </description>
+            <name>
+                noSelectionMessageKey
+            </name>
+            <required>
+                false
+            </required>
+             <type>java.lang.String</type>
+        </attribute>
+
+         <attribute>
+            <description>
+               The String displayed for the required-message. This is a replacement for #noSelectionMessageKey.
+		     If both are present noSelectionMessageValue takes precedence. If the type is not java.lang.String the
+		     developer must ensure that an according converter for the exists.
+            </description>
+            <name>
+                noSelectionMessageValue
+            </name>
+            <required>
+                false
+            </required>
+             <type>java.io.Serializable</type>
+        </attribute>
+
+		<attribute>
+            <description>
+                <![CDATA[MethodExpression representing a validator method that will be called
+                during Process Validations to perform correctness checks on the
+                value of this component.  The expression must evaluate to a public
+                method that takes FacesContext, UIComponent, and Object parameters,
+                with a return type of void.]]>
+            </description>
+            <name>
+                validator
+            </name>
+            <required>
+                false
+            </required>
+
+                <method-signature>
+                    void validate(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)
+                </method-signature>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[A ValueExpression enabled attribute that, if present, will be
+                used as the text of the validator message, replacing any
+                message that comes from the validator.]]>
+            </description>
+            <name>
+                validatorMessage
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[The current value of this component.]]>
+            </description>
+            <name>
+                value
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.Object
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[
+
+                MethodExpression representing a value change listener method
+                that will be notified when a new value has been set for this
+                input component.  The expression must evaluate to a public
+                method that takes a <code>ValueChangeEvent</code> parameter,
+                with a return type of void, or
+                to a public method that takes no arguments with a return type
+                of void.  In the latter case, the method has no way of easily
+                knowing what the new value is, but this can be useful in cases
+                where a notification is needed that "this value
+                changed".
+
+                ]]>
+            </description>
+            <name>
+                valueChangeListener
+            </name>
+            <required>
+                false
+            </required>
+
+                <method-signature>
+                    void valueChange(javax.faces.event.ValueChangeEvent)
+                </method-signature>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Access key that, when pressed, transfers focus
+                to this element.]]>
+            </description>
+            <name>
+                accesskey
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Direction indication for text that does not inherit directionality.
+                Valid values are "LTR" (left-to-right) and "RTL" (right-to-left).
+                These attributes are case sensitive when rendering to XHTML, so
+                care must be taken to have the correct case.]]>
+            </description>
+            <name>
+                dir
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Flag indicating that this element must never receive focus or
+                be included in a subsequent submit.  A value of false causes
+                no attribute to be rendered, while a value of true causes the
+                attribute to be rendered as disabled="disabled".]]>
+            </description>
+            <name>
+                disabled
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    boolean
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[CSS style class to apply to the rendered label
+                on disabled options.]]>
+            </description>
+            <name>
+                disabledClass
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[CSS style class to apply to the rendered label
+                on enabled options.]]>
+            </description>
+            <name>
+                enabledClass
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[A localized user presentable name for this component.]]>
+            </description>
+            <name>
+                label
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Code describing the language used in the generated markup
+                for this component.]]>
+            </description>
+            <name>
+                lang
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when this element loses focus.]]>
+            </description>
+            <name>
+                onblur
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when this element loses focus
+                and its value has been modified since gaining focus.]]>
+            </description>
+            <name>
+                onchange
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                clicked over this element.]]>
+            </description>
+            <name>
+                onclick
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                double clicked over this element.]]>
+            </description>
+            <name>
+                ondblclick
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when this element receives focus.]]>
+            </description>
+            <name>
+                onfocus
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a key is
+                pressed down over this element.]]>
+            </description>
+            <name>
+                onkeydown
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a key is
+                pressed and released over this element.]]>
+            </description>
+            <name>
+                onkeypress
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a key is
+                released over this element.]]>
+            </description>
+            <name>
+                onkeyup
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                pressed down over this element.]]>
+            </description>
+            <name>
+                onmousedown
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                moved within this element.]]>
+            </description>
+            <name>
+                onmousemove
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                moved away from this element.]]>
+            </description>
+            <name>
+                onmouseout
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                moved onto this element.]]>
+            </description>
+            <name>
+                onmouseover
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when a pointer button is
+                released over this element.]]>
+            </description>
+            <name>
+                onmouseup
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Javascript code executed when text within this
+                element is selected by the user.]]>
+            </description>
+            <name>
+                onselect
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Flag indicating that this component will prohibit changes by
+                the user.  The element may receive focus unless it has also
+                been disabled.  A value of false causes
+                no attribute to be rendered, while a value of true causes the
+                attribute to be rendered as readonly="readonly".]]>
+            </description>
+            <name>
+                readonly
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    boolean
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Per the WAI-ARIA spec and its
+                relationship to HTML5 (Section title ARIA Role Attriubute),
+                every HTML element may have a "role" attribute whose value
+                must be passed through unmodified on the element on which it
+                is declared in the final rendered markup.  The attribute, if
+                specified, must have a value that is a string literal that is,
+                or an EL Expression that evaluates to, a set of
+                space-separated tokens representing the various WAI-ARIA roles
+                that the element belongs to.
+
+
+                It is the page author's
+                responsibility to ensure that the user agent is capable of
+                correctly interpreting the value of this attribute.]]>
+            </description>
+            <name>
+                role
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Space-separated list of CSS style class(es) to be applied when
+                this element is rendered.  This value must be passed through
+                as the "class" attribute on generated markup.]]>
+            </description>
+            <name>
+                styleClass
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Position of this element in the tabbing order
+                for the current document.  This value must be
+                an integer between 0 and 32767.]]>
+            </description>
+            <name>
+                tabindex
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Advisory title information about markup elements generated
+                for this component.]]>
+            </description>
+            <name>
+                title
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    java.lang.String
+                </type>
+
+        </attribute>
+        <attribute>
+            <description>
+                The ValueExpression linking this component to a property in a backing bean
+            </description>
+            <name>
+                binding
+            </name>
+            <required>
+                false
+            </required>
+
+                <type>
+                    javax.faces.component.UIComponent
+                </type>
+
+        </attribute>
+
+	 </tag>
+	 	<tag>
+		<description>Creates a bootstrap conform navigation structure. In case the menuModel has children. it creates a subcomponent for each of the children.
+		</description>
+		<tag-name>navigationMenu</tag-name>
+		<component>
+			<component-type>com.icw.ehf.cui.components.ui.layout.NavigationMenuComponent</component-type>
+			<renderer-type>com.icw.ehf.cui.components.ui.renderer.NavigationMenuRenderer</renderer-type>
+		</component>
+        <attribute>
+            <description>The component identifier for this component.  This value must be
+                unique within the closest parent component that is a naming
+                container. Caution: The component itself is not a naming container
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit.  The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+         <attribute>
+            <description>
+                <![CDATA[Flag indicating that this element must never receive focus or
+                be included in a subsequent submit.  A value of false causes
+                no attribute to be rendered, while a value of true causes the
+                attribute to be rendered as disabled="disabled".]]>
+            </description>
+            <name>disabled</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+        	<description>The model to be utilized by the component.</description>
+        	<name>menuModel</name>
+        	<required>true</required>
+        	<type>com.icw.ehf.cui.components.model.menu.NavigationMenuItem</type>
+        </attribute>
+	</tag>
+
+    <tag>
+        <description>Client behavior which is able to dispatch action to primefaces file upload cc. Expected is that widgetVar name is known.</description>
+        <tag-name>fileUploadEnventDispatcher</tag-name>
+        <behavior>
+            <description>ClientBehavior implementation for dispatching action to primefaces file upload cc</description>
+            <behavior-id>com.icw.ehf.cui.components.clientbehavior.FileUploadEnventDispatcher</behavior-id>
+        </behavior>
+        <attribute>
+            <description>Name of primefaces fileUpload widget var, where action should be delegate to. Attribute is mandatory!</description>
+            <name>fileUploadWidgetVar</name>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+
+</facelet-taglib>

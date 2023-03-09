@@ -1,0 +1,41 @@
+/**
+ * <h2>Summary</h2>
+ * <p>
+ * Provides the cui specific locale management. The
+ * {@link com.icw.ehf.cui.core.api.application.locale.LocaleProducer} accesses the
+ * {@link java.util.Locale} currently active for the user. The default implementation
+ * {@link com.icw.ehf.cui.core.api.application.locale.LocaleProducerImpl} resolves the
+ * {@link java.util.Locale} from
+ * {@link javax.faces.application.ViewHandler#calculateLocale(javax.faces.context.FacesContext)}
+ * </p>
+ * <h2>Configuration</h2>
+ * <p>
+ * In order to work in a non CDI-/portal- context you need to declare
+ * {@link com.icw.ehf.cui.core.api.application.locale.LocaleProducerImpl} as an
+ * {@link javax.faces.bean.ApplicationScoped} bean with the name
+ * {@link com.icw.ehf.cui.core.api.application.locale.LocaleProducerImpl#BEAN_NAME}:
+ *
+ * <pre>
+{@code
+<managed-bean>
+	<managed-bean-name>localeProducer</managed-bean-name>
+	<managed-bean-class>com.icw.ehf.cui.core.api.application.locale.LocaleProducerImpl</managed-bean-class>
+	<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+}
+ * </pre>
+ * </p>
+ * <h2>Usage with components and beans</h2>
+ * <p>
+ * It can be easily be accessed with
+ * {@link com.icw.ehf.cui.core.api.application.locale.LocaleProducerAccessor#getValue()}
+ * </p>
+ * <h2>Usage within xhtml</h2>
+ * <p>
+ * Access it like a usual {@link javax.faces.bean.ManagedBean}:
+ * <code>locale="#{localeProducer.locale}</code>
+ * </p>
+ *
+ * @author Oliver Wolff
+ */
+package com.icw.ehf.cui.core.api.application.locale;

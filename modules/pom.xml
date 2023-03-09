@@ -13,5 +13,6 @@
         <module>cui-jsf-api</module>
         <module>cui-jsf-bootstrap</module>
         <module>cui-jsf-dev</module>
+        <module>cui-jsf-test</module>
     </modules>
 </project>

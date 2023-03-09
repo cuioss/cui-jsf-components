@@ -8,10 +8,26 @@
     <artifactId>cui-jsf-dev</artifactId>
     <name>cui dev components</name>
     <description>Components for creating the deleoper documentation</description>
+    <properties>
+        <version.jaxen>2.0.0</version.jaxen>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>jaxen</groupId>
+                <artifactId>jaxen</artifactId>
+                <version>${version.jaxen}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>de.cuioss.jsf</groupId>
             <artifactId>cui-jsf-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
         </dependency>
     </dependencies>
 </project>

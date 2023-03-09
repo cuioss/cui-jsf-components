@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+    xmlns:cui="http://www.icw.de/commons-webui"
+>
+
+<!-- INTERFACE -->
+<composite:interface
+   shortDescription="Short Desciption on Type-level">
+
+   <composite:attribute name="styleClass" type="java.lang.String"
+      required="false"
+      shortDescription="Additional css-classes to be applied to the list." />
+   <composite:attribute name="style" type="java.lang.String"
+      required="false"
+      shortDescription="Additional style-attribute to be applied to the list." />
+   <composite:facet name="header" required="true"
+      shortDescription="This facet is for rendering the header.
+      It will be put in a cui:row, therefore you can use cui:columns for layouting / spacing directly." />
+   <composite:facet name="display" required="true"
+      shortDescription="This facet is for rendering a display-row.
+      It will be put in a cui:row, therefore you can use cui:columns for layouting / spacing directly." />
+   <composite:facet name="addButton" required="false"
+      shortDescription="This facet is for an alternative add-buton. This may be helpful in cases you need some more complex
+      interaction for doind the edit." />
+   <composite:attribute name="enableDoubleClickEdit" type="boolean"
+      shortDescription="Enables the edited by double-clicking the corresponding line, defaults to true"
+      required="false" default="true" />
+</composite:interface>
+
+<!-- IMPLEMENTATION -->
+<composite:implementation>
+</composite:implementation>
+</html>

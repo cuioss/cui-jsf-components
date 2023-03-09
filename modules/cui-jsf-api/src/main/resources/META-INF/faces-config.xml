@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.3" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
+
+    <name>CuiJsfSpec</name>
+
+    <application>
+        <system-event-listener>
+            <system-event-listener-class>com.icw.ehf.cui.application.CuiVersionLoggerEventListener</system-event-listener-class>
+            <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
+        </system-event-listener>
+    </application>
+    <converter>
+        <description>Formatting Converter handles de.cuioss.uimodel.nameprovider.DisplayName class</description>
+        <converter-for-class>de.cuioss.uimodel.nameprovider.DisplayName</converter-for-class>
+        <converter-class>com.icw.ehf.cui.components.converter.nameprovider.DisplayNameConverter</converter-class>
+    </converter>
+
+    <converter>
+        <description>Formatting Converter handles de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider class. Use intern com.icw.ehf.cui.core.api.application.locale.LocaleProducer.</description>
+        <converter-for-class>de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider</converter-for-class>
+        <converter-class>com.icw.ehf.cui.components.converter.nameprovider.I18nDisplayNameProviderConverter</converter-class>
+    </converter>
+
+    <converter>
+        <description>Formatting Converter handles de.cuioss.uimodel.nameprovider.LabeledKey class. Use intern com.icw.ehf.cui.application.bundle.CuiResourceBundle and com.icw.ehf.cui.core.api.application.locale.LocaleProducer.</description>
+        <converter-for-class>de.cuioss.uimodel.nameprovider.LabeledKey</converter-for-class>
+        <converter-class>com.icw.ehf.cui.components.converter.nameprovider.LabeledKeyConverter</converter-class>
+    </converter>
+
+    <converter>
+        <description>Formatting Converter handles de.cuioss.uimodel.nameprovider.DisplayMessageProvider class. Use intern com.icw.ehf.cui.application.bundle.CuiResourceBundle and com.icw.ehf.cui.core.api.application.locale.LocaleProducer.</description>
+        <converter-for-class>de.cuioss.uimodel.nameprovider.DisplayMessageProvider</converter-for-class>
+        <converter-class>com.icw.ehf.cui.components.converter.nameprovider.DisplayMessageProviderConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-id>cui.core.lineBreakConverter</converter-id>
+        <converter-class>com.icw.ehf.cui.core.api.converter.LineBreakConverter</converter-class>
+    </converter>
+</faces-config>

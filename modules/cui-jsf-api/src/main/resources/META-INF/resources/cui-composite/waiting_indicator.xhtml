@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+>
+
+<!-- INTERFACE -->
+<composite:interface shortDescription="Load data waiting indicator">
+   <composite:attribute name="size" type="java.lang.String" required="false" default="md"
+      shortDescription="Define size of loading indicator. Allowed are 'xs', 'sm', 'md', 'ld.'. Default is 'md'" />
+   <composite:attribute name="styleClass" type="java.lang.String" required="false" shortDescription="outside style class" />
+   <composite:attribute name="style" type="java.lang.String" required="false" shortDescription="outside style" />
+</composite:interface>
+
+<!-- IMPLEMENTATION -->
+<composite:implementation>
+
+   <div id="#{cc.clientId}" class="#{cc.attrs.styleClass}" style="#{cc.attrs.style}">
+      <div class="waiting-indicator waiting-indicator-size-#{cc.attrs.size}">
+         <div class="item-1 item-size-#{cc.attrs.size}"></div>
+         <div class="item-2 item-size-#{cc.attrs.size}"></div>
+         <div class="item-3 item-size-#{cc.attrs.size}"></div>
+         <div class="item-4 item-size-#{cc.attrs.size}"></div>
+         <div class="item-5 item-size-#{cc.attrs.size}"></div>
+      </div>
+   </div>
+
+</composite:implementation>
+</html>

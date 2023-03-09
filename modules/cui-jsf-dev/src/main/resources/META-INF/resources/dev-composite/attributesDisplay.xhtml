@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:component xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+   xmlns:cui="http://www.icw.de/commons-webui"
+   xmlns:h="http://xmlns.jcp.org/jsf/html"
+   xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+
+   <!-- Interface -->
+   <cc:interface displayName="Attributes Display"
+      shortDescription="Prints the attribute descriptions for specified components">
+      <cc:attribute name="attributesList" type="java.util.List"
+         required="false"
+         shortDescription="List of com.icw.ehf.cui.dev.metadata.composite.util.LabelValueDisplay attributes." />
+      <cc:attribute name="metadataList" type="java.util.List"
+         required="true"
+         shortDescription="List of com.icw.ehf.cui.dev.metadata.composite.util.LabelValueDisplay metadata." />
+      <cc:attribute name="showAdvanced" required="false" default="false"
+         type="java.lang.Boolean"
+         shortDescription="Defined whether to show more advanced attribute like Expert, Hidden and Preferred." />
+   </cc:interface>
+
+   <!-- Implementation> -->
+   <cc:implementation>
+      <ui:repeat id="attrs" var="meta"
+         value="#{cc.attrs.attributesList}">
+         <cui:labeledContainer labelValue="#{meta.label}">
+            <h:outputText value="#{meta.value}" />
+         </cui:labeledContainer>
+      </ui:repeat>
+      <ui:repeat id="mtds" var="metadataOut"
+         rendered="#{cc.attrs.showAdvanced}"
+         value="#{cc.attrs.metadataList}">
+         <cui:labeledContainer labelValue="#{metadataOut.label}">
+            <h:outputText value="#{metadataOut.value}" />
+         </cui:labeledContainer>
+      </ui:repeat>
+   </cc:implementation>
+</ui:component>

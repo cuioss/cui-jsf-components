@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+>
+
+   <!-- Interface -->
+   <cc:interface displayName="Source Code Display"
+      shortDescription="Formats the given code in order being displayed properly including formatting and highlighting.
+		The actual formatting is done with Google Prettify">
+      <cc:attribute name="styleClass" type="java.lang.String"
+         required="false"
+         shortDescription="Space separated list  of css classes to be applied.
+			Pretifier uses css classes for determinig the language of the code.
+			Can be 'lang-html', css, sql, lisp or other formats supported by Google Prettifier.
+			Usually pretifiers auto detect feature works fine.
+			If you want to display line numbers add the css class 'linenums'" />
+      <cc:facet name="source" required="true"
+         shortDescription="The actual source content to be formated. Ensure the proper masking of html elements like &lt;&gt;" />
+   </cc:interface>
+
+   <!-- Implementation -->
+   <cc:implementation>
+      <pre id="#{cc.clientId}" class="prettyprint #{cc.attrs.lang}">
+     		<cc:renderFacet name="source" />
+    	</pre>
+   </cc:implementation>
+
+</ui:component>
