@@ -7,8 +7,8 @@
         <description><![CDATA[Renders a source code element.]]></description>
         <tag-name>sourceCode</tag-name>
         <component>
-            <component-type>com.icw.ehf.cui.dev.ui.components.SourceCode</component-type>
-            <renderer-type>com.icw.ehf.cui.dev.ui.renderer.SourceCodeComponentRenderer</renderer-type>
+            <component-type>de.cuioss.jsf.dev.ui.components.SourceCode</component-type>
+            <renderer-type>de.cuioss.jsf.dev.ui.renderer.SourceCodeComponentRenderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be unique

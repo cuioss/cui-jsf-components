@@ -6,36 +6,36 @@
 
     <application>
         <system-event-listener>
-            <system-event-listener-class>com.icw.ehf.cui.application.CuiVersionLoggerEventListener</system-event-listener-class>
+            <system-event-listener-class>de.cuioss.jsf.api.application.CuiVersionLoggerEventListener</system-event-listener-class>
             <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
         </system-event-listener>
     </application>
     <converter>
         <description>Formatting Converter handles de.cuioss.uimodel.nameprovider.DisplayName class</description>
         <converter-for-class>de.cuioss.uimodel.nameprovider.DisplayName</converter-for-class>
-        <converter-class>com.icw.ehf.cui.components.converter.nameprovider.DisplayNameConverter</converter-class>
+        <converter-class>de.cuioss.jsf.runtime.converter.nameprovider.DisplayNameConverter</converter-class>
     </converter>
 
     <converter>
-        <description>Formatting Converter handles de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider class. Use intern com.icw.ehf.cui.core.api.application.locale.LocaleProducer.</description>
+        <description>Formatting Converter handles de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider class. Use intern de.cuioss.jsf.api.application.locale.LocaleProducer.</description>
         <converter-for-class>de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider</converter-for-class>
-        <converter-class>com.icw.ehf.cui.components.converter.nameprovider.I18nDisplayNameProviderConverter</converter-class>
+        <converter-class>de.cuioss.jsf.runtime.converter.nameprovider.I18nDisplayNameProviderConverter</converter-class>
     </converter>
 
     <converter>
-        <description>Formatting Converter handles de.cuioss.uimodel.nameprovider.LabeledKey class. Use intern com.icw.ehf.cui.application.bundle.CuiResourceBundle and com.icw.ehf.cui.core.api.application.locale.LocaleProducer.</description>
+        <description>Formatting Converter handles de.cuioss.uimodel.nameprovider.LabeledKey class. Use intern de.cuioss.jsf.api.application.bundle.CuiResourceBundle and de.cuioss.jsf.api.application.locale.LocaleProducer.</description>
         <converter-for-class>de.cuioss.uimodel.nameprovider.LabeledKey</converter-for-class>
-        <converter-class>com.icw.ehf.cui.components.converter.nameprovider.LabeledKeyConverter</converter-class>
+        <converter-class>de.cuioss.jsf.runtime.converter.nameprovider.LabeledKeyConverter</converter-class>
     </converter>
 
     <converter>
-        <description>Formatting Converter handles de.cuioss.uimodel.nameprovider.DisplayMessageProvider class. Use intern com.icw.ehf.cui.application.bundle.CuiResourceBundle and com.icw.ehf.cui.core.api.application.locale.LocaleProducer.</description>
+        <description>Formatting Converter handles de.cuioss.uimodel.nameprovider.DisplayMessageProvider class. Use intern de.cuioss.jsf.api.application.bundle.CuiResourceBundle and de.cuioss.jsf.api.application.locale.LocaleProducer.</description>
         <converter-for-class>de.cuioss.uimodel.nameprovider.DisplayMessageProvider</converter-for-class>
-        <converter-class>com.icw.ehf.cui.components.converter.nameprovider.DisplayMessageProviderConverter</converter-class>
+        <converter-class>de.cuioss.jsf.runtime.converter.nameprovider.DisplayMessageProviderConverter</converter-class>
     </converter>
 
     <converter>
         <converter-id>cui.core.lineBreakConverter</converter-id>
-        <converter-class>com.icw.ehf.cui.core.api.converter.LineBreakConverter</converter-class>
+        <converter-class>de.cuioss.jsf.api.converter.LineBreakConverter</converter-class>
     </converter>
 </faces-config>

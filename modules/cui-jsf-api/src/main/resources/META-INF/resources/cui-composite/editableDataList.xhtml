@@ -6,17 +6,17 @@
 <!-- INTERFACE -->
 <composite:interface
     shortDescription="Renders an editable list. The iterable, derived by EditableDataListModel#getLoadedItems()
-   will be exposed as a request-scoped variable with the with the name #{item.wrapped} The 'item' is of type com.icw.ehf.cui.core.api.components.model.datalist.ItemWrapper
+   will be exposed as a request-scoped variable with the with the name #{item.wrapped} The 'item' is of type de.cuioss.jsf.api.components.model.datalist.ItemWrapper
    and provides same additional runtime information, see javadoc for details. The component requires the two facets 'header' and 'display' for rendering the corresponding lines.
    The actual editable part is expected as children of this component. All that elements will be implicitly put in a cui:row,
    therefore you can use cui:columns for layouting / spacing directly. If a facet named 'header-addon' is present, its content is rendered at the beginning of the button group of the 'Add' button.
    If a facet named 'edit-addon' is present, its content is rendered at the beginning of the button group of the adding and editing pages.
    Disabling renderAddonButtonsInAddMode or renderAddonButtonsInEditMode does not have an effect on the rendering of this facet."
     componentType="com.icw.cui.bootstrap.editableDataList">
-    <composite:attribute name="model" type="com.icw.ehf.cui.core.api.components.model.datalist.EditableDataListModel"
+    <composite:attribute name="model" type="de.cuioss.jsf.api.components.model.datalist.EditableDataListModel"
                          required="true"
                          shortDescription="The model for interacting with the data list.
-      Always consider extending com.icw.ehf.cui.core.api.components.model.datalist.impl.AbstractEditableDataListModel"/>
+      Always consider extending de.cuioss.jsf.api.components.model.datalist.impl.AbstractEditableDataListModel"/>
 
     <composite:attribute name="styleClass" type="java.lang.String" required="false"
                          shortDescription="Additional css-classes to be applied to the list."/>

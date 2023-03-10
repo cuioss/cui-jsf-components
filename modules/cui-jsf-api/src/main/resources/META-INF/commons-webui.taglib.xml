@@ -8,7 +8,7 @@
             uses the standard LocaleProducerAccessor for accessing the needed Locale]]></description>
         <tag-name>codeTypeDisplayConverter</tag-name>
         <converter>
-            <converter-id>com.icw.ehf.cui.components.converter.CodeTypeDisplayConverter</converter-id>
+            <converter-id>de.cuioss.jsf.components.converter.CodeTypeDisplayConverter</converter-id>
         </converter>
     </tag>
     <tag>
@@ -37,7 +37,7 @@
             Html code that possibly corrupts layout.]]></description>
         <tag-name>sanitizer</tag-name>
         <converter>
-            <converter-id>com.icw.ehf.cui.components.converter.HtmlSanitizingConverter</converter-id>
+            <converter-id>de.cuioss.jsf.components.converter.HtmlSanitizingConverter</converter-id>
         </converter>
         <attribute>
             <description><![CDATA[Defines the strategy for sanitizing. One of "PLAIN_TEXT", "SIMPLE_HTML",
@@ -45,7 +45,7 @@
                 for this converter you can use "PASSTHROUGH" but the implementor must ensure
                 document that the sanitizing is done in an other way, like on the model. To preserve
                 html-entities use "PLAIN_TEXT_PRESERVE_ENTITIES" or
-                "COMPLEX_HTML_PRESERVE_ENTITIES". See com.icw.ehf.cui.core.api.security.CuiSanitizer
+                "COMPLEX_HTML_PRESERVE_ENTITIES". See de.cuioss.jsf.api.security.CuiSanitizer
                 for details for the corresponding sanitizer. It defaults to
                 "PLAIN_TEXT_PRESERVE_ENTITIES"]]></description>
             <name>strategy</name>
@@ -74,7 +74,7 @@
         </description>
         <tag-name>textSplitter</tag-name>
         <converter>
-            <converter-id>com.icw.ehf.cui.components.converter.TextSplittingConverter</converter-id>
+            <converter-id>de.cuioss.jsf.components.converter.TextSplittingConverter</converter-id>
         </converter>
         <attribute>
             <description><![CDATA[Count of characters when a text break will forced, defaults to
@@ -106,7 +106,7 @@
         </attribute>
         <attribute>
             <description><![CDATA[Defines the strategy for sanitizing. See
-                com.icw.ehf.cui.core.api.security.CuiSanitizer for details. It defaults to
+                de.cuioss.jsf.api.security.CuiSanitizer for details. It defaults to
                 "PLAIN_TEXT_PRESERVE_ENTITIES"]]></description>
             <name>sanitizingStrategy</name>
             <required>false</required>
@@ -410,8 +410,8 @@
         <description><![CDATA[Renders a fieldset.]]></description>
         <tag-name>fieldset</tag-name>
         <component>
-            <component-type>de.icw.cui.html.fieldset</component-type>
-            <renderer-type>de.icw.cui.html.fieldset_renderer</renderer-type>
+            <component-type>de.cuioss.jsf.api.html.fieldset</component-type>
+            <renderer-type>de.cuioss.jsf.api.html.fieldset_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be unique
@@ -619,8 +619,8 @@
         </description>
         <tag-name>commandButton</tag-name>
         <component>
-            <component-type>de.icw.cui.bootstrap.commandbutton</component-type>
-            <renderer-type>de.icw.cui.bootstrap.commandbutton_renderer</renderer-type>
+            <component-type>de.cuioss.jsf.api.bootstrap.commandbutton</component-type>
+            <renderer-type>de.cuioss.jsf.api.bootstrap.commandbutton_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be unique
@@ -1051,8 +1051,8 @@
         </description>
         <tag-name>switch</tag-name>
         <component>
-            <component-type>de.icw.cui.bootstrap.switch</component-type>
-            <renderer-type>de.icw.cui.bootstrap.switch_renderer</renderer-type>
+            <component-type>de.cuioss.jsf.api.bootstrap.switch</component-type>
+            <renderer-type>de.cuioss.jsf.api.bootstrap.switch_renderer</renderer-type>
         </component>
         <attribute>
             <description>
@@ -1193,8 +1193,8 @@
         </description>
         <tag-name>button</tag-name>
         <component>
-            <component-type>de.icw.cui.bootstrap.button</component-type>
-            <renderer-type>de.icw.cui.bootstrap.button_renderer</renderer-type>
+            <component-type>de.cuioss.jsf.api.bootstrap.button</component-type>
+            <renderer-type>de.cuioss.jsf.api.bootstrap.button_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be unique
@@ -2197,7 +2197,7 @@
         </description>
         <tag-name>convertDateTime</tag-name>
         <converter>
-            <converter-id>com.icw.ehf.cui.components.converter.DateTimeConverter</converter-id>
+            <converter-id>de.cuioss.jsf.components.converter.DateTimeConverter</converter-id>
         </converter>
         <attribute>
             <description>
@@ -2332,7 +2332,7 @@
         <tag-name>notificationBox</tag-name>
         <component>
             <component-type>com.icw.cui.bootstrap.notificationbox</component-type>
-            <handler-class>com.icw.ehf.cui.components.bootstrap.notification.NotificationBoxHandler</handler-class>
+            <handler-class>de.cuioss.jsf.bootstrap.notification.NotificationBoxHandler</handler-class>
             <renderer-type>com.icw.cui.bootstrap.notificationbox_renderer</renderer-type>
         </component>
         <attribute>
@@ -2426,7 +2426,7 @@
         <attribute>
             <description><![CDATA[Method expression to listen to dismiss events.
                        The listener must be in the form of
-                       <pre>public void methodName(com.icw.ehf.cui.core.api.components.events.ModelPayloadEvent dismissEvent)</pre>]]>
+                       <pre>public void methodName(de.cuioss.jsf.api.components.events.ModelPayloadEvent dismissEvent)</pre>]]>
             </description>
             <name>dismissListener</name>
             <required>false</required>
@@ -3043,7 +3043,7 @@
                 accordion panels. Numbering starts from 0.]]></description>
             <name>activeIndexManager</name>
             <required>false</required>
-            <type>com.icw.ehf.cui.core.api.components.support.ActiveIndexManager</type>
+            <type>de.cuioss.jsf.api.components.support.ActiveIndexManager</type>
         </attribute>
     </tag>
     <tag>
@@ -3179,7 +3179,7 @@
             </description>
             <name>collapseSwitch</name>
             <required>false</required>
-            <type>com.icw.ehf.cui.core.api.ui.model.ToggleSwitch</type>
+            <type>de.cuioss.jsf.api.ui.model.ToggleSwitch</type>
         </attribute>
         <attribute>
             <description>
@@ -3855,7 +3855,7 @@
             <description><![CDATA[The model to be utilized by the component.]]></description>
             <name>model</name>
             <required>false</required>
-            <type>com.icw.ehf.cui.components.model.menu.NavigationMenuItem</type>
+            <type>de.cuioss.jsf.components.model.menu.NavigationMenuItem</type>
         </attribute>
         <attribute>
             <description>
@@ -4112,10 +4112,10 @@
              <p>
              All values are considered to be of type Set&lt;ConceptKeyType&gt;:
              <ul>
-             <li>com.icw.ehf.cui.components.bootstrap.taginput.TagInputComponent#getValue()</li>
-             <li>com.icw.ehf.cui.components.bootstrap.taginput.TagInputComponent#setValue(Object)</li>
-             <li>com.icw.ehf.cui.components.bootstrap.taginput.TagInputComponent#getSourceSet()</li>
-             <li>com.icw.ehf.cui.components.bootstrap.taginput.TagInputComponent#setSourceSet(Object)</li>
+             <li>de.cuioss.jsf.bootstrap.taginput.TagInputComponent#getValue()</li>
+             <li>de.cuioss.jsf.bootstrap.taginput.TagInputComponent#setValue(Object)</li>
+             <li>de.cuioss.jsf.bootstrap.taginput.TagInputComponent#getSourceSet()</li>
+             <li>de.cuioss.jsf.bootstrap.taginput.TagInputComponent#setSourceSet(Object)</li>
              </p>
              <h3>Rendering</h3>
              <ul>
@@ -4128,31 +4128,31 @@
              gets initialized.</li>
              <ul>
              <li>Default configuration</li>
-             <li>com.icw.ehf.cui.components.bootstrap.taginput.TagInputComponent#getSourceSet() and
-             com.icw.ehf.cui.components.bootstrap.taginput.TagInputComponent#getClientCreated() are used to provide the
+             <li>de.cuioss.jsf.bootstrap.taginput.TagInputComponent#getSourceSet() and
+             de.cuioss.jsf.bootstrap.taginput.TagInputComponent#getClientCreated() are used to provide the
              matching of labels to values.</li>
              </ul>
              </li>
              </ul>
              <h3>Conversion</h3>
              Decoding the submitted string and encoding the list on ConceptKeyType is done by
-             <code>com.icw.ehf.cui.components.bootstrap.taginput.ConceptKeyStringConverter</code>, which is set as the
+             <code>de.cuioss.jsf.bootstrap.taginput.ConceptKeyStringConverter</code>, which is set as the
              components converter.
              <ul>
              <li>If no value is set for the clientId it calls
-             com.icw.ehf.cui.components.bootstrap.taginput.TagInputComponent#setSubmittedValue(Object) with <code>null</code>
+             de.cuioss.jsf.bootstrap.taginput.TagInputComponent#setSubmittedValue(Object) with <code>null</code>
              </li>
              <li>If there is a value available it splits them using "," as default separator</li>
              <li>Each element will be checked whether it is initially provided
-             com.icw.ehf.cui.components.bootstrap.taginput.TagInputComponent#getSourceSet() or
-             com.icw.ehf.cui.components.bootstrap.taginput.TagInputComponent#getClientCreated(). If so, the corresponding
+             de.cuioss.jsf.bootstrap.taginput.TagInputComponent#getSourceSet() or
+             de.cuioss.jsf.bootstrap.taginput.TagInputComponent#getClientCreated(). If so, the corresponding
              de.cuioss.uimodel.model.conceptkey.ConceptKeyType will be added to the resulting java.util.Set</li>
              <li>In case the element can not be matched to the ones above it is checked
              whether it starts with "_client_created_" and if so a new
              de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl will be created with the given key as
              de.cuioss.uimodel.model.conceptkey.ConceptKeyType#getIdentifier() and the name part as
              de.cuioss.uimodel.model.conceptkey.ConceptKeyType#getResolved(Locale). The element will now be added to the
-             resulting java.util.Set and to com.icw.ehf.cui.components.bootstrap.taginput.TagInputComponent#getClientCreated().
+             resulting java.util.Set and to de.cuioss.jsf.bootstrap.taginput.TagInputComponent#getClientCreated().
              </li>
              <li>If none of the above applies, the decode method will throw a
              ConverterException</li>
@@ -4345,7 +4345,7 @@
         <tag-name>tag</tag-name>
         <component>
             <component-type>com.icw.cui.bootstrap.tag</component-type>
-            <handler-class>com.icw.ehf.cui.components.bootstrap.tag.TagHandler</handler-class>
+            <handler-class>de.cuioss.jsf.bootstrap.tag.TagHandler</handler-class>
             <renderer-type>com.icw.cui.bootstrap.tag_renderer</renderer-type>
         </component>
         <attribute>
@@ -4449,7 +4449,7 @@
         <attribute>
             <description><![CDATA[Method expression to listen to dispose events.
                        The listener must be in the form of
-                       <pre>public void methodName(com.icw.ehf.cui.core.api.components.events.ModelPayloadEvent disposeEvent)</pre>]]>
+                       <pre>public void methodName(de.cuioss.jsf.api.components.events.ModelPayloadEvent disposeEvent)</pre>]]>
             </description>
             <name>disposeListener</name>
             <required>false</required>
@@ -4592,7 +4592,7 @@
     <tag>
         <description><![CDATA[<h2>Renders an editable list</h2>
             <p>The iterable, derived by EditableDataListModel#getLoadedItems()
-   will be exposed as a request-scoped variable with the name #{item.wrapped} The 'item' is of type com.icw.ehf.cui.core.api.components.model.datalist.ItemWrapper
+   will be exposed as a request-scoped variable with the name #{item.wrapped} The 'item' is of type de.cuioss.jsf.api.components.model.datalist.ItemWrapper
    and provides same additional runtime information, see javadoc for details.</p>
    <p>The component requires the two facets 'header' and 'display' for rendering the corresponding lines.
    The actual editable part is expected as child of this component. All that elements will be implicitly put in a cui:row,
@@ -4635,10 +4635,10 @@
         </component>
         <attribute>
             <description><![CDATA[The model for interacting with the data list.
-              Always consider extending com.icw.ehf.cui.core.api.components.model.datalist.impl.AbstractEditableDataListModel]]></description>
+              Always consider extending de.cuioss.jsf.api.components.model.datalist.impl.AbstractEditableDataListModel]]></description>
             <name>model</name>
             <required>true</required>
-            <type>com.icw.ehf.cui.core.api.components.model.datalist.EditableDataListModel</type>
+            <type>de.cuioss.jsf.api.components.model.datalist.EditableDataListModel</type>
         </attribute>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be
@@ -4782,8 +4782,8 @@
    ]]></description>
         <tag-name>waitingIndicator</tag-name>
         <component>
-            <component-type>de.icw.cui.waitingindicator</component-type>
-            <renderer-type>de.icw.cui.waitingindicator_renderer</renderer-type>
+            <component-type>de.cuioss.jsf.api.waitingindicator</component-type>
+            <renderer-type>de.cuioss.jsf.api.waitingindicator_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be unique
@@ -5048,11 +5048,11 @@
    ]]></description>
         <tag-name>dashboard</tag-name>
         <component>
-            <handler-class>com.icw.ehf.cui.components.bootstrap.dashboard.DashboardTagHandler</handler-class>
+            <handler-class>de.cuioss.jsf.bootstrap.dashboard.DashboardTagHandler</handler-class>
         </component>
         <attribute>
             <description>
-                <![CDATA[A list of com.icw.ehf.cui.core.api.components.model.widget.DashboardWidgetModel]]>
+                <![CDATA[A list of de.cuioss.jsf.api.components.model.widget.DashboardWidgetModel]]>
             </description>
             <name>widgets</name>
             <required>true</required>
@@ -5094,8 +5094,8 @@
         </description>
         <tag-name>outputLinkButton</tag-name>
         <component>
-            <component-type>de.icw.cui.bootstrap.outputLinkButton</component-type>
-            <renderer-type>de.icw.cui.bootstrap.outputLinkButton_renderer</renderer-type>
+            <component-type>de.cuioss.jsf.api.bootstrap.outputLinkButton</component-type>
+            <renderer-type>de.cuioss.jsf.api.bootstrap.outputLinkButton_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be unique
@@ -5258,8 +5258,8 @@
         </description>
         <tag-name>lazyLoading</tag-name>
         <component>
-            <component-type>de.icw.cui.lazyLoading</component-type>
-            <renderer-type>de.icw.cui.lazyLoading_renderer</renderer-type>
+            <component-type>de.cuioss.jsf.api.lazyLoading</component-type>
+            <renderer-type>de.cuioss.jsf.api.lazyLoading_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be unique
@@ -5325,14 +5325,14 @@
             </description>
             <name>notificationBoxState</name>
             <required>false</required>
-            <type>com.icw.ehf.cui.core.api.components.css.ContextState</type>
+            <type>de.cuioss.jsf.api.components.css.ContextState</type>
         </attribute>
         <attribute>
             <description><![CDATA[A view model.]]>
             </description>
             <name>viewModel</name>
             <required>false</required>
-            <type>de.icw.cui.core.api.components.model.lazyloading.LazyLoadingModel</type>
+            <type>de.cuioss.jsf.api.components.model.lazyloading.LazyLoadingModel</type>
         </attribute>
         <attribute>
             <description><![CDATA[Start the initialization. Will be called at the first PostAddToView.]]>
@@ -5380,7 +5380,7 @@
            ]]></description>
         <tag-name>blockElement</tag-name>
         <component>
-            <component-type>de.icw.cui.components.blockelement</component-type>
+            <component-type>de.cuioss.jsf.components.blockelement</component-type>
         </component>
     </tag>
     <tag>
@@ -5389,7 +5389,7 @@
         </description>
         <tag-name>helpText</tag-name>
         <component>
-            <component-type>de.icw.cui.helptext</component-type>
+            <component-type>de.cuioss.jsf.api.helptext</component-type>
             <renderer-type>javax.faces.Hidden</renderer-type>
         </component>
         <attribute>
@@ -5488,7 +5488,7 @@
             </description>
             <name>model</name>
             <required>true</required>
-            <type>de.icw.cui.core.api.components.model.resultContent.ResultContent</type>
+            <type>de.cuioss.jsf.api.components.model.resultContent.ResultContent</type>
         </attribute>
     </tag>
 </facelet-taglib>

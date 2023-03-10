@@ -44,7 +44,7 @@
 		</description>
 		<tag-name>ageConverter</tag-name>
 		<converter>
-			<converter-id>com.icw.ehf.cui.components.converter.AgeConverter</converter-id>
+			<converter-id>de.cuioss.jsf.components.converter.AgeConverter</converter-id>
 		</converter>
 	</tag>
 	<tag>
@@ -78,7 +78,7 @@
 		</description>
 		<tag-name>dateOfBirthConverter</tag-name>
 		<converter>
-			<converter-id>com.icw.ehf.cui.components.converter.DateOfBirthConverter</converter-id>
+			<converter-id>de.cuioss.jsf.components.converter.DateOfBirthConverter</converter-id>
 		</converter>
 		<attribute>
 			<description>
@@ -113,11 +113,11 @@
 		<description>Utilized for sanitizing String inputs in order to prevent script injection or Html code that possibly corrupts layout.</description>
 		<tag-name>sanitizer</tag-name>
 		<converter>
-			<converter-id>com.icw.ehf.cui.components.converter.HtmlSanitizingConverter</converter-id>
+			<converter-id>de.cuioss.jsf.components.converter.HtmlSanitizingConverter</converter-id>
 		</converter>
 		<attribute>
 			<description>Defines the strategy for sanitizing. One of "PLAIN_TEXT", "SIMPLE_HTML", "COMPLEX_HTML" expected (Case insensitive).
-			See com.icw.ehf.cui.core.api.security.CuiSanitizer for details for the corresponding sanitizer. It defaults to "PLAIN_TEXT"</description>
+			See de.cuioss.jsf.api.security.CuiSanitizer for details for the corresponding sanitizer. It defaults to "PLAIN_TEXT"</description>
 			<name>strategy</name>
 			<required>false</required>
 			<type>java.lang.String</type>
@@ -127,7 +127,7 @@
 		<description>Simple wrapping converter for de.cuioss.uimodel.util.TextSplitter. It is a formatting only converter </description>
 		<tag-name>textSplitter</tag-name>
 		<converter>
-			<converter-id>com.icw.ehf.cui.components.converter.TextSplittingConverter</converter-id>
+			<converter-id>de.cuioss.jsf.components.converter.TextSplittingConverter</converter-id>
 		</converter>
 		<attribute>
 			<description>Count of characters when a text break will forced, defaults to 15</description>
@@ -172,7 +172,7 @@
 		<description>Converts a charArray to string</description>
 		<tag-name>charArrayConverter</tag-name>
 		<converter>
-			<converter-id>com.icw.ehf.cui.components.converter.CharArrayConverter</converter-id>
+			<converter-id>de.cuioss.jsf.components.converter.CharArrayConverter</converter-id>
 		</converter>
 	</tag>
 
@@ -268,7 +268,7 @@
 		<description>Renders a bootstrap conform div with the styleClass 'row'.</description>
 		<tag-name>row</tag-name>
 		<component>
-			<component-type>com.icw.ehf.cui.components.ui.layout.Row</component-type>
+			<component-type>de.cuioss.jsf.components.ui.layout.Row</component-type>
 			<renderer-type>javax.faces.Group</renderer-type>
 		</component>
         <attribute>
@@ -303,7 +303,7 @@
 		<description>Renders a message list.</description>
 		<tag-name>messages</tag-name>
 		<component>
-			<component-type>com.icw.ehf.cui.components.ui.basic.CuiMessages</component-type>
+			<component-type>de.cuioss.jsf.components.ui.basic.CuiMessages</component-type>
 			<renderer-type>javax.faces.Messages</renderer-type>
 		</component>
 	</tag>
@@ -311,8 +311,8 @@
 		<description>Renders a fieldset.</description>
 		<tag-name>fieldset</tag-name>
 		<component>
-			<component-type>com.icw.ehf.cui.components.ui.basic.FieldSet</component-type>
-			<renderer-type>com.icw.ehf.cui.components.ui.renderer.FieldSetRenderer</renderer-type>
+			<component-type>de.cuioss.jsf.components.ui.basic.FieldSet</component-type>
+			<renderer-type>de.cuioss.jsf.components.ui.renderer.FieldSetRenderer</renderer-type>
 		</component>
         <attribute>
             <description>The component identifier for this component.  This value must be
@@ -373,8 +373,8 @@
 		<description>Renders a tile.</description>
 		<tag-name>tile</tag-name>
 		<component>
-			<component-type>com.icw.ehf.cui.components.ui.basic.Tile</component-type>
-			<renderer-type>com.icw.ehf.cui.components.ui.renderer.TileRenderer</renderer-type>
+			<component-type>de.cuioss.jsf.components.ui.basic.Tile</component-type>
+			<renderer-type>de.cuioss.jsf.components.ui.renderer.TileRenderer</renderer-type>
 		</component>
         <attribute>
             <description>The component identifier for this component.  This value must be
@@ -452,7 +452,7 @@
 		<description>Renders a bootstrap conform div with the styleClass 'form-group'.</description>
 		<tag-name>formGroup</tag-name>
 		<component>
-			<component-type>com.icw.ehf.cui.components.ui.layout.FormGroup</component-type>
+			<component-type>de.cuioss.jsf.components.ui.layout.FormGroup</component-type>
 			<renderer-type>javax.faces.Group</renderer-type>
 		</component>
         <attribute>
@@ -488,7 +488,7 @@
 						number of input elements to be displayed as one element.</description>
 		<tag-name>inputGroup</tag-name>
 		<component>
-			<component-type>com.icw.ehf.cui.components.ui.layout.InputGroup</component-type>
+			<component-type>de.cuioss.jsf.components.ui.layout.InputGroup</component-type>
 			<renderer-type>javax.faces.Group</renderer-type>
 		</component>
         <attribute>
@@ -525,7 +525,7 @@
 		to the surrounding div. For more complex layouts use controlGroup.</description>
 		<tag-name>quickControlGroup</tag-name>
 		<component>
-			<component-type>com.icw.ehf.cui.components.ui.layout.QuickControlGroup</component-type>
+			<component-type>de.cuioss.jsf.components.ui.layout.QuickControlGroup</component-type>
 			<renderer-type>javax.faces.Group</renderer-type>
 		</component>
         <attribute>
@@ -575,7 +575,7 @@
 		<description>Renders a bootstrap conform div with the appropriate column-class appended.</description>
 		<tag-name>column</tag-name>
 		<component>
-			<component-type>com.icw.ehf.cui.components.ui.layout.Column</component-type>
+			<component-type>de.cuioss.jsf.components.ui.layout.Column</component-type>
 			<renderer-type>javax.faces.Group</renderer-type>
 		</component>
         <attribute>
@@ -640,7 +640,7 @@
          </description>
 		<tag-name>commandButton</tag-name>
 		<component>
-			<component-type>com.icw.ehf.cui.components.ui.basic.CuiCommandButton</component-type>
+			<component-type>de.cuioss.jsf.components.ui.basic.CuiCommandButton</component-type>
 			<renderer-type>javax.faces.Link</renderer-type>
 		</component>
         <attribute>
@@ -1283,7 +1283,7 @@
             </description>
 		<tag-name>button</tag-name>
 		<component>
-			<component-type>com.icw.ehf.cui.components.ui.basic.CuiButton</component-type>
+			<component-type>de.cuioss.jsf.components.ui.basic.CuiButton</component-type>
 			<renderer-type>javax.faces.Link</renderer-type>
 		</component>
         <attribute>
@@ -1882,8 +1882,8 @@
 	The title is resolved using the cui standard label-resolving mechanism</description>
 	<tag-name>mimeTypeIcon</tag-name>
 	<component>
-		<component-type>com.icw.ehf.cui.components.ui.MimeTypeIcon</component-type>
-		<renderer-type>com.icw.ehf.cui.components.ui.renderer.MimeTypeIconRenderer</renderer-type>
+		<component-type>de.cuioss.jsf.components.ui.MimeTypeIcon</component-type>
+		<renderer-type>de.cuioss.jsf.components.ui.renderer.MimeTypeIconRenderer</renderer-type>
 	</component>
 		<attribute>
             <description>The component identifier for this component. This value must be
@@ -1982,7 +1982,7 @@
 	de.cuioss.uimodel.model.Gender#titleKey</description>
 	<tag-name>genderIcon</tag-name>
 	<component>
-		<component-type>com.icw.ehf.cui.components.ui.icon.GenderIcon</component-type>
+		<component-type>de.cuioss.jsf.components.ui.icon.GenderIcon</component-type>
 		<renderer-type>javax.faces.Text</renderer-type>
 	</component>
 		<attribute>
@@ -2069,7 +2069,7 @@
 		 </description>
 		<tag-name>toolbar</tag-name>
 		<component>
-			<component-type>com.icw.ehf.cui.components.ui.layout.Toolbar</component-type>
+			<component-type>de.cuioss.jsf.components.ui.layout.Toolbar</component-type>
 			<renderer-type>javax.faces.Group</renderer-type>
 		</component>
         <attribute>
@@ -2145,7 +2145,7 @@
 	The label and title is resolved using the cui standard label-resolving mechanism</description>
 	<tag-name>labeledIcon</tag-name>
 	<component>
-		<component-type>com.icw.ehf.cui.components.ui.LabeledIcon</component-type>
+		<component-type>de.cuioss.jsf.components.ui.LabeledIcon</component-type>
 		<renderer-type>javax.faces.Group</renderer-type>
 	</component>
 	  <attribute>
@@ -2291,8 +2291,8 @@
 		</description>
 		<tag-name>panel</tag-name>
 		<component>
-			<component-type>com.icw.ehf.cui.components.ui.layout.BootstrapPanel</component-type>
-			<renderer-type>com.icw.ehf.cui.components.ui.renderer.BootstrapPanelRenderer</renderer-type>
+			<component-type>de.cuioss.jsf.components.ui.layout.BootstrapPanel</component-type>
+			<renderer-type>de.cuioss.jsf.components.ui.renderer.BootstrapPanelRenderer</renderer-type>
 		</component>
 		<attribute>
 			<description>The component identifier for this component.  This value must be
@@ -2398,7 +2398,7 @@
 			Caution: Only used if collapsible=true</description>
 			<name>collapseSwitch</name>
 			<required>false</required>
-			<type>com.icw.ehf.cui.core.api.ui.model.ToggleSwitch</type>
+			<type>de.cuioss.jsf.api.ui.model.ToggleSwitch</type>
 		</attribute>
 		<attribute>
 			<description>Flag indicating whether the component should automatically update on click instead of waiting for the form-submit.
@@ -2427,8 +2427,8 @@
         </description>
         <tag-name>modalDialog</tag-name>
         <component>
-            <component-type>com.icw.ehf.cui.components.ui.layout.BootstrapModalDialog</component-type>
-            <renderer-type>com.icw.ehf.cui.components.ui.renderer.BootstrapModalDialog</renderer-type>
+            <component-type>de.cuioss.jsf.components.ui.layout.BootstrapModalDialog</component-type>
+            <renderer-type>de.cuioss.jsf.components.ui.renderer.BootstrapModalDialog</renderer-type>
         </component>
         <attribute>
         	<description>If set true, script block will be rendered which provide a shortcut javascript calls.
@@ -2571,8 +2571,8 @@
 	the implementer must ensure that it has a form-control specific styleClass set.</description>
 	<tag-name>inputWrapper</tag-name>
 	<component>
-		<component-type>com.icw.ehf.cui.components.ui.layout.InputWrapper</component-type>
-		<renderer-type>com.icw.ehf.cui.components.ui.renderer.InputWrapperRenderer</renderer-type>
+		<component-type>de.cuioss.jsf.components.ui.layout.InputWrapper</component-type>
+		<renderer-type>de.cuioss.jsf.components.ui.renderer.InputWrapperRenderer</renderer-type>
 	</component>
 	  <attribute>
             <description>The component identifier for this component.  This value must be
@@ -2680,8 +2680,8 @@
 		"cui_msg_info", "cui_msg_warn", "cui_msg_error" or "cui_msg_fatal".</description>
  			<tag-name>message</tag-name>
 		<component>
-			<component-type>com.icw.ehf.cui.components.ui.basic.CuiMessage</component-type>
-			<renderer-type>com.icw.ehf.cui.components.ui.renderer.CuiMessageRenderer</renderer-type>
+			<component-type>de.cuioss.jsf.components.ui.basic.CuiMessage</component-type>
+			<renderer-type>de.cuioss.jsf.components.ui.renderer.CuiMessageRenderer</renderer-type>
 		</component>
         <attribute>
             <description>
@@ -2746,7 +2746,7 @@
 			It is used to place buttons within a form context</description>
 			<tag-name>controlGroup</tag-name>
 			<component>
-				<component-type>com.icw.ehf.cui.components.ui.layout.ControlGroup</component-type>
+				<component-type>de.cuioss.jsf.components.ui.layout.ControlGroup</component-type>
 				<renderer-type>javax.faces.Group</renderer-type>
 			</component>
 			<attribute>
@@ -2811,7 +2811,7 @@
 		</description>
 		<tag-name>dateOfBirth</tag-name>
 		<component>
-			<component-type>com.icw.ehf.cui.components.ui.basic.DateOfBirthInput</component-type>
+			<component-type>de.cuioss.jsf.components.ui.basic.DateOfBirthInput</component-type>
 			<renderer-type>javax.faces.Group</renderer-type>
 		</component>
         <attribute>
@@ -2900,10 +2900,10 @@
 		 Deprecated: This component introduces more problems than it solves, Therefore deprecated in cui 4.2.0
 		Use standard h:selectOneMenu instead
 		 An Extension to javax.faces.component.html.HtmlSelectOneMenu introducing our own
-		 com.icw.ehf.cui.components.selection.SelectMenuModel and providing some convinience methods. </description>
+		 de.cuioss.jsf.components.selection.SelectMenuModel and providing some convinience methods. </description>
 		 <tag-name>selectOneMenu</tag-name>
 		 <component>
-		 	<component-type>com.icw.ehf.cui.components.ui.basic.SelectOneMenu</component-type>
+		 	<component-type>de.cuioss.jsf.components.ui.basic.SelectOneMenu</component-type>
 		 	<renderer-type>javax.faces.Menu</renderer-type>
 		 </component>
 		<attribute>
@@ -2951,7 +2951,7 @@
         	<description>The model to be utilized by the selectOneMenue.</description>
         	<name>selectMenuModel</name>
         	<required>true</required>
-        	<type>com.icw.ehf.cui.components.selection.SelectMenuModel</type>
+        	<type>de.cuioss.jsf.components.selection.SelectMenuModel</type>
         </attribute>
  		<attribute>
  			<description>Indicates whether to display an element 'Please select with null value (noSelectionOption)'.
@@ -3585,8 +3585,8 @@
 		</description>
 		<tag-name>navigationMenu</tag-name>
 		<component>
-			<component-type>com.icw.ehf.cui.components.ui.layout.NavigationMenuComponent</component-type>
-			<renderer-type>com.icw.ehf.cui.components.ui.renderer.NavigationMenuRenderer</renderer-type>
+			<component-type>de.cuioss.jsf.components.ui.layout.NavigationMenuComponent</component-type>
+			<renderer-type>de.cuioss.jsf.components.ui.renderer.NavigationMenuRenderer</renderer-type>
 		</component>
         <attribute>
             <description>The component identifier for this component.  This value must be
@@ -3621,7 +3621,7 @@
         	<description>The model to be utilized by the component.</description>
         	<name>menuModel</name>
         	<required>true</required>
-        	<type>com.icw.ehf.cui.components.model.menu.NavigationMenuItem</type>
+        	<type>de.cuioss.jsf.components.model.menu.NavigationMenuItem</type>
         </attribute>
 	</tag>
 
@@ -3630,7 +3630,7 @@
         <tag-name>fileUploadEnventDispatcher</tag-name>
         <behavior>
             <description>ClientBehavior implementation for dispatching action to primefaces file upload cc</description>
-            <behavior-id>com.icw.ehf.cui.components.clientbehavior.FileUploadEnventDispatcher</behavior-id>
+            <behavior-id>de.cuioss.jsf.components.clientbehavior.FileUploadEnventDispatcher</behavior-id>
         </behavior>
         <attribute>
             <description>Name of primefaces fileUpload widget var, where action should be delegate to. Attribute is mandatory!</description>
