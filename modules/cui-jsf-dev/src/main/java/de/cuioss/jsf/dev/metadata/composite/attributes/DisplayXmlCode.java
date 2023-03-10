@@ -7,8 +7,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.event.ComponentSystemEvent;

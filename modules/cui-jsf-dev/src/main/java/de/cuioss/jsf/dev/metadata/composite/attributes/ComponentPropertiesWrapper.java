@@ -4,7 +4,6 @@ import java.beans.FeatureDescriptor;
 import java.beans.PropertyDescriptor;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -123,9 +122,8 @@ public class ComponentPropertiesWrapper implements Serializable {
             }
             if (UIComponent.FACETS_KEY.equals(curName)) {
                 throw new IllegalArgumentException("Facets should not be found here");
-            } else {
-                attributes.add(new AttributePropertyWrapper(descriptor));
             }
+            attributes.add(new AttributePropertyWrapper(descriptor));
             break;
         }
     }

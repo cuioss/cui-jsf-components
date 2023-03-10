@@ -144,8 +144,8 @@ public interface EditableDataListModel<T extends Serializable> extends Serializa
         return false;
     }
 
-
     /**
+     * @param element the element to check.
      * @return boolean indication whether the current item can be deleted.
      */
     default boolean isDeletable(T element) {

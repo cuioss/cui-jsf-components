@@ -3,17 +3,15 @@ package de.cuioss.jsf.dev.ui.components;
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Writer;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Locale;
 
-import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.StateHelper;
+import javax.xml.XMLConstants;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -33,7 +31,6 @@ import org.xml.sax.InputSource;
 
 import de.cuioss.jsf.api.application.navigation.NavigationUtils;
 import de.cuioss.jsf.api.components.base.BaseCuiNamingContainer;
-import de.cuioss.tools.io.FileLoader;
 import de.cuioss.tools.io.FileLoaderUtility;
 import de.cuioss.tools.io.FileTypePrefix;
 import de.cuioss.tools.io.IOStreams;
@@ -74,7 +71,8 @@ import lombok.Getter;
  * <h2>type</h2>
  * <p>
  * The type of the source code, needed for proper formatting. Defaults to 'lang-html'.
- * Must be one of 'lang-html', 'lang-java', 'lang-sql', 'lang-js', 'lang-css', 'lang-yaml', 'lang-properties'.
+ * Must be one of 'lang-html', 'lang-java', 'lang-sql', 'lang-js', 'lang-css', 'lang-yaml',
+ * 'lang-properties'.
  * </p>
  * <h2>description</h2>
  * <p>
@@ -87,21 +85,21 @@ import lombok.Getter;
  *
  * @author Oliver Wolff
  */
-@ResourceDependencies({
-    @ResourceDependency(library = "thirdparty.prettify", name = "prettify.css", target = "head"),
-    @ResourceDependency(library = "thirdparty.prettify", name = "prettify.js", target = "head"),
-    @ResourceDependency(library = "thirdparty.prettify", name = "lang-css.js", target = "head"),
-    @ResourceDependency(library = "thirdparty.prettify", name = "lang-sql.js", target = "head"),
-    @ResourceDependency(library = "thirdparty.prettify", name = "lang-yaml.js", target = "head"),
-    @ResourceDependency(library = "thirdparty.prettify", name = "lang-properties.js", target = "head"),
-    @ResourceDependency(library = "thirdparty.prettify", name = "run_prettify.js",
-        target = "head")})
+@ResourceDependency(library = "thirdparty.prettify", name = "prettify.css", target = "head")
+@ResourceDependency(library = "thirdparty.prettify", name = "prettify.js", target = "head")
+@ResourceDependency(library = "thirdparty.prettify", name = "lang-css.js", target = "head")
+@ResourceDependency(library = "thirdparty.prettify", name = "lang-sql.js", target = "head")
+@ResourceDependency(library = "thirdparty.prettify", name = "lang-yaml.js", target = "head")
+@ResourceDependency(library = "thirdparty.prettify", name = "lang-properties.js", target = "head")
+@ResourceDependency(library = "thirdparty.prettify", name = "run_prettify.js",
+        target = "head")
 @FacesComponent(SourceCodeComponent.COMPONENT_ID)
 public class SourceCodeComponent extends BaseCuiNamingContainer {
 
     private static final CuiLogger log = new CuiLogger(SourceCodeComponent.class);
 
     protected enum LangStyle {
+
         LANG_HTML("lang-html"),
         LANG_JAVA("lang-java"),
         LANG_CSS("lang-css"),
@@ -160,7 +158,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
 
         @Override
         protected void printNamespace(final Writer out, final FormatStack fstack,
-                                      final Namespace ns) {
+                final Namespace ns) {
             // NOOP by design
         }
 
@@ -194,7 +192,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         final var resolved = resolvePath(sourcePath);
         if (null == resolved) {
             return String.format("Unable lo load path '%s', because the file can not be found or is not readable",
-                determineViewRelativePath(sourcePath));
+                    determineViewRelativePath(sourcePath));
         }
         try {
             return IOStreams.toString(resolved.openStream(), StandardCharsets.UTF_8);
@@ -223,7 +221,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         final var requestPath = NavigationUtils.getCurrentView(getFacesContext()).getViewId();
         final var currentFolder = requestPath.substring(0, requestPath.lastIndexOf('/') + 1);
         return new StringBuilder().append("/META-INF").append(currentFolder).append(path)
-            .toString();
+                .toString();
     }
 
     private String resolveFromContainerId(final String sourceContainerId) {
@@ -232,9 +230,11 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         Document document = null;
         try (final var inputStream = loader.inputStream()) {
             final var saxBuilder = new SAXBuilder();
+            saxBuilder.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            saxBuilder.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
             saxBuilder.setExpandEntities(false);
             saxBuilder.setFeature(
-                "http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+                    "http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
             document = saxBuilder.build(new InputSource(inputStream));
         } catch (final JDOMException | IOException e) {
             throw new IllegalStateException("Unable to parse file " + loader.getFileName().getOriginalName(), e);
@@ -249,7 +249,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         }
         if (filteredElements.size() > 1) {
             log.warn("More than one element found on view='{}' with id='{}' found, choosing the first one",
-                loader.getFileName().getOriginalName(), sourceContainerId);
+                    loader.getFileName().getOriginalName(), sourceContainerId);
         }
 
         final var outputter = new XMLOutputter();
@@ -257,7 +257,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         outputter.setFormat(Format.getPrettyFormat());
         if (filteredElements.iterator().next().getChildren().isEmpty()) {
             return Joiner.on(System.lineSeparator())
-                .join(Splitter.on('\n').splitToList(filteredElements.iterator().next().getText()));
+                    .join(Splitter.on('\n').splitToList(filteredElements.iterator().next().getText()));
         }
         return outputter.outputString(filteredElements.iterator().next().getChildren());
     }
@@ -343,7 +343,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
      * @return maxLineLength
      */
     public Integer getMaxLineLength() {
-        final var actual = state.get(MAX_LINE_LENGTH_ATTRIBUTE_KEY, LINE_LENGTH_DEFAULT);
+        final var actual = state.<Integer> get(MAX_LINE_LENGTH_ATTRIBUTE_KEY, LINE_LENGTH_DEFAULT);
         return Math.max(actual, LINE_LENGTH_MINIMUM);
     }
 
@@ -359,7 +359,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
      */
     public String getType() {
         final var defaultValue = LangStyle.LANG_HTML.getStyle();
-        var type = state.get(TYPE_ATTRIBUTE_KEY);
+        var type = state.<String> get(TYPE_ATTRIBUTE_KEY);
         if (null == type) {
             if (null == getSourcePath()) {
                 return defaultValue;

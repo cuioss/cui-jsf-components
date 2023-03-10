@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.beans.BeanInfo;
 
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
 import javax.faces.context.FacesContext;
 
 import de.cuioss.tools.logging.CuiLogger;
