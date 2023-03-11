@@ -2,7 +2,7 @@
 <facelet-taglib version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd">
-    <namespace>http://www.icw.de/commons-webui</namespace>
+    <namespace>https://cuioss.de/commons-webui</namespace>
     <tag>
         <description><![CDATA[Formatting converter for creating / resolving the label of a given CodeType. It
             uses the standard LocaleProducerAccessor for accessing the needed Locale]]></description>
@@ -65,7 +65,7 @@
         </description>
         <tag-name>prettyTimeConverter</tag-name>
         <converter>
-            <converter-id>com.icw.cui.converter.PrettyTimeConverter</converter-id>
+            <converter-id>de.cuioss.cui.converter.PrettyTimeConverter</converter-id>
         </converter>
     </tag>
     <tag>
@@ -132,7 +132,7 @@
             <![CDATA[Renders a message list. It is based on h:messages but iimplicitly set Bootstrap-styling]]></description>
         <tag-name>messages</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.cuimessages</component-type>
+            <component-type>de.cuioss.cui.bootstrap.cuimessages</component-type>
             <renderer-type>javax.faces.Messages</renderer-type>
         </component>
         <attribute>
@@ -270,7 +270,7 @@
            <p>
             Renders a bootstrap style badge. In essence it is an h:outputText with additional configuration
                The title is resolved using the cui standard label-resolving mechanism.</p>
-            <p>A list of all available icons can be found at the <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/cui_components/demo/miscellaneous.jsf">Reference Documentation</a> </p>
+            <p>A list of all available icons can be found at the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/miscellaneous.jsf">Reference Documentation</a> </p>
             <h3>Usage</h3>
                 <table>
                     <tr>
@@ -286,7 +286,7 @@
         </description>
         <tag-name>badge</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.badge</component-type>
+            <component-type>de.cuioss.cui.bootstrap.badge</component-type>
             <renderer-type>javax.faces.Text</renderer-type>
         </component>
         <attribute>
@@ -496,7 +496,7 @@
             </ul>
             <p>
                More information and
-               examples can be found in the <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
+               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
             <h3>Usage</h3>
                 <pre>&lt;cui:formGroup /&gt;</pre>
              <h3>Styling</h3>
@@ -507,8 +507,8 @@
         </description>
         <tag-name>formGroup</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.form_group</component-type>
-            <renderer-type>com.icw.cui.bootstrap.layout_renderer</renderer-type>
+            <component-type>de.cuioss.cui.bootstrap.form_group</component-type>
+            <renderer-type>de.cuioss.cui.bootstrap.layout_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be
@@ -560,7 +560,7 @@
             </p>
             <p>
                More information and
-               examples can be found in the <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
+               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
             <h3>Usage</h3>
                 <pre>&lt;cui:inputGroup /&gt;</pre>
              <h3>Styling</h3>
@@ -571,8 +571,8 @@
         </description>
         <tag-name>inputGroup</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.input_group</component-type>
-            <renderer-type>com.icw.cui.bootstrap.layout_renderer</renderer-type>
+            <component-type>de.cuioss.cui.bootstrap.input_group</component-type>
+            <renderer-type>de.cuioss.cui.bootstrap.layout_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be
@@ -1642,8 +1642,8 @@
         </description>
         <tag-name>genderIcon</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.genderIcon</component-type>
-            <renderer-type>com.icw.cui.bootstrap.icon_renderer</renderer-type>
+            <component-type>de.cuioss.cui.bootstrap.genderIcon</component-type>
+            <renderer-type>de.cuioss.cui.bootstrap.icon_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be unique
@@ -1733,7 +1733,7 @@
         <description><![CDATA[Renders a toolbar component that can be pinned to top or bottom. Therefore the
             bootstrap affix plugin is used.
             <h3>Styling</h3>
-            The sass module is defined within cui-styling, the name is 'com.icw.cui/_toolbar.scss
+            The sass module is defined within cui-styling, the name is 'de.cuioss.cui/_toolbar.scss
 			<ul>
 				<li>Renders the class 'toolbar'</li>
 				<li>If the size is set it additionally renders the corresponding size -context class, e.g. toolbar-xl for
@@ -1743,8 +1743,8 @@
         </description>
         <tag-name>toolbar</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.toolbar</component-type>
-            <renderer-type>com.icw.cui.bootstrap.layout_renderer</renderer-type>
+            <component-type>de.cuioss.cui.bootstrap.toolbar</component-type>
+            <renderer-type>de.cuioss.cui.bootstrap.layout_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be unique
@@ -1830,7 +1830,7 @@
            <p>
             Renders an icon with a text. The icon is rendered as a span with the according classes.
                The label and icons are resolved using the cui standard label-resolving mechanism.</p>
-            <p>Sample can be found at the <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/icons/icon_components.jsf">Reference Documentation</a> </p>
+            <p>Sample can be found at the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/icons/icon_components.jsf">Reference Documentation</a> </p>
             <h3>Usage</h3>
                 <table>
                     <tr>
@@ -1847,8 +1847,8 @@
         </description>
         <tag-name>labeledIcon</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.icon.labeled</component-type>
-            <renderer-type>com.icw.cui.bootstrap.icon.labeled_renderer</renderer-type>
+            <component-type>de.cuioss.cui.bootstrap.icon.labeled</component-type>
+            <renderer-type>de.cuioss.cui.bootstrap.icon.labeled_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be unique
@@ -1986,7 +1986,7 @@
        ]]></description>
         <tag-name>modalControl</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.modal_dialog_control</component-type>
+            <component-type>de.cuioss.cui.bootstrap.modal_dialog_control</component-type>
         </component>
         <attribute>
             <description><![CDATA[Flag indicating whether or not this component should be rendered (during
@@ -2031,8 +2031,8 @@
         </description>
         <tag-name>inlineConfirm</tag-name>
         <component>
-            <component-type>com.icw.cui.components.inline_confirm</component-type>
-            <renderer-type>com.icw.cui.components.inline_confirm_renderer</renderer-type>
+            <component-type>de.cuioss.cui.components.inline_confirm</component-type>
+            <renderer-type>de.cuioss.cui.components.inline_confirm_renderer</renderer-type>
         </component>
     </tag>
     <tag>
@@ -2042,7 +2042,7 @@
         The same for footerKey /footerValue as text content for footer.
         There are different general styles available (state): one of 'primary', 'success', 'info', 'warning', 'danger'.
         If none of those is set it uses 'default'. </p>
-        <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/cui_components/demo/dialog.jsf">Reference Documentation</a>
+        <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/dialog.jsf">Reference Documentation</a>
         <h3>Usage</h3>
         <h3>Using cui:modalControl</h3>
          <pre>
@@ -2062,8 +2062,8 @@
         </description>
         <tag-name>modalDialog</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.modal_dialog</component-type>
-            <renderer-type>com.icw.cui.bootstrap.modal_dialog_renderer</renderer-type>
+            <component-type>de.cuioss.cui.bootstrap.modal_dialog</component-type>
+            <renderer-type>de.cuioss.cui.bootstrap.modal_dialog_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The id is a required attribute. It must be unique within the page context. It is used to identify the component from the corresponding cui:modalControl.
@@ -2179,8 +2179,8 @@
             resized.]]></description>
         <tag-name>updateOnResize</tag-name>
         <component>
-            <component-type>com.icw.cui.components.updateOnResize</component-type>
-            <renderer-type>com.icw.cui.components.updateOnResize_renderer</renderer-type>
+            <component-type>de.cuioss.cui.components.updateOnResize</component-type>
+            <renderer-type>de.cuioss.cui.components.updateOnResize_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[Comma separated list of component ids to be updated.]]>
@@ -2326,14 +2326,14 @@
             <![CDATA[
              <p>
                 Renders a <a href="http://getbootstrap.com/components/#alerts">bootstrap alert</a>.  More information and
-               examples can be found in the <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/cui_components/demo/miscellaneous.jsf" >Reference Documentation</a></p>
+               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/miscellaneous.jsf" >Reference Documentation</a></p>
        ]]>
         </description>
         <tag-name>notificationBox</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.notificationbox</component-type>
+            <component-type>de.cuioss.cui.bootstrap.notificationbox</component-type>
             <handler-class>de.cuioss.jsf.bootstrap.notification.NotificationBoxHandler</handler-class>
-            <renderer-type>com.icw.cui.bootstrap.notificationbox_renderer</renderer-type>
+            <renderer-type>de.cuioss.cui.bootstrap.notificationbox_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be unique
@@ -2477,12 +2477,12 @@
     the implementer must ensure that it has a form-control specific styleClass set.</p><p>
     To display additional elements a 'prepend' and 'append' facet can be added. This triggers rendering the input
     element into a 'input-group'.</p><p> More information and
-    examples can be found in the <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/cui_components/demo/labeledContainerDemo.jsf" >Reference Documentation</a>
+    examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/labeledContainerDemo.jsf" >Reference Documentation</a>
     </p>]]></description>
         <tag-name>labeledContainer</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.labeledContainer</component-type>
-            <renderer-type>com.icw.cui.bootstrap.labeledContainer_renderer</renderer-type>
+            <component-type>de.cuioss.cui.bootstrap.labeledContainer</component-type>
+            <renderer-type>de.cuioss.cui.bootstrap.labeledContainer_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be unique
@@ -2771,7 +2771,7 @@
         </description>
         <tag-name>inputGuard</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.guarded_input</component-type>
+            <component-type>de.cuioss.cui.bootstrap.guarded_input</component-type>
             <renderer-type>javax.faces.Hidden</renderer-type>
         </component>
         <attribute>
@@ -2986,13 +2986,13 @@
     <tag>
         <description><![CDATA[
         Renders a bootstrap conform accordion.
-        More information and examples can be found in the <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/cui_components/demo/panel.jsf" >Reference Documentation</a></p>
+        More information and examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/panel.jsf" >Reference Documentation</a></p>
         ]]>
         </description>
         <tag-name>accordion</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.accordion</component-type>
-            <renderer-type>com.icw.cui.bootstrap.accordion_renderer</renderer-type>
+            <component-type>de.cuioss.cui.bootstrap.accordion</component-type>
+            <renderer-type>de.cuioss.cui.bootstrap.accordion_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be unique
@@ -3057,14 +3057,14 @@
             state within a given bean, because ui:repeat removes the state for the components.
           </p>
           <p>
-            More information and examples can be found in the <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/cui_components/demo/panel.jsf" >Reference Documentation</a></p>
+            More information and examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/panel.jsf" >Reference Documentation</a></p>
           </p>
             ]]>
         </description>
         <tag-name>panel</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.panel</component-type>
-            <renderer-type>com.icw.cui.bootstrap.panel_renderer</renderer-type>
+            <component-type>de.cuioss.cui.bootstrap.panel</component-type>
+            <renderer-type>de.cuioss.cui.bootstrap.panel_renderer</renderer-type>
         </component>
         <attribute>
             <description>
@@ -3225,11 +3225,11 @@
 			 itself it renders no output but changes the attributes of the parent element accordingly.
 			 The actual rendering of the tooltip is done by the javascript "component.enabler.tooltip.js", see  <a href="http://getbootstrap.com/javascript/#tooltips">bootstrap tooltip</a>
 			   More information and examples can be found in the
-			   <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/cui_components/demo/miscellaneous.jsf" >Reference Documentation</a></p>
+			   <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/miscellaneous.jsf" >Reference Documentation</a></p>
        ]]></description>
         <tag-name>tooltip</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.tooltip</component-type>
+            <component-type>de.cuioss.cui.bootstrap.tooltip</component-type>
         </component>
         <attribute>
             <description><![CDATA[Flag indicating whether or not this component should be rendered (during
@@ -3333,7 +3333,7 @@
             </ul>
              <p>
                More information and
-               examples can be found in the <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
+               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
             <h3>Usage</h3>
                 <pre>
 &lt;cui:row&gt;
@@ -3356,8 +3356,8 @@
         </description>
         <tag-name>column</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.column</component-type>
-            <renderer-type>com.icw.cui.bootstrap.layout_renderer</renderer-type>
+            <component-type>de.cuioss.cui.bootstrap.column</component-type>
+            <renderer-type>de.cuioss.cui.bootstrap.layout_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component.  This value must be
@@ -3432,7 +3432,7 @@
             </ul>
             <p>
                More information and
-               examples can be found in the <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
+               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
              <h3>Styling</h3>
              <ul>
                 <li>The marker css class is 'form-group' and 'col-md-' + size attribute</li>
@@ -3442,8 +3442,8 @@
         </description>
         <tag-name>controlGroup</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.controlgroup</component-type>
-            <renderer-type>com.icw.cui.bootstrap.controlgroup_renderer</renderer-type>
+            <component-type>de.cuioss.cui.bootstrap.controlgroup</component-type>
+            <renderer-type>de.cuioss.cui.bootstrap.controlgroup_renderer</renderer-type>
         </component>
         <attribute>
             <description>
@@ -3502,7 +3502,7 @@
            <p>
             Renders an Icon according to the cui-icon contract. The icon is rendered as a span with the according classes.
                The title is resolved using the cui standard label-resolving mechanism.</p>
-            <p>A list of all available icons can be found at the <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/icons/cui_icons.jsf">Reference Documentation</a> </p>
+            <p>A list of all available icons can be found at the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/icons/cui_icons.jsf">Reference Documentation</a> </p>
             <h3>Usage</h3>
                 <table>
                     <tr>
@@ -3524,8 +3524,8 @@
         </description>
         <tag-name>icon</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.icon</component-type>
-            <renderer-type>com.icw.cui.bootstrap.icon_renderer</renderer-type>
+            <component-type>de.cuioss.cui.bootstrap.icon</component-type>
+            <renderer-type>de.cuioss.cui.bootstrap.icon_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be
@@ -3620,12 +3620,12 @@
         not one of the attributes errorClass, infoClass, .. . Depending on the severity of the faces Messages,
         there will we be rendered the class attribute to the surrounding span:
         "cui_msg_info", "cui_msg_warn", "cui_msg_error" or "cui_msg_fatal".</p><p> More information and
-    examples can be found in the <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a>
+    examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a>
     </p>]]></description>
         <tag-name>message</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.cuimessage</component-type>
-            <renderer-type>com.icw.cui.bootstrap.cuimessage_renderer</renderer-type>
+            <component-type>de.cuioss.cui.bootstrap.cuimessage</component-type>
+            <renderer-type>de.cuioss.cui.bootstrap.cuimessage_renderer</renderer-type>
         </component>
         <attribute>
             <description>
@@ -3689,8 +3689,8 @@
         <description>
             <![CDATA[
              <p>
-                Renders an MimeTypeIcon regarding to the cui-icon contract. The actual rendering model is documented in the <a href="https://wiki.icw.int/x/44HzAg">Wiki</a></p>
-             <p>A list of all available mimeTypeIcons can be found at the <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/icons/mime_types.jsf">Reference Documentation</a> </p>
+                Renders an MimeTypeIcon regarding to the cui-icon contract.</p>
+             <p>A list of all available mimeTypeIcons can be found at the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/icons/mime_types.jsf">Reference Documentation</a> </p>
 
             <h3>Usage</h3>
                 <table>
@@ -3708,14 +3708,13 @@
                  <ul>
                     <li>The marker css classes are cui-icon-stack and cui-mime-type</li>
                     <li>Sizing: cui-icon-xl, cui-icon-lg,..</li>
-                    <li>The actual rendering model is documented in the <a href="https://wiki.icw.int/x/44HzAg">Wiki</a></li>
                  </ul>
        ]]>
         </description>
         <tag-name>mimeTypeIcon</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.icon.mime_type</component-type>
-            <renderer-type>com.icw.cui.bootstrap.icon.mime_type_renderer</renderer-type>
+            <component-type>de.cuioss.cui.bootstrap.icon.mime_type</component-type>
+            <renderer-type>de.cuioss.cui.bootstrap.icon.mime_type_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be
@@ -3812,8 +3811,8 @@
         </description>
         <tag-name>navigationMenu</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.navigationmenu</component-type>
-            <renderer-type>com.icw.cui.bootstrap.navigationmenu_renderer</renderer-type>
+            <component-type>de.cuioss.cui.bootstrap.navigationmenu</component-type>
+            <renderer-type>de.cuioss.cui.bootstrap.navigationmenu_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component.  This value must be
@@ -3871,11 +3870,11 @@
            <p>
             Renders an Label for input elements.
                The label and title are resolved using the cui standard label-resolving mechanism.</p>
-            <p>Sample can be found at the <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf">Reference Documentation</a> </p>]]>
+            <p>Sample can be found at the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf">Reference Documentation</a> </p>]]>
         </description>
         <tag-name>outputLabel</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.outputlabel</component-type>
+            <component-type>de.cuioss.cui.bootstrap.outputlabel</component-type>
             <renderer-type>javax.faces.Label</renderer-type>
         </component>
         <attribute>
@@ -3996,7 +3995,7 @@
             </ul>
             <p>
                More information and
-               examples can be found in the <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
+               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
             <h3>Usage</h3>
                 <pre>&lt;cui:row /&gt;</pre>
              <h3>Styling</h3>
@@ -4007,8 +4006,8 @@
         </description>
         <tag-name>row</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.row</component-type>
-            <renderer-type>com.icw.cui.bootstrap.layout_renderer</renderer-type>
+            <component-type>de.cuioss.cui.bootstrap.row</component-type>
+            <renderer-type>de.cuioss.cui.bootstrap.layout_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component.  This value must be
@@ -4053,8 +4052,8 @@
         to the surrounding div. For more complex layouts use controlGroup.]]></description>
         <tag-name>quickControlGroup</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.quickControlGroup</component-type>
-            <renderer-type>com.icw.cui.bootstrap.layout_renderer</renderer-type>
+            <component-type>de.cuioss.cui.bootstrap.quickControlGroup</component-type>
+            <renderer-type>de.cuioss.cui.bootstrap.layout_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be
@@ -4165,15 +4164,15 @@
              <h3>Ajax Events</h3>
              All HtmlInputText AJAX events are supported.
              <h3>Usage</h3>
-             <p>See <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/cui_components/demo/tag.jsf">Reference Documentation</a></p>
+             <p>See <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/tag.jsf">Reference Documentation</a></p>
              <h3>Styling</h3>
              <p>The styling is defined by the selecitze.js plugin, see <a href="https://selectize.github.io/selectize.js/">Selectize</a> for details</p>.
                 ]]>
         </description>
         <tag-name>tagInput</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.taginput</component-type>
-            <renderer-type>com.icw.cui.bootstrap.taginput_renderer</renderer-type>
+            <component-type>de.cuioss.cui.bootstrap.taginput</component-type>
+            <renderer-type>de.cuioss.cui.bootstrap.taginput_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be
@@ -4322,7 +4321,7 @@
              <p>
                 Renders an Tag similar to a JIRA Tag. The tag is rendered within a span with the according classes.
                The content and title are resolved using the cui standard label-resolving mechanism. More information and
-               examples can be found in the <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/cui_components/demo/tag.jsf" >Reference Documentation</a></p>
+               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/tag.jsf" >Reference Documentation</a></p>
             <h3>Usage</h3>
                 <table>
                     <tr>
@@ -4344,9 +4343,9 @@
         </description>
         <tag-name>tag</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.tag</component-type>
+            <component-type>de.cuioss.cui.bootstrap.tag</component-type>
             <handler-class>de.cuioss.jsf.bootstrap.tag.TagHandler</handler-class>
-            <renderer-type>com.icw.cui.bootstrap.tag_renderer</renderer-type>
+            <renderer-type>de.cuioss.cui.bootstrap.tag_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be
@@ -4500,7 +4499,7 @@
             <![CDATA[
              <p>
                Renders a number of <cui:tag /> as a a list. The tags are created from the the given Collection of ConceptKeyType or String, see attributes #value. If you need fine grained control use <cui:tag /> directly. The attributes #state, #size and #contentEscape will be passed through to the used TagComponent.
-               More information and examples can be found in the <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/cui_components/demo/tag.jsf" >Reference Documentation</a></p>
+               More information and examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/tag.jsf" >Reference Documentation</a></p>
             <h3>Usage</h3>
                 <pre>&lt;tagList value="#{bean.tags}" /&gt;</pre>
              <h3>Styling</h3>
@@ -4513,8 +4512,8 @@
         </description>
         <tag-name>tagList</tag-name>
         <component>
-            <component-type>com.icw.cui.bootstrap.taglist</component-type>
-            <renderer-type>com.icw.cui.bootstrap.taglist_renderer</renderer-type>
+            <component-type>de.cuioss.cui.bootstrap.taglist</component-type>
+            <renderer-type>de.cuioss.cui.bootstrap.taglist_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be unique
@@ -5375,7 +5374,7 @@
                  </p>
                  <p>
                    More information and examples can be found in the
-                   <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/cui_components/demo/miscellaneous.jsf" >Reference Documentation</a>
+                   <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/miscellaneous.jsf" >Reference Documentation</a>
                  </p>
            ]]></description>
         <tag-name>blockElement</tag-name>

@@ -18,7 +18,7 @@ import de.cuioss.tools.logging.CuiLogger;
 /**
  * @author Oliver Wolff
  */
-@FacesComponent("ehf-reference-webui-portal.displayXmlCode")
+@FacesComponent("cuioss-reference-webui-portal.displayXmlCode")
 public final class DisplayXmlCode extends UINamingContainer {
 
     private static final CuiLogger log = new CuiLogger(DisplayXmlCode.class);

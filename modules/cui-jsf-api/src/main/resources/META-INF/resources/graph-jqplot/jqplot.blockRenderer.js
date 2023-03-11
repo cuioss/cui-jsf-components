@@ -38,7 +38,7 @@
         // true to escape html in the box label.
         this.escapeHtml = false;
         // prop: insertBreaks
-        // true to turn spaces in data block label into html breaks <br />.
+        // true to turn spaces in data block label into html breaks <br>.
         this.insertBreaks = true;
         // prop: varyBlockColors
         // true to vary the color of each block in this series according to
@@ -127,7 +127,7 @@
                 css = d[3];
             }
             if (this.insertBreaks){ 
-                t = t.replace(/ /g, '<br />');
+                t = t.replace(/ /g, '<br>');
             }
             css = $.extend(true, {}, this.css, css);
             // create a div

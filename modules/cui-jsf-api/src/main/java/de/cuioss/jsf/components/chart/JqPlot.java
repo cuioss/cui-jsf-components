@@ -64,7 +64,7 @@ import lombok.ToString;
  * | ... and so on
  *
  * @see <a href="http://www.jqplot.com/docs/files/optionsTutorial-txt.html">OptionsTutorial</a>
- * @author i000576
+ * @author Eugen Fischer
  */
 @ToString(of = "targetId")
 @EqualsAndHashCode(of = "targetId", callSuper = false)
@@ -208,7 +208,7 @@ public class JqPlot extends JsObject {
     /**
      * JqPlot provide lazy initialization for parameter objects
      *
-     * @author i000576
+     * @author Eugen Fischer
      */
     @ToString
     @EqualsAndHashCode

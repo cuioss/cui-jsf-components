@@ -34,7 +34,7 @@ import lombok.ToString;
  * </p>
  *
  * @author Oliver Wolff Oliver Wolff
- * @author i000576 Eugen Fischer
+ * @author Eugen Fischer Eugen Fischer
  * @param <K>
  *            key type must be {@link Serializable}
  * @param <T>

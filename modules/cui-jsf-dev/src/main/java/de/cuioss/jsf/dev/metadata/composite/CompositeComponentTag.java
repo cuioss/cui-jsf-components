@@ -26,7 +26,7 @@ import de.cuioss.tools.logging.CuiLogger;
  *
  * @author e0571
  */
-@FacesComponent("com.icw.cui.dev.compositeComponentTag")
+@FacesComponent("de.cuioss.cui.dev.compositeComponentTag")
 public final class CompositeComponentTag extends UINamingContainer {
 
     /** Default suffix for xhtml components. */

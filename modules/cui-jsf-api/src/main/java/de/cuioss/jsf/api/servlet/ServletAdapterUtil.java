@@ -19,7 +19,7 @@ import lombok.experimental.UtilityClass;
  * </p>
  *
  * @author Oliver Wolff
- * @author Nina Petersmann (i000656)
+ * @author Nina Petersmann
  */
 @UtilityClass
 public final class ServletAdapterUtil {

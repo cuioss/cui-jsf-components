@@ -7,7 +7,7 @@ import lombok.ToString;
 /**
  * JsNumber consolidates {@link JsValue} with {@link Number} type content
  *
- * @author i000576
+ * @author Eugen Fischer
  * @param <T> bounded {@link Number} type
  */
 @ToString

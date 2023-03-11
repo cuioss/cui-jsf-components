@@ -448,7 +448,7 @@
             for (var i=0; i<c.tooltipAxisGroups.length; i++) {
                 g = c.tooltipAxisGroups[i];
                 if (addbr) {
-                    s += '<br />';
+                    s += '<br>';
                 }
                 if (c.useAxesFormatters) {
                     for (var j=0; j<g.length; j++) {
@@ -494,7 +494,7 @@
                             sy = data[1];
                         }
                         if (addbr) {
-                            s += '<br />';
+                            s += '<br>';
                         }
                         s += $.jqplot.sprintf(c.tooltipFormatString, label, sx, sy);
                         addbr = true;

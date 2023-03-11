@@ -13,7 +13,7 @@ import lombok.ToString;
  * Color property combine {@linkplain Color} as {@linkplain JsValue} and {@linkplain JsProperty} to
  * be able to provide simple way to add any color property to an complex {@linkplain JsObject}
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @ToString
 @EqualsAndHashCode

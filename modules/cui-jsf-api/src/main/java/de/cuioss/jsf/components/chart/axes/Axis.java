@@ -28,7 +28,7 @@ import lombok.ToString;
  * properties can be set or overriden by the options passed in from the user.
  *
  * @see <a href="http://www.jqplot.com/docs/files/jqplot-core-js.html#Axis.labelOptions"></a>
- * @author i000576
+ * @author Eugen Fischer
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)

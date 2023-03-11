@@ -21,7 +21,7 @@ import lombok.ToString;
  * attribute-name is "availableThemes".</li>
  * <li>The default theme is "Blue", attribute-name is "defaultTheme"</li>
  * <li>The default css name is application.css, attribute-name is "cssName"</li>
- * <li>The default library is 'com.icw.portal.css', attribute-name is "cssLibrary"</li>
+ * <li>The default library is 'de.cuioss.portal.css', attribute-name is "cssLibrary"</li>
  * <ul>
  * <p>
  * All this attributes can be altered by overwriting the corresponding resource within the
@@ -65,11 +65,11 @@ public class ThemeConfigurationImpl implements ThemeConfiguration, Serializable 
     private String cssName = "application.css";
 
     /**
-     * Defaults to "com.icw.portal.css"
+     * Defaults to "de.cuioss.portal.css"
      */
     @Getter
     @Setter
-    private String cssLibrary = "com.icw.portal.css";
+    private String cssLibrary = "de.cuioss.portal.css";
 
     /**
      * Bean name for looking up instances.

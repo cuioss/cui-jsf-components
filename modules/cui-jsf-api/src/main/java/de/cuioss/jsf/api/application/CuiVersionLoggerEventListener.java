@@ -9,7 +9,7 @@ import de.cuioss.tools.logging.CuiLogger;
  * CuiVersionLoggerEventListener run once at jsf application start<br/>
  * and log cui version information. The content is places at project manifest.
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 public class CuiVersionLoggerEventListener implements SystemEventListener {
 

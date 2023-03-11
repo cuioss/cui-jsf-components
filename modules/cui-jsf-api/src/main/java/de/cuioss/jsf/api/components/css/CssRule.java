@@ -18,7 +18,7 @@ import lombok.ToString;
 /**
  * Class represent a single Css rule and provide a simplified api to interact with
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @ToString
 @EqualsAndHashCode(of = "selector")

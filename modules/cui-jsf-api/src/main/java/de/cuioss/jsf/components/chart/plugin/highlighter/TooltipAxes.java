@@ -8,7 +8,7 @@ import lombok.Getter;
  * Which axes to display in tooltip, 'x', 'y' or 'both', 'xy' or 'yx' 'both' and 'xy' are
  * equivalent, 'yx' reverses order of labels.
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 public enum TooltipAxes {
 

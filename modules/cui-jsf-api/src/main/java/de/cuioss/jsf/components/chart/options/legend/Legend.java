@@ -17,7 +17,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * @author i000576
+ * @author Eugen Fischer
  * @see <a href="http://www.jqplot.com/docs/files/jqplot-core-js.html#Legend">Legend</a>
  */
 @ToString

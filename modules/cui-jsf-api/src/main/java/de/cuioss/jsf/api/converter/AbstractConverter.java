@@ -17,7 +17,7 @@ import de.cuioss.jsf.api.application.message.MessageProducerAccessor;
  *
  * @param <T> bounded type for converter
  *
- * @author Matthias Schmidt (i001425)
+ * @author Matthias Schmidt
  */
 public abstract class AbstractConverter<T> implements Converter<T> {
 

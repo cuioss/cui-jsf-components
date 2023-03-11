@@ -11,7 +11,7 @@ import java.io.Serializable;
  * care handling of rules.
  *
  * @see StrategyProviderImpl as implementation of StrategyProvider
- * @author i000576
+ * @author Eugen Fischer
  * @param <K>
  *            bounded type for conditions must be serializable
  * @param <V>

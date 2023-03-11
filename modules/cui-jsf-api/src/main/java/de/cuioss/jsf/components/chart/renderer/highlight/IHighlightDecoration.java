@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Provide Highlight Decoration Methods
  *
- * @author i000576
+ * @author Eugen Fischer
  * @param <T>
  *            at least {@link Serializable}
  */

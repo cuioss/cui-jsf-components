@@ -6,8 +6,7 @@ import de.cuioss.jsf.api.components.model.lazyloading.LazyLoadingModel;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
 
 /**
- * Data model for the widget component to be used at patient overview. See
- * https://wiki.icw.int/display/PE/PEP+Information+Architecture.
+ * Data model for the widget component to be used at patient overview.
  *
  * @author Matthias Walliczek
  */

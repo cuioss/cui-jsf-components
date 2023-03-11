@@ -13,7 +13,7 @@ import lombok.experimental.Delegate;
 /**
  * The default jqPlot marker renderer, rendering the points on the line.
  *
- * @author i000576
+ * @author Eugen Fischer
  * @see <a href=
  *      "http://www.jqplot.com/docs/files/jqplot-markerRenderer-js.html#$.jqplot.MarkerRenderer">MarkerRenderer</a>
  */

@@ -18,7 +18,7 @@ import lombok.experimental.Delegate;
 /**
  * A plugin renderer for jqPlot to draw a bar plot
  *
- * @author i000576
+ * @author Eugen Fischer
  * @see <a href="http://www.jqplot.com/docs/files/plugins/jqplot-barRenderer-js.html">BarRenderer
  *      </a>
  */

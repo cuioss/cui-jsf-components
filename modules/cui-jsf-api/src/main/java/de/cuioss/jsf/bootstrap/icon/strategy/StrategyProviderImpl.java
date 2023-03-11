@@ -17,7 +17,7 @@ import lombok.ToString;
  * Strategy Provider Implementation. Furthermore StrategyProviderImpl provide a builder to create
  * the StrategyProvider (see {@linkplain Builder}).
  *
- * @author i000576
+ * @author Eugen Fischer
  * @param <K> bounded type for condition must be serializable
  * @param <V> bounded type for result must be serializable
  */
@@ -62,7 +62,7 @@ public class StrategyProviderImpl<K extends Serializable, V extends Serializable
      * Builder instances can be reused - it is safe to call {@link #build} multiple times to build
      * multiple maps in series. Each map is a superset of the maps created before it.
      *
-     * @author i000576
+     * @author Eugen Fischer
      * @param <K> bounded type for condition must be serializable
      * @param <V> bounded type for result must be serializable
      */

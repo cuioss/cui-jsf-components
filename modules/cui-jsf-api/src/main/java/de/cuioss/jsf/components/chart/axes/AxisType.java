@@ -11,7 +11,7 @@ import lombok.Getter;
  * There are 2 x axes, 'xaxis' and 'x2axis', and 9 y axes, 'yaxis', ‘y2axis’. ‘y3axis’, ... Any or
  * all of which may be specified.
  *
- * @author i000576
+ * @author Eugen Fischer
  * @see <a
  *      href="http://www.jqplot.com/docs/files/jqplot-core-js.html#Axis.Properties">jqplot-core-js
  *      axis properties</a>

@@ -12,7 +12,7 @@ import javax.faces.component.html.HtmlSelectOneMenu;
  * component store the attribute value in AttributeMap but use StateHolder there
  * is no common easy way to set component disabled.
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 public enum DisableUIComponentStrategy {
 

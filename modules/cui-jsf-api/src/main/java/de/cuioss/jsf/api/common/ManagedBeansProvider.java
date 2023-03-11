@@ -11,7 +11,6 @@ import javax.faces.context.FacesContext;
  *
  *             Provide methods to retrieve managed beans from EL context.
  *
- * @author i000325
  */
 @Deprecated // use CuiBeanManager instead
 public final class ManagedBeansProvider {

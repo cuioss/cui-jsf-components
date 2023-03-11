@@ -10,7 +10,7 @@ import lombok.ToString;
  * Colors are displayed combining RED, GREEN, and BLUE light.
  *
  * @see <a href="http://www.w3schools.com/cssref/css_colors.asp">Css Colors</a>
- * @author i000576
+ * @author Eugen Fischer
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)

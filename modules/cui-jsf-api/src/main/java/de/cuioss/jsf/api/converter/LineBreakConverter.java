@@ -47,7 +47,7 @@ public class LineBreakConverter extends AbstractConverter<String> {
 
     @Getter
     @Setter
-    private String delimiter = "<br />";
+    private String delimiter = "<br>";
 
     @Override
     protected String convertToString(final FacesContext context, final UIComponent component,

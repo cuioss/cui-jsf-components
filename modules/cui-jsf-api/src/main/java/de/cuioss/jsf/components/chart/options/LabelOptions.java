@@ -12,7 +12,7 @@ import lombok.experimental.Delegate;
 /**
  * Options passed to the label renderer.
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)

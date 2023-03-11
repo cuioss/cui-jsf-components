@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Interface describe methods to provide functionality for tracing value.
  * It should be possible to change / retrieve the value and roll-back this to default.
  *
- * @author i000576
+ * @author Eugen Fischer
  * @param <T> bounded parameter must be {@link Serializable}
  */
 public interface ITracedValue<T extends Serializable> extends Serializable {

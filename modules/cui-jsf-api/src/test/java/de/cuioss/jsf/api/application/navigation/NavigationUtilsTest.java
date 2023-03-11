@@ -26,7 +26,7 @@ import de.cuioss.tools.net.UrlParameter;
 
 class NavigationUtilsTest extends JsfEnabledTestEnvironment implements ApplicationConfigurator, RequestConfigurator {
 
-    private static final String ICW_GLOBAL_COM = "http://de.icw-global.com/index.html";
+    private static final String CUIOSS_DE = "http://cuioss.de/index.html";
 
     private static final String PARAM_VALUE = "param-value";
 
@@ -75,7 +75,7 @@ class NavigationUtilsTest extends JsfEnabledTestEnvironment implements Applicati
 
     @Test
     void testSendRedirectWithUrl() throws MalformedURLException {
-        final var url = new URL(ICW_GLOBAL_COM);
+        final var url = new URL(CUIOSS_DE);
         NavigationUtils.executeRedirect(url);
         verifyRedirect("/index.html");
     }

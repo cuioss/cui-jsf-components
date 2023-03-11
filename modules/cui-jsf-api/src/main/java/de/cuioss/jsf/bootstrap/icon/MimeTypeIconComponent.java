@@ -15,12 +15,11 @@ import lombok.experimental.Delegate;
 
 /**
  * <p>
- * Renders an MimeTypeIcon regarding to the cui-icon contract. The actual rendering model is
- * documented in the <a href="https://wiki.icw.int/x/44HzAg">Wiki</a>
+ * Renders an MimeTypeIcon regarding to the cui-icon contract.
  * </p>
  * <p>
  * A list of all available mimeTypeIcons can be found at the <a href=
- * "http://ehf-ui-trunk.ci.dev.icw.int:8080/cui-reference-documentation/faces/pages/documentation/icons/mime_types.jsf">
+ * "https://cuioss.de/cui-reference-documentation/faces/pages/documentation/icons/mime_types.jsf">
  * Reference Documentation</a>
  * </p>
  * <h2>Attributes</h2>

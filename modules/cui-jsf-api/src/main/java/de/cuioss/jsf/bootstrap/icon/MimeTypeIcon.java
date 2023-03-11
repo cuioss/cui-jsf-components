@@ -19,7 +19,7 @@ import lombok.Getter;
  * Currently supported mime types see https://jira.x-tention.com/browse/VMR-5009 <br/>
  *
  * @author Oliver Wolff
- * @author i000576 (Eugen Fischer)
+ * @author Eugen Fischer
  */
 public enum MimeTypeIcon {
 

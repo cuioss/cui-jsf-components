@@ -17,7 +17,7 @@ import de.cuioss.test.valueobjects.api.property.PropertyReflectionConfig;
 @PropertyReflectionConfig(skip = true)
 class TagLibTest extends ValueObjectTest<TagLib> {
 
-    private static final String CUI_NAMESPACE = "http://www.icw.de/commons-webui-test";
+    private static final String CUI_NAMESPACE = "https://cuioss.de/commons-webui-test";
 
     private static final String TAGLIB = "/commons-webui-test.taglib.xml";
 

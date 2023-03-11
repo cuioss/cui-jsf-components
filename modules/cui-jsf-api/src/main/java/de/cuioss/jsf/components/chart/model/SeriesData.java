@@ -19,7 +19,7 @@ import lombok.ToString;
  * {@code [ [[x1, y1], [x2, y2],...], [y1, y2, ...] ]}. <br/>
  * In sum it's a list of lists which could represent single or tuple data for different series.
  *
- * @author Eugen Fischer ( i000576 )
+ * @author Eugen Fischer ( Eugen Fischer )
  */
 @ToString
 @EqualsAndHashCode

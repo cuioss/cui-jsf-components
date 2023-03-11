@@ -33,7 +33,7 @@ public class EditableDataListComponent extends BaseCuiNamingContainer {
     /**
      * The componentId for this component.
      */
-    public static final String DATA_LIST_COMPONENT = "com.icw.cui.bootstrap.editableDataList";
+    public static final String DATA_LIST_COMPONENT = "de.cuioss.cui.bootstrap.editableDataList";
 
     private final BooleanAttributeAccessor doubleClickEnabledAccesor =
         new BooleanAttributeAccessor("enableDoubleClickEdit", false, false);

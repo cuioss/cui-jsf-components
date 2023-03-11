@@ -10,7 +10,7 @@ import de.cuioss.test.jsf.converter.TestItems;
 
 class LineBreakConverterTest extends AbstractSanitizingConverterTest<LineBreakConverter, String> {
 
-    private static final String RESULT = "this is<br />a new line";
+    private static final String RESULT = "this is<br>a new line";
 
     private static final String WINODWS_LINE_BREAK = "\r\n";
 
@@ -24,7 +24,7 @@ class LineBreakConverterTest extends AbstractSanitizingConverterTest<LineBreakCo
 
     private static final String APPLE_SAMPLE = "this is" + APPLE_LINE_BREAK + "a new line";
 
-    private static final String DEFAULT_DELIMITER = "<br />";
+    private static final String DEFAULT_DELIMITER = "<br>";
 
     @Override
     public void populate(final TestItems<String> testItems) {

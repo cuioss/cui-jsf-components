@@ -6,7 +6,7 @@ import de.cuioss.jsf.components.js.types.JsString;
 /**
  * points style on the line
  *
- * @author i000576
+ * @author Eugen Fischer
  * @see <a href="http://www.jqplot.com/docs/files/jqplot-markerRenderer-js.html">MarkerRenderer</a>
  */
 public enum PointStyle implements JsValue {

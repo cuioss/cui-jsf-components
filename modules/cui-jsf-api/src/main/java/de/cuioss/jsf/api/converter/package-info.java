@@ -8,7 +8,7 @@
  * boiler-plate code and implement contracts correctly. It relies on
  * {@link de.cuioss.jsf.api.application.message.MessageProducer} and
  * {@link de.cuioss.jsf.api.application.bundle.CuiResourceBundle} being
- * present.<br />
+ * present.<br>
  * {@link de.cuioss.jsf.api.converter.ObjectToStringConverter} and
  * {@link de.cuioss.jsf.api.converter.StringIdentConverter} are some very
  * basic framework specific {@link javax.faces.convert.Converter}

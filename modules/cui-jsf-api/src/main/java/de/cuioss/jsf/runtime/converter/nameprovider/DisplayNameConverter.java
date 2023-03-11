@@ -13,7 +13,7 @@ import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
 /**
  * Converter for implementation of {@link IDisplayNameProvider} {@link DisplayName}
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @FacesConverter(forClass = DisplayName.class)
 public class DisplayNameConverter extends AbstractConverter<DisplayName> {

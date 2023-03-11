@@ -12,7 +12,7 @@ import lombok.Value;
 /**
  * Provide safe way to act with Date as JSON property.
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @ToString(of = { "value" })
 @EqualsAndHashCode(of = { "value" })

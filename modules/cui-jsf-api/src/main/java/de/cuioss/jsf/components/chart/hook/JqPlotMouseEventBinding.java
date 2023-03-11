@@ -8,7 +8,7 @@ import lombok.ToString;
 /**
  * JqPlot mouse event hook
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)

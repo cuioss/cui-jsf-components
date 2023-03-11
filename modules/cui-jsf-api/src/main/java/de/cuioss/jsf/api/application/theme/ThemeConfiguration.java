@@ -27,7 +27,7 @@ public interface ThemeConfiguration {
 
     /**
      * @return the name of the library where the css files are located in. The portal styling
-     *         assumes 'com.icw.portal.css'
+     *         assumes 'de.cuioss.portal.css'
      */
     String getCssLibrary();
 

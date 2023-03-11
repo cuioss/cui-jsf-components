@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * @author i000576
+ * @author Eugen Fischer
  * @see <a href="http://www.jqplot.com/docs/files/plugins/jqplot-cursor-js.html">Cursor</a>
  */
 @ToString

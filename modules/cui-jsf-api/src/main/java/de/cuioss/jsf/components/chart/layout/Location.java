@@ -8,7 +8,7 @@ import lombok.Getter;
 /**
  * compass direction, nw, n, ne, e, se, s, sw, w.
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 public enum Location {
 

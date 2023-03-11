@@ -19,17 +19,17 @@ public final class CuiFamily {
     /** Default Renderer for {@link FieldsetComponent} */
     public static final String FIELDSET_RENDERER = "de.cuioss.jsf.api.html.fieldset_renderer";
 
-    /** "com.icw.cui.components.bootstrap.family" */
+    /** "de.cuioss.cui.components.bootstrap.family" */
     public static final String COMPONENT_FAMILY = "de.cuioss.jsf.api.html.family";
 
     /** The component for {@link TypewatchComponent} */
-    public static final String TYPEWATCH_COMPONENT = "com.icw.cui.components.typewatch";
+    public static final String TYPEWATCH_COMPONENT = "de.cuioss.cui.components.typewatch";
 
     /** The component for {@link InlineConfirmComponent} */
-    public static final String INLINE_CONFIRM_COMPONENT = "com.icw.cui.components.inline_confirm";
+    public static final String INLINE_CONFIRM_COMPONENT = "de.cuioss.cui.components.inline_confirm";
 
     /** Default Renderer for {@link InlineConfirmComponent} */
-    public static final String INLINE_CONFIRM_RENDERER = "com.icw.cui.components.inline_confirm_renderer";
+    public static final String INLINE_CONFIRM_RENDERER = "de.cuioss.cui.components.inline_confirm_renderer";
 
     /** The component for {@link BlockElementDecorator} */
     public static final String BLOCKELEMENT_COMPONENT = "de.cuioss.jsf.components.blockelement";

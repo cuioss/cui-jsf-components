@@ -9,7 +9,7 @@
  * <p>
  * The actual themes are created by the cui-styling project. They are named
  * application-blue.css, application-green.css, .. and are to be found in the library
- * "com.icw.portal.css" {@link de.cuioss.jsf.api.application.theme.ThemeResourceHandler}
+ * "de.cuioss.portal.css" {@link de.cuioss.jsf.api.application.theme.ThemeResourceHandler}
  * </p>
  * <p>
  * The classes / interfaces within this package:
@@ -21,7 +21,7 @@
  * {@link de.cuioss.jsf.api.application.theme.ThemeNameProducer} to be present. This both
  * classes
  * do decide which theme to load and create the actual name of the corresponding css to be
- * loaded.<br />
+ * loaded.<br>
  * The resourceHandler needs to be registered in the application element of the faces-config:
  *
  * <pre>

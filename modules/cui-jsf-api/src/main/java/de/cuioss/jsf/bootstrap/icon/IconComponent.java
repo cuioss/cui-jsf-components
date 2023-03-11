@@ -23,7 +23,7 @@ import lombok.experimental.Delegate;
  * </p>
  * <p>
  * A list of all available icons can be found at the <a href=
- * "http://ehf-ui-trunk.ci.dev.icw.int:8080/cui-reference-documentation/faces/pages/documentation/icons/cui_icons.jsf">
+ * "https://cuioss.de/cui-reference-documentation/faces/pages/documentation/icons/cui_icons.jsf">
  * Reference Documentation</a>
  * </p>
  * <h2>Attributes</h2>

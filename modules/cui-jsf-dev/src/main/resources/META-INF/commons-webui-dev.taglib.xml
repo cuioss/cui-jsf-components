@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <facelet-taglib version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd">
-    <namespace>http://www.icw.de/commons-webui-dev</namespace>
+    <namespace>https://cuioss.de/commons-webui-dev</namespace>
 
     <tag>
         <description><![CDATA[Renders a source code element.]]></description>

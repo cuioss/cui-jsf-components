@@ -34,7 +34,6 @@ import de.cuioss.tools.net.UrlParameter;
  * only if Faces Request needs to be redirected to a <b>different</b> web application resource!
  * If you doesn't leave the web application space use Navigation Rules!
  *
- * @author i000325
  */
 public final class NavigationUtils implements Serializable {
 

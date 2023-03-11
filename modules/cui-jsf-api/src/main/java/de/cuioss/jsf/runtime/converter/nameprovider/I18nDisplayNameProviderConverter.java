@@ -16,7 +16,7 @@ import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
  * Converter handle to convert {@linkplain I18nDisplayNameProvider} to locale specific text
  * representation
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @FacesConverter(forClass = I18nDisplayNameProvider.class)
 public class I18nDisplayNameProviderConverter extends AbstractConverter<I18nDisplayNameProvider> {

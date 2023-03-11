@@ -29,7 +29,7 @@ import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
  * use {@link TagComponent} directly. The attributes #state, #size and #contentEscape will be passed
  * through to the used {@link TagComponent}. More information and examples can be found in the
  * <a href=
- * "http://ehf-ui-trunk.ci.dev.icw.int:8080/cui-reference-documentation/faces/pages/documentation/cui_components/demo/tag.jsf"
+ * "https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/tag.jsf"
  * >Reference Documentation</a>
  * </p>
  * <h2>Rendering</h2>

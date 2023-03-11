@@ -17,7 +17,7 @@ import lombok.ToString;
 /**
  * Decorating any target class with shadow properties
  *
- * @author i000576
+ * @author Eugen Fischer
  * @param <T> user class, will be used for fluent api / builder
  */
 @ToString(exclude = { "userClass" })

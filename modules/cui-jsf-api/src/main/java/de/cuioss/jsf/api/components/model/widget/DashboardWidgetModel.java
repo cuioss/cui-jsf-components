@@ -1,7 +1,7 @@
 package de.cuioss.jsf.api.components.model.widget;
 
 /**
- * Model interface for the com.icw.ehf.cui.portal.application.dashboard.DashboardWidgetRegistration
+ * Model interface for the DashboardWidgetRegistration
  * to collect all widgets to be rendered by the
  * {@link de.cuioss.jsf.bootstrap.dashboard.DashboardTagHandler}.
  */

@@ -8,7 +8,7 @@ import lombok.ToString;
 /**
  * Example implementation
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)

@@ -6,7 +6,7 @@ import de.cuioss.jsf.components.js.support.JsValue;
 /**
  * Mark object include {@link JsArray} representation
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 public interface JsArrayContainer {
 

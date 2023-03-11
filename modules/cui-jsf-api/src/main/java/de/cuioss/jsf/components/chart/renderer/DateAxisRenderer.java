@@ -8,7 +8,7 @@ import lombok.ToString;
  *
  * @see <a href=
  *      "http://www.jqplot.com/docs/files/plugins/jqplot-dateAxisRenderer-js.html">DateAxisRenderer</a>
- * @author i000576
+ * @author Eugen Fischer
  */
 @ToString
 @EqualsAndHashCode(callSuper = true)

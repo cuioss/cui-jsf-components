@@ -3,7 +3,7 @@ package de.cuioss.jsf.components.js.support;
 import java.io.Serializable;
 
 /**
- * @author i000576
+ * @author Eugen Fischer
  */
 public interface JavaScriptSupport extends Serializable {
 

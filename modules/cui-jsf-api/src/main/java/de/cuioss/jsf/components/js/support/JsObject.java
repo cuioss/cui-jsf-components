@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
- * @author i000576
+ * @author Eugen Fischer
  */
 @ToString
 @EqualsAndHashCode

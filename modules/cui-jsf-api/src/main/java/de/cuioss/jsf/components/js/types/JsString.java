@@ -8,7 +8,7 @@ import lombok.Data;
  * <img width="400" height="300" alt=
  * "Abstract machine string in JSON" src="http://www.json.org/string.gif"/>
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @Data
 public class JsString implements JsValue {

@@ -24,7 +24,7 @@ import lombok.EqualsAndHashCode;
  * }
  * </pre>
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

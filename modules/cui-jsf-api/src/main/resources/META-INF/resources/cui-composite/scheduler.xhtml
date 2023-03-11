@@ -25,8 +25,8 @@
 
 <!-- IMPLEMENTATION -->
 <composite:implementation>
-    <h:outputScript library="com.icw.cui.javascript" name="scheduler.js" target="head" />
-    <h:outputStylesheet library="com.icw.portal.css" name="scheduler.css" />
+    <h:outputScript library="de.cuioss.cui.javascript" name="scheduler.js" target="head" />
+    <h:outputStylesheet library="de.cuioss.portal.css" name="scheduler.css" />
     <h:form styleClass="cui-calendar">
         <p:schedule value="#{cc.attrs.model}" timeFormat="#{cc.attrs.timeFormat}" draggable="#{cc.attrs.draggable}" resizable="#{cc.attrs.resizable}"/>
     </h:form>

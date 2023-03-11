@@ -5,7 +5,7 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * @author i000576
+ * @author Eugen Fischer
  */
 @Data
 public class CanvasGridRenderer implements Serializable {

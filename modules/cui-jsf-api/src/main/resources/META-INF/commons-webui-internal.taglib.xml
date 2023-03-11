@@ -2,7 +2,7 @@
 <facelet-taglib version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd">
-    <namespace>http://www.icw.de/commons-webui-internal</namespace>
+    <namespace>https://cuioss.de/commons-webui-internal</namespace>
     <tag>
         <description>
             <![CDATA[
@@ -17,12 +17,12 @@
              </p>
              <p>
                More information and examples can be found in the
-               <a href="https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/cui_components/demo/miscellaneous.jsf" >Reference Documentation</a>
+               <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/miscellaneous.jsf" >Reference Documentation</a>
              </p>
        ]]></description>
         <tag-name>typewatch</tag-name>
         <component>
-            <component-type>com.icw.cui.components.typewatch</component-type>
+            <component-type>de.cuioss.cui.components.typewatch</component-type>
         </component>
         <attribute>
             <description><![CDATA[Allows a non-multiline element to be submitted (enter key) regardless of

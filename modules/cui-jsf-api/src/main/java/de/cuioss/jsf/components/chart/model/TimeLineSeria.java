@@ -15,7 +15,7 @@ import lombok.ToString;
 /**
  * Typed {@link TimeLineSeria} use {@link Temporal} for x values, {@link Number} for y values.
  *
- * @author i000576
+ * @author Eugen Fischer
  * @param <T> at least {@link Number}
  */
 @ToString

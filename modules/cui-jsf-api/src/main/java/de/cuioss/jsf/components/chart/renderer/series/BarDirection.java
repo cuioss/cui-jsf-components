@@ -5,7 +5,7 @@ import lombok.Getter;
 /**
  * ‘vertical’ = up and down bars, ‘horizontal’ = side to side bars
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 public enum BarDirection {
 

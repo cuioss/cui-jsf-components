@@ -12,7 +12,7 @@ import de.cuioss.uimodel.nameprovider.DisplayMessageProvider;
 /**
  * Converter for the type {@link DisplayMessageProvider}
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @FacesConverter(forClass = DisplayMessageProvider.class)
 public class DisplayMessageProviderConverter extends AbstractConverter<DisplayMessageProvider> {

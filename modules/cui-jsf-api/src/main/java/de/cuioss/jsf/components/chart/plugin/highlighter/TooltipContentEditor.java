@@ -15,7 +15,7 @@ import lombok.ToString;
  *
  * @see <a href="http://stackoverflow.com/questions/17719534/jqplot-tooltip-content-editor">
  *      TooltipContentEditor</a>
- * @author i000576
+ * @author Eugen Fischer
  */
 @ToString
 @EqualsAndHashCode

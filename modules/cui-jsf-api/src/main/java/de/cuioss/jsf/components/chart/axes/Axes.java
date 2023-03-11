@@ -9,7 +9,7 @@ import de.cuioss.jsf.components.js.support.JsObject;
 import lombok.ToString;
 
 /**
- * @author i000576
+ * @author Eugen Fischer
  */
 @ToString(of = { "axisList", "plugins" }, callSuper = false)
 public class Axes extends JsObject implements IPluginConsumer {

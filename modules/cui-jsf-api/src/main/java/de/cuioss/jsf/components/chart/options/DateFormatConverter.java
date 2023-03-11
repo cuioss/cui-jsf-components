@@ -18,7 +18,7 @@ import lombok.ToString;
  * http://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormat.html
  * Supported java Script : keys http://sandbox.kendsnyder.com/date/?q=sandbox/date/#src
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 public class DateFormatConverter {
 

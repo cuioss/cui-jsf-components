@@ -9,7 +9,7 @@ import lombok.ToString;
  * A single seria item which composed of two elements [x,y].
  * Only if both are available the item has a valid value.
  *
- * @author i000576
+ * @author Eugen Fischer
  * @param <X> bounded type for x value
  * @param <Y> bounded type for y value
  */

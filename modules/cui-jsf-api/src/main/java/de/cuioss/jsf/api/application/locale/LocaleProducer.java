@@ -6,7 +6,7 @@ import java.util.Locale;
  * Provide application specific calculation / resolving of current locale.<br/>
  * Managed bean name should be {@link LocaleProducerImpl#BEAN_NAME}
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 public interface LocaleProducer {
 

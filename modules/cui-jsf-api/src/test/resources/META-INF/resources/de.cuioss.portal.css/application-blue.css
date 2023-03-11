@@ -1182,10 +1182,10 @@ maps to .ui-widget-content .ui-state-active*/
 Mixins usage examples:
 
 > on cui styling module (depending on the folder hierarchy)
-@import "../com.icw.cui.common/mixins";
+@import "../de.cuioss.cui.common/mixins";
 
 > on different portal styling module (depending on the folder hierarchy)
-@import "../../cui-styling/scss/com.icw.cui.common/mixins";
+@import "../../cui-styling/scss/de.cuioss.cui.common/mixins";
 */
 /*
 scale use size as arglist supports 1 or 2 parameter
@@ -8765,10 +8765,10 @@ h4.panel-title .cui-icon {
 Mixins usage examples:
 
 > on cui styling module (depending on the folder hierarchy)
-@import "../com.icw.cui.common/mixins";
+@import "../de.cuioss.cui.common/mixins";
 
 > on different portal styling module (depending on the folder hierarchy)
-@import "../../cui-styling/scss/com.icw.cui.common/mixins";
+@import "../../cui-styling/scss/de.cuioss.cui.common/mixins";
 */
 /*
 scale use size as arglist supports 1 or 2 parameter
@@ -11554,10 +11554,10 @@ a.cui-icon-state-danger:focus {
 Mixins usage examples:
 
 > on cui styling module (depending on the folder hierarchy)
-@import "../com.icw.cui.common/mixins";
+@import "../de.cuioss.cui.common/mixins";
 
 > on different portal styling module (depending on the folder hierarchy)
-@import "../../cui-styling/scss/com.icw.cui.common/mixins";
+@import "../../cui-styling/scss/de.cuioss.cui.common/mixins";
 */
 /*
 scale use size as arglist supports 1 or 2 parameter
@@ -11773,10 +11773,10 @@ Hint : saas does show warning on usage "from" and "to" as content, the same can 
 Mixins usage examples:
 
 > on cui styling module (depending on the folder hierarchy)
-@import "../com.icw.cui.common/mixins";
+@import "../de.cuioss.cui.common/mixins";
 
 > on different portal styling module (depending on the folder hierarchy)
-@import "../../cui-styling/scss/com.icw.cui.common/mixins";
+@import "../../cui-styling/scss/de.cuioss.cui.common/mixins";
 */
 /*
 scale use size as arglist supports 1 or 2 parameter

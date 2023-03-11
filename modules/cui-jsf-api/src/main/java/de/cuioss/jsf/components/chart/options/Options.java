@@ -24,7 +24,7 @@ import lombok.ToString;
 /**
  * container to hold all of the merged options. Convienence for plugins.
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @ToString(callSuper = false, doNotUseGetters = true)
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)

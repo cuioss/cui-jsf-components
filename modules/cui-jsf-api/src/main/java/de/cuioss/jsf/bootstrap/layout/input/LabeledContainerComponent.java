@@ -63,7 +63,7 @@ import lombok.experimental.Delegate;
  * <p>
  * More information and
  * examples can be found in the <a href=
- * "https://cui-ux-trunk.ci.dev.icw.int:16000/cui-reference-documentation/faces/pages/documentation/cui_components
+ * "https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components
  * /demo/labeledContainerDemo.jsf"
  * >Reference Documentation</a>
  * </p>

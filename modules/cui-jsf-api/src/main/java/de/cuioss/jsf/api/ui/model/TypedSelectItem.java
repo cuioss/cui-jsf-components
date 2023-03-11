@@ -11,7 +11,7 @@ import lombok.ToString;
 /**
  * TypedSelectItem is a wrapper for {@link SelectItem} which provide a Type safety for stored Value
  *
- * @author i000576
+ * @author Eugen Fischer
  * @param <T> bounded Parameter Type for {@link SelectItem} Value which must be {@link Serializable}
  */
 @EqualsAndHashCode(callSuper = false)

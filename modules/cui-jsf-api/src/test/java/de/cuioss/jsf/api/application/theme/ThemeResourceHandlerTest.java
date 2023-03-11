@@ -16,7 +16,7 @@ class ThemeResourceHandlerTest extends JsfEnabledTestEnvironment implements Bean
 
     private ThemeResourceHandler underTest;
 
-    private static final String LIBRARY_NAME = "com.icw.portal.css";
+    private static final String LIBRARY_NAME = "de.cuioss.portal.css";
 
     private static final String STYLE_CSS = "application.css";
 

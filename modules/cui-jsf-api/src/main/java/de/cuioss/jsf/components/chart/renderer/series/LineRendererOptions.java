@@ -8,7 +8,7 @@ import lombok.ToString;
 import lombok.experimental.Delegate;
 
 /**
- * @author i000576
+ * @author Eugen Fischer
  * @see <a href="http://www.jqplot.com/docs/files/jqplot-lineRenderer-js.html">LineRenderer</a>
  */
 @ToString

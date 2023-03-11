@@ -8,7 +8,7 @@ import de.cuioss.jsf.components.js.support.JsValue;
  * JsNumber factory is able to create type safe JsValue with number content.
  * Currently supported {@link Double} and {@link Integer}
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 public enum JsNumberFactory {
 

@@ -23,7 +23,7 @@ import de.cuioss.jsf.bootstrap.CssBootstrap;
  * </ul>
  * <p>
  * More information and examples can be found in the <a href=
- * "http://ehf-ui-trunk.ci.dev.icw.int:8080/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf"
+ * "https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf"
  * >Reference Documentation</a>
  * </p>
  * <h2>Usage</h2>

@@ -34,7 +34,7 @@ import de.cuioss.jsf.api.application.locale.LocaleProducerAccessor;
  *
  * @author Matthias Walliczek
  */
-@FacesConverter(value = "com.icw.cui.converter.PrettyTimeConverter")
+@FacesConverter(value = "de.cuioss.cui.converter.PrettyTimeConverter")
 public class PrettyTimeConverter extends AbstractConverter<Object> {
 
     // See

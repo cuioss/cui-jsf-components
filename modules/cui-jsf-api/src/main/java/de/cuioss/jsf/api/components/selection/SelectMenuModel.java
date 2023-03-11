@@ -14,7 +14,6 @@ import de.cuioss.uimodel.model.TypedSelection;
  * the technical limitation of JSF selection components (They do not serialize the objects itself)
  * this component extends {@link Converter}
  *
- * @author i000407
  * @param <T>
  */
 public interface SelectMenuModel<T extends Serializable> extends Converter<T>, ValueChangeListener, Serializable,

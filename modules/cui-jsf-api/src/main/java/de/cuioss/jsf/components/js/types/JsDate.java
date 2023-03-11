@@ -9,7 +9,7 @@ import lombok.Data;
 /**
  * Provide safe way to act with Date as JSON property.
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @Data
 public class JsDate implements JsValue {

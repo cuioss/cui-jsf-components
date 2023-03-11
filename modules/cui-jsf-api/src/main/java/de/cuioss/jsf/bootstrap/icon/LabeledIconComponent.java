@@ -21,7 +21,7 @@ import lombok.experimental.Delegate;
  * </p>
  * <p>
  * Sample can be found at the <a href=
- * "http://ehf-ui-trunk.ci.dev.icw.int:8080/cui-reference-documentation/faces/pages/documentation/icons/icon_components.jsf">
+ * "https://cuioss.de/cui-reference-documentation/faces/pages/documentation/icons/icon_components.jsf">
  * Reference Documentation</a>
  * </p>
  *

@@ -7,7 +7,7 @@ import lombok.Getter;
 /**
  * Fade Speed
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 public enum FadeSpeed {
 

@@ -14,7 +14,7 @@ import lombok.ToString;
  * An array could be nested. Thats the reason why it's also implements the interface {@link JsValue}
  *
  * @see <a href="http://www.json.org/">json.org</a>
- * @author i000576
+ * @author Eugen Fischer
  * @param <T> bounded parameter T must implements the interface {@link JsValue}
  */
 @ToString

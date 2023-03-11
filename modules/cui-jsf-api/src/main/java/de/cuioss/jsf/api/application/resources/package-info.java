@@ -42,8 +42,8 @@
  *          &lt;property-class&gt;java.util.List&lt;/property-class&gt;<br>
  *          &lt;list-entries&gt;<br>
  *              &lt;value-class&gt;java.lang.String&lt;/value-class&gt;<br>
- *              &lt;value&gt;com.icw.portal.css&lt;/value&gt;<br>
- *              &lt;value&gt;com.icw.cui.fonts&lt;/value&gt;<br>
+ *              &lt;value&gt;de.cuioss.portal.css&lt;/value&gt;<br>
+ *              &lt;value&gt;de.cuioss.cui.fonts&lt;/value&gt;<br>
  *              &lt;value&gt;javascript&lt;/value&gt;<br>
  *              &lt;value&gt;com.bootstrap.js&lt;/value&gt;<br>
  *              &lt;value&gt;thirdparty.legacy.js&lt;/value&gt;<br>

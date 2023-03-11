@@ -15,7 +15,7 @@ import lombok.ToString;
  * follow :<br/>
  * [ [x1, y1] , [x2, y2], .. [xn, yn] ]
  *
- * @author i000576
+ * @author Eugen Fischer
  * @param <X> bounded type for x value of {@code SeriaTupelItem}
  * @param <Y> bounded type for y value of {@code SeriaTupelItem}
  */

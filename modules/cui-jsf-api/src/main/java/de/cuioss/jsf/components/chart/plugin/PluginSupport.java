@@ -12,7 +12,7 @@ import lombok.ToString;
 /**
  * Identify entry which needs / expected special plug-in (additional javaScript)
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @ToString(of = "pluginList")
 @EqualsAndHashCode(of = "pluginList")

@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * @author i000576
+ * @author Eugen Fischer
  * @param <R> at least {@link RendererOptions}
  */
 @ToString

@@ -6,7 +6,7 @@ import lombok.ToString;
 /**
  * The default title renderer for jqPlot. This class has no options beyond the <Title> class.
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @ToString
 @EqualsAndHashCode(callSuper = true)

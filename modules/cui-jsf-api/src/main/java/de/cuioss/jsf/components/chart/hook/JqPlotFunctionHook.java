@@ -8,7 +8,7 @@ import lombok.ToString;
 /**
  * To be able to override JqPlot intern function this class could be used
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)

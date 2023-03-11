@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Decorates shadow object which provide follow options
  *
- * @author i000576
+ * @author Eugen Fischer
  * @param <T> fluent api result type
  */
 public interface IShadowDecoration<T extends Serializable> {

@@ -17,7 +17,7 @@ import lombok.NonNull;
  * Defines the disable state of a component. Default is {@code false}
  * </p>
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 public class DisabledComponentProvider {
 

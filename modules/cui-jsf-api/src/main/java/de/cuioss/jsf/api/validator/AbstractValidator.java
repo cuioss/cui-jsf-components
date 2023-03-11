@@ -15,7 +15,7 @@ import de.cuioss.jsf.api.application.message.MessageProducerAccessor;
  * The implementation ensured API conform implementation and provide a type safe value
  * handling.<br/>
  *
- * @author i000576
+ * @author Eugen Fischer
  * @param <T> bounded type which should be validated
  */
 public abstract class AbstractValidator<T> implements Validator<Object> {

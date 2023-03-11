@@ -13,7 +13,7 @@ import lombok.ToString;
 /**
  * ToggleSwitch as holder of toggled state
  *
- * @author i000576 (Eugen Fischer)
+ * @author Eugen Fischer
  */
 @ToString
 @EqualsAndHashCode

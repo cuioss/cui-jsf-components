@@ -1,5 +1,5 @@
 Title: jqPlot CSS Customization
-FIXME: MOVE css to ehf-styling
+FIXME: MOVE css to cuioss-styling
 
 Much of the styling of jqPlot is done by css.  The jqPlot css file is, unremarkably, 
 jquery.jqplot.css and resides in the same directory as jqPlot itself.

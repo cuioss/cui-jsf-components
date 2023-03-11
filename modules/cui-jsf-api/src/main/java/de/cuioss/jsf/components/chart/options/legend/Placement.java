@@ -10,7 +10,7 @@ import lombok.Getter;
  * "inside" synonym for "insideGrid", "outside" places the legend ouside the grid area, but does not
  * shrink the grid which can cause the legend to overflow the plot container.
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 public enum Placement {
 

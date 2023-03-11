@@ -15,7 +15,7 @@ import lombok.ToString;
  * As there are {@linkplain #create(Serializable, Serializable)} for a regular rule and
  * {@linkplain #createDefaultRule(Serializable)} which is needed if no other rule conditions maps.
  *
- * @author i000576
+ * @author Eugen Fischer
  * @param <K> bounded type for condition must be serializable
  * @param <V> bounded type for result must be serializable
  */

@@ -35,7 +35,7 @@ import de.cuioss.tools.string.Splitter;
  * TODO : could be replaced by original after https://github.com/omnifaces/omnifaces/issues/481 is
  * solved. See CUI-915
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 public class CuiUnmappedResourceHandler extends UnmappedResourceHandler {
 

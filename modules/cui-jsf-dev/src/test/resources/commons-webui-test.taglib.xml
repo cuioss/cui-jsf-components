@@ -2,7 +2,7 @@
 <facelet-taglib version="2.2"
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd">
-	<namespace>http://www.icw.de/commons-webui-test</namespace>
+	<namespace>https://cuioss.de/commons-webui-test</namespace>
 	<tag>
 		<description>Converter utilized for dropdown elements.
 		The instanceMap is utilized for the mapping between the serializable keys
@@ -2059,7 +2059,7 @@
 		<description>Renders a toolbar component that can be pinned to top or bottom. Therefore the
 		bootstrap affix plugin is utilized.
 		&lt;h2&gt;Styling&lt;/h2&gt;
-			The sass module is defined within ehf-styling, the name is 'com.icw.cui/_toolbar.scss
+			The sass module is defined within cuioss-styling, the name is 'de.cuioss.cui/_toolbar.scss
 			&lt;ul&gt;
 			&lt;li&gt;Renders the class 'toolbar'&lt;/li&gt;
 			&lt;li&gt;If the size is set it additionally renders the corresponding size -context class, e.g. toolbar-xl for size='xl'&lt;/li&gt;

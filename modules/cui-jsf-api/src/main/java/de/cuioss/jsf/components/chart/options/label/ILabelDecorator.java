@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Interface provide common label / text relevant settings
  *
- * @author i000576
+ * @author Eugen Fischer
  * @param <F> fluent api bounded type
  */
 public interface ILabelDecorator<F extends Serializable> {

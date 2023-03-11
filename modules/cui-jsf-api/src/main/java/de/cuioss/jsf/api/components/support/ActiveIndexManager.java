@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Programmatically manipulating the active indexes.
  *
- * @author Oliver Wolff (i001428)
+ * @author Oliver Wolff
  * @author Sven Haag
  */
 public interface ActiveIndexManager extends Serializable {

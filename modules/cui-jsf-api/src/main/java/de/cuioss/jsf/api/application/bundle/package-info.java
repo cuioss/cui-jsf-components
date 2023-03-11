@@ -7,7 +7,7 @@
  * </p>
  * <h2>Introduction</h2>
  * <p>
- * Every ICW JSF application uses many resource bundles inside. <br />
+ * Every cuioss JSF application uses many resource bundles inside. <br>
  * This results in the situation when one page uses different EL-expressions to refer to bundles in
  * order to resolve labels, i.e. <code>#{cui_msg['key']}</code> or <code>#{msg['key']}</code> or
  * <code>#{vendor['key']}</code> and so on. It is not that easy to handle i18nized strings in xhtml
@@ -100,12 +100,12 @@
  * <h2>Profit</h2>
  * <p>
  * The developer has still access to all resource bundles in the application, all "own" pages from
- * any portal applications will still work.<br />
- * The unified way to access label is the same like the access to usual resource bundle.<br />
+ * any portal applications will still work.<br>
+ * The unified way to access label is the same like the access to usual resource bundle.<br>
  * It is possible to override keys in different bundles, because first bundle in the list will win.
- * <br />
+ * <br>
  * No need to remember all bundle names since it is configured once. Easy re-factoring: keys can be
- * moved in other bundles without changes in the xhtml.<br />
+ * moved in other bundles without changes in the xhtml.<br>
  * Since the beans are request scoped there is no need to care about locale-changes.
  * </p>
  *

@@ -28,7 +28,7 @@ import lombok.Data;
  *           }
  * </pre>
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @Data
 public class NoDataIndicator implements Serializable {

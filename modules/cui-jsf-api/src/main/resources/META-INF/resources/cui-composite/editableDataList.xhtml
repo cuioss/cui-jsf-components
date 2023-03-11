@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:composite="http://xmlns.jcp.org/jsf/composite" xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:cui="http://www.icw.de/commons-webui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:cui="https://cuioss.de/commons-webui"
       xmlns:jsf="http://xmlns.jcp.org/jsf">
 
 <!-- INTERFACE -->
@@ -12,7 +12,7 @@
    therefore you can use cui:columns for layouting / spacing directly. If a facet named 'header-addon' is present, its content is rendered at the beginning of the button group of the 'Add' button.
    If a facet named 'edit-addon' is present, its content is rendered at the beginning of the button group of the adding and editing pages.
    Disabling renderAddonButtonsInAddMode or renderAddonButtonsInEditMode does not have an effect on the rendering of this facet."
-    componentType="com.icw.cui.bootstrap.editableDataList">
+    componentType="de.cuioss.cui.bootstrap.editableDataList">
     <composite:attribute name="model" type="de.cuioss.jsf.api.components.model.datalist.EditableDataListModel"
                          required="true"
                          shortDescription="The model for interacting with the data list.

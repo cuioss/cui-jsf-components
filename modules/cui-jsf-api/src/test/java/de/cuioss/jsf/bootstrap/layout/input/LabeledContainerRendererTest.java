@@ -48,7 +48,7 @@ import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
  * <li>renderer.encodeEnd(facesContext, component)</li>
  * </ul>
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)

@@ -55,7 +55,7 @@ public class ThemeConfigurationMock implements ThemeConfiguration, Serializable,
 
     @Getter
     @Setter
-    private String cssLibrary = "com.icw.portal.css";
+    private String cssLibrary = "de.cuioss.portal.css";
 
     @Getter
     @Setter

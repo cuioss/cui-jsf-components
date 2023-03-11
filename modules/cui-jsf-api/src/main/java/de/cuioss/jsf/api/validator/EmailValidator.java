@@ -42,7 +42,7 @@ public class EmailValidator extends AbstractValidator<String> {
             final CharSequence inputStr = value;
             var matcher = getCompiledPattern().matcher(inputStr);
             if (!matcher.matches()) {
-                throw new ValidatorException(createErrorMessage("ehf.cui.common.email.invalid"));
+                throw new ValidatorException(createErrorMessage("de.cuioss.common.email.invalid"));
             }
         }
     }

@@ -15,7 +15,7 @@ import lombok.experimental.Delegate;
  * Options that will be passed to the tickRenderer, see
  * $.jqplot.AxisTickRenderer options.
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)

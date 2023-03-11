@@ -7,7 +7,7 @@ import lombok.Data;
  * A class for creating a DOM element for the title.
  * Value will be returned plain!
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @Data
 public class TitleRenderer implements JsValue {

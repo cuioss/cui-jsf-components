@@ -12,7 +12,7 @@ import lombok.ToString;
  * Hook functions provider, manage list of IPlotHookFunctionProvider able to create string
  * representation of all collected.
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @ToString(of = "hooks")
 @EqualsAndHashCode(of = "hooks")

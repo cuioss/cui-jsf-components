@@ -95,7 +95,7 @@ public class ComponentWrapper<T extends UIComponent> {
     }
 
     /**
-     * @return boolean indicating whether to render a client id. <br />
+     * @return boolean indicating whether to render a client id. <br>
      *         Returns true if:
      *         <ul>
      *         <li>An id is set that is not generated: must not start with

@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Define that a class may need plugin
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 public interface IPluginConsumer {
 

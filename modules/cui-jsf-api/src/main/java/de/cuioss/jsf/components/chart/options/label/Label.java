@@ -15,7 +15,7 @@ import lombok.NonNull;
 import lombok.ToString;
 
 /**
- * @author i000576
+ * @author Eugen Fischer
  * @param <T> decorated class type
  */
 @ToString(exclude = { "userClass" })

@@ -12,7 +12,7 @@ import lombok.ToString;
  * Class provide functionality to recognize if value was changed or not and is able to restore
  * default value.
  *
- * @author i000576
+ * @author Eugen Fischer
  * @param <T> bounded type must be Serializable
  */
 @ToString

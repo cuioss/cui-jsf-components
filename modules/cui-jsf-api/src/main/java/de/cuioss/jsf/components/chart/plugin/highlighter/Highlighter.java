@@ -17,7 +17,7 @@ import lombok.ToString;
 /**
  * Plugin which will highlight data points when they are moused over.
  *
- * @author i000576
+ * @author Eugen Fischer
  * @see <a href="http://www.jqplot.com/docs/files/plugins/jqplot-highlighter-js.html">Highlighter
  *      </a>
  */

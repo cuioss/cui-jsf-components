@@ -11,7 +11,7 @@ import lombok.Getter;
  * To be able to work with JavaScript date time the date need to be fit's to defined from.
  * This Enum provide prepared the most popular formatter for Joda DateTime.
  *
- * @author i000576
+ * @author Eugen Fischer
  * @see <a href="http://sandbox.kendsnyder.com/date/?q=sandbox/date" >Date</a>
  *      2007-10-29 (Date only)
  *      2010-03-15T12:34:56.005 (with miliseconds)

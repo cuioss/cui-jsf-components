@@ -8,7 +8,7 @@ import lombok.ToString;
 /**
  * Base implementation of {@linkplain PlotHookFunctionProvider}
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @ToString(of = "hookIdentifier")
 @EqualsAndHashCode(of = "hookIdentifier")

@@ -43,7 +43,7 @@ import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
  * <li>renderer.encodeEnd(facesContext, component)</li>
  * </ul>
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
@@ -101,7 +101,7 @@ class HelpTextRendererTest extends AbstractComponentRendererTest<LabeledContaine
         helpTextComponent.setTitleValue("title");
         helpTextComponent.setRenderButton(true);
         var content = new HtmlOutputLink();
-        content.setTarget("http://www.icw.de");
+        content.setTarget("https://www.cuioss.de");
         helpTextComponent.getChildren().add(content);
         component.getChildren().add(helpTextComponent);
         component.processEvent(new PostAddToViewEvent(component));
@@ -121,11 +121,11 @@ class HelpTextRendererTest extends AbstractComponentRendererTest<LabeledContaine
                 .withNode(HTML_INPUT_TEXT).withAttribute(AttributeName.ID, CLIENT_ID + COLON_INPUT)
                 .withAttribute(AttributeName.NAME, CLIENT_ID + COLON_INPUT).withAttribute(AttributeName.TYPE, "text")
                 .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().withNode(Node.A)
-                .withAttribute("target", "http://www.icw.de").currentHierarchyUp().currentHierarchyUp()
+                .withAttribute("target", "https://www.cuioss.de").currentHierarchyUp().currentHierarchyUp()
                 .withNode(Node.DIV).withStyleClass(CssBootstrap.CUI_ADDITIONAL_MESSAGE.getStyleClass())
                 .withAttribute(AttributeName.STYLE, "display: none;")
                 .withAttribute(HelpTextComponent.DATA_HELP_BLOCK, HelpTextComponent.DATA_HELP_BLOCK).withNode(Node.A)
-                .withAttribute("target", "http://www.icw.de").currentHierarchyUp().currentHierarchyUp();
+                .withAttribute("target", "https://www.cuioss.de").currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 

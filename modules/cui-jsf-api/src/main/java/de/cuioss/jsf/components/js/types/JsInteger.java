@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * Provide safe way to act with Integer as JSON property
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @Data
 public class JsInteger implements JsValue {

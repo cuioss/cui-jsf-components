@@ -21,8 +21,6 @@ import de.cuioss.jsf.bootstrap.icon.support.IconSize;
  * <ul>
  * <li>The marker css classes are cui-icon-stack and cui-mime-type</li>
  * <li>Sizing: cui-icon-xl, cui-icon-lg,..</li>
- * <li>The actual rendering model is documented in the
- * <a href="https://wiki.icw.int/x/44HzAg">Wiki</a></li>
  * </ul>
  *
  * @author Oliver Wolff

@@ -9,7 +9,7 @@ import lombok.Data;
 /**
  * Provide safe way to act with Double as JSON property
  *
- * @author i000576
+ * @author Eugen Fischer
  */
 @Data
 public class JsDouble implements JsValue {
