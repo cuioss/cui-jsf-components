@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.xml.XMLConstants;
+
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
@@ -103,8 +105,10 @@ public class TagLib implements Serializable {
     private void parseTagLib(final URL resource) {
 
         try {
-
-            final var document = new SAXBuilder().build(resource);
+            final var saxBuilder = new SAXBuilder();
+            saxBuilder.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            saxBuilder.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+            final var document = saxBuilder.build(resource);
             final var root = document.getRootElement();
             namespace = root.getChildText("namespace", taglibNamespace);
             final var tags = root.getChildren(TAG, taglibNamespace);

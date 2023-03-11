@@ -3,6 +3,7 @@ package de.cuioss.jsf.api.components.html;
 import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
+import javax.xml.XMLConstants;
 
 import org.jdom2.Attribute;
 import org.jdom2.Document;
@@ -71,7 +72,10 @@ public class HtmlTreeBuilder {
         } else {
             final var wrappedInput = String.format(ROOT_TEMPLATE, htmlString);
             try (var input = IOStreams.toInputStream(wrappedInput)) {
-                document = new SAXBuilder().build(input);
+                final var saxBuilder = new SAXBuilder();
+                saxBuilder.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+                saxBuilder.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+                document = saxBuilder.build(input);
                 current = document.getRootElement();
             } catch (JDOMException | IOException e) {
                 throw new IllegalArgumentException("Unable to parse given String, due to ", e);
