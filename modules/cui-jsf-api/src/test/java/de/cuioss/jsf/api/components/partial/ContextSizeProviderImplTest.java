@@ -14,9 +14,7 @@ class ContextSizeProviderImplTest extends AbstractPartialComponentTest {
     @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> {
-            new ContextSizeProvider(null);
-        });
+        assertThrows(NullPointerException.class, () -> new ContextSizeProvider(null));
     }
 
     @Test

@@ -20,26 +20,20 @@ class TimeLineSeriaTest implements ShouldHandleObjectContracts<TimeLineSeria<?>>
 
     @Test
     void shouldVerifyMissingFormat() {
-        assertThrows(NullPointerException.class, () -> {
-            new TimeLineSeria<Double>(null);
-        });
+        assertThrows(NullPointerException.class, () -> new TimeLineSeria<Double>(null));
     }
 
     @Test
     void shouldVerifyXParameter() {
         final var timeLineSeria = new TimeLineSeria<Double>(JsDateTimeFormat.DATE_ONLY);
         var now = LocalDateTime.now();
-        assertThrows(NullPointerException.class, () -> {
-            timeLineSeria.add(now, null);
-        });
+        assertThrows(NullPointerException.class, () -> timeLineSeria.add(now, null));
     }
 
     @Test
     void shouldVerifyYParameter() {
         final var timeLineSeria = new TimeLineSeria<Double>(JsDateTimeFormat.DATE_ONLY);
-        assertThrows(NullPointerException.class, () -> {
-            timeLineSeria.add(null, 10.0);
-        });
+        assertThrows(NullPointerException.class, () -> timeLineSeria.add(null, 10.0));
     }
 
     @Test

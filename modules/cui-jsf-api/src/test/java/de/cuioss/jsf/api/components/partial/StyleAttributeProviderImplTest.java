@@ -12,8 +12,6 @@ class StyleAttributeProviderImplTest extends AbstractPartialComponentTest {
     @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> {
-            new StyleAttributeProviderImpl(null);
-        });
+        assertThrows(NullPointerException.class, () -> new StyleAttributeProviderImpl(null));
     }
 }

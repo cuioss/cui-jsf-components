@@ -72,9 +72,9 @@ class IconLibraryTest {
     @Test
     void shouldProvideCheckMethod() {
         var result = IconLibrary.isIconUsagePossible(CUI_ICON_WARNING);
-        assertTrue(valueOf(result));
+        assertTrue(result);
         result = IconLibrary.isIconUsagePossible(NO_VALID_ICON);
-        assertFalse(valueOf(result));
+        assertFalse(result);
     }
 
     @Test

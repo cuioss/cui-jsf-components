@@ -52,9 +52,7 @@ class AbstractParentDecoratorTest extends AbstractComponentTest<ParentDecoratorD
     void shouldFailOnMissingParent() {
         var underTest = anyComponent();
         underTest.setParent(null);
-        assertThrows(NullPointerException.class, () -> {
-            underTest.processEvent(expectedEvent);
-        });
+        assertThrows(NullPointerException.class, () -> underTest.processEvent(expectedEvent));
     }
 
     @Test

@@ -23,16 +23,12 @@ class ServletAdapterUtilTest extends JsfEnabledTestEnvironment {
 
     @Test
     void testGetRequestParameterWithNullContext() {
-        assertThrows(NullPointerException.class, () -> {
-            ServletAdapterUtil.getRequestParameter(null, PARAM_NAME);
-        });
+        assertThrows(NullPointerException.class, () -> ServletAdapterUtil.getRequestParameter(null, PARAM_NAME));
     }
 
     @Test
     void testGetRequestParameterWithNullParameter() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ServletAdapterUtil.getRequestParameter(getFacesContext(), null);
-        });
+        assertThrows(IllegalArgumentException.class, () -> ServletAdapterUtil.getRequestParameter(getFacesContext(), null));
     }
 
     @Test
@@ -43,9 +39,7 @@ class ServletAdapterUtilTest extends JsfEnabledTestEnvironment {
 
     @Test
     void testGetResponseWithNullContext() {
-        assertThrows(NullPointerException.class, () -> {
-            ServletAdapterUtil.getResponse(null);
-        });
+        assertThrows(NullPointerException.class, () -> ServletAdapterUtil.getResponse(null));
     }
 
     @Test
@@ -56,9 +50,7 @@ class ServletAdapterUtilTest extends JsfEnabledTestEnvironment {
 
     @Test
     void testGetRequestWithNullContext() {
-        assertThrows(NullPointerException.class, () -> {
-            ServletAdapterUtil.getRequest(null);
-        });
+        assertThrows(NullPointerException.class, () -> ServletAdapterUtil.getRequest(null));
     }
 
 }

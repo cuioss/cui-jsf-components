@@ -51,17 +51,13 @@ class HistoryManagerImplTest extends JsfEnabledTestEnvironment {
     @Test
     void shouldFailOnToLowHistorSize() {
         historyConfiguration.setHistorySize(1);
-        assertThrows(IllegalStateException.class, () -> {
-            new HistoryManagerImpl(historyConfiguration);
-        });
+        assertThrows(IllegalStateException.class, () -> new HistoryManagerImpl(historyConfiguration));
     }
 
     @Test
     void shouldFailOnToHighHistorSize() {
         historyConfiguration.setHistorySize(100);
-        assertThrows(IllegalStateException.class, () -> {
-            new HistoryManagerImpl(historyConfiguration);
-        });
+        assertThrows(IllegalStateException.class, () -> new HistoryManagerImpl(historyConfiguration));
     }
 
     @Test

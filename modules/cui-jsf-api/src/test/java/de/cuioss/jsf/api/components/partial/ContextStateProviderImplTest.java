@@ -14,9 +14,7 @@ class ContextStateProviderImplTest extends AbstractPartialComponentTest {
     @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> {
-            new ContextStateProvider(null);
-        });
+        assertThrows(NullPointerException.class, () -> new ContextStateProvider(null));
     }
 
     @Test

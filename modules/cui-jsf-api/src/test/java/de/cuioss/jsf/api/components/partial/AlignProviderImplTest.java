@@ -14,9 +14,7 @@ class AlignProviderImplTest extends AbstractPartialComponentTest {
     @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> {
-            new AlignProvider(null);
-        });
+        assertThrows(NullPointerException.class, () -> new AlignProvider(null));
     }
 
     @Test

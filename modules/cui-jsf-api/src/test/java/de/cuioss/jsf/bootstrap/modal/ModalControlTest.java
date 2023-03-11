@@ -59,8 +59,6 @@ class ModalControlTest extends AbstractComponentTest<ModalControl> {
     @Test
     void shouldFailOnMissingForIdentifier() {
         underTest.setFor(null);
-        assertThrows(IllegalArgumentException.class, () -> {
-            underTest.processEvent(expectedEvent);
-        });
+        assertThrows(IllegalArgumentException.class, () -> underTest.processEvent(expectedEvent));
     }
 }

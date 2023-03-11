@@ -18,9 +18,7 @@ class PlaceholderProviderImplTest extends AbstractPartialComponentTest {
     @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> {
-            new PlaceholderProvider(null);
-        });
+        assertThrows(NullPointerException.class, () -> new PlaceholderProvider(null));
     }
 
     @Test

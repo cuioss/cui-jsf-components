@@ -14,9 +14,7 @@ class HtmlElementProviderTest extends AbstractPartialComponentTest {
     @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> {
-            new HtmlElementProvider(null, null);
-        });
+        assertThrows(NullPointerException.class, () -> new HtmlElementProvider(null, null));
     }
 
     @Test
@@ -35,8 +33,6 @@ class HtmlElementProviderTest extends AbstractPartialComponentTest {
     void shouldFailOnInvalidElement() {
         var underTest = anyComponent();
         underTest.setHtmlElement("boom");
-        assertThrows(IllegalArgumentException.class, () -> {
-            underTest.resolveHtmlElement();
-        });
+        assertThrows(IllegalArgumentException.class, underTest::resolveHtmlElement);
     }
 }

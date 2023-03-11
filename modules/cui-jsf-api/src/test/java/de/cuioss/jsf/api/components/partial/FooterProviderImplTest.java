@@ -18,9 +18,7 @@ class FooterProviderImplTest extends AbstractPartialComponentTest {
     @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> {
-            new FooterProvider(null);
-        });
+        assertThrows(NullPointerException.class, () -> new FooterProvider(null));
     }
 
     @Test

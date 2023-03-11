@@ -41,8 +41,6 @@ class ButtonSizeTest {
 
     @Test
     void shouldFailOnInvalidSize() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ButtonSize.getForContextSize(ContextSize.XL);
-        });
+        assertThrows(IllegalArgumentException.class, () -> ButtonSize.getForContextSize(ContextSize.XL));
     }
 }

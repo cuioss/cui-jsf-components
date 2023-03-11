@@ -16,17 +16,13 @@ class DisableUIComponentStrategyTest {
 
     @Test
     void shouldFailOnMissingComponent() {
-        assertThrows(NullPointerException.class, () -> {
-            DisableUIComponentStrategy.disableComponent(null);
-        });
+        assertThrows(NullPointerException.class, () -> DisableUIComponentStrategy.disableComponent(null));
     }
 
     @Test
     void shouldFailOnMissingComponentStrategy() {
         val component = new HtmlForm();
-        assertThrows(IllegalArgumentException.class, () -> {
-            DisableUIComponentStrategy.disableComponent(component);
-        });
+        assertThrows(IllegalArgumentException.class, () -> DisableUIComponentStrategy.disableComponent(component));
     }
 
     @Test

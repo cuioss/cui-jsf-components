@@ -46,9 +46,7 @@ class ResourceBundleWrapperImplTest extends JsfEnabledTestEnvironment {
 
     @Test
     void shouldFailOnInvalidKey() {
-        assertThrows(MissingResourceException.class, () -> {
-            TestBundleConfigurator.getTestBundleWrapper().getMessage("not.there");
-        });
+        assertThrows(MissingResourceException.class, () -> TestBundleConfigurator.getTestBundleWrapper().getMessage("not.there"));
     }
 
     @Test

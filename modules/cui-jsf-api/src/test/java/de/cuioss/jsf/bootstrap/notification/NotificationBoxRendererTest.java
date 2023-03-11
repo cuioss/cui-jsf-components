@@ -55,9 +55,7 @@ class NotificationBoxRendererTest extends AbstractComponentRendererTest<Notifica
         component.setContentValue(SOME_VALUE);
         component.setDismissible(true);
         component.setDismissListener(new CuiMockMethodExpression());
-        assertThrows(IllegalStateException.class, () -> {
-            renderToString(component);
-        });
+        assertThrows(IllegalStateException.class, () -> renderToString(component));
     }
 
     @Test

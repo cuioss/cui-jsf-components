@@ -30,17 +30,15 @@ class ForIdentifierProviderImplTest {
     @SuppressWarnings("unused")
     @Test
     final void shouldVerifyMandatoryConstructorParameter() {
-        assertThrows(NullPointerException.class, () -> {
-            new ForIdentifierProvider(null, ForIdentifierProvider.DEFAULT_FOR_IDENTIFIER);
-        });
+        assertThrows(NullPointerException.class, () -> new ForIdentifierProvider(null, ForIdentifierProvider.DEFAULT_FOR_IDENTIFIER));
     }
 
     @Test
     void shouldNotRetrieveTargetComponentIdAsLongNoWasDefined() {
         target = new ForIdentifierProvider(new MockPartialComponent(), "");
         assertTrue(isEmpty(target.getForIdentifier()));
-        assertFalse(valueOf(target.resolveFirstIdentifier().isPresent()));
-        assertTrue(valueOf(target.resolveIdentifierAsList().isEmpty()));
+        assertFalse(target.resolveFirstIdentifier().isPresent());
+        assertTrue(target.resolveIdentifierAsList().isEmpty());
     }
 
     @Test
@@ -49,7 +47,7 @@ class ForIdentifierProviderImplTest {
         target = createAnyValid();
         target.setForIdentifier(expected_id);
         assertEquals(expected_id, target.getForIdentifier());
-        assertTrue(valueOf(target.resolveFirstIdentifier().isPresent()));
+        assertTrue(target.resolveFirstIdentifier().isPresent());
         assertEquals(expected_id, target.resolveFirstIdentifier().get());
         assertTrue(target.resolveIdentifierAsList().contains(expected_id));
     }
@@ -65,7 +63,7 @@ class ForIdentifierProviderImplTest {
         target = createAnyValid();
         target.setForIdentifier(expected_ids);
         assertEquals(expected_ids, target.getForIdentifier());
-        assertTrue(valueOf(target.resolveFirstIdentifier().isPresent()));
+        assertTrue(target.resolveFirstIdentifier().isPresent());
         assertEquals(first_id, target.resolveFirstIdentifier().get());
         assertTrue(target.resolveIdentifierAsList().contains(first_id));
         assertTrue(target.resolveIdentifierAsList().containsAll(mutableList(separatedIds)));

@@ -319,9 +319,7 @@ class InputGuardComponentTest extends AbstractComponentTest<InputGuardComponent>
         var clientId = component.getClientId(getFacesContext());
         getRequestConfigDecorator().setRequestParameter(JAVAX_FACES_SOURCE, clientId);
         getRequestConfigDecorator().setRequestParameter(clientId, Boolean.TRUE.toString());
-        assertThrows(IllegalStateException.class, () -> {
-            component.decode(getFacesContext());
-        });
+        assertThrows(IllegalStateException.class, () -> component.decode(getFacesContext()));
     }
 
     private MockUIInput accessRelatedInput(InputGuardComponent component) {

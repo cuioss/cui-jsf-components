@@ -30,8 +30,6 @@ class ModalDialogSizeTest {
 
     @Test
     void shouldFailToMapInvalidString() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ModalDialogSize.getFromString("not-there");
-        });
+        assertThrows(IllegalArgumentException.class, () -> ModalDialogSize.getFromString("not-there"));
     }
 }

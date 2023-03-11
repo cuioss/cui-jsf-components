@@ -16,9 +16,7 @@ class ComponentStyleClassProviderImplTest extends AbstractPartialComponentTest {
     @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> {
-            new ComponentStyleClassProviderImpl(null);
-        });
+        assertThrows(NullPointerException.class, () -> new ComponentStyleClassProviderImpl(null));
     }
 
     @Test

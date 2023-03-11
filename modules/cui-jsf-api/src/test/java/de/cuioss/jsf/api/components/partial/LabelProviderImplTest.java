@@ -17,9 +17,7 @@ class LabelProviderImplTest extends AbstractPartialComponentTest {
     @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> {
-            new LabelProvider(null);
-        });
+        assertThrows(NullPointerException.class, () -> new LabelProvider(null));
     }
 
     @Test

@@ -30,9 +30,7 @@ class LibraryInventoryTest {
 
     @Test
     void testNullContainsMapping() {
-        assertThrows(NullPointerException.class, () -> {
-            lib.containsMapping(null);
-        });
+        assertThrows(NullPointerException.class, () -> lib.containsMapping(null));
     }
 
     @Test
@@ -42,9 +40,7 @@ class LibraryInventoryTest {
 
     @Test
     void testNullGetReourceMapping() {
-        assertThrows(NullPointerException.class, () -> {
-            lib.getResourceMapping(null);
-        });
+        assertThrows(NullPointerException.class, () -> lib.getResourceMapping(null));
     }
 
     @Test
@@ -57,22 +53,16 @@ class LibraryInventoryTest {
 
     @Test
     void testNullResourceKey() {
-        assertThrows(NullPointerException.class, () -> {
-            lib.addMapping(null, "name");
-        });
+        assertThrows(NullPointerException.class, () -> lib.addMapping(null, "name"));
     }
 
     @Test
     void testNullResourceValue() {
-        assertThrows(NullPointerException.class, () -> {
-            lib.addMapping("key", null);
-        });
+        assertThrows(NullPointerException.class, () -> lib.addMapping("key", null));
     }
 
     @Test
     void noResourceValues() {
-        assertThrows(NullPointerException.class, () -> {
-            lib.addMapping(null, null);
-        });
+        assertThrows(NullPointerException.class, () -> lib.addMapping(null, null));
     }
 }

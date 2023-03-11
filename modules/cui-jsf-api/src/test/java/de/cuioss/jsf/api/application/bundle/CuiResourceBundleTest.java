@@ -48,9 +48,7 @@ class CuiResourceBundleTest extends AbstractPropertyAwareFacesTest<CuiResourceBu
 
     @Test
     void shouldFailOnInvalidKey() {
-        assertThrows(MissingResourceException.class, () -> {
-            anyBean().getString("not.there");
-        });
+        assertThrows(MissingResourceException.class, () -> anyBean().getString("not.there"));
     }
 
 }

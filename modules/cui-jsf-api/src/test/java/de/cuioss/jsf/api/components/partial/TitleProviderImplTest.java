@@ -18,9 +18,7 @@ class TitleProviderImplTest extends AbstractPartialComponentTest {
     @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> {
-            new TitleProviderImpl(null);
-        });
+        assertThrows(NullPointerException.class, () -> new TitleProviderImpl(null));
     }
 
     @Test

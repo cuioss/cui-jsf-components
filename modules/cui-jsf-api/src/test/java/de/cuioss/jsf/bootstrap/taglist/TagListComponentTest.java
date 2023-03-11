@@ -87,9 +87,7 @@ class TagListComponentTest extends AbstractComponentTest<TagListComponent> {
     void shouldFailWithLocaleValue() {
         var underTest = anyComponent();
         underTest.setValue(Locale.CANADA);
-        assertThrows(IllegalArgumentException.class, () -> {
-            TagHelper.getValueAsSet(underTest.getValue());
-        });
+        assertThrows(IllegalArgumentException.class, () -> TagHelper.getValueAsSet(underTest.getValue()));
     }
 
     @Test
@@ -99,9 +97,7 @@ class TagListComponentTest extends AbstractComponentTest<TagListComponent> {
         locales.add(Locale.CANADA);
         locales.add(Locale.ENGLISH);
         underTest.setValue(locales);
-        assertThrows(IllegalArgumentException.class, () -> {
-            TagHelper.getValueAsSet(underTest.getValue());
-        });
+        assertThrows(IllegalArgumentException.class, () -> TagHelper.getValueAsSet(underTest.getValue()));
     }
 
     @Test

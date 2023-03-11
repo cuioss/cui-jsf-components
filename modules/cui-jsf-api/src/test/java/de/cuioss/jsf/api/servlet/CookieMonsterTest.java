@@ -27,9 +27,7 @@ class CookieMonsterTest extends JsfEnabledTestEnvironment {
 
     @Test
     void testGetRequestCookiesWithNullContext() {
-        assertThrows(NullPointerException.class, () -> {
-            CookieMonster.getRequestCookies(null);
-        });
+        assertThrows(NullPointerException.class, () -> CookieMonster.getRequestCookies(null));
     }
 
     @Test
@@ -43,16 +41,12 @@ class CookieMonsterTest extends JsfEnabledTestEnvironment {
 
     @Test
     void testGetRequestCookieForNameWithNullName() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CookieMonster.getRequestCookieForName(getFacesContext(), null);
-        });
+        assertThrows(IllegalArgumentException.class, () -> CookieMonster.getRequestCookieForName(getFacesContext(), null));
     }
 
     @Test
     void testGetRequestCookieForNameWithNullContext() {
-        assertThrows(NullPointerException.class, () -> {
-            CookieMonster.getRequestCookieForName(null, COUNTRY_COOKIE_NAME);
-        });
+        assertThrows(NullPointerException.class, () -> CookieMonster.getRequestCookieForName(null, COUNTRY_COOKIE_NAME));
     }
 
     @Test
@@ -68,23 +62,17 @@ class CookieMonsterTest extends JsfEnabledTestEnvironment {
 
     @Test
     void testSetSimpleResponseCookieWithNullName() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CookieMonster.setSimpleResponseCookie(getFacesContext(), null, COUNTRY_COOKIE_VALUE);
-        });
+        assertThrows(IllegalArgumentException.class, () -> CookieMonster.setSimpleResponseCookie(getFacesContext(), null, COUNTRY_COOKIE_VALUE));
     }
 
     @Test
     void testSetSimpleResponseCookieWithNullValue() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CookieMonster.setSimpleResponseCookie(getFacesContext(), COUNTRY_COOKIE_NAME, null);
-        });
+        assertThrows(IllegalArgumentException.class, () -> CookieMonster.setSimpleResponseCookie(getFacesContext(), COUNTRY_COOKIE_NAME, null));
     }
 
     @Test
     void testSetSimpleResponseCookieWithNullContext() {
-        assertThrows(NullPointerException.class, () -> {
-            CookieMonster.setSimpleResponseCookie(null, COUNTRY_COOKIE_NAME, COUNTRY_COOKIE_VALUE);
-        });
+        assertThrows(NullPointerException.class, () -> CookieMonster.setSimpleResponseCookie(null, COUNTRY_COOKIE_NAME, COUNTRY_COOKIE_VALUE));
     }
 
     @Test
@@ -94,16 +82,12 @@ class CookieMonsterTest extends JsfEnabledTestEnvironment {
 
     @Test
     void testSetResponseCookieWithNullContext() {
-        assertThrows(NullPointerException.class, () -> {
-            CookieMonster.setResponseCookie(null, new Cookie(COUNTRY_COOKIE_NAME, COUNTRY_COOKIE_VALUE));
-        });
+        assertThrows(NullPointerException.class, () -> CookieMonster.setResponseCookie(null, new Cookie(COUNTRY_COOKIE_NAME, COUNTRY_COOKIE_VALUE)));
     }
 
     @Test
     void testSetResponseCookieWithNullCookie() {
-        assertThrows(NullPointerException.class, () -> {
-            CookieMonster.setResponseCookie(getFacesContext(), null);
-        });
+        assertThrows(NullPointerException.class, () -> CookieMonster.setResponseCookie(getFacesContext(), null));
     }
 
     private void setSomeCookiesAndPutThemIntoContext() {

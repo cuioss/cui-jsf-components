@@ -12,8 +12,6 @@ class ModelProviderImplTest extends AbstractPartialComponentTest {
     @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> {
-            new ModelProvider(null);
-        });
+        assertThrows(NullPointerException.class, () -> new ModelProvider(null));
     }
 }

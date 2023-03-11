@@ -46,8 +46,6 @@ class IconSizeTest {
 
     @Test
     void shouldFailOnInvalidSize() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            IconSize.getForContextSize(ContextSize.SM);
-        });
+        assertThrows(IllegalArgumentException.class, () -> IconSize.getForContextSize(ContextSize.SM));
     }
 }

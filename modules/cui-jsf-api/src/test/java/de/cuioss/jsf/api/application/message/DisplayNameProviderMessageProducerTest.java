@@ -77,9 +77,7 @@ class DisplayNameProviderMessageProducerTest extends JsfEnabledTestEnvironment {
     @SuppressWarnings("unused")
     @Test
     void shouldFailOnNullConstructor() {
-        assertThrows(NullPointerException.class, () -> {
-            new DisplayNameProviderMessageProducer(null);
-        });
+        assertThrows(NullPointerException.class, () -> new DisplayNameProviderMessageProducer(null));
     }
 
     @Test

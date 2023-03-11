@@ -100,16 +100,12 @@ class MessageProducerImplTest extends JsfEnabledTestEnvironment {
 
     @Test
     void shouldFailGlobalErrorMessageOnMissingMessage() {
-        assertThrows(NullPointerException.class, () -> {
-            messageProducer.addGlobalMessage(null, FacesMessage.SEVERITY_FATAL);
-        });
+        assertThrows(NullPointerException.class, () -> messageProducer.addGlobalMessage(null, FacesMessage.SEVERITY_FATAL));
     }
 
     @Test
     void shouldFailGlobalErrorMessageOnMissingSeverity() {
-        assertThrows(NullPointerException.class, () -> {
-            messageProducer.addGlobalMessage(MESSAGE_VALUE, null);
-        });
+        assertThrows(NullPointerException.class, () -> messageProducer.addGlobalMessage(MESSAGE_VALUE, null));
     }
 
     /**

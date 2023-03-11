@@ -63,7 +63,7 @@ public class TooltipComponent extends AbstractParentDecorator {
     public static final String DELAY_KEY = "delay";
 
     /** default tooltip delay in (ms) */
-    public static final Integer DEFAULT_DELAY = valueOf(500);
+    public static final Integer DEFAULT_DELAY = 500;
 
     /** Delay showing and hiding the tooltip (ms) */
     public static final String DATA_DELAY = "data-delay";

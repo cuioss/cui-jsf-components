@@ -16,9 +16,7 @@ class CollapseSwitchProviderImplTest extends AbstractPartialComponentTest {
     @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> {
-            new CollapseSwitchProvider(null);
-        });
+        assertThrows(NullPointerException.class, () -> new CollapseSwitchProvider(null));
     }
 
     @Test

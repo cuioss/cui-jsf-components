@@ -32,8 +32,6 @@ class ModelPayloadEventTest {
 
     @Test
     void shouldNotProcessListener() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            event.processListener(null);
-        });
+        assertThrows(UnsupportedOperationException.class, () -> event.processListener(null));
     }
 }

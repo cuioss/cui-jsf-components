@@ -58,32 +58,24 @@ class ColumnProviderImplTest extends AbstractComponentTest<MockPartialComponent>
 
     @Test
     void shouldFailOnResolveWithNoSize() {
-        assertThrows(NullPointerException.class, () -> {
-            underTest.resolveColumnCss();
-        });
+        assertThrows(NullPointerException.class, () -> underTest.resolveColumnCss());
     }
 
     @Test
     void shouldFailOnInvalidSize() {
         underTest.setSize(invalidNumbers.next());
-        assertThrows(IllegalArgumentException.class, () -> {
-            underTest.resolveColumnCss();
-        });
+        assertThrows(IllegalArgumentException.class, () -> underTest.resolveColumnCss());
     }
 
     @Test
     void shouldFailOnInvalidOffsetSize() {
         underTest.setOffsetSize(invalidNumbers.next());
-        assertThrows(NullPointerException.class, () -> {
-            underTest.resolveColumnCss();
-        });
+        assertThrows(NullPointerException.class, () -> underTest.resolveColumnCss());
     }
 
     @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> {
-            new ColumnProvider(null);
-        });
+        assertThrows(NullPointerException.class, () -> new ColumnProvider(null));
     }
 }

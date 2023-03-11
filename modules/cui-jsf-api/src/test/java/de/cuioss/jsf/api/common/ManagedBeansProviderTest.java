@@ -43,9 +43,7 @@ class ManagedBeansProviderTest extends JsfEnabledTestEnvironment {
 
     @Test
     void testGetManagedBeanInvalidBeanKeyNull() {
-        assertThrows(NullPointerException.class, () -> {
-            ManagedBeansProvider.getManagedBean(null, SomeTestBean.class, getFacesContext());
-        });
+        assertThrows(NullPointerException.class, () -> ManagedBeansProvider.getManagedBean(null, SomeTestBean.class, getFacesContext()));
     }
 
     @Test
@@ -70,9 +68,7 @@ class ManagedBeansProviderTest extends JsfEnabledTestEnvironment {
 
     @Test
     void testGetManagedBeanInvalidBeanKeyEmpty() {
-        assertThrows(NullPointerException.class, () -> {
-            ManagedBeansProvider.getManagedBean("", SomeTestBean.class, getFacesContext());
-        });
+        assertThrows(NullPointerException.class, () -> ManagedBeansProvider.getManagedBean("", SomeTestBean.class, getFacesContext()));
     }
 
     /**
@@ -80,9 +76,7 @@ class ManagedBeansProviderTest extends JsfEnabledTestEnvironment {
      */
     @Test
     void shouldFailIfBeanNotFound() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ManagedBeansProvider.getManagedBean("unknonBean", SomeTestBean.class, getFacesContext());
-        });
+        assertThrows(IllegalArgumentException.class, () -> ManagedBeansProvider.getManagedBean("unknonBean", SomeTestBean.class, getFacesContext()));
     }
 
     /**
@@ -90,8 +84,6 @@ class ManagedBeansProviderTest extends JsfEnabledTestEnvironment {
      */
     @Test
     void shouldFailIfBeanHasNoExpectedInterface() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ManagedBeansProvider.getManagedBean(BEAN_KEY_EL, Date.class, getFacesContext());
-        });
+        assertThrows(IllegalArgumentException.class, () -> ManagedBeansProvider.getManagedBean(BEAN_KEY_EL, Date.class, getFacesContext()));
     }
 }

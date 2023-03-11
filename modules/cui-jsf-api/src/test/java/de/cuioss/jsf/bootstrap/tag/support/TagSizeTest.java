@@ -44,8 +44,6 @@ class TagSizeTest {
 
     @Test
     void shouldFailOnInvalidSize() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            TagSize.getForContextSize(ContextSize.XXXL);
-        });
+        assertThrows(IllegalArgumentException.class, () -> TagSize.getForContextSize(ContextSize.XXXL));
     }
 }

@@ -90,7 +90,7 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
             } else {
                 this.selectionAvailable = true;
                 if (newSourceData instanceof SortedSet) {
-                    sourceData = new TreeSet<>((SortedSet) newSourceData);
+                    sourceData = new TreeSet<T>((SortedSet) newSourceData);
                 } else {
                     sourceData = new HashSet<>(newSourceData);
                 }

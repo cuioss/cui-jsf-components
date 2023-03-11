@@ -17,9 +17,7 @@ class ContentProviderImplTest extends AbstractPartialComponentTest {
     @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> {
-            new ContentProvider(null);
-        });
+        assertThrows(NullPointerException.class, () -> new ContentProvider(null));
     }
 
     @Test

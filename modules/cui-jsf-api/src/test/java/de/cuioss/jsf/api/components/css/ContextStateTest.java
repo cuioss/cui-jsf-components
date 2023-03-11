@@ -30,9 +30,7 @@ class ContextStateTest {
 
     @Test
     void shouldFailOnInvalidName() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ContextState.getFromString("not.there");
-        });
+        assertThrows(IllegalArgumentException.class, () -> ContextState.getFromString("not.there"));
     }
 
     @Test

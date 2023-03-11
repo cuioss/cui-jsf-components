@@ -61,9 +61,7 @@ class AttributeAccessorImplTest extends ValueObjectTest<AttributeAccessorImpl<St
     void shouldFailOnInvalidType() {
         attributeMap.clear();
         attributeMap.put(ATTRIBUTE_NAME, 4);
-        assertThrows(IllegalStateException.class, () -> {
-            underTest.value(attributeMap);
-        });
+        assertThrows(IllegalStateException.class, () -> underTest.value(attributeMap));
     }
 
     public interface TestInterfaceA {

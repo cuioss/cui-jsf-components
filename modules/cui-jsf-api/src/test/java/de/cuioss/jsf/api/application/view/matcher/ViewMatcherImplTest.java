@@ -80,8 +80,6 @@ class ViewMatcherImplTest {
     @SuppressWarnings("unused")
     @Test
     void shouldFAilOnNullMatchList() {
-        assertThrows(NullPointerException.class, () -> {
-            new ViewMatcherImpl(null);
-        });
+        assertThrows(NullPointerException.class, () -> new ViewMatcherImpl(null));
     }
 }

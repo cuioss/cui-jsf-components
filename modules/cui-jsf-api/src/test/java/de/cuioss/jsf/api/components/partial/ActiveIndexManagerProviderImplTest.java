@@ -17,9 +17,7 @@ class ActiveIndexManagerProviderImplTest extends AbstractPartialComponentTest {
     @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> {
-            new ActiveIndexManagerProvider(null);
-        });
+        assertThrows(NullPointerException.class, () -> new ActiveIndexManagerProvider(null));
     }
 
     @Test

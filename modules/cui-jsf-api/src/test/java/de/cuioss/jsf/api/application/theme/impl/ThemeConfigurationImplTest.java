@@ -35,9 +35,7 @@ class ThemeConfigurationImplTest extends JsfEnabledTestEnvironment {
     void shouldFailWithWrongCssName() {
         var underTest = new ThemeConfigurationImpl();
         underTest.setCssName(Generators.strings().next() + ".abc");
-        assertThrows(IllegalStateException.class, () -> {
-            underTest.initBean();
-        });
+        assertThrows(IllegalStateException.class, underTest::initBean);
     }
 
     private String anyExisitingThemeName() {

@@ -69,9 +69,7 @@ class TagInputComponentTest extends AbstractUiComponentTest<TagInputComponent> {
     @Test
     void shouldNotSetSingleValue() {
         final var underTest = anyComponent();
-        assertThrows(IllegalArgumentException.class, () -> {
-            underTest.setValue(conceptKeyTypeGenerator.next());
-        });
+        assertThrows(IllegalArgumentException.class, () -> underTest.setValue(conceptKeyTypeGenerator.next()));
     }
 
     @Test
@@ -79,34 +77,25 @@ class TagInputComponentTest extends AbstractUiComponentTest<TagInputComponent> {
         var underTest = anyComponent();
         assertTrue(TagHelper.getValueAsSet(underTest.getSubmittedValue(), underTest.getValue()).isEmpty());
         var name = Generators.nonEmptyStrings().next();
-        assertThrows(IllegalArgumentException.class, () -> {
-            underTest.setValue(name);
-        });
+        assertThrows(IllegalArgumentException.class, () -> underTest.setValue(name));
     }
 
     @Test
     void shouldFailOnInvalidSingleValue() {
         final var component = anyComponent();
-        assertThrows(IllegalArgumentException.class, () -> {
-            component.setValue(1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> component.setValue(1));
     }
 
     @Test
     void shouldFailOnInvalidSetValue() {
         final var component = anyComponent();
-        assertThrows(IllegalArgumentException.class, () -> {
-
-            component.setValue(mutableSet(1));
-        });
+        assertThrows(IllegalArgumentException.class, () -> component.setValue(mutableSet(1)));
     }
 
     @Test
     void shouldNotAllowEmptyStringValue() {
         final var component = anyComponent();
-        assertThrows(IllegalArgumentException.class, () -> {
-            component.setValue("");
-        });
+        assertThrows(IllegalArgumentException.class, () -> component.setValue(""));
     }
 
     @Test

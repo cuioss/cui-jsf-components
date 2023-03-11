@@ -18,9 +18,7 @@ class CloseButtonTitleProviderImplTest extends AbstractPartialComponentTest {
     @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> {
-            new CloseButtonTitleProvider(null);
-        });
+        assertThrows(NullPointerException.class, () -> new CloseButtonTitleProvider(null));
     }
 
     @Test

@@ -21,7 +21,7 @@ class HistoryManagerBeanTest extends JsfEnabledTestEnvironment
         var historyConfiguration = new HistoryConfigurationImpl();
         historyConfiguration.setFallbackOutcome(FALLBACK_OUTCOME);
         getBeanConfigDecorator().register(historyConfiguration, HistoryConfigurationImpl.BEAN_NAME);
-        assertDoesNotThrow(() -> underTest.initBean());
+        assertDoesNotThrow(underTest::initBean);
     }
 
     @Test
@@ -30,7 +30,7 @@ class HistoryManagerBeanTest extends JsfEnabledTestEnvironment
         var historyConfiguration = new HistoryConfigurationImpl();
         historyConfiguration.setFallback(CURRENT_VIEW_XHTML);
         getBeanConfigDecorator().register(historyConfiguration, HistoryConfigurationImpl.BEAN_NAME);
-        assertDoesNotThrow(() -> underTest.initBean());
+        assertDoesNotThrow(underTest::initBean);
     }
 
     @Test
@@ -41,7 +41,7 @@ class HistoryManagerBeanTest extends JsfEnabledTestEnvironment
         getBeanConfigDecorator().register(historyConfiguration, HistoryConfigurationImpl.BEAN_NAME);
         getApplicationConfigDecorator().getMockNavigationHandler().getNavigationCases().clear();
         underTest.initBean();
-        assertThrows(IllegalStateException.class, () -> underTest.iterator());
+        assertThrows(IllegalStateException.class, underTest::iterator);
 
     }
 
@@ -50,9 +50,7 @@ class HistoryManagerBeanTest extends JsfEnabledTestEnvironment
         var underTest = new HistoryManagerBean();
         getBeanConfigDecorator().register(new HistoryConfigurationImpl(), HistoryConfigurationImpl.BEAN_NAME);
         underTest.initBean();
-        assertThrows(IllegalStateException.class, () -> {
-            underTest.iterator();
-        });
+        assertThrows(IllegalStateException.class, underTest::iterator);
     }
 
     @Override

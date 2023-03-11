@@ -129,9 +129,7 @@ class EditableDataListComponentTest extends AbstractComponentTest<EditableDataLi
         var underTest = anyComponent();
         underTest.getAttributes().put("model", model);
         underTest.getAttributes().put("required", true);
-        assertThrows(ValidatorException.class, () -> {
-            underTest.validate(getFacesContext(), new HtmlInputText(), "irrelevant");
-        });
+        assertThrows(ValidatorException.class, () -> underTest.validate(getFacesContext(), new HtmlInputText(), "irrelevant"));
     }
 
     @Test
@@ -142,8 +140,6 @@ class EditableDataListComponentTest extends AbstractComponentTest<EditableDataLi
         underTest.getAttributes().put("modelValidator", "test.EditableDataListValidator");
         getFacesContext().getApplication().addValidator("test.EditableDataListValidator",
                 EditableDataListValidator.class.getName());
-        assertThrows(ValidatorException.class, () -> {
-            underTest.validate(getFacesContext(), new HtmlInputText(), "irrelevant");
-        });
+        assertThrows(ValidatorException.class, () -> underTest.validate(getFacesContext(), new HtmlInputText(), "irrelevant"));
     }
 }

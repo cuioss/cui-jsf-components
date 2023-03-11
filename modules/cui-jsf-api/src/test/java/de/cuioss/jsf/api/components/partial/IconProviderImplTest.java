@@ -15,9 +15,7 @@ class IconProviderImplTest extends AbstractPartialComponentTest {
     @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> {
-            new IconProvider(null);
-        });
+        assertThrows(NullPointerException.class, () -> new IconProvider(null));
     }
 
     @Test

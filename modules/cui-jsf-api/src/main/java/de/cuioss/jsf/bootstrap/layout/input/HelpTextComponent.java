@@ -127,14 +127,10 @@ public class HelpTextComponent extends BaseCuiHtmlHiddenInputComponent implement
 
             if (getChildCount() > 0) {
                 List<UIComponent> children = new ArrayList<>(getChildren());
-                children.forEach(child -> {
-                    helpTextBlock.getChildren().add(child);
-                });
+                children.forEach(child -> helpTextBlock.getChildren().add(child));
             } else if (null != state.get(CHILDREN_KEY)) {
                 List<UIComponent> children = state.get(CHILDREN_KEY);
-                children.forEach(child -> {
-                    helpTextBlock.getChildren().add(child);
-                });
+                children.forEach(child -> helpTextBlock.getChildren().add(child));
             } else if (!MoreStrings.isEmpty(contentProvider.resolveContent())) {
                 var outputText = new HtmlOutputText();
                 outputText.setValue(contentProvider.resolveContent());

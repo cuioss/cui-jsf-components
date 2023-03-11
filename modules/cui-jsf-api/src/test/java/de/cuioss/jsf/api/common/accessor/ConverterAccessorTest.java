@@ -57,17 +57,13 @@ class ConverterAccessorTest extends JsfEnabledTestEnvironment implements Compone
     void shouldFailOnInvalidConverterId() {
         ConverterAccessor<?> accessor = new ConverterAccessor<>();
         accessor.setConverterId("not.there");
-        assertThrows(IllegalStateException.class, () -> {
-            accessor.getValue();
-        });
+        assertThrows(IllegalStateException.class, accessor::getValue);
     }
 
     @Test
     void shouldFailOnNoConfiguration() {
         ConverterAccessor<?> accessor = new ConverterAccessor<>();
-        assertThrows(IllegalStateException.class, () -> {
-            accessor.getValue();
-        });
+        assertThrows(IllegalStateException.class, accessor::getValue);
     }
 
     @Test

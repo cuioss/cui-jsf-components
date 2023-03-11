@@ -13,9 +13,7 @@ class DisabledComponentProviderImplTest extends AbstractPartialComponentTest {
     @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> {
-            new DisabledComponentProvider(null);
-        });
+        assertThrows(NullPointerException.class, () -> new DisabledComponentProvider(null));
     }
 
     @Test

@@ -261,10 +261,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
         final var component = new TagInputComponent();
         getRequestConfigDecorator().setRequestParameter(component.getClientId(), Selectize.CLIENT_CREATED_SUFFIX);
         getRenderer().decode(getFacesContext(), component);
-        assertThrows(ConverterException.class, () -> {
-            component.getConvertedValue(getFacesContext(), component.getSubmittedValue());
-
-        });
+        assertThrows(ConverterException.class, () -> component.getConvertedValue(getFacesContext(), component.getSubmittedValue()));
     }
 
     @Test
@@ -272,9 +269,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
         final var component = new TagInputComponent();
         getRequestConfigDecorator().setRequestParameter(component.getClientId(), CODE_TYPE_1.getIdentifier());
         getRenderer().decode(getFacesContext(), component);
-        assertThrows(ConverterException.class, () -> {
-            component.getConvertedValue(getFacesContext(), component.getSubmittedValue());
-        });
+        assertThrows(ConverterException.class, () -> component.getConvertedValue(getFacesContext(), component.getSubmittedValue()));
     }
 
     @Test

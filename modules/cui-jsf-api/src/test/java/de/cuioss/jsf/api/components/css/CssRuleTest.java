@@ -21,16 +21,12 @@ class CssRuleTest extends ValueObjectTest<CssRule> {
 
     @Test
     final void shouldFailOnMissingReqiredParameter() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CssRule.createBy(null);
-        });
+        assertThrows(IllegalArgumentException.class, () -> CssRule.createBy(null));
     }
 
     @Test
     final void shouldFailOnMissingContent() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            target = CssRule.createBy("");
-        });
+        assertThrows(IllegalArgumentException.class, () -> target = CssRule.createBy(""));
     }
 
     @Test

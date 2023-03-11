@@ -34,8 +34,6 @@ class JsNumberTest extends ValueObjectTest<JsNumber<Number>> {
 
     @Test
     void shouldReactOnUnsupportedNumberType() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            JsNumber.create(Byte.MAX_VALUE);
-        });
+        assertThrows(UnsupportedOperationException.class, () -> JsNumber.create(Byte.MAX_VALUE));
     }
 }

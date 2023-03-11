@@ -38,7 +38,7 @@ public class BooleanAttributeAccessor extends AttributeAccessorImpl<Boolean> {
     public Boolean value(final Map<String, Object> attributeMap) {
         var actual = super.value(attributeMap);
         if (actual != null && this.invert) {
-            actual = !actual.booleanValue();
+            actual = !actual;
         }
         return actual;
     }

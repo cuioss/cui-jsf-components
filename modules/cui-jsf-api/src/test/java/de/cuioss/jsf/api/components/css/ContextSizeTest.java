@@ -29,9 +29,7 @@ class ContextSizeTest {
 
     @Test
     void shouldFailOnInvalidName() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ContextSize.getFromString("not.there");
-        });
+        assertThrows(IllegalArgumentException.class, () -> ContextSize.getFromString("not.there"));
     }
 
     @Test

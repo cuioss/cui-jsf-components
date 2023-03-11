@@ -42,23 +42,17 @@ class NavigationUtilsTest extends JsfEnabledTestEnvironment implements Applicati
 
     @Test
     void testErrorHandlingOnMissingUrl() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            NavigationUtils.sendRedirect(getFacesContext(), null, false);
-        });
+        assertThrows(IllegalArgumentException.class, () -> NavigationUtils.sendRedirect(getFacesContext(), null, false));
     }
 
     @Test
     void testErrorHandlingOnEmptyUrl() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            NavigationUtils.sendRedirect(getFacesContext(), "", false);
-        });
+        assertThrows(IllegalArgumentException.class, () -> NavigationUtils.sendRedirect(getFacesContext(), "", false));
     }
 
     @Test
     void testErrorHandlingOnMissingFacesContext() {
-        assertThrows(NullPointerException.class, () -> {
-            NavigationUtils.sendRedirect(null, "somewhere", false);
-        });
+        assertThrows(NullPointerException.class, () -> NavigationUtils.sendRedirect(null, "somewhere", false));
     }
 
     private void verifyRedirect(final String expected) {
@@ -176,9 +170,7 @@ class NavigationUtilsTest extends JsfEnabledTestEnvironment implements Applicati
 
     @Test
     void shouldFailToLookupToViewId() {
-        assertThrows(IllegalStateException.class, () -> {
-            NavigationUtils.lookUpToViewIdBy(getFacesContext(), CONTEXT_PATH);
-        });
+        assertThrows(IllegalStateException.class, () -> NavigationUtils.lookUpToViewIdBy(getFacesContext(), CONTEXT_PATH));
     }
 
     /**
@@ -187,9 +179,7 @@ class NavigationUtilsTest extends JsfEnabledTestEnvironment implements Applicati
     @Test
     void shouldFailToLookupToViewIdWrongHandler() {
         getApplication().setNavigationHandler(new MockNavigationHandler());
-        assertThrows(IllegalStateException.class, () -> {
-            NavigationUtils.lookUpToViewIdBy(getFacesContext(), OUTCOME_HOME);
-        });
+        assertThrows(IllegalStateException.class, () -> NavigationUtils.lookUpToViewIdBy(getFacesContext(), OUTCOME_HOME));
     }
 
     @Test
