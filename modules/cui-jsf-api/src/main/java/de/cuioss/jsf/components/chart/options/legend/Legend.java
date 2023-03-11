@@ -40,7 +40,7 @@ public class Legend extends JsObject implements IPluginConsumer {
     private JsBoolean show;
 
     /**
-     * Wether to display the legend on the graph. <br/>
+     * Wether to display the legend on the graph. <br>
      * <b>Default</b> value is <i>false</i>
      *
      * @param value {@link Boolean}

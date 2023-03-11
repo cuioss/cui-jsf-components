@@ -38,7 +38,7 @@ public enum AttributeValue {
     FALSE("false"),
 
     /**
-     * Html tag <b>hidden</b> attribute.<br/>
+     * Html tag <b>hidden</b> attribute.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/att_global_hidden.asp">HTML
      *      hidden Attribute</a>

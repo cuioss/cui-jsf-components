@@ -20,22 +20,22 @@ import lombok.Getter;
 public enum JsDateTimeFormat {
 
     /**
-     * provide formatter for Date only. <br/>
+     * provide formatter for Date only. <br>
      * For example : 2007-10-29
      */
     DATE_ONLY(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
     /**
-     * provide formatter for Date with time. <br/>
+     * provide formatter for Date with time. <br>
      * For example : 2010-03-15T12:34:56
      */
     DATE_TIME(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
     /**
-     * provide formatter for Date with time and fraction of second.<br/>
+     * provide formatter for Date with time and fraction of second.<br>
      * For example : 2010-03-15T12:34:56.005
      */
     DATE_TIME_WITH_MILISECONDS(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S")),
     /**
-     * provide formatter for Date with time, fraction of second and offset. (full ISO 8601)<br/>
+     * provide formatter for Date with time, fraction of second and offset. (full ISO 8601)<br>
      * For example : 2010-03-15T12:34:56+01:00
      */
     DATE_TIME_WITH_MILISECONDS_TIMEZONE(DateTimeFormatter.ISO_OFFSET_DATE_TIME);

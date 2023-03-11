@@ -51,7 +51,7 @@ public abstract class JsObject implements JavaScriptSupport {
     }
 
     /**
-     * If no properties denied return {@code null}.<br/>
+     * If no properties denied return {@code null}.<br>
      * If one property is defined create :
      *
      * <pre>

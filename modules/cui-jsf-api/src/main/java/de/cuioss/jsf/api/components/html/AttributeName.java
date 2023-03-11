@@ -41,7 +41,7 @@ public enum AttributeName {
     CHECKED("checked"),
 
     /**
-     * <b>class</b> attribute.<br/>
+     * <b>class</b> attribute.<br>
      *
      * @see <a href="http://www.w3schools.com/html/html_classes.asp">HTML
      *      Classes</a>
@@ -89,7 +89,7 @@ public enum AttributeName {
     /** "disabled" */
     DISABLED("disabled"),
     /**
-     * <b>for</b> attribute.<br/>
+     * <b>for</b> attribute.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/att_label_for.asp">HTML
      *      &lt;for&gt; </a>
@@ -97,7 +97,7 @@ public enum AttributeName {
     FOR("for"),
 
     /**
-     * <b>href</b> attribute.<br/>
+     * <b>href</b> attribute.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_href.asp">
      *      Definition and Usage</a>
@@ -105,7 +105,7 @@ public enum AttributeName {
     HREF("href"),
 
     /**
-     * <b>id</b> attribute.<br/>
+     * <b>id</b> attribute.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/att_global_id.asp">HTML id
      *      Attribute</a>
@@ -116,7 +116,7 @@ public enum AttributeName {
     JS_ON_CLICK("onclick"),
 
     /**
-     * <b>name</b> attribute.<br/>
+     * <b>name</b> attribute.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/att_a_name.asp">HTML name
      *      Attribute</a>
@@ -124,7 +124,7 @@ public enum AttributeName {
     NAME("name"),
 
     /**
-     * <b>role</b> attribute.<br/>
+     * <b>role</b> attribute.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_role.asp">HTML
      *      &lt;role&gt; </a>
@@ -132,7 +132,7 @@ public enum AttributeName {
     ROLE("role"),
 
     /**
-     * <b>style</b> attribute.<br/>
+     * <b>style</b> attribute.<br>
      *
      * @see <a href="//www.w3schools.com/tags/att_global_style.asp">Definition
      *      and Usage</a>
@@ -145,7 +145,7 @@ public enum AttributeName {
     TABINDEX("tabindex"),
 
     /**
-     * <b>title</b> attribute.<br/>
+     * <b>title</b> attribute.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_title.asp">HTML
      *      &lt;title&gt; </a>
@@ -153,7 +153,7 @@ public enum AttributeName {
     TITLE("title"),
 
     /**
-     * <b>type</b> attribute.<br/>
+     * <b>type</b> attribute.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/att_input_type.asp">
      *      Definition and Usage</a>
@@ -161,7 +161,7 @@ public enum AttributeName {
     TYPE("type"),
 
     /**
-     * <b>value</b> attribute.<br/>
+     * <b>value</b> attribute.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/att_input_value.asp">HTML
      *      &lt;input&gt; value Attribute</a>

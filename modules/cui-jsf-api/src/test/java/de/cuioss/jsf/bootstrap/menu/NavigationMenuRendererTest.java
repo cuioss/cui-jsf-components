@@ -345,7 +345,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     }
 
     /**
-     * Create expected structure for "separator" menu item.<br/>
+     * Create expected structure for "separator" menu item.<br>
      *
      * @param builder
      * @return expected separator element structure
@@ -376,7 +376,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     }
 
     /**
-     * Create expected link structure for "container" menu item.<br/>
+     * Create expected link structure for "container" menu item.<br>
      *
      * @param builder
      * @param text

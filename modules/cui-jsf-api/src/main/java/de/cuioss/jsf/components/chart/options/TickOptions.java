@@ -66,7 +66,7 @@ public class TickOptions extends JsObject implements ILabelDecorator<TickOptions
     /**
      * Set date time format (supported are Joda / Java date formats). Manual
      * changes could be done by using {@linkplain #setFormatString(String)}, but
-     * you need to take care about correct formatting <br/>
+     * you need to take care about correct formatting <br>
      *
      * @param value
      *            pattern value (empty value is ignored)

@@ -44,7 +44,7 @@ public class Color implements JsValue {
     public static final Color TRANSPARENT = new Color("transparent");
 
     /**
-     * If parameter colorValue is {@code null} or empty the color will be set to 'transparent'.<br/>
+     * If parameter colorValue is {@code null} or empty the color will be set to 'transparent'.<br>
      *
      * @param colorValue string value for color
      * @return {@linkplain Color}

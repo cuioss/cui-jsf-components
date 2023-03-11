@@ -9,10 +9,10 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Represent a seria for {@linkplain SeriesData}. <br/>
- * Will be represent is JSON Array [SeriaTupelItem1, SeriaTupelItem2, .. , SeriaTupelItemN]. <br/>
+ * Represent a seria for {@linkplain SeriesData}. <br>
+ * Will be represent is JSON Array [SeriaTupelItem1, SeriaTupelItem2, .. , SeriaTupelItemN]. <br>
  * Because SeriaTupelItem it self is a tuple of [x,y] the final JSON representation will be as
- * follow :<br/>
+ * follow :<br>
  * [ [x1, y1] , [x2, y2], .. [xn, yn] ]
  *
  * @author Eugen Fischer

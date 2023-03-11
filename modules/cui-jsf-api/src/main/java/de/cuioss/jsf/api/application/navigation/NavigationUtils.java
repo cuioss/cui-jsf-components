@@ -29,7 +29,7 @@ import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.tools.net.UrlParameter;
 
 /**
- * Class provides navigation utilities.<br/>
+ * Class provides navigation utilities.<br>
  * <b>Attention</b> use {@linkplain NavigationUtils} careful and
  * only if Faces Request needs to be redirected to a <b>different</b> web application resource!
  * If you doesn't leave the web application space use Navigation Rules!

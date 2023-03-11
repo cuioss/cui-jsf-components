@@ -15,8 +15,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 
 /**
- * Each constant represent a mime type icon, defined within icons.css.<br/>
- * Currently supported mime types see https://jira.x-tention.com/browse/VMR-5009 <br/>
+ * Each constant represent a mime type icon, defined within icons.css.<br>
+ * Currently supported mime types see https://jira.x-tention.com/browse/VMR-5009 <br>
  *
  * @author Oliver Wolff
  * @author Eugen Fischer

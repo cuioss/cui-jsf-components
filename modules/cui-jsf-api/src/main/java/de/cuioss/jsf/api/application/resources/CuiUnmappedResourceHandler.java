@@ -25,9 +25,9 @@ import de.cuioss.tools.string.Splitter;
  * configuration parameter
  * <p>
  * <code>
- *         &lt;context-param&gt;<br/>
- *         &lt;param-name&gt;javax.faces.RESOURCE_EXCLUDES&lt;/param-name&gt;<br/>
- *         &lt;param-value&gt;.class .jsp .jspx .properties .xhtml .groovy&lt;/param-value&gt;<br/>
+ *         &lt;context-param&gt;<br>
+ *         &lt;param-name&gt;javax.faces.RESOURCE_EXCLUDES&lt;/param-name&gt;<br>
+ *         &lt;param-value&gt;.class .jsp .jspx .properties .xhtml .groovy&lt;/param-value&gt;<br>
  *         &lt;/context-param&gt;
  *      </code>
  * </p>
@@ -104,8 +104,8 @@ public class CuiUnmappedResourceHandler extends UnmappedResourceHandler {
 
     /**
      * Lookup web.xml context-param
-     * {@link javax.faces.application.ResourceHandler#RESOURCE_EXCLUDES_PARAM_NAME}.<br/>
-     * If exists use as space separated configuration list,<br/>
+     * {@link javax.faces.application.ResourceHandler#RESOURCE_EXCLUDES_PARAM_NAME}.<br>
+     * If exists use as space separated configuration list,<br>
      * otherwise fallback to
      * {@link javax.faces.application.ResourceHandler#RESOURCE_EXCLUDES_DEFAULT_VALUE}
      */

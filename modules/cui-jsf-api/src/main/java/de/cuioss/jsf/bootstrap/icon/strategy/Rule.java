@@ -10,8 +10,8 @@ import lombok.ToString;
 
 /**
  * Single {@link Rule} define a condition when this rule has to be chosen and the corresponding
- * action result.<br/>
- * Instead create a rule using constructor the class provide needed factory methods.<br/>
+ * action result.<br>
+ * Instead create a rule using constructor the class provide needed factory methods.<br>
  * As there are {@linkplain #create(Serializable, Serializable)} for a regular rule and
  * {@linkplain #createDefaultRule(Serializable)} which is needed if no other rule conditions maps.
  *

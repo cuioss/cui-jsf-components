@@ -87,9 +87,9 @@ public class Grid extends JsObject implements IShadowDecoration<Grid> {
         new ColorProperty("gridLineColor", DEFAULT_GRID_LINE_COLOR);
 
     /**
-     * Change color of the grid lines.<br/>
-     * If parameter value is {@code null} or empty the color will be set to 'transparent'.<br/>
-     * Otherwise it should match the html color definition.<br/>
+     * Change color of the grid lines.<br>
+     * If parameter value is {@code null} or empty the color will be set to 'transparent'.<br>
+     * Otherwise it should match the html color definition.<br>
      * <b>Default</b> value is <i>#cccccc</i>
      *
      * @see Color
@@ -107,9 +107,9 @@ public class Grid extends JsObject implements IShadowDecoration<Grid> {
     private final ColorProperty background = new ColorProperty("background");
 
     /**
-     * Change color of the grid background.<br/>
-     * If parameter value is {@code null} or empty the color will be set to 'transparent'.<br/>
-     * Otherwise it should match the html color definition.<br/>
+     * Change color of the grid background.<br>
+     * If parameter value is {@code null} or empty the color will be set to 'transparent'.<br>
+     * Otherwise it should match the html color definition.<br>
      * <b>Default</b> value is <i>#cccccc</i>
      *
      * @see Color
@@ -127,9 +127,9 @@ public class Grid extends JsObject implements IShadowDecoration<Grid> {
     private final ColorProperty borderColor = new ColorProperty("borderColor");
 
     /**
-     * Change color of the grid border.<br/>
-     * If parameter value is {@code null} or empty the color will be set to 'transparent'.<br/>
-     * Otherwise it should match the html color definition.<br/>
+     * Change color of the grid border.<br>
+     * If parameter value is {@code null} or empty the color will be set to 'transparent'.<br>
+     * Otherwise it should match the html color definition.<br>
      * <b>Default</b> value is <i>#999999</i>
      *
      * @see Color

@@ -4,7 +4,7 @@ import de.cuioss.jsf.components.js.support.JsValue;
 import lombok.Data;
 
 /**
- * JSON string value.<br/>
+ * JSON string value.<br>
  * <img width="400" height="300" alt=
  * "Abstract machine string in JSON" src="http://www.json.org/string.gif"/>
  *

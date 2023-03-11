@@ -9,8 +9,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * An array is an ordered collection of values. An array begins with [ (left bracket)<br/>
- * and ends with ] (right bracket). Values are separated by , (comma).<br/>
+ * An array is an ordered collection of values. An array begins with [ (left bracket)<br>
+ * and ends with ] (right bracket). Values are separated by , (comma).<br>
  * An array could be nested. Thats the reason why it's also implements the interface {@link JsValue}
  *
  * @see <a href="http://www.json.org/">json.org</a>

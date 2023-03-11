@@ -11,9 +11,9 @@ import javax.faces.validator.ValidatorException;
 import de.cuioss.jsf.api.application.message.MessageProducerAccessor;
 
 /**
- * Abstract validator implements the interface {@linkplain Validator}.<br/>
+ * Abstract validator implements the interface {@linkplain Validator}.<br>
  * The implementation ensured API conform implementation and provide a type safe value
- * handling.<br/>
+ * handling.<br>
  *
  * @author Eugen Fischer
  * @param <T> bounded type which should be validated

@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 public enum Node {
 
     /**
-     * Html <b>a</b> tag.<br/>
+     * Html <b>a</b> tag.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_a.asp">HTML &lt;a&gt;
      *      Tag</a>
@@ -22,7 +22,7 @@ public enum Node {
     A("a"),
 
     /**
-     * Html <b>button</b> tag.<br/>
+     * Html <b>button</b> tag.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_button.asp">HTML
      *      &lt;button&gt; Tag</a>
@@ -30,12 +30,12 @@ public enum Node {
     BUTTON("button"),
 
     /**
-     * Html <b>code</b> tag.<br/>
+     * Html <b>code</b> tag.<br>
      */
     CODE("code"),
 
     /**
-     * Html <b>div</b> tag.<br/>
+     * Html <b>div</b> tag.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_div.asp">HTML &lt;div&gt;
      *      Tag</a>
@@ -43,17 +43,17 @@ public enum Node {
     DIV("div"),
 
     /**
-     * Html <b>fieldset</b> tag.<br/>
+     * Html <b>fieldset</b> tag.<br>
      */
     FIELDSET("fieldset"),
 
     /**
-     * Html <b>form</b> tag.<br/>
+     * Html <b>form</b> tag.<br>
      */
     FORM("form"),
 
     /**
-     * Html <b>h1</b> tag.<br/>
+     * Html <b>h1</b> tag.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_hn.asp">HTML &lt;h1&gt;
      *      to &lt;h6&gt; Tags</a>
@@ -61,7 +61,7 @@ public enum Node {
     H1("h1"),
 
     /**
-     * Html <b>h2</b> tag.<br/>
+     * Html <b>h2</b> tag.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_hn.asp">HTML &lt;h1&gt;
      *      to &lt;h6&gt; Tags</a>
@@ -69,7 +69,7 @@ public enum Node {
     H2("h2"),
 
     /**
-     * Html <b>h3</b> tag.<br/>
+     * Html <b>h3</b> tag.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_hn.asp">HTML &lt;h1&gt;
      *      to &lt;h6&gt; Tags</a>
@@ -77,7 +77,7 @@ public enum Node {
     H3("h3"),
 
     /**
-     * Html <b>h4</b> tag.<br/>
+     * Html <b>h4</b> tag.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_hn.asp">HTML &lt;h1&gt;
      *      to &lt;h6&gt; Tags</a>
@@ -85,7 +85,7 @@ public enum Node {
     H4("h4"),
 
     /**
-     * Html <b>input</b> tag.<br/>
+     * Html <b>input</b> tag.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_input.asp">HTML
      *      &lt;input&gt; Tag</a>
@@ -93,7 +93,7 @@ public enum Node {
     INPUT("input"),
 
     /**
-     * Html <b>i</b> tag.<br/>
+     * Html <b>i</b> tag.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_i.asp">HTML &lt;i&gt;
      *      Tag</a>
@@ -101,7 +101,7 @@ public enum Node {
     ITALIC("i"),
 
     /**
-     * Html <b>label</b> tag.<br/>
+     * Html <b>label</b> tag.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_label.asp">HTML
      *      &lt;label&gt; Tag</a>
@@ -109,12 +109,12 @@ public enum Node {
     LABEL("label"),
 
     /**
-     * Html <b>legend</b> tag.<br/>
+     * Html <b>legend</b> tag.<br>
      */
     LEGEND("legend"),
 
     /**
-     * Html <b>li</b> tag.<br/>
+     * Html <b>li</b> tag.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_li.asp">HTML &lt;li&gt;
      *      Tag</a>
@@ -122,7 +122,7 @@ public enum Node {
     LI("li"),
 
     /**
-     * Html <b>nav</b> tag.<br/>
+     * Html <b>nav</b> tag.<br>
      *
      * @see <a href="https://www.w3schools.com/tags/tag_nav.asp">HTML &lt;nav&gt;
      *      Tag</a>
@@ -130,7 +130,7 @@ public enum Node {
     NAV("nav"),
 
     /**
-     * Html <b>ol</b> tag.<br/>
+     * Html <b>ol</b> tag.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_ol.asp">HTML &lt;ol&gt;
      *      Tag</a>
@@ -138,7 +138,7 @@ public enum Node {
     OL("ol"),
 
     /**
-     * Html <b>option</b> tag.<br/>
+     * Html <b>option</b> tag.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_option.asp">HTML
      *      &lt;option&gt; Tag</a>
@@ -146,7 +146,7 @@ public enum Node {
     OPTION("option"),
 
     /**
-     * Html <b>p</b> tag.<br/>
+     * Html <b>p</b> tag.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_p.asp">HTML &lt;p&gt;
      *      Tag</a>
@@ -154,12 +154,12 @@ public enum Node {
     P("p"),
 
     /**
-     * Html <b>pre</b> tag.<br/>
+     * Html <b>pre</b> tag.<br>
      */
     PRE("pre"),
 
     /**
-     * Html <b>script</b> tag.<br/>
+     * Html <b>script</b> tag.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_script.asp">HTML
      *      &lt;script&gt; Tag</a>
@@ -167,7 +167,7 @@ public enum Node {
     SCRIPT("script"),
 
     /**
-     * Html <b>select</b> tag.<br/>
+     * Html <b>select</b> tag.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_select.asp">HTML
      *      &lt;select&gt; Tag</a>
@@ -175,7 +175,7 @@ public enum Node {
     SELECT("select"),
 
     /**
-     * Html <b>span</b> tag.<br/>
+     * Html <b>span</b> tag.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_span.asp">HTML
      *      &lt;span&gt; Tag</a>
@@ -183,12 +183,12 @@ public enum Node {
     SPAN("span"),
 
     /**
-     * Html <b>textarea</b> tag.<br/>
+     * Html <b>textarea</b> tag.<br>
      */
     TEXT_AREA("textarea"),
 
     /**
-     * Html <b>ul</b> tag.<br/>
+     * Html <b>ul</b> tag.<br>
      *
      * @see <a href="http://www.w3schools.com/tags/tag_ul.asp">HTML &lt;ul&gt;
      *      Tag</a>
