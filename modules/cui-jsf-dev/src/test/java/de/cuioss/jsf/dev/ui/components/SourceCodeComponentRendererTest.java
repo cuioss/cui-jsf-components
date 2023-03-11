@@ -2,9 +2,7 @@ package de.cuioss.jsf.dev.ui.components;
 
 import static de.cuioss.jsf.dev.ui.components.SourceCodeComponent.LangStyle.LANG_HTML;
 import static de.cuioss.jsf.dev.ui.components.SourceCodeComponentRenderer.PRE_STYLE_CLASS;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,7 +105,7 @@ class SourceCodeComponentRendererTest extends AbstractComponentRendererTest<Sour
         SourceCodeComponentRenderer.handleLineSplit(result, willSplit, 7);
         assertEquals(4, result.size());
         var willSplitStringResult = SourceCodeComponentRenderer.limitLineSize(willSplit, 7);
-        assertFalse(willSplit.equals(willSplitStringResult));
+        assertNotEquals(willSplit, willSplitStringResult);
         assertTrue(willSplitStringResult.contains(System.lineSeparator()));
         assertEquals(1, MoreStrings.countMatches(willSplitStringResult, "split1"));
         assertEquals(1, MoreStrings.countMatches(willSplitStringResult, "split2"));
