@@ -25,9 +25,7 @@ class MessageProducerMockTest extends AbstractBeanTest<MessageProducerMock> {
     @Test
     void shouldDetectMissingMessage() {
         var mock = new MessageProducerMock();
-        assertThrows(AssertionError.class, () -> {
-            mock.assertSingleGlobalMessageWithKeyPresent(SOME_KEY);
-        });
+        assertThrows(AssertionError.class, () -> mock.assertSingleGlobalMessageWithKeyPresent(SOME_KEY));
     }
 
     @Test
