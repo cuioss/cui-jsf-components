@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * {@link Renderer} utility for the {@link NavigationMenuItemContainer} model.
- *
+ * <p>
  * Renders a bootstrap conform navigation menu structure.
  *
  * <h2>HTML structure</h2>

@@ -34,7 +34,7 @@ import lombok.experimental.Delegate;
 
 /**
  * Displays a content that should be loaded lazy after initial page rendering.
- *
+ * <p>
  * The initial page will display the waiting indicator and trigger an ajax update of the content.
  * This update will first call an ActionListener (if defined) during Invoke Application phase,
  * and then switch the waiting indicator to be hidden and render the content.

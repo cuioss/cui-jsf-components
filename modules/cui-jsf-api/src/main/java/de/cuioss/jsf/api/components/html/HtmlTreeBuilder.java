@@ -285,7 +285,6 @@ public class HtmlTreeBuilder {
     /**
      * Writes recursively the elements given until {@value #CHILD_BREAKPOINT_ELEMENT} is reached.
      *
-     * @param element to be written
      * @param writer to be written to, must not be null
      * @throws IOException usually thrown by given {@link ResponseWriter}
      */

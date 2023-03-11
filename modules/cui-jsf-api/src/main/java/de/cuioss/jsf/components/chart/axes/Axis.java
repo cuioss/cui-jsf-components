@@ -156,7 +156,7 @@ public class Axis extends JsObject implements IPluginConsumer {
     /**
      * There exists different axis
      *
-     * @param AxisType must not be null
+     * @param type must not be null
      */
     private Axis(final AxisType type) {
         super(type.getAxisName());

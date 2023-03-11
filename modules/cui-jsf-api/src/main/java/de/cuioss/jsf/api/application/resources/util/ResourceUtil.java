@@ -7,7 +7,7 @@ import lombok.experimental.UtilityClass;
 
 /**
  * Utility class to provide access to resources at bean level.
- *
+ * <p>
  * Notice: Current implementation is based on prefix mapping for resources.
  * Please add the following line to the web.xml:
  *

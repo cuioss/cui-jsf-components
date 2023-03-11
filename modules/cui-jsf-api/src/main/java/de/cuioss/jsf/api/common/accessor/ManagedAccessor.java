@@ -7,7 +7,7 @@ import javax.faces.context.FacesContext;
 
 /**
  * @deprecated use CuiBeanManager instead
- *
+ * <p>
  *             Utility used for accessing transient values in a non transient way. The
  *             {@link ManagedAccessor} itself implements {@link Serializable} but the wrapped value
  *             is to be

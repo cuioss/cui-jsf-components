@@ -63,11 +63,11 @@ public class Selectize implements ScriptProvider {
      * in the array should be an object containing at least a "field" property.
      * Optionally, "direction" can be set to "asc" or "desc". The order of the
      * array defines the sort precedence.
-     *
+     * <p>
      * Unless present, a special "$score" field will be automatically added to
      * the beginning of the sort list. This will make results sorted primarily
      * by match quality (descending).
-     *
+     * <p>
      * You can override the "$score" function. For more information, see the
      * sifter documentation.
      */

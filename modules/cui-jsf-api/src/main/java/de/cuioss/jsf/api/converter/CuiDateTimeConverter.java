@@ -14,7 +14,7 @@ import javax.faces.convert.FacesConverter;
 
 /**
  * Extends standard {@link javax.faces.convert.DateTimeConverter} to support {@link ZonedDateTime}.
- *
+ * <p>
  * Accepts {@link Date}, {@link LocalDateTime} and {@link ZonedDateTime} as input, returns as
  * {@link ZonedDateTime}.
  *

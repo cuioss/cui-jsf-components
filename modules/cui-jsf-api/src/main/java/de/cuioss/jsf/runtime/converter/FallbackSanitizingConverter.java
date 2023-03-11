@@ -16,7 +16,7 @@ import de.cuioss.tools.logging.CuiLogger;
  * Converter utilized for ensuring proper escaping of output fields. Input fields are ignored, only
  * output fields
  * with no escaping are handled.
- *
+ * <p>
  * To be configured as fallback converter for all String.
  */
 @FacesConverter(value = "cui.converter.FallbackSanitizingConverter")

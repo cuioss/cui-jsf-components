@@ -35,7 +35,7 @@ public enum AlignHolder implements StyleClassProvider {
 
     /**
      * Create an instance of {@link AlignHolder} according to the given String.
-     *
+     * <p>
      *
      * @param align
      *            String identifier, may be null. The call is case insensitive.

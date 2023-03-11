@@ -22,7 +22,7 @@ import lombok.ToString;
 
 /**
  * Model for requestResultContent.xhtml to display a {@link ResultObject} and handle its errors.
- *
+ * <p>
  * Should be part of the view (page bean) and instantiated with the {@link ResultObject} during init
  * view action.
  */

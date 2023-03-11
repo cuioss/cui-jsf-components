@@ -8,7 +8,7 @@ import de.cuioss.jsf.api.common.ManagedBeansProvider;
 
 /**
  * @deprecated use CuiBeanManager instead
- *
+ * <p>
  *             {@link ManagedAccessor} for managed Beans utilizing {@link ManagedBeansProvider}.
  *
  * @author Oliver Wolff

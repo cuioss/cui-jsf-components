@@ -1,6 +1,7 @@
 package de.cuioss.jsf.api.ui.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ComponentSystemEvent;
@@ -38,11 +39,7 @@ public class ToggleSwitch implements Serializable {
      * @param toggled
      */
     public ToggleSwitch(final Boolean toggled) {
-        if (null == toggled) {
-            this.toggled = false;
-        } else {
-            this.toggled = toggled;
-        }
+        this.toggled = Objects.requireNonNullElse(toggled, false);
     }
 
     /**

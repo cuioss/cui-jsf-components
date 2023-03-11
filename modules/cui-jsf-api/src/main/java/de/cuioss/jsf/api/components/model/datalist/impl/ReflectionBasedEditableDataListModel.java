@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import de.cuioss.jsf.api.components.model.datalist.EditableDataListModel;
 import lombok.EqualsAndHashCode;
@@ -41,11 +42,7 @@ public class ReflectionBasedEditableDataListModel<T extends Serializable>
      */
     public ReflectionBasedEditableDataListModel(final Class<T> modelClass, final List<T> intialItems) {
         this.modelClass = requireNonNull(modelClass);
-        if (null != intialItems) {
-            loadedItems = intialItems;
-        } else {
-            loadedItems = new ArrayList<>();
-        }
+        loadedItems = Objects.requireNonNullElseGet(intialItems, ArrayList::new);
     }
 
     @Override

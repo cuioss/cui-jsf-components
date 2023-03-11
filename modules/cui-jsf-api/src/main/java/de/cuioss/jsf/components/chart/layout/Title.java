@@ -67,7 +67,7 @@ public class Title extends JsObject {
 
     /**
      * A class for creating a DOM element for the title.
-     *
+     * <p>
      * see {@link DivTitleRenderer} which is a default jqPlot title renderer
      */
     private TitleRenderer renderer;

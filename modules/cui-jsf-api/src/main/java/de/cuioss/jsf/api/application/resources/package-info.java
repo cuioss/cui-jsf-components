@@ -56,7 +56,7 @@
  *      &lt;/managed-property&gt;<br>
  *  &lt;/managed-bean&gt;<br>
  *  </code>
- *
+ * <p>
  * The {@link de.cuioss.jsf.api.application.resources.CuiResourceManager} registers itself as an
  * {@link javax.faces.bean.ApplicationScoped} bean
  *

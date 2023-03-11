@@ -44,7 +44,7 @@ public class StrategyProviderImpl<K extends Serializable, V extends Serializable
 
     /**
      * Builder for creating StrategyProvider with immutable map of rules. Example:
-     *
+     * <p>
      * <code>
      * static final StrategyProvider&lt;String, Integer&gt; WORD_TO_INT =
      * new StrategyProviderImpl.Builder&lt;String, Integer&gt;()
@@ -53,7 +53,7 @@ public class StrategyProviderImpl<K extends Serializable, V extends Serializable
      * .defineDefaultRule(Rule.createDefaultRule(0))
      * .build();
      * </code>
-     *
+     * <p>
      * For <i>small</i> immutable maps, the {@code ImmutableMap.of()} methods are
      * even more convenient.
      * <p>
