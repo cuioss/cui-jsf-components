@@ -230,7 +230,7 @@ class BootstrapPanelRendererTest extends AbstractComponentRendererTest<Bootstrap
         return new BootstrapPanelComponent();
     }
 
-    class PanelParams {
+    static class PanelParams {
 
         public boolean deferredLoading;
 

@@ -3,6 +3,7 @@ package de.cuioss.jsf.api.components.support;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -39,7 +40,7 @@ class ActiveIndexManagerImplTest {
         underTest.setActiveIndex(3, 4);
         assertTrue(underTest.getActiveIndexes().containsAll(immutableList(3, 4)));
         underTest.setActiveIndex((Integer) null);
-        assertTrue(null != underTest.getActiveIndexes());
+        assertNotNull(underTest.getActiveIndexes());
         assertFalse(underTest.hasActiveIndex());
     }
 

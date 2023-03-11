@@ -4,6 +4,7 @@ import static de.cuioss.jsf.api.components.model.datalist.AddStatus.PERSISTED;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -163,7 +164,7 @@ public abstract class AbstractEditableDataListModel<T extends Serializable>
             return true;
         }
 
-        return !loaded.containsAll(current) || !current.containsAll(loaded);
+        return !new HashSet<>(loaded).containsAll(current) || !new HashSet<>(current).containsAll(loaded);
     }
 
     private void handleListIndices() {

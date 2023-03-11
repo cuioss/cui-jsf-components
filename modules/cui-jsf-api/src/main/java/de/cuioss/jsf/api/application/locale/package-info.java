@@ -23,7 +23,7 @@
 </managed-bean>
 }
  * </pre>
- * 
+ *
  * <h2>Usage with components and beans</h2>
  * <p>
  * It can be easily be accessed with

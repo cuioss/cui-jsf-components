@@ -26,7 +26,7 @@ class ManagedBeansProviderTest extends JsfEnabledTestEnvironment {
         // dymmy test interface
     }
 
-    class ClientInformationImplExt extends SomeTestBean implements TestInterfaceB {
+    static class ClientInformationImplExt extends SomeTestBean implements TestInterfaceB {
 
         private static final long serialVersionUID = 7053420614897774823L;
 

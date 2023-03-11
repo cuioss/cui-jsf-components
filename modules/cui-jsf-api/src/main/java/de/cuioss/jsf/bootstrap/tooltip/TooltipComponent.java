@@ -1,7 +1,6 @@
 package de.cuioss.jsf.bootstrap.tooltip;
 
 import static de.cuioss.jsf.bootstrap.BootstrapFamily.COMPONENT_FAMILY;
-import static java.lang.Integer.valueOf;
 import static java.util.Objects.requireNonNull;
 
 import javax.faces.application.ResourceDependency;

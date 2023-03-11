@@ -254,7 +254,7 @@ class AbstractEditableDataListModelTest extends ValueObjectTest<SomeModelEditabl
         assertTrue(model.isEveryItemSavedOrCanceled());
     }
 
-    class TestModel extends AbstractEditableDataListModel<String> {
+    static class TestModel extends AbstractEditableDataListModel<String> {
 
         private static final long serialVersionUID = 7357592096129340809L;
 
