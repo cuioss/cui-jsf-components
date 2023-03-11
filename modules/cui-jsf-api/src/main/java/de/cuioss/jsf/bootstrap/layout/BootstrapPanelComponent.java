@@ -23,7 +23,7 @@ import lombok.experimental.Delegate;
  * Bootstrap panel component
  *
  * @author Matthias Walliczek
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  */
 @ResourceDependency(library = "javascript.enabler", name = "enabler.panel.js", target = "head")
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)

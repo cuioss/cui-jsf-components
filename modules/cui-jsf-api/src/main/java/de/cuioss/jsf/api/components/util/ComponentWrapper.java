@@ -19,8 +19,8 @@ import lombok.RequiredArgsConstructor;
  * <p>
  * Wraps a {@link UIComponent} at runtime in order to provide some convenience
  * methods for rendering / decoding.
- * <p>
  * </p>
+ * <p>
  * <em>Caution:</em> This wrapper essentially caches some calls that are quite
  * expensive like {@link UIComponent#getClientId()}. Therefore it must
  * <em>NEVER</em> be reused and is not reentrant. It must always be instantiated

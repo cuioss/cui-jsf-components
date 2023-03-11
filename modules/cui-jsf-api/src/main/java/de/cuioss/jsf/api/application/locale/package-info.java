@@ -9,7 +9,6 @@
  * {@link javax.faces.application.ViewHandler#calculateLocale(javax.faces.context.FacesContext)}
  * </p>
  * <h2>Configuration</h2>
- * <p>
  * In order to work in a non CDI-/portal- context you need to declare
  * {@link de.cuioss.jsf.api.application.locale.LocaleProducerImpl} as an
  * {@link javax.faces.bean.ApplicationScoped} bean with the name
@@ -24,7 +23,7 @@
 </managed-bean>
 }
  * </pre>
- * </p>
+ * 
  * <h2>Usage with components and beans</h2>
  * <p>
  * It can be easily be accessed with

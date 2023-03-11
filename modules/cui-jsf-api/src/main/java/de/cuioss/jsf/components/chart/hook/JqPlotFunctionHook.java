@@ -41,7 +41,7 @@ public class JqPlotFunctionHook extends PlotHookFunctionProviderImpl {
         "%s.redraw=function(clear){return};";
 
     /**
-     * This shortcut create a JavaScript snippet, which destroy JqPlot redraw function.</br>
+     * This shortcut create a JavaScript snippet, which destroy JqPlot redraw function.<br>
      * This could be useful if you have complete mouse event control and want to prevent redraw of
      * graph on any mouse events.
      *

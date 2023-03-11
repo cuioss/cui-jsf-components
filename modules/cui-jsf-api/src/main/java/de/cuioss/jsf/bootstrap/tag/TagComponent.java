@@ -59,7 +59,7 @@ import lombok.experimental.Delegate;
  * listener must be in the form of
  * {@code void methodName(de.cuioss.jsf.api.components.events.ModelPayloadEvent)}. In case
  * you set it to <code>true</code> you must provide the according model. If not it falls back to
- * #contentValue</li></li>
+ * #contentValue</li>
  * </ul>
  * <h2>Usage</h2>
  *

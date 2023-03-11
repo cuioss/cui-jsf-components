@@ -22,7 +22,7 @@ import de.cuioss.tools.string.Joiner;
  * {@linkplain NavigationMenuItem} model items provided by
  * {@linkplain NavigationMenuComponent#resolveModelItems()}.
  *
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  */
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY,
         rendererType = BootstrapFamily.NAVIGATION_MENU_COMPONENT_RENDERER)

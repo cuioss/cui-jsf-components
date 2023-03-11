@@ -22,7 +22,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * container to hold all of the merged options. Convienence for plugins.
+ * Container to hold all of the merged options. Convienence for plugins.
  *
  * @author Eugen Fischer
  */
@@ -38,7 +38,7 @@ public class Options extends JsObject implements IPluginConsumer, PlotHookFuncti
 
     /**
      * prop: title
-     * Title object. See <Title> for specific options. As a shortcut, you
+     * Title object. See {@link Title} for specific options. As a shortcut, you
      * can specify the title option as just a string like: title: 'My Plot'
      * and this will create a new title object with the specified text.
      */
@@ -111,7 +111,7 @@ public class Options extends JsObject implements IPluginConsumer, PlotHookFuncti
     private String fontSize;
 
     /**
-     * See <Grid> for grid specific options.
+     * See {@link Grid} for grid specific options.
      */
     private Grid grid;
 
@@ -123,7 +123,7 @@ public class Options extends JsObject implements IPluginConsumer, PlotHookFuncti
      * @return {@link Options} in fluent api style
      */
     public Options setGrid(final Grid gridValue) {
-        this.grid = gridValue;
+        grid = gridValue;
         return this;
     }
 
@@ -141,7 +141,7 @@ public class Options extends JsObject implements IPluginConsumer, PlotHookFuncti
     /**
      * prop: series
      * Array of series object options.
-     * see <Series> for series specific options.
+     * see {@link Series} for series specific options.
      * this.series = [];
      */
     private JsArray<Series> series;
@@ -220,37 +220,37 @@ public class Options extends JsObject implements IPluginConsumer, PlotHookFuncti
 
     @Override
     public String asJavaScriptObjectNotation() {
-        this.addProperty(this.title);
-        this.addProperty(this.axes);
-        this.addProperty(this.seriesDefaults);
-        this.addProperty("series", this.series);
-        this.addProperty(this.cursor);
-        this.addProperty(this.legend);
-        this.addProperty(this.highlighter);
-        this.addProperty(this.grid);
+        this.addProperty(title);
+        this.addProperty(axes);
+        this.addProperty(seriesDefaults);
+        this.addProperty("series", series);
+        this.addProperty(cursor);
+        this.addProperty(legend);
+        this.addProperty(highlighter);
+        this.addProperty(grid);
         return createAsJSONObjectWithoutName();
     }
 
     @Override
     public List<String> usedPlugins() {
 
-        this.plugins.add(this.axes);
-        this.plugins.add(this.seriesDefaults);
-        if (null != this.series) {
-            for (final Series seria : this.series) {
-                this.plugins.add(seria);
+        plugins.add(axes);
+        plugins.add(seriesDefaults);
+        if (null != series) {
+            for (final Series seria : series) {
+                plugins.add(seria);
             }
         }
-        this.plugins.add(this.cursor);
-        this.plugins.add(this.legend);
-        this.plugins.add(this.highlighter);
-        return this.plugins.usedPlugins();
+        plugins.add(cursor);
+        plugins.add(legend);
+        plugins.add(highlighter);
+        return plugins.usedPlugins();
     }
 
     @Override
     public String getHookFunctionCode() {
-        if (null != this.highlighter) {
-            return this.highlighter.getHookFunctionCode();
+        if (null != highlighter) {
+            return highlighter.getHookFunctionCode();
         }
         return "";
     }
@@ -267,10 +267,10 @@ public class Options extends JsObject implements IPluginConsumer, PlotHookFuncti
      */
     public Options addSeriaOption(final Series seria) {
         if (null != seria) {
-            if (null == this.series) {
-                this.series = new JsArray<>();
+            if (null == series) {
+                series = new JsArray<>();
             }
-            this.series.addValueIfNotNull(seria);
+            series.addValueIfNotNull(seria);
         }
         return this;
     }
@@ -283,7 +283,7 @@ public class Options extends JsObject implements IPluginConsumer, PlotHookFuncti
      * @return fluent api style
      */
     public Options setHighlighter(final Highlighter value) {
-        this.highlighter = value;
+        highlighter = value;
         return this;
     }
 
@@ -291,10 +291,10 @@ public class Options extends JsObject implements IPluginConsumer, PlotHookFuncti
      * @return lazy initialized {@link Highlighter} object
      */
     public Highlighter getHighlighter() {
-        if (null == this.highlighter) {
-            this.highlighter = new Highlighter();
+        if (null == highlighter) {
+            highlighter = new Highlighter();
         }
-        return this.highlighter;
+        return highlighter;
     }
 
     /**
@@ -305,7 +305,7 @@ public class Options extends JsObject implements IPluginConsumer, PlotHookFuncti
      * @return fluent api style
      */
     public Options setCursor(final Cursor value) {
-        this.cursor = value;
+        cursor = value;
         return this;
     }
 
@@ -315,9 +315,9 @@ public class Options extends JsObject implements IPluginConsumer, PlotHookFuncti
      * @return {@linkplain Axes}
      */
     public Axes getAxes() {
-        if (null == this.axes) {
-            this.axes = new Axes();
+        if (null == axes) {
+            axes = new Axes();
         }
-        return this.axes;
+        return axes;
     }
 }

@@ -12,7 +12,7 @@ import lombok.NonNull;
  * of the 'deferred' boolean of a component.
  * </p>
  *
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  */
 public class DeferredProvider {
 

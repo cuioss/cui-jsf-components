@@ -43,8 +43,8 @@ import lombok.NonNull;
  * Defines the HTML element to be used within the header. Default is <code>h4</code>.
  * </p>
  *
- * @author Matthias Walliczek, Matthias Walliczek
- * @author Sven Haag, Sven Haag
+ * @author Matthias Walliczek
+ * @author Sven Haag
  */
 public class HeaderProvider {
 

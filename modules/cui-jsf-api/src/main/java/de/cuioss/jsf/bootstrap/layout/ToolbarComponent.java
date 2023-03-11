@@ -18,11 +18,10 @@ import lombok.experimental.Delegate;
  * </p>
  * <p>
  * It uses the affix plugin for positioning the toolbar, see Attributes for details
- * </ul>
  * <p>
  * More information and examples can be found in the <a href=
- * "https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf"
- * >Reference Documentation</a>
+ * "https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf">Reference
+ * Documentation</a>
  * </p>
  * <h2>Attributes</h2>
  * <ul>

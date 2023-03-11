@@ -16,7 +16,7 @@ import lombok.experimental.Delegate;
  * ({@link ControlGroupComponent}}).
  * Rendered by javax.faces.Group.
  *
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  */
 @FacesComponent(BootstrapFamily.QUICK_CONTROL_GROUP_COMPONENT)
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure

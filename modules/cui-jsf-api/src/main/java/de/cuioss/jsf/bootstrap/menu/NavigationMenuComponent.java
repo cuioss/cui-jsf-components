@@ -17,7 +17,6 @@ import de.cuioss.jsf.bootstrap.menu.model.NavigationMenuItemSeparator;
 import de.cuioss.jsf.bootstrap.menu.model.NavigationMenuItemSingle;
 
 /**
- * <p>
  * Holder of bootstrap conform navigation menu component model.
  * This component is responsible for the rendering of a {@link NavigationMenuItem}.
  * Supported models:
@@ -26,7 +25,6 @@ import de.cuioss.jsf.bootstrap.menu.model.NavigationMenuItemSingle;
  * <li>{@link NavigationMenuItemSingle}</li>
  * <li>{@link NavigationMenuItemSeparator}</li>
  * </ul>
- * </p>
  * <h2>Usage</h2>
  *
  * <pre>
@@ -34,7 +32,7 @@ import de.cuioss.jsf.bootstrap.menu.model.NavigationMenuItemSingle;
  * &lt;cui:navigationMenu modelItems="#{modelItems}" /&gt;
  * </pre>
  *
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  */
 @FacesComponent(BootstrapFamily.NAVIGATION_MENU_COMPONENT)
 public class NavigationMenuComponent extends AbstractBaseCuiComponent {
@@ -84,7 +82,7 @@ public class NavigationMenuComponent extends AbstractBaseCuiComponent {
     }
 
     /**
-     * @return List<NavigationMenuItem>
+     * @return {@link List} {@link NavigationMenuItem}
      */
     public List<NavigationMenuItem> getModelItems() {
         return state.get(MODELITEMS_KEY);

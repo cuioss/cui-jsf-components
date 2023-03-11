@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
  * &lt;li class="divider"&gt;
  * </pre>
  *
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class NavigationMenuSeparatorRenderer {

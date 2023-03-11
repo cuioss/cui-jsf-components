@@ -22,7 +22,7 @@ import de.cuioss.jsf.components.waitingindicator.WaitingIndicatorComponent;
  * Bootstrap panel component
  *
  * @author Matthias Walliczek
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  */
 @FacesRenderer(rendererType = BootstrapFamily.PANEL_RENDERER, componentFamily = BootstrapFamily.COMPONENT_FAMILY)
 @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is

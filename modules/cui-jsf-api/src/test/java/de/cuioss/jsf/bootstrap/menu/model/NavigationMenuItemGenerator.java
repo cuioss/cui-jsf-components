@@ -10,7 +10,7 @@ import de.cuioss.test.generator.TypedGenerator;
 /**
  * Generates an instance of a {@linkplain NavigationMenuItem} implementation.
  *
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  *
  */
 public class NavigationMenuItemGenerator implements TypedGenerator<NavigationMenuItem> {

@@ -40,7 +40,7 @@ import lombok.experimental.Delegate;
  * <li>{@link ContentProvider}</li>
  * <li>buttonAlign: The alignment of the button relative to the wrapped input, defaults to
  * 'append'</li>
- *
+ * </ul>
  * <h2>Usage</h2>
  *
  * <pre>
@@ -50,7 +50,7 @@ import lombok.experimental.Delegate;
  * &lt;/cui:labeledContainer&gt;
  * </pre>
  *
- * @author Matthias Walliczek, Matthias Walliczek
+ * @author Matthias Walliczek
  */
 @ResourceDependency(library = "javascript.enabler", name = "enabler.help_text.js", target = "head")
 @FacesComponent(BootstrapFamily.HELP_TEXT_COMPONENT)

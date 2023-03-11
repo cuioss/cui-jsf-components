@@ -62,9 +62,9 @@ public class ActiveIndexManagerProvider {
     }
 
     /**
-     * @return List<Integer> of active indexes or a list with the element '0' if there is not
-     *         {@linkplain ActiveIndexManager} set. This is a replacement for the previous return
-     *         {@code null}
+     * @return {@link List} {@link Integer} of active indexes or a list with the element '0' if
+     *         there is not {@linkplain ActiveIndexManager} set. This is a replacement for the
+     *         previous return {@code null}
      */
     public List<Integer> resolveActiveIndexes() {
         try {

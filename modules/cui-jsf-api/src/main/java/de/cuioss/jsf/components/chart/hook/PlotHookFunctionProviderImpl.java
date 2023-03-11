@@ -21,7 +21,7 @@ public class PlotHookFunctionProviderImpl implements PlotHookFunctionProvider {
     private final String hookFunctionContent;
 
     /**
-     * Create a PlotHookFunctionProvider.</br>
+     * Create a PlotHookFunctionProvider.<br>
      * This implementation do not care about syntax of functionContent. Expected is valid syntax.
      *
      * @param identifier must not be {@code null} or empty

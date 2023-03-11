@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  */
 public interface NavigationMenuItemSingle extends NavigationMenuItem, NavigationMenuLabelProvider {
 

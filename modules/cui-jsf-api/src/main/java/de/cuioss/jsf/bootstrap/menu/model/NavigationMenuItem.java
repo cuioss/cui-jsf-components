@@ -17,13 +17,13 @@ public interface NavigationMenuItem extends Serializable, Comparable<NavigationM
 
     /**
      * <p>
-     * Ordering of {@link NavigationMenuItem}s: The usual range is 1 &lt; {@link #getOrder()} &lt; 50. For
+     * Ordering of {@link NavigationMenuItem}s: The usual range is 1 &lt; {@link #getOrder()} &lt;
+     * 50. For
      * the top-level elements this will result in items with a lower order to be ordered to the left
      * side, while a higher order will result in being put to the right side. For container elements
      * (Dropdowns) a lower ordered item will be put to the top of the list, while a higher ordered
      * item will be be put to the bottom.
      * </p>
-     * <p>
      * Sample from the portal:
      * <ul>
      * <li>The logout menu item has the order '48', will therefore be rendered to the very
@@ -32,7 +32,6 @@ public interface NavigationMenuItem extends Serializable, Comparable<NavigationM
      * logout-item, but right to all other items assuming they have a order &lt; 40</li>
      * <li>The user Menu provides two items as default.</li>
      * </ul>
-     * </p>
      *
      * @return the number for the ordering for the concrete {@link NavigationMenuItem}. The lower
      *         the number the higher the element is displayed. The default implementations like

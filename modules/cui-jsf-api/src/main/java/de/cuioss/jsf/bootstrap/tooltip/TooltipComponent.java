@@ -27,7 +27,7 @@ import lombok.experimental.Delegate;
  * Examples can be found in the <a href=
  * "https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/miscellaneous.jsf"
  * >Reference Documentation</a>
- * <p>
+ * </p>
  * <h2>Attributes</h2>
  * <ul>
  * <li>{@link ContentProvider}</li>

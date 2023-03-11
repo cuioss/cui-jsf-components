@@ -47,7 +47,6 @@ import de.cuioss.uimodel.model.Gender;
  * #genderString is defined #gender takes precedence.</li>
  * </ul>
  * <h2>Translation</h2>
- * <p>
  * The keys for the title are implicitly defined:
  * <ul>
  * <li>cui.model.gender.male.title</li>
@@ -57,7 +56,6 @@ import de.cuioss.uimodel.model.Gender;
  * <li>cui.model.gender.diverse.title</li>
  * <li>cui.model.gender.unknown.title</li>
  * </ul>
- * </p>
  *
  * @author Oliver Wolff
  *

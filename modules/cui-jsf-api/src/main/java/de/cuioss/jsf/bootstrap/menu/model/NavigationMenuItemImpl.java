@@ -16,7 +16,7 @@ import lombok.ToString;
 /**
  * Basic Implementation of a {@link NavigationMenuItem}
  *
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  */
 @EqualsAndHashCode
 @ToString

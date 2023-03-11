@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
  * Models the supported IconLibraries. This is necessary, because icons are
  * usually referenced as two classes, e.g. "cui-icon cui-icon-warning". This
  * separation is because css performance, but complicates the usage.
- * </p>
  * <p>
  * In order to work this class returns the corresponding base class, e.g if the
  * provided class is "cui-icon-warning" it returns "cui-icon".

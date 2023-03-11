@@ -6,7 +6,7 @@ package de.cuioss.jsf.bootstrap.menu.model;
  * {@linkplain NavigationMenuItemSeparatorImpl#getInstance(Integer)}
  *
  * @author Oliver Wolff
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  */
 public interface NavigationMenuItemSeparator extends NavigationMenuItem {
 

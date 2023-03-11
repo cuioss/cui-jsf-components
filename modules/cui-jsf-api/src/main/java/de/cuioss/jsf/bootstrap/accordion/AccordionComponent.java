@@ -10,7 +10,7 @@ import lombok.experimental.Delegate;
 
 /**
  * @author Matthias Walliczek
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  */
 @FacesComponent(BootstrapFamily.ACCORDION_COMPONENT)
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure

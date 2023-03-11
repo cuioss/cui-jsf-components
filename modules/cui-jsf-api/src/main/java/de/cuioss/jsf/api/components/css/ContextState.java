@@ -7,7 +7,7 @@ import de.cuioss.tools.string.MoreStrings;
  * Represents the bootstrap contextState.
  *
  * @author Oliver Wolff
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  */
 public enum ContextState implements StyleClassProvider {
 

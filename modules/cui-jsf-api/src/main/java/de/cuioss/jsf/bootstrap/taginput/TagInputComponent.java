@@ -263,7 +263,7 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent
 
     /**
      * @param value {@link java.util.Set} of {@link ConceptKeyType}
-     * @throws IllegalArgumentException if <tt>value</tt> is not a {@link java.util.Set} of
+     * @throws IllegalArgumentException if value is not a {@link java.util.Set} of
      *             {@link ConceptKeyType}
      */
     @Override
@@ -276,7 +276,7 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent
      * Ensure that <code>value</code> is a {@link java.util.Set} of {@link ConceptKeyType}.
      *
      * @param value to be checked
-     * @throws IllegalArgumentException if <tt>value</tt> is not a {@link java.util.Set} of
+     * @throws IllegalArgumentException if value is not a {@link java.util.Set} of
      *             {@link ConceptKeyType}
      */
     private void checkValue(final Object value) {

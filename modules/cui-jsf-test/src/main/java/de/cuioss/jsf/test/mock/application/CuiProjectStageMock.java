@@ -16,7 +16,7 @@ import lombok.ToString;
  * It can be easily configured as bean by using {@link JsfTestConfiguration}
  *
  * @author Oliver Wolff
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  */
 @EqualsAndHashCode(of = "projectStage")
 @ToString(of = "projectStage")

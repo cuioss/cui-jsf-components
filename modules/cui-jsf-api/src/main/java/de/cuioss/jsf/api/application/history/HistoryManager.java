@@ -41,8 +41,8 @@ public interface HistoryManager extends Serializable, Iterable<ViewIdentifier> {
      * Assumptions</h3>
      * <ul>
      * <li>This works for pages which participate in HistoryManager by calling
-     * {@link #addCurrentUriToHistory(ViewDescriptor)} with a
-     * {@link PostAddToViewEvent} on the page</li>.
+     * {@link #addCurrentUriToHistory(ViewDescriptor)} with a {@link PostAddToViewEvent} on the
+     * page</li>
      * <li>This method <em>must</em> be called within the initViewAction or {@link PostConstruct}
      * because
      * otherwise the algorithm will not work.</li>

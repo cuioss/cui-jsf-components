@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
  * This class simplifies the accessing /creation / interacting with css styles
  * related to bootstrap grid layout.
  * <h3>Design</h3>
- * <p>
  * The general design assumes that the consuming component defines four
  * attributes in order to be used properly:
  * <ul>
@@ -23,7 +22,6 @@ import lombok.RequiredArgsConstructor;
  * </ul>
  * With these attribute set / defined properly this class always creates a
  * proper css class String.
- * </p>
  *
  * @author Matthias Walliczek
  */

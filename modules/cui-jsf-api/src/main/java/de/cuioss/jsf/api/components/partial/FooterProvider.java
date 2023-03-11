@@ -38,7 +38,7 @@ import lombok.NonNull;
  * Indicates whether the footer is to be escaped on output or not. Default is <code>true</code>
  * </p>
  *
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  */
 public class FooterProvider {
 

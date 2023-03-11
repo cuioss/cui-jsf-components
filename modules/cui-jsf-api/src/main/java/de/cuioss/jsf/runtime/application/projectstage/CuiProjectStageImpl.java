@@ -15,7 +15,7 @@ import lombok.ToString;
  * startup.
  *
  * @author Oliver Wolff
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  */
 @EqualsAndHashCode
 @ToString

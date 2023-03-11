@@ -63,9 +63,7 @@ import lombok.experimental.Delegate;
  * <p>
  * More information and
  * examples can be found in the <a href=
- * "https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components
- * /demo/labeledContainerDemo.jsf"
- * >Reference Documentation</a>
+ * "https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/labeledContainerDemo.jsf"></a>
  * </p>
  * <h2>Attributes</h2>
  * <ul>
@@ -160,10 +158,10 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer
         titleProvider = new TitleProviderImpl(this);
         labelColumnProvider = new LabelColumnProvider(this, DEFAULT_COLUMN_COUNT_LABEL);
         contentColumnProvider =
-                new ContentColumnProvider(this, DEFAULT_COLUMN_COUNT_CONTENT);
+            new ContentColumnProvider(this, DEFAULT_COLUMN_COUNT_CONTENT);
         placeholderProvider = new PlaceholderProvider(this);
         forIdentifierProvider =
-                new ForIdentifierProvider(this, ForIdentifierProvider.DEFAULT_FOR_IDENTIFIER);
+            new ForIdentifierProvider(this, ForIdentifierProvider.DEFAULT_FOR_IDENTIFIER);
         layoutModeProvider = new LayoutModeProvider(this, LayoutMode.COLUMN);
         oneTimeCheck = new OneTimeCheck(this);
         disabledProvider = new DisabledComponentProvider(this);
@@ -199,7 +197,7 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer
                 forModifier.setTitle(titleProvider.resolveTitle());
             }
             final var cuiMessage =
-                    CuiMessageComponent.create(getFacesContext());
+                CuiMessageComponent.create(getFacesContext());
             cuiMessage.setId("message");
             getChildren().add(cuiMessage);
             cuiMessage.setParent(this);
@@ -409,7 +407,7 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer
 
     /**
      * @param prependAsButton boolean indicating whether the 'prepend' facet is to be treated as
-     *         button
+     *            button
      */
     public void setPrependAsButton(final boolean prependAsButton) {
         state.put(PREPEND_AS_BUTTON_NAME, prependAsButton);
@@ -425,7 +423,7 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer
 
     /**
      * @param appendAsButton boolean indicating whether the 'append' facet is to be treated as
-     *         button
+     *            button
      */
     public void setAppendAsButton(final boolean appendAsButton) {
         state.put(APPEND_AS_BUTTON_NAME, appendAsButton);

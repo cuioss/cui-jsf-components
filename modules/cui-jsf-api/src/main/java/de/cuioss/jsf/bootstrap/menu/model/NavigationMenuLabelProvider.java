@@ -1,7 +1,7 @@
 package de.cuioss.jsf.bootstrap.menu.model;
 
 /**
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  */
 public interface NavigationMenuLabelProvider {
 

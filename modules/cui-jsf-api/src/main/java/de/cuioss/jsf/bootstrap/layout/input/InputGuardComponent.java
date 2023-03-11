@@ -48,7 +48,8 @@ import lombok.experimental.Delegate;
  * rendered, if set to {@code false} they are not rendered.</li>
  * <li>resetInputValue: If set to {@code true}, default, the clicking of the resestGuard
  * button will result in a {@link EditableValueHolder#resetValue()} on the guarded component</li>
- *
+ * </ul>
+ * 
  * @author Oliver Wolff
  *
  */

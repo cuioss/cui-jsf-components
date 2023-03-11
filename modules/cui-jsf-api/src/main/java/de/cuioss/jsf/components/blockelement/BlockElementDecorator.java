@@ -17,15 +17,12 @@ import lombok.ToString;
  * behaviour the element should be part of the "update" or "render" attribute of an ajax behaviour.
  * </p>
  * <h2>Usage</h2>
- * <p>
  *
  * <pre>
  * &lt;cui:blockElement /&gt;
  * </pre>
  *
- * </p>
  * <h2>Example</h2>
- * <p>
  *
  * <pre>
  * &lt;cui:commandButton ... &gt;
@@ -33,7 +30,6 @@ import lombok.ToString;
  *   &lt;cui:blockElement /&gt;
  * &lt;/cui:commandButton &gt;
  * </pre>
- * </p>
  *
  * @author Matthias Walliczek
  */

@@ -11,7 +11,6 @@
  * application-blue.css, application-green.css, .. and are to be found in the library
  * "de.cuioss.portal.css" {@link de.cuioss.jsf.api.application.theme.ThemeResourceHandler}
  * </p>
- * <p>
  * The classes / interfaces within this package:
  * <ul>
  * <li>{@link de.cuioss.jsf.api.application.theme.ThemeResourceHandler}: Is the actual
@@ -31,15 +30,12 @@
  * In order to work instances of
  * {@link de.cuioss.jsf.api.application.theme.ThemeConfiguration} and
  * {@link de.cuioss.jsf.api.application.theme.ThemeNameProducer} are to be registered as
- * managed-beans
- * using the corresponding names</li>
+ * managed-beans using the corresponding names</li>
  * <li>{@link de.cuioss.jsf.api.application.theme.ThemeConfiguration}: Defines what themes
- * are
- * available, what is the default theme and some technical aspects like names and paths. The default
- * implementation {@link de.cuioss.jsf.api.application.theme.impl.ThemeConfigurationImpl}
- * suffices for
- * most needs within our cui / portal environment, and must be configured as a managed bean within
- * the concrete project. Within the portal this is already done.</li>
+ * are available, what is the default theme and some technical aspects like names and paths. The
+ * default implementation {@link de.cuioss.jsf.api.application.theme.impl.ThemeConfigurationImpl}
+ * suffices for most needs within our cui / portal environment, and must be configured as a managed
+ * bean within the concrete project. Within the portal this is already done.</li>
  * <li>{@link de.cuioss.jsf.api.application.theme.ThemeNameProducer}: Simple abstraction over
  * defining
  * the actual theme at runtime. The default implementation
@@ -48,7 +44,6 @@
  * and must be replaced by a proper implementation. It will always return the derived defaultTheme
  * by {@link de.cuioss.jsf.api.application.theme.ThemeConfiguration}</li>
  * </ul>
- * </p>
  *
  * @author Oliver Wolff (Oliver Wolff)
  */

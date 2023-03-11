@@ -21,7 +21,6 @@ import lombok.experimental.Delegate;
  * Decorator to determine when a user has stopped typing in a text field and executing an action.
  * </p>
  * <h2>Usage</h2>
- * <p>
  *
  * <pre>
  * &lt;cui:typewatch action="doAction();" /&gt;

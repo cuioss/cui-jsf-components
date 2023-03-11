@@ -6,7 +6,7 @@ import java.util.List;
  * Implementation of {@linkplain NavigationMenuItem} providing the option to add children of type
  * {@linkplain NavigationMenuItem}.
  *
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  */
 public interface NavigationMenuItemContainer extends NavigationMenuItem, NavigationMenuLabelProvider {
 

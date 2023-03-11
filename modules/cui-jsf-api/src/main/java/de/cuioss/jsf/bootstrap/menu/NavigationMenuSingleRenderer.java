@@ -33,7 +33,7 @@ import lombok.NoArgsConstructor;
  * &lt;/li&gt;
  * </pre>
  *
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is

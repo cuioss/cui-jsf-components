@@ -22,7 +22,7 @@ import lombok.ToString;
  * <li>The default theme is "Blue", attribute-name is "defaultTheme"</li>
  * <li>The default css name is application.css, attribute-name is "cssName"</li>
  * <li>The default library is 'de.cuioss.portal.css', attribute-name is "cssLibrary"</li>
- * <ul>
+ * </ul>
  * <p>
  * All this attributes can be altered by overwriting the corresponding resource within the
  * faces-config.xml declaration.

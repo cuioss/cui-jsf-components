@@ -35,7 +35,7 @@ import lombok.NonNull;
  * This takes precedence over the <code>collapsed</code> attribute.
  * </p>
  *
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  */
 public class CollapseSwitchProvider {
 

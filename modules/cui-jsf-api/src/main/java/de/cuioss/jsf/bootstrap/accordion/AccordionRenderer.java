@@ -19,7 +19,7 @@ import de.cuioss.jsf.bootstrap.layout.BootstrapPanelComponent;
  * Renderer for {@linkplain AccordionComponent}.
  *
  * @author Matthias Walliczek
- * @author Sven Haag, Sven Haag
+ * @author Sven Haag
  */
 @FacesRenderer(rendererType = BootstrapFamily.ACCORDION_RENDERER,
         componentFamily = BootstrapFamily.COMPONENT_FAMILY)

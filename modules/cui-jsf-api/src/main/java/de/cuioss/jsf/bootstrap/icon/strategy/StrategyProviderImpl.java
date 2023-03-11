@@ -45,22 +45,21 @@ public class StrategyProviderImpl<K extends Serializable, V extends Serializable
     /**
      * Builder for creating StrategyProvider with immutable map of rules. Example:
      *
-     * <pre>
      * <code>
      * static final StrategyProvider&lt;String, Integer&gt; WORD_TO_INT =
-     *         new StrategyProviderImpl.Builder&lt;String, Integer&gt;()
-     *                 .add(Rule.create("a", 1))
-     *                 .add(Rule.create("b", 2))
-     *                 .defineDefaultRule(Rule.createDefaultRule(0))
-     *                 .build();
-     *  <code>
-     * </pre>
+     * new StrategyProviderImpl.Builder&lt;String, Integer&gt;()
+     * .add(Rule.create("a", 1))
+     * .add(Rule.create("b", 2))
+     * .defineDefaultRule(Rule.createDefaultRule(0))
+     * .build();
+     * </code>
      *
      * For <i>small</i> immutable maps, the {@code ImmutableMap.of()} methods are
      * even more convenient.
      * <p>
      * Builder instances can be reused - it is safe to call {@link #build} multiple times to build
      * multiple maps in series. Each map is a superset of the maps created before it.
+     * </p>
      *
      * @author Eugen Fischer
      * @param <K> bounded type for condition must be serializable
