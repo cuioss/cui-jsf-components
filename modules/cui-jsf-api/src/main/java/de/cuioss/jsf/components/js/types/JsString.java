@@ -4,9 +4,7 @@ import de.cuioss.jsf.components.js.support.JsValue;
 import lombok.Data;
 
 /**
- * JSON string value.<br>
- * <img width="400" height="300" alt=
- * "Abstract machine string in JSON" src="http://www.json.org/string.gif"/>
+ * JSON string value.
  *
  * @author Eugen Fischer
  */
@@ -29,10 +27,10 @@ public class JsString implements JsValue {
 
     @Override
     public String getValueAsString() {
-        if (null == this.value) {
+        if (null == value) {
             return null;
         }
-        return String.format(FORMAT, this.value);
+        return String.format(FORMAT, value);
     }
 
 }
