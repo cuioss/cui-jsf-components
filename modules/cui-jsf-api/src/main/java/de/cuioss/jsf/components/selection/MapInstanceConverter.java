@@ -33,8 +33,8 @@ import lombok.ToString;
  * {@link ConverterException} if it doesn't.
  * </p>
  *
- * @author Oliver Wolff Oliver Wolff
- * @author Eugen Fischer Eugen Fischer
+ * @author Oliver Wolff
+ * @author Eugen Fischer
  * @param <K>
  *            key type must be {@link Serializable}
  * @param <T>

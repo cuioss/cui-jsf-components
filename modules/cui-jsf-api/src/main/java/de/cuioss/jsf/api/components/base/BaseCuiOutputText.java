@@ -43,7 +43,7 @@ public abstract class BaseCuiOutputText extends HtmlOutputText implements Compon
     /**
      *
      */
-    public BaseCuiOutputText() {
+    protected BaseCuiOutputText() {
         super();
         titleProvider = new TitleProviderImpl(this);
         styleClassProvider = new ComponentStyleClassProviderImpl(this);

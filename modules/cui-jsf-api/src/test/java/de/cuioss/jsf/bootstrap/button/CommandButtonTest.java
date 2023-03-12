@@ -44,7 +44,8 @@ class CommandButtonTest extends AbstractComponentTest<CommandButton> {
 
     @Test
     void shouldFailToSetValue() {
-        assertThrows(IllegalArgumentException.class, () -> anyComponent().setValue(""));
+        var test = anyComponent();
+        assertThrows(IllegalArgumentException.class, () -> test.setValue(""));
     }
 
     @Test

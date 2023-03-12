@@ -274,8 +274,6 @@ public class HtmlTreeBuilder {
      * @param writer to be used
      * @throws IOException
      */
-    @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                                  // controlled by JSF
     public void writeToResponseWriterFromChildBreakpointOn(final ResponseWriter writer)
         throws IOException {
         writeToResponseWriter(
@@ -288,8 +286,6 @@ public class HtmlTreeBuilder {
      * @param writer to be written to, must not be null
      * @throws IOException usually thrown by given {@link ResponseWriter}
      */
-    @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                                  // controlled by JSF
     private void writeElementsUntilChildBreakpoint(final ResponseWriter writer) throws IOException {
         writeToResponseWriter(
                 new ConditionalResponseWriter(writer, CHILD_BREAKPOINT_ELEMENT, true));

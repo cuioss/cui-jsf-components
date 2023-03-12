@@ -12,7 +12,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
-import javax.faces.event.ListenersFor;
 import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PreRenderViewEvent;
 
@@ -41,9 +40,8 @@ import lombok.experimental.Delegate;
  */
 @ResourceDependency(library = "javascript.enabler", name = "enabler.lazyLoading.js", target = "head")
 @FacesComponent(BootstrapFamily.LAZYLOADING_COMPONENT)
-@ListenersFor({
-    @ListenerFor(systemEventClass = PreRenderViewEvent.class),
-    @ListenerFor(systemEventClass = PostAddToViewEvent.class)})
+@ListenerFor(systemEventClass = PreRenderViewEvent.class)
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public class LazyLoadingComponent extends UICommand implements ComponentBridge, NamingContainer {
 
     private static final String INITIALIZED_KEY = "initialized";
@@ -337,7 +335,6 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
 
     /**
      * Create a waiting indicator based on the composite component
-     * {@link #WAITING_INDICATOR_LIBRARY_NAME}:{@link #WAITING_INDICATOR_TAG_NAME}
      * if not already existing.
      *
      * @return the waiting indicator as {@link UIComponent}.

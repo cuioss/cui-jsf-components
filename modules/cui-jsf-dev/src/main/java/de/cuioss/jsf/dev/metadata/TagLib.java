@@ -99,7 +99,6 @@ public class TagLib implements Serializable {
     }
 
     /**
-     * @param tagPath
      * @param resource
      */
     private void parseTagLib(final URL resource) {
@@ -135,7 +134,7 @@ public class TagLib implements Serializable {
     }
 
     /**
-     * @param tag2
+     * @param tag
      * @return
      */
     private ValidatorMetadata createValidatorMetadata(final Element tag) {
@@ -149,7 +148,7 @@ public class TagLib implements Serializable {
     }
 
     /**
-     * @param tag2
+     * @param tag
      * @return
      */
     private BehaviorMetadata createBehaviorMetadata(final Element tag) {
@@ -163,7 +162,7 @@ public class TagLib implements Serializable {
     }
 
     /**
-     * @param tag2
+     * @param tag
      * @return
      */
     private ConverterMetadata createConverterMetadata(final Element tag) {

@@ -31,7 +31,7 @@ public class TagHelper {
 
     /** Default exception message for an invalid value. */
     public static final String INVALID_VALUE_EXCEPTION =
-        "Neither java.util.Collection, ConceptKeyType, nor String found for the value-attribute: {}";
+        "Neither java.util.Collection, ConceptKeyType, nor String found for the value-attribute: %";
 
     /**
      * @param types

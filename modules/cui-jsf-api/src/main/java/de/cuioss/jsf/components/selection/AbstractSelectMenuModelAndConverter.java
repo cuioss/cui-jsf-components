@@ -43,7 +43,7 @@ import lombok.ToString;
 @ToString(doNotUseGetters = true, exclude = { "converter", "selectableValues" })
 @EqualsAndHashCode(doNotUseGetters = true, exclude = { "converter", "selectableValues" })
 public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable>
-    implements SelectMenuModel<T> {
+        implements SelectMenuModel<T> {
 
     private static final long serialVersionUID = 5538442599313391823L;
 
@@ -71,9 +71,9 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
      * Default constructor creating the initial list of values.
      *
      * @param sourceData the initial data to create the list with. May be null or empty, which
-     *                   results in an empty drop down list.
+     *            results in an empty drop down list.
      */
-    public AbstractSelectMenuModelAndConverter(final Set<T> sourceData) {
+    protected AbstractSelectMenuModelAndConverter(final Set<T> sourceData) {
         initialize(sourceData);
     }
 
@@ -128,11 +128,11 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
     private ArrayList<SelectItem> initializeSelectItems(final Set<T> values) {
         if (values instanceof SortedSet) {
             return values.stream().map(value -> new SelectItem(value, getLabel(value)))
-                .collect(Collectors.toCollection(ArrayList::new));
+                    .collect(Collectors.toCollection(ArrayList::new));
         }
         return values.stream().map(value -> new SelectItem(value, getLabel(value)))
-            .sorted(Comparator.comparing(SelectItem::getLabel))
-            .collect(Collectors.toCollection(ArrayList::new));
+                .sorted(Comparator.comparing(SelectItem::getLabel))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
@@ -146,18 +146,18 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
     /**
      * Insert a new value at a specific position in the drop down list.
      *
-     * @param position     the position, e.g. 0 to set as first item.
-     * @param newValue     the new value.
+     * @param position the position, e.g. 0 to set as first item.
+     * @param newValue the new value.
      * @param itemDisabled disabled property of the {@link SelectItem}
      */
     @SuppressWarnings("unchecked")
     // Implicitly safe because of typing
     public void add(final int position, final T newValue, final boolean itemDisabled) {
         getSelectableValues().add(position,
-            new SelectItem(newValue, getLabel(newValue), null, itemDisabled));
+                new SelectItem(newValue, getLabel(newValue), null, itemDisabled));
         this.converter.setInstanceMap(getMapping(getSelectableValues().stream()
-            .map(x -> (T) x.getValue())
-            .collect(Collectors.toSet())));
+                .map(x -> (T) x.getValue())
+                .collect(Collectors.toSet())));
         selectionAvailable = true;
     }
 

@@ -45,7 +45,7 @@ public abstract class AbstractSelectMenuModel<T extends Serializable> extends Ab
      *            must not be <code>null</code> but may be empty, what is rather
      *            useless for a dropdown
      */
-    public AbstractSelectMenuModel(final List<SelectItem> values) {
+    protected AbstractSelectMenuModel(final List<SelectItem> values) {
         this.selectableValues = requireNonNull(values, "values");
     }
 

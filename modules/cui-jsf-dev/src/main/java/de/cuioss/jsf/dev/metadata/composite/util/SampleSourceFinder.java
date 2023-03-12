@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathConstants;
@@ -40,7 +41,7 @@ public class SampleSourceFinder {
     private static final String F_Q_QFACET_NAME_SAMPLE = "']/fQ_Qfacet[@name='sample']";
 
     private static final String DEVELOPMENT_Q_QPRINT_METADATA_ID =
-            "//developmentQ_QprintMetadata[@id='";
+        "//developmentQ_QprintMetadata[@id='";
 
     private static final String NAMESPACE_DELIM = ":";
 
@@ -105,6 +106,8 @@ public class SampleSourceFinder {
             // parse
             final var factory = DocumentBuilderFactory
                     .newInstance();
+            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
             factory.setNamespaceAware(false);
             factory.setValidating(false);
             final var builder = factory.newDocumentBuilder();
@@ -143,7 +146,7 @@ public class SampleSourceFinder {
         } catch (final ParserConfigurationException e) {
             log.error(
                     "Parser configuration exception in sample source of component "
-                    .concat(id),
+                            .concat(id),
                     e);
             result = EMPTY;
         } catch (final SAXException | XPathExpressionException e) {

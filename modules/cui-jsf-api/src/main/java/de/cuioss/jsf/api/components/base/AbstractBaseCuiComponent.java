@@ -33,7 +33,7 @@ public abstract class AbstractBaseCuiComponent extends UIComponentBase
     /**
      *
      */
-    public AbstractBaseCuiComponent() {
+    protected AbstractBaseCuiComponent() {
         styleClassProvider = new ComponentStyleClassProviderImpl(this);
         styleAttributeProvider = new StyleAttributeProviderImpl(this);
     }
