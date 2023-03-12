@@ -1,5 +1,7 @@
 package de.cuioss.jsf.bootstrap.button;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.event.PreRenderComponentEvent;
@@ -119,7 +121,7 @@ class CommandButtonRendererTest extends AbstractComponentRendererTest<CommandBut
 
     @Test
     void shouldDecodeWOErrors() {
-        getRenderer().decode(getFacesContext(), getComponent());
+        assertDoesNotThrow(() -> getRenderer().decode(getFacesContext(), getComponent()));
     }
 
     @Override

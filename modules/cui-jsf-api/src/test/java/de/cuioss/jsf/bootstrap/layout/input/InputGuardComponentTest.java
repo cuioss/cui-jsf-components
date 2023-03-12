@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PreRenderComponentEvent;
@@ -146,32 +145,6 @@ class InputGuardComponentTest extends AbstractComponentTest<InputGuardComponent>
         component.setGuardButtonTitleValue(title);
         component.prerender((LabeledContainerComponent) component.getParent());
         assertNull(parent.getFacet(ContainerFacets.APPEND.getName()));
-    }
-
-    @Test
-    void shouldProvideHelpMessages() {
-        var component = prepareCompleteSetup();
-        var help = letterStrings().next();
-        component.setHelpTextValue(help);
-        component.setValue(Boolean.FALSE);
-        component.prerender((LabeledContainerComponent) component.getParent());
-        var messages = getFacesContext().getMessageList(accessRelatedInput(component).getClientId());
-        assertFalse(messages.isEmpty());
-        var message = messages.get(0);
-        assertEquals(FacesMessage.SEVERITY_WARN, message.getSeverity());
-        assertEquals(help, message.getSummary());
-        assertEquals(help, message.getDetail());
-    }
-
-    @Test
-    void shouldNotProvideHelpMessageOnInvalidStructure() {
-        var component = anyComponent();
-        var help = letterStrings().next();
-        component.setHelpTextValue(help);
-        component.setValue(Boolean.FALSE);
-        component.prerender((LabeledContainerComponent) component.getParent());
-        var messages = getFacesContext().getMessageList();
-        assertTrue(messages.isEmpty());
     }
 
     @Test

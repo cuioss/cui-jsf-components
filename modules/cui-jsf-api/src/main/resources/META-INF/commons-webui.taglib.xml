@@ -2944,44 +2944,6 @@
             <method-signature>void valueChange(javax.faces.event.ValueChangeEvent)
             </method-signature>
         </attribute>
-        <attribute>
-            <description>
-                <![CDATA[The key for looking up the help / warning-text. Although this
-                    attribute is not required the developer must provide either this or #helpTextValue if
-                    you want a help / warning-text to be displayed.]]>
-            </description>
-            <name>helpTextKey</name>
-            <required>false</required>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description>
-                <![CDATA[The String displayed for the help / warning-text. This is a replacement for #helpTextKey.
-                    If both are present helpTextValue takes precedence. If the type is not java.lang.String
-                    the developer must ensure that an according converter for the exists.]]>
-            </description>
-            <name>helpTextValue</name>
-            <required>false</required>
-            <type>java.io.Serializable</type>
-        </attribute>
-        <attribute>
-            <description>
-                <![CDATA[The optional converter to be used in case of helpTextValue is set and needs
-                    conversion.]]>
-            </description>
-            <name>helpTextConverter</name>
-            <required>false</required>
-            <type>javax.faces.convert.Converter</type>
-        </attribute>
-        <attribute>
-            <description>
-                <![CDATA[Indicates whether the help / warning-text is to be escaped on output or not. Default is
-                    true.]]>
-            </description>
-            <name>helpTextEscape</name>
-            <required>false</required>
-            <type>boolean</type>
-        </attribute>
     </tag>
     <tag>
         <description><![CDATA[

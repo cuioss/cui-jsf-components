@@ -75,6 +75,7 @@ public final class CookieMonster {
         requireNotEmpty(cookieValue, "cookieValue");
         requireNonNull(facesContext, "facesContext");
         final var cookie = new Cookie(cookieName, cookieValue);
+        cookie.setHttpOnly(true);
         cookie.setSecure(true);
         cookie.setPath(facesContext.getExternalContext().getRequestContextPath());
         setResponseCookie(facesContext, cookie);

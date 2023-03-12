@@ -44,7 +44,8 @@ class ButtonTest extends AbstractComponentTest<Button> {
 
     @Test
     void shouldFailToSetValue() {
-        assertThrows(IllegalArgumentException.class, () -> anyComponent().setValue(""));
+        var component = anyComponent();
+        assertThrows(IllegalArgumentException.class, () -> component.setValue(""));
     }
 
     @Test

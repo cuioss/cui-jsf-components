@@ -92,10 +92,7 @@ public class CssRule implements Serializable {
             if (splittedPair.size() == 2) {
 
                 final var key = splittedPair.get(0).toLowerCase();
-
-                if (!result.containsKey(key)) {
-                    result.put(key, splittedPair.get(1));
-                }
+                result.computeIfAbsent(key, v -> splittedPair.get(1));
 
             }
         }

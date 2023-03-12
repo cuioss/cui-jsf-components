@@ -1,8 +1,8 @@
 package de.cuioss.jsf.api.components.util.modifier;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -33,12 +33,7 @@ public class ComponentModifierAssert {
         if (componentModifier.isCompositeInput()) {
             componentModifier.getForIndentifiers();
         } else {
-            try {
-                componentModifier.getForIndentifiers();
-                fail("Should have thrown UnsupportedOperationException + " + componentModifier.getClass());
-            } catch (final UnsupportedOperationException e) {
-                // NOOP
-            }
+            assertThrows(UnsupportedOperationException.class, () -> componentModifier.getForIndentifiers());
         }
     }
 
@@ -47,18 +42,8 @@ public class ComponentModifierAssert {
             // FIXME owolff componentModifier.isDisabled();
             componentModifier.isRequired();
         } else {
-            try {
-                componentModifier.isRequired();
-                fail("Should have thrown UnsupportedOperationException + " + componentModifier.getClass());
-            } catch (final UnsupportedOperationException e) {
-                // NOOP
-            }
-            try {
-                componentModifier.isValid();
-                fail("Should have thrown UnsupportedOperationException + " + componentModifier.getClass());
-            } catch (final UnsupportedOperationException e) {
-                // NOOP
-            }
+            assertThrows(UnsupportedOperationException.class, () -> componentModifier.isRequired());
+            assertThrows(UnsupportedOperationException.class, () -> componentModifier.isValid());
         }
     }
 
@@ -67,18 +52,8 @@ public class ComponentModifierAssert {
             componentModifier.setRole("role");
             componentModifier.getRole();
         } else {
-            try {
-                componentModifier.setRole("role");
-                fail("Should have thrown UnsupportedOperationException + " + componentModifier.getClass());
-            } catch (final UnsupportedOperationException e) {
-                // NOOP
-            }
-            try {
-                componentModifier.getRole();
-                fail("Should have thrown UnsupportedOperationException + " + componentModifier.getClass());
-            } catch (final UnsupportedOperationException e) {
-                // NOOP
-            }
+            assertThrows(UnsupportedOperationException.class, () -> componentModifier.setRole("role"));
+            assertThrows(UnsupportedOperationException.class, () -> componentModifier.getRole());
         }
     }
 
@@ -86,12 +61,7 @@ public class ComponentModifierAssert {
         if (componentModifier.isSupportsResetValue()) {
             componentModifier.resetValue();
         } else {
-            try {
-                componentModifier.resetValue();
-                fail("Should have thrown UnsupportedOperationException + " + componentModifier.getClass());
-            } catch (final UnsupportedOperationException e) {
-                // NOOP
-            }
+            assertThrows(UnsupportedOperationException.class, () -> componentModifier.resetValue());
         }
     }
 
@@ -100,18 +70,8 @@ public class ComponentModifierAssert {
             componentModifier.setTitle("title");
             componentModifier.getTitle();
         } else {
-            try {
-                componentModifier.setTitle("title");
-                fail("Should have thrown UnsupportedOperationException + " + componentModifier.getClass());
-            } catch (final UnsupportedOperationException e) {
-                // NOOP
-            }
-            try {
-                componentModifier.getTitle();
-                fail("Should have thrown UnsupportedOperationException + " + componentModifier.getClass());
-            } catch (final UnsupportedOperationException e) {
-                // NOOP
-            }
+            assertThrows(UnsupportedOperationException.class, () -> componentModifier.setTitle("title"));
+            assertThrows(UnsupportedOperationException.class, () -> componentModifier.getTitle());
         }
     }
 
@@ -120,18 +80,8 @@ public class ComponentModifierAssert {
             componentModifier.setStyleClass("styleClass");
             componentModifier.getStyleClass();
         } else {
-            try {
-                componentModifier.setStyleClass("styleClass");
-                fail("Should have thrown UnsupportedOperationException + " + componentModifier.getClass());
-            } catch (final UnsupportedOperationException e) {
-                // NOOP
-            }
-            try {
-                componentModifier.getStyleClass();
-                fail("Should have thrown UnsupportedOperationException + " + componentModifier.getClass());
-            } catch (final UnsupportedOperationException e) {
-                // NOOP
-            }
+            assertThrows(UnsupportedOperationException.class, () -> componentModifier.setStyleClass("styleClass"));
+            assertThrows(UnsupportedOperationException.class, () -> componentModifier.getStyleClass());
         }
     }
 
@@ -140,18 +90,8 @@ public class ComponentModifierAssert {
             componentModifier.setStyle("styleClass");
             componentModifier.getStyle();
         } else {
-            try {
-                componentModifier.setStyle("styleClass");
-                fail("Should have thrown UnsupportedOperationException + " + componentModifier.getClass());
-            } catch (final UnsupportedOperationException e) {
-                // NOOP
-            }
-            try {
-                componentModifier.getStyle();
-                fail("Should have thrown UnsupportedOperationException + " + componentModifier.getClass());
-            } catch (final UnsupportedOperationException e) {
-                // NOOP
-            }
+            assertThrows(UnsupportedOperationException.class, () -> componentModifier.setStyle("styleClass"));
+            assertThrows(UnsupportedOperationException.class, () -> componentModifier.getStyle());
         }
     }
 
@@ -160,18 +100,8 @@ public class ComponentModifierAssert {
             componentModifier.setDisabled(true);
             componentModifier.isDisabled();
         } else {
-            try {
-                componentModifier.setDisabled(false);
-                fail("Should have thrown UnsupportedOperationException + " + componentModifier.getClass());
-            } catch (final UnsupportedOperationException e) {
-                // NOOP
-            }
-            try {
-                componentModifier.isDisabled();
-                fail("Should have thrown UnsupportedOperationException + " + componentModifier.getClass());
-            } catch (final UnsupportedOperationException e) {
-                // NOOP
-            }
+            assertThrows(UnsupportedOperationException.class, () -> componentModifier.setDisabled(false));
+            assertThrows(UnsupportedOperationException.class, () -> componentModifier.isDisabled());
         }
     }
 

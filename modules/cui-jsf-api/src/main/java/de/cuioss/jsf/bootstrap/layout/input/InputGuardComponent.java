@@ -7,7 +7,6 @@ import static de.cuioss.tools.base.Preconditions.checkState;
 
 import java.util.Optional;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.FacesComponent;
@@ -17,7 +16,6 @@ import javax.faces.context.FacesContext;
 import de.cuioss.jsf.api.components.JsfComponentIdentifier;
 import de.cuioss.jsf.api.components.base.BaseCuiHtmlHiddenInputComponent;
 import de.cuioss.jsf.api.components.partial.AjaxProvider;
-import de.cuioss.jsf.api.components.partial.HelpTextProvider;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.button.CommandButton;
@@ -34,11 +32,9 @@ import lombok.experimental.Delegate;
  * per default. It can be unlocked on demand. A warning message is shown right beside if it is
  * unlocked
  * </p>
- * HelpTextProvider
  *
  * <h2>Attributes</h2>
  * <ul>
- * <li>{@link HelpTextProvider}</li>
  * <li>{@link GuardButtonAttributes}</li>
  * <li>{@link ResetGuardButtonAttributes}</li>
  * <li>{@link AjaxProvider}: Default to "@namingcontainer" for update and "@this" for process</li>
@@ -84,9 +80,6 @@ public class InputGuardComponent extends BaseCuiHtmlHiddenInputComponent
     private final CuiState state;
 
     @Delegate
-    private final HelpTextProvider helpTextProvider;
-
-    @Delegate
     private final GuardButtonAttributes guardAttributes;
 
     @Delegate
@@ -101,7 +94,6 @@ public class InputGuardComponent extends BaseCuiHtmlHiddenInputComponent
     public InputGuardComponent() {
         super();
         state = new CuiState(getStateHelper());
-        helpTextProvider = new HelpTextProvider(this);
         guardAttributes = new GuardButtonAttributes(this);
         resetGuardButtonAttributes = new ResetGuardButtonAttributes(this);
         ajaxProvider =
@@ -117,17 +109,6 @@ public class InputGuardComponent extends BaseCuiHtmlHiddenInputComponent
         }
         var guarded = resolveValue();
         parent.setDisabled(guarded);
-        if (!guarded && isHelpTextSet()) {
-            var target = parent.findRelatedComponent();
-            if (null != target) {
-                var message = resolveHelpText();
-                facesContext().addMessage(target.getClientId(),
-                        new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
-            } else {
-                log.warn("No Help text can be displayed for component '{}' because no input can be found",
-                        getClientId());
-            }
-        }
         getPassThroughAttributes().putAll(ajaxProvider.resolveAjaxAttributesAsMap(this));
     }
 
@@ -155,14 +136,14 @@ public class InputGuardComponent extends BaseCuiHtmlHiddenInputComponent
 
     @Override
     public PluginStateInfo provideContainerStateInfo() {
-        if (!isRendered() || resolveValue()) {
+        if (!isRendered() || resolveValue().booleanValue()) {
             return PluginStateInfo.NO_STATE_INFO;
         }
         return PluginStateInfo.WARNING;
     }
 
     private CommandButton updateGuardButtonContent(CommandButton button, Boolean guarded) {
-        if (guarded) {
+        if (Boolean.TRUE.equals(guarded)) {
             button.setIcon(guardAttributes.getGuardIcon());
             button.setTitleValue(guardAttributes.resolveGuardButtonTitle());
         } else {

@@ -42,9 +42,6 @@ public class CuiResourceManager implements Serializable {
      */
     public LibraryInventory getLibraryInventory(String librayname) {
         requireNotEmpty(librayname);
-        if (!libraries.containsKey(librayname)) {
-            libraries.put(librayname, new LibraryInventory(librayname));
-        }
-        return libraries.get(librayname);
+        return libraries.computeIfAbsent(librayname, v -> new LibraryInventory(librayname));
     }
 }
