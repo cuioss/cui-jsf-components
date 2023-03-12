@@ -76,7 +76,7 @@ public abstract class AbstractPropertyWrapper implements Serializable {
      * @param featureDescriptor to be wrapped
      * @param displayData The data to be displayed
      */
-    public AbstractPropertyWrapper(final FeatureDescriptor featureDescriptor,
+    protected AbstractPropertyWrapper(final FeatureDescriptor featureDescriptor,
             final List<LabelValueDisplay> displayData) {
         this.displayData = displayData;
         advancedMetaData = new ArrayList<>();
@@ -95,15 +95,13 @@ public abstract class AbstractPropertyWrapper implements Serializable {
      * @return the extracted target attribute
      */
     protected static String getRequired(final FeatureDescriptor featureDescriptor) {
-        var required = String.valueOf(Boolean.FALSE);
+        var required = QA_REQUIRED_NOT_DEFINED;
         final var ve = (ValueExpression) featureDescriptor.getValue(ATTRIBUTE_REQUIRED);
         Object object = null;
         if (null != ve) {
             object = ve.getValue(FacesContext.getCurrentInstance().getELContext());
         }
-        if (null == object) {
-            required = QA_REQUIRED_NOT_DEFINED;
-        } else {
+        if (null != object) {
             required = String.valueOf(object);
         }
         return required;

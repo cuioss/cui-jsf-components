@@ -25,7 +25,7 @@ public class AttachedObjectPropertyWrapper extends AbstractPropertyWrapper {
      */
     public AttachedObjectPropertyWrapper(final FeatureDescriptor featureDescriptor,
             final AttachedObjectTarget attachedObjectTarget) {
-        super(featureDescriptor, createDisplayValues(featureDescriptor, attachedObjectTarget));
+        super(featureDescriptor, createDisplayValues(attachedObjectTarget));
     }
 
     /**
@@ -36,7 +36,6 @@ public class AttachedObjectPropertyWrapper extends AbstractPropertyWrapper {
      * @return the list of display data
      */
     private static List<LabelValueDisplay> createDisplayValues(
-            final FeatureDescriptor featureDescriptor,
             final AttachedObjectTarget attachedObjectTarget) {
         final List<LabelValueDisplay> result = new ArrayList<>();
         result.add(new LabelValueDisplay(LABEL_NAME, attachedObjectTarget.getName()));

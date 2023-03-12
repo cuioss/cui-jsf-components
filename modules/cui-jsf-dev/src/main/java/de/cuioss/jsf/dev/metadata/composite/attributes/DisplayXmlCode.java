@@ -21,15 +21,15 @@ import de.cuioss.tools.logging.CuiLogger;
 @FacesComponent("cuioss-reference-webui-portal.displayXmlCode")
 public final class DisplayXmlCode extends UINamingContainer {
 
-    private static final CuiLogger log = new CuiLogger(DisplayXmlCode.class);
+    private static final CuiLogger LOGGER = new CuiLogger(DisplayXmlCode.class);
     /** Default suffix for xhtml components. */
     private static final String DEFAULT_COMPONENT_SUFIX = ".xhtml";
 
     /** Storage for the metadata object. not to be serialized. */
-    private transient BeanInfo metadata;
+    private BeanInfo metadata;
 
     /** Storage for the metadata object. not to be serialized. */
-    private transient ComponentPropertiesWrapper componentPropertiesWrapper = new ComponentPropertiesWrapper();
+    private ComponentPropertiesWrapper componentPropertiesWrapper = new ComponentPropertiesWrapper();
 
     /**
      * @return the corresponding library
@@ -79,13 +79,11 @@ public final class DisplayXmlCode extends UINamingContainer {
                         getCompositeName(), getLibrary());
                 if (null == compositeComponentResource) {
                     throw new IllegalArgumentException("No resource found for " + getLibrary()
-                    + "/" + getCompositeName());
+                            + "/" + getCompositeName());
                 }
                 metadata = getDeclarationLanguage().getComponentMetadata(getFacesContext(),
                         compositeComponentResource);
-                if (log.isTraceEnabled()) {
-                    log.trace("Lazy loaded metadata for Composite Component {}/{}", getLibrary(), getCompositeName());
-                }
+                LOGGER.trace("Lazy loaded metadata for Composite Component {}/{}", getLibrary(), getCompositeName());
             }
         }
         return metadata;
