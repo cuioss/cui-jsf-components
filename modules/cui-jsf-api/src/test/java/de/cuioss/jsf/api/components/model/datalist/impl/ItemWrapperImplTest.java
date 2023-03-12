@@ -116,7 +116,8 @@ class ItemWrapperImplTest extends ValueObjectTest<ItemWrapperImpl<String>> {
     void shouldFailOnEditingDeleted() {
         final ItemWrapper<SomeModel> wrapper = new ItemWrapperImpl<>();
         wrapper.setEditStatus(EditStatus.DELETED);
-        assertThrows(IllegalStateException.class, () -> wrapper.doEdit(anyModel()));
+        var model = anyModel();
+        assertThrows(IllegalStateException.class, () -> wrapper.doEdit(model));
     }
 
     @Test

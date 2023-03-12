@@ -1,5 +1,6 @@
 package de.cuioss.jsf.api.application.bundle;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -43,12 +44,13 @@ class CuiResourceBundleTest extends AbstractPropertyAwareFacesTest<CuiResourceBu
 
     @Test
     void shouldBeProvidedByAccessor() {
-        getBeanConfigDecorator().register(anyBean(), CuiResourceBundle.BEAN_NAME);
+        assertDoesNotThrow(() -> getBeanConfigDecorator().register(anyBean(), CuiResourceBundle.BEAN_NAME));
     }
 
     @Test
     void shouldFailOnInvalidKey() {
-        assertThrows(MissingResourceException.class, () -> anyBean().getString("not.there"));
+        var bean = anyBean();
+        assertThrows(MissingResourceException.class, () -> bean.getString("not.there"));
     }
 
 }

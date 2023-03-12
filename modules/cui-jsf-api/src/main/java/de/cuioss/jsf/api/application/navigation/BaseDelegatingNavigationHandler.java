@@ -8,6 +8,7 @@ import javax.faces.application.NavigationCase;
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 
+import de.cuioss.tools.collect.CollectionLiterals;
 import lombok.AccessLevel;
 import lombok.Getter;
 
@@ -37,13 +38,13 @@ public class BaseDelegatingNavigationHandler extends ConfigurableNavigationHandl
      */
     public BaseDelegatingNavigationHandler(final NavigationHandler wrapped) {
         if (wrapped instanceof ConfigurableNavigationHandler) {
-            this.configurableNavigationHandler = (ConfigurableNavigationHandler) wrapped;
+            configurableNavigationHandler = (ConfigurableNavigationHandler) wrapped;
             this.wrapped = wrapped;
-            this.wrappedConfigurableNavigationHandler = true;
+            wrappedConfigurableNavigationHandler = true;
         } else {
             this.wrapped = wrapped;
-            this.configurableNavigationHandler = null;
-            this.wrappedConfigurableNavigationHandler = false;
+            configurableNavigationHandler = null;
+            wrappedConfigurableNavigationHandler = false;
         }
     }
 
@@ -58,7 +59,7 @@ public class BaseDelegatingNavigationHandler extends ConfigurableNavigationHandl
     @Override
     public Map<String, Set<NavigationCase>> getNavigationCases() {
         if (null == configurableNavigationHandler) {
-            return null;
+            return CollectionLiterals.immutableMap();
         }
         return configurableNavigationHandler.getNavigationCases();
     }

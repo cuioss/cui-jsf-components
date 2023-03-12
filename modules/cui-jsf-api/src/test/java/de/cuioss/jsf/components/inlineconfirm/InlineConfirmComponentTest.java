@@ -20,12 +20,14 @@ class InlineConfirmComponentTest extends AbstractComponentTest<InlineConfirmComp
 
     @Test
     void shouldFailWithMissingFacet() {
-        assertThrows(IllegalArgumentException.class, () -> anyComponent().getInitialFacet());
+        var component = anyComponent();
+        assertThrows(IllegalArgumentException.class, () -> component.getInitialFacet());
     }
 
     @Test
     void shouldFailWithMissingChild() {
-        assertThrows(IllegalArgumentException.class, () -> anyComponent().getChildAsModifier());
+        var component = anyComponent();
+        assertThrows(IllegalArgumentException.class, () -> component.getChildAsModifier());
     }
 
     @Test

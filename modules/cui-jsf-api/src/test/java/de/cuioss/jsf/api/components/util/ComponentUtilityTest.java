@@ -1,12 +1,13 @@
 package de.cuioss.jsf.api.components.util;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableMap;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,18 +61,9 @@ class ComponentUtilityTest extends JsfEnabledTestEnvironment implements Componen
         assertEquals(form, ComponentUtility.findCorrespondingForm(input));
         assertEquals(form, ComponentUtility.findCorrespondingForm(panel));
         assertEquals(form, ComponentUtility.findCorrespondingForm(form));
-        try {
-            ComponentUtility.findCorrespondingForm(new HtmlPanelGroup());
-            fail("Should have thrown exception");
-        } catch (final IllegalArgumentException e) {
-            // Expected
-        }
-        try {
-            ComponentUtility.findCorrespondingForm(null);
-            fail("Should have thrown exception");
-        } catch (final IllegalArgumentException e) {
-            // Expected
-        }
+        var component = new HtmlPanelGroup();
+        assertThrows(IllegalArgumentException.class, () -> ComponentUtility.findCorrespondingForm(component));
+        assertThrows(IllegalArgumentException.class, () -> ComponentUtility.findCorrespondingForm(null));
     }
 
     @Test
@@ -98,18 +90,9 @@ class ComponentUtilityTest extends JsfEnabledTestEnvironment implements Componen
         assertEquals(form, ComponentUtility.findNearestNamingContainer(input));
         assertEquals(form, ComponentUtility.findNearestNamingContainer(panel));
         assertEquals(form, ComponentUtility.findNearestNamingContainer(form));
-        try {
-            ComponentUtility.findNearestNamingContainer(new HtmlPanelGroup());
-            fail("Should have thrown exception");
-        } catch (final IllegalArgumentException e) {
-            // Expected
-        }
-        try {
-            ComponentUtility.findNearestNamingContainer(null);
-            fail("Should have thrown exception");
-        } catch (final IllegalArgumentException e) {
-            // Expected
-        }
+        var component = new HtmlPanelGroup();
+        assertThrows(IllegalArgumentException.class, () -> ComponentUtility.findNearestNamingContainer(component));
+        assertThrows(IllegalArgumentException.class, () -> ComponentUtility.findNearestNamingContainer(null));
     }
 
     @Test
@@ -130,13 +113,13 @@ class ComponentUtilityTest extends JsfEnabledTestEnvironment implements Componen
     @Test
     void testResetEditiableValueHolder() {
         final var form = createFormWithEditableValueHolder();
-        ComponentUtility.resetEditableValueHolder(form, getFacesContext());
+        assertDoesNotThrow(() -> ComponentUtility.resetEditableValueHolder(form, getFacesContext()));
     }
 
     @Test
     void testSetEditiableValueHoldersValid() {
         final var form = createFormWithEditableValueHolder();
-        ComponentUtility.resetEditableValueHolder(form, getFacesContext());
+        assertDoesNotThrow(() -> ComponentUtility.resetEditableValueHolder(form, getFacesContext()));
     }
 
     @Test
