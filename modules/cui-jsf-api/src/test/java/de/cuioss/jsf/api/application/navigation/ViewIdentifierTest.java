@@ -1,5 +1,6 @@
 package de.cuioss.jsf.api.application.navigation;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -44,7 +45,7 @@ class ViewIdentifierTest extends JsfEnabledTestEnvironment {
 
     @Test
     void handleNullUrlParams() {
-        new ViewIdentifier("some/page.jsf", null, null)
-            .redirect(getFacesContext());
+        assertDoesNotThrow(() -> new ViewIdentifier("some/page.jsf", null, null)
+                .redirect(getFacesContext()));
     }
 }

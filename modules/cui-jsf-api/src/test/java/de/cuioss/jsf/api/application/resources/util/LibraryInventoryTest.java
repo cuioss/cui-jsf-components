@@ -1,5 +1,6 @@
 package de.cuioss.jsf.api.application.resources.util;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -35,7 +36,7 @@ class LibraryInventoryTest {
 
     @Test
     void getResourceMappingTest() {
-        lib.getResourceMapping(libraryName);
+        assertDoesNotThrow(() -> lib.getResourceMapping(libraryName));
     }
 
     @Test
