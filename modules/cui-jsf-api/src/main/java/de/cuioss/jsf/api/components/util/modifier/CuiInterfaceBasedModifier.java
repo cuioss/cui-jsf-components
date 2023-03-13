@@ -91,8 +91,9 @@ public class CuiInterfaceBasedModifier extends ReflectionBasedModifier {
     @Override
     public String getStyleClass() {
         if (null == styleClassProvider) {
+            return super.getStyleClass();
         }
-        return super.getStyleClass();
+        return styleClassProvider.getStyleClass();
     }
 
     @Override

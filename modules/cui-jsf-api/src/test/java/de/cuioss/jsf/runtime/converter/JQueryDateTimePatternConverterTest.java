@@ -2,30 +2,21 @@ package de.cuioss.jsf.runtime.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class JQueryDateTimePatternConverterTest {
 
-    @Test
-    void shouldSupportJodaDateTimeFormats() {
+    @ParameterizedTest
+    @CsvSource({
+        "yyyy-MM-dd T HH:mm:ss, yyyy-MM-dd'T'HH:mm:ss.SSS ZZ",
+        "yyyy-MM-dd T HH:mm:ss, yyyy-MM-dd'T'HH:mm:ss.SSS '(UTC'ZZ')'",
+        "hh  o  clock  a, hh 'o''clock' a zzzz"
+    })
+    void shouldSupportJodaDateTimeFormats(String expected, String patternString) {
         final var converter =
-            new JQueryDateTimePatternConverter("yyyy-MM-dd'T'HH:mm:ss.SSS ZZ");
+            new JQueryDateTimePatternConverter(patternString);
         final var pattern = converter.getJQueryDateConformTimePattern();
-        assertEquals("yyyy-MM-dd T HH:mm:ss", pattern);
-    }
-
-    @Test
-    void shouldSupportCustomPatterns() {
-        final var converter =
-            new JQueryDateTimePatternConverter("yyyy-MM-dd'T'HH:mm:ss.SSS '(UTC'ZZ')'");
-        final var pattern = converter.getJQueryDateConformTimePattern();
-        assertEquals("yyyy-MM-dd T HH:mm:ss", pattern);
-    }
-
-    @Test
-    void shouldSupportSimpleDateFormat() {
-        final var converter = new JQueryDateTimePatternConverter("hh 'o''clock' a zzzz");
-        final var pattern = converter.getJQueryDateConformTimePattern();
-        assertEquals("hh  o  clock  a", pattern);
+        assertEquals(expected, pattern);
     }
 }

@@ -33,7 +33,8 @@ class ModalDialogComponentTest extends AbstractComponentTest<ModalDialogComponen
 
     @Test
     void shouldFailOnUnsetId() {
-        assertThrows(IllegalArgumentException.class, () -> anyComponent().resolveDialogId());
+        var component = anyComponent();
+        assertThrows(IllegalArgumentException.class, () -> component.resolveDialogId());
     }
 
     @Test

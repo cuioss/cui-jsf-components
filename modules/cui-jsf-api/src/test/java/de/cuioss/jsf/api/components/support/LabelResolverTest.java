@@ -68,7 +68,8 @@ class LabelResolverTest extends JsfEnabledTestEnvironment {
     @Test
     void shouldFailOnStrictMode() {
         final var resolver = LabelResolver.builder().withStrictMode(true).build();
-        assertThrows(IllegalStateException.class, () -> resolver.resolve(getFacesContext()));
+        var facesContext = getFacesContext();
+        assertThrows(IllegalStateException.class, () -> resolver.resolve(facesContext));
     }
 
     @Test

@@ -17,7 +17,7 @@ import de.cuioss.test.valueobjects.api.contracts.VerifyBeanProperty;
 class BaseDeferredLoadingWidgetTest extends ValueObjectTest<DeferredLoadingWidgetMock> {
 
     @Test
-    public void shouldHandleInitialized() {
+    void shouldHandleInitialized() {
         var sut = anyValueObject();
         assertFalse(sut.isInitialized());
         sut.processAction(new ActionEvent(new DummyComponent()));
