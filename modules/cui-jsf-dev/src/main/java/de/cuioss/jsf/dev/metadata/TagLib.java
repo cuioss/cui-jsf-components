@@ -98,9 +98,6 @@ public class TagLib implements Serializable {
         behaviorMetadata.sortCollected();
     }
 
-    /**
-     * @param resource
-     */
     private void parseTagLib(final URL resource) {
 
         try {
@@ -133,10 +130,6 @@ public class TagLib implements Serializable {
         }
     }
 
-    /**
-     * @param tag
-     * @return
-     */
     private ValidatorMetadata createValidatorMetadata(final Element tag) {
         var validatorDescriptor = tag
                 .getChild("validator", taglibNamespace);
@@ -147,10 +140,6 @@ public class TagLib implements Serializable {
                 validatorId);
     }
 
-    /**
-     * @param tag
-     * @return
-     */
     private BehaviorMetadata createBehaviorMetadata(final Element tag) {
         var behaviorDescriptor = tag
                 .getChild("behavior", taglibNamespace);
@@ -161,10 +150,6 @@ public class TagLib implements Serializable {
                 behaviorId);
     }
 
-    /**
-     * @param tag
-     * @return
-     */
     private ConverterMetadata createConverterMetadata(final Element tag) {
         var converterDescriptor = tag
                 .getChild("converter", taglibNamespace);
@@ -175,9 +160,6 @@ public class TagLib implements Serializable {
                 converterId);
     }
 
-    /**
-     * @param tag
-     */
     private UIComponentMetadata createComponentMetadata(final Element tag) {
         var componentDescriptor = tag
                 .getChild(COMPONENT, taglibNamespace);
@@ -196,10 +178,6 @@ public class TagLib implements Serializable {
                 componentType, rendererType, handlerClass);
     }
 
-    /**
-     * @param tag
-     * @return
-     */
     private List<AttributeMetadata> extractAttrbutesMetadata(final Element tag) {
         List<AttributeMetadata> attributeList = new ArrayList<>();
         for (Element attribute : tag.getChildren("attribute", taglibNamespace)) {
@@ -222,26 +200,14 @@ public class TagLib implements Serializable {
         return attributeList;
     }
 
-    /**
-     * @param attribute
-     * @return
-     */
     private String extractDescription(final Element attribute) {
         return attribute.getChildText("description", taglibNamespace);
     }
 
-    /**
-     * @param attribute
-     * @return
-     */
     private String extractName(final Element attribute) {
         return attribute.getChildTextTrim("name", taglibNamespace);
     }
 
-    /**
-     * @param attribute
-     * @return
-     */
     private String extractTagName(final Element attribute) {
         return attribute.getChildTextTrim("tag-name", taglibNamespace);
     }

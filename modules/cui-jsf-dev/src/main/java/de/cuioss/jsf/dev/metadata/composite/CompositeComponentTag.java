@@ -35,11 +35,11 @@ public final class CompositeComponentTag extends UINamingContainer {
     private static final CuiLogger log = new CuiLogger(CompositeComponentTag.class);
 
     /** Storage for the metadata object. not to be serialized. */
-    private transient BeanInfo metadata;
+    private BeanInfo metadata;
 
     /** Storage for the metadata object. not to be serialized. */
-    private transient ComponentPropertiesWrapper componentPropertiesWrapper =
-            new ComponentPropertiesWrapper();
+    private ComponentPropertiesWrapper componentPropertiesWrapper =
+        new ComponentPropertiesWrapper();
 
     /**
      * @return the string representation of the library
@@ -130,7 +130,7 @@ public final class CompositeComponentTag extends UINamingContainer {
             for (PropertyDescriptor descriptor : getMetadataInfo()
                     .getPropertyDescriptors()) {
                 componentPropertiesWrapper
-                .addChildComponentDescriptor(descriptor);
+                        .addChildComponentDescriptor(descriptor);
             }
             componentPropertiesWrapper.setConfigured(true);
         }
@@ -173,8 +173,8 @@ public final class CompositeComponentTag extends UINamingContainer {
      */
     public String getSampleFacetSource() {
         final var context =
-                (javax.servlet.ServletContext) getFacesContext()
-                .getExternalContext().getContext();
+            (javax.servlet.ServletContext) getFacesContext()
+                    .getExternalContext().getContext();
         final var sampleSourceFinder = new SampleSourceFinder(
                 new File(context.getRealPath(getFacesContext().getViewRoot()
                         .getViewId())),

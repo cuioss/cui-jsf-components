@@ -53,10 +53,7 @@ public final class CompositeUtil {
         metadata = facesContext.getApplication().getViewHandler()
                 .getViewDeclarationLanguage(facesContext, FACELET_SUFFIX).getComponentMetadata(
                         facesContext, compositeComponentResource);
-        if (log.isTraceEnabled()) {
-            log.trace("Lazy loaded metadata for Composite Component "
-                    + libraryName + "/" + compositeName);
-        }
+        log.trace("Lazy loaded metadata for Composite Component %s:%s", libraryName, compositeName);
         return metadata;
     }
 
