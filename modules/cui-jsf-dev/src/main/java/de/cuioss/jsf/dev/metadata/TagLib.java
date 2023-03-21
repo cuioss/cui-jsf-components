@@ -1,7 +1,5 @@
 package de.cuioss.jsf.dev.metadata;
 
-import static com.google.common.base.Preconditions.checkState;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
@@ -22,6 +20,7 @@ import de.cuioss.jsf.dev.metadata.model.ConverterMetadata;
 import de.cuioss.jsf.dev.metadata.model.TagStorage;
 import de.cuioss.jsf.dev.metadata.model.UIComponentMetadata;
 import de.cuioss.jsf.dev.metadata.model.ValidatorMetadata;
+import de.cuioss.tools.base.Preconditions;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -83,7 +82,7 @@ public class TagLib implements Serializable {
 
         final var resource = TagLib.class.getResource(tagPath);
 
-        checkState(null != resource, "Unable to load path %d", tagPath);
+        Preconditions.checkState(null != resource, "Unable to load path %d", tagPath);
 
         componentMetadata = new TagStorage<>();
         converterMetadata = new TagStorage<>();
