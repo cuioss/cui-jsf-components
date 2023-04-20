@@ -1,4 +1,4 @@
-package de.cuioss.jsf.runtime.application.projectstage;
+package de.cuioss.jsf.api.application.projectstage;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -8,6 +8,8 @@ import javax.faces.application.ProjectStage;
 
 import org.junit.jupiter.api.Test;
 
+import de.cuioss.jsf.api.application.projectstage.CuiProjectStageAccessor;
+import de.cuioss.jsf.api.application.projectstage.CuiProjectStageImpl;
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;

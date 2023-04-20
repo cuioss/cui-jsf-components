@@ -1,4 +1,4 @@
-package de.cuioss.jsf.runtime.converter.nameprovider;
+package de.cuioss.jsf.api.converter.nameprovider;
 
 import static de.cuioss.jsf.api.security.CuiSanitizer.COMPLEX_HTML;
 

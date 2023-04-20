@@ -1,4 +1,4 @@
-package de.cuioss.jsf.runtime.converter;
+package de.cuioss.jsf.api.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -7,7 +7,8 @@ import javax.faces.component.html.HtmlOutputText;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.runtime.application.projectstage.CuiProjectStageAccessor;
+import de.cuioss.jsf.api.application.projectstage.CuiProjectStageAccessor;
+import de.cuioss.jsf.api.converter.FallbackSanitizingConverter;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
 import de.cuioss.test.juli.LogAsserts;
 import de.cuioss.test.juli.TestLogLevel;

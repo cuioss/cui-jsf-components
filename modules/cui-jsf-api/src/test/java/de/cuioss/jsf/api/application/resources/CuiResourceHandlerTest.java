@@ -14,9 +14,9 @@ import javax.faces.application.ProjectStage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import de.cuioss.jsf.api.application.projectstage.CuiProjectStageAccessor;
+import de.cuioss.jsf.api.application.projectstage.CuiProjectStageImpl;
 import de.cuioss.jsf.api.application.resources.impl.CuiResourceConfigurationImpl;
-import de.cuioss.jsf.runtime.application.projectstage.CuiProjectStageAccessor;
-import de.cuioss.jsf.runtime.application.projectstage.CuiProjectStageImpl;
 import de.cuioss.test.generator.internal.net.java.quickcheck.generator.support.IntegerGenerator;
 import de.cuioss.test.generator.junit.EnableGeneratorController;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;

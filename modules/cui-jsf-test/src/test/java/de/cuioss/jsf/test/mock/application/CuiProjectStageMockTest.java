@@ -10,7 +10,7 @@ import javax.faces.application.ProjectStage;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.runtime.application.projectstage.CuiProjectStageAccessor;
+import de.cuioss.jsf.api.application.projectstage.CuiProjectStageAccessor;
 import de.cuioss.test.jsf.config.decorator.BeanConfigDecorator;
 import de.cuioss.test.jsf.junit5.AbstractBeanTest;
 import de.cuioss.test.valueobjects.api.property.PropertyReflectionConfig;

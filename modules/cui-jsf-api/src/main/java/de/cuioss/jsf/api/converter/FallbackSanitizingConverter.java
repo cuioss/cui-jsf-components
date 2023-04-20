@@ -1,4 +1,4 @@
-package de.cuioss.jsf.runtime.converter;
+package de.cuioss.jsf.api.converter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -7,9 +7,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
-import de.cuioss.jsf.api.converter.AbstractConverter;
+import de.cuioss.jsf.api.application.projectstage.CuiProjectStageAccessor;
 import de.cuioss.jsf.api.security.CuiSanitizer;
-import de.cuioss.jsf.runtime.application.projectstage.CuiProjectStageAccessor;
 import de.cuioss.tools.logging.CuiLogger;
 
 /**

@@ -2,7 +2,7 @@ package de.cuioss.jsf.test.mock.application;
 
 import javax.faces.application.ProjectStage;
 
-import de.cuioss.jsf.runtime.application.projectstage.CuiProjectStageAccessor;
+import de.cuioss.jsf.api.application.projectstage.CuiProjectStageAccessor;
 import de.cuioss.test.jsf.config.BeanConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.BeanConfigDecorator;

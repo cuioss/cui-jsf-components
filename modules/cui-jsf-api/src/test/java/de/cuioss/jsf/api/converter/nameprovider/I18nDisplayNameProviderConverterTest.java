@@ -1,8 +1,9 @@
-package de.cuioss.jsf.runtime.converter.nameprovider;
+package de.cuioss.jsf.api.converter.nameprovider;
 
 import java.util.Locale;
 
 import de.cuioss.jsf.api.CoreJsfTestConfiguration;
+import de.cuioss.jsf.api.converter.nameprovider.I18nDisplayNameProviderConverter;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.converter.AbstractSanitizingConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;

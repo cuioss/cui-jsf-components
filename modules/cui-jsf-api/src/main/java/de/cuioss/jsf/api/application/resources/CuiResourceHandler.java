@@ -6,10 +6,10 @@ import java.util.logging.Logger;
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 
+import de.cuioss.jsf.api.application.projectstage.CuiProjectStageAccessor;
 import de.cuioss.jsf.api.application.resources.accessor.CuiResourceConfigurationAccessor;
 import de.cuioss.jsf.api.application.resources.accessor.CuiResourceManagerAccessor;
 import de.cuioss.jsf.api.application.resources.util.LibraryInventory;
-import de.cuioss.jsf.runtime.application.projectstage.CuiProjectStageAccessor;
 import de.cuioss.tools.io.StructuredFilename;
 import de.cuioss.tools.logging.CuiLogger;
 

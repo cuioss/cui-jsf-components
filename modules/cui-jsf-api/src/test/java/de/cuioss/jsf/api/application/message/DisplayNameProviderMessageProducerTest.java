@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.cuioss.jsf.api.CoreJsfTestConfiguration;
-import de.cuioss.jsf.runtime.converter.nameprovider.LabeledKeyConverter;
+import de.cuioss.jsf.api.converter.nameprovider.LabeledKeyConverter;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
 import de.cuioss.test.valueobjects.contract.EqualsAndHashcodeContractImpl;

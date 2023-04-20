@@ -1,8 +1,7 @@
-package de.cuioss.jsf.runtime.converter;
+package de.cuioss.jsf.api.converter;
 
 import javax.faces.convert.FacesConverter;
 
-import de.cuioss.jsf.api.converter.HtmlSanitizingConverter;
 import de.cuioss.jsf.api.security.CuiSanitizer;
 
 /**

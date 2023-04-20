@@ -1,4 +1,4 @@
-package de.cuioss.jsf.runtime.application.projectstage;
+package de.cuioss.jsf.api.application.projectstage;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.ProjectStage;

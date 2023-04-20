@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.runtime.application.projectstage.CuiProjectStageAccessor;
-import de.cuioss.jsf.runtime.converter.FallbackSanitizingConverter;
+import de.cuioss.jsf.api.application.projectstage.CuiProjectStageAccessor;
+import de.cuioss.jsf.api.converter.FallbackSanitizingConverter;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 import de.cuioss.uimodel.application.CuiProjectStage;
 

@@ -1,4 +1,4 @@
-package de.cuioss.jsf.runtime.application.projectstage;
+package de.cuioss.jsf.api.application.projectstage;
 
 import de.cuioss.jsf.api.common.accessor.ManagedBeanAccessor;
 import de.cuioss.uimodel.application.CuiProjectStage;

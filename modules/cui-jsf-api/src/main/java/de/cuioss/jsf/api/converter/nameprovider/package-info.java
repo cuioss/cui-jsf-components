@@ -4,4 +4,4 @@
  * @author Oliver Wolff
  *
  */
-package de.cuioss.jsf.runtime.converter.nameprovider;
+package de.cuioss.jsf.api.converter.nameprovider;
