@@ -1,0 +1,34 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>de.cuioss.jsf</groupId>
+        <artifactId>cui-jsf-components</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>bom</artifactId>
+    <packaging>pom</packaging>
+    <name>CUI JSF-Components BOM</name>
+    <description>Defines all consumable modules for CUI JSF-Components</description>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>de.cuioss.jsf</groupId>
+                <artifactId>cui-jsf-api</artifactId>
+                <version>${project.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>de.cuioss.jsf</groupId>
+                <artifactId>cui-jsf-bootstrap</artifactId>
+                <version>${project.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>de.cuioss.jsf</groupId>
+                <artifactId>cui-jsf-dev</artifactId>
+                <version>${project.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

@@ -8,7 +8,112 @@
     <artifactId>modules</artifactId>
     <packaging>pom</packaging>
     <name>cui core jsf modules</name>
-    <description>Aggregates teh modules</description>
+    <description>Aggregates the modules</description>
+    <dependencyManagement>
+        <dependencies>
+            <!-- Incoming-->
+            <dependency>
+                <groupId>de.cuioss</groupId>
+                <artifactId>java-ee-8-bom</artifactId>
+                <version>${version.cui.parent}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>de.cuioss</groupId>
+                <artifactId>java-ee-orthogonal</artifactId>
+                <version>${version.cui.parent}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>de.cuioss.jsf</groupId>
+                <artifactId>bom</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <!-- Provided -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+        </dependency>
+        <dependency>
+            <!-- replaces javax.servlet-api -->
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+        </dependency>
+        <dependency>
+            <!-- replaces javax.websocket-api -->
+            <groupId>jakarta.websocket</groupId>
+            <artifactId>jakarta.websocket-api</artifactId>
+        </dependency>
+        <dependency>
+            <!-- replaces javax.validation:validation-api -->
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <!-- replaces javax.el:javax.el-api -->
+            <groupId>jakarta.el</groupId>
+            <artifactId>jakarta.el-api</artifactId>
+        </dependency>
+        <dependency>
+            <!-- replaces javax.enterprise:cdi-api -->
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+        </dependency>
+        <dependency>
+            <!-- replaces javax.annotation:javax.annotation-api -->
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+        </dependency>
+        <!-- Compile-->
+        <dependency>
+            <groupId>de.cuioss</groupId>
+            <artifactId>cui-java-tools</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.cuioss</groupId>
+            <artifactId>cui-core-ui-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnifaces</artifactId>
+        </dependency>
+        <!-- Test-->
+        <dependency>
+            <groupId>de.cuioss.test</groupId>
+            <artifactId>cui-jsf-test-basic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.cuioss.test</groupId>
+            <artifactId>cui-test-value-objects</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.cuioss.test</groupId>
+            <artifactId>cui-test-juli-logger</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.cuioss.test</groupId>
+            <artifactId>cui-test-generator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+        </dependency>
+    </dependencies>
     <modules>
         <module>cui-jsf-api</module>
         <module>cui-jsf-bootstrap</module>
