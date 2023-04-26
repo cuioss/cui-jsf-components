@@ -8,7 +8,7 @@
     <artifactId>modules</artifactId>
     <packaging>pom</packaging>
     <name>cui core jsf modules</name>
-    <description>Aggregates the modules</description>
+    <description>Aggregates the cui-jsf Modules</description>
     <dependencyManagement>
         <dependencies>
             <!-- Incoming-->
@@ -119,5 +119,6 @@
         <module>cui-jsf-bootstrap</module>
         <module>cui-jsf-dev</module>
         <module>cui-jsf-test</module>
+        <module>cui-jsf-jqplot</module>
     </modules>
 </project>

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<!-- INTERFACE -->
+<composite:interface displayName="graph"
+    shortDescription="Provide Graph using jqPlot JavaScript Library">
+    <composite:attribute name="plot" type="de.cuioss.jsf.jqplot.JqPlot"
+        required="true"
+        shortDescription="Plot object which include configuration and model information to be displayed" />
+
+    <composite:attribute name="style" type="java.lang.String"
+        required="false" default="height: 420px; width: 850px;"
+        shortDescription="Change the style of div of plot." />
+
+    <composite:attribute name="noDataMessage" type="java.lang.String"
+        required="false" default="no data available"
+        shortDescription="Show message if no data available" />
+
+    <composite:facet name="header" required="false"
+        shortDescription="Facet for header content for plot" />
+
+    <composite:attribute name="zoomResetElementId" required="false"
+        type="java.lang.String" default="zoomReset"
+        shortDescription="id of element which emit reset zooming event for plot which could be part of facet." />
+
+    <composite:attribute name="plotScriptExtention"
+        type="java.lang.String" required="false" default=""
+        shortDescription="insert any script which get executed on intitialization of graph" />
+
+</composite:interface>
+
+<!-- IMPLEMENTATION -->
+<composite:implementation>
+
+    <h:outputStylesheet library="graph-jqplot"
+        name="jquery.jqplot.min.css"
+        rendered="#{not cc.attrs.plot.nothingToDisplay}" />
+
+    <h:outputScript library="graph-jqplot" name="jquery.jqplot.min.js"
+        target="head" rendered="#{not cc.attrs.plot.nothingToDisplay}" />
+
+    <h:outputScript library="graph-jqplot" name="excanvas.min.js"
+        target="head" rendered="#{not cc.attrs.plot.nothingToDisplay}" />
+
+    <ui:repeat var="plugInName" value="#{cc.attrs.plot.plugins}">
+        <h:outputScript library="graph-jqplot" name="#{plugInName}" />
+    </ui:repeat>
+
+    <composite:renderFacet name="header" required="false" />
+
+    <ui:fragment rendered="#{not cc.attrs.plot.nothingToDisplay}">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="#{cc.attrs.plot.chartId}"
+                    style="#{cc.attrs.style}" />
+            </div>
+        </div>
+        <script type="text/javascript">
+			$(document).ready(function(){
+				
+				var plot1 = #{cc.attrs.plot.asJavaScriptObjectNotation()};
+
+				// reset zoomimg click event binding
+				var id = PrimeFaces.escapeClientId("#{cc.attrs.zoomResetElementId}");
+				$(id).click(function() { plot1.resetZoom() });
+
+				// any script 
+				#{cc.attrs.plotScriptExtention}
+			});
+	    </script>
+    </ui:fragment>
+
+    <ui:fragment rendered="#{cc.attrs.plot.nothingToDisplay}">
+        <h:outputText id="noData" value="#{cc.attrs.noDataMessage}" />
+    </ui:fragment>
+</composite:implementation>
+
+</html>
