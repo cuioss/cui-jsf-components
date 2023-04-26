@@ -2,10 +2,15 @@ package de.cuioss.jsf.api.components.util.modifier;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Iterator;
+import java.util.Optional;
+import java.util.ServiceLoader;
+
 import javax.faces.component.UIComponent;
 
 import de.cuioss.jsf.api.components.util.ComponentModifier;
-import de.cuioss.jsf.api.components.util.modifier.composite.CuiCompositeWrapperFactory;
+import de.cuioss.tools.logging.CuiLogger;
+import lombok.experimental.UtilityClass;
 
 /**
  * Factory for creating wrapper classes defining an interface like contract for
@@ -13,9 +18,10 @@ import de.cuioss.jsf.api.components.util.modifier.composite.CuiCompositeWrapperF
  *
  * @author Oliver Wolff
  */
-public enum ComponentModifierFactory {
+@UtilityClass
+public class ComponentModifierFactory {
 
-    ;
+    private final CuiLogger LOGGER = new CuiLogger(ComponentModifierFactory.class);
 
     /**
      * Retrieve fitting {@linkplain ComponentModifier}
@@ -27,12 +33,25 @@ public enum ComponentModifierFactory {
     public static ComponentModifier findFittingWrapper(final UIComponent toBeWrapped) {
         requireNonNull(toBeWrapped);
 
-        var wrapper = CuiCompositeWrapperFactory.wrap(toBeWrapped);
+        LOGGER.trace("Resolving for %s. First try from SPI", toBeWrapped.getClass());
 
-        if (!wrapper.isPresent()) {
-            wrapper = CuiInterfaceBasedModifier.wrap(toBeWrapped);
+        Iterator<ComponentModifierResolver> iterator = loadResolver();
+        while (iterator.hasNext()) {
+            Optional<ComponentModifier> resolved = iterator.next().wrap(toBeWrapped);
+            if (resolved.isPresent()) {
+                LOGGER.trace("Resolved %s for %s", resolved.get().getClass(), toBeWrapped.getClass());
+                return resolved.get();
+            }
         }
+        LOGGER.trace("Not Found by SPI, checking interfaces-based");
+        var wrapper = CuiInterfaceBasedModifier.wrap(toBeWrapped);
         return wrapper.orElse(new ReflectionBasedModifier(toBeWrapped));
+    }
+
+    static Iterator<ComponentModifierResolver> loadResolver() {
+        ServiceLoader<ComponentModifierResolver> loader = ServiceLoader
+                .load(ComponentModifierResolver.class);
+        return loader.iterator();
     }
 
 }

@@ -6,11 +6,10 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 
 import de.cuioss.jsf.api.components.css.ContextState;
-import de.cuioss.jsf.components.lazyloading.LazyLoadingComponent;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
 
 /**
- * A model for the {@link LazyLoadingComponent}.
+ * A model for the LazyLoadingComponent
  */
 public interface LazyLoadingModel extends ActionListener, Serializable {
 

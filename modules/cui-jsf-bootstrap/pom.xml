@@ -7,7 +7,7 @@
     </parent>
     <artifactId>cui-jsf-bootstrap</artifactId>
     <name>cui bootstrap</name>
-    <description>Bootsrap componets, based on cui-api</description>
+    <description>Bootstrap components, based on cui-api</description>
     <dependencies>
         <dependency>
             <groupId>de.cuioss.jsf</groupId>

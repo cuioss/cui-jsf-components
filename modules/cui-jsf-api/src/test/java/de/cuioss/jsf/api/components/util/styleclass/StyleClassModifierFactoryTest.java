@@ -6,8 +6,6 @@ import javax.faces.component.html.HtmlInputText;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.bootstrap.composite.EditableDataListComponent;
-
 class StyleClassModifierFactoryTest {
 
     @Test
@@ -15,8 +13,4 @@ class StyleClassModifierFactoryTest {
         assertNotNull(StyleClassModifierFactory.findFittingWrapper(new HtmlInputText()));
     }
 
-    @Test
-    void shouldHandleEditableDataList() {
-        assertNotNull(StyleClassModifierFactory.findFittingWrapper(new EditableDataListComponent()));
-    }
 }

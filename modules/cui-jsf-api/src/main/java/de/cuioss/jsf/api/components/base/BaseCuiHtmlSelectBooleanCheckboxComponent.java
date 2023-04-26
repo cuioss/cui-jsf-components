@@ -10,7 +10,6 @@ import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
 import de.cuioss.jsf.api.components.partial.ComponentStyleClassProviderImpl;
 import de.cuioss.jsf.api.components.partial.StyleAttributeProvider;
 import de.cuioss.jsf.api.components.partial.StyleAttributeProviderImpl;
-import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import lombok.experimental.Delegate;
 
 /**
@@ -53,8 +52,4 @@ public class BaseCuiHtmlSelectBooleanCheckboxComponent extends HtmlSelectBoolean
         return getFacet(facetName);
     }
 
-    @Override
-    public String getFamily() {
-        return BootstrapFamily.COMPONENT_FAMILY;
-    }
 }

@@ -152,7 +152,7 @@ public interface ComponentModifier {
     /**
      * @param klazz
      * @return boolean indicating whether the wrapped component is exact from
-     *         one type-
+     *         one type
      */
     boolean wrapsComponentClass(Class<? extends UIComponent> klazz);
 
@@ -176,7 +176,8 @@ public interface ComponentModifier {
     boolean isCompositeInput();
 
     /**
-     * Shorthand for call {@link #getComponent()} -&gt; {@link UIComponent#getPassThroughAttributes()}
+     * Shorthand for call {@link #getComponent()} -&gt;
+     * {@link UIComponent#getPassThroughAttributes()}
      * {@link Map#put(Object, Object)}
      *
      * @param key to be put as Passthrough-attribute

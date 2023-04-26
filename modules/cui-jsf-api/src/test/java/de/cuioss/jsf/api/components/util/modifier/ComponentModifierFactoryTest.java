@@ -8,7 +8,6 @@ import javax.faces.component.UIComponentBase;
 import org.junit.jupiter.api.Test;
 
 import de.cuioss.jsf.api.components.util.modifier.support.TitleProviderImpl;
-import de.cuioss.jsf.bootstrap.composite.EditableDataListComponent;
 
 class ComponentModifierFactoryTest {
 
@@ -31,11 +30,5 @@ class ComponentModifierFactoryTest {
         assertNotNull(ComponentModifierFactory.findFittingWrapper(component));
         assertEquals(CuiInterfaceBasedModifier.class,
                 ComponentModifierFactory.findFittingWrapper(component).getClass());
-    }
-
-    @Test
-    void shouldHandleCuiCompositeWrapper() {
-        UIComponentBase component = new EditableDataListComponent();
-        assertNotNull(ComponentModifierFactory.findFittingWrapper(component));
     }
 }
