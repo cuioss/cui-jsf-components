@@ -5,37 +5,37 @@
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+    xmlns:composite="http://xmlns.jcp.org/jsf/composite">
 
    <!-- Interface -->
-   <cc:interface componentType="de.cuioss.cui.dev.compositeComponentTag"
+   <composite:interface componentType="de.cuioss.cui.dev.compositeComponentTag"
       displayName="Print Metadata"
       shortDescription="Renders the metadata for a concrete Composite Component">
-      <cc:attribute name="compositeLibrary" type="java.lang.String"
+      <composite:attribute name="compositeLibrary" type="java.lang.String"
          required="true"
          shortDescription="The library of the component." />
-      <cc:attribute name="compositeName" type="java.lang.String"
+      <composite:attribute name="compositeName" type="java.lang.String"
          required="true"
          shortDescription="The name of the component. It is supposed to be an xhtml component." />
-      <cc:attribute name="showAdvanced" required="false" default="false"
+      <composite:attribute name="showAdvanced" required="false" default="false"
          type="java.lang.Boolean"
          shortDescription="Defined whether to show more advanced attribute like Expert, Hidden and Preferred." />
-      <cc:attribute name="baseUrl" required="false"
+      <composite:attribute name="baseUrl" required="false"
          type="java.lang.String"
          default="http://xmlns.jcp.org/jsf/composite"
          shortDescription="Defines the base url for the component. It is used constructing the namespace to be displayed
          as an example." />
-      <cc:facet name="sample" required="false"
+      <composite:facet name="sample" required="false"
          shortDescription="This facet contains sample for being display in a separate tab" />
-      <cc:facet name="sampleSource" required="false"
+      <composite:facet name="sampleSource" required="false"
          shortDescription="The code to be displayed. Take care of proper escaping of special characters.
 			If not defined then the component does search in xhtml source for the 'f:facet name='sample'' string and takes the content from it automaticaly.
 			Please, be aware of harcoded namespaces 'development' for 'http://xmlns.jcp.org/jsf/composite/development' and 'f' for
 			'http://xmlns.jcp.org/jsf/core'." />
-   </cc:interface>
+   </composite:interface>
 
    <!-- Implementation -->
-   <cc:implementation>
+   <composite:implementation>
       <h:panelGroup id="dscr" layout="block">
          <h2>#{cc.attrs.compositeName}</h2>
          <development:namespace id="ns" baseUrl="#{cc.attrs.baseUrl}"
@@ -47,8 +47,6 @@
       </h:panelGroup>
       <ul class="nav nav-tabs" role="tablist">
          <ui:fragment rendered="#{cc.propertyDescriptors.facetHolder}">
-
-
          </ui:fragment>
       </ul>
 
@@ -98,14 +96,14 @@
             <h:panelGroup id="smplPanel" layout="block"
                rendered="#{cc.sampleFacetAvailable}">
                <h3>Sample</h3>
-               <cc:renderFacet name="sample" />
+               <composite:renderFacet name="sample" />
             </h:panelGroup>
             <h:panelGroup id="srcPanelSample" layout="block">
                <h3>Source</h3>
                <development:displaySource id="sampleFacet"
                   rendered="#{cc.sampleSourceFacetAvailable}">
                   <f:facet name="source">
-                     <cc:renderFacet name="sampleSource" />
+                     <composite:renderFacet name="sampleSource" />
                   </f:facet>
                </development:displaySource>
                <development:displaySource id="codeSrc"
@@ -117,5 +115,5 @@
             </h:panelGroup>
          </p:tab>
       </p:tabView>
-   </cc:implementation>
+   </composite:implementation>
 </ui:component>

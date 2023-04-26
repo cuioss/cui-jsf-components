@@ -1,6 +1,6 @@
 package de.cuioss.jsf.bootstrap.tag.support;
 
-import static de.cuioss.jsf.components.selectize.Selectize.CLIENT_CREATED_SUFFIX;
+import static de.cuioss.jsf.bootstrap.selectize.Selectize.CLIENT_CREATED_SUFFIX;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableSet;
 import static de.cuioss.tools.collect.CollectionLiterals.mutableList;

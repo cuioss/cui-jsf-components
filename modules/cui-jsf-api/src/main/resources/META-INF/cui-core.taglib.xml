@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facelet-taglib version="2.2"
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd">
+    <namespace>"https://cuioss.de/jsf/core"</namespace>
+    <tag>
+        <description><![CDATA[Formatting converter for creating / resolving the label of a given CodeType. It
+            uses the standard LocaleProducerAccessor for accessing the needed Locale]]></description>
+        <tag-name>codeTypeDisplayConverter</tag-name>
+        <converter>
+            <converter-id>de.cuioss.jsf.components.converter.CodeTypeDisplayConverter</converter-id>
+        </converter>
+    </tag>
+    <tag>
+        <description><![CDATA[Converter utilized for drop-down elements. The instanceMap is utilized for the
+            mapping between the serializable keys and the corresponding model classes. The keys must
+            be Serializable because they are sent to the client. The corresponding toString() method
+            must return a String representation that can be used for key lookup within the map. The
+            lookup is implemented to fail fast, saying for both ways, getAsObject(FacesContext,
+            UIComponent, String) and getAsString(FacesContext, UIComponent, Object) the references
+            will be checked, whether they are contained within the instanceMap, throwing a
+            ConverterException if it doesn't.]]>
+        </description>
+        <tag-name>mapInstanceConverter</tag-name>
+        <converter>
+            <converter-id>mapInstanceConverter</converter-id>
+        </converter>
+        <attribute>
+            <description><![CDATA[The map being referenced]]></description>
+            <name>instanceMap</name>
+            <required>true</required>
+            <type>java.util.Map</type>
+        </attribute>
+    </tag>
+    <tag>
+        <description><![CDATA[Utilized for sanitizing String inputs in order to prevent script injection or
+            Html code that possibly corrupts layout.]]></description>
+        <tag-name>sanitizer</tag-name>
+        <converter>
+            <converter-id>de.cuioss.jsf.components.converter.HtmlSanitizingConverter</converter-id>
+        </converter>
+        <attribute>
+            <description><![CDATA[Defines the strategy for sanitizing. One of "PLAIN_TEXT", "SIMPLE_HTML",
+                "COMPLEX_HTML" expected (Case insensitive). If you want to disable the sanitizing
+                for this converter you can use "PASSTHROUGH" but the implementor must ensure
+                document that the sanitizing is done in an other way, like on the model. To preserve
+                html-entities use "PLAIN_TEXT_PRESERVE_ENTITIES" or
+                "COMPLEX_HTML_PRESERVE_ENTITIES". See de.cuioss.jsf.api.security.CuiSanitizer
+                for details for the corresponding sanitizer. It defaults to
+                "PLAIN_TEXT_PRESERVE_ENTITIES"]]></description>
+            <name>strategy</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+    <tag>
+        <description><![CDATA[Converter to display a Date as pretty time. It works with 'java.util.Date',
+            'java.util.Calendar', 'java.time.LocalDateTime', 'java.time.ZonedDateTime' or
+            'java.time.LocalDate'. If it detects a java.time.LocalDate it uses
+            java.time.LocalDate.atStartOfDay() in order to set a defined point in time. It loads the
+            current Locale using the LocaleProducerAccessor. If you want to use it you need
+            prettytime at runtime
+    <groupId>org.ocpsoft.prettytime</groupId>
+    <artifactId>prettytime</artifactId>]]>
+        </description>
+        <tag-name>prettyTimeConverter</tag-name>
+        <converter>
+            <converter-id>de.cuioss.cui.converter.PrettyTimeConverter</converter-id>
+        </converter>
+    </tag>
+    <tag>
+        <description><![CDATA[Simple wrapping converter for de.cuioss.uimodel.util.TextSplitter. It is a
+            formatting only converter]]>
+        </description>
+        <tag-name>textSplitter</tag-name>
+        <converter>
+            <converter-id>de.cuioss.jsf.components.converter.TextSplittingConverter</converter-id>
+        </converter>
+        <attribute>
+            <description><![CDATA[Count of characters when a text break will forced, defaults to
+                15]]></description>
+            <name>forceLengthBreakCount</name>
+            <required>false</required>
+            <type>int</type>
+        </attribute>
+        <attribute>
+            <description><![CDATA[Count of characters until the complete text will be abridged, defaults to
+                4096]]></description>
+            <name>abridgedLengthCount</name>
+            <required>false</required>
+            <type>int</type>
+        </attribute>
+    </tag>
+    <tag>
+        <description><![CDATA[Converts a plain text to a sanitized html text with configurable line
+            breaks]]></description>
+        <tag-name>lineBreakConverter</tag-name>
+        <converter>
+            <converter-id>cui.core.lineBreakConverter</converter-id>
+        </converter>
+        <attribute>
+            <description>The delimiter. It defaults to "&lt;br /&gt;".</description>
+            <name>delimiter</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description><![CDATA[Defines the strategy for sanitizing. See
+                de.cuioss.jsf.api.security.CuiSanitizer for details. It defaults to
+                "PLAIN_TEXT_PRESERVE_ENTITIES"]]></description>
+            <name>sanitizingStrategy</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+    <tag>
+        <description><![CDATA[Validates the content of a input text as email. Is configurable.
+                It defaults to "^[^@]+@[^@]+$" ...what means email must start with something other than "@" followed by "@" end end with something other than "@".]]></description>
+        <tag-name>emailValidator</tag-name>
+        <validator>
+            <validator-id>emailValidator</validator-id>
+        </validator>
+        <attribute>
+            <description><![CDATA[The pattern to validate email against]]></description>
+            <name>pattern</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+
+    <tag>
+        <description><![CDATA[Renders a fieldset.]]></description>
+        <tag-name>fieldset</tag-name>
+        <component>
+            <component-type>de.cuioss.jsf.api.html.fieldset</component-type>
+            <renderer-type>de.cuioss.jsf.api.html.fieldset_renderer</renderer-type>
+        </component>
+        <attribute>
+            <description><![CDATA[The component identifier for this component. This value must be unique
+                within the closest parent component that is a naming container. Caution: The
+                component itself is not a naming container]]>
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description><![CDATA[Defines whether all controls within this fieldset are disabled. Defaults to
+                false.]]>
+            </description>
+            <name>disabled</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description><![CDATA[Flag indicating whether or not this component should be rendered (during
+                Render Response Phase), or processed on any subsequent form submit. The default
+                value for this property is true.]]>
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[The key for looking up the text display as the legend. Although this
+                attribute is not required the developer must provide either this or #legendValue if
+                you want a legend to be displayed]]>
+            </description>
+            <name>legendKey</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[The String displayed for the legend. This is a replacement for #legendKey.
+                If both are present legendValue takes precedence. If the type is not
+                java.lang.String the developer must ensure that an according converter for the
+                exists.]]>
+            </description>
+            <name>legendValue</name>
+            <required>false</required>
+            <type>java.io.Serializable</type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Indicates whether the legend is to be escaped on output or not. Default is
+                true.]]>
+            </description>
+            <name>legendEscape</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description><![CDATA[The optional converter to be used in case of legendValue is set and needs
+                conversion. The converter attribute sets the converter instance to be registered for
+                this component. It must match the converter-id value of a converter element defined
+                in your Faces configuration file.]]>
+            </description>
+            <name>legendConverter</name>
+            <required>false</required>
+            <type>javax.faces.convert.Converter</type>
+        </attribute>
+    </tag>
+    <tag>
+        <description><![CDATA[The inlineConfirm is an alternative to modal confirm dialogs.
+        <p>In the basic variant it renders the content of the required &lt;facet name="initial"/&gt; as the content, usually a button
+        and the renders the actual child if the content is clicked. In case you want to close / cancel the inline confirm you can add
+        a corresponding button with 'data-inline-confirm-cancel', e.g. &lt;cui:button labelKey="common.button.cancel" pt:data-inline-confirm-cancel="cancel" /&gt;</p>]]>
+        </description>
+        <tag-name>inlineConfirm</tag-name>
+        <component>
+            <component-type>de.cuioss.cui.components.inline_confirm</component-type>
+            <renderer-type>de.cuioss.cui.components.inline_confirm_renderer</renderer-type>
+        </component>
+    </tag>
+    <tag>
+        <description>
+            <![CDATA[Register a DateTimeConverter instance on the UIComponent associated with the
+            closest parent UIComponent custom action.]]>
+        </description>
+        <tag-name>convertDateTime</tag-name>
+        <converter>
+            <converter-id>de.cuioss.jsf.components.converter.DateTimeConverter</converter-id>
+        </converter>
+        <attribute>
+            <description>
+                <![CDATA[Predefined formatting style which determines how the date component of a
+                date string is to be formatted and parsed. Applied only if type is "date" or "both".
+                Valid values are "default", "short", "medium", "long", and "full". Default value is
+                "default".]]>
+            </description>
+            <name>dateStyle</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Locale whose predefined styles for dates and times are used during
+                formatting or parsing. If not specified, the Locale returned by
+                FacesContext.getViewRoot().getLocale() will be used. Value must be either a VB
+                expression that evaluates to a java.util.Locale instance, or a String that is valid
+                to pass as the first argument to the constructor java.util.Locale(String language,
+                String country). The empty string is passed as the second argument.]]>
+            </description>
+            <name>locale</name>
+            <required>false</required>
+            <type>java.lang.Object</type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Custom formatting pattern which determines how the date/time string should
+                be formatted and parsed.]]>
+            </description>
+            <name>pattern</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Predefined formatting style which determines how the time component of a
+                date string is to be formatted and parsed. Applied only if type is "time" or "both".
+                Valid values are "default", "short", "medium", "long", and "full". Default value is
+                "default".]]>
+            </description>
+            <name>timeStyle</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Time zone in which to interpret any time information in the date String.
+                Value must be either a VB expression that evaluates to a java.util.TimeZone
+                instance, or a String that is a timezone ID as described in the javadocs for
+                java.util.TimeZone.getTimeZone().]]>
+            </description>
+            <name>timeZone</name>
+            <type>java.lang.Object</type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Specifies what contents the string value will be formatted to include, or
+                parsed expecting. Valid values are "date", "time", and "both". Default value is
+                "date"]]>.
+            </description>
+            <name>type</name>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+    <tag>
+        <description>
+            <![CDATA[String to List conversion and vice versa, based on the separator character.]]>
+        </description>
+        <tag-name>stringToListConverter</tag-name>
+        <converter>
+            <converter-id>cui.StringToListConverter</converter-id>
+        </converter>
+        <attribute>
+            <description>
+                <![CDATA[The separator character. If not specified, the default is ";"]]>
+            </description>
+            <name>separator</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Depending on the usecase for this converter there are different target
+                types that should be supported: List and SortedSet. This attribute controls the
+                behavior. In case it is "sorted_set" the resulting collection will be a SortedSet
+                ina all other cases it will be List]]>
+            </description>
+            <name>targetType</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[If true, doesn't add empty strings to the result list.]]>
+            </description>
+            <name>omitEmptyStrings</name>
+            <required>false</required>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[If true, trims the resulting strings.]]>
+            </description>
+            <name>trimResults</name>
+            <required>false</required>
+            <type>java.lang.Boolean</type>
+        </attribute>
+    </tag>
+    <tag>
+        <description>
+            <![CDATA[Display a list of CodeTypes.]]>
+        </description>
+        <tag-name>listOfCodeTypesConverter</tag-name>
+        <converter>
+            <converter-id>cui.CodeTypeListDisplayConverter</converter-id>
+        </converter>
+        <attribute>
+            <description>
+                <![CDATA[The separator character. If not specified, the default is ";"]]>
+            </description>
+            <name>separator</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+
+    <tag>
+        <description><![CDATA[<h2>Wrappes a primefaces scheduler.</p>
+   ]]></description>
+        <tag-name>scheduler</tag-name>
+        <component>
+            <resource-id>cui-composite/scheduler.xhtml</resource-id>
+        </component>
+        <attribute>
+            <description>
+                <![CDATA[An org.primefaces.model.ScheduleModel instance representing the backed model.]]></description>
+            <name>model</name>
+            <required>true</required>
+            <type>org.primefaces.model.ScheduleModel</type>
+        </attribute>
+        <attribute>
+            <description><![CDATA[When true, events are resizable. Default is true.]]></description>
+            <name>resizable</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description><![CDATA[When true, events are draggable. Default is true.]]></description>
+            <name>draggable</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description><![CDATA[Determines the time-text that will be displayed on each event.]]></description>
+            <name>timeFormat</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+</facelet-taglib>

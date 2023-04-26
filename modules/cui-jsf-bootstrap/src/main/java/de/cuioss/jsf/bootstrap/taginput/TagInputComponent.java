@@ -1,8 +1,8 @@
 package de.cuioss.jsf.bootstrap.taginput;
 
-import static de.cuioss.jsf.components.selectize.Selectize.OPTION_VALUE_DEFAULT_WRAPPER;
-import static de.cuioss.jsf.components.selectize.Selectize.OPTION_VALUE_LABEL_KEY;
-import static de.cuioss.jsf.components.selectize.Selectize.OPTION_VALUE_VALUE_KEY;
+import static de.cuioss.jsf.bootstrap.selectize.Selectize.OPTION_VALUE_DEFAULT_WRAPPER;
+import static de.cuioss.jsf.bootstrap.selectize.Selectize.OPTION_VALUE_LABEL_KEY;
+import static de.cuioss.jsf.bootstrap.selectize.Selectize.OPTION_VALUE_VALUE_KEY;
 import static de.cuioss.tools.base.Preconditions.checkArgument;
 import static de.cuioss.tools.collect.CollectionLiterals.mutableSortedSet;
 

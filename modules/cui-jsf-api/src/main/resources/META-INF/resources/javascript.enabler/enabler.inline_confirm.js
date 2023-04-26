@@ -2,10 +2,10 @@
  * Used for initializing inline-confirm components. The implementations assumes
  * JQuery being present, If present the initial handler, e.g. onclick will be removed.
  */
-var intitializeInlineConfirm = function () {
+let intitializeInlineConfirm = function () {
     jQuery('[data-inline-confirm-initial]').each(function (i, filtered) {
-        var element = jQuery(filtered);
-        var target = element.next('[data-inline-confirm-target]');
+        let element = jQuery(filtered);
+        let target = element.next('[data-inline-confirm-target]');
         // Remove existing handler
         element.prop("onclick", null);
         element.on("click", function (e) {
@@ -21,7 +21,7 @@ var intitializeInlineConfirm = function () {
             return false;
         });
         jQuery('[data-inline-confirm-cancel]', target).each(function (d, filtered2) {
-            var cancel = jQuery(filtered2);
+            let cancel = jQuery(filtered2);
             cancel.prop("onclick", null);
             cancel.on("click", function (e) {
                 target.hide();

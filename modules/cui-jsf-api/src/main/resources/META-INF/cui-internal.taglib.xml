@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facelet-taglib version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd">
+    <namespace>https://cuioss.de/jsf/internal</namespace>
+    <tag>
+        <description>
+            <![CDATA[
+             <p>
+               Client behavior using <a href="https://github.com/dennyferra/TypeWatch">jquery.typewatch</a> to trigger an AJAX call in case a
+               user has typed text in an input, textarea or changes in a DIV from editors (including HTML 5 input types) and
+               after the user has stopped typing for a specified amount of time.
+             </p>
+             <p>
+               The presence of an onchange attribute on the parent, including the JavaScript action that is executed after waiting time has passed, is required.
+               A 'value' parameter is passed containing the input-value or content of the observed element. The JavaScript context is the parent element.
+             </p>
+             <p>
+               More information and examples can be found in the
+               <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/miscellaneous.jsf" >Reference Documentation</a>
+             </p>
+       ]]></description>
+        <tag-name>typewatch</tag-name>
+        <component>
+            <component-type>de.cuioss.cui.components.typewatch</component-type>
+        </component>
+        <attribute>
+            <description><![CDATA[Allows a non-multiline element to be submitted (enter key) regardless of
+                captureLength. Defaults to false.]]></description>
+            <name>allowSubmit</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description><![CDATA[The number of milliseconds to wait after the the last key press before
+                firing the callback. Defaults to 750ms.]]></description>
+            <name>wait</name>
+            <required>false</required>
+            <type>java.lang.Integer</type>
+        </attribute>
+        <attribute>
+            <description><![CDATA[Highlights the element when it receives focus. Defaults to
+                true.]]></description>
+            <name>highlight</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description><![CDATA[Minimum # of characters necessary to fire the callback. Defaults to
+                2.]]></description>
+            <name>captureLength</name>
+            <required>false</required>
+            <type>java.lang.Integer</type>
+        </attribute>
+        <attribute>
+            <description><![CDATA[The component ids to be processed via ajax.]]></description>
+            <name>process</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description><![CDATA[The component ids to be updated via ajax.]]></description>
+            <name>update</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description><![CDATA[Method expression to be called after the typewatch was triggered and the model was updated
+                       with the new value. The listener must be in the form of
+                       <pre>public void methodName()</pre>]]>
+            </description>
+            <name>listener</name>
+            <required>false</required>
+            <type>javax.el.MethodExpression</type>
+        </attribute>
+    </tag>
+</facelet-taglib>

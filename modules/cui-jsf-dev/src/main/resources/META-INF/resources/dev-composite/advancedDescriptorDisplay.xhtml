@@ -1,23 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
 <ui:component xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-   xmlns:cui="https://cuioss.de/commons-webui"
-   xmlns:cc="http://xmlns.jcp.org/jsf/composite"
-   xmlns:h="http://xmlns.jcp.org/jsf/html">
+    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:cui-boot="https://cuioss.de/jsf/bootstrap">
 
-   <cc:interface displayName="Advanced Metadata Display"
-      shortDescription="Prints the advanced metadata for a FeatureDescriptor">
-      <cc:attribute name="propertyWrapper"
-         type="de.cuioss.jsf.dev.metadata.composite.attributes.AbstractPropertyWrapper"
-         required="true"
-         shortDescription="The wrapper for the FeatureDescriptor to be displayed" />
-   </cc:interface>
+    <composite:interface displayName="Advanced Metadata Display"
+        shortDescription="Prints the advanced metadata for a FeatureDescriptor">
+        <composite:attribute name="propertyWrapper"
+            type="de.cuioss.jsf.dev.metadata.composite.attributes.AbstractPropertyWrapper"
+            required="true"
+            shortDescription="The wrapper for the FeatureDescriptor to be displayed" />
+    </composite:interface>
 
-   <cc:implementation>
-      <ui:repeat var="meta"
-         value="#{cc.attrs.propertyWrapper.advancedMetaData}">
-         <cui:labeledContainer labelValue="#{meta.label}">
-            <h:outputText value="#{meta.value}" />
-         </cui:labeledContainer>
-      </ui:repeat>
-   </cc:implementation>
+    <composite:implementation>
+        <ui:repeat var="meta"
+            value="#{cc.attrs.propertyWrapper.advancedMetaData}">
+            <cui-boot:labeledContainer labelValue="#{meta.label}">
+                <h:outputText value="#{meta.value}" />
+            </cui-boot:labeledContainer>
+        </ui:repeat>
+    </composite:implementation>
 </ui:component>

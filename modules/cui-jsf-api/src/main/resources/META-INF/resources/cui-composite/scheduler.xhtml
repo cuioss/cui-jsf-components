@@ -1,34 +1,36 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui"
->
+    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
 
 <!-- INTERFACE -->
-<composite:interface shortDescription="Wrappes a primefaces scheduler. See taglib for more info.">
+<composite:interface
+    shortDescription="Wrappes a primefaces scheduler. See taglib for more info.">
     <composite:attribute name="model"
-                         type="org.primefaces.model.ScheduleModel"
-                         required="true"
-                         shortDescription="An org.primefaces.model.ScheduleModel instance representing the backed model." />
-    <composite:attribute name="resizable"
-                         type="boolean"
-                         required="false"
-                         shortDescription="When true, events are resizable. Default is true." />
-    <composite:attribute name="draggable"
-                         type="boolean"
-                         required="false"
-                         shortDescription="When true, events are draggable. Default is true." />
-    <composite:attribute name="timeFormat"
-                         type="java.lang.String"
-                         required="false"
-                         shortDescription="Determines the time-text that will be displayed on each event." />
+        type="org.primefaces.model.ScheduleModel" required="true"
+        shortDescription="An org.primefaces.model.ScheduleModel instance representing the backed model." />
+    <composite:attribute name="resizable" type="boolean"
+        required="false"
+        shortDescription="When true, events are resizable. Default is true." />
+    <composite:attribute name="draggable" type="boolean"
+        required="false"
+        shortDescription="When true, events are draggable. Default is true." />
+    <composite:attribute name="timeFormat" type="java.lang.String"
+        required="false"
+        shortDescription="Determines the time-text that will be displayed on each event." />
 </composite:interface>
 
 <!-- IMPLEMENTATION -->
 <composite:implementation>
-    <h:outputScript library="de.cuioss.cui.javascript" name="scheduler.js" target="head" />
-    <h:outputStylesheet library="de.cuioss.portal.css" name="scheduler.css" />
+    <h:outputScript library="de.cuioss.cui.javascript"
+        name="scheduler.js" target="head" />
+    <h:outputStylesheet library="de.cuioss.portal.css"
+        name="scheduler.css" />
     <h:form styleClass="cui-calendar">
-        <p:schedule value="#{cc.attrs.model}" timeFormat="#{cc.attrs.timeFormat}" draggable="#{cc.attrs.draggable}" resizable="#{cc.attrs.resizable}"/>
+        <p:schedule value="#{cc.attrs.model}"
+            timeFormat="#{cc.attrs.timeFormat}"
+            draggable="#{cc.attrs.draggable}"
+            resizable="#{cc.attrs.resizable}" />
     </h:form>
 </composite:implementation>
 </html>

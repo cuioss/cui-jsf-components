@@ -2,26 +2,26 @@
 <ui:component xmlns="http://www.w3.org/1999/xhtml"
    xmlns:h="http://xmlns.jcp.org/jsf/html"
    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-   xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+   xmlns:composite="http://xmlns.jcp.org/jsf/composite">
 
    <!-- Interface -->
-   <cc:interface displayName="namespace fragment"
+   <composite:interface displayName="namespace fragment"
       shortDescription="Short Markup fragment for displaying the Namespace information.
       It's intended usage is for the documentation for the usage of a concrete JSF-Html component">
-      <cc:attribute name="baseUrl" required="true"
+      <composite:attribute name="baseUrl" required="true"
          type="java.lang.String"
          shortDescription="Defines the base url for namespace the to be used." />
-      <cc:attribute name="library" type="java.lang.String"
+      <composite:attribute name="library" type="java.lang.String"
          required="false"
          shortDescription="The library of the component." />
-   </cc:interface>
+   </composite:interface>
 
    <!-- Implementation -->
-   <cc:implementation>
-      <p>
-         <h:outputText id="label" value="Namespace: " />
-         <h:outputLink id="link" value="#">#{cc.attrs.baseUrl}/#{cc.attrs.library}</h:outputLink>
-      </p>
-   </cc:implementation>
+    <composite:implementation>
+        <p>
+            <h:outputText id="label" value="Namespace: " />
+            <h:outputLink id="link" value="#">#{cc.attrs.baseUrl}/#{cc.attrs.library}</h:outputLink>
+        </p>
+    </composite:implementation>
 
 </ui:component>

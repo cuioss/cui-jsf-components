@@ -5,41 +5,41 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:composite="http://xmlns.jcp.org/jsf/composite"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
->
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <!-- INTERFACE -->
 <composite:interface>
-	<composite:attribute name="attributeList" type="java.util.List"
-		shortDescription="The List of attributes to be displayed"
-		required="true" />
+    <composite:attribute name="attributeList" type="java.util.List"
+        shortDescription="The List of attributes to be displayed"
+        required="true" />
 </composite:interface>
 
 <!-- IMPLEMENTATION -->
 <composite:implementation>
-	<ui:fragment rendered="#{not cc.attrs.attributeList.isEmpty()}">
-		<h4>Attributes</h4>
-		<h:dataTable var="attribute" value="#{cc.attrs.attributeList}"
-			styleClass="table table-striped">
-			<h:column id="name" width="125">
-				<f:facet name="header">Name</f:facet>
-				<h:outputText value="#{attribute.name}" />
-			</h:column>
-			<h:column id="description">
-				<f:facet name="header">Description</f:facet>
-				<h:outputText value="#{attribute.description}" escape="false" />
-			</h:column>
+    <ui:fragment rendered="#{not cc.attrs.attributeList.isEmpty()}">
+        <h4>Attributes</h4>
+        <h:dataTable var="attribute" value="#{cc.attrs.attributeList}"
+            styleClass="table table-striped">
+            <h:column id="name" width="125">
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{attribute.name}" />
+            </h:column>
+            <h:column id="description">
+                <f:facet name="header">Description</f:facet>
+                <h:outputText value="#{attribute.description}"
+                    escape="false" />
+            </h:column>
 
-			<h:column id="type" width="250">
-				<f:facet name="header">Type</f:facet>
-				<h:outputText value="#{attribute.type}" />
-			</h:column>
-			<h:column id="required" width="100">
-				<f:facet name="header">Required</f:facet>
-				<h:outputText value="#{attribute.required}" />
-			</h:column>
-		</h:dataTable>
-	</ui:fragment>
+            <h:column id="type" width="250">
+                <f:facet name="header">Type</f:facet>
+                <h:outputText value="#{attribute.type}" />
+            </h:column>
+            <h:column id="required" width="100">
+                <f:facet name="header">Required</f:facet>
+                <h:outputText value="#{attribute.required}" />
+            </h:column>
+        </h:dataTable>
+    </ui:fragment>
 </composite:implementation>
 
 </html>
