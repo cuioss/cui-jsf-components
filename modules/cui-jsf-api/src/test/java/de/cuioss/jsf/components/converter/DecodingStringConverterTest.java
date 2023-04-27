@@ -1,5 +1,6 @@
-package de.cuioss.jsf.api.converter;
+package de.cuioss.jsf.components.converter;
 
+import de.cuioss.jsf.components.converter.DecodingStringConverter;
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
 

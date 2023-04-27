@@ -1,4 +1,4 @@
-package de.cuioss.jsf.api.validator;
+package de.cuioss.jsf.components.validator;
 
 import java.util.regex.Pattern;
 
@@ -7,6 +7,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
 import javax.faces.validator.ValidatorException;
 
+import de.cuioss.jsf.api.validator.AbstractValidator;
 import lombok.Getter;
 import lombok.Setter;
 

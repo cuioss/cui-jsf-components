@@ -1,9 +1,10 @@
-package de.cuioss.jsf.api.converter;
+package de.cuioss.jsf.components.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import de.cuioss.jsf.components.converter.TextSplittingConverter;
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
 

@@ -1,4 +1,4 @@
-package de.cuioss.jsf.api.converter;
+package de.cuioss.jsf.components.converter;
 
 import java.io.Serializable;
 import java.util.ArrayList;

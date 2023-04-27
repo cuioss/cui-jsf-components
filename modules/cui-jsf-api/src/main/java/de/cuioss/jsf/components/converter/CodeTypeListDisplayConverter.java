@@ -1,4 +1,4 @@
-package de.cuioss.jsf.api.converter;
+package de.cuioss.jsf.components.converter;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -9,6 +9,7 @@ import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
 import de.cuioss.jsf.api.application.locale.LocaleProducerAccessor;
+import de.cuioss.jsf.api.converter.AbstractConverter;
 import de.cuioss.tools.string.Joiner;
 import de.cuioss.uimodel.model.code.CodeType;
 import lombok.Getter;

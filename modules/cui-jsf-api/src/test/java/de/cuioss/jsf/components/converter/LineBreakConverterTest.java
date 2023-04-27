@@ -1,10 +1,11 @@
-package de.cuioss.jsf.api.converter;
+package de.cuioss.jsf.components.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 import de.cuioss.jsf.api.security.CuiSanitizer;
+import de.cuioss.jsf.components.converter.LineBreakConverter;
 import de.cuioss.test.jsf.converter.AbstractSanitizingConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
 

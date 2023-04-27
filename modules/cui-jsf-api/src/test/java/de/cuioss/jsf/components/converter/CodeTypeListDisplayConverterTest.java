@@ -1,9 +1,11 @@
-package de.cuioss.jsf.api.converter;
+package de.cuioss.jsf.components.converter;
 
 import static de.cuioss.tools.collect.CollectionLiterals.mutableList;
 
 import java.util.List;
 
+import de.cuioss.jsf.api.converter.LocaleProducerMock;
+import de.cuioss.jsf.components.converter.CodeTypeListDisplayConverter;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;

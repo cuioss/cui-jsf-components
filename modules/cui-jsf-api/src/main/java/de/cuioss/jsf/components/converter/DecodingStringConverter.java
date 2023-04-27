@@ -1,4 +1,4 @@
-package de.cuioss.jsf.api.converter;
+package de.cuioss.jsf.components.converter;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -8,6 +8,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
+
+import de.cuioss.jsf.api.converter.AbstractConverter;
 
 /**
  * If any string used in view param, it will be encoded to escape spaces and special char. "ü" will

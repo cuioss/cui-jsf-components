@@ -1,11 +1,11 @@
-package de.cuioss.jsf.api.converter;
+package de.cuioss.jsf.components.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import de.cuioss.jsf.api.converter.JQueryDateTimePatternConverter;
+import de.cuioss.jsf.components.converter.JQueryDateTimePatternConverter;
 
 class JQueryDateTimePatternConverterTest {
 

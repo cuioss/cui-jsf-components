@@ -1,9 +1,10 @@
-package de.cuioss.jsf.api.converter;
+package de.cuioss.jsf.components.converter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
+import de.cuioss.jsf.components.converter.CuiDateTimeConverter;
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
 

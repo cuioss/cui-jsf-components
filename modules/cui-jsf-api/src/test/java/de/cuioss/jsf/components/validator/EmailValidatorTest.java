@@ -1,6 +1,7 @@
-package de.cuioss.jsf.api.validator;
+package de.cuioss.jsf.components.validator;
 
 import de.cuioss.jsf.api.CoreJsfTestConfiguration;
+import de.cuioss.jsf.components.validator.EmailValidator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.validator.AbstractValidatorTest;
 import de.cuioss.test.jsf.validator.TestItems;

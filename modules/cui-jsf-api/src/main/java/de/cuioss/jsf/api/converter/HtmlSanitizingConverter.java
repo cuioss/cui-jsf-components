@@ -1,11 +1,14 @@
 package de.cuioss.jsf.api.converter;
 
+import static de.cuioss.tools.string.MoreStrings.isNotBlank;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
 import de.cuioss.jsf.api.security.CuiSanitizer;
+import de.cuioss.tools.logging.CuiLogger;
 import lombok.AccessLevel;
 import lombok.Setter;
 
@@ -16,6 +19,8 @@ import lombok.Setter;
  */
 @FacesConverter(value = "de.cuioss.jsf.components.converter.HtmlSanitizingConverter")
 public class HtmlSanitizingConverter extends AbstractConverter<String> {
+
+    private static final CuiLogger LOGGER = new CuiLogger(HtmlSanitizingConverter.class);
 
     /**
      * The concrete sanitizer to be utilized. Defaults to
@@ -48,8 +53,11 @@ public class HtmlSanitizingConverter extends AbstractConverter<String> {
      *            "COMPLEX_HTML", "COMPLEX_HTML_PRESERVE_ENTITIES", "PASSTHROUGH" expected.
      */
     public void setStrategy(final String sanitizerIdentifier) {
-        if (null != sanitizerIdentifier && !sanitizerIdentifier.trim().isEmpty()) {
+        if (isNotBlank(sanitizerIdentifier)) {
+            LOGGER.debug("Configure to %s", sanitizerIdentifier);
             sanitizer = CuiSanitizer.valueOf(sanitizerIdentifier.toUpperCase());
+        } else {
+            LOGGER.debug("No identifier configured, using default");
         }
     }
 }

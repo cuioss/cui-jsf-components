@@ -1,4 +1,4 @@
-package de.cuioss.jsf.api.converter;
+package de.cuioss.jsf.components.converter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,6 +18,7 @@ import javax.faces.convert.FacesConverter;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import de.cuioss.jsf.api.application.locale.LocaleProducerAccessor;
+import de.cuioss.jsf.api.converter.AbstractConverter;
 
 /**
  * Converter to display a {@link Date}, {@link Calendar}, {@link LocalDateTime},

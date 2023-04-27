@@ -1,5 +1,7 @@
-package de.cuioss.jsf.api.converter;
+package de.cuioss.jsf.components.converter;
 
+import de.cuioss.jsf.api.converter.LocaleProducerMock;
+import de.cuioss.jsf.components.converter.CodeTypeDisplayConverter;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;

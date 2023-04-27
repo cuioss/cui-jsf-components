@@ -36,6 +36,6 @@
 
     <converter>
         <converter-id>cui.core.lineBreakConverter</converter-id>
-        <converter-class>de.cuioss.jsf.api.converter.LineBreakConverter</converter-class>
+        <converter-class>de.cuioss.jsf.components.converter.LineBreakConverter</converter-class>
     </converter>
 </faces-config>

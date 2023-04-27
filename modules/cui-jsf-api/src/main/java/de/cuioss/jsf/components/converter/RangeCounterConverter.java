@@ -1,10 +1,11 @@
-package de.cuioss.jsf.api.converter;
+package de.cuioss.jsf.components.converter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
+import de.cuioss.jsf.api.converter.AbstractConverter;
 import de.cuioss.uimodel.model.RangeCounter;
 
 /**

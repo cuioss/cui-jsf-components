@@ -1,4 +1,4 @@
-package de.cuioss.jsf.api.converter;
+package de.cuioss.jsf.components.converter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -6,6 +6,8 @@ import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
+import de.cuioss.jsf.api.converter.LocaleProducerMock;
+import de.cuioss.jsf.components.converter.PrettyTimeConverter;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
