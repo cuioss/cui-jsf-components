@@ -13,13 +13,13 @@ import static de.cuioss.jsf.bootstrap.CssBootstrap.MODAL_DIALOG_HEADER;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.bootstrap.CoreJsfTestConfiguration;
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.modal.support.ModalDialogSize;
+import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.jsf.config.ComponentConfigurator;

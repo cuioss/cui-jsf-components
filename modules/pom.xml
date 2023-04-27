@@ -33,6 +33,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.primefaces</groupId>
+                <artifactId>primefaces</artifactId>
+                <version>${version.primefaces}</version>
+                <!-- Currently we reference only components from within our composites, therefore runtime is sufficient -->
+                <scope>runtime</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
@@ -120,5 +127,6 @@
         <module>cui-jsf-dev</module>
         <module>cui-jsf-test</module>
         <module>cui-jsf-jqplot</module>
+        <module>cui-jsf-core-components</module>
     </modules>
 </project>

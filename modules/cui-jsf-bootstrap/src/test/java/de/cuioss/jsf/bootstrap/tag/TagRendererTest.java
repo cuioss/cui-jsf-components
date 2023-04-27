@@ -16,7 +16,6 @@ import javax.faces.event.ValueChangeListener;
 import org.jdom2.Element;
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.bootstrap.CoreJsfTestConfiguration;
 import de.cuioss.jsf.api.components.css.ContextSize;
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
@@ -29,6 +28,7 @@ import de.cuioss.jsf.bootstrap.button.CloseCommandButton;
 import de.cuioss.jsf.bootstrap.button.CloseCommandButtonRenderer;
 import de.cuioss.jsf.bootstrap.tag.support.TagSize;
 import de.cuioss.jsf.bootstrap.tag.support.TagState;
+import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;

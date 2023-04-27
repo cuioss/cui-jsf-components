@@ -4,7 +4,6 @@ import javax.faces.component.UIComponent;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.bootstrap.CoreJsfTestConfiguration;
 import de.cuioss.jsf.api.components.css.ContextSize;
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
@@ -15,6 +14,7 @@ import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.partial.IconProvider;
 import de.cuioss.jsf.bootstrap.icon.support.IconSize;
 import de.cuioss.jsf.bootstrap.icon.support.IconState;
+import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 

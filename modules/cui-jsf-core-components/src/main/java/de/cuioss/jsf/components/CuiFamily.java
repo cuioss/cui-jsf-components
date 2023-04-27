@@ -1,0 +1,40 @@
+package de.cuioss.jsf.components;
+
+import de.cuioss.jsf.api.components.base.CuiComponentBase;
+import de.cuioss.jsf.components.blockelement.BlockElementDecorator;
+import de.cuioss.jsf.components.html.fieldset.FieldsetComponent;
+import de.cuioss.jsf.components.inlineconfirm.InlineConfirmComponent;
+import de.cuioss.jsf.components.typewatch.TypewatchComponent;
+import lombok.experimental.UtilityClass;
+
+/**
+ * Simple Container for identifying cui components that are not related to twitter bootstrap
+ *
+ * @author Oliver Wolff
+ */
+@UtilityClass
+public final class CuiFamily {
+
+    /** The component for {@link FieldsetComponent} */
+    public static final String FIELDSET_COMPONENT =
+        "de.cuioss.jsf.api.html.fieldset";
+
+    /** Default Renderer for {@link FieldsetComponent} */
+    public static final String FIELDSET_RENDERER = "de.cuioss.jsf.api.html.fieldset_renderer";
+
+    /** de.cuioss.jsf.api.html.family */
+    public static final String COMPONENT_FAMILY = CuiComponentBase.COMPONENT_FAMILY;
+
+    /** The component for {@link TypewatchComponent} */
+    public static final String TYPEWATCH_COMPONENT = "de.cuioss.cui.components.typewatch";
+
+    /** The component for {@link InlineConfirmComponent} */
+    public static final String INLINE_CONFIRM_COMPONENT = "de.cuioss.cui.components.inline_confirm";
+
+    /** Default Renderer for {@link InlineConfirmComponent} */
+    public static final String INLINE_CONFIRM_RENDERER = "de.cuioss.cui.components.inline_confirm_renderer";
+
+    /** The component for {@link BlockElementDecorator} */
+    public static final String BLOCKELEMENT_COMPONENT = "de.cuioss.jsf.components.blockelement";
+
+}

@@ -7,7 +7,7 @@
     </parent>
     <artifactId>bom</artifactId>
     <packaging>pom</packaging>
-    <name>CUI JSF-Components BOM</name>
+    <name>cui jsf modules BOM</name>
     <description>Defines all consumable modules for CUI JSF-Components</description>
     <dependencyManagement>
         <dependencies>
@@ -34,6 +34,18 @@
                 <artifactId>cui-jsf-jqplot</artifactId>
                 <version>${project.version}</version>
                 <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>de.cuioss.jsf</groupId>
+                <artifactId>cui-jsf-core-components</artifactId>
+                <version>${project.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>de.cuioss.jsf</groupId>
+                <artifactId>cui-jsf-test</artifactId>
+                <version>${project.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

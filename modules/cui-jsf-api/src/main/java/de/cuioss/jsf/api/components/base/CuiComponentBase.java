@@ -6,7 +6,6 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 
 import de.cuioss.jsf.api.components.partial.ComponentBridge;
-import de.cuioss.jsf.components.CuiFamily;
 
 /**
  * Base class for creating custom cui-components that are {@link UIComponentBase} without further
@@ -15,6 +14,9 @@ import de.cuioss.jsf.components.CuiFamily;
  * @author Oliver Wolff
  */
 public class CuiComponentBase extends UIComponentBase implements ComponentBridge {
+
+    /** "de.cuioss.jsf.api.html.family" */
+    public static final String COMPONENT_FAMILY = "de.cuioss.jsf.api.html.family";
 
     @Override
     public FacesContext facesContext() {
@@ -33,7 +35,7 @@ public class CuiComponentBase extends UIComponentBase implements ComponentBridge
 
     @Override
     public String getFamily() {
-        return CuiFamily.COMPONENT_FAMILY;
+        return COMPONENT_FAMILY;
     }
 
 }

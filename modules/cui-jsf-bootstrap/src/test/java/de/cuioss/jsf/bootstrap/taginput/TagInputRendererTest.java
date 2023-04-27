@@ -18,7 +18,6 @@ import javax.faces.convert.ConverterException;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.bootstrap.CoreJsfTestConfiguration;
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
@@ -30,6 +29,7 @@ import de.cuioss.jsf.bootstrap.selectize.Selectize;
 import de.cuioss.jsf.bootstrap.support.ConceptKeyTypeGenerator;
 import de.cuioss.jsf.bootstrap.tag.support.MissingTagConceptKeyCategory;
 import de.cuioss.jsf.bootstrap.taglist.TagTestUtils;
+import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.jsf.config.ComponentConfigurator;

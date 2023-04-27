@@ -13,5 +13,13 @@
             <groupId>de.cuioss.jsf</groupId>
             <artifactId>cui-jsf-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>de.cuioss.jsf</groupId>
+            <artifactId>cui-jsf-core-components</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.cuioss.jsf</groupId>
+            <artifactId>cui-jsf-test</artifactId>
+        </dependency>
     </dependencies>
 </project>

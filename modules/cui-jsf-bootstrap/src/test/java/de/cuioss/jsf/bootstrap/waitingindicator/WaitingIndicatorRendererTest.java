@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
-import de.cuioss.jsf.bootstrap.CoreJsfTestConfiguration;
+import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 

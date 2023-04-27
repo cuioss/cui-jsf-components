@@ -11,7 +11,6 @@ import javax.faces.component.html.HtmlOutputText;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.bootstrap.CoreJsfTestConfiguration;
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
@@ -25,6 +24,7 @@ import de.cuioss.jsf.bootstrap.menu.model.NavigationMenuItemContainerImpl;
 import de.cuioss.jsf.bootstrap.menu.model.NavigationMenuItemExternalSingleImpl;
 import de.cuioss.jsf.bootstrap.menu.model.NavigationMenuItemSeparatorImpl;
 import de.cuioss.jsf.bootstrap.menu.model.NavigationMenuItemSingleImpl;
+import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
