@@ -28,7 +28,7 @@
     <properties>
         <version.cui.parent>0.2.7</version.cui.parent>
         <!-- We are stuck to this version until we migrate the styling module-->
-        <version.primefaces>8.0</version.primefaces>
+        <version.primefaces>12.0.0</version.primefaces>
     </properties>
     <modules>
         <module>bom</module>
