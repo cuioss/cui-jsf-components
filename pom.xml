@@ -27,11 +27,15 @@
     </issueManagement>
     <properties>
         <version.cui.parent>0.2.7</version.cui.parent>
-        <!-- We are stuck to this version until we migrate the styling module-->
         <version.primefaces>12.0.0</version.primefaces>
+        <!-- Neede for js / css -->
+        <version.frontend-maven-plugin>1.12.1</version.frontend-maven-plugin>
+        <version.nodejs>v4.6.0</version.nodejs>
+        <version.minify.js>1.7.6</version.minify.js>
     </properties>
     <modules>
         <module>bom</module>
         <module>modules</module>
+        <module>web-modules</module>
     </modules>
 </project>

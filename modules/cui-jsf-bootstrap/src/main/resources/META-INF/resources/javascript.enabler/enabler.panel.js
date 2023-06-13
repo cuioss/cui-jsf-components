@@ -29,7 +29,7 @@ let cuiUpdateCollapsiblePanelServerState = function (panelId, isExpanded, event)
  * @param {boolean} isAsyncUpdate - update server side state
  */
 let cuiUpdateCollapsiblePanelState = function (panelId, isExpanded, event) {
-    let panelStateHolder = jQuery(PrimeFaces.escapeClientId(panelId) + "_isexpanded");
+    let panelStateHolder = jQuery(CuiUtilities.escapeClientId(panelId) + "_isexpanded");
     if (panelStateHolder) {
         panelStateHolder.val(isExpanded);
         let parent = panelStateHolder.parent();
@@ -82,5 +82,5 @@ let intitializeCuiPanelUpdate = function () {
  * Register the 'intitializeCuiPanelUpdate' script to all AJAX requests/responses.
  */
 jQuery(document).ready(function () {
-    icw.cui.registerComponentEnabler(intitializeCuiPanelUpdate);
+    de.cuioss.registerComponentEnabler(intitializeCuiPanelUpdate);
 });

@@ -14,15 +14,15 @@ let intitializePopovers = function() {
         let viewport = element.data("viewport");
 
         if (contentwrapper) {
-            content = jQuery(PrimeFaces.escapeClientId(contentwrapper)).html();
+            content = jQuery(CuiUtilities.escapeClientId(contentwrapper)).html();
         }
 
         if (selector) {
-            selector = PrimeFaces.escapeClientId(selector);
+            selector = CuiUtilities.escapeClientId(selector);
         }
 
         if (viewport) {
-            viewport = PrimeFaces.escapeClientId(viewport);
+            viewport = CuiUtilities.escapeClientId(viewport);
         }
 
         element.popover({
@@ -39,5 +39,5 @@ let intitializePopovers = function() {
 
 // Should be loaded at document-ready
 jQuery(document).ready(function() {
-    icw.cui.registerComponentEnabler(intitializePopovers);
+    de.cuioss.registerComponentEnabler(intitializePopovers);
 });

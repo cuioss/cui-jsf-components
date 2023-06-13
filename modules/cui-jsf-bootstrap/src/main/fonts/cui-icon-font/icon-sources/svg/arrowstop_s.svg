@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   width="32px"
+   height="32px"
+   id="svg2985"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="arrowstop_s.svg">
+  <metadata
+     id="metadata2995">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs2993" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1280"
+     inkscape:window-height="972"
+     id="namedview2991"
+     showgrid="false"
+     inkscape:zoom="14.75"
+     inkscape:cx="2.3466981"
+     inkscape:cy="21.864627"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2985" />
+  <g
+     id="g2987"
+     transform="matrix(0.01391285,0,0,-0.01391304,-7.8766658,36.543478)" />
+  <path
+     id="rect3133"
+     style="fill:#ff0000;fill-opacity:1"
+     d="m 4.22903,32 23.541941,0 0,-4.173913 -23.541941,0 z m 0.026201,-19.311304 q -0.083477,0.166956 0.09739,0.389565 L 15.580292,27.589565 q 0.166956,0.236522 0.417386,0.236522 0.250432,0 0.431299,-0.236522 l 11.22767,-14.511304 q 0.166955,-0.222609 0.09043,-0.389565 -0.07652,-0.166957 -0.368692,-0.166957 l -7.206857,0 0,-11.8121738 q 0,-0.2782609 -0.215648,-0.493913 Q 19.740235,0 19.461977,0 l -6.928598,0 q -0.278257,0 -0.493906,0.2156522 -0.215649,0.2156521 -0.215649,0.493913 l 0,11.8121738 -7.2068587,0 q -0.2782569,0 -0.3617341,0.166957 z"
+     inkscape:connector-curvature="0" />
+</svg>

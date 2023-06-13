@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="32px"
+   height="32px"
+   id="svg3034"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="allergy.svg">
+  <title
+     id="title3059">Allergy</title>
+  <defs
+     id="defs3036" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="11.197802"
+     inkscape:cx="0.77379757"
+     inkscape:cy="16"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:grid-bbox="true"
+     inkscape:document-units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1178"
+     inkscape:window-x="1272"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata3039">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Allergy</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <path
+       style="fill:#000000"
+       d="M 20.367377,0.55400006 A 4.196183,4.2919408 0 0 0 16.170462,4.8450998 4.196183,4.2919408 0 0 0 20.367377,9.1381589 4.196183,4.2919408 0 0 0 24.564291,4.8450998 4.196183,4.2919408 0 0 0 20.367377,0.55400006 Z M 3.8795002,5.7248732 A 3.8795301,3.8657991 0 0 0 -1.8922184e-7,9.5907818 3.8795301,3.8657991 0 0 0 3.8795002,13.45669 3.8795301,3.8657991 0 0 0 7.7590006,9.5907818 3.8795301,3.8657991 0 0 0 3.8795002,5.7248732 Z M 15.61009,11.342491 A 5.9036324,5.4629861 0 0 0 9.7065882,16.805316 5.9036324,5.4629861 0 0 0 15.61009,22.26814 5.9036324,5.4629861 0 0 0 21.513593,16.805316 5.9036324,5.4629861 0 0 0 15.61009,11.342491 Z m 12.481019,2.214129 a 3.9088409,3.8149692 0 0 0 -3.908891,3.814965 3.9088409,3.8149692 0 0 0 3.908891,3.814963 A 3.9088409,3.8149692 0 0 0 32,17.371585 3.9088409,3.8149692 0 0 0 28.091109,13.55662 Z M 5.2059759,21.061146 A 4.1204947,4.0453157 0 0 0 1.0854762,25.10732 4.1204947,4.0453157 0 0 0 5.2059759,29.151535 4.1204947,4.0453157 0 0 0 9.3264755,25.10732 4.1204947,4.0453157 0 0 0 5.2059759,21.061146 Z M 21.668381,25.24056 a 3.349408,3.102437 0 0 0 -3.350478,3.1037 3.349408,3.102437 0 0 0 3.350478,3.10174 3.349408,3.102437 0 0 0 3.348518,-3.10174 3.349408,3.102437 0 0 0 -3.348518,-3.1037 z"
+       id="path3002"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>

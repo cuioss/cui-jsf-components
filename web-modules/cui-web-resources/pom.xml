@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>de.cuioss.jsf</groupId>
+        <artifactId>web-modules</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>cui-web-resources</artifactId>
+    <name>cui web resources</name>
+    <description>Provides cui js and some css files</description>
+    <properties>
+        <plugin.jasmine.preload.path.test.js>
+            ${project.build.directory}/classes/META-INF/resources/de.cuioss.javascript/cui.min.js</plugin.jasmine.preload.path.test.js>
+        <!-- Defines the relative path, where the minified resources is copied to -->
+        <plugin.minify.target.dir>META-INF/resources/de.cuioss.javascript</plugin.minify.target.dir>
+        <!-- Defines the final name of the minified javascript-file -->
+        <plugin.minify.target.final.name>cui.min.js</plugin.minify.target.final.name>
+    </properties>
+    <build>
+        <plugins>
+<!--            <plugin>-->
+<!--                <groupId>com.samaxes.maven</groupId>-->
+<!--                <artifactId>minify-maven-plugin</artifactId>-->
+<!--            </plugin>-->
+<!--            <plugin>-->
+<!--                <groupId>com.github.searls</groupId>-->
+<!--                <artifactId>jasmine-maven-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                     to be defined in the projects POM -->
+<!--                    <jsTestSrcDir>${plugin.jasmine.test.src.dir}</jsTestSrcDir>-->
+<!--                    <preloadSources>-->
+<!--                        <source>webjars/jquery.js</source>-->
+<!--                         to be defined in the projects POM -->
+<!--                        <include>${plugin.jasmine.preload.path.test.js}</include>-->
+<!--                    </preloadSources>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

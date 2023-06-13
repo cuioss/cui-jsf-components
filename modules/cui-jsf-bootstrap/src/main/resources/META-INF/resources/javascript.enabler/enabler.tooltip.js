@@ -9,5 +9,5 @@ let intitializeTooltips = function() {
 
 // Should be loaded at document-ready
 jQuery(document).ready(function() {
-    icw.cui.registerComponentEnabler(intitializeTooltips);
+    de.cuioss.registerComponentEnabler(intitializeTooltips);
 });

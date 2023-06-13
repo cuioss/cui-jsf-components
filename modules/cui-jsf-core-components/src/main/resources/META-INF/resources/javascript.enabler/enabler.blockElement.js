@@ -14,5 +14,5 @@ function initializeBlock() {
 
 // Should be loaded at document-ready
 jQuery(document).ready(function () {
-    icw.cui.registerComponentEnabler(initializeBlock);
+    de.cuioss.registerComponentEnabler(initializeBlock);
 });
