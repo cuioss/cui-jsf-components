@@ -22,7 +22,9 @@ namespace Cui.Core {
             query = query.substring(query.indexOf("?") + 1);
 
         let data: any = {};
+        /* jshint ignore:start */
         while (match = (<any>search).exec(query))
+        /* jshint ignore:end */
             data[decode(match[1])] = decode(match[2]);
 
         return data;
@@ -65,7 +67,8 @@ namespace Cui.Core {
                 handleAjaxError();
             });
             $(document).on("pfAjaxError", function(event: any, xhr: { [x: string]: string; }, options: any) {
-                if (xhr["statusText"] != "abort") {
+                const statusText = 'statusText';
+                if (xhr[statusText] != 'abort') {
                     handleAjaxError();
                 }
             });

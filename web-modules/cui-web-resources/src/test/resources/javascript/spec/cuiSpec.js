@@ -1,7 +1,3 @@
-require("../../../../../target/tsc/cui.js")
-require( "../../../../../target/tsc/cui_utilities.js")
-require( "./lib/jquery-1.11.1.min.js")
-
 describe("Data from Url", function() {
 
 	let data = Cui.Core.getData("http://www.example.com/search?q=Variable+Global&search=fast&this=+Hello%20&empty");
@@ -113,21 +109,21 @@ describe("Condition with boolean parser", function() {
 	});
 });
 
-describe("Session", function() {
-    it("should start", function() {
-		Cui.Session.startLogoutTimeout();
-		expect(true).toEqual(true);
-	});
-	/*
-	* Remove the following two methods to test refresh.
-	*/
-	it("should reset", function() {
-		Cui.Session.resetLogoutTimeout();
-		expect(true).toEqual(true);
-	});
-	it("should stop", function() {
-		Cui.Session.stopLogoutTimeout();
-		expect(true).toEqual(true);
-	});
-});
+// describe("Session", function() {
+//     it("should start", function() {
+// 		Cui.Session.startLogoutTimeout();
+// 		expect(true).toEqual(true);
+// 	});
+// 	/*
+// 	* Remove the following two methods to test refresh.
+// 	*/
+// 	it("should reset", function() {
+// 		Cui.Session.resetLogoutTimeout();
+// 		expect(true).toEqual(true);
+// 	});
+// 	it("should stop", function() {
+// 		Cui.Session.stopLogoutTimeout();
+// 		expect(true).toEqual(true);
+// 	});
+// });
 

@@ -11,35 +11,58 @@
     <name>cui web resources</name>
     <description>Provides cui js and some css files</description>
     <properties>
-        <plugin.jasmine.preload.path.test.js>
-            ${project.build.directory}/classes/META-INF/resources/de.cuioss.javascript/cui.min.js</plugin.jasmine.preload.path.test.js>
-        <!-- Defines the relative path, where the minified resources is copied to -->
-        <plugin.minify.target.dir>META-INF/resources/de.cuioss.javascript</plugin.minify.target.dir>
-        <!-- Defines the final name of the minified javascript-file -->
-        <plugin.minify.target.final.name>cui.min.js</plugin.minify.target.final.name>
+        <plugin.resources.cuijs.target>
+            ${project.build.directory}/classes/META-INF/resources/de.cuioss.javascript</plugin.resources.cuijs.target>
+        <!-- Output from grunt-uglify task-->
+        <plugin.resources.cuijs.src>${project.build.directory}/uglify</plugin.resources.cuijs.src>
+        <version.nodejs>v18.16.0</version.nodejs>
     </properties>
     <build>
         <plugins>
-<!--            <plugin>-->
-<!--                <groupId>com.samaxes.maven</groupId>-->
-<!--                <artifactId>minify-maven-plugin</artifactId>-->
-<!--            </plugin>-->
-<!--            <plugin>-->
-<!--                <groupId>com.github.searls</groupId>-->
-<!--                <artifactId>jasmine-maven-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                     to be defined in the projects POM -->
-<!--                    <jsTestSrcDir>${plugin.jasmine.test.src.dir}</jsTestSrcDir>-->
-<!--                    <preloadSources>-->
-<!--                        <source>webjars/jquery.js</source>-->
-<!--                         to be defined in the projects POM -->
-<!--                        <include>${plugin.jasmine.preload.path.test.js}</include>-->
-<!--                    </preloadSources>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
+                <configuration>
+                    <nodeVersion>${version.nodejs}</nodeVersion>
+                    <installDirectory>target</installDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>grunt build</id>
+                        <goals>
+                            <goal>grunt</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>${plugin.resources.cuijs.target}</outputDirectory>
+                    <resources>
+                        <resource>
+                            <directory>${plugin.resources.cuijs.src}</directory>
+                            <include>**.js</include>
+                            <filtering>false</filtering>
+                        </resource>
+                    </resources>
+                </configuration>
             </plugin>
         </plugins>
     </build>

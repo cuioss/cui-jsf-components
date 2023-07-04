@@ -4,7 +4,7 @@
     "module": "commonjs",
     "rootDir": "src/main/resources/META-INF/resources/de.cuioss.javascript",
     "outDir": "target/tsc",
-    "removeComments": true,
+    "removeComments": false,
     "noImplicitAny": true,
     "sourceMap": true
   },

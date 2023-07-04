@@ -13,14 +13,9 @@
     <description>Aggregates the non-java modules especially web-resssources like
         javascript, css ...</description>
     <properties>
-        <plugin.jasmine.test.src.dir>
-            ${project.build.directory}/test-classes/javascript</plugin.jasmine.test.src.dir>
-        <version.webjar.jquery>1.11.1</version.webjar.jquery>
-        <plugin.jasmine.version>3.0-beta-02</plugin.jasmine.version>
+
         <version.slf4j>2.0.7</version.slf4j>
-        <!-- Defines the relative path, where the resources to be minified are
-        taken from. Usually the output form the TypeScript-Compiler -->
-        <plugin.minify.src.dir>tsc</plugin.minify.src.dir>
+
     </properties>
     <build>
         <resources>
@@ -38,96 +33,9 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>com.samaxes.maven</groupId>
-                    <artifactId>minify-maven-plugin</artifactId>
-                    <version>${version.minify.js}</version>
-                    <configuration>
-                        <jsTargetDir>${plugin.minify.target.dir}</jsTargetDir>
-                        <nosuffix>true</nosuffix>
-                        <jsEngine>CLOSURE</jsEngine>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>cui</id>
-                            <configuration>
-                                <webappSourceDir>${project.build.directory}</webappSourceDir>
-                                <webappTargetDir>
-                                    ${project.build.outputDirectory}</webappTargetDir>
-                                <jsSourceDir>${plugin.minify.src.dir}</jsSourceDir>
-                                <jsSourceIncludes>
-                                    <jsSourceInclude>**.js</jsSourceInclude>
-                                </jsSourceIncludes>
-                                <jsFinalFile>${plugin.minify.target.final.name}</jsFinalFile>
-                            </configuration>
-                            <goals>
-                                <goal>minify</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>com.github.searls</groupId>
-                    <artifactId>jasmine-maven-plugin</artifactId>
-                    <version>${plugin.jasmine.version}</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>test</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.slf4j</groupId>
-                            <artifactId>slf4j-api</artifactId>
-                            <version>${version.slf4j}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.slf4j</groupId>
-                            <artifactId>slf4j-simple</artifactId>
-                            <version>${version.slf4j}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.webjars</groupId>
-                            <artifactId>jquery</artifactId>
-                            <version>${version.webjar.jquery}</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-                <plugin>
                     <groupId>com.github.eirslett</groupId>
                     <artifactId>frontend-maven-plugin</artifactId>
                     <version>${version.frontend-maven-plugin}</version>
-                    <configuration>
-                        <nodeVersion>${version.nodejs}</nodeVersion>
-                        <installDirectory>target</installDirectory>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>install node and npm</id>
-                            <goals>
-                                <goal>install-node-and-npm</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>npm install</id>
-                            <goals>
-                                <goal>npm</goal>
-                            </goals>
-                            <configuration>
-                                <arguments>install</arguments>
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <id>npm run build</id>
-                            <goals>
-                                <goal>npm</goal>
-                            </goals>
-                            <configuration>
-                                <arguments>run build</arguments>
-                            </configuration>
-                        </execution>
-                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
