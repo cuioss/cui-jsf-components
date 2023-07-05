@@ -8,7 +8,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>cui-javascript</artifactId>
-    <name>cui web resources</name>
+    <name>cui javascript module</name>
     <description>Provides cui js</description>
     <properties>
         <plugin.resources.cuijs.target>

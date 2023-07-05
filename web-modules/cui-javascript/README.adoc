@@ -1,0 +1,44 @@
+= cui javascript module
+
+== Status
+
+image:https://github.com/cuioss/cui-jsf-components/actions/workflows/maven.yml/badge.svg[Java CI with Maven,link=https://github.com/cuioss/cui-jsf-components/actions/workflows/maven.yml]
+image:http://img.shields.io/:license-apache-blue.svg[License,link=http://www.apache.org/licenses/LICENSE-2.0.html]
+image:https://maven-badges.herokuapp.com/maven-central/io.github.cuioss.jsf/cui-javascript/badge.svg[Maven Central,link=https://maven-badges.herokuapp.com/maven-central/io.github.cuioss.jsf/cui-javascript]
+
+
+== What is it?
+
+The javascript Module for the cui jsf components. The resulting scripts are: 
+
+* `de.cuioss.javascript/cui.js`
+* `de.cuioss.javascript/cui.min.js`
+
+=== Maven Coordinates
+
+[source,xml]
+----
+    <dependency>
+        <groupId>de.cuioss.jsf</groupId>
+        <artifactId>cui-javascript</artifactId>
+    </dependency>
+----
+
+== Build-Structure
+
+In contrast to other cuioss modules, this module relies entirely on nodes.js / grunt creating the javascript
+
+Technically it consists of certain Type-Script modules that are compiled, combined, minified and tested (jasmine) using the nodes.js/grunt stack.
+
+Therefore the development can completely take place in specialized tools like VS-Code or similar.
+
+The maven build again calls the grunt task using https://github.com/eirslett/frontend-maven-plugin[frontend-maven-plugin] 
+that results in the files being created under `/target/uglify/`.
+These files will be copied by maven to the appropriate directory and package to a jar-file.
+
+== TODOs
+
+* Write sensible Unit-Tests: Currently there are some nonsense tests that need to be fixed
+* Apply sensible Code-Structures: Currently: Work in progress
+* Separate scripts 
+* Move from jquery to `cash`
