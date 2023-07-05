@@ -41,6 +41,6 @@
         </pluginManagement>
     </build>
     <modules>
-        <module>cui-web-resources</module>
+        <module>cui-javascript</module>
     </modules>
 </project>

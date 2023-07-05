@@ -43,7 +43,7 @@
             </dependency>
             <dependency>
                 <groupId>de.cuioss.jsf</groupId>
-                <artifactId>cui-web-resources</artifactId>
+                <artifactId>cui-javascript</artifactId>
                 <version>${project.version}</version>
                 <scope>runtime</scope>
             </dependency>

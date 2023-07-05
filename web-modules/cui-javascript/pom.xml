@@ -7,9 +7,9 @@
         <artifactId>web-modules</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>cui-web-resources</artifactId>
+    <artifactId>cui-javascript</artifactId>
     <name>cui web resources</name>
-    <description>Provides cui js and some css files</description>
+    <description>Provides cui js</description>
     <properties>
         <plugin.resources.cuijs.target>
             ${project.build.directory}/classes/META-INF/resources/de.cuioss.javascript</plugin.resources.cuijs.target>
