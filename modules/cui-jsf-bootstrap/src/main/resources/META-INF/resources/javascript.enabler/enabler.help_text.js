@@ -22,5 +22,5 @@ let intitializeHelpTexts = function () {
 
 // Should be loaded at document-ready
 jQuery(document).ready(function () {
-    de.cuioss.registerComponentEnabler(intitializeHelpTexts);
+    Cui.Core.registerComponentEnabler(intitializeHelpTexts);
 });

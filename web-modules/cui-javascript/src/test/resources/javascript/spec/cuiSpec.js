@@ -1,3 +1,4 @@
+
 describe("Data from Url", function() {
 
 	let data = Cui.Core.getData("http://www.example.com/search?q=Variable+Global&search=fast&this=+Hello%20&empty");
@@ -13,6 +14,33 @@ describe("Data from Url", function() {
 	});
 	it("should contain parameter empty = ", function() {
 		expect(data["empty"]).toEqual("");
+	});
+});
+
+describe("Component enabler", function() {
+	class CallBack {
+		called = 0;
+		callback() {
+			this.called++;	
+		}
+	}
+	it("Should register component enabler and call callback", function () {
+		const callback = new CallBack();
+		expect(callback.called).toEqual(0);
+		Cui.Core.registerComponentEnabler(function() {callback.callback()});
+		expect(callback.called).toEqual(1);
+	});
+});
+
+describe("EscapeClientId", function () {
+	it("should Not escape standard strings", function () {
+		const someString = "someString";
+		expect(Cui.Utilities.escapeClientId(someString)).toEqual('#' + someString);
+	});
+	it("should escape colons in strings", function () {
+		const someString = "some:String";
+		const escapedString = "#some\\:String";
+		expect(Cui.Utilities.escapeClientId(someString)).toEqual(escapedString);
 	});
 });
 

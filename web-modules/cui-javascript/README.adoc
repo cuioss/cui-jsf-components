@@ -28,13 +28,25 @@ The javascript Module for the cui jsf components. The resulting scripts are:
 
 In contrast to other cuioss modules, this module relies entirely on nodes.js / grunt creating the javascript
 
-Technically it consists of certain Type-Script modules that are compiled, combined, minified and tested (jasmine) using the nodes.js/grunt stack.
+Technically it consists of certain Type-Script modules that are 
+* compiled
+* combined
+* jshinted
+* minified 
+* tested (jasmine) 
+
+using the nodes.js/grunt stack.
 
 Therefore the development can completely take place in specialized tools like VS-Code or similar.
 
 The maven build again calls the grunt task using https://github.com/eirslett/frontend-maven-plugin[frontend-maven-plugin] 
 that results in the files being created under `/target/uglify/`.
 These files will be copied by maven to the appropriate directory and package to a jar-file.
+
+== Changes to pre cuioss
+
+* de.cuioss.registerComponentEnabler -> Cui.Core.registerComponentEnabler
+* PrimeFaces.escapeClientId, Cui.Utilities.escapeClientId
 
 == TODOs
 

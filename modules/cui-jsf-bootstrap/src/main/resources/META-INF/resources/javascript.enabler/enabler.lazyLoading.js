@@ -14,7 +14,7 @@ function intitializeLazyLoading() {
 }
 
 jQuery(document).ready(function() {
-    de.cuioss.registerComponentEnabler(intitializeLazyLoading);
+    Cui.Core.registerComponentEnabler(intitializeLazyLoading);
 
     $(document).on("pfAjaxSend", function(event, xhr, options) {
         handleEvent(options, "begin");
@@ -45,7 +45,7 @@ jQuery(document).ready(function() {
             // split by "+" (urlencoded space)
             let updateStringSplit = updateString.split("+");
             for (const element of updateStringSplit) {
-                handleUpdateIds(CuiUtilities.escapeClientId(element), status, dataMap, options);
+                handleUpdateIds(Cui.Utilities.escapeClientId(element), status, dataMap, options);
             }
         }
     }
@@ -69,7 +69,7 @@ jQuery(document).ready(function() {
         }
 
         if (container && container.length == 1 && container.data("lazyloading-waiting-indicator-id")) {
-            let waitingIndicator = jQuery(CuiUtilities.escapeClientId(container.data("lazyloading-waiting-indicator-id")));
+            let waitingIndicator = jQuery(Cui.Utilities.escapeClientId(container.data("lazyloading-waiting-indicator-id")));
             if (waitingIndicator) {
                 if (status == "begin") {
                     waitingIndicator.show();

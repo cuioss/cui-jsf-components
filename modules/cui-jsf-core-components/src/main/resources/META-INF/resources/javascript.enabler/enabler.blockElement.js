@@ -14,5 +14,5 @@ function initializeBlock() {
 
 // Should be loaded at document-ready
 jQuery(document).ready(function () {
-    de.cuioss.registerComponentEnabler(initializeBlock);
+    Cui.Core.registerComponentEnabler(initializeBlock);
 });

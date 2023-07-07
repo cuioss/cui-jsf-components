@@ -36,5 +36,5 @@ let intitializeInlineConfirm = function () {
 
 // Should be loaded at document-ready
 jQuery(document).ready(function () {
-    de.cuioss.registerComponentEnabler(intitializeInlineConfirm);
+    Cui.Core.registerComponentEnabler(intitializeInlineConfirm);
 });

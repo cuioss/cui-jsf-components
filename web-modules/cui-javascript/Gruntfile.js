@@ -44,7 +44,6 @@ module.exports = function (grunt) {
       options : {
         specs : 'src/test/resources/javascript/spec/**/*[sS]pec.?(m)js', 
         vendor : 'src/test/resources/javascript/spec/lib/**/*.js', 
-        outfile: 'target/_SpecRunner.html', 
         sandboxArgs : {
           headless: 'new'
         }

@@ -51,5 +51,5 @@ let initTypeWatch = function () {
  * Registering this script to all AJAX requests/responses and page load.
  */
 jQuery(document).ready(function () {
-    de.cuioss.registerComponentEnabler(initTypeWatch);
+    Cui.Core.registerComponentEnabler(initTypeWatch);
 });
