@@ -51,12 +51,6 @@
             </dependency>
             <dependency>
                 <groupId>de.cuioss.jsf</groupId>
-                <artifactId>cui-javascript</artifactId>
-                <version>${project.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>de.cuioss.jsf</groupId>
                 <artifactId>cui-jsf-test</artifactId>
                 <version>${project.version}</version>
                 <scope>test</scope>

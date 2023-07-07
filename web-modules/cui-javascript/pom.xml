@@ -15,7 +15,6 @@
             ${project.build.directory}/classes/META-INF/resources/de.cuioss.javascript</plugin.resources.cuijs.target>
         <!-- Output from grunt-uglify task-->
         <plugin.resources.cuijs.src>${project.build.directory}/uglify</plugin.resources.cuijs.src>
-        <version.nodejs>v18.16.0</version.nodejs>
     </properties>
     <build>
         <plugins>
