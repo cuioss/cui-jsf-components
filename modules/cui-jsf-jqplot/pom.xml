@@ -8,6 +8,9 @@
     <artifactId>cui-jsf-jqplot</artifactId>
     <name>cui jqplot</name>
     <description>Defines componente s / structures to render jqplot base diagrams</description>
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>de.cuioss.jsf</groupId>

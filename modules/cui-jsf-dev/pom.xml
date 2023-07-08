@@ -10,6 +10,7 @@
     <description>Components for creating the deleoper documentation</description>
     <properties>
         <version.jaxen>2.0.0</version.jaxen>
+        <sonar.skip>true</sonar.skip>
     </properties>
     <dependencyManagement>
         <dependencies>
