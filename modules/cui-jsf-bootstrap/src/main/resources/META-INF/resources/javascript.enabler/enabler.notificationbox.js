@@ -13,5 +13,5 @@ let intitializeNotificationbox = function() {
 
 // Should be loaded at document-ready
 jQuery(document).ready(function() {
-    icw.cui.registerComponentEnabler(intitializeNotificationbox);
+    Cui.Core.registerComponentEnabler(intitializeNotificationbox);
 });

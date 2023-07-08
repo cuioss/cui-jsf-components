@@ -33,5 +33,5 @@ let initSwitch = function () {
  * Registering this script to all AJAX requests/responses and page load.
  */
 jQuery(document).ready(function () {
-    icw.cui.registerComponentEnabler(initSwitch);
+    Cui.Core.registerComponentEnabler(initSwitch);
 });

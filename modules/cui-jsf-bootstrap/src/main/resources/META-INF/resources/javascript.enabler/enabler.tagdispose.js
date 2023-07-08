@@ -3,7 +3,7 @@
  */
 let cui_tag_dispose = function (source) {
 
-    let disposeInfo = jQuery(PrimeFaces.escapeClientId(source));
+    let disposeInfo = jQuery(Cui.Utilities.escapeClientId(source));
     disposeInfo.val("true");
 
     // Access the tag object

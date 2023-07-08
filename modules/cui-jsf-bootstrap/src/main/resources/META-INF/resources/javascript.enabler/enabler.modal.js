@@ -26,5 +26,5 @@ let intitializeModalControl = function() {
 
 // Should be loaded at document-ready
 jQuery(document).ready(function() {
-    icw.cui.registerComponentEnabler(intitializeModalControl);
+    Cui.Core.registerComponentEnabler(intitializeModalControl);
 });

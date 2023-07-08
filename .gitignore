@@ -2,9 +2,13 @@
 **/target
 **/bin
 **/.idea
+**/.vscode
 **/src/main/gen
 *.iml
 *.classpath
 *.project
 .DS_Store
 .asciidoctorconfig.adoc
+**/.package-lock.json
+**/node_modules
+npm-debug.log

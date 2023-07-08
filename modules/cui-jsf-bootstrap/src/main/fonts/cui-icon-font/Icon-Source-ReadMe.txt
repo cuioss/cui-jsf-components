@@ -1,0 +1,1 @@
+The svg are derived from the glyphicon icon set, http://glyphicons.com/, ICW has licensed.

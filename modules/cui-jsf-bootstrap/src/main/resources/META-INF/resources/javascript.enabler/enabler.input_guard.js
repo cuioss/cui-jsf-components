@@ -33,5 +33,5 @@ let intitializeInputGuards = function () {
 
 // Should be loaded at document-ready
 jQuery(document).ready(function () {
-    icw.cui.registerComponentEnabler(intitializeInputGuards);
+    Cui.Core.registerComponentEnabler(intitializeInputGuards);
 });

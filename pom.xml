@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>de.cuioss</groupId>
@@ -27,11 +28,14 @@
     </issueManagement>
     <properties>
         <version.cui.parent>0.2.7</version.cui.parent>
-        <!-- We are stuck to this version until we migrate the styling module-->
         <version.primefaces>12.0.0</version.primefaces>
+        <!-- Neede for js / css -->
+        <version.frontend-maven-plugin>1.12.1</version.frontend-maven-plugin>
+        <version.nodejs>v18.16.0</version.nodejs>
     </properties>
     <modules>
         <module>bom</module>
         <module>modules</module>
+        <module>web-modules</module>
     </modules>
 </project>

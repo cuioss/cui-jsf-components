@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>de.cuioss.jsf</groupId>
+        <artifactId>cui-jsf-components</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>web-modules</artifactId>
+    <packaging>pom</packaging>
+    <name>cui web modules</name>
+    <description>Aggregates the non-java modules especially web-resssources like
+        javascript, css ...</description>
+    <properties>
+
+        <version.slf4j>2.0.7</version.slf4j>
+
+    </properties>
+    <build>
+        <resources>
+            <!-- Exclude TypeScript files, unminified JavaScript files and
+            Eclipse's jsfdia from resources. -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>**/*.ts</exclude>
+                    <exclude>**/*.unminified.js</exclude>
+                    <exclude>**/*.jsfdia</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.github.eirslett</groupId>
+                    <artifactId>frontend-maven-plugin</artifactId>
+                    <version>${version.frontend-maven-plugin}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <modules>
+        <module>cui-javascript</module>
+    </modules>
+</project>
