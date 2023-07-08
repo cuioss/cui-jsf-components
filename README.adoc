@@ -22,9 +22,12 @@ Provides a number of JavaServer Faces modules
 
 [source,xml]
 ----
-    <dependency>
-        <groupId>de.cuioss.jsf</groupId>
-        <artifactId>cui-jsf-components</artifactId>
-    </dependency>
+ <dependency>
+    <groupId>de.cuioss.jsf</groupId>
+    <artifactId>bom</artifactId>
+    <version>CURRENT_VERSION</version>
+    <type>pom</type>
+    <scope>import</scope>
+</dependency>
 ----
 
