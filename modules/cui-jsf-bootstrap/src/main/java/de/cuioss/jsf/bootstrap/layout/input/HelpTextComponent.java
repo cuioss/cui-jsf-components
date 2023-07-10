@@ -54,6 +54,7 @@ import lombok.experimental.Delegate;
  */
 @ResourceDependency(library = "javascript.enabler", name = "enabler.help_text.js", target = "head")
 @FacesComponent(BootstrapFamily.HELP_TEXT_COMPONENT)
+@SuppressWarnings("java:S110") // owolff: artifact of jsf structure
 public class HelpTextComponent extends BaseCuiHtmlHiddenInputComponent implements ContainerPlugin {
 
     private static final CuiLogger log = new CuiLogger(HelpTextComponent.class);

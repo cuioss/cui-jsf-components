@@ -57,4 +57,11 @@ class BaseDelegatingNavigationHandlerTest extends JsfEnabledTestEnvironment {
         assertFalse(mockNavigationHandler.isAddNavigationCalled());
         assertTrue(mockNavigationHandler.isGetNavigationCaseCalled());
     }
+
+    @Test
+    void shouldGracefullyHandleNullAsHandler() {
+        var underTest = new BaseDelegatingNavigationHandler(null);
+        assertNull(underTest.getNavigationCase(getFacesContext(), SOME, SOME));
+        assertTrue(underTest.getNavigationCases().isEmpty());
+    }
 }
