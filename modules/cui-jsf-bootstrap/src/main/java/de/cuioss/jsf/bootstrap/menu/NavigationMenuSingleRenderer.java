@@ -11,11 +11,11 @@ import javax.faces.render.Renderer;
 
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.Node;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSingle;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.jsf.bootstrap.icon.IconComponent;
-import de.cuioss.jsf.bootstrap.menu.model.NavigationMenuItemSingle;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

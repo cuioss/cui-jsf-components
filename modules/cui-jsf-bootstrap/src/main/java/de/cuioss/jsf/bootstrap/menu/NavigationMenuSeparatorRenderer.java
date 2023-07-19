@@ -5,9 +5,9 @@ import java.io.IOException;
 import javax.faces.render.Renderer;
 
 import de.cuioss.jsf.api.components.html.Node;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSeparator;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
-import de.cuioss.jsf.bootstrap.menu.model.NavigationMenuItemSeparator;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

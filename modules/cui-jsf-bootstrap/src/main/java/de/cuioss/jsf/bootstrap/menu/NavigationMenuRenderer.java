@@ -7,14 +7,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.FacesRenderer;
 import javax.faces.render.Renderer;
 
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItem;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemContainer;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemExternalSingle;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSeparator;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSingle;
 import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
-import de.cuioss.jsf.bootstrap.menu.model.NavigationMenuItem;
-import de.cuioss.jsf.bootstrap.menu.model.NavigationMenuItemContainer;
-import de.cuioss.jsf.bootstrap.menu.model.NavigationMenuItemExternalSingle;
-import de.cuioss.jsf.bootstrap.menu.model.NavigationMenuItemSeparator;
-import de.cuioss.jsf.bootstrap.menu.model.NavigationMenuItemSingle;
 import de.cuioss.tools.string.Joiner;
 
 /**

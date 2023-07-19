@@ -1,4 +1,4 @@
-package de.cuioss.jsf.bootstrap.menu.model;
+package de.cuioss.jsf.api.components.model.menu;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

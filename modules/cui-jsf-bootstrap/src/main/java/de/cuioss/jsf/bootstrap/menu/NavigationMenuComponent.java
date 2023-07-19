@@ -8,13 +8,13 @@ import java.util.List;
 import javax.faces.component.FacesComponent;
 
 import de.cuioss.jsf.api.components.base.AbstractBaseCuiComponent;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItem;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemContainer;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSeparator;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSingle;
 import de.cuioss.jsf.api.components.partial.ModelProvider;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
-import de.cuioss.jsf.bootstrap.menu.model.NavigationMenuItem;
-import de.cuioss.jsf.bootstrap.menu.model.NavigationMenuItemContainer;
-import de.cuioss.jsf.bootstrap.menu.model.NavigationMenuItemSeparator;
-import de.cuioss.jsf.bootstrap.menu.model.NavigationMenuItemSingle;
 
 /**
  * Holder of bootstrap conform navigation menu component model.

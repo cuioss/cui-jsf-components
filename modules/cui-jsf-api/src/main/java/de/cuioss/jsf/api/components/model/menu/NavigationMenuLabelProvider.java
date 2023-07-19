@@ -1,4 +1,4 @@
-package de.cuioss.jsf.bootstrap.menu.model;
+package de.cuioss.jsf.api.components.model.menu;
 
 /**
  * @author Sven Haag

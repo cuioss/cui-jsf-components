@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.bootstrap.menu.model.NavigationMenuItemSingleImpl;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSingleImpl;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.component.AbstractUiComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
