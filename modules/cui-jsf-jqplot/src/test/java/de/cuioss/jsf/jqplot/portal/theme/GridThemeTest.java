@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.jqplot.portal.theme.CssRule;
-import de.cuioss.jsf.jqplot.portal.theme.GridTheme;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.valueobjects.ValueObjectTest;
 
