@@ -71,7 +71,7 @@ public class GridTheme implements Serializable {
     }
 
     /**
-     * Factory Method for {@linkplain GridTheme}.<br/>
+     * Factory Method for {@linkplain GridTheme}
      * 
      * @param cssRule {@linkplain CssRule} is optional
      * @return {@linkplain GridTheme} according property values of cssRule. If

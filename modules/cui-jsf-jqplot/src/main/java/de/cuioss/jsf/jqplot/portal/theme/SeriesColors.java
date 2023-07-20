@@ -19,8 +19,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
- * SeriesColors object that could be applied to all series in the plot.<br/>
- * <b>Expected css Rule structure</b>
+ * SeriesColors object that could be applied to all series in the plot.
+ * <h3>Expected css Rule structure</h3>
  *
  * <pre>
  * // color values must be html conform either color names or their hex value
@@ -62,8 +62,7 @@ public class SeriesColors implements Serializable {
     }
 
     /**
-     * Factory method to create {@linkplain SeriesColors} from
-     * {@linkplain CssRule}.<br/>
+     * Factory method to create {@linkplain SeriesColors} from {@linkplain CssRule}.
      * If cssRule is missing {@link SeriesColors#DEFAULT_SERIES_COLORS} will be used
      *
      * @param cssRule {@linkplain CssRule} could be {@code null}
