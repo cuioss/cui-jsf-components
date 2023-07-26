@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>cui-branding-xtention</artifactId>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>de.icw.cui.branding</groupId>
+        <artifactId>cui-branding-module-pom</artifactId>
+        <version>${revision}</version>
+        <relativePath>../../../pom-hierarchy/plugin-management-pom/resources-pom/sass-pom/branding-module-pom/pom.xml</relativePath>
+    </parent>
+
+    <properties>
+        <scss.source.path>src/gen/scss</scss.source.path>
+        <cui.sass.resources.target.dir>${basedir}/src/gen</cui.sass.resources.target.dir>
+        <!-- Don't compile cui styling scss artifacts, because we don't motify the themes -->
+        <cui.sass.resources.exclude.pattern>META-INF/**,**/vendor/**,**/com.icw.portal.css/**, **/primefaces-cui-mapping/**</cui.sass.resources.exclude.pattern>
+    </properties>
+
+        <!-- commons mvn invocations
+
+        mvn clean install
+            Compiles and aggregates all web resources in the resulting jar files. The default
+            artifact contains the compiled sass css (scss).
+            The compiled css resources are available as production (.min.css) as well as
+            debug (.css) constellation. This enables to enable a switch for development at runtime.
+
+            All files in the folders starting with com.icw receive a header during the build.
+
+            Relative URLs are replaced to be JSF2 resource loading compliant during the packaging.
+
+        mvn clean compile
+            Compiles the resources and applies headers, but does not perform any replacements yet.
+
+        mvn initialize -P sync
+            Synchronizes the ${resources.test.dir} subfolders with the results in the maven target folder. This
+            is in especially useful to test the use of the compiled and aggregated web resources
+            with a the set of test html files. Use mvn compile at least once before a sync so that
+            all files are available in the target folder. Do not use mvn install (due to the
+            url/resource replacement that is performed in the packaging phase. The invocation is
+            configured to perform the fewest operations and therefore resulting in a short roundtrip.
+
+        mvn compile -P watch
+            Synchronized changes in src/main/scss with the ${resources.test.dir} folder. This process runs
+            until explicitly terminated and is technically the same as the original compass monitor.
+            Please note that bless is not applied in this context. -->
+
+    <dependencies>
+        <dependency>
+            <groupId>de.icw.cui.branding</groupId>
+            <artifactId>cui-styling</artifactId>
+            <classifier>sources</classifier>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>de.icw.cui.branding</groupId>
+            <artifactId>cui-web-resources</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>de.icw.cui.branding</groupId>
+			<artifactId>cui-styling</artifactId>
+		</dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <copy todir="${project.build.directory}/tmp/scss" includeEmptyDirs="false" overwrite="true">
+                                    <fileset dir="${project.basedir}/src/main/scss" />
+                                </copy>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

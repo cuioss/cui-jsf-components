@@ -1,0 +1,33 @@
+.cui-collapsible {
+  cursor: pointer;
+}
+
+h4.panel-title .cui-icon {
+  font-size: 1em;
+  vertical-align: top;
+}
+
+.panel {
+  .panel-body {
+    > a {
+      color: $component-default-color;
+      text-decoration: none;
+    }
+    > a:hover,
+    > a:focus {
+      color: $component-default-color;
+      text-decoration: none;
+    }
+  }
+  .panel-title {
+    > a:hover,
+    > a:focus {
+      color: inherit;
+    }
+  }
+  .footer-form {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+

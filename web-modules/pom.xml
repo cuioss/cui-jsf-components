@@ -42,5 +42,6 @@
     </build>
     <modules>
         <module>cui-javascript</module>
+        <module>cui-jsf-bootstrap-css</module>
     </modules>
 </project>

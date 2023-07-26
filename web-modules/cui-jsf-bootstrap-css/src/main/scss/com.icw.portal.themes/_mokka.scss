@@ -1,0 +1,62 @@
+$component-base-bg: #fff;
+
+$application-body-bg: linear-gradient(to bottom, #f2ebe8 0px, #fbf9f8 250px) fixed;
+
+// The colors for e.g. panel header, etc. maps to .ui-widget-content .ui-state-default
+$component-default-bg: #f2ebe8; // #D7EBF9;
+// The colors of default components. 
+$component-default-border-color: #ccc; // #AED0EA;
+// The (foreground) color of fonts etc if displayed on an default element. 
+$component-default-color: mix(darken(#fbf9f8, 5%), #000, 45%);
+
+// The background color for e.g. Selected / active panel header, etc. maps to .ui-widget-content .ui-state-active
+$component-active-bg: #3BAAE3;
+$component-active-border-color: #2694E8;
+$component-active-color: #FFFFFF;
+
+// Variants for hovering defaults. 
+$component-hover-bg: #E4F1FB;
+$component-hover-border-color: #74B2E2;
+$component-hover-color: $component-default-color;
+
+// The colors for widget header in default state
+$component-widget-header-bg: $component-default-bg;
+// The colors of default components. 
+$component-widget-header-border-color: $component-default-border-color;
+
+// Variants for hovering active components. 
+$component-active-hover-color: $component-active-color;
+$component-active-hover-bg: $component-active-bg;
+$component-active-hover-border-color: $component-active-border-color;
+
+// The colors for e.g. panel header, etc. maps to .ui-widget-content .ui-state-error
+$component-error-bg: #f2dede;
+$component-error-border-color: darken(adjust-hue($component-error-bg, -10), 5%);
+$component-error-color: #a94442;
+
+// The colors for e.g. panel header, etc. maps to .ui-widget-content .ui-state-highlight
+$component-highlight-bg: $component-hover-bg;
+$component-highlight-border-color: $component-hover-border-color;
+$component-highlight-color: $component-hover-color;
+
+// Special Color for warnings, patient override, etc.
+$component-warn-color: red;
+
+$alternating-bg: white !default;
+
+// On some special indication we have an additional Icon decoration, e.g. for on demand documents.
+$icon-mimetype-decorator-color: $component-warn-color;
+
+// Color for all standard icons. 
+$icon-standard-default-color: $component-default-color;
+$icon-standard-warn-color: $component-warn-color;
+
+$component-primary-bg: #428bca;
+
+$cui-navbar-dark: 'true';
+$cui-navbar-bg: $component-default-color;
+$navbar-inverse-bg: $cui-navbar-bg;
+$navbar-inverse-color: mix($navbar-inverse-bg, $component-base-bg, 25%);
+$navbar-inverse-link-color: $navbar-inverse-color;
+
+@import "../com.icw.cui.common/bootstrap_mapping";

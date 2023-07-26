@@ -1,0 +1,8 @@
+@import "../../thirdparty/bootstrap/mixins";
+
+// adaptation of jQuery ui auto complete layout
+
+// let ui auto complete get the higher z index on usage inside modal dialog
+.modal-open .ui-autocomplete-panel {
+  z-index: $zindex-modal + 40 !important;
+}

@@ -1,0 +1,16 @@
+.input-group {
+
+  .dob-error,
+  .dob-no-error {
+    width: 30%;
+
+    &:last-child {
+      width: 40%;
+    }
+  }
+}
+
+.dob-error {
+  border-color: $state-danger-text;
+  color: $state-danger-text;
+}

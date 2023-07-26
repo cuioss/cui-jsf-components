@@ -1,0 +1,227 @@
+@import "../thirdparty/bootstrap/mixins";
+@import "../thirdparty/bootstrap/_variables";
+
+.container, .container-fluid {
+
+  .ui-accordion-content.ui-helper-hidden {
+    display: none;
+  }
+
+  // Fixes for the sortable header of the data-table
+  .ui-datatable .ui-sortable-column-icon {
+    padding-top: 0.25em;
+    margin: 0 0 0 5px;
+  }
+
+  // padding-bottom needed otherwise drag&drop based reorder is broken
+  .ui-dashboard-column {
+    padding-bottom: 50px;
+    width: 50%;
+  }
+}
+
+// Caution: We utilize BlockUi solely to disable a control, not to visually indicate the state. Therefore
+// We set the background to none. If we want do display a (visual) blocking element we must set the background accordingly.
+// Primefaces utilizes ui-widget-overlay therefore.
+.ui-blockui {
+  background: none;
+}
+
+.ui-treetable .ui-treetable-toggler {
+  margin-top: 0 ! important;
+}
+
+input.hasDatepicker[readonly] {
+  cursor: default !important;
+}
+
+.ui-panel .ui-panel-content {
+  padding: 0.5em 0.5em !important;
+}
+
+.ui-panel {
+  padding: 0 !important;
+}
+
+.ui-growl {
+  top: 65px !important;
+  right: 20px;
+}
+
+.ui-dashboard-column {
+  width: 50%;
+  padding-bottom: 0 !important;
+}
+
+.ui-dashboard-column > .ui-widget-content {
+  margin-left: 0 !important;
+  margin-top: 0 !important;
+  margin-right: 5px !important;
+  margin-bottom: 5px !important;
+}
+
+.ui-dashboard-column > .ui-widget-content {
+  margin: 5px; // overridden, see above
+}
+
+.ui-sortable > .ui-state-hover {
+  margin: 0 5px 5px 0; // same as above
+}
+
+.ui-dialog-titlebar-icon {
+  position: relative !important;
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.ui-widget-content.toggableFieldSet > legend {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.ui-confirm-dialog-severity {
+  float: left;
+  margin: 0 7px 20px 0 !important;
+}
+
+// Fix for the sizing / styling of primefaces auto-complete component
+.auto-complete-form-control {
+  width: 100% !important;
+}
+
+// Fix for the sizing / styling of primefaces date input component
+.date-input-form-control {
+  width: 100% !important;
+}
+
+.date-input-form-control-with-button {
+  width: 100% !important;
+  > button {
+    // FIXME david: Please take a look into this, used in edit referrals
+    float: right;
+    margin-top: -31px;
+  }
+}
+
+.ui-autocomplete-panel .ui-autocomplete-table th, .ui-autocomplete-panel .ui-autocomplete-table td {
+  border-style: none !important;
+}
+
+// Fix positioning of close button on help and preferences page
+#preferencesDialog_title, #helpDialog_title {
+  width: 100%;
+}
+
+// fix positioning of appending elements
+.ui-autocomplete {
+  display: inline !important;
+}
+
+// adapt layout for labeled container
+
+.form-group {
+  .ui-autocomplete.form-control {
+    display: block !important;
+    width: 100%;
+  }
+  .ui-autocomplete-input {
+    width: 100%;
+    border: none;
+    font-size: $font-size-base;
+    padding: 0;
+  }
+}
+
+
+// Fixes the unwanted display of Next, Prev labels on datepicker
+.ui-datepicker-prev .ui-icon, .ui-datepicker-next .ui-icon {
+  width: 1em;
+  height: 1em; // Needed for IE, because otherwise the the textflow leaves a clipping below the button
+}
+
+.ui-datascroller-content.ui-widget-content {
+  background: none;
+}
+
+// Removes the styling of datalist
+.ui-datalist-content {
+  border: none !important;
+}
+
+dt.ui-datalist-item {
+  font-weight: normal !important;
+}
+
+.ui-selectoneradio label {
+  margin: 4px;
+}
+
+.ui-radiobutton {
+  display: block !important;
+}
+
+// picklist
+.ui-picklist {
+  .ui-picklist-list {
+    padding: 6px 12px !important;
+    height: 140px !important;
+  }
+  .ui-picklist-buttons .ui-button-icon-only .ui-icon {
+    left: 48% !important;
+  }
+  @media (min-width: 35em) {
+    &.ui-picklist-responsive .ui-picklist-list-wrapper {
+      width: 45% !important;
+    }
+    .ui-picklist-buttons {
+      height: 140px !important;
+    }
+  }
+}
+
+// growl
+.ui-growl-item-container {
+  .ui-growl-item {
+    padding: 0;
+  }
+  &.ui-state-highlight {
+    background-color: transparent;
+    border: none;
+  }
+}
+
+.ui-growl {
+  .ui-growl-item-container {
+    margin-bottom: 17px;
+    opacity: 1;
+  }
+}
+
+.ui-growl-item-container {
+  .ui-growl-icon-close {
+    right: 15px;
+    top: 15px;
+    z-index: 1010;
+  }
+  .ui-growl-image {
+    display: none;
+  }
+  .ui-growl-message {
+    width: 100%;
+    .ui-growl-title {
+      padding: 0;
+      + p {
+        padding: 7px 0 0;
+        &:empty {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.quick-control-group-right .ui-button {
+  padding: 6px 12px;
+}

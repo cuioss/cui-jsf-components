@@ -1,0 +1,47 @@
+body {
+  $top-offset: $navbar-height + $form-group-margin-bottom;
+  height: 100%;
+  padding-top: $navbar-height;
+  background: $body-bg;
+
+  // reducing the font-size requires the following alignment for checkboxes and radios (in forms) 
+  input[type="radio"], input[type="checkbox"] {
+    margin-top: 2px;
+  }
+}
+
+
+html {
+  height: 100%;
+  -ms-overflow-style: scrollbar; // auto | none | scrollbar | -ms-autohiding-scrollbar
+}
+
+html.cookies .noCookie {
+  display: none;
+}
+
+textarea {
+  resize: none;
+}
+
+// FIXME david: Find a better place other than scaffolding
+// input type number displaying spinner buttons on firefox and chrome
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0; // <-- Apparently some margins are still there even though it's hidden
+}
+
+.copyright-info {
+  visibility: hidden;
+}

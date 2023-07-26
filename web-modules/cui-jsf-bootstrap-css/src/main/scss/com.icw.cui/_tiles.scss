@@ -1,0 +1,100 @@
+//
+// Tiles
+// --------------------------------------------------
+
+// Base styles
+// --------------------------------------------------
+$tile_size:                 185px !default;
+$tile_margin:               10px !default;
+
+.tile {
+  @include tile-size(1, 1, $tile_size, $tile_margin);
+  //border: 1px solid transparent;
+  //border-radius: 4px;
+
+  box-shadow: 0 0 1px #ffc inset;
+  cursor: pointer;
+  display: block;
+  float: left;
+  margin: 0 $tile-margin $tile-margin 0;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+
+  &:hover {
+    outline: 3px solid #999; //$borderColorHover
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    pointer-events: none; // Future-proof disabling of clicks
+    @include opacity(.65);
+  }
+}
+
+// Tile sizes
+// --------------------------------------------------
+
+.tile-double {
+  @include tile-size(1, 2, $tile-size, $tile-margin);
+}
+
+.tile-lg {
+  @include tile-size(2, 2, $tile-size, $tile-margin);
+}
+
+// Alternate tiles
+// --------------------------------------------------
+
+.tile-default {
+  @include tile-variant($btn-default-color, $btn-default-bg, $btn-default-border);
+}
+
+.tile-primary {
+  @include tile-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+}
+
+.tile-info {
+  @include tile-variant($btn-info-color, $btn-info-bg, $btn-info-border);
+}
+
+// inside classes
+// --------------------------------------------------
+
+.tile-content {
+  display: block;
+  height: 100%;
+  left: 0;
+  margin: 0;
+  overflow: hidden;
+  padding: 5px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  &.icon .cui-icon {
+    font-size: 8em;
+    line-height: 1em;
+    left: 50%;
+    top: 50%;
+    margin-left: -0.5em;
+    margin-top: -0.5em;
+    position: absolute;
+  }
+}
+
+.footer {
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  min-height: 29px;
+  position: absolute;
+  right: 0;
+
+  .name {
+    background: none repeat scroll 0 0 transparent;
+    display: block;
+    font-size: 10pt;
+    margin: 5px 20px 2px 5px;
+  }
+}
+

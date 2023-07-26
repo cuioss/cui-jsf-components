@@ -1,0 +1,118 @@
+// will override standard bootstrap variable (bs-mapping).
+$application-font-size-base: 12px !default;
+
+// use vars from BS
+$bs-text-color: #333333 !default; // $text-color !default;
+
+$application-font-color: #333 !default;
+$application-body-bg: white !default;
+$application-border-radius-base: 3px !default; // BS $border-radius-small !default;
+$application-well-bg: #f5f5f5 !default;
+$application-well-border-color: #e3e3e3 !default; // BS $well-border !default;
+
+// Superset for themeable elements that are mapped to jquerui and boootstrap components.
+// The fontweight for the styled components.
+$component-default-font-weight: bold !default;
+$component-default-font-size: $application-font-size-base !default;
+// mapping fix 
+$component-default-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !default;
+$component-border-style: 1px solid !default;
+
+// Defines color for the components without a certain state.
+$component-base-bg: #F2F5F7 !default;
+$component-base-border-color: #AED0EA !default;
+$component-base-color: $bs-text-color !default;
+
+$component-default-link-color: $bs-text-color !default;
+
+// The colors for e.g. panel header, etc. maps to .ui-widget-content .ui-state-default
+$component-default-bg: #D7EBF9 !default;
+// The colors of default components.
+$component-default-border-color: #AED0EA !default;
+// The (foreground) color of fonts etc if displayed on an default element.
+$component-default-color: #2779AA !default;
+
+// The colors for widget header in default state
+$component-widget-header-bg: $component-default-bg !default;
+// The colors of default components.
+$component-widget-header-border-color: $component-default-border-color !default;
+// The (foreground) color of fonts etc if displayed on an default element.
+$component-widget-header-color: $bs-text-color !default;
+
+// The background color for e.g. Selected / active panel header, etc. maps to .ui-widget-content .ui-state-active
+$component-active-color: #FFFFFF !default;
+$component-active-bg: #3BAAE3 !default;
+$component-active-border-color: #2694E8 !default;
+
+// Variants for hovering defaults.
+$component-hover-color: $component-default-color !default;
+$component-hover-bg: #E4F1FB !default;
+$component-hover-border-color: #74B2E2 !default;
+
+// Variants for hovering active components.
+$component-active-hover-color: $component-active-color !default;
+$component-active-hover-bg: $component-active-bg !default;
+$component-active-hover-border-color: $component-active-border-color !default;
+
+// The colors for e.g. panel header, etc. maps to .ui-widget-content .ui-state-error
+$component-error-bg: #f2dede !default;
+$component-error-border-color: darken(adjust-hue($component-error-bg, -10), 5%) !default;
+$component-error-color: #a94442 !default;
+
+// The colors for e.g. panel header, etc. maps to .ui-widget-content .ui-state-highlight
+$component-highlight-bg: #FFEF8F !default;
+$component-highlight-border-color: #F9DD34 !default;
+$component-highlight-color: #363636 !default;
+
+// Special Color for warnings, patient override, etc.
+$component-warn-color: red !default;
+
+$alternating-bg: #f9f9f9 !default;
+
+// Coloring of icons.
+// Mimetype-Icons
+// The color utilized for the background symbol
+$icon-mimetype-primary-color: #362B36 !default;
+// The color utilized for the actual mimetype definition. Most mimetype have a defined color, this is meant as default.
+$icon-mimetype-secondary-color: lighten($icon-mimetype-primary-color, 30%) !default;
+// On some special indication we have an additional Icon decoration, e.g. for on demand documents.
+$icon-mimetype-decorator-color: $component-warn-color !default;
+
+// Color for all standard icons.
+$icon-standard-default-color: $component-default-color !default;
+$icon-standard-warn-color: $component-warn-color !default;
+
+// Primefaces / JQuerUi related styles.
+$primefacesOverrideTableOdd: LightGrey !default;
+
+// Small between sizes screen / tablet
+// Note: Deprecated $screen-sm and $screen-tablet as of v3.0.1
+//$screen-smx: 868px !default;
+//$screen-smx-min: $screen-smx !default;
+//$screen-smx-tablet: $screen-smx-min !default;
+
+// Point at which the navbar becomes uncollapsed
+$navbar-breakpoint: 868px !default;
+$cui-navbar-bg: $component-base-bg !default;
+
+$component-primary-bg: #428bca !default;
+$component-margin: 15px;
+
+// colon and asterisk
+$asterisk: "*" !default;
+$space_with_asterisk: "\00a0" + $asterisk !default;
+$colon_with_asterisk: ":" + $space_with_asterisk !default;
+$colon_without_asterisk: ":" !default;
+
+// modal
+$modal-timeout-backdrop-opacity: 0.99 !default;
+
+// selectizeJS
+$selectize-color-item: $component-default-bg !default;
+$selectize-color-item-text: $component-default-color !default;
+
+$sidebar-width: 195px !default;
+$sidebar-width-sm: 145px !default;
+$sidebar-width-xs: 50px !default;
+
+$image-icon-bg: $component-base-bg;

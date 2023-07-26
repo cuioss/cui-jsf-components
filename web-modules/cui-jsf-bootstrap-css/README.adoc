@@ -1,0 +1,38 @@
+= cui javascript module
+
+== Status
+
+image:https://github.com/cuioss/cui-jsf-components/actions/workflows/maven.yml/badge.svg[Java CI with Maven,link=https://github.com/cuioss/cui-jsf-components/actions/workflows/maven.yml]
+image:http://img.shields.io/:license-apache-blue.svg[License,link=http://www.apache.org/licenses/LICENSE-2.0.html]
+image:https://maven-badges.herokuapp.com/maven-central/io.github.cuioss.jsf/cui-jsf-bootstrap-css/badge.svg[Maven Central,link=https://maven-badges.herokuapp.com/maven-central/io.github.cuioss.jsf/cui-jsf-bootstrap-css]
+
+
+== What is it?
+
+The javascript Module for the cui jsf components. The resulting css-files can be found at:
+
+`target/classes/META-INF/resources/de.cuioss.portal.css`
+
+=== Maven Coordinates
+
+[source,xml]
+----
+    <dependency>
+        <groupId>de.cuioss.jsf</groupId>
+        <artifactId>cui-jsf-bootstrap-css</artifactId>
+    </dependency>
+----
+
+== Build-Structure
+
+In contrast to other cuioss modules, this module relies entirely on nodes.js / grunt creating the csss
+
+using the nodes.js/grunt stack.
+
+Therefore the development can completely take place in specialized tools like VS-Code or similar.
+
+The maven build again calls the grunt task using https://github.com/eirslett/frontend-maven-plugin[frontend-maven-plugin] 
+that results in the files being created under `/target/sass_target/`.
+These files will be copied by maven to the appropriate directory and package to a jar-file.
+
+

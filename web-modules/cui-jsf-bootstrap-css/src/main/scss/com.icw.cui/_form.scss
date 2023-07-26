@@ -1,0 +1,147 @@
+@import "../thirdparty/bootstrap/mixins";
+
+// Used for static content within forms: The default padding of static elements mismatch the label / content design.
+.staticPaddingFix > div > div.form-control-static {
+  padding-top: 0;
+}
+
+// Variant of has-error to be used for complex selection as child elements
+.has-error-combined-input {
+  > div.form-group > label.control-label {
+    color: $state-danger-text;
+  }
+  > div.form-group > div > div.help-block {
+    color: $state-danger-text;
+  }
+}
+
+.cui-button-control-group {
+  > div > .btn {
+    margin-left: 5px;
+  }
+}
+
+.cui-button-spacing {
+  > .btn {
+    margin-left: 5px;
+  }
+}
+
+// Used to display multiple message for a single input-control
+.cui_message_list {
+  @extend .list-unstyled;
+}
+
+// CUI-340
+.cui-empty-form {
+  height: $input-height-base;
+}
+
+.condensed {
+  .form-group {
+    margin-bottom: $form-group-margin-bottom - 10px;
+    @media (min-width: $screen-xs-min) {
+      div[class^='col-xs'] {
+        padding-left: ($grid-gutter-width / 2) - 11px;
+      }
+      label[class*='col-xs'] {
+        padding-right: ($grid-gutter-width / 2) - 11px;
+      }
+    }
+    @media (min-width: $screen-sm-min) {
+      div[class^='col-sm'] {
+        padding-left: ($grid-gutter-width / 2) - 11px;
+      }
+      label[class*='col-sm'] {
+        padding-right: ($grid-gutter-width / 2) - 11px;
+      }
+    }
+    @media (min-width: $screen-md-min) {
+      div[class^='col-md'] {
+        padding-left: ($grid-gutter-width / 2) - 11px;
+      }
+      label[class*='col-md'] {
+        padding-right: ($grid-gutter-width / 2) - 11px;
+      }
+    }
+    @media (min-width: $screen-lg-min) {
+      div[class^='col-lg'] {
+        padding-left: ($grid-gutter-width / 2) - 11px;
+      }
+      label[class*='col-lg'] {
+        padding-right: ($grid-gutter-width / 2) - 11px;
+      }
+    }
+    > .form-control-static {
+      padding-top: 0;
+    }
+  }
+
+  .form-control-static {
+    min-height: 0; // unset --> initial --> default=0
+    padding-bottom: 0;
+  }
+}
+
+.help-block {
+  margin-bottom: 0; // unset --> initial --> default=0
+  &:empty {
+    display: none;
+  }
+}
+
+.additional-help-block {
+  margin-bottom: 0; // unset --> initial --> default=0
+}
+
+.has-success .input-group-btn .btn {
+  border-color: $state-success-text;
+}
+
+.has-warning .input-group-btn .btn {
+  border-color: $state-warning-text;
+}
+
+.has-error .input-group-btn .btn {
+  border-color: $state-danger-text;
+}
+
+.cui_msg_error + .form-group label {
+  color: $state-danger-text;
+}
+
+.cui_msg_error + .form-group input {
+  color: $state-danger-text;
+  border-color: $state-danger-text;
+}
+
+.cui_msg_error + .form-group .input-group-btn .btn {
+  border-color: $state-danger-text;
+}
+
+.cui_msg_warn {
+  color: $state-warning-text;
+}
+
+// obscure the content the user enters into an input field
+.form-control.text-security {
+  -webkit-text-security: disc;
+}
+
+option[disabled], select[disabled], textarea[disabled], input[readonly], select[readonly], textarea[readonly] {
+  @extend .form-control[disabled];
+}
+
+.fc-breadcrumb {
+  .input-group-btn {
+    vertical-align: top;
+  }
+  .form-control {
+    height: unset;
+    .breadcrumb { //MMC-16
+      background-color: $input-bg;
+      padding: 0;
+      margin-bottom: 0;
+    }
+  }
+}

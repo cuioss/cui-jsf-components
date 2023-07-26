@@ -1,0 +1,42 @@
+// replaces thirdparty/bootstrap/mixins.scss and needs to be (re)checked after upgrading BS
+
+//// Mixins
+// --------------------------------------------------
+
+// Utilities
+@import "../../thirdparty/bootstrap/mixins/hide-text";
+@import "../../thirdparty/bootstrap/mixins/opacity";
+@import "../../thirdparty/bootstrap/mixins/image";
+@import "../../thirdparty/bootstrap/mixins/labels";
+@import "../../thirdparty/bootstrap/mixins/reset-filter";
+@import "../../thirdparty/bootstrap/mixins/resize";
+@import "../../thirdparty/bootstrap/mixins/responsive-visibility";
+@import "../../thirdparty/bootstrap/mixins/size";
+@import "../../thirdparty/bootstrap/mixins/tab-focus";
+@import "../../thirdparty/bootstrap/mixins/reset-text";
+@import "../../thirdparty/bootstrap/mixins/text-emphasis";
+@import "../../thirdparty/bootstrap/mixins/text-overflow";
+@import "../../thirdparty/bootstrap/mixins/vendor-prefixes";
+
+// Components
+@import "mixins/alerts";
+@import "../../thirdparty/bootstrap/mixins/buttons";
+@import "../../thirdparty/bootstrap/mixins/panels";
+@import "../../thirdparty/bootstrap/mixins/pagination";
+@import "../../thirdparty/bootstrap/mixins/list-group";
+@import "../../thirdparty/bootstrap/mixins/nav-divider";
+@import "../../thirdparty/bootstrap/mixins/forms";
+@import "../../thirdparty/bootstrap/mixins/progress-bar";
+@import "../../thirdparty/bootstrap/mixins/table-row";
+
+// Skins
+@import "../../thirdparty/bootstrap/mixins/background-variant";
+@import "../../thirdparty/bootstrap/mixins/border-radius";
+@import "../../thirdparty/bootstrap/mixins/gradients";
+
+// Layout
+@import "../../thirdparty/bootstrap/mixins/clearfix";
+@import "../../thirdparty/bootstrap/mixins/center-block";
+@import "../../thirdparty/bootstrap/mixins/nav-vertical-align";
+@import "../../thirdparty/bootstrap/mixins/grid-framework";
+@import "../../thirdparty/bootstrap/mixins/grid";

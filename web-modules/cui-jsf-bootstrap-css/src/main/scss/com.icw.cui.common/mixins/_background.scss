@@ -1,0 +1,8 @@
+@mixin background-no-repeat($color) {
+  background: none repeat scroll 0 0 $color;
+}
+
+@mixin background-no-repeat-image($url) {
+  background-image: unquote("url(#" + "{resource['" + $url + "']})");
+  background-repeat: no-repeat;
+}

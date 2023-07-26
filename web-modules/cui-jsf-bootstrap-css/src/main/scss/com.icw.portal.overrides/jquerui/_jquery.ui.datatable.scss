@@ -1,0 +1,177 @@
+@import "../../thirdparty/bootstrap/tables";
+// adaptations for primefaces data-table in boostrap container
+
+$padding: 8px !default;
+$header-background-color: $table-bg-accent !default;
+$header-color: black !default;
+
+$footer-background-color: $header-background-color !default;
+$footer-color: $header-color !default;
+
+$table-header-bg: white !default;
+
+//
+// PrimeFaces html structure for dataTable
+//
+// <div class="ui-datatable">
+//   <div class="ui-datatable-tablewrapper">
+//     <table>
+//       <thead>
+//         <tr role="row">
+//           <th class="ui-state-default" role="columnheader">..</th>
+//           ..
+//          </tr>
+//          ..
+//       </thead>
+//       <tbody class="ui-datatable-data">
+//
+//         <!-- ui-datatable-even, ui-datatable-odd is used for striped rows -->
+//
+//         <tr data-ri="0" class="ui-widget-content ui-datatable-even" role="row">
+//           <td role="gridcell">..</td>
+//           ..
+//         </tr>
+//         <tr data-ri="1" class="ui-widget-content ui-datatable-odd" role="row">
+//           <td role="gridcell">..</td>
+//           ...
+//          </tr>
+//          ..
+//       </tbody>
+//     </table>
+//   </div>
+// </div>
+//
+//
+
+// jqUi overrides working only for tables included in .container, .container-fluid
+
+.container, .container-fluid {
+
+  .ui-datatable {
+
+    height: 100%;
+
+    // table header
+    .ui-datatable-header {
+      background-color: $header-background-color;
+      color: $header-color;
+      padding: $padding;
+      border: hidden;
+    }
+
+    // container
+    .ui-datatable-tablewrapper {
+
+      @extend .table;
+
+      height: 100%;
+
+      > table {
+
+        thead {
+          th {
+            padding: $padding;
+            border-top: 0;
+            border-right: 0;
+            border-left: 0;
+            background-color: $table-header-bg;
+            text-align: left;
+            border-bottom: 2px solid $table-border-color;
+          }
+
+          .ui-sortable-column-icon {
+            padding-top: 0;
+            vertical-align: bottom;
+          }
+
+          th:focus, th:active, .ui-state-active {
+            color: black;
+            outline: none;
+          }
+
+          th[role="columnheader"] {
+            vertical-align: top;
+          }
+
+        }
+
+        tbody {
+          border: 0;
+          tr {
+            border: 0;
+            td {
+              border-top: 1px solid $table-border-color;
+              border-left: 0;
+              border-right: 0;
+              border-bottom: 0;
+              padding: $padding;
+            }
+          }
+        }
+
+      }
+    }
+
+    // destroy jQuery zebra-rows
+    .ui-datatable-even, .ui-datatable-odd {
+      background-color: transparent;
+    }
+
+    .ui-datatable-even:hover, .ui-datatable-odd:hover, .ui-datatable-even:active, .ui-datatable-odd:active {
+      // from jQuery UI Theme
+      background-color: $component-hover-bg;
+    }
+
+    .ui-datatable-tablewrapper {
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    // compensated table margin-bottom if table footer is available
+    .ui-datatable-tablewrapper + .ui-datatable-footer {
+      top: -17px;
+      position: relative;
+      margin-bottom: 17px;
+    }
+
+    .ui-datatable-footer {
+      background-color: $footer-background-color;
+      color: $footer-color;
+      padding: $padding;
+      border: hidden;
+    }
+  }
+
+  // use boostrap table-striped
+  .table-striped {
+    .ui-datatable-tablewrapper {
+      table {
+        @extend .table-striped;
+      }
+    }
+  }
+
+  // use boostrap table-bordered
+  .table-bordered {
+    .ui-datatable-tablewrapper {
+      table {
+        @extend .table-bordered;
+      }
+    }
+    // override table-bordered for surrounded container
+    border: 0;
+  }
+
+  // active filter settings
+  th.ui-filter-column input.ui-column-filter {
+    margin-top: 8px;
+    margin-bottom: 6px;
+    @include box-shadow(none);
+  }
+
+  th.ui-filter-column .ui-column-customfilter {
+    margin-top: 8px;
+    margin-bottom: 6px;
+  }
+
+}

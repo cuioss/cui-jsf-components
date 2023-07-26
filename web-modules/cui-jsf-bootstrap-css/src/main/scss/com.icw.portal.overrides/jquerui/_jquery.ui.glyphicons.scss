@@ -1,0 +1,8 @@
+@import "../../com.icw.cui.common/themable";
+@import "../../com.icw.cui.common/mixins";
+
+.ui-icon {
+  @include cui-font-icon-style('cui-icon-font', unset);
+  text-indent: 0 !important;
+  color: $icon-standard-default-color;
+}

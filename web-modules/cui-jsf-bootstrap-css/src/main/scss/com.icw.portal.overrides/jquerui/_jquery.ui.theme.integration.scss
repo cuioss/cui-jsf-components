@@ -1,0 +1,24 @@
+.ui-inputfield, .ui-widget textarea, .ui-widget-header .ui-inputfield, .ui-widget .ui-inputtextarea {
+  background: none repeat scroll 0 0 $input-bg !important;
+}
+
+.ui-widget input {
+  background: none repeat scroll 0 0 $input-bg;
+}
+
+.ui-inputfield[readonly], .ui-widget input[readonly], .ui-widget textarea[readonly], .ui-widget-header .ui-inputfield[readonly] {
+  background: none repeat scroll 0 0 $input-bg-disabled !important;
+}
+
+.ui-inputfield.ui-state-default, .ui-widget input.ui-state-default, .ui-widget textarea.ui-state-default, .ui-widget-header .ui-inputfield.ui-state-default {
+  color: $input-color !important;
+}
+
+textarea {
+  &.ui-state-default,
+  &.ui-state-hover {
+    color: $input-color;
+    border-color: $component-default-border-color;
+    font-weight: normal;
+  }
+}

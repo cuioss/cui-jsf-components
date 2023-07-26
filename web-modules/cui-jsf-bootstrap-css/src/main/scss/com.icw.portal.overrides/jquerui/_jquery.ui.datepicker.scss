@@ -1,0 +1,235 @@
+
+// Calendar input structure in cui:labeledContainer formgroup mode
+// <div class="form-group">
+// ..
+//   <span class="ui-calendar form-control">
+//     <input type="text" class="ui-inputfield ui-widget ui-state-default ui-corner-all hasDatepicker" role="textbox" aria-disabled="false" aria-readonly="false"/>
+//   </span>
+// </div>
+
+.form-group .ui-calendar {
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+}
+
+.form-group .ui-calendar input {
+  padding: 6px 12px;
+  width: 100%;
+  height: $font-size-base * $line-height-base + 14px;
+  @include box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
+  @include transition(border-color ease-in-out .15s, box-shadow ease-in-out .15s);
+}
+
+.form-group .ui-calendar {
+
+  .ui-state-hover, .ui-state-focus {
+    border: $component-border-style $component-widget-header-border-color;
+  }
+}
+
+.form-group .ui-trigger-calendar {
+  input {
+    width: calc(100% - 33px);
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    height: 32px;
+  }
+  button {
+    padding: 4px 6px;
+    margin-right: 0;
+    width: 34px;
+    height: 32px;
+    vertical-align: top;
+    margin-left: -1px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    span {
+      margin: 4px auto;
+      left: auto !important;
+      top: auto;
+      position: relative;
+      background-position: inherit;
+      font-size: 14px;
+    }
+  }
+}
+
+
+// HTML Structure for opened calender
+//
+// !!! Attention the div "ui-datepicker-div" appears direct on body !!!
+//
+// <div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+//     <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
+//         <a class="ui-datepicker-prev ui-corner-all" data-handler="prev" data-event="click" title="Prev">
+//             <span class="ui-icon ui-icon-circle-triangle-w">Prev</span>
+//         </a>
+//         <a class="ui-datepicker-next ui-corner-all" data-handler="next" data-event="click" title="Next">
+//             <span class="ui-icon ui-icon-circle-triangle-e">Next</span>
+//         </a>
+//         <div class="ui-datepicker-title">
+//             <span class="ui-datepicker-month" aria-label="select month">September</span>&nbsp;
+//             <span class="ui-datepicker-year" aria-label="select year">2017</span>
+//         </div>
+//     </div>
+//     <table class="ui-datepicker-calendar">
+//         <thead>
+//         <tr>
+//             <th scope="col" class="ui-datepicker-week-end"><span title="Sunday">Su</span></th>
+//             <th scope="col"><span title="Monday">Mo</span></th>
+//             ...
+//             <th scope="col"><span title="Friday">Fr</span></th>
+//             <th scope="col" class="ui-datepicker-week-end"><span title="Saturday">Sa</span></th>
+//         </tr>
+//         </thead>
+//         <tbody>
+//         <tr>
+//             <td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">
+//                 &nbsp;</td>
+//             <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+//             <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+//             <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+//             <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+//             <td class=" ui-datepicker-days-cell-over  ui-datepicker-today" data-handler="selectDay" data-event="click"
+//                 data-month="8" data-year="2017"><a class="ui-state-default ui-state-highlight" href="#">1</a></td>
+//             <td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="8"
+//                 data-year="2017"><a class="ui-state-default" href="#">2</a></td>
+//         </tr>
+//         <tr>
+//             <td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="8"
+//                 data-year="2017"><a class="ui-state-default" href="#">3</a></td>
+//             <td class=" " data-handler="selectDay" data-event="click" data-month="8" data-year="2017"><a
+//                     class="ui-state-default" href="#">4</a></td>
+//             <td class=" " data-handler="selectDay" data-event="click" data-month="8" data-year="2017"><a
+//                     class="ui-state-default" href="#">5</a></td>
+//             <td class=" " data-handler="selectDay" data-event="click" data-month="8" data-year="2017"><a
+//                     class="ui-state-default" href="#">6</a></td>
+//             <td class=" " data-handler="selectDay" data-event="click" data-month="8" data-year="2017"><a
+//                     class="ui-state-default" href="#">7</a></td>
+//             <td class=" " data-handler="selectDay" data-event="click" data-month="8" data-year="2017"><a
+//                     class="ui-state-default" href="#">8</a></td>
+//             <td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="8"
+//                 data-year="2017"><a class="ui-state-default" href="#">9</a></td>
+//         </tr>
+//
+//         <tr>
+//             ...
+//         </tr>
+//
+//         <tr>
+//             <td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="8"
+//                 data-year="2017"><a class="ui-state-default" href="#">24</a></td>
+//             <td class=" " data-handler="selectDay" data-event="click" data-month="8" data-year="2017"><a
+//                     class="ui-state-default" href="#">25</a></td>
+//             <td class=" " data-handler="selectDay" data-event="click" data-month="8" data-year="2017"><a
+//                     class="ui-state-default" href="#">26</a></td>
+//             <td class=" " data-handler="selectDay" data-event="click" data-month="8" data-year="2017"><a
+//                     class="ui-state-default" href="#">27</a></td>
+//             <td class=" " data-handler="selectDay" data-event="click" data-month="8" data-year="2017"><a
+//                     class="ui-state-default" href="#">28</a></td>
+//             <td class=" " data-handler="selectDay" data-event="click" data-month="8" data-year="2017"><a
+//                     class="ui-state-default" href="#">29</a></td>
+//             <td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="8"
+//                 data-year="2017"><a class="ui-state-default" href="#">30</a></td>
+//         </tr>
+//         </tbody>
+//     </table>
+// </div>
+//
+
+body .ui-datepicker {
+
+  padding: 6px;
+  width: auto;
+
+  .ui-datepicker-header {
+    vertical-align: middle;
+    .ui-datepicker-prev, .ui-datepicker-next {
+
+      .ui-icon {
+          height: 20px;
+          font-size: 14px;
+          width: 14px;
+      }
+
+    }
+    .ui-datepicker-prev-hover {
+      left: 2px;
+    }
+    .ui-datepicker-next-hover {
+      right: 2px;
+    }
+    .ui-state-hover, .ui-state-focus {
+      border: 0;
+      top:2px;
+    }
+
+  }
+  table {
+    margin: 0;
+
+    thead {
+      font-size: 12px;
+    }
+
+    tbody {
+      font-size: 12px;
+    }
+
+    td {
+      padding: 3px;
+
+      a {
+        text-align: center;
+        width: 32.3px;
+        padding: 6px;
+      }
+    }
+
+  }
+
+  .ui-timepicker-div {
+
+    // time picker only mode
+    .ui-widget-header {
+      margin-top: -15px;
+    }
+
+    dt {
+      padding: 6px;
+    }
+
+    dd {
+      padding: 9px 6px 6px;
+      .ui-slider-handle {
+        border-radius: 10px;
+        height: 16px;
+        width: 16px;
+      }
+
+      .ui-state-hover, .ui-state-focus {
+        outline-width: 0;
+      }
+    }
+    dd.ui_tpicker_time {
+      padding-top: 5px;
+      margin-bottom: 3px;
+      input {
+        border: 0;
+      }
+    }
+  }
+
+}
+
+
+.ui-datepicker .ui-timepicker-div , .ui-datepicker .ui-datepicker-buttonpane{
+  margin-top: 15px;
+}
+
+.ui-datepicker .ui-slider-handle {
+  background-color: $component-hover-bg;
+}
+

@@ -1,0 +1,198 @@
+@charset "UTF-8";
+
+// !!! this style is only designed for demo propose only !!!
+
+@import "../com.icw.portal.themes/blue";
+@import "../com.icw.cui.common/themable";
+@import "../thirdparty/bootstrap/mixins";
+@import "../com.icw.portal.overrides/jquerui";
+@import "../com.icw.cui.icons";
+@import "../com.icw.cui.common/bootstrap";
+@import "../com.icw.portal.overrides/bootstrap";
+// styling for selectize (is used for cui-tag)
+@import "../thirdparty/selectize/selectize.bootstrap3";
+@import "../com.icw.portal.overrides/selectize";
+@import "../com.icw.portal.overrides/primefaces";
+@import "../com.icw.cui.common/scaffolding";
+
+// adaptation for sidebar
+
+@import "../com.icw.cui/dateOfBirth";
+@import "../com.icw.cui/form";
+@import "../com.icw.cui/article";
+@import "../com.icw.cui/alerts";
+@import "../com.icw.cui/footer";
+@import "../com.icw.cui/sticky_messages";
+@import "../com.icw.cui/labeledContainer";
+@import "../com.icw.cui/layout_helper";
+@import "../com.icw.cui/list-group";
+@import "../com.icw.cui/navbar";
+
+@import "../com.icw.cui/theme_integration";
+@import "../com.icw.cui/panel";
+@import "../com.icw.cui/quick_control_group";
+@import "../com.icw.cui/tag";
+@import "../com.icw.cui/toolbar";
+@import "../com.icw.cui/util";
+@import "../com.icw.cui/colors";
+@import "../com.icw.cui/vertical-center";
+@import "../com.icw.cui/switch";
+@import "../com.icw.cui/tiles-mixins";
+@import "../com.icw.cui/tiles";
+@import "../com.icw.cui/widget";
+@import "../com.icw.cui/animations";
+@import "../com.icw.cui/fieldset";
+
+@import "../com.icw.cui/dashboard";
+
+@import "../com.icw.cui.portal.pages";
+
+.sidebar {
+  display: none;
+  width: $sidebar-width-sm;
+  position: fixed;
+  height: 100%;
+  min-height: 100%;
+  z-index: 1029; // Below nav-bar (1030)
+  border-right: 1px solid;
+
+
+    color: $component-active-color;
+    background-color: #7e8890;
+    border-color: #7e8890;
+
+
+  @include screen($screen-md-min) {
+    width: $sidebar-width;
+  }
+
+  @include screen($screen-sm-min) {
+    display: block;
+  }
+
+  .sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin-top: 25px;
+
+    > li {
+      &.active,
+      &:hover,
+      &:focus {
+        .menu-hover {
+          opacity: 1;
+        }
+      }
+
+      > a {
+
+          color: $component-active-color;
+
+        > span.cui-icon {
+          margin-right: 0.5em;
+        }
+        text-align: left;
+        position: relative;
+        text-shadow: 0 1px 1px rgba(0,0,0,0.05);
+        display: block;
+        padding: 15px 18px; //TODO: use existing variables
+        text-decoration: none;
+        font-size: $font-size-base;
+        @include transition(all 0.2s ease-in);
+
+        @include screen($screen-md-min) {
+          font-size: $font-size-base;
+        }
+
+        &.active,
+        &:hover,
+        &:focus {
+
+            color: $component-active-color;
+            background-color: $component-default-color;
+
+        }
+
+        .menu-item-text {
+          display: none;
+          @include screen($screen-sm-min) {
+            display: inline;
+          }
+        }
+      }
+    }
+
+    > li[data-item-active='true'] {
+      > a {
+
+          color: $component-active-color;
+          background-color: #0d364f;
+
+      }
+    }
+  }
+}
+
+.sidebar + .container-fluid, .sidebar + .container {
+  @include screen($screen-sm-min) {
+    margin-left: $sidebar-width-sm
+  }
+  @include screen($screen-md-min) {
+    margin-left: $sidebar-width
+  }
+  -webkit-margin-bottom-collapse: separate;
+  transition: all .1s ease-in;
+}
+
+.sidebar + .container {
+  @include screen($screen-sm-min) {
+    width: $container-sm - $sidebar-width-sm;
+  }
+  @include screen($screen-md-min) {
+    width: $container-md - $sidebar-width;
+  }
+  @include screen($screen-lg-min) {
+    width: $container-lg - $sidebar-width;
+  }
+}
+
+.sidebar.collapse.in + .container-fluid, .sidebar.collapse.in + .container {
+  margin-left: $sidebar-width-sm;
+  margin-right: - $sidebar-width-sm;
+  @include screen($screen-md-min) {
+    margin-left: $sidebar-width;
+    margin-right: - $sidebar-width;
+  }
+}
+
+body .cui-navbar .navbar-nav > li > a,
+body .cui-navbar .navbar-brand {
+  color: white;
+}
+
+body footer {
+  border-color: #0f405e;
+  a {
+    color: white;
+  }
+
+  a:hover, a:focus {
+    color: #c4d5df;
+  }
+}
+
+body .navbar-inverse .navbar-nav > li > a:hover,
+body .cui-navbar .navbar-nav > li > a:hover,
+body .cui-navbar a.navbar-brand:hover,
+
+body .navbar-inverse .navbar-nav > li > a:focus,
+body .cui-navbar .navbar-nav > li > a:focus,
+body .cui-navbar a.navbar-brand:focus {
+  color: #c4d5df;
+}
+
+
+$logo-navbar-url: "vendor/vendor_logo_navbar_48px.png";
+body .navbar-brand {
+  background-image: url($logo-navbar-url);
+}

@@ -1,0 +1,26 @@
+@import "../../com.icw.cui.common/themable";
+
+.ui-paginator {
+
+  /* hide text on paginator controls */
+  .ui-icon-seek-first,
+  .ui-icon-seek-prev,
+  .ui-icon-seek-end,
+  .ui-icon-seek-next {
+    font-size: 0;
+  }
+
+  /* is used for show web-font icon */
+  .ui-icon-seek-first::before,
+  .ui-icon-seek-prev::before,
+  .ui-icon-seek-end::before,
+  .ui-icon-seek-next::before {
+    font-size: $application-font-size-base;
+  }
+
+}
+
+
+
+
+

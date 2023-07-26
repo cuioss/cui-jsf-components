@@ -1,0 +1,110 @@
+$psn-color-1: #F5EB14;
+$psn-color-2: #F8971C;
+
+$psn-color-3: #EB2123;
+$psn-color-3-1:#980e0f; // darken($psn-color-3, 20%) 
+
+$psn-color-4: #173863;
+$psn-color-4-1: #325a82;
+
+$psn-color-5: #68C7DE;
+
+$psn-color-5-1: #7891aa;
+$psn-color-5-2: #afbecd;
+
+$psn-font-color: #002A46;
+
+$psn-color-6: #dcdee0;
+
+$component-base-bg: #fff;
+
+//$application-body-bg: linear-gradient(to bottom, #ecf0f2 0px, #fff 250px) fixed;
+$application-body-bg: linear-gradient(to bottom, $psn-color-6 0px, #fff 250px) fixed;
+
+// The colors for e.g. panel header, etc. maps to .ui-widget-content .ui-state-default
+$component-default-bg: $psn-color-5-1; // #D7EBF9;
+// The colors of default components. 
+// $component-default-border-color: #ccc;
+$component-default-border-color: $psn-color-6;
+
+// The (foreground) color of fonts etc if displayed on an default element. 
+//$component-default-color: black;
+$component-default-color: $psn-font-color;
+
+// The background color for e.g. Selected / active panel header, etc. maps to .ui-widget-content .ui-state-active
+// $component-active-bg: #7AB2D8;
+$component-active-bg: $psn-color-5;
+
+//$component-active-border-color: #2694E8;
+$component-active-border-color: $psn-color-5-1;
+
+$component-active-color: $component-base-bg;
+
+// Variants for hovering defaults. 
+//$component-hover-bg: #E4F1FB;
+$component-hover-bg: $psn-color-5-2;
+
+
+//$component-hover-border-color: #74B2E2;
+$component-hover-border-color: $psn-color-5;
+
+$component-hover-color: $component-default-color;
+
+// The colors for widget header in default state
+$component-widget-header-bg: $component-default-bg;
+// The colors of default components. 
+$component-widget-header-border-color: $component-default-border-color;
+
+// Variants for hovering active components. 
+$component-active-hover-color: $component-active-color;
+$component-active-hover-bg: $component-active-bg;
+$component-active-hover-border-color: $component-active-border-color;
+
+// The colors for e.g. panel header, etc. maps to .ui-widget-content .ui-state-error
+$component-error-bg: #f2dede;
+$component-error-border-color: darken(adjust-hue($component-error-bg, -10), 5%);
+// $component-error-color: #a94442;
+$component-error-color: $psn-color-3-1;
+
+// The colors for e.g. panel header, etc. maps to .ui-widget-content .ui-state-highlight
+$component-highlight-bg: $component-hover-bg;
+$component-highlight-border-color: $component-hover-border-color;
+$component-highlight-color: $component-hover-color;
+
+// Special Color for warnings, patient override, etc.
+//$component-warn-color: red;
+$component-warn-color: $psn-color-3;
+
+// On some special indication we have an additional Icon decoration, e.g. for on demand documents.
+$icon-mimetype-decorator-color: $component-warn-color;
+
+// Color for all standard icons. 
+$icon-standard-default-color: $component-default-color;
+$icon-standard-warn-color: $component-warn-color;
+
+// $component-primary-bg: #3B82B7;
+$component-primary-bg: $psn-color-4-1;
+
+$cui-navbar-dark: 'false';
+
+// 
+$cui-navbar-dark: 'true';
+$cui-navbar-bg: $psn-color-4;
+$navbar-inverse-bg: $cui-navbar-bg;
+$navbar-inverse-color:  mix($navbar-inverse-bg, $component-base-bg, 25%);
+$navbar-inverse-link-color: $navbar-inverse-color;
+
+
+// currently the only possibility
+body .navbar-brand {
+  background-image: url('vendor/vendor_logo_navbar_48px.png');
+}
+
+
+
+$brand-warning: $psn-color-2;
+$brand-info: $psn-color-5;
+$brand-danger: $psn-color-3;
+$brand-primary: $psn-color-4-1;
+
+@import "../com.icw.cui.common/bootstrap_mapping";

@@ -1,0 +1,34 @@
+// On panel title a elements are  color:inherit. We must override this.
+.panel-title > a.btn {
+  &.btn-default {
+    color: $btn-default-color;
+  }
+  &.btn-primary {
+    color: $btn-primary-color;
+  }
+  &.btn-success {
+    color: $btn-success-color;
+  }
+  &.btn-info {
+    color: $btn-info-color;
+  }
+  &.btn-warning {
+    color: $btn-warning-color;
+  }
+  &.btn-danger {
+    color: $btn-danger-color;
+  }
+}
+
+
+// style btn without ancor/link as 'disabled'
+span.btn {
+  cursor: not-allowed;
+  pointer-events: none; // Future-proof disabling of clicks
+  @include opacity(.65);
+  @include box-shadow(none);
+}
+
+.list-group-item-header .list-group-item-addon .btn-lg {
+  padding: 8px 10px;
+}
