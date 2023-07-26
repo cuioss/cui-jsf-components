@@ -1,4 +1,4 @@
-= cui javascript module
+= cui css module
 
 == Status
 
