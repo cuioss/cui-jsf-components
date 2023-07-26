@@ -9,7 +9,7 @@ image:https://maven-badges.herokuapp.com/maven-central/io.github.cuioss.jsf/cui-
 
 == What is it?
 
-The javascript Module for the cui jsf components. The resulting css-files can be found at:
+The css module for the cui jsf bootstrap components. The resulting css-files can be found at:
 
 `target/classes/META-INF/resources/de.cuioss.portal.css`
 
