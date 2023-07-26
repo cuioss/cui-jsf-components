@@ -35,4 +35,7 @@ The maven build again calls the grunt task using https://github.com/eirslett/fro
 that results in the files being created under `/target/sass_target/`.
 These files will be copied by maven to the appropriate directory and package to a jar-file.
 
+== TODOs
+* use node module for boostrap icons to pack the web fonts into `META-INF/resources/icons`
+* adapt the current sass build to use new boostrap 5.3 sass sources
 
