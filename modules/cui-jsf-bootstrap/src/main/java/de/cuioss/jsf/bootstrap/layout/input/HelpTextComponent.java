@@ -44,10 +44,10 @@ import lombok.experimental.Delegate;
  * <h2>Usage</h2>
  *
  * <pre>
- * &lt;cui:labeledContainer&gt;
+ * &lt;boot:labeledContainer&gt;
  *   &lt;h:inputText /&gt;
  *   &lt;cui:helpText contentKey="xy" /&gt;
- * &lt;/cui:labeledContainer&gt;
+ * &lt;/boot:labeledContainer&gt;
  * </pre>
  *
  * @author Matthias Walliczek

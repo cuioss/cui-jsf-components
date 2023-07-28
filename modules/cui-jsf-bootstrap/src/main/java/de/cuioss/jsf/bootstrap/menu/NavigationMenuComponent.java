@@ -28,8 +28,8 @@ import de.cuioss.jsf.bootstrap.BootstrapFamily;
  * <h2>Usage</h2>
  *
  * <pre>
- * &lt;cui:navigationMenu model="#{model}" /&gt;
- * &lt;cui:navigationMenu modelItems="#{modelItems}" /&gt;
+ * &lt;boot:navigationMenu model="#{model}" /&gt;
+ * &lt;boot:navigationMenu modelItems="#{modelItems}" /&gt;
  * </pre>
  *
  * @author Sven Haag

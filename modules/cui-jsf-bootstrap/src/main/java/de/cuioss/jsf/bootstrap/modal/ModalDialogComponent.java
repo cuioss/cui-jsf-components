@@ -54,12 +54,12 @@ import lombok.experimental.Delegate;
  * <h2>Usage</h2>
  *
  * <pre>
- * &lt;cui:button labelValue="Open"&gt;
+ * &lt;boot:button labelValue="Open"&gt;
  *   &lt;cui:modalControl for="dialogId"/&gt;
- * &lt;/cui:button&gt;
- * &lt;cui:modalDialog id="dialogId" headerValue="Dialog-Header"&gt;
+ * &lt;/boot:button&gt;
+ * &lt;boot:modalDialog id="dialogId" headerValue="Dialog-Header"&gt;
  *   Some Dialog Content
- * &lt;/cui:modalDialog&gt;
+ * &lt;/boot:modalDialog&gt;
  * </pre>
  * <p>
  * <em>Opening</em>: Use {@link ModalControl} attached to button or other control for opening a

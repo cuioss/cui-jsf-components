@@ -25,10 +25,10 @@ import lombok.ToString;
  * <h2>Example</h2>
  *
  * <pre>
- * &lt;cui:commandButton ... &gt;
+ * &lt;boot:commandButton ... &gt;
  *   &lt;f:ajax render="@this" /&gt;
  *   &lt;cui:blockElement /&gt;
- * &lt;/cui:commandButton &gt;
+ * &lt;/boot:commandButton &gt;
  * </pre>
  *
  * @author Matthias Walliczek

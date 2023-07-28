@@ -4,6 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd">
     <namespace>"https://cuioss.de/jsf/core"</namespace>
+    <short-name>cui</short-name>
     <tag>
         <description><![CDATA[Formatting converter for creating / resolving the label of a given CodeType. It
             uses the standard LocaleProducerAccessor for accessing the needed Locale]]></description>
@@ -207,7 +208,7 @@
         <description><![CDATA[The inlineConfirm is an alternative to modal confirm dialogs.
         <p>In the basic variant it renders the content of the required &lt;facet name="initial"/&gt; as the content, usually a button
         and the renders the actual child if the content is clicked. In case you want to close / cancel the inline confirm you can add
-        a corresponding button with 'data-inline-confirm-cancel', e.g. &lt;cui:button labelKey="common.button.cancel" pt:data-inline-confirm-cancel="cancel" /&gt;</p>]]>
+        a corresponding button with 'data-inline-confirm-cancel', e.g. &lt;boot:button labelKey="common.button.cancel" pt:data-inline-confirm-cancel="cancel" /&gt;</p>]]>
         </description>
         <tag-name>inlineConfirm</tag-name>
         <component>

@@ -37,7 +37,7 @@ import lombok.experimental.Delegate;
  * <h2>Usage</h2>
  *
  * <pre>
- * &lt;cui:notificationBox state="WARN" /&gt;
+ * &lt;boot:notificationBox state="WARN" /&gt;
  * </pre>
  *
  * @author Matthias Walliczek

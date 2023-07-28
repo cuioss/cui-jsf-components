@@ -62,13 +62,13 @@
  * Now you can utilize the back functionality quite easily:
  *
  * <pre>
- * {@code <cui:button icon="ui-icon-cancel" id="cancel" titleKey="common.button.cancel" labelKey="common.button.cancel" outcome="back" />}
+ * {@code <boot:button icon="ui-icon-cancel" id="cancel" titleKey="common.button.cancel" labelKey="common.button.cancel" outcome="back" />}
  * </pre>
  *
  * or
  *
  * <pre>
- * {@code <cui:commandButton icon="ui-icon-disk" id="saveSubscriptions"
+ * {@code <boot:commandButton icon="ui-icon-disk" id="saveSubscriptions"
  *     titleKey="common.button.save"
  *     labelKey="common.button.save" action="back"
  *     actionListener=#&#123;subscriptionsDialogPageBean.saveSubscriptions&#125;" />}
