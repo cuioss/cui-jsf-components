@@ -59,13 +59,9 @@ public class NavigationMenuContainerRenderer {
      * @param idExtension
      * @throws IOException
      */
-    static void renderBegin(final FacesContext context,
-            final DecoratingResponseWriter<NavigationMenuComponent> writer,
-            final NavigationMenuItemContainer model,
-            final NavigationMenuComponent component,
-            final boolean parentIsContainer,
-            final String idExtension)
-        throws IOException {
+    static void renderBegin(final FacesContext context, final DecoratingResponseWriter<NavigationMenuComponent> writer,
+            final NavigationMenuItemContainer model, final NavigationMenuComponent component,
+            final boolean parentIsContainer, final String idExtension) throws IOException {
         if (!model.isRendered()) {
             return;
         }
@@ -74,8 +70,7 @@ public class NavigationMenuContainerRenderer {
         writer.withClientId(idExtension);
         writer.withPassThroughAttributes();
         writer.withAttributeStyle(component.getStyle());
-        writer.withStyleClass(component.getStyleClassBuilder()
-                .append(CssBootstrap.LIST_DROPDOWN)
+        writer.withStyleClass(component.getStyleClassBuilder().append(CssBootstrap.LIST_DROPDOWN)
                 .appendIfTrue(CssBootstrap.LIST_DROP_DOWN_SUBMENU, parentIsContainer));
 
         if (model.isActive()) {
@@ -96,8 +91,7 @@ public class NavigationMenuContainerRenderer {
      * @throws IOException
      */
     static void renderEnd(final DecoratingResponseWriter<NavigationMenuComponent> writer,
-            final NavigationMenuItemContainer model)
-        throws IOException {
+            final NavigationMenuItemContainer model) throws IOException {
         if (!model.isRendered()) {
             return;
         }
@@ -105,16 +99,13 @@ public class NavigationMenuContainerRenderer {
         writer.withEndElement(Node.LI);
     }
 
-    private static void renderCmdLink(final FacesContext context,
-            final NavigationMenuItemContainer model,
-            final boolean parentIsContainer)
-        throws IOException {
+    private static void renderCmdLink(final FacesContext context, final NavigationMenuItemContainer model,
+            final boolean parentIsContainer) throws IOException {
 
         final var application = context.getApplication();
 
-        final var commandLink =
-            (HtmlOutcomeTargetLink) application.createComponent(HtmlOutcomeTargetLink.COMPONENT_TYPE);
-        commandLink.setDisabled(model.isDisabled());
+        final var commandLink = (HtmlOutcomeTargetLink) application
+                .createComponent(HtmlOutcomeTargetLink.COMPONENT_TYPE);
         commandLink.setStyleClass(CssBootstrap.LIST_DROP_DOWN_TOGGLE.getStyleClass());
         commandLink.getPassThroughAttributes().put("data-toggle", "dropdown");
 
@@ -137,8 +128,7 @@ public class NavigationMenuContainerRenderer {
         commandLink.getChildren().add(outputText);
 
         // Collapse Icon
-        final var caret =
-            (IconComponent) context.getApplication().createComponent(BootstrapFamily.ICON_COMPONENT);
+        final var caret = (IconComponent) context.getApplication().createComponent(BootstrapFamily.ICON_COMPONENT);
         if (parentIsContainer) {
             caret.setIcon(ICON_SUB_MENU);
         } else {

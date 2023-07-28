@@ -27,7 +27,7 @@ public interface HistoryManager extends Serializable, Iterable<ViewIdentifier> {
 
     /**
      * Adds the current view to the {@link HistoryManager}. This method is usually called
-     * programmatically, not by an {@link ComponentSystemEvent}. Within the cdi-portal this is done
+     * programmatically, not by an {@link ComponentSystemEvent}. Within the CUI-portal this is done
      * with a {@link PhaseListener}. <em>Caution</em>: The caller must ensure that this method is
      * not called with {@link FacesContext#isPostback()}
      *

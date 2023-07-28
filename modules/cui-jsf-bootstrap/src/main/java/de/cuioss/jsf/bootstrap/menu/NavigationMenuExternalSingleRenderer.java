@@ -46,12 +46,9 @@ public class NavigationMenuExternalSingleRenderer {
      * @param idExtension
      * @throws IOException
      */
-    static void render(final FacesContext context,
-            final DecoratingResponseWriter<NavigationMenuComponent> writer,
-            final NavigationMenuItemExternalSingle model,
-            final NavigationMenuComponent component,
-            final String idExtension)
-        throws IOException {
+    static void render(final FacesContext context, final DecoratingResponseWriter<NavigationMenuComponent> writer,
+            final NavigationMenuItemExternalSingle model, final NavigationMenuComponent component,
+            final String idExtension) throws IOException {
         if (!model.isRendered()) {
             return;
         }
@@ -70,16 +67,12 @@ public class NavigationMenuExternalSingleRenderer {
         writer.withEndElement(Node.LI);
     }
 
-    private static void renderCmdLink(final FacesContext context,
-            final NavigationMenuItemExternalSingle model)
-        throws IOException {
+    private static void renderCmdLink(final FacesContext context, final NavigationMenuItemExternalSingle model)
+            throws IOException {
         final var application = context.getApplication();
 
-        final var commandLink =
-            (HtmlOutputLink) application.createComponent(HtmlOutputLink.COMPONENT_TYPE);
+        final var commandLink = (HtmlOutputLink) application.createComponent(HtmlOutputLink.COMPONENT_TYPE);
         commandLink.setValue(model.getHRef());
-        commandLink.setOnclick(model.getOnClickAction());// TODO raus
-        commandLink.setDisabled(model.isDisabled());
         commandLink.setTarget(model.getTarget());
 
         // Title
