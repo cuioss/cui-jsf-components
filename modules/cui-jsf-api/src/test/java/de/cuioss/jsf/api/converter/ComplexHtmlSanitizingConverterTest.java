@@ -1,6 +1,5 @@
 package de.cuioss.jsf.api.converter;
 
-import de.cuioss.jsf.api.converter.ComplexHtmlSanitizingConverter;
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
 

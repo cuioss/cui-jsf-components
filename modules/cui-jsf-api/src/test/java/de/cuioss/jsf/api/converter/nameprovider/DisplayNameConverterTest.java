@@ -1,7 +1,6 @@
 package de.cuioss.jsf.api.converter.nameprovider;
 
 import de.cuioss.jsf.api.CoreJsfTestConfiguration;
-import de.cuioss.jsf.api.converter.nameprovider.DisplayNameConverter;
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.converter.AbstractSanitizingConverterTest;

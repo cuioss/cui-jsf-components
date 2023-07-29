@@ -8,7 +8,6 @@ import javax.faces.component.html.HtmlOutputText;
 import org.junit.jupiter.api.Test;
 
 import de.cuioss.jsf.api.application.projectstage.CuiProjectStageAccessor;
-import de.cuioss.jsf.api.converter.FallbackSanitizingConverter;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
 import de.cuioss.test.juli.LogAsserts;
 import de.cuioss.test.juli.TestLogLevel;

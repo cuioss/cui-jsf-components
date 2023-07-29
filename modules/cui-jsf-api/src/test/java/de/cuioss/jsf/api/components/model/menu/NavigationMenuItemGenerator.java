@@ -4,10 +4,6 @@ import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
 import java.util.List;
 
-import de.cuioss.jsf.api.components.model.menu.NavigationMenuItem;
-import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemContainerImpl;
-import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSeparatorImpl;
-import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSingleImpl;
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
 
