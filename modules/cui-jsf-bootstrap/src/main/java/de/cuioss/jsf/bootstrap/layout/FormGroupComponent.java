@@ -45,7 +45,6 @@ public class FormGroupComponent extends AbstractLayoutComponent {
      *
      */
     public FormGroupComponent() {
-        super();
         super.setRendererType(BootstrapFamily.LAYOUT_RENDERER);
     }
 

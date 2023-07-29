@@ -23,8 +23,8 @@ import lombok.ToString;
  */
 @ToString(doNotUseGetters = true, callSuper = true)
 @EqualsAndHashCode(doNotUseGetters = true, callSuper = true)
-public class ConceptKeyTypeMenuModel extends AbstractSelectMenuModelAndConverter<ConceptKeyType> implements
-    ConceptKeyTypeSelection {
+public class ConceptKeyTypeMenuModel extends AbstractSelectMenuModelAndConverter<ConceptKeyType>
+        implements ConceptKeyTypeSelection {
 
     private static final long serialVersionUID = -3462000271711193227L;
 
@@ -46,21 +46,18 @@ public class ConceptKeyTypeMenuModel extends AbstractSelectMenuModelAndConverter
      * {@link AugmentationKeyConstans#DEFAULT_VALUE}).
      */
     public void initToDefault() {
-        final var selected =
-            getSelectableValues().stream().map(x -> (ConceptKeyType) x.getValue())
-                .filter(x -> !MoreStrings.isEmpty(x.get(AugmentationKeyConstans.DEFAULT_VALUE)))
-                .findFirst();
+        final var selected = getSelectableValues().stream().map(x -> (ConceptKeyType) x.getValue())
+                .filter(x -> !MoreStrings.isEmpty(x.get(AugmentationKeyConstans.DEFAULT_VALUE))).findFirst();
         selected.ifPresent(this::setSelectedValue);
     }
 
     /**
-     * Set the selected value.
-     * Special treatment for null: Will be ignored.
-     * Special treatment for undefined values (see {@link AugmentationKeyConstans#UNDEFINED_VALUE}
-     * and
-     * {@link ConceptCategory#createUndefinedConceptKey(String)}: Will be add to the list of
-     * selectableValues.
-     * Other values not part of {@link #getSelectableValues()}: Will be ignored
+     * Set the selected value. Special treatment for null: Will be ignored. Special
+     * treatment for undefined values (see
+     * {@link AugmentationKeyConstans#UNDEFINED_VALUE} and
+     * {@link ConceptCategory#createUndefinedConceptKey(String)}: Will be add to the
+     * list of selectableValues. Other values not part of
+     * {@link #getSelectableValues()}: Will be ignored
      *
      * @param selectedValue the value to set.
      */
@@ -73,7 +70,7 @@ public class ConceptKeyTypeMenuModel extends AbstractSelectMenuModelAndConverter
         if (selectedValue.containsKey(AugmentationKeyConstans.UNDEFINED_VALUE)) {
             add(0, selectedValue, true);
         } else if (getSelectableValues().stream()
-            .noneMatch(x -> x.getValue() != null && x.getValue().equals(selectedValue))) {
+                .noneMatch(x -> x.getValue() != null && x.getValue().equals(selectedValue))) {
             return;
         }
         super.setSelectedValue(selectedValue);

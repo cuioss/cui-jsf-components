@@ -22,9 +22,10 @@ public class PlotHookFunctionProviderImpl implements PlotHookFunctionProvider {
 
     /**
      * Create a PlotHookFunctionProvider.<br>
-     * This implementation do not care about syntax of functionContent. Expected is valid syntax.
+     * This implementation do not care about syntax of functionContent. Expected is
+     * valid syntax.
      *
-     * @param identifier must not be {@code null} or empty
+     * @param identifier      must not be {@code null} or empty
      * @param functionContent must not be {@code null} or empty
      */
     public PlotHookFunctionProviderImpl(final String identifier, final String functionContent) {

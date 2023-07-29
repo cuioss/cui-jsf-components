@@ -25,9 +25,8 @@ import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
 
-@VerifyComponentProperties(
-        of = { "maxItems", "letUserCreateTags", "delimiter", "itemConverterId", "displayRemoveButton" },
-        defaultValued = { "maxItems", "displayRemoveButton" })
+@VerifyComponentProperties(of = { "maxItems", "letUserCreateTags", "delimiter", "itemConverterId",
+        "displayRemoveButton" }, defaultValued = { "maxItems", "displayRemoveButton" })
 @PropertyConfig(name = "sourceSet", propertyClass = ConceptKeyType.class, collectionType = CollectionType.SET)
 @PropertyConfig(name = "clientCreated", propertyClass = ConceptKeyType.class, collectionType = CollectionType.SET)
 @PropertyGenerator(ConceptKeyTypeGenerator.class)
@@ -56,13 +55,12 @@ class TagInputComponentTest extends AbstractUiComponentTest<TagInputComponent> {
         underTest.setValue(Collections.singleton(conceptKeyTypeGenerator.next()));
         assertEquals(1, TagHelper.getValueAsSet(underTest.getSubmittedValue(), underTest.getValue()).size());
         final Set<ConceptKeyType> valueSet = mutableSet(conceptKeyTypeSetGenerator.next());
-        valueSet.add(ConceptKeyTypeImpl.builder().identifier("same")
-                .labelResolver(new I18nDisplayNameProvider("same1")).build());
-        valueSet.add(ConceptKeyTypeImpl.builder().identifier("same")
-                .labelResolver(new I18nDisplayNameProvider("same2")).build());
+        valueSet.add(ConceptKeyTypeImpl.builder().identifier("same").labelResolver(new I18nDisplayNameProvider("same1"))
+                .build());
+        valueSet.add(ConceptKeyTypeImpl.builder().identifier("same").labelResolver(new I18nDisplayNameProvider("same2"))
+                .build());
         underTest.setValue(valueSet);
-        final var result =
-                TagHelper.getValueAsSet(underTest.getSubmittedValue(), underTest.getValue());
+        final var result = TagHelper.getValueAsSet(underTest.getSubmittedValue(), underTest.getValue());
         assertEquals(valueSet.size(), result.size());
     }
 

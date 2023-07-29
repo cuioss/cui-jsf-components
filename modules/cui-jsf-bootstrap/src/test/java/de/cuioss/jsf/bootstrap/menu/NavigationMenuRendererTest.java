@@ -152,15 +152,14 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         var navigationMenuItemContainer = new NavigationMenuItemContainerImpl(10);
         navigationMenuItemContainer.setId("bar");
         component.setModel(navigationMenuItemContainer);
-        final var builder =
-            new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId("foo_0_bar").withStyleClass("dropdown");
+        final var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId("foo_0_bar")
+                .withStyleClass("dropdown");
         withContainerElement(builder);
         assertRenderResult(component, builder.getDocument());
     }
 
     /**
-     * expected icons: south, east, east
-     * Structure: C1 > C2 > C3 > Single
+     * expected icons: south, east, east Structure: C1 > C2 > C3 > Single
      */
     @Test
     void shouldRenderNestedContainers() {
@@ -191,7 +190,8 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     }
 
     /**
-     * Verify renderer. Expected is render list item with anchor element and children.
+     * Verify renderer. Expected is render list item with anchor element and
+     * children.
      */
     @Test
     void shouldRenderComplexMenuItem() {
@@ -222,8 +222,8 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         final var component = new NavigationMenuComponent();
         component.setId(id);
         component.setModel(menuModelItem);
-        final var builder = new HtmlTreeBuilder().withNode(Node.LI)
-                .withAttributeNameAndId(id + ID_EXTENSION).withStyleClass("dropdown");
+        final var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId(id + ID_EXTENSION)
+                .withStyleClass("dropdown");
         withContainerElement(builder, topLevelText);
         withCommandElement(builder, id + ID_EXTENSION + ID_EXTENSION, OUTCOME_HOME, child1_labelValue);
         withCommandElement(builder, id + ID_EXTENSION + "_" + child2Id, OUTCOME_HOME, child2_labelValue);
@@ -237,8 +237,8 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         final var menuModelItem2 = new NavigationMenuItemSingleImpl(10);
         menuModelItem2.setOutcome("foo");
         component.setModelItems(immutableList(menuModelItem1, menuModelItem2));
-        final var builder =
-            new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId(CLIENT_ID).withStyleClass("dropdown");
+        final var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId(CLIENT_ID)
+                .withStyleClass("dropdown");
         withContainerElement(builder);
         // container
         builder.currentHierarchyUp().currentHierarchyUp();
@@ -264,8 +264,8 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         menuModelItem.getChildren().add(child3);
         final var component = new NavigationMenuComponent();
         component.setModelItems(immutableList(menuModelItem));
-        final var builder =
-            new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId(CLIENT_ID).withStyleClass("dropdown");
+        final var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId(CLIENT_ID)
+                .withStyleClass("dropdown");
         containerElement(builder, "", true, false);
         withCommandElement(builder, CLIENT_ID + "_0_model1", "out1", "");
         withCommandElement(builder, CLIENT_ID + "_1_model2", "out2", "");
@@ -274,8 +274,8 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     }
 
     /**
-     * Verify renderer. Expected is render list item with anchor element and children with
-     * separator.
+     * Verify renderer. Expected is render list item with anchor element and
+     * children with separator.
      *
      */
     @Test
@@ -303,8 +303,8 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         final var component = new NavigationMenuComponent();
         component.setModel(menuModelItem);
         component.setId(id);
-        final var builder = new HtmlTreeBuilder().withNode(Node.LI)
-                .withAttributeNameAndId(id + ID_EXTENSION).withStyleClass("dropdown");
+        final var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId(id + ID_EXTENSION)
+                .withStyleClass("dropdown");
         withContainerElement(builder, topLevelText);
         withCommandElement(builder, id + ID_EXTENSION + ID_EXTENSION, OUTCOME_HOME, child1_labelValue);
         separatorElement(builder, id + ID_EXTENSION + "_1_separatorid");
@@ -326,8 +326,8 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         final var component = (NavigationMenuComponent) getComponent();
         component.setId("compid");
         component.setModel(new NavigationMenuItemSeparatorImpl(10));
-        final var builder = new HtmlTreeBuilder().withNode(Node.LI)
-                .withAttributeNameAndId("compid" + ID_EXTENSION).withStyleClass("divider").currentHierarchyUp();
+        final var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId("compid" + ID_EXTENSION)
+                .withStyleClass("divider").currentHierarchyUp();
         assertRenderResult(component, builder.getDocument());
     }
 

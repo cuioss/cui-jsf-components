@@ -31,9 +31,8 @@ public class InlineConfirmRenderer extends BaseDecoratorRenderer<InlineConfirmCo
 
     @Override
     protected void doEncodeBegin(final FacesContext context,
-            final DecoratingResponseWriter<InlineConfirmComponent> writer,
-            final InlineConfirmComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<InlineConfirmComponent> writer, final InlineConfirmComponent component)
+            throws IOException {
 
         var initial = component.getInitialFacet();
         var target = component.getChildAsModifier();

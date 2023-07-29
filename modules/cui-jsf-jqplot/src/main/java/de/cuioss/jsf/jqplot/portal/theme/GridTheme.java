@@ -12,7 +12,7 @@ import lombok.ToString;
 
 /**
  * Provide JqPlot theme specific grid settings
- * 
+ *
  * <pre>
  * grid: {
         drawGridlines: true,
@@ -24,7 +24,7 @@ import lombok.ToString;
         shadow: true
     }
  * </pre>
- * 
+ *
  * @author i000576
  */
 @ToString
@@ -72,7 +72,7 @@ public class GridTheme implements Serializable {
 
     /**
      * Factory Method for {@linkplain GridTheme}
-     * 
+     *
      * @param cssRule {@linkplain CssRule} is optional
      * @return {@linkplain GridTheme} according property values of cssRule. If
      *         parameter cssRule is {@code null} default
@@ -84,9 +84,9 @@ public class GridTheme implements Serializable {
             return DEFAULT_GRID_SETTINGS;
         }
 
-        final Boolean drawGridlinesValue = Boolean.valueOf(cssRule.getPropertyValue("-jqplot-drawGridlines"));
+        final var drawGridlinesValue = Boolean.valueOf(cssRule.getPropertyValue("-jqplot-drawGridlines"));
 
-        final String backgroundColorValue = cssRule.getPropertyValue("-jqplot-backgroundColor");
+        final var backgroundColorValue = cssRule.getPropertyValue("-jqplot-backgroundColor");
 
         return new GridTheme(drawGridlinesValue, backgroundColorValue);
     }

@@ -39,9 +39,9 @@ class NotificationBoxRendererTest extends AbstractComponentRendererTest<Notifica
         component.setState(ContextState.INFO.name());
         component.setContentValue(SOME_VALUE);
         component.setDismissible(true);
-        var expected = new HtmlTreeBuilder().withNode(Node.DIV)
-                .withStyleClass("alert alert-info alert-dismissible").withAttribute(AttributeName.ROLE, "alert")
-                .withNode(Node.BUTTON).withAttribute(AttributeName.TYPE, "button").withStyleClass("close")
+        var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass("alert alert-info alert-dismissible")
+                .withAttribute(AttributeName.ROLE, "alert").withNode(Node.BUTTON)
+                .withAttribute(AttributeName.TYPE, "button").withStyleClass("close")
                 .withAttribute(AttributeName.DATA_DISMISS, "alert").withNode(Node.SPAN)
                 .withAttribute(AttributeName.ARIA_HIDDEN, "true").withTextContent("×").currentHierarchyUp()
                 .currentHierarchyUp().withTextContent(SOME_VALUE);

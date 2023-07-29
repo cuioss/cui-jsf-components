@@ -30,11 +30,9 @@ class StringToListConverterTest extends AbstractConverterTest<StringToListConver
         assertEquals("a-b", converter.getAsString(getFacesContext(), getComponent(), MINIMAL_LIST));
         converter.setSeparator(" ");
         assertEquals("a b", converter.getAsString(getFacesContext(), getComponent(), MINIMAL_LIST));
-        assertEquals(" a   b ",
-                converter.getAsString(getFacesContext(), getComponent(), immutableList(" a ", " b ")));
+        assertEquals(" a   b ", converter.getAsString(getFacesContext(), getComponent(), immutableList(" a ", " b ")));
         assertEquals(MINIMAL_LIST, converter.getAsObject(getFacesContext(), getComponent(), "a b"));
-        assertEquals(immutableList("", "a", "b"),
-                converter.getAsObject(getFacesContext(), getComponent(), " a b "));
+        assertEquals(immutableList("", "a", "b"), converter.getAsObject(getFacesContext(), getComponent(), " a b "));
         assertEquals(immutableList("", "a", "", "b"),
                 converter.getAsObject(getFacesContext(), getComponent(), " a  b "));
     }

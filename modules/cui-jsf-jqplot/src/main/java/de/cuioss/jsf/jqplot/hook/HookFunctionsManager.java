@@ -9,8 +9,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Hook functions provider, manage list of IPlotHookFunctionProvider able to create string
- * representation of all collected.
+ * Hook functions provider, manage list of IPlotHookFunctionProvider able to
+ * create string representation of all collected.
  *
  * @author Eugen Fischer
  */
@@ -25,16 +25,15 @@ public class HookFunctionsManager implements Serializable {
     /**
      * Add hook function to list
      *
-     * @param hookFunction {@linkplain PlotHookFunctionProvider} should not be {@code null}
+     * @param hookFunction {@linkplain PlotHookFunctionProvider} should not be
+     *                     {@code null}
      */
     public void addHookFunction(final PlotHookFunctionProvider hookFunction) {
 
-        final var function =
-            requireNonNull(hookFunction, "hookFunction");
+        final var function = requireNonNull(hookFunction, "hookFunction");
 
         if (hooks.contains(function)) {
-            throw new IllegalArgumentException(
-                    "Hook function [" + function.getIdentifier() + "] already in use.");
+            throw new IllegalArgumentException("Hook function [" + function.getIdentifier() + "] already in use.");
         }
 
         hooks.add(function);

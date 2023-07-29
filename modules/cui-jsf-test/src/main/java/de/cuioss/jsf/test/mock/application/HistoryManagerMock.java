@@ -18,8 +18,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Mock version of {@link HistoryManager} that default to home = {@value #VIEW_HOME}
- * It can be easily configured as bean by using {@link JsfTestConfiguration}
+ * Mock version of {@link HistoryManager} that default to home =
+ * {@value #VIEW_HOME} It can be easily configured as bean by using
+ * {@link JsfTestConfiguration}
  *
  * @author Oliver Wolff
  */
@@ -35,8 +36,7 @@ public class HistoryManagerMock implements HistoryManager, BeanConfigurator {
     /**
      * {@link ViewIdentifier}, representing home navigation.
      */
-    public static final ViewIdentifier IDENTIFIER_HOME = new ViewIdentifier(VIEW_HOME, "home",
-            new ArrayList<>());
+    public static final ViewIdentifier IDENTIFIER_HOME = new ViewIdentifier(VIEW_HOME, "home", new ArrayList<>());
 
     private final HistoryManager delegate;
 

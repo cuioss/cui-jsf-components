@@ -19,13 +19,14 @@ import lombok.experimental.Delegate;
  * A plugin renderer for jqPlot to draw a bar plot
  *
  * @author Eugen Fischer
- * @see <a href="http://www.jqplot.com/docs/files/plugins/jqplot-barRenderer-js.html">BarRenderer
+ * @see <a href=
+ *      "http://www.jqplot.com/docs/files/plugins/jqplot-barRenderer-js.html">BarRenderer
  *      </a>
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
-public class BarRendererOptions extends RendererOptions implements
-        IShadowDecoration<BarRendererOptions>, IHighlightDecoration<BarRendererOptions> {
+public class BarRendererOptions extends RendererOptions
+        implements IShadowDecoration<BarRendererOptions>, IHighlightDecoration<BarRendererOptions> {
 
     /** serial Version UID */
     private static final long serialVersionUID = -9152687440017064259L;
@@ -39,7 +40,6 @@ public class BarRendererOptions extends RendererOptions implements
      * BarRendererOptions Constructor
      */
     public BarRendererOptions() {
-        super();
         shadowDecorator = new Shadow<>(this);
         highlightDecorator = new Highlighting<>(this);
     }
@@ -139,10 +139,11 @@ public class BarRendererOptions extends RendererOptions implements
     private JsBoolean varyBarColor;
 
     /**
-     * true to color each bar of a series separately rather than have every bar of a given series
-     * the same color. If used for non-stacked multiple series bar plots, user should specify a
-     * separate ‘seriesColors’ array for each series. Otherwise, each series will set their bars to
-     * the same color array. This option has no Effect for stacked bar charts and is disabled.
+     * true to color each bar of a series separately rather than have every bar of a
+     * given series the same color. If used for non-stacked multiple series bar
+     * plots, user should specify a separate ‘seriesColors’ array for each series.
+     * Otherwise, each series will set their bars to the same color array. This
+     * option has no Effect for stacked bar charts and is disabled.
      *
      * @param value {@link Boolean}
      * @return fluent api style

@@ -49,12 +49,12 @@ public enum ButtonState implements StyleClassProvider {
     }
 
     /**
-     * @param state
-     *            May be null or empty, otherwise must be one of {"default","primary",
-     *            "success", "info", "warning", "danger", "link"}
+     * @param state May be null or empty, otherwise must be one of
+     *              {"default","primary", "success", "info", "warning", "danger",
+     *              "link"}
      * @return the corresponding {@link ButtonState} derived by the given
-     *         {@link ContextState}. In case of <code>contextSize==null</code>
-     *         it will return {@link ButtonState#DEFAULT}.
+     *         {@link ContextState}. In case of <code>contextSize==null</code> it
+     *         will return {@link ButtonState#DEFAULT}.
      */
     public static final ButtonState getForContextState(final String state) {
         if (isEmpty(state)) {

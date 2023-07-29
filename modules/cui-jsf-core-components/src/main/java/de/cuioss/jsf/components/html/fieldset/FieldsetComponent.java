@@ -23,27 +23,30 @@ import lombok.experimental.Delegate;
 /**
  * Component class for creating fieldset-element
  *
- * <h2>Attributes</h2>
- * *
+ * <h2>Attributes</h2> *
  * <h3>legendKey</h3>
  * <p>
- * The key for looking up the text to be displayed as the text label. Although this attribute is not
- * required you must provide either this or #legendValue if you want a label to be displayed.
+ * The key for looking up the text to be displayed as the text label. Although
+ * this attribute is not required you must provide either this or #legendValue
+ * if you want a label to be displayed.
  * </p>
  * <h3>legendValue</h3>
  * <p>
- * The Object representing the text to be displayed. This is a replacement for #legendKey. If both
- * are present legendValue takes precedence. The object is usually a string. If not, the developer
- * must ensure that a corresponding converter is either registered for the type or must provide a
- * converter using #legendConverter.
+ * The Object representing the text to be displayed. This is a replacement for
+ * #legendKey. If both are present legendValue takes precedence. The object is
+ * usually a string. If not, the developer must ensure that a corresponding
+ * converter is either registered for the type or must provide a converter using
+ * #legendConverter.
  * </p>
  * <h3>legendConverter</h3>
  * <p>
- * The optional converterId to be used in case of legendValue is set and needs conversion.
+ * The optional converterId to be used in case of legendValue is set and needs
+ * conversion.
  * </p>
  * <h3>legendEscape</h3>
  * <p>
- * Indicates whether the legend is to be escaped on output or not. Default is <code>true</code>
+ * Indicates whether the legend is to be escaped on output or not. Default is
+ * <code>true</code>
  * </p>
  * <h3>{@link DisabledComponentProvider}</h3>
  *
@@ -75,7 +78,6 @@ public class FieldsetComponent extends CuiComponentBase implements ComponentStyl
      *
      */
     public FieldsetComponent() {
-        super();
         super.setRendererType(CuiFamily.FIELDSET_RENDERER);
         disabledComponentProvider = new DisabledComponentProvider(this);
         styleClassProvider = new ComponentStyleClassProviderImpl(this);
@@ -161,8 +163,7 @@ public class FieldsetComponent extends CuiComponentBase implements ComponentStyl
         if (labelValue == null && MoreStrings.isEmpty(labelKey)) {
             return null;
         }
-        return LabelResolver.builder().withConverter(getLegendConverter())
-                .withLabelKey(labelKey)
+        return LabelResolver.builder().withConverter(getLegendConverter()).withLabelKey(labelKey)
                 .withLabelValue(labelValue).build().resolve(getFacesContext());
     }
 

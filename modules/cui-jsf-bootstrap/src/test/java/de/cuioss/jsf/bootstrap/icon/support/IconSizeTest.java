@@ -14,8 +14,8 @@ import de.cuioss.test.generator.junit.EnableGeneratorController;
 @EnableGeneratorController
 class IconSizeTest {
 
-    private final TypedGenerator<ContextSize> validSizes =
-        Generators.fixedValues(ContextSize.LG, ContextSize.DEFAULT, ContextSize.XL, ContextSize.XXL, ContextSize.XXXL);
+    private final TypedGenerator<ContextSize> validSizes = Generators.fixedValues(ContextSize.LG, ContextSize.DEFAULT,
+            ContextSize.XL, ContextSize.XXL, ContextSize.XXXL);
 
     @Test
     void shouldReturnValueOnValidSize() {

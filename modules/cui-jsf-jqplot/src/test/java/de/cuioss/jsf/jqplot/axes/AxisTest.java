@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.jqplot.axes.Axis;
 import de.cuioss.jsf.jqplot.renderer.DateAxisRenderer;
 import de.cuioss.test.valueobjects.contract.SerializableContractImpl;
 

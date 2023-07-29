@@ -18,7 +18,8 @@ import lombok.experimental.Delegate;
 
 /**
  * <p>
- * Decorator to determine when a user has stopped typing in a text field and executing an action.
+ * Decorator to determine when a user has stopped typing in a text field and
+ * executing an action.
  * </p>
  * <h2>Usage</h2>
  *
@@ -101,7 +102,8 @@ public class TypewatchComponent extends AbstractParentDecorator {
     }
 
     /**
-     * ATTENTION: Evaluation the MethodExpression may already trigger executing the method!
+     * ATTENTION: Evaluation the MethodExpression may already trigger executing the
+     * method!
      *
      * @return the listener
      */

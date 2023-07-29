@@ -20,9 +20,8 @@ import de.cuioss.test.juli.TestLogLevel;
 import de.cuioss.test.juli.TestLoggerFactory;
 import de.cuioss.test.juli.junit5.EnableTestLogger;
 
-@VerifyComponentProperties(
-        of = { "collapsed", "headerConverter", "headerEscape", "headerKey", "headerValue", "deferred",
-            "childrenLoaded" })
+@VerifyComponentProperties(of = { "collapsed", "headerConverter", "headerEscape", "headerKey", "headerValue",
+        "deferred", "childrenLoaded" })
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @EnableTestLogger
 class BootstrapPanelComponentTest extends AbstractUiComponentTest<BootstrapPanelComponent>

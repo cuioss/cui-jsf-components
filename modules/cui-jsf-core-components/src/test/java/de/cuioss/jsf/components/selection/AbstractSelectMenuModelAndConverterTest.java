@@ -71,8 +71,7 @@ class AbstractSelectMenuModelAndConverterTest {
 
     @Test
     void testEmptyConstructor() {
-        var underTest =
-            new MockAbstractSelectMenuModelAndConverter(mutableSet());
+        var underTest = new MockAbstractSelectMenuModelAndConverter(mutableSet());
         Assertions.assertNotNull(underTest.getSelectableValues());
         Assertions.assertTrue(underTest.getSelectableValues().isEmpty());
         Assertions.assertNull(underTest.getSelectedValue());
@@ -83,8 +82,7 @@ class AbstractSelectMenuModelAndConverterTest {
     @Test
     void testSingleValueConstructor() {
         var value = new MockValue("id1", "label1");
-        var underTest =
-            new MockAbstractSelectMenuModelAndConverter(mutableSet(value));
+        var underTest = new MockAbstractSelectMenuModelAndConverter(mutableSet(value));
         Assertions.assertNotNull(underTest.getSelectableValues());
         Assertions.assertEquals(1, underTest.getSelectableValues().size());
         var selectItem = underTest.getSelectableValues().get(0);
@@ -100,8 +98,7 @@ class AbstractSelectMenuModelAndConverterTest {
     @Test
     void testInitToFirst() {
         var value = new MockValue("id1", "label1");
-        var underTest =
-            new MockAbstractSelectMenuModelAndConverter(mutableSet(value));
+        var underTest = new MockAbstractSelectMenuModelAndConverter(mutableSet(value));
         underTest.initToFirstElement();
         Assertions.assertTrue(underTest.isValueSelected());
         Assertions.assertEquals(value, underTest.getSelectedValue());
@@ -118,8 +115,7 @@ class AbstractSelectMenuModelAndConverterTest {
 
         Set<MockValue> set = new HashSet<>(sortedSet);
 
-        var underTest =
-            new MockAbstractSelectMenuModelAndConverter(set);
+        var underTest = new MockAbstractSelectMenuModelAndConverter(set);
         underTest.initToFirstElement();
         Assertions.assertTrue(underTest.isValueSelected());
         Assertions.assertEquals(new MockValue("id1", "label1"), underTest.getSelectedValue());
@@ -135,8 +131,7 @@ class AbstractSelectMenuModelAndConverterTest {
         sortedSet.add(new MockValue("id2", "label2"));
         sortedSet.add(new MockValue("id1", "label1"));
 
-        var underTest =
-            new MockAbstractSelectMenuModelAndConverter(sortedSet);
+        var underTest = new MockAbstractSelectMenuModelAndConverter(sortedSet);
         underTest.initToFirstElement();
         Assertions.assertTrue(underTest.isValueSelected());
         Assertions.assertEquals(new MockValue("id5", "label5"), underTest.getSelectedValue());
@@ -145,8 +140,7 @@ class AbstractSelectMenuModelAndConverterTest {
 
     @Test
     void testAdd() {
-        var underTest =
-            new MockAbstractSelectMenuModelAndConverter(mutableSet());
+        var underTest = new MockAbstractSelectMenuModelAndConverter(mutableSet());
         var value = new MockValue("id1", "label1");
         underTest.add(0, value);
         Assertions.assertNotNull(underTest.getSelectableValues());
@@ -164,8 +158,7 @@ class AbstractSelectMenuModelAndConverterTest {
     @Test
     void testSerialize() {
         var value = new MockValue("id1", "label1");
-        var underTest =
-            new MockAbstractSelectMenuModelAndConverter(mutableSet(value));
+        var underTest = new MockAbstractSelectMenuModelAndConverter(mutableSet(value));
         underTest.initToFirstElement();
         var result = SerializableContractImpl.serializeAndDeserialize(underTest);
         Assertions.assertEquals(underTest, result);

@@ -28,8 +28,7 @@ import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
 
 @PropertyReflectionConfig(skip = true)
-@PropertyConfig(name = "sourceData", propertyClass = ConceptKeyType.class, generator = ConceptKeyTypeGenerator.class,
-        collectionType = CollectionType.SET, propertyReadWrite = PropertyReadWrite.WRITE_ONLY)
+@PropertyConfig(name = "sourceData", propertyClass = ConceptKeyType.class, generator = ConceptKeyTypeGenerator.class, collectionType = CollectionType.SET, propertyReadWrite = PropertyReadWrite.WRITE_ONLY)
 @PropertyConfig(name = "locale", propertyClass = Locale.class, propertyReadWrite = PropertyReadWrite.WRITE_ONLY)
 @VerifyConstructor(of = { "sourceData", "locale" }, required = "locale")
 class ConceptKeyTypeMenuModelTest extends ValueObjectTest<ConceptKeyTypeMenuModel> {
@@ -67,8 +66,8 @@ class ConceptKeyTypeMenuModelTest extends ValueObjectTest<ConceptKeyTypeMenuMode
 
     @Test
     void shouldSetDefault() {
-        final var model =
-            new ConceptKeyTypeMenuModel(mutableSet(TEST_CODE, TEST_CODE2, TEST_DEFAULT_CODE), Locale.ENGLISH);
+        final var model = new ConceptKeyTypeMenuModel(mutableSet(TEST_CODE, TEST_CODE2, TEST_DEFAULT_CODE),
+                Locale.ENGLISH);
         model.initToDefault();
         assertEquals(TEST_DEFAULT_CODE, model.getSelectedValue());
     }

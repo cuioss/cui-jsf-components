@@ -35,46 +35,46 @@ public class EditableDataListComponent extends BaseCuiNamingContainer {
      */
     public static final String DATA_LIST_COMPONENT = "de.cuioss.cui.bootstrap.editableDataList";
 
-    private final BooleanAttributeAccessor doubleClickEnabledAccesor =
-        new BooleanAttributeAccessor("enableDoubleClickEdit", false, false);
+    private final BooleanAttributeAccessor doubleClickEnabledAccesor = new BooleanAttributeAccessor(
+            "enableDoubleClickEdit", false, false);
 
-    private final BooleanAttributeAccessor enableDeleteAccesor =
-        new BooleanAttributeAccessor("enableDelete", true, false);
+    private final BooleanAttributeAccessor enableDeleteAccesor = new BooleanAttributeAccessor("enableDelete", true,
+            false);
 
-    private final BooleanAttributeAccessor renderAddonButtonsAddMode =
-        new BooleanAttributeAccessor("renderAddonButtonsInAddMode", true, false);
+    private final BooleanAttributeAccessor renderAddonButtonsAddMode = new BooleanAttributeAccessor(
+            "renderAddonButtonsInAddMode", true, false);
 
-    private final BooleanAttributeAccessor renderAddonButtonsEditMode =
-        new BooleanAttributeAccessor("renderAddonButtonsInEditMode", true, false);
+    private final BooleanAttributeAccessor renderAddonButtonsEditMode = new BooleanAttributeAccessor(
+            "renderAddonButtonsInEditMode", true, false);
 
     @SuppressWarnings("rawtypes")
-    private final AttributeAccessorImpl<EditableDataListModel> modelAccessor =
-        new AttributeAccessorImpl<>("model", EditableDataListModel.class, false);
+    private final AttributeAccessorImpl<EditableDataListModel> modelAccessor = new AttributeAccessorImpl<>("model",
+            EditableDataListModel.class, false);
 
-    private final AttributeAccessorImpl<String> requiredMessageKeyAccesor =
-        new AttributeAccessorImpl<>("requiredMessageKey", String.class, false);
+    private final AttributeAccessorImpl<String> requiredMessageKeyAccesor = new AttributeAccessorImpl<>(
+            "requiredMessageKey", String.class, false);
 
-    private final AttributeAccessorImpl<String> requiredMessageValueAccesor =
-        new AttributeAccessorImpl<>("requiredMessageValue", String.class, false);
+    private final AttributeAccessorImpl<String> requiredMessageValueAccesor = new AttributeAccessorImpl<>(
+            "requiredMessageValue", String.class, false);
 
-    private final AttributeAccessorImpl<String> emptyMessageKeyAccesor =
-        new AttributeAccessorImpl<>("emptyMessageKey", String.class, false);
+    private final AttributeAccessorImpl<String> emptyMessageKeyAccesor = new AttributeAccessorImpl<>("emptyMessageKey",
+            String.class, false);
 
-    private final AttributeAccessorImpl<String> emptyMessageValueAccesor =
-        new AttributeAccessorImpl<>("emptyMessageValue", String.class, false);
+    private final AttributeAccessorImpl<String> emptyMessageValueAccesor = new AttributeAccessorImpl<>(
+            "emptyMessageValue", String.class, false);
 
-    private final AttributeAccessorImpl<String> validatorsAccessor =
-        new AttributeAccessorImpl<>("modelValidator", String.class, false);
+    private final AttributeAccessorImpl<String> validatorsAccessor = new AttributeAccessorImpl<>("modelValidator",
+            String.class, false);
 
     private final BooleanAttributeAccessor requiredAccessor = new BooleanAttributeAccessor("required", false, false);
 
     /**
-     * @return the combined styleClass computed from the constants {@link CssBootstrap#LIST_GROUP},
-     *         and the configured styleClass-Attribute
+     * @return the combined styleClass computed from the constants
+     *         {@link CssBootstrap#LIST_GROUP}, and the configured
+     *         styleClass-Attribute
      */
     public String getWrapperStyleClass() {
-        var styleClassBuilder = CssBootstrap.LIST_GROUP.getStyleClassBuilder()
-                .append(super.getStyleClass());
+        var styleClassBuilder = CssBootstrap.LIST_GROUP.getStyleClassBuilder().append(super.getStyleClass());
         if (evaluateRequired()) {
             styleClassBuilder.append(CssCuiBootstrap.CUI_REQUIRED);
         }
@@ -91,7 +91,8 @@ public class EditableDataListComponent extends BaseCuiNamingContainer {
     /**
      * @param item
      *
-     * @return boolean indicating whether the delete button should be rendered for this item
+     * @return boolean indicating whether the delete button should be rendered for
+     *         this item
      */
     public boolean isDeleteButtonVisibleForItem(ItemWrapper<?> item) {
         return enableDeleteAccesor.value(getAttributes()) && !item.isMarkedForDelete();
@@ -100,7 +101,8 @@ public class EditableDataListComponent extends BaseCuiNamingContainer {
     /**
      * @param item
      *
-     * @return boolean indicating whether the undo button should be rendered for this item
+     * @return boolean indicating whether the undo button should be rendered for
+     *         this item
      */
     public boolean isUndoButtonVisibleForItem(ItemWrapper<?> item) {
         return enableDeleteAccesor.value(getAttributes()) && item.isMarkedForDelete();
@@ -109,8 +111,8 @@ public class EditableDataListComponent extends BaseCuiNamingContainer {
     /**
      * @param item
      *
-     * @return boolean indicating whether to render the addon-buttons group (add, cancel) in
-     *         add-mode or not.
+     * @return boolean indicating whether to render the addon-buttons group (add,
+     *         cancel) in add-mode or not.
      */
     public boolean isAddonButtonsInAddModeRendered(ItemWrapper<?> item) {
         return CREATED.equals(item.getAddStatus()) && renderAddonButtonsAddMode.value(getAttributes());
@@ -119,8 +121,8 @@ public class EditableDataListComponent extends BaseCuiNamingContainer {
     /**
      * @param item
      *
-     * @return boolean indicating whether to render the addon-buttons group (save, cancel) in
-     *         edit-mode or not.
+     * @return boolean indicating whether to render the addon-buttons group (save,
+     *         cancel) in edit-mode or not.
      */
     public boolean isAddonButtonsInEditModeRendered(ItemWrapper<?> item) {
         return !CREATED.equals(item.getAddStatus()) && renderAddonButtonsEditMode.value(getAttributes());
@@ -146,10 +148,7 @@ public class EditableDataListComponent extends BaseCuiNamingContainer {
      * @return String representation of the resolved error message
      */
     public String getResolvedErrorMessage() {
-        return LabelResolver.builder()
-                .withLabelKey(getErrorMessageKey())
-                .withLabelValue(getErrorMessageValue())
-                .build()
+        return LabelResolver.builder().withLabelKey(getErrorMessageKey()).withLabelValue(getErrorMessageValue()).build()
                 .resolve(getFacesContext());
     }
 
@@ -162,19 +161,14 @@ public class EditableDataListComponent extends BaseCuiNamingContainer {
      */
     public boolean isEmptyMessageRendered() {
         final EditableDataListModel<?> model = getModel();
-        return model.getDisplayItems().isEmpty()
-                && model.isEveryItemSavedOrCanceled()
-                && isEmptyMessageAvailable();
+        return model.getDisplayItems().isEmpty() && model.isEveryItemSavedOrCanceled() && isEmptyMessageAvailable();
     }
 
     /**
      * @return String representation of the resolved empty-elements message
      */
     public String getResolvedEmptyMessage() {
-        return LabelResolver.builder()
-                .withLabelKey(getEmptyMessageKey())
-                .withLabelValue(getEmptyMessageValue())
-                .build()
+        return LabelResolver.builder().withLabelKey(getEmptyMessageKey()).withLabelValue(getEmptyMessageValue()).build()
                 .resolve(getFacesContext());
     }
 
@@ -185,11 +179,10 @@ public class EditableDataListComponent extends BaseCuiNamingContainer {
 
     /**
      * @param facesContext
-     * @param component helper UIInput component
-     * @param value irrelevant
+     * @param component    helper UIInput component
+     * @param value        irrelevant
      */
-    public void validate(final FacesContext facesContext, UIComponent component,
-            Object value) {
+    public void validate(final FacesContext facesContext, UIComponent component, Object value) {
         validateRequired();
         validateModel(facesContext, component);
     }
@@ -214,8 +207,7 @@ public class EditableDataListComponent extends BaseCuiNamingContainer {
             final EditableDataListModel<?> model = getModel();
             for (final String validatorId : validatorIds) {
                 log.debug("Executing EditableDataList Validator: {}", validatorId);
-                facesContext.getApplication().createValidator(validatorId)
-                        .validate(facesContext, component, model);
+                facesContext.getApplication().createValidator(validatorId).validate(facesContext, component, model);
             }
         }
     }

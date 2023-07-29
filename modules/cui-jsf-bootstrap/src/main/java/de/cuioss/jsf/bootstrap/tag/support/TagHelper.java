@@ -30,8 +30,7 @@ import lombok.experimental.UtilityClass;
 public class TagHelper {
 
     /** Default exception message for an invalid value. */
-    public static final String INVALID_VALUE_EXCEPTION =
-        "Neither java.util.Collection, ConceptKeyType, nor String found for the value-attribute: %";
+    public static final String INVALID_VALUE_EXCEPTION = "Neither java.util.Collection, ConceptKeyType, nor String found for the value-attribute: %";
 
     /**
      * @param types
@@ -40,13 +39,11 @@ public class TagHelper {
      * @param contextSize
      * @param contextState
      *
-     * @return a {@link List} of {@link TagComponent}s representing the given ConceptKeys
+     * @return a {@link List} of {@link TagComponent}s representing the given
+     *         ConceptKeys
      */
-    public static List<TagComponent> createFromConceptKeys(final SortedSet<ConceptKeyType> types,
-            final Locale locale,
-            final boolean contentEscape,
-            final String contextSize,
-            final String contextState) {
+    public static List<TagComponent> createFromConceptKeys(final SortedSet<ConceptKeyType> types, final Locale locale,
+            final boolean contentEscape, final String contextSize, final String contextState) {
         final List<TagComponent> result = new ArrayList<>();
         for (final ConceptKeyType type : types) {
             result.add(createFromConceptKey(type, locale, contentEscape, contextSize, contextState));
@@ -63,11 +60,8 @@ public class TagHelper {
      *
      * @return an {@link TagComponent} instance representing the given ConceptKey
      */
-    public static TagComponent createFromConceptKey(final ConceptKeyType type,
-            final Locale locale,
-            final boolean contentEscape,
-            final String contextSize,
-            final String contextState) {
+    public static TagComponent createFromConceptKey(final ConceptKeyType type, final Locale locale,
+            final boolean contentEscape, final String contextSize, final String contextState) {
         final var tagComponent = new TagComponent();
         tagComponent.setContentEscape(contentEscape);
         final var resolved = type.getResolved(locale);
@@ -85,9 +79,9 @@ public class TagHelper {
      *
      * @param value to be used for creating a {@link ConceptKeyType} from.
      *
-     * @return {@link Optional} with created {@link ConceptKeyType} if the the given element is a
-     *         {@link String} or {@link ConceptKeyType} otherwise it will return
-     *         {@link Optional#empty()}
+     * @return {@link Optional} with created {@link ConceptKeyType} if the the given
+     *         element is a {@link String} or {@link ConceptKeyType} otherwise it
+     *         will return {@link Optional#empty()}
      */
     public static Optional<ConceptKeyType> resolveFrom(final Object value) {
         if (value instanceof ConceptKeyType) {
@@ -98,8 +92,7 @@ public class TagHelper {
             if (elementAsString.isEmpty()) {
                 return Optional.empty();
             }
-            return Optional.of(ConceptKeyTypeImpl.builder()
-                    .identifier(elementAsString)
+            return Optional.of(ConceptKeyTypeImpl.builder().identifier(elementAsString)
                     .labelResolver(new I18nDisplayNameProvider(elementAsString))
                     .category(new MissingTagConceptKeyCategory()).build());
         }
@@ -127,14 +120,12 @@ public class TagHelper {
                 final Collection<?> set = (Collection<?>) finalValue;
                 for (final Object element : set) {
                     values.add(resolveFrom(element).orElseThrow(
-                            () -> new IllegalArgumentException(String.format(INVALID_VALUE_EXCEPTION,
-                                    element))));
+                            () -> new IllegalArgumentException(String.format(INVALID_VALUE_EXCEPTION, element))));
                 }
 
             } else {
                 values.add(resolveFrom(finalValue).orElseThrow(
-                        () -> new IllegalArgumentException(String.format(INVALID_VALUE_EXCEPTION,
-                                finalValue))));
+                        () -> new IllegalArgumentException(String.format(INVALID_VALUE_EXCEPTION, finalValue))));
             }
         }
 
@@ -153,12 +144,8 @@ public class TagHelper {
      */
     @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
                                   // controlled by JSF
-    public static void writeDisabled(final FacesContext context,
-            final DecoratingResponseWriter<?> writer,
-            final List<TagComponent> tagsToDisplay,
-            final String style,
-            final String styleClass)
-        throws IOException {
+    public static void writeDisabled(final FacesContext context, final DecoratingResponseWriter<?> writer,
+            final List<TagComponent> tagsToDisplay, final String style, final String styleClass) throws IOException {
         writer.withStartElement(Node.UL);
         writer.withClientIdIfNecessary();
         writer.withPassThroughAttributes();

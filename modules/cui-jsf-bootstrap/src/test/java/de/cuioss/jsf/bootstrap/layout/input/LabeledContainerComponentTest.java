@@ -14,11 +14,11 @@ import de.cuioss.jsf.bootstrap.layout.input.support.MockComponentPlugin;
 import de.cuioss.test.jsf.component.AbstractUiComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 
-@VerifyComponentProperties(
-    of = { "placeholderKey", "placeholderValue", "titleKey", "titleValue", "placeholderConverter", "errorClass",
-        "forIdentifier", "renderMessage", "layoutMode", "titleConverter", "contentSize", "labelSize", "disabled",
-        "contentStyleClass", "labelStyleClass", "renderInputGroup" },
-    defaultValued = { "errorClass", "forIdentifier", "renderMessage", "layoutMode", "contentSize", "labelSize" })
+@VerifyComponentProperties(of = { "placeholderKey", "placeholderValue", "titleKey", "titleValue",
+        "placeholderConverter", "errorClass", "forIdentifier", "renderMessage", "layoutMode", "titleConverter",
+        "contentSize", "labelSize", "disabled", "contentStyleClass", "labelStyleClass",
+        "renderInputGroup" }, defaultValued = { "errorClass", "forIdentifier", "renderMessage", "layoutMode",
+                "contentSize", "labelSize" })
 class LabeledContainerComponentTest extends AbstractUiComponentTest<LabeledContainerComponent> {
 
     @Test

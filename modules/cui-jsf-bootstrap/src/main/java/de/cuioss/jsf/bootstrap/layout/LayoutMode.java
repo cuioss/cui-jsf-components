@@ -78,8 +78,7 @@ public enum LayoutMode {
      *
      * @param value must not be empty or null
      * @return LayoutMode fitting to value if allowed, default
-     *         {@linkplain LayoutMode#COLUMN}
-     *         otherwise
+     *         {@linkplain LayoutMode#COLUMN} otherwise
      * @throws NullPointerException if value is empty or null
      */
     public static LayoutMode transform(final String value) {

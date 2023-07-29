@@ -14,8 +14,6 @@ import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.converter.nameprovider.DisplayNameConverter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
-import de.cuioss.jsf.bootstrap.lazyloading.LazyLoadingComponent;
-import de.cuioss.jsf.bootstrap.lazyloading.LazyLoadingRenderer;
 import de.cuioss.jsf.bootstrap.notification.NotificationBoxComponent;
 import de.cuioss.jsf.bootstrap.notification.NotificationBoxRenderer;
 import de.cuioss.jsf.bootstrap.waitingindicator.WaitingIndicatorComponent;

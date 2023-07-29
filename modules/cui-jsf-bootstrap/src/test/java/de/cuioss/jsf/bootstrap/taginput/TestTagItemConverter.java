@@ -14,14 +14,12 @@ public class TestTagItemConverter implements Converter<ConceptKeyType> {
     public static final String ID = "test.TagItemConverter";
 
     @Override
-    public ConceptKeyType getAsObject(final FacesContext context, final UIComponent component,
-            final String value) {
+    public ConceptKeyType getAsObject(final FacesContext context, final UIComponent component, final String value) {
         return new TestConceptKey();
     }
 
     @Override
-    public String getAsString(final FacesContext context, final UIComponent component,
-            final ConceptKeyType value) {
+    public String getAsString(final FacesContext context, final UIComponent component, final ConceptKeyType value) {
         return "test";
     }
 }

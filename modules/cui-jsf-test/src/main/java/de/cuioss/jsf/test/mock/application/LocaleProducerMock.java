@@ -13,8 +13,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Mock implementation of {@link LocaleProducer}
- * It can be easily configured as bean by using {@link JsfTestConfiguration}
+ * Mock implementation of {@link LocaleProducer} It can be easily configured as
+ * bean by using {@link JsfTestConfiguration}
  *
  * @author Matthias Walliczek
  */

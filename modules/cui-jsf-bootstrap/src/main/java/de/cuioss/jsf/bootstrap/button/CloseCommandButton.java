@@ -12,8 +12,8 @@ import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 
 /**
- * Variant of {@link HtmlCommandButton} that can be directly used as a 'Close' button within a form
- * context.
+ * Variant of {@link HtmlCommandButton} that can be directly used as a 'Close'
+ * button within a form context.
  *
  * @author Oliver Wolff
  *
@@ -26,7 +26,6 @@ public class CloseCommandButton extends BaseCuiCommandButton {
      *
      */
     public CloseCommandButton() {
-        super();
         super.setRendererType(BootstrapFamily.CLOSE_COMMAND_BUTTON_RENDERER);
         getPassThroughAttributes(true).put(AttributeName.ARIA_LABEL.getContent(),
                 AttributeValue.ARIA_CLOSE.getContent());
@@ -39,7 +38,8 @@ public class CloseCommandButton extends BaseCuiCommandButton {
     }
 
     /**
-     * Shortcut for creating and casting a component of type {@link CloseCommandButton}.
+     * Shortcut for creating and casting a component of type
+     * {@link CloseCommandButton}.
      *
      * @param facesContext
      * @return a newly created {@link CloseCommandButton}

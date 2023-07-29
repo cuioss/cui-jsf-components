@@ -77,10 +77,7 @@ public abstract class JsObject implements JavaScriptSupport {
             return null;
         }
 
-        final var builder = new StringBuilder()
-                .append(objectName)
-                .append(": {")
-                .append(stringRepresentation)
+        final var builder = new StringBuilder().append(objectName).append(": {").append(stringRepresentation)
                 .append("}");
 
         return builder.toString();
@@ -93,10 +90,7 @@ public abstract class JsObject implements JavaScriptSupport {
             return null;
         }
 
-        final var builder = new StringBuilder()
-                .append("{")
-                .append(stringRepresentation)
-                .append("}");
+        final var builder = new StringBuilder().append("{").append(stringRepresentation).append("}");
 
         return builder.toString();
     }

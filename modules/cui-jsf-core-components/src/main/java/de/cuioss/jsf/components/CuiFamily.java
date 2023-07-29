@@ -8,7 +8,8 @@ import de.cuioss.jsf.components.typewatch.TypewatchComponent;
 import lombok.experimental.UtilityClass;
 
 /**
- * Simple Container for identifying cui components that are not related to twitter bootstrap
+ * Simple Container for identifying cui components that are not related to
+ * twitter bootstrap
  *
  * @author Oliver Wolff
  */
@@ -16,8 +17,7 @@ import lombok.experimental.UtilityClass;
 public final class CuiFamily {
 
     /** The component for {@link FieldsetComponent} */
-    public static final String FIELDSET_COMPONENT =
-        "de.cuioss.jsf.api.html.fieldset";
+    public static final String FIELDSET_COMPONENT = "de.cuioss.jsf.api.html.fieldset";
 
     /** Default Renderer for {@link FieldsetComponent} */
     public static final String FIELDSET_RENDERER = "de.cuioss.jsf.api.html.fieldset_renderer";

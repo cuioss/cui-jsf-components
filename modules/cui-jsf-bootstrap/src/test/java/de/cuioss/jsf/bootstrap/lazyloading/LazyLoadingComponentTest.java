@@ -1,11 +1,10 @@
 package de.cuioss.jsf.bootstrap.lazyloading;
 
-import de.cuioss.jsf.bootstrap.lazyloading.LazyLoadingComponent;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 
 @VerifyComponentProperties(of = { "initialized", "notificationBoxValue", "notificationBoxState", "renderContent",
-    "viewModel", "ignoreAutoUpdate" })
+        "viewModel", "ignoreAutoUpdate" })
 class LazyLoadingComponentTest extends AbstractComponentTest<LazyLoadingComponent> {
 
 }

@@ -35,9 +35,9 @@ import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.mocks.CuiMockSearchExpressionHandler;
 
 @VerifyComponentProperties(of = { "buttonAlign", "resetGuardIcon", "guardIcon", "guardButtonTitleKey",
-    "guardButtonTitleValue", "guardButtonTitleConverter", "guardButtonTitleEscape", "resetGuardButtonTitleKey",
-    "resetInputValue", "resetGuardButtonTitleValue", "resetGuardButtonTitleConverter", "update", "process",
-    "resetGuardButtonTitleEscape", "renderButtons" })
+        "guardButtonTitleValue", "guardButtonTitleConverter", "guardButtonTitleEscape", "resetGuardButtonTitleKey",
+        "resetInputValue", "resetGuardButtonTitleValue", "resetGuardButtonTitleConverter", "update", "process",
+        "resetGuardButtonTitleEscape", "renderButtons" })
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class InputGuardComponentTest extends AbstractComponentTest<InputGuardComponent> implements ComponentConfigurator {
 

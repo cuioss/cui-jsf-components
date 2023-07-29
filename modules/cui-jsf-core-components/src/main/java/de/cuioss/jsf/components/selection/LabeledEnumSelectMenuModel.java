@@ -27,14 +27,12 @@ import lombok.ToString;
  * {@link SelectItem}s provided by {@link #getSelectableValues()}
  *
  * @author Oliver Wolff
- * @param <T>
- *            enum bounded type. must be an enum <em>AND</em>
+ * @param <T> enum bounded type. must be an enum <em>AND</em>
  *            {@link IDisplayNameProvider}
  */
 @ToString(doNotUseGetters = true, exclude = "selectableValues")
 @EqualsAndHashCode(doNotUseGetters = true, exclude = "selectableValues")
-public class LabeledEnumSelectMenuModel<T extends Enum<T> & LabelKeyProvider>
-        implements SelectMenuModel<T> {
+public class LabeledEnumSelectMenuModel<T extends Enum<T> & LabelKeyProvider> implements SelectMenuModel<T> {
 
     private static final long serialVersionUID = -4856620883173044422L;
 
@@ -57,10 +55,8 @@ public class LabeledEnumSelectMenuModel<T extends Enum<T> & LabelKeyProvider>
     private transient Converter<T> wrappedConverter;
 
     /**
-     * @param enumClass
-     *            must not be null
-     * @param resourceBundle
-     *            must not be null. Used to derive the labels
+     * @param enumClass      must not be null
+     * @param resourceBundle must not be null. Used to derive the labels
      */
     public LabeledEnumSelectMenuModel(final Class<T> enumClass, final ResourceBundle resourceBundle) {
 

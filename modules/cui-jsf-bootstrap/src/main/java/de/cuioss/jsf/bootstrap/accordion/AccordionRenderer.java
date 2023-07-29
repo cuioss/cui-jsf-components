@@ -21,8 +21,7 @@ import de.cuioss.jsf.bootstrap.layout.BootstrapPanelComponent;
  * @author Matthias Walliczek
  * @author Sven Haag
  */
-@FacesRenderer(rendererType = BootstrapFamily.ACCORDION_RENDERER,
-        componentFamily = BootstrapFamily.COMPONENT_FAMILY)
+@FacesRenderer(rendererType = BootstrapFamily.ACCORDION_RENDERER, componentFamily = BootstrapFamily.COMPONENT_FAMILY)
 @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
                               // controlled by JSF
 public class AccordionRenderer extends BaseDecoratorRenderer<AccordionComponent> {
@@ -34,8 +33,7 @@ public class AccordionRenderer extends BaseDecoratorRenderer<AccordionComponent>
 
     @Override
     protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<AccordionComponent> writer,
-            final AccordionComponent component)
-        throws IOException {
+            final AccordionComponent component) throws IOException {
         writer.withStartElement(Node.DIV);
         writer.withStyleClass(CssBootstrap.PANEL_GROUP.getStyleClassBuilder().append(component.getStyleClass()));
         writer.withAttributeStyle(component.getStyle());
@@ -48,7 +46,7 @@ public class AccordionRenderer extends BaseDecoratorRenderer<AccordionComponent>
     @Override
     protected void doEncodeChildren(final FacesContext context,
             final DecoratingResponseWriter<AccordionComponent> writer, final AccordionComponent component)
-        throws IOException {
+            throws IOException {
 
         final var activeIndexes = component.resolveActiveIndexes();
 
@@ -76,8 +74,7 @@ public class AccordionRenderer extends BaseDecoratorRenderer<AccordionComponent>
 
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<AccordionComponent> writer,
-            final AccordionComponent component)
-        throws IOException {
+            final AccordionComponent component) throws IOException {
         writer.withEndElement(Node.DIV);
     }
 }

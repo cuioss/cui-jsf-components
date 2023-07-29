@@ -14,7 +14,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.cuioss.jsf.api.components.util.ComponentWrapper;
-import de.cuioss.jsf.bootstrap.selectize.Selectize;
 import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;

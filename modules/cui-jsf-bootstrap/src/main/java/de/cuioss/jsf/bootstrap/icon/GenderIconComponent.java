@@ -46,8 +46,7 @@ import de.cuioss.uimodel.model.Gender;
  * <li>gender: A representation on a concrete gender icon. In case #gender and
  * #genderString is defined #gender takes precedence.</li>
  * </ul>
- * <h2>Translation</h2>
- * The keys for the title are implicitly defined:
+ * <h2>Translation</h2> The keys for the title are implicitly defined:
  * <ul>
  * <li>cui.model.gender.male.title</li>
  * <li>cui.model.gender.female.title</li>
@@ -83,8 +82,7 @@ public class GenderIconComponent extends IconComponent {
     }
 
     /**
-     * @param gender
-     *            the gender to set
+     * @param gender the gender to set
      */
     public void setGender(final Gender gender) {
         state.put(GENDER_KEY, gender);
@@ -98,8 +96,7 @@ public class GenderIconComponent extends IconComponent {
     }
 
     /**
-     * @param genderString
-     *            the genderString to set
+     * @param genderString the genderString to set
      */
     public void setGenderString(final String genderString) {
         state.put(GENDER_STRING_KEY, genderString);

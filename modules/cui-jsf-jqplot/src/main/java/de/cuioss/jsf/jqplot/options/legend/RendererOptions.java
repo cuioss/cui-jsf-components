@@ -30,8 +30,7 @@ public class RendererOptions extends JsObject {
     /**
      * Maximum number of rows in the legend.
      *
-     * @param value
-     *            {Integer Boolean}
+     * @param value {Integer Boolean}
      * @return fluent api style
      */
     public RendererOptions setNumberRows(final Integer value) {
@@ -44,8 +43,7 @@ public class RendererOptions extends JsObject {
     /**
      * Maximum number of columns in the legend.
      *
-     * @param value
-     *            {Integer Boolean}
+     * @param value {Integer Boolean}
      * @return fluent api style
      */
     public RendererOptions setNumberColumns(final Integer value) {
@@ -58,8 +56,7 @@ public class RendererOptions extends JsObject {
     /**
      * false to not enable series on/off toggling on the legend.
      *
-     * @param value
-     *            {@link Boolean}
+     * @param value {@link Boolean}
      * @return fluent api style
      */
     public RendererOptions setSeriesToggle(final Boolean value) {
@@ -73,8 +70,7 @@ public class RendererOptions extends JsObject {
      * true to toggle series with a show/hide method only and not allow fading
      * in/out.
      *
-     * @param value
-     *            {@link Boolean}
+     * @param value {@link Boolean}
      * @return fluent api style
      */
     public RendererOptions setDisableIEFading(final Boolean value) {

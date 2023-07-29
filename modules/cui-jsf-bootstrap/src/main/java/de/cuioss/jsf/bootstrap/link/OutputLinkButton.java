@@ -28,8 +28,7 @@ import lombok.experimental.Delegate;
  *
  */
 @FacesComponent(BootstrapFamily.OUTPUT_LINK_BUTTON_COMPONENT)
-public class OutputLinkButton extends HtmlOutputLink
-        implements ComponentBridge, TitleProvider {
+public class OutputLinkButton extends HtmlOutputLink implements ComponentBridge, TitleProvider {
 
     @Delegate
     private final ContextSizeProvider contextSizeProvider;
@@ -55,7 +54,6 @@ public class OutputLinkButton extends HtmlOutputLink
      *
      */
     public OutputLinkButton() {
-        super();
         super.setRendererType(BootstrapFamily.OUTPUT_LINK_BUTTON_RENDERER);
         titleProvider = new TitleProviderImpl(this);
         contextSizeProvider = new ContextSizeProvider(this);
@@ -71,8 +69,7 @@ public class OutputLinkButton extends HtmlOutputLink
         return CssBootstrap.BUTTON.getStyleClassBuilder()
                 .append(ButtonState.getForContextState(contextStateProvider.getState()))
                 .append(ButtonSize.getForContextSize(contextSizeProvider.resolveContextSize()))
-                .append(styleClassProvider)
-                .getStyleClass();
+                .append(styleClassProvider).getStyleClass();
     }
 
     @Override
@@ -106,14 +103,16 @@ public class OutputLinkButton extends HtmlOutputLink
     }
 
     /**
-     * @return boolean indicating whether to display an icon on the right side of the button text
+     * @return boolean indicating whether to display an icon on the right side of
+     *         the button text
      */
     public boolean isDisplayIconRight() {
         return iconProvider.isIconSet() && AlignHolder.RIGHT.equals(iconAlignProvider.resolveIconAlign());
     }
 
     /**
-     * @return boolean indicating whether to display an icon on the left side of the button text
+     * @return boolean indicating whether to display an icon on the left side of the
+     *         button text
      */
     public boolean isDisplayIconLeft() {
         return iconProvider.isIconSet() && !AlignHolder.RIGHT.equals(iconAlignProvider.resolveIconAlign());

@@ -24,8 +24,7 @@ import de.cuioss.jsf.bootstrap.CssBootstrap;
  *
  * @author Matthias Walliczek
  */
-@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY,
-        rendererType = BootstrapFamily.NOTIFICATION_BOX_RENDERER)
+@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.NOTIFICATION_BOX_RENDERER)
 @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
                               // controlled by JSF
 public class NotificationBoxRenderer extends BaseDecoratorRenderer<NotificationBoxComponent> {
@@ -39,25 +38,24 @@ public class NotificationBoxRenderer extends BaseDecoratorRenderer<NotificationB
 
     private static String getAlertClassForState(final ContextState state) {
         switch (state) {
-            case SUCCESS:
-                return "alert-success";
-            case DANGER:
-                return "alert-danger";
-            case INFO:
-                return "alert-info";
-            case WARNING:
-                return "alert-warning";
-            // $CASES-OMITTED$
-            default:
-                return "";
+        case SUCCESS:
+            return "alert-success";
+        case DANGER:
+            return "alert-danger";
+        case INFO:
+            return "alert-info";
+        case WARNING:
+            return "alert-warning";
+        // $CASES-OMITTED$
+        default:
+            return "";
         }
     }
 
     @Override
     protected void doEncodeBegin(final FacesContext context,
-            final DecoratingResponseWriter<NotificationBoxComponent> writer,
-            final NotificationBoxComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<NotificationBoxComponent> writer, final NotificationBoxComponent component)
+            throws IOException {
         writer.withStartElement(Node.DIV);
         if (component.isDismissible() && null != component.getDismissListener()) {
             writer.withClientId();
@@ -97,9 +95,8 @@ public class NotificationBoxRenderer extends BaseDecoratorRenderer<NotificationB
 
     @Override
     protected void doEncodeEnd(final FacesContext context,
-            final DecoratingResponseWriter<NotificationBoxComponent> writer,
-            final NotificationBoxComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<NotificationBoxComponent> writer, final NotificationBoxComponent component)
+            throws IOException {
 
         writer.withEndElement(Node.DIV);
     }

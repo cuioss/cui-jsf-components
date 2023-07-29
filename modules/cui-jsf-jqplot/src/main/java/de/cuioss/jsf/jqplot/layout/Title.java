@@ -78,8 +78,8 @@ public class Title extends JsObject {
     private RendererOptions rendererOptions;
 
     /**
-     * True to escape special characters with their html entity equivalents in title text. "<"
-     * becomes &lt; and so on, so html tags are not rendered.
+     * True to escape special characters with their html entity equivalents in title
+     * text. "<" becomes &lt; and so on, so html tags are not rendered.
      */
     private JsBoolean escapeHtml;
 

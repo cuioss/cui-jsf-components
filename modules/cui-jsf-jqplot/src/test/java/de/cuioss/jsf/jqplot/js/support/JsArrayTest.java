@@ -9,8 +9,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.jqplot.js.support.JsArray;
-import de.cuioss.jsf.jqplot.js.support.JsValue;
 import de.cuioss.jsf.jqplot.js.types.JsString;
 import de.cuioss.test.valueobjects.ValueObjectTest;
 

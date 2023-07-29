@@ -35,10 +35,8 @@ import lombok.ToString;
  *
  * @author Oliver Wolff
  * @author Eugen Fischer
- * @param <K>
- *            key type must be {@link Serializable}
- * @param <T>
- *            object type must be {@link Serializable}
+ * @param <K> key type must be {@link Serializable}
+ * @param <T> object type must be {@link Serializable}
  */
 @ToString
 public class MapInstanceConverter<K extends Serializable, T extends Serializable> extends AbstractConverter<T>
@@ -59,8 +57,7 @@ public class MapInstanceConverter<K extends Serializable, T extends Serializable
     private boolean rescrictModeActive = true;
 
     /**
-     * @throws {@link
-     *             IllegalStateException}
+     * @throws {@link IllegalStateException}
      */
     @Override
     protected T convertToObject(final FacesContext context, final UIComponent component, final String value) {
@@ -102,20 +99,18 @@ public class MapInstanceConverter<K extends Serializable, T extends Serializable
     }
 
     /**
-     * @param instanceMap
-     *            the instanceMap to set. Must not be null
+     * @param instanceMap the instanceMap to set. Must not be null
      */
     public void setInstanceMap(final Map<K, T> instanceMap) {
         this.instanceMap = new HashMap<>(requireNonNull(instanceMap, "instanceMap must not be null."));
     }
 
     /**
-     * usage of {@link #setInstanceMap(Map)} is not enforced, so instanceMap
-     * could be null
+     * usage of {@link #setInstanceMap(Map)} is not enforced, so instanceMap could
+     * be null
      *
      * @return verified instanceMap
-     * @throws NullPointerException
-     *             if instanceMap is null
+     * @throws NullPointerException if instanceMap is null
      */
     private Map<K, T> getInstanceMap() {
         return requireNonNull(instanceMap, "instanceMap must not be null.");

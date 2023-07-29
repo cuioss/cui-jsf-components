@@ -11,8 +11,8 @@ import de.cuioss.test.jsf.config.decorator.BeanConfigDecorator;
 import de.cuioss.test.jsf.junit5.AbstractBeanTest;
 import de.cuioss.test.valueobjects.api.property.PropertyReflectionConfig;
 
-@PropertyReflectionConfig(
-        defaultValued = { "availableThemes", "defaultTheme", "cssName", "cssLibrary", "useMinVersion" })
+@PropertyReflectionConfig(defaultValued = { "availableThemes", "defaultTheme", "cssName", "cssLibrary",
+        "useMinVersion" })
 class ThemeConfigurationMockTest extends AbstractBeanTest<ThemeConfigurationMock> {
 
     @Test

@@ -11,7 +11,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Simple wrapping converter for {@link TextSplitter}. It is a formatting only converter.
+ * Simple wrapping converter for {@link TextSplitter}. It is a formatting only
+ * converter.
  *
  * @author Oliver Wolff
  */
@@ -27,7 +28,8 @@ public class TextSplittingConverter extends AbstractConverter<String> {
     private int forceLengthBreakCount = 15;
 
     /**
-     * Count of characters until the complete text will be abridged, defaults to 4096.
+     * Count of characters until the complete text will be abridged, defaults to
+     * 4096.
      */
     @Getter
     @Setter
@@ -35,12 +37,11 @@ public class TextSplittingConverter extends AbstractConverter<String> {
 
     @Override
     protected String convertToString(FacesContext context, UIComponent component, String value)
-        throws ConverterException {
+            throws ConverterException {
         var splittedText = new TextSplitter(value, forceLengthBreakCount, abridgedLengthCount)
                 .getTextWithEnforcedLineBreaks();
         if (null != splittedText && splittedText.length() > abridgedLengthCount) {
-            splittedText = new TextSplitter(splittedText, forceLengthBreakCount,
-                    abridgedLengthCount).getAbridgedText();
+            splittedText = new TextSplitter(splittedText, forceLengthBreakCount, abridgedLengthCount).getAbridgedText();
         }
         return splittedText;
     }

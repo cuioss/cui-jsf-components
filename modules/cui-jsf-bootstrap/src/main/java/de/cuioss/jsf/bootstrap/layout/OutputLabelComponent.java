@@ -15,8 +15,8 @@ import lombok.experimental.Delegate;
 
 /**
  * <p>
- * Renders an Label for input elements. The label and title is resolved using the cui standard
- * label-resolving mechanism.
+ * Renders an Label for input elements. The label and title is resolved using
+ * the cui standard label-resolving mechanism.
  * </p>
  * <h2>Attributes</h2>
  * <ul>
@@ -28,8 +28,7 @@ import lombok.experimental.Delegate;
  */
 @FacesComponent(BootstrapFamily.OUTPUT_LABEL_COMPONENT)
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
-public class OutputLabelComponent extends HtmlOutputLabel
-        implements ComponentBridge, TitleProvider {
+public class OutputLabelComponent extends HtmlOutputLabel implements ComponentBridge, TitleProvider {
 
     @Delegate
     private final LabelProvider labelProvider;
@@ -41,7 +40,6 @@ public class OutputLabelComponent extends HtmlOutputLabel
      *
      */
     public OutputLabelComponent() {
-        super();
         labelProvider = new LabelProvider(this);
         titleProvider = new TitleProviderImpl(this);
     }

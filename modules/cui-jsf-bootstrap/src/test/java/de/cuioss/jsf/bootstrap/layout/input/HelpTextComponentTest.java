@@ -16,8 +16,8 @@ import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 
-@VerifyComponentProperties(
-        of = { "titleKey", "titleValue", "contentKey", "contentValue", "contentEscape", "buttonAlign", "renderButton" })
+@VerifyComponentProperties(of = { "titleKey", "titleValue", "contentKey", "contentValue", "contentEscape",
+        "buttonAlign", "renderButton" })
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class HelpTextComponentTest extends AbstractComponentTest<HelpTextComponent> implements ComponentConfigurator {
 

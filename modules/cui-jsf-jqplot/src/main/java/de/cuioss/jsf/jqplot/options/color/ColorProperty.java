@@ -10,8 +10,9 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Color property combine {@linkplain Color} as {@linkplain JsValue} and {@linkplain JsProperty} to
- * be able to provide simple way to add any color property to an complex {@linkplain JsObject}
+ * Color property combine {@linkplain Color} as {@linkplain JsValue} and
+ * {@linkplain JsProperty} to be able to provide simple way to add any color
+ * property to an complex {@linkplain JsObject}
  *
  * @author Eugen Fischer
  */
@@ -26,8 +27,8 @@ public class ColorProperty implements JavaScriptSupport {
     private Color colorValue;
 
     /**
-     * Create a ColorProperty which has empty color value. This means it will be ignored on creation
-     * of JSON object
+     * Create a ColorProperty which has empty color value. This means it will be
+     * ignored on creation of JSON object
      *
      * @param propertyName must not be {@code null} or empty
      */
@@ -47,8 +48,8 @@ public class ColorProperty implements JavaScriptSupport {
     }
 
     /**
-     * Set color value for property. If parameter color is {@code null} or empty color value will be
-     * set to {@linkplain Color#TRANSPARENT}
+     * Set color value for property. If parameter color is {@code null} or empty
+     * color value will be set to {@linkplain Color#TRANSPARENT}
      *
      * @param color any css color value representation.
      */

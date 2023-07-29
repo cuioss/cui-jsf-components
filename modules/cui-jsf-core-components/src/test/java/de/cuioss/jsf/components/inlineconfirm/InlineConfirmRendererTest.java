@@ -20,7 +20,7 @@ import de.cuioss.test.jsf.renderer.CommonRendererAsserts;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @VetoRenderAttributeAssert({ CommonRendererAsserts.STYLE, CommonRendererAsserts.STYLE_CLASS,
-    CommonRendererAsserts.PASSTHROUGH, CommonRendererAsserts.ID })
+        CommonRendererAsserts.PASSTHROUGH, CommonRendererAsserts.ID })
 class InlineConfirmRendererTest extends AbstractComponentRendererTest<InlineConfirmRenderer> {
 
     @Override
@@ -36,8 +36,7 @@ class InlineConfirmRendererTest extends AbstractComponentRendererTest<InlineConf
 
     @Test
     void shouldRenderMinimal() {
-        var expected =
-            new HtmlTreeBuilder().withNode(Node.BUTTON).withAttribute(DATA_IDENTIFIER, DATA_IDENTIFIER);
+        var expected = new HtmlTreeBuilder().withNode(Node.BUTTON).withAttribute(DATA_IDENTIFIER, DATA_IDENTIFIER);
         expected.currentHierarchyUp().withNode(Node.BUTTON)
                 .withAttribute(DATA_TARGET_IDENTIFIER, DATA_TARGET_IDENTIFIER).withAttribute(AttributeName.STYLE,
                         AttributeValue.STYLE_DISPLAY_NONE.getContent() + "border-radius: 3px;");

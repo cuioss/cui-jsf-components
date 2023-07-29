@@ -14,8 +14,8 @@ import lombok.ToString;
 
 /**
  * Mock implementation of {@link ThemeNameProducer} that default to
- * {@link ThemeConfigurationMock#DEFAULT_THEME}
- * It can be easily configured as bean by using {@link JsfTestConfiguration}
+ * {@link ThemeConfigurationMock#DEFAULT_THEME} It can be easily configured as
+ * bean by using {@link JsfTestConfiguration}
  *
  * @author Oliver Wolff
  */

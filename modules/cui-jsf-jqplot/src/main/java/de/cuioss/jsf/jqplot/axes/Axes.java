@@ -47,8 +47,8 @@ public class Axes extends JsObject implements IPluginConsumer {
     private Axis checkAxis(final Axis axis) {
         for (final Axis element : axisList) {
             if (element.getType().equals(axis.getType())) {
-                throw new IllegalArgumentException(String.format(
-                        "Attention you try to add allreay existing axis [%s]", axis));
+                throw new IllegalArgumentException(
+                        String.format("Attention you try to add allreay existing axis [%s]", axis));
             }
         }
         return axis;
@@ -84,7 +84,6 @@ public class Axes extends JsObject implements IPluginConsumer {
     public int hashCode() {
         final var prime = 31;
         var result = axisList.hashCode();
-        result = prime * result + plugins.hashCode();
-        return result;
+        return prime * result + plugins.hashCode();
     }
 }

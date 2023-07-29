@@ -51,13 +51,11 @@ public class LineBreakConverter extends AbstractConverter<String> {
     private String delimiter = "<br>";
 
     @Override
-    protected String convertToString(final FacesContext context, final UIComponent component,
-            final String value) {
+    protected String convertToString(final FacesContext context, final UIComponent component, final String value) {
 
         var lines = new ArrayList<String>();
 
-        try (var bufferedReader =
-            new BufferedReader(new StringReader(sanitizer.apply(value)))) {
+        try (var bufferedReader = new BufferedReader(new StringReader(sanitizer.apply(value)))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 lines.add(line);

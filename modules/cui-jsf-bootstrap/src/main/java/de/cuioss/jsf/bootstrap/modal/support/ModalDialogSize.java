@@ -44,12 +44,12 @@ public enum ModalDialogSize implements StyleClassProvider {
     }
 
     /**
-     * @param size
-     *            May be null, otherwise must be one of "lg", "sm", "default" or "fluid"
+     * @param size May be null, otherwise must be one of "lg", "sm", "default" or
+     *             "fluid"
      * @return the corresponding {@link ModalDialogSize} derived by the given
-     *         string. In case of <code>contextSize==null</code> it
-     *         will return {@link ModalDialogSize#DEFAULT}. In case it is none of the
-     *         supported sizes it will throw an {@link IllegalArgumentException}
+     *         string. In case of <code>contextSize==null</code> it will return
+     *         {@link ModalDialogSize#DEFAULT}. In case it is none of the supported
+     *         sizes it will throw an {@link IllegalArgumentException}
      */
     public static final ModalDialogSize getFromString(final String size) {
         if (nullToEmpty(size).trim().isEmpty()) {

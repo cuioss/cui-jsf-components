@@ -34,11 +34,8 @@ public class NavigationMenuSeparatorRenderer {
      */
     @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
                                   // controlled by JSF
-    static void render(DecoratingResponseWriter<NavigationMenuComponent> writer,
-            NavigationMenuItemSeparator model,
-            NavigationMenuComponent component,
-            final String idExtension)
-        throws IOException {
+    static void render(DecoratingResponseWriter<NavigationMenuComponent> writer, NavigationMenuItemSeparator model,
+            NavigationMenuComponent component, final String idExtension) throws IOException {
         if (!model.isRendered()) {
             return;
         }

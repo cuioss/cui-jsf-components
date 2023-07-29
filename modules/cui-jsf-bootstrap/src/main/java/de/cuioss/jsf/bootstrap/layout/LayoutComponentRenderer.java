@@ -16,8 +16,7 @@ import de.cuioss.jsf.bootstrap.BootstrapFamily;
  *
  * @author Oliver Wolff
  */
-@FacesRenderer(rendererType = BootstrapFamily.LAYOUT_RENDERER,
-        componentFamily = BootstrapFamily.COMPONENT_FAMILY)
+@FacesRenderer(rendererType = BootstrapFamily.LAYOUT_RENDERER, componentFamily = BootstrapFamily.COMPONENT_FAMILY)
 @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
                               // controlled by JSF
 public class LayoutComponentRenderer extends BaseDecoratorRenderer<AbstractLayoutComponent> {
@@ -30,9 +29,8 @@ public class LayoutComponentRenderer extends BaseDecoratorRenderer<AbstractLayou
 
     @Override
     protected void doEncodeBegin(final FacesContext context,
-            final DecoratingResponseWriter<AbstractLayoutComponent> writer,
-            final AbstractLayoutComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<AbstractLayoutComponent> writer, final AbstractLayoutComponent component)
+            throws IOException {
         writer.withStartElement(Node.DIV);
         writer.withStyleClass(component.resolveStyleClass());
         writer.withAttributeStyle(component.getStyle());
@@ -42,9 +40,8 @@ public class LayoutComponentRenderer extends BaseDecoratorRenderer<AbstractLayou
 
     @Override
     protected void doEncodeEnd(final FacesContext context,
-            final DecoratingResponseWriter<AbstractLayoutComponent> writer,
-            final AbstractLayoutComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<AbstractLayoutComponent> writer, final AbstractLayoutComponent component)
+            throws IOException {
         writer.withEndElement(Node.DIV);
     }
 }

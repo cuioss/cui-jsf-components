@@ -13,8 +13,7 @@ import de.cuioss.jsf.bootstrap.BootstrapFamily;
 /**
  * Renderer for {@linkplain WaitingIndicatorComponent}.
  */
-@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY,
-        rendererType = BootstrapFamily.WAITING_INDICATOR_RENDERER)
+@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.WAITING_INDICATOR_RENDERER)
 public class WaitingIndicatorRenderer extends BaseDecoratorRenderer<WaitingIndicatorComponent> {
 
     /**
@@ -28,8 +27,7 @@ public class WaitingIndicatorRenderer extends BaseDecoratorRenderer<WaitingIndic
     @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
                                   // controlled by JSF
     protected void doEncodeEnd(FacesContext context, DecoratingResponseWriter<WaitingIndicatorComponent> writer,
-            WaitingIndicatorComponent component)
-        throws IOException {
+            WaitingIndicatorComponent component) throws IOException {
 
         // Write element
         writer.withStartElement(Node.DIV);

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.jqplot.js.support.JsObject;
 import de.cuioss.jsf.jqplot.js.support.testobjects.TestObject1;
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.valueobjects.ValueObjectTest;

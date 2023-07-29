@@ -19,12 +19,12 @@ class GridThemeTest extends ValueObjectTest<GridTheme> implements TypedGenerator
 
     @Test
     void shouldAccecptValidCssStructureAndRetrieveBackgroundColor() {
-        final String cssText = "someRule{" + "-jqplot-drawGridlines:false;" + "-jqplot-backgroundColor:green" + "}";
+        final var cssText = "someRule{" + "-jqplot-drawGridlines:false;" + "-jqplot-backgroundColor:green" + "}";
         underTest = GridTheme.createBy(from(cssText));
 
         assertEquals("green", underTest.getBackgroundColor());
 
-        final String backgroundColorAsJs = underTest.getBackgroundColorAsJs();
+        final var backgroundColorAsJs = underTest.getBackgroundColorAsJs();
         assertEquals("\"green\"", backgroundColorAsJs);
         // check lazy loaded
         assertEquals(underTest.getBackgroundColorAsJs(), backgroundColorAsJs);

@@ -40,8 +40,7 @@ public class TickOptions extends JsObject implements ILabelDecorator<TickOptions
     /**
      * wether or not to draw the gridline on the grid at this tick.
      *
-     * @param value
-     *            {@link Boolean}
+     * @param value {@link Boolean}
      * @return fluent api style
      */
     public TickOptions setShowGridline(final Boolean value) {
@@ -54,8 +53,7 @@ public class TickOptions extends JsObject implements ILabelDecorator<TickOptions
     /**
      * wether or not to show the mark on the axis.
      *
-     * @param value
-     *            {@link Boolean}
+     * @param value {@link Boolean}
      * @return fluent api style
      */
     public TickOptions setShowMark(final Boolean value) {
@@ -64,12 +62,11 @@ public class TickOptions extends JsObject implements ILabelDecorator<TickOptions
     }
 
     /**
-     * Set date time format (supported are Joda / Java date formats). Manual
-     * changes could be done by using {@linkplain #setFormatString(String)}, but
-     * you need to take care about correct formatting <br>
+     * Set date time format (supported are Joda / Java date formats). Manual changes
+     * could be done by using {@linkplain #setFormatString(String)}, but you need to
+     * take care about correct formatting <br>
      *
-     * @param value
-     *            pattern value (empty value is ignored)
+     * @param value pattern value (empty value is ignored)
      * @return fluent api style
      * @see <a href="http://sandbox.kendsnyder.com/date/?q=sandbox/date/#src" >
      *      Date</a>

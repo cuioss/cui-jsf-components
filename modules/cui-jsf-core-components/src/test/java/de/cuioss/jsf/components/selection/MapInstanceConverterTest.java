@@ -6,8 +6,7 @@ import java.util.Map;
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
 
-class MapInstanceConverterTest extends
-        AbstractConverterTest<MapInstanceConverter<String, String>, String> {
+class MapInstanceConverterTest extends AbstractConverterTest<MapInstanceConverter<String, String>, String> {
 
     @Override
     public void configure(final MapInstanceConverter<String, String> toBeConfigured) {

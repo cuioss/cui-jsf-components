@@ -44,8 +44,7 @@ import lombok.experimental.Delegate;
  * @author Oliver Wolff
  */
 @FacesComponent(BootstrapFamily.ICON_COMPONENT)
-public class IconComponent extends AbstractBaseCuiComponent
-        implements TitleProvider {
+public class IconComponent extends AbstractBaseCuiComponent implements TitleProvider {
 
     @Delegate
     private final TitleProvider titleProvider;
@@ -63,7 +62,6 @@ public class IconComponent extends AbstractBaseCuiComponent
     *
     */
     public IconComponent() {
-        super();
         super.setRendererType(BootstrapFamily.ICON_COMPONENT_RENDERER);
         titleProvider = new TitleProviderImpl(this);
         contextSizeProvider = new ContextSizeProvider(this);

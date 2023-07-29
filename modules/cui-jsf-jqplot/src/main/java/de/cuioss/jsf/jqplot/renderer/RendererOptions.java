@@ -11,7 +11,8 @@ import lombok.EqualsAndHashCode;
 
 /**
  * @author Eugen Fischer
- * @see <a href="http://www.jqplot.com/docs/files/jqplot-markerRenderer-js.html">MarkerRenderer</a>
+ * @see <a href=
+ *      "http://www.jqplot.com/docs/files/jqplot-markerRenderer-js.html">MarkerRenderer</a>
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

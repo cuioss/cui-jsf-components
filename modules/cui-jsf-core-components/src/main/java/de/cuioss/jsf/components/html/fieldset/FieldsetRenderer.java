@@ -28,8 +28,7 @@ public class FieldsetRenderer extends BaseDecoratorRenderer<FieldsetComponent> {
 
     @Override
     protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<FieldsetComponent> writer,
-            final FieldsetComponent component)
-        throws IOException {
+            final FieldsetComponent component) throws IOException {
 
         writer.withStartElement(Node.FIELDSET);
         writer.withClientIdIfNecessary();
@@ -47,8 +46,7 @@ public class FieldsetRenderer extends BaseDecoratorRenderer<FieldsetComponent> {
 
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<FieldsetComponent> writer,
-            final FieldsetComponent component)
-        throws IOException {
+            final FieldsetComponent component) throws IOException {
         writer.withEndElement(Node.FIELDSET);
     }
 }

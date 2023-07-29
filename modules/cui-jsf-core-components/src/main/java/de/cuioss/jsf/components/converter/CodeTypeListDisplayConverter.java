@@ -37,8 +37,7 @@ public class CodeTypeListDisplayConverter extends AbstractConverter<Collection<?
 
     @Override
     protected String convertToString(final FacesContext context, final UIComponent component,
-            final Collection<? extends CodeType> value)
-        throws ConverterException {
+            final Collection<? extends CodeType> value) throws ConverterException {
         var locale = localeProducerAccessor.getValue().getLocale();
         return Joiner.on(separator).skipNulls()
                 .join(value.stream().map(code -> code.getResolved(locale)).collect(Collectors.toList()));

@@ -11,9 +11,9 @@ class EmailValidatorTest extends AbstractValidatorTest<EmailValidator, String> {
     @Override
     public void populate(final TestItems<String> testItems) {
         testItems.addInvalid("a").addValid("test@cuioss.de")
-                .addValid("7f9a39ff-d8e8-6de3-c81d-77c8c6b20445@example.com")
-                .addInvalid("abc").addInvalid("ab-c@de-f@ghi").addValid("ab-c@de-fghi")
-                .addValid("abc@def").addValid("123@456").addValid("?%&äö.ü-_@?%&_ä.ö-ü");
+                .addValid("7f9a39ff-d8e8-6de3-c81d-77c8c6b20445@example.com").addInvalid("abc")
+                .addInvalid("ab-c@de-f@ghi").addValid("ab-c@de-fghi").addValid("abc@def").addValid("123@456")
+                .addValid("?%&äö.ü-_@?%&_ä.ö-ü");
     }
 
 }

@@ -35,7 +35,8 @@ public interface IShadowDecoration<T extends Serializable> {
     T setShadowOffset(final Integer value);
 
     /**
-     * Number of times shadow is stroked, each stroke offset shadowOffset from the last.
+     * Number of times shadow is stroked, each stroke offset shadowOffset from the
+     * last.
      *
      * @param value Integer
      * @return fluent api style

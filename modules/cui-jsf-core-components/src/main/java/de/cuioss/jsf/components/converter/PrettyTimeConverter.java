@@ -22,10 +22,11 @@ import de.cuioss.jsf.api.converter.AbstractConverter;
 
 /**
  * Converter to display a {@link Date}, {@link Calendar}, {@link LocalDateTime},
- * {@link ZonedDateTime} or {@link LocalDate} as pretty time. If it detects a {@link LocalDate} it
- * uses {@link LocalDate#atStartOfDay()} in order to set a defined point in time. It
- * loads the current {@link Locale} using the {@link LocaleProducerAccessor}. If
- * you want to use it you need the dependency at runtime
+ * {@link ZonedDateTime} or {@link LocalDate} as pretty time. If it detects a
+ * {@link LocalDate} it uses {@link LocalDate#atStartOfDay()} in order to set a
+ * defined point in time. It loads the current {@link Locale} using the
+ * {@link LocaleProducerAccessor}. If you want to use it you need the dependency
+ * at runtime
  *
  * <pre>
  * {@code
@@ -41,17 +42,15 @@ public class PrettyTimeConverter extends AbstractConverter<Object> {
     // See
     // https://github.com/ocpsoft/prettytime/blob/master/jsf/src/main/java/org/ocpsoft/prettytime/jsf/PrettyTimeConverter.java
     private static final int CACHE_SIZE = 20;
-    private static final Map<Locale, PrettyTime> PRETTY_TIME_MAP =
-        new LinkedHashMap<>(CACHE_SIZE + 1,
-                1.1F, true) {
+    private static final Map<Locale, PrettyTime> PRETTY_TIME_MAP = new LinkedHashMap<>(CACHE_SIZE + 1, 1.1F, true) {
 
-            private static final long serialVersionUID = -8941794067746423324L;
+        private static final long serialVersionUID = -8941794067746423324L;
 
-            @Override
-            protected boolean removeEldestEntry(final Map.Entry<Locale, PrettyTime> eldest) {
-                return size() > CACHE_SIZE;
-            }
-        };
+        @Override
+        protected boolean removeEldestEntry(final Map.Entry<Locale, PrettyTime> eldest) {
+            return size() > CACHE_SIZE;
+        }
+    };
 
     private final LocaleProducerAccessor localeProducerAccessor = new LocaleProducerAccessor();
 
@@ -68,9 +67,8 @@ public class PrettyTimeConverter extends AbstractConverter<Object> {
     }
 
     @Override
-    protected String convertToString(final FacesContext context, final UIComponent component,
-            final Object value)
-        throws ConverterException {
+    protected String convertToString(final FacesContext context, final UIComponent component, final Object value)
+            throws ConverterException {
         Date toBeConverted = null;
         if (value instanceof Date) {
             toBeConverted = (Date) value;

@@ -19,8 +19,7 @@ import lombok.experimental.Delegate;
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
-public class MarkerRendererOptions extends RendererOptions implements
-        IShadowDecoration<MarkerRendererOptions> {
+public class MarkerRendererOptions extends RendererOptions implements IShadowDecoration<MarkerRendererOptions> {
 
     /** serial Version UID */
     private static final long serialVersionUID = 2131890465908857384L;
@@ -39,7 +38,8 @@ public class MarkerRendererOptions extends RendererOptions implements
     private PointStyle style;
 
     /**
-     * One of diamond, circle, square, x, plus, dash, filledDiamond, filledCircle, filledSquare
+     * One of diamond, circle, square, x, plus, dash, filledDiamond, filledCircle,
+     * filledSquare
      *
      * @param value {@link PointStyle}
      * @return fluent api style

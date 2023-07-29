@@ -14,8 +14,8 @@ import de.cuioss.test.generator.junit.EnableGeneratorController;
 @EnableGeneratorController
 class TagSizeTest {
 
-    private final TypedGenerator<ContextSize> validSizes =
-        Generators.fixedValues(ContextSize.LG, ContextSize.DEFAULT, ContextSize.XL, ContextSize.SM);
+    private final TypedGenerator<ContextSize> validSizes = Generators.fixedValues(ContextSize.LG, ContextSize.DEFAULT,
+            ContextSize.XL, ContextSize.SM);
 
     @Test
     void shouldReturnValueOnValidSize() {

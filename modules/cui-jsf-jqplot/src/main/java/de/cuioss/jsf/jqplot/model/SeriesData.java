@@ -12,12 +12,13 @@ import lombok.NonNull;
 import lombok.ToString;
 
 /**
- * user's data. Data should *NOT* be specified in the options object,
- * but be passed in as the second argument to the $.jqplot() function.
- * The data property is described here soley for reference.
- * The data should be in the form of an array of 2D or 1D arrays like
+ * user's data. Data should *NOT* be specified in the options object, but be
+ * passed in as the second argument to the $.jqplot() function. The data
+ * property is described here soley for reference. The data should be in the
+ * form of an array of 2D or 1D arrays like
  * {@code [ [[x1, y1], [x2, y2],...], [y1, y2, ...] ]}. <br>
- * In sum it's a list of lists which could represent single or tuple data for different series.
+ * In sum it's a list of lists which could represent single or tuple data for
+ * different series.
  *
  * @author Eugen Fischer ( Eugen Fischer )
  */
@@ -82,8 +83,7 @@ public class SeriesData implements JavaScriptSupport {
          * @param format
          * @return {@link TimeLineSeria}
          */
-        public TimeLineSeria<Double> createTimeLineWithDoubleValues(
-                @NonNull final JsDateTimeFormat format) {
+        public TimeLineSeria<Double> createTimeLineWithDoubleValues(@NonNull final JsDateTimeFormat format) {
             final var timeLineSeria = new TimeLineSeria<Double>(format);
             candidates.add(timeLineSeria);
             return timeLineSeria;
@@ -93,8 +93,7 @@ public class SeriesData implements JavaScriptSupport {
          * @param format
          * @return {@link TimeLineSeria}
          */
-        public TimeLineSeria<Integer> createTimeLineWithIntegerValues(
-                @NonNull final JsDateTimeFormat format) {
+        public TimeLineSeria<Integer> createTimeLineWithIntegerValues(@NonNull final JsDateTimeFormat format) {
             final var timeLineSeria = new TimeLineSeria<Integer>(format);
             candidates.add(timeLineSeria);
             return timeLineSeria;

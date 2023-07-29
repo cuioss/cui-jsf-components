@@ -20,8 +20,8 @@ import lombok.ToString;
  * Mock Implementation of {@link ThemeConfiguration} with
  * {@value #DEFAULT_THEME} as {@link ThemeConfiguration#getDefaultTheme()} and
  * {@link ThemeConfigurationMock#AVAILABLE_THEMES} as
- * {@link ThemeConfiguration#getAvailableThemes()}
- * It can be easily configured as bean by using {@link JsfTestConfiguration}
+ * {@link ThemeConfiguration#getAvailableThemes()} It can be easily configured
+ * as bean by using {@link JsfTestConfiguration}
  *
  * @author Oliver Wolff
  */
@@ -36,8 +36,7 @@ public class ThemeConfigurationMock implements ThemeConfiguration, Serializable,
     public static final String DEFAULT_THEME = "Default";
 
     /** "Default", "High-Contrast" */
-    public static final List<String> AVAILABLE_THEMES = immutableList(DEFAULT_THEME,
-            HIGH_CONTRAST);
+    public static final List<String> AVAILABLE_THEMES = immutableList(DEFAULT_THEME, HIGH_CONTRAST);
 
     private static final long serialVersionUID = 5242120351578770611L;
 

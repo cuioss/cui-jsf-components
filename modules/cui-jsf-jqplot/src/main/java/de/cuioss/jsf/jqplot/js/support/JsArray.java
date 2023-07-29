@@ -9,9 +9,11 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * An array is an ordered collection of values. An array begins with [ (left bracket)<br>
+ * An array is an ordered collection of values. An array begins with [ (left
+ * bracket)<br>
  * and ends with ] (right bracket). Values are separated by , (comma).<br>
- * An array could be nested. Thats the reason why it's also implements the interface {@link JsValue}
+ * An array could be nested. Thats the reason why it's also implements the
+ * interface {@link JsValue}
  *
  * @see <a href="http://www.json.org/">json.org</a>
  * @author Eugen Fischer
@@ -19,8 +21,7 @@ import lombok.ToString;
  */
 @ToString
 @EqualsAndHashCode
-public class JsArray<T extends JsValue> implements JavaScriptSupport, JsValue,
-        Iterable<T> {
+public class JsArray<T extends JsValue> implements JavaScriptSupport, JsValue, Iterable<T> {
 
     private static final long serialVersionUID = 4745761442808870666L;
 
@@ -64,8 +65,8 @@ public class JsArray<T extends JsValue> implements JavaScriptSupport, JsValue,
     }
 
     /**
-     * An array is an ordered collection of values. An array begins with [ (left bracket) and ends
-     * with ] (right bracket). Values are separated by , (comma).
+     * An array is an ordered collection of values. An array begins with [ (left
+     * bracket) and ends with ] (right bracket). Values are separated by , (comma).
      * If no items exits, <b>empty</b> array representation will be created.
      */
     @Override
@@ -75,10 +76,7 @@ public class JsArray<T extends JsValue> implements JavaScriptSupport, JsValue,
             return "[]";
         }
 
-        final var builder = new StringBuilder()
-                .append("[")
-                .append(transformedArray())
-                .append("]");
+        final var builder = new StringBuilder().append("[").append(transformedArray()).append("]");
 
         return builder.toString();
     }

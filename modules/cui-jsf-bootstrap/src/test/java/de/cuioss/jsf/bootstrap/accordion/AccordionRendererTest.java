@@ -44,9 +44,9 @@ class AccordionRendererTest extends AbstractComponentRendererTest<AccordionRende
 
     @Test
     void shouldRenderMinimal() {
-        final var expected = new HtmlTreeBuilder().withNode(Node.DIV)
-                .withStyleClass(CssBootstrap.PANEL_GROUP).withAttribute(AttributeName.ID, DEFAULT_ID)
-                .withAttribute(AttributeName.NAME, DEFAULT_ID).withAttribute(AttributeName.ROLE, "tablist")
+        final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.PANEL_GROUP)
+                .withAttribute(AttributeName.ID, DEFAULT_ID).withAttribute(AttributeName.NAME, DEFAULT_ID)
+                .withAttribute(AttributeName.ROLE, "tablist")
                 .withAttribute(AttributeName.ARIA_MULTISELECTABLE, AttributeValue.FALSE);
         assertRenderResult(new AccordionComponent(), expected.getDocument());
     }

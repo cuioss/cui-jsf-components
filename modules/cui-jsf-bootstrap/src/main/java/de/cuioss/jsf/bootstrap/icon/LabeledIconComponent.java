@@ -44,8 +44,7 @@ import lombok.experimental.Delegate;
  *
  */
 @FacesComponent(BootstrapFamily.LABELED_ICON_COMPONENT)
-public class LabeledIconComponent extends AbstractBaseCuiComponent
-        implements TitleProvider {
+public class LabeledIconComponent extends AbstractBaseCuiComponent implements TitleProvider {
 
     @Delegate
     private final TitleProvider titleProvider;
@@ -63,7 +62,6 @@ public class LabeledIconComponent extends AbstractBaseCuiComponent
      *
      */
     public LabeledIconComponent() {
-        super();
         super.setRendererType(BootstrapFamily.LABELED_ICON_COMPONENT_RENDERER);
         titleProvider = new TitleProviderImpl(this);
         iconProvider = new IconProvider(this);

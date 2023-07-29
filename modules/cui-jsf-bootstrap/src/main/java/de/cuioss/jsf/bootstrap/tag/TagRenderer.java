@@ -31,8 +31,7 @@ import de.cuioss.tools.string.MoreStrings;
  */
 
 @ResourceDependency(library = "thirdparty.js", name = "selectize.js", target = "head")
-@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY,
-        rendererType = BootstrapFamily.TAG_COMPONENT_RENDERER)
+@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.TAG_COMPONENT_RENDERER)
 @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
                               // controlled by JSF
 public class TagRenderer extends BaseDecoratorRenderer<TagComponent> {
@@ -46,8 +45,7 @@ public class TagRenderer extends BaseDecoratorRenderer<TagComponent> {
 
     @Override
     protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<TagComponent> writer,
-            final TagComponent component)
-        throws IOException {
+            final TagComponent component) throws IOException {
         // Write element
         writer.withStartElement(Node.DIV);
         writer.withStyleClass(computeStyleClass(component));
@@ -63,8 +61,7 @@ public class TagRenderer extends BaseDecoratorRenderer<TagComponent> {
             // no additional ClientBehavior defined and no id is set by client
             final var componentId = component.getId();
             if (writer.getComponentWrapper().getClientBehaviors().size() > 1
-                    || !MoreStrings.isEmpty(componentId)
-                            && !componentId.startsWith(UIViewRoot.UNIQUE_ID_PREFIX)) {
+                    || !MoreStrings.isEmpty(componentId) && !componentId.startsWith(UIViewRoot.UNIQUE_ID_PREFIX)) {
                 writer.withClientId();
             }
         }
@@ -75,16 +72,14 @@ public class TagRenderer extends BaseDecoratorRenderer<TagComponent> {
 
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<TagComponent> writer,
-            final TagComponent component)
-        throws IOException {
+            final TagComponent component) throws IOException {
 
         writer.withEndElement(Node.DIV);
     }
 
     private static StyleClassBuilder computeStyleClass(final TagComponent component) {
         // Create style-class
-        return CssCuiBootstrap.TAG.getStyleClassBuilder()
-                .append(component)
+        return CssCuiBootstrap.TAG.getStyleClassBuilder().append(component)
                 .append(TagState.getForContextState(component.resolveContextState()))
                 .append(TagSize.getForContextSize(component.resolveContextSize()));
     }

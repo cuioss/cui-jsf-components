@@ -73,8 +73,7 @@ public enum JsNumberFactory {
             }
         }
 
-        throw new UnsupportedOperationException(String.format("Type [%s] is not supported",
-                klass.getSimpleName()));
+        throw new UnsupportedOperationException(String.format("Type [%s] is not supported", klass.getSimpleName()));
 
     }
 

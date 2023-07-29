@@ -29,8 +29,7 @@ class DashboardTagHandlerTest {
 
     @Test
     void testEmpty() throws IOException {
-        EasyMock.expect(tagAttribute.getObject(EasyMock.anyObject(FaceletContext.class)))
-                .andReturn(mutableList());
+        EasyMock.expect(tagAttribute.getObject(EasyMock.anyObject(FaceletContext.class))).andReturn(mutableList());
         EasyMock.replay(tagAttribute);
         EasyMock.expect(tagAttributes.get("widgets")).andReturn(tagAttribute);
         EasyMock.replay(tagAttributes);

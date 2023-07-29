@@ -20,50 +20,16 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * jqPlot-|
- * |-seriesColors
- * |-textColor
- * |-fontFamily
- * |-fontSize
- * |-stackSeries
- * |-series(Array)
- * | |-Series1
- * | | |-lineWidth
- * | | |-shadow
- * | | |-showLine
- * | | |-showMarker
- * | | |-color
- * | |-Series2...
- * | |-...
- * | |-SeriesN
- * |
- * |-grid(Object)
- * | |-drawGridLines
- * | |-background
- * | |-borderColor
- * | |-borderWidth
- * | |-shadow
- * |
- * |-title(Object)-|
- * | |-text
- * | |-show
- * | |-fontFamily
- * | |-fontSize
- * | |-textAlign
- * | |-textColor
- * |
- * |-axes(Object)
- * | |-xais
- * | | |-min
- * | | |-max
- * | | |-numberTicks
- * | | |-showTicks
- * | | |-showTickMarks
- * | | |-pad
- * |
- * | ... and so on
+ * jqPlot-| |-seriesColors |-textColor |-fontFamily |-fontSize |-stackSeries
+ * |-series(Array) | |-Series1 | | |-lineWidth | | |-shadow | | |-showLine | |
+ * |-showMarker | | |-color | |-Series2... | |-... | |-SeriesN | |-grid(Object)
+ * | |-drawGridLines | |-background | |-borderColor | |-borderWidth | |-shadow |
+ * |-title(Object)-| | |-text | |-show | |-fontFamily | |-fontSize | |-textAlign
+ * | |-textColor | |-axes(Object) | |-xais | | |-min | | |-max | | |-numberTicks
+ * | | |-showTicks | | |-showTickMarks | | |-pad | | ... and so on
  *
- * @see <a href="http://www.jqplot.com/docs/files/optionsTutorial-txt.html">OptionsTutorial</a>
+ * @see <a href=
+ *      "http://www.jqplot.com/docs/files/optionsTutorial-txt.html">OptionsTutorial</a>
  * @author Eugen Fischer
  */
 @ToString(of = "targetId")
@@ -77,7 +43,7 @@ public class JqPlot extends JsObject {
 
     /**
      * @param targetId must define div id where the graph will be shown in
-     * @param data SeriesData must not be null
+     * @param data     SeriesData must not be null
      */
     public JqPlot(final String targetId, final SeriesData data) {
         super(OBJECT_NAME);
@@ -90,8 +56,8 @@ public class JqPlot extends JsObject {
 
     /**
      * @param targetId must define div id where the graph will be shown in
-     * @param data SeriesData must not be null
-     * @param options Options must not be null
+     * @param data     SeriesData must not be null
+     * @param options  Options must not be null
      */
     public JqPlot(final String targetId, final SeriesData data, final Options options) {
         super(OBJECT_NAME);
@@ -103,9 +69,8 @@ public class JqPlot extends JsObject {
     }
 
     /**
-     * the jquery object for the dom target.
-     * this.target = null;
-     * The id of the dom element to render the plot into
+     * the jquery object for the dom target. this.target = null; The id of the dom
+     * element to render the plot into
      */
     private final JsString targetId;
 
@@ -130,17 +95,16 @@ public class JqPlot extends JsObject {
     }
 
     /**
-     * user's data. Data should *NOT* be specified in the options object,
-     * but be passed in as the second argument to the $.jqplot() function.
-     * The data property is described here soley for reference.
-     * The data should be in the form of an array of 2D or 1D arrays like
-     * > [ [[x1, y1], [x2, y2],...], [y1, y2, ...] ].
+     * user's data. Data should *NOT* be specified in the options object, but be
+     * passed in as the second argument to the $.jqplot() function. The data
+     * property is described here soley for reference. The data should be in the
+     * form of an array of 2D or 1D arrays like > [ [[x1, y1], [x2, y2],...], [y1,
+     * y2, ...] ].
      */
     private final SeriesData data;
 
     private static SeriesData checkData(final SeriesData someData) {
-        final var notNull = requireNonNull(someData, "SeriesData must not be null");
-        return notNull;
+        return requireNonNull(someData, "SeriesData must not be null");
     }
 
     private String getOptions() {
@@ -157,7 +121,8 @@ public class JqPlot extends JsObject {
      *
      * @param hookFunction {@linkplain PlotHookFunctionProvider}
      * @return {@linkplain JqPlot} in fluent api style
-     * @throws IllegalArgumentException if hookFunction is {@code null} or already defined
+     * @throws IllegalArgumentException if hookFunction is {@code null} or already
+     *                                  defined
      */
     public JqPlot addHookFunction(final PlotHookFunctionProvider hookFunction) {
         hooksManager.addHookFunction(hookFunction);
@@ -170,13 +135,8 @@ public class JqPlot extends JsObject {
             return "'';";
         }
 
-        final var builder =
-            new StringBuilder(OBJECT_NAME)
-                    .append("(").append(targetId.getValueAsString()).append(", ")
-                    .append(data.asJavaScriptObjectNotation())
-                    .append(", ")
-                    .append(getOptions())
-                    .append(");");
+        final var builder = new StringBuilder(OBJECT_NAME).append("(").append(targetId.getValueAsString()).append(", ")
+                .append(data.asJavaScriptObjectNotation()).append(", ").append(getOptions()).append(");");
 
         if (null != options) {
             builder.append(options.getHookFunctionCode());
@@ -192,8 +152,8 @@ public class JqPlot extends JsObject {
     private final PluginSupport plugins = new PluginSupport();
 
     /**
-     * Depending on used renderer a and options there is a need to import more js libraries /
-     * extensions.
+     * Depending on used renderer a and options there is a need to import more js
+     * libraries / extensions.
      *
      * @return the available plugins
      */

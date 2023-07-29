@@ -9,8 +9,7 @@ import javax.faces.component.behavior.ClientBehaviorContext;
 public class DisposeBehavior extends ClientBehaviorBase {
 
     /**
-     * The javaScript to be called if dispose is clicked:
-     * cui_tag_dispose('%s').
+     * The javaScript to be called if dispose is clicked: cui_tag_dispose('%s').
      */
     public static final String ON_CLICK_TEMPLATE = "cui_tag_dispose('%s')";
 

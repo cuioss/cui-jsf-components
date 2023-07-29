@@ -30,9 +30,10 @@ import lombok.experimental.Delegate;
 
 /**
  * <p>
- * An extension to h:commandButton that conforms to Bootstrap styling and incorporates the display
- * of icons. Caution: do not use the value attribute but the corresponding labelKey / labelValue.
- * The same goes for the title element: use titleKey or titleValue.
+ * An extension to h:commandButton that conforms to Bootstrap styling and
+ * incorporates the display of icons. Caution: do not use the value attribute
+ * but the corresponding labelKey / labelValue. The same goes for the title
+ * element: use titleKey or titleValue.
  * </p>
  * <h2>Attributes</h2>
  * <ul>
@@ -43,9 +44,10 @@ import lombok.experimental.Delegate;
  * <li>{@link IconAlignProvider}</li>
  * <li>{@link LabelProvider}</li>
  * <li>All attributes from {@link HtmlCommandButton}</li>
- * <li>keyBinding: The key-binding for this button, aka keyboard shortcut. The key will be bound as
- * onClickHandler. Caution: The implementor must ensure that there is only one button for the same
- * type existent per page, otherwise the behavior is non-deterministic.</li>
+ * <li>keyBinding: The key-binding for this button, aka keyboard shortcut. The
+ * key will be bound as onClickHandler. Caution: The implementor must ensure
+ * that there is only one button for the same type existent per page, otherwise
+ * the behavior is non-deterministic.</li>
  * </ul>
  *
  * @author Oliver Wolff
@@ -81,7 +83,6 @@ public class CommandButton extends BaseCuiCommandButton {
      * Constructor.
      */
     public CommandButton() {
-        super();
         super.setRendererType(BootstrapFamily.COMMAND_BUTTON_RENDERER);
         contextSizeProvider = new ContextSizeProvider(this);
         contextStateProvider = new ContextStateProvider(this);
@@ -97,8 +98,7 @@ public class CommandButton extends BaseCuiCommandButton {
         return CssBootstrap.BUTTON.getStyleClassBuilder()
                 .append(ButtonState.getForContextState(contextStateProvider.getState()))
                 .append(ButtonSize.getForContextSize(contextSizeProvider.resolveContextSize()))
-                .append(styleClassProvider)
-                .getStyleClass();
+                .append(styleClassProvider).getStyleClass();
     }
 
     @Override
@@ -130,14 +130,16 @@ public class CommandButton extends BaseCuiCommandButton {
     }
 
     /**
-     * @return boolean indicating whether to display an icon on the right side of the button text
+     * @return boolean indicating whether to display an icon on the right side of
+     *         the button text
      */
     public boolean isDisplayIconRight() {
         return iconProvider.isIconSet() && AlignHolder.RIGHT.equals(iconAlignProvider.resolveIconAlign());
     }
 
     /**
-     * @return boolean indicating whether to display an icon on the left side of the button text
+     * @return boolean indicating whether to display an icon on the left side of the
+     *         button text
      */
     public boolean isDisplayIconLeft() {
         return iconProvider.isIconSet() && !AlignHolder.RIGHT.equals(iconAlignProvider.resolveIconAlign());
@@ -158,16 +160,13 @@ public class CommandButton extends BaseCuiCommandButton {
     }
 
     /**
-     * Factory method to instantiate a concrete instance of
-     * {@link CommandButton}, usually used if you programmatically add it
-     * as a child.
+     * Factory method to instantiate a concrete instance of {@link CommandButton},
+     * usually used if you programmatically add it as a child.
      *
-     * @param facesContext
-     *            must not be null
+     * @param facesContext must not be null
      * @return concrete instance of {@link CommandButton}
      */
     public static final CommandButton create(final FacesContext facesContext) {
-        return (CommandButton) facesContext.getApplication()
-                .createComponent(BootstrapFamily.COMMAND_BUTTON_COMPONENT);
+        return (CommandButton) facesContext.getApplication().createComponent(BootstrapFamily.COMMAND_BUTTON_COMPONENT);
     }
 }

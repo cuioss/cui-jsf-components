@@ -14,7 +14,8 @@ import lombok.ToString;
 
 /**
  * @author Eugen Fischer
- * @see <a href="http://www.jqplot.com/docs/files/plugins/jqplot-cursor-js.html">Cursor</a>
+ * @see <a href=
+ *      "http://www.jqplot.com/docs/files/plugins/jqplot-cursor-js.html">Cursor</a>
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
@@ -87,8 +88,9 @@ public class Cursor extends JsObject implements IPluginConsumer {
     private JsString tooltipLocation;
 
     /**
-     * Where to position tooltip. If followMouse is true, this is relative to the cursor, otherwise,
-     * it is relative to the grid. One of ‘n’, ‘ne’, ‘e’, ‘se’, ‘s’, ‘sw’, ‘w’, ‘nw’
+     * Where to position tooltip. If followMouse is true, this is relative to the
+     * cursor, otherwise, it is relative to the grid. One of ‘n’, ‘ne’, ‘e’, ‘se’,
+     * ‘s’, ‘sw’, ‘w’, ‘nw’
      *
      * @param value {@link Location}
      * @return fluent api style
@@ -196,8 +198,8 @@ public class Cursor extends JsObject implements IPluginConsumer {
     private JsBoolean looseZoom;
 
     /**
-     * Will expand zoom range to provide more rounded tick values. Works only with linear axes and
-     * date axes.
+     * Will expand zoom range to provide more rounded tick values. Works only with
+     * linear axes and date axes.
      *
      * @param value {@link Boolean}
      * @return fluent api style
@@ -236,8 +238,9 @@ public class Cursor extends JsObject implements IPluginConsumer {
     private JsBoolean showVerticalLine;
 
     /**
-     * draw a vertical line across the plot which follows the cursor. When the line is near a data
-     * point, a special legend and/or tooltip can be updated with the data values.
+     * draw a vertical line across the plot which follows the cursor. When the line
+     * is near a data point, a special legend and/or tooltip can be updated with the
+     * data values.
      *
      * @param value {@link Boolean}
      * @return fluent api style
@@ -280,7 +283,8 @@ public class Cursor extends JsObject implements IPluginConsumer {
     private JsBoolean showCursorLegend;
 
     /**
-     * Replace the plot legend with an enhanced legend displaying intersection information.
+     * Replace the plot legend with an enhanced legend displaying intersection
+     * information.
      *
      * @param value {@link Boolean}
      * @return fluent api style

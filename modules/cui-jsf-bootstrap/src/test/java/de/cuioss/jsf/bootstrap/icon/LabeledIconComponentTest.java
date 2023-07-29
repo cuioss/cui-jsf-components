@@ -8,8 +8,8 @@ import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.test.jsf.component.AbstractUiComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 
-@VerifyComponentProperties(
-        of = { "labelKey", "labelValue", "labelEscape", "iconAlign", "icon", "titleKey", "titleValue" })
+@VerifyComponentProperties(of = { "labelKey", "labelValue", "labelEscape", "iconAlign", "icon", "titleKey",
+        "titleValue" })
 class LabeledIconComponentTest extends AbstractUiComponentTest<LabeledIconComponent> {
 
     @Test

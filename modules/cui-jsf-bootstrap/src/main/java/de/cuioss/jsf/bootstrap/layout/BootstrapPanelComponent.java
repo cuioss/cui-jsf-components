@@ -60,7 +60,6 @@ public class BootstrapPanelComponent extends BasicBootstrapPanelComponent {
      *
      */
     public BootstrapPanelComponent() {
-        super();
         headerProvider = new HeaderProvider(this);
         footerProvider = new FooterProvider(this);
         collapseSwitchProvider = new CollapseSwitchProvider(this);
@@ -74,11 +73,8 @@ public class BootstrapPanelComponent extends BasicBootstrapPanelComponent {
     public void processEvent(final ComponentSystemEvent event) {
         if (event instanceof PreRenderComponentEvent && mustAddForm()) {
             log.error("The UI component '{}' needs to have a form tag in its ancestry.", getClientId());
-            new MessageProducerAccessor().getValue()
-                    .setFacesMessage("message.error.component.noform",
-                            FacesMessage.SEVERITY_ERROR,
-                            getClientId(),
-                            getClientId());
+            new MessageProducerAccessor().getValue().setFacesMessage("message.error.component.noform",
+                    FacesMessage.SEVERITY_ERROR, getClientId(), getClientId());
         }
     }
 
@@ -86,8 +82,7 @@ public class BootstrapPanelComponent extends BasicBootstrapPanelComponent {
      * @return true if it is necessary to be in an UIForm.
      */
     private boolean mustAddForm() {
-        return (isAsyncUpdate() || isDeferred())
-                && !getFacesContext().getPartialViewContext().isPartialRequest()
+        return (isAsyncUpdate() || isDeferred()) && !getFacesContext().getPartialViewContext().isPartialRequest()
                 && !ComponentUtility.isInForm(this);
     }
 
@@ -106,8 +101,8 @@ public class BootstrapPanelComponent extends BasicBootstrapPanelComponent {
     }
 
     /**
-     * true, if deferred loading is activated, the panel is collapsed and childs were not rendered
-     * yet.
+     * true, if deferred loading is activated, the panel is collapsed and childs
+     * were not rendered yet.
      *
      * @return true if the spinner icon should be rendered, false otherwise.
      */
@@ -116,14 +111,16 @@ public class BootstrapPanelComponent extends BasicBootstrapPanelComponent {
     }
 
     /**
-     * @return boolean indicating whether the children are rendered or should be rendered
+     * @return boolean indicating whether the children are rendered or should be
+     *         rendered
      */
     public boolean getChildrenLoaded() {
         return state.getBoolean(CHILDREN_LOADED_KEY);
     }
 
     /**
-     * Remember that childs were already rendered or trigger loading in the next request.
+     * Remember that childs were already rendered or trigger loading in the next
+     * request.
      *
      * @param childrenLoaded
      */
@@ -146,8 +143,8 @@ public class BootstrapPanelComponent extends BasicBootstrapPanelComponent {
     }
 
     /**
-     * @return role attribute for header toggle element
-     *         according to panel configuration.
+     * @return role attribute for header toggle element according to panel
+     *         configuration.
      */
     public String resolveTogglerRole() {
         if (isCollapsible() && getDataParent() != null) {

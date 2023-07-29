@@ -18,11 +18,8 @@ class PrettyTimeConverterTest extends AbstractConverterTest<PrettyTimeConverter,
 
     @Override
     public void populate(final TestItems<Object> testItems) {
-        testItems
-                .addValidObjectWithStringResult(new Date(System.currentTimeMillis() - 10000),
-                        MOMENTS_AGO)
-                .addInvalidObject(2)
-                .addValidObjectWithStringResult(Calendar.getInstance(), MOMENTS_AGO)
+        testItems.addValidObjectWithStringResult(new Date(System.currentTimeMillis() - 10000), MOMENTS_AGO)
+                .addInvalidObject(2).addValidObjectWithStringResult(Calendar.getInstance(), MOMENTS_AGO)
                 .addValidObject(LocalDate.now()).addValidObject(ZonedDateTime.now())
                 .addValidObjectWithStringResult(LocalDateTime.now().minusSeconds(10), MOMENTS_AGO);
     }

@@ -38,8 +38,8 @@ import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
  * <h2>Rendering</h2>
  * <ul>
  * <li>Creates an {@code <input type="text">} with the clientId</li>
- * <li>For each value found it writes {@link ConceptKeyType#getIdentifier()} as a
- * colon separated list into the value attributes. The matching to labels will
+ * <li>For each value found it writes {@link ConceptKeyType#getIdentifier()} as
+ * a colon separated list into the value attributes. The matching to labels will
  * done by the JavaScript</li>
  * <li>It uses pass through data attributes to configure selectize.js</li>
  * </ul>
@@ -57,13 +57,13 @@ import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
  * whether it starts with {@link Selectize#CLIENT_CREATED_SUFFIX}. If so a new
  * {@link ConceptKeyTypeImpl} will be created with the given key as
  * {@link ConceptKeyType#getIdentifier()} and the name part as
- * {@link ConceptKeyType#getResolved(Locale)}. The element will now be added to the
- * resulting {@link Set} and to {@link TagInputComponent#getClientCreated()}
+ * {@link ConceptKeyType#getResolved(Locale)}. The element will now be added to
+ * the resulting {@link Set} and to {@link TagInputComponent#getClientCreated()}
  * </li>
  * <li>If none of the above the decode method will throw an
  * {@link IllegalArgumentException}</li>
- * <li>the resulting {@link Set} will finally set as submittedValue after conversion using
- * {@link ConceptKeyStringConverter}</li>
+ * <li>the resulting {@link Set} will finally set as submittedValue after
+ * conversion using {@link ConceptKeyStringConverter}</li>
  * </ul>
  * <p>
  * It implicitly sanitizes all input and output using the
@@ -74,8 +74,7 @@ import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
  * @author Sven Haag
  */
 @ResourceDependency(library = "thirdparty.js", name = "selectize.js", target = "head")
-@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY,
-        rendererType = BootstrapFamily.TAG_INPUT_COMPONENT_RENDERER)
+@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.TAG_INPUT_COMPONENT_RENDERER)
 public class TagInputRenderer extends BaseDecoratorRenderer<TagInputComponent> {
 
     private final LocaleProducerAccessor localeProducerAccessor = new LocaleProducerAccessor();
@@ -86,11 +85,11 @@ public class TagInputRenderer extends BaseDecoratorRenderer<TagInputComponent> {
     }
 
     /**
-     * Extracts submitted value from request parameters and use javax.faces.convert.Converter to
-     * convert the value from
-     * String to a ConceptKeyType collection. Sets the submitted value to TagInputComponent.
+     * Extracts submitted value from request parameters and use
+     * javax.faces.convert.Converter to convert the value from String to a
+     * ConceptKeyType collection. Sets the submitted value to TagInputComponent.
      *
-     * @param context FacesContext for the request we are processing
+     * @param context          FacesContext for the request we are processing
      * @param componentWrapper type-safe component
      */
     @Override
@@ -110,10 +109,8 @@ public class TagInputRenderer extends BaseDecoratorRenderer<TagInputComponent> {
     }
 
     @Override
-    protected void doEncodeEnd(final FacesContext context,
-            final DecoratingResponseWriter<TagInputComponent> writer,
-            final TagInputComponent component)
-        throws IOException {
+    protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<TagInputComponent> writer,
+            final TagInputComponent component) throws IOException {
 
         if (component.isDisabled()) {
             encodeDisabled(context, writer, component);
@@ -122,27 +119,20 @@ public class TagInputRenderer extends BaseDecoratorRenderer<TagInputComponent> {
         }
     }
 
-    private void encodeEnabled(final FacesContext context,
-            final TagInputComponent component)
-        throws IOException {
+    private void encodeEnabled(final FacesContext context, final TagInputComponent component) throws IOException {
         JsfHtmlComponent.HTMLINPUT.renderer(context).encodeBegin(context, component);
         JsfHtmlComponent.HTMLINPUT.renderer(context).encodeEnd(context, component);
     }
 
-    private void encodeDisabled(final FacesContext context,
-            final DecoratingResponseWriter<TagInputComponent> writer,
-            final TagInputComponent component)
-        throws IOException {
+    private void encodeDisabled(final FacesContext context, final DecoratingResponseWriter<TagInputComponent> writer,
+            final TagInputComponent component) throws IOException {
         TagHelper.writeDisabled(context, writer, createTags(component.getValue()), component.getStyle(),
                 component.getStyleClass());
     }
 
     private List<TagComponent> createTags(final Collection<ConceptKeyType> values) {
-        return TagHelper.createFromConceptKeys(
-                null != values ? new TreeSet<>(values) : Collections.emptySortedSet(),
-                localeProducerAccessor.getValue().getLocale(),
-                true,
-                ContextSize.LG.name(),
+        return TagHelper.createFromConceptKeys(null != values ? new TreeSet<>(values) : Collections.emptySortedSet(),
+                localeProducerAccessor.getValue().getLocale(), true, ContextSize.LG.name(),
                 ContextState.DEFAULT.name());
     }
 }

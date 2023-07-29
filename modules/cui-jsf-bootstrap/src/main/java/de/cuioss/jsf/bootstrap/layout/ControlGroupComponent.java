@@ -9,8 +9,8 @@ import lombok.experimental.Delegate;
 
 /**
  * <p>
- * Renders a bootstrap conform div with the styleClass 'form-group' and an embedded column. It is
- * used to place buttons within a form context.
+ * Renders a bootstrap conform div with the styleClass 'form-group' and an
+ * embedded column. It is used to place buttons within a form context.
  * </p>
  * <p>
  * The layout relies completely on the grid-system of twitter-bootstrap, see
@@ -19,12 +19,13 @@ import lombok.experimental.Delegate;
  * <ul>
  * <li>controlGoups must be within container with 'form-horizontal'.</li>
  * <li>They act similar to formGroups or labeledContainer.</li>
- * <li>The size and offset of a controlGoup is always defined in 1/12 steps. A row is limited to 12.
- * If the columnSize (and offsets) are more than 12 the surplus columns will be rendered in the next
- * line.</li>
+ * <li>The size and offset of a controlGoup is always defined in 1/12 steps. A
+ * row is limited to 12. If the columnSize (and offsets) are more than 12 the
+ * surplus columns will be rendered in the next line.</li>
  * <li>The offset is used for the inner spacing of the column</li>
- * <li>The size definitions of the components are always related to sm. In case you want to change
- * the behavior you need to add additional styleClasses, see example. The default size is '8'</li>
+ * <li>The size definitions of the components are always related to sm. In case
+ * you want to change the behavior you need to add additional styleClasses, see
+ * example. The default size is '8'</li>
  * </ul>
  * <p>
  * More information and examples can be found in the <a href=
@@ -57,7 +58,6 @@ public class ControlGroupComponent extends BasicBootstrapPanelComponent {
      *
      */
     public ControlGroupComponent() {
-        super();
         columnProvider = new ColumnProvider(this, DEFAULT_COLUMN_SIZE);
         super.setRendererType(BootstrapFamily.LAYOUT_CONTROL_GROUP_RENDERER);
     }

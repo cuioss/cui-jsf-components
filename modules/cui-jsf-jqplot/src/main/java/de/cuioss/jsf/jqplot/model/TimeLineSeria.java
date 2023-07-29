@@ -13,7 +13,8 @@ import lombok.NonNull;
 import lombok.ToString;
 
 /**
- * Typed {@link TimeLineSeria} use {@link Temporal} for x values, {@link Number} for y values.
+ * Typed {@link TimeLineSeria} use {@link Temporal} for x values, {@link Number}
+ * for y values.
  *
  * @author Eugen Fischer
  * @param <T> at least {@link Number}
@@ -35,7 +36,6 @@ public class TimeLineSeria<T extends Number> implements JsArrayContainer, Serial
      * @param format {@link JsDateTimeFormat} granularity for display
      */
     public TimeLineSeria(@NonNull final JsDateTimeFormat format) {
-        super();
         this.data = new JsArray<>();
         this.format = format;
     }
@@ -43,7 +43,7 @@ public class TimeLineSeria<T extends Number> implements JsArrayContainer, Serial
     /**
      * Add tupel
      *
-     * @param date {@link Temporal} must not be null
+     * @param date   {@link Temporal} must not be null
      * @param number {@link Number} must not be null
      * @return fluent api style
      * @throws NullPointerException if date or value is null
@@ -64,7 +64,7 @@ public class TimeLineSeria<T extends Number> implements JsArrayContainer, Serial
     /**
      * Add tupel if both parameters are available, otherwise ignore silently
      *
-     * @param date {@link Temporal}
+     * @param date   {@link Temporal}
      * @param number {@link Number}
      * @return fluent api style
      */

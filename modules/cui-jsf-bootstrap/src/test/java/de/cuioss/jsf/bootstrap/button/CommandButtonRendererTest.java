@@ -104,8 +104,8 @@ class CommandButtonRendererTest extends AbstractComponentRendererTest<CommandBut
     void shouldHandleIconOnly() {
         var component = new CommandButton();
         component.setIcon(ANY_ICON);
-        var expected =
-            new HtmlTreeBuilder().withNode(Node.BUTTON).withStyleClass(DEFAULT_BTN_CLASSES).withNode(ICONCOMPONENT);
+        var expected = new HtmlTreeBuilder().withNode(Node.BUTTON).withStyleClass(DEFAULT_BTN_CLASSES)
+                .withNode(ICONCOMPONENT);
         assertRenderResult(component, expected.getDocument());
     }
 

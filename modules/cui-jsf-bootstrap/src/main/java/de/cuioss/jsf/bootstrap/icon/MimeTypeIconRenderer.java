@@ -26,8 +26,7 @@ import de.cuioss.jsf.bootstrap.icon.support.IconSize;
  * @author Oliver Wolff
  *
  */
-@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY,
-        rendererType = BootstrapFamily.MIME_TYPE_ICON_COMPONENT_RENDERER)
+@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.MIME_TYPE_ICON_COMPONENT_RENDERER)
 public class MimeTypeIconRenderer extends BaseDecoratorRenderer<MimeTypeIconComponent> {
 
     /**
@@ -41,8 +40,7 @@ public class MimeTypeIconRenderer extends BaseDecoratorRenderer<MimeTypeIconComp
     @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
                                   // controlled by JSF
     protected void doEncodeEnd(FacesContext context, DecoratingResponseWriter<MimeTypeIconComponent> writer,
-            MimeTypeIconComponent component)
-        throws IOException {
+            MimeTypeIconComponent component) throws IOException {
 
         // span wrapper
         writer.withStartElement(Node.SPAN);

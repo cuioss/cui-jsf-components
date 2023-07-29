@@ -32,8 +32,8 @@ import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 /**
  * Expectation for renderer cycle :
  * <ul>
- * <li>case the response to be rendered to the client (<b>ignore</b> case : state of the response to
- * be saved for processing on subsequent requests)</li>
+ * <li>case the response to be rendered to the client (<b>ignore</b> case :
+ * state of the response to be saved for processing on subsequent requests)</li>
  * <li>(<b>ignore</b>
  * {@linkplain ViewDeclarationLanguage#buildView(FacesContext, javax.faces.component.UIViewRoot)})
  * </li>

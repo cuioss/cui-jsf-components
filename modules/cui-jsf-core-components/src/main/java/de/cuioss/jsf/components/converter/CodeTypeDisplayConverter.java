@@ -29,7 +29,7 @@ public class CodeTypeDisplayConverter extends AbstractConverter<CodeType> {
 
     @Override
     protected String convertToString(FacesContext context, UIComponent component, CodeType value)
-        throws ConverterException {
+            throws ConverterException {
         return value.getResolved(localeProducerAccessor.getValue().getLocale());
     }
 

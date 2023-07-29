@@ -18,8 +18,8 @@ class ControlGroupRendererTest extends AbstractComponentRendererTest<ControlGrou
     @Test
     void shouldRenderMinimal() {
         final var component = new ControlGroupComponent();
-        final var expected = new HtmlTreeBuilder().withNode(Node.DIV)
-                .withStyleClass(CssBootstrap.FORM_GROUP).withNode(Node.DIV).withStyleClass(MINIMAL_COLUMN_CSS);
+        final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.FORM_GROUP)
+                .withNode(Node.DIV).withStyleClass(MINIMAL_COLUMN_CSS);
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -28,9 +28,8 @@ class ControlGroupRendererTest extends AbstractComponentRendererTest<ControlGrou
         final var component = new ControlGroupComponent();
         component.getChildren().add(new HtmlOutputText());
         getComponentConfigDecorator().registerMockRendererForHtmlOutputText();
-        final var expected =
-            new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.FORM_GROUP).withNode(Node.DIV)
-                    .withStyleClass(MINIMAL_COLUMN_CSS).withNode("HtmlOutputText");
+        final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.FORM_GROUP)
+                .withNode(Node.DIV).withStyleClass(MINIMAL_COLUMN_CSS).withNode("HtmlOutputText");
         assertRenderResult(component, expected.getDocument());
     }
 

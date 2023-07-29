@@ -7,7 +7,6 @@ import java.util.Calendar;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.jqplot.js.types.JsDate;
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.valueobjects.ValueObjectTest;
 

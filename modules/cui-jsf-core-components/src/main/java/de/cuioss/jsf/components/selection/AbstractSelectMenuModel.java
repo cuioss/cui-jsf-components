@@ -41,9 +41,8 @@ public abstract class AbstractSelectMenuModel<T extends Serializable> extends Ab
     public boolean disabled = false;
 
     /**
-     * @param values
-     *            must not be <code>null</code> but may be empty, what is rather
-     *            useless for a dropdown
+     * @param values must not be <code>null</code> but may be empty, what is rather
+     *               useless for a dropdown
      */
     protected AbstractSelectMenuModel(final List<SelectItem> values) {
         this.selectableValues = requireNonNull(values, "values");
@@ -62,8 +61,7 @@ public abstract class AbstractSelectMenuModel<T extends Serializable> extends Ab
     @SuppressWarnings("unchecked")
     // Implicitly safe because of typing
     @Override
-    public void processValueChange(final ValueChangeEvent event)
-        throws AbortProcessingException {
+    public void processValueChange(final ValueChangeEvent event) throws AbortProcessingException {
         this.setSelectedValue((T) event.getNewValue());
     }
 }

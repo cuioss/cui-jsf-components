@@ -14,7 +14,7 @@ import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 
 @VerifyComponentProperties(of = { "offTextValue", "offTextKey", "onTextValue", "onTextKey", "titleValue", "titleKey",
-    "rendered", "disabled" })
+        "rendered", "disabled" })
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class SwitchComponentTest extends AbstractComponentTest<SwitchComponent> {
 

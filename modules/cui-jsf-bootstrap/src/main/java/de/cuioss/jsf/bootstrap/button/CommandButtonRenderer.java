@@ -20,12 +20,13 @@ import de.cuioss.jsf.bootstrap.icon.IconComponent;
  * <h2>Rendering</h2>
  * <p>
  * This {@link Renderer} uses the concrete implementation specific Renderer for
- * {@code h:commandButton} accessed by accessed by {@link JsfHtmlComponent#BUTTON}.
- * This is used for creating the start element
- * of the element including all attributes like onclick,.. . On the fly the {@code input} element
- * will be replaced by {@code button}. This is done by passing an instance of
- * {@link ElementReplacingResponseWriter}. The {@link Renderer#decode(FacesContext, UIComponent)}
- * will be passed to the specific renderer as well.
+ * {@code h:commandButton} accessed by accessed by
+ * {@link JsfHtmlComponent#BUTTON}. This is used for creating the start element
+ * of the element including all attributes like onclick,.. . On the fly the
+ * {@code input} element will be replaced by {@code button}. This is done by
+ * passing an instance of {@link ElementReplacingResponseWriter}. The
+ * {@link Renderer#decode(FacesContext, UIComponent)} will be passed to the
+ * specific renderer as well.
  * </p>
  * <h2>Styling</h2>
  * <ul>
@@ -34,8 +35,7 @@ import de.cuioss.jsf.bootstrap.icon.IconComponent;
  *
  * @author Oliver Wolff
  */
-@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY,
-        rendererType = BootstrapFamily.COMMAND_BUTTON_RENDERER)
+@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.COMMAND_BUTTON_RENDERER)
 public class CommandButtonRenderer extends BaseDecoratorRenderer<CommandButton> {
 
     /**
@@ -47,10 +47,9 @@ public class CommandButtonRenderer extends BaseDecoratorRenderer<CommandButton> 
 
     @Override
     protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<CommandButton> writer,
-            final CommandButton component)
-        throws IOException {
-        var wrapped =
-            ElementReplacingResponseWriter.createWrappedReplacingResonseWriter(context, "input", "button", true);
+            final CommandButton component) throws IOException {
+        var wrapped = ElementReplacingResponseWriter.createWrappedReplacingResonseWriter(context, "input", "button",
+                true);
         JsfHtmlComponent.COMMAND_BUTTON.renderer(context).encodeBegin(wrapped, component);
 
         if (component.isDisplayIconLeft()) {
@@ -82,8 +81,7 @@ public class CommandButtonRenderer extends BaseDecoratorRenderer<CommandButton> 
     @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
                                   // controlled by JSF
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<CommandButton> writer,
-            final CommandButton component)
-        throws IOException {
+            final CommandButton component) throws IOException {
         writer.withEndElement(Node.BUTTON);
     }
 }

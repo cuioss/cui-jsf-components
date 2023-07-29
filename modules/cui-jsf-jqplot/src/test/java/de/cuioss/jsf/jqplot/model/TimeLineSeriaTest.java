@@ -9,7 +9,6 @@ import java.time.temporal.Temporal;
 import org.junit.jupiter.api.Test;
 
 import de.cuioss.jsf.jqplot.js.types.JsDateTimeFormat;
-import de.cuioss.jsf.jqplot.model.TimeLineSeria;
 import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
 
 class TimeLineSeriaTest implements ShouldHandleObjectContracts<TimeLineSeria<?>> {

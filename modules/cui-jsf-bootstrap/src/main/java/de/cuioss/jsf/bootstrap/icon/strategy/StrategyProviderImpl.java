@@ -14,8 +14,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
- * Strategy Provider Implementation. Furthermore StrategyProviderImpl provide a builder to create
- * the StrategyProvider (see {@linkplain Builder}).
+ * Strategy Provider Implementation. Furthermore StrategyProviderImpl provide a
+ * builder to create the StrategyProvider (see {@linkplain Builder}).
  *
  * @author Eugen Fischer
  * @param <K> bounded type for condition must be serializable
@@ -24,8 +24,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-public class StrategyProviderImpl<K extends Serializable, V extends Serializable> implements
-        IStrategyProvider<K, V> {
+public class StrategyProviderImpl<K extends Serializable, V extends Serializable> implements IStrategyProvider<K, V> {
 
     /** serial Version UID */
     private static final long serialVersionUID = 8396786922039611120L;
@@ -57,8 +56,9 @@ public class StrategyProviderImpl<K extends Serializable, V extends Serializable
      * For <i>small</i> immutable maps, the {@code ImmutableMap.of()} methods are
      * even more convenient.
      * <p>
-     * Builder instances can be reused - it is safe to call {@link #build} multiple times to build
-     * multiple maps in series. Each map is a superset of the maps created before it.
+     * Builder instances can be reused - it is safe to call {@link #build} multiple
+     * times to build multiple maps in series. Each map is a superset of the maps
+     * created before it.
      * </p>
      *
      * @author Eugen Fischer
@@ -83,13 +83,14 @@ public class StrategyProviderImpl<K extends Serializable, V extends Serializable
         }
 
         /**
-         * Define default behavior. To protect user of wrong usage default rule can be set once.
+         * Define default behavior. To protect user of wrong usage default rule can be
+         * set once.
          *
-         * @param rule {@linkplain Rule} must not be {@code null}. If there is a need of return
-         *            {@code null} define a fitting default rule.
+         * @param rule {@linkplain Rule} must not be {@code null}. If there is a need of
+         *             return {@code null} define a fitting default rule.
          * @return fluent api style reference to the builder
-         * @throws IllegalArgumentException if default value should be overwritten during building
-         *             object.
+         * @throws IllegalArgumentException if default value should be overwritten
+         *                                  during building object.
          */
         public Builder<K, V> defineDefaultRule(final Rule<? extends Serializable, V> rule) {
             Preconditions.checkState(null == this.defRule, "You try to overwrite allready defined default rule");
@@ -102,7 +103,7 @@ public class StrategyProviderImpl<K extends Serializable, V extends Serializable
          *
          * @return complete type safe StrategyHolder object which is ready for use
          * @throws IllegalArgumentException - if duplicate rues were added
-         * @throws IllegalStateException - if default value was not defined
+         * @throws IllegalStateException    - if default value was not defined
          */
         public StrategyProviderImpl<K, V> build() {
             Preconditions.checkState(null != this.defRule, "You need to define default rule");

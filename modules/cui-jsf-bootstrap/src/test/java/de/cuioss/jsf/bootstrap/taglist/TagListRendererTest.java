@@ -24,18 +24,15 @@ import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
-class TagListRendererTest extends AbstractComponentRendererTest<TagListRenderer>
-        implements ComponentConfigurator {
+class TagListRendererTest extends AbstractComponentRendererTest<TagListRenderer> implements ComponentConfigurator {
 
-    private static final ConceptKeyTypeImpl CODE_TYPE_1 =
-        ConceptKeyTypeImpl.builder().identifier("identifier1")
-                .labelResolver(new I18nDisplayNameProvider("resolved1"))
-                .category(ConceptKeyTypeGenerator.TestConceptCategory).build();
+    private static final ConceptKeyTypeImpl CODE_TYPE_1 = ConceptKeyTypeImpl.builder().identifier("identifier1")
+            .labelResolver(new I18nDisplayNameProvider("resolved1"))
+            .category(ConceptKeyTypeGenerator.TestConceptCategory).build();
 
-    private static final ConceptKeyTypeImpl CODE_TYPE_2 =
-        ConceptKeyTypeImpl.builder().identifier("identifier2")
-                .labelResolver(new I18nDisplayNameProvider("resolved2"))
-                .category(ConceptKeyTypeGenerator.TestConceptCategory).build();
+    private static final ConceptKeyTypeImpl CODE_TYPE_2 = ConceptKeyTypeImpl.builder().identifier("identifier2")
+            .labelResolver(new I18nDisplayNameProvider("resolved2"))
+            .category(ConceptKeyTypeGenerator.TestConceptCategory).build();
 
     private static final List<ConceptKeyType> TYPES = immutableList(CODE_TYPE_1, CODE_TYPE_2);
 

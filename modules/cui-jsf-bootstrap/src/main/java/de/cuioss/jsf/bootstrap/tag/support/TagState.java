@@ -45,12 +45,12 @@ public enum TagState implements StyleClassProvider {
     }
 
     /**
-     * @param contextState
-     *            May be null, otherwise must be one of {"DEFAULT","PRIMARY",
-     *            "SUCCESS", "INFO", "WARNING", "DANGER"}
+     * @param contextState May be null, otherwise must be one of
+     *                     {"DEFAULT","PRIMARY", "SUCCESS", "INFO", "WARNING",
+     *                     "DANGER"}
      * @return the corresponding {@link TagState} derived by the given
-     *         {@link ContextState}. In case of <code>contextSize==null</code>
-     *         it will return {@link TagState#DEFAULT}.
+     *         {@link ContextState}. In case of <code>contextSize==null</code> it
+     *         will return {@link TagState#DEFAULT}.
      */
     public static final TagState getForContextState(ContextState contextState) {
         var result = DEFAULT;

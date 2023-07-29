@@ -11,8 +11,7 @@ import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 
-class ConceptKeyStringConverterTest
-        extends AbstractConverterTest<ConceptKeyStringConverter, Set<ConceptKeyType>> {
+class ConceptKeyStringConverterTest extends AbstractConverterTest<ConceptKeyStringConverter, Set<ConceptKeyType>> {
 
     public ConceptKeyStringConverterTest() {
         setComponent(new TagInputComponent());
@@ -20,8 +19,7 @@ class ConceptKeyStringConverterTest
 
     @Override
     public void populate(final TestItems<Set<ConceptKeyType>> testItems) {
-        testItems.addValidObjectWithStringResult(immutableSortedSet(CODE_TYPE_1),
-                "6964656e74696669657231");
+        testItems.addValidObjectWithStringResult(immutableSortedSet(CODE_TYPE_1), "6964656e74696669657231");
         testItems.addValidObjectWithStringResult(immutableSortedSet(CODE_TYPE_1, CODE_TYPE_2),
                 "6964656e74696669657231,6964656e74696669657232");
         testItems.addValidObject(Collections.singleton(new TestConceptKey()));

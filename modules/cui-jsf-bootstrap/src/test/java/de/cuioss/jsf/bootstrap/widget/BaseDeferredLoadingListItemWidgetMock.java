@@ -3,7 +3,6 @@ package de.cuioss.jsf.bootstrap.widget;
 import java.util.ArrayList;
 
 import de.cuioss.jsf.api.components.model.widget.BaseListItem;
-import de.cuioss.jsf.bootstrap.widget.BaseDeferredLoadingListItemWidget;
 import de.cuioss.tools.collect.CollectionLiterals;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
 import de.cuioss.uimodel.nameprovider.LabeledKey;

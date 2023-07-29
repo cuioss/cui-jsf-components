@@ -18,28 +18,28 @@ import lombok.experimental.Delegate;
 
 /**
  * <p>
- * Replaces the HtmlMessage and integrates with the bootstrap based theme. In addition to the
- * usual behavior you can attach multiple ids to one message element, see attribute forIdentifier.
- * In opposite to HtmlMessage the styling is to be done using
- * styleClass attribute, not one of the attributes errorClass, infoClass, etc. Depending on the
- * severity of the FacesMessages, the surrounding will get the class:
- * "cui_msg_info", "cui_msg_warn", "cui_msg_error" or "cui_msg_fatal".
+ * Replaces the HtmlMessage and integrates with the bootstrap based theme. In
+ * addition to the usual behavior you can attach multiple ids to one message
+ * element, see attribute forIdentifier. In opposite to HtmlMessage the styling
+ * is to be done using styleClass attribute, not one of the attributes
+ * errorClass, infoClass, etc. Depending on the severity of the FacesMessages,
+ * the surrounding will get the class: "cui_msg_info", "cui_msg_warn",
+ * "cui_msg_error" or "cui_msg_fatal".
  * </p>
  * <h2>Attributes</h2>
  * <ul>
  * <li>{@link ForIdentifierProvider}</li>
- * <li>showDetail: Flag indicating whether the detail portion of displayed messages should be
- * included. Default value is "false". If false, it is displayed as tooltip.
- * </li>
- * <li>
- * showSummary: Flag indicating wether the summary portion of the FacesMessage should be displayed.
- * Default value is "true".
- * </li>
- * <li>escape: Flag indicating that characters that are sensitive in HTML and XML markup must be
- * escaped. If omitted, this flag is assumed to be "true".</li>
- * <li>rendered: Flag indicating whether or not this component should be rendered (during Render
- * Response Phase), or processed on any subsequent form submit. The default value for this property
- * is true.</li>
+ * <li>showDetail: Flag indicating whether the detail portion of displayed
+ * messages should be included. Default value is "false". If false, it is
+ * displayed as tooltip.</li>
+ * <li>showSummary: Flag indicating wether the summary portion of the
+ * FacesMessage should be displayed. Default value is "true".</li>
+ * <li>escape: Flag indicating that characters that are sensitive in HTML and
+ * XML markup must be escaped. If omitted, this flag is assumed to be
+ * "true".</li>
+ * <li>rendered: Flag indicating whether or not this component should be
+ * rendered (during Render Response Phase), or processed on any subsequent form
+ * submit. The default value for this property is true.</li>
  * </ul>
  *
  * @author Matthias Walliczek
@@ -64,10 +64,8 @@ public class CuiMessageComponent extends BasicBootstrapPanelComponent {
      *
      */
     public CuiMessageComponent() {
-        super();
         super.setRendererType(BootstrapFamily.CUI_MESSAGE_COMPONENT_RENDERER);
-        forIdentifierProvider =
-            new ForIdentifierProvider(this, ForIdentifierProvider.DEFAULT_FOR_IDENTIFIER);
+        forIdentifierProvider = new ForIdentifierProvider(this, ForIdentifierProvider.DEFAULT_FOR_IDENTIFIER);
         state = new CuiState(getStateHelper());
     }
 
@@ -83,8 +81,7 @@ public class CuiMessageComponent extends BasicBootstrapPanelComponent {
             if (forComponent == null) {
                 continue;
             }
-            messages.add(getFacesContext().getMessageList(
-                    forComponent.getClientId(getFacesContext())));
+            messages.add(getFacesContext().getMessageList(forComponent.getClientId(getFacesContext())));
         }
         return messages.toImmutableList();
     }
@@ -144,8 +141,8 @@ public class CuiMessageComponent extends BasicBootstrapPanelComponent {
 
     /**
      * Factory method to instantiate a concrete instance of
-     * {@link CuiMessageComponent}, usually used if you programmatically add it
-     * as a child.
+     * {@link CuiMessageComponent}, usually used if you programmatically add it as a
+     * child.
      *
      * @param facesContext must not be null
      * @return concrete instance of {@link CuiMessageComponent}

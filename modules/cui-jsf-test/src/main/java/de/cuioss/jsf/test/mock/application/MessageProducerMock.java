@@ -26,12 +26,12 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * Mock implementation of {@link MessageProducer} that will solely store the messages inside. It
- * provides access on the messages, see {@link #getComponentMessages()} and
- * {@link #getComponentMessages()} and an assert:
- * {@link #assertSingleGlobalMessageWithKeyPresent(String)}. The keys will not be resolved and can
- * therefore be queried directly.
- * It can be easily configured as bean by using {@link JsfTestConfiguration}
+ * Mock implementation of {@link MessageProducer} that will solely store the
+ * messages inside. It provides access on the messages, see
+ * {@link #getComponentMessages()} and {@link #getComponentMessages()} and an
+ * assert: {@link #assertSingleGlobalMessageWithKeyPresent(String)}. The keys
+ * will not be resolved and can therefore be queried directly. It can be easily
+ * configured as bean by using {@link JsfTestConfiguration}
  *
  * @author Matthias Walliczek
  */
@@ -61,58 +61,52 @@ public class MessageProducerMock extends MessageProducerImpl implements BeanConf
     /**
      * Asserts, that the given global message is present at least once.
      *
-     * @param severity of the message. required!
+     * @param severity   of the message. required!
      * @param messageKey of the message. required!
      */
     public void assertGlobalMessageWithKeyPresent(final FacesMessage.Severity severity, final String messageKey) {
         Preconditions.checkArgument(null != severity, "severity required");
         Preconditions.checkArgument(null != messageKey, "messageKey required");
         assertFalse(getGlobalMessagesForKey(severity, messageKey).isEmpty(),
-            "No global message found with severity=" + severity + " and messageKey=" + messageKey +
-                ". Available messages:\n" + createStringViewMessage(globalMessages));
+                "No global message found with severity=" + severity + " and messageKey=" + messageKey
+                        + ". Available messages:\n" + createStringViewMessage(globalMessages));
     }
 
     /**
      * Asserts, that the given component message is present at least once.
      *
-     * @param severity of the message. required!
+     * @param severity   of the message. required!
      * @param messageKey of the message. required!
      */
-    public void assertComponentMessageWithKeyPresent(final FacesMessage.Severity severity,
-                                                     final String messageKey) {
+    public void assertComponentMessageWithKeyPresent(final FacesMessage.Severity severity, final String messageKey) {
         Preconditions.checkArgument(null != severity, "severity required");
         Preconditions.checkArgument(null != messageKey, "messageKey required");
         assertFalse(getComponentMessagesForKey(severity, messageKey).isEmpty(),
-            "No component message found with severity=" + severity + " and messageKey=" + messageKey +
-                ". Available messages:\n" + createStringViewMessage(componentMessages));
+                "No component message found with severity=" + severity + " and messageKey=" + messageKey
+                        + ". Available messages:\n" + createStringViewMessage(componentMessages));
     }
 
     /**
-     * @param severity of the message. required!
+     * @param severity   of the message. required!
      * @param messageKey of the message. required!
      *
      * @return all global messages found with the given severity and message key
      */
-    public List<FacesMessage> getGlobalMessagesForKey(final FacesMessage.Severity severity,
-                                                      final String messageKey) {
-        return globalMessages.stream()
-            .filter(facesMessage -> severity.equals(facesMessage.getSeverity()))
-            .filter(facesMessage -> messageKey.equals(facesMessage.getSummary()))
-            .collect(Collectors.toList());
+    public List<FacesMessage> getGlobalMessagesForKey(final FacesMessage.Severity severity, final String messageKey) {
+        return globalMessages.stream().filter(facesMessage -> severity.equals(facesMessage.getSeverity()))
+                .filter(facesMessage -> messageKey.equals(facesMessage.getSummary())).collect(Collectors.toList());
     }
 
     /**
-     * @param severity of the message. required!
+     * @param severity   of the message. required!
      * @param messageKey of the message. required!
      *
      * @return all component messages found with the given severity and message key
      */
     public List<FacesMessage> getComponentMessagesForKey(final FacesMessage.Severity severity,
-                                                         final String messageKey) {
-        return componentMessages.stream()
-            .filter(facesMessage -> severity.equals(facesMessage.getSeverity()))
-            .filter(facesMessage -> messageKey.equals(facesMessage.getSummary()))
-            .collect(Collectors.toList());
+            final String messageKey) {
+        return componentMessages.stream().filter(facesMessage -> severity.equals(facesMessage.getSeverity()))
+                .filter(facesMessage -> messageKey.equals(facesMessage.getSummary())).collect(Collectors.toList());
     }
 
     /**
@@ -144,8 +138,7 @@ public class MessageProducerMock extends MessageProducerImpl implements BeanConf
      */
     public void assertThatNoMessageIsPresent() {
         var messagesAsString = createStringViewMessage(globalMessages);
-        assertEquals(0, globalMessages.size(),
-                "Expected no message present but found " + messagesAsString);
+        assertEquals(0, globalMessages.size(), "Expected no message present but found " + messagesAsString);
     }
 
     private String createStringViewMessage(List<FacesMessage> facesMessages) {

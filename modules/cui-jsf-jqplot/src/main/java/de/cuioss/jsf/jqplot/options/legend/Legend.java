@@ -18,7 +18,8 @@ import lombok.ToString;
 
 /**
  * @author Eugen Fischer
- * @see <a href="http://www.jqplot.com/docs/files/jqplot-core-js.html#Legend">Legend</a>
+ * @see <a href=
+ *      "http://www.jqplot.com/docs/files/jqplot-core-js.html#Legend">Legend</a>
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
@@ -71,8 +72,7 @@ public class Legend extends JsObject implements IPluginConsumer {
     private JsArray<JsString> labels;
 
     /**
-     * Add label to labels array.
-     * On adding a label, showLabels will be set to true
+     * Add label to labels array. On adding a label, showLabels will be set to true
      *
      * @param value {@link String}
      * @return fluent api style
@@ -217,8 +217,8 @@ public class Legend extends JsObject implements IPluginConsumer {
     private JsBoolean predraw;
 
     /**
-     * Wether to draw the legend before the series or not. Used with series specific legend
-     * renderers for pie, donut, mekko charts, etc.
+     * Wether to draw the legend before the series or not. Used with series specific
+     * legend renderers for pie, donut, mekko charts, etc.
      *
      * @param value {@link Boolean}
      * @return fluent api style
@@ -231,8 +231,9 @@ public class Legend extends JsObject implements IPluginConsumer {
     private JsString marginTop;
 
     /**
-     * CSS margin for the legend DOM element. This will set an element CSS style for the margin
-     * which will override any style sheet setting. The default will be taken from the stylesheet.
+     * CSS margin for the legend DOM element. This will set an element CSS style for
+     * the margin which will override any style sheet setting. The default will be
+     * taken from the stylesheet.
      *
      * @param value {@link Boolean}
      * @return fluent api style
@@ -245,8 +246,9 @@ public class Legend extends JsObject implements IPluginConsumer {
     private JsString marginRight;
 
     /**
-     * CSS margin for the legend DOM element. This will set an element CSS style for the margin
-     * which will override any style sheet setting. The default will be taken from the stylesheet.
+     * CSS margin for the legend DOM element. This will set an element CSS style for
+     * the margin which will override any style sheet setting. The default will be
+     * taken from the stylesheet.
      *
      * @param value {@link Boolean}
      * @return fluent api style
@@ -259,8 +261,9 @@ public class Legend extends JsObject implements IPluginConsumer {
     private JsString marginBottom;
 
     /**
-     * CSS margin for the legend DOM element. This will set an element CSS style for the margin
-     * which will override any style sheet setting. The default will be taken from the stylesheet.
+     * CSS margin for the legend DOM element. This will set an element CSS style for
+     * the margin which will override any style sheet setting. The default will be
+     * taken from the stylesheet.
      *
      * @param value {@link Boolean}
      * @return fluent api style
@@ -273,8 +276,9 @@ public class Legend extends JsObject implements IPluginConsumer {
     private JsString marginLeft;
 
     /**
-     * CSS margin for the legend DOM element. This will set an element CSS style for the margin
-     * which will override any style sheet setting. The default will be taken from the stylesheet.
+     * CSS margin for the legend DOM element. This will set an element CSS style for
+     * the margin which will override any style sheet setting. The default will be
+     * taken from the stylesheet.
      *
      * @param value {@link Boolean}
      * @return fluent api style

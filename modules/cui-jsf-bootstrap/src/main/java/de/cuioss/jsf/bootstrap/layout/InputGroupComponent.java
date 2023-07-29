@@ -8,8 +8,8 @@ import de.cuioss.jsf.bootstrap.CssBootstrap;
 
 /**
  * <p>
- * Renders a bootstrap conform div with the styleClass 'input-group'.
- * An input group groups a number of input elements to be displayed as one element.
+ * Renders a bootstrap conform div with the styleClass 'input-group'. An input
+ * group groups a number of input elements to be displayed as one element.
  * </p>
  * <p>
  * The layout relies completely on the grid-system of twitter-bootstrap, see
@@ -42,7 +42,6 @@ public class InputGroupComponent extends AbstractLayoutComponent {
      *
      */
     public InputGroupComponent() {
-        super();
         super.setRendererType(BootstrapFamily.LAYOUT_RENDERER);
     }
 

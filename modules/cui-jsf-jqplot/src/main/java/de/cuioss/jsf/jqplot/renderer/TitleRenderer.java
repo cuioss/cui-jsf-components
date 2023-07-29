@@ -4,8 +4,8 @@ import de.cuioss.jsf.jqplot.js.support.JsValue;
 import lombok.Data;
 
 /**
- * A class for creating a DOM element for the title.
- * Value will be returned plain!
+ * A class for creating a DOM element for the title. Value will be returned
+ * plain!
  *
  * @author Eugen Fischer
  */

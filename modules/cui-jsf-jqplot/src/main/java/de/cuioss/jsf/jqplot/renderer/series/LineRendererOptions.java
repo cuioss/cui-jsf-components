@@ -9,12 +9,12 @@ import lombok.experimental.Delegate;
 
 /**
  * @author Eugen Fischer
- * @see <a href="http://www.jqplot.com/docs/files/jqplot-lineRenderer-js.html">LineRenderer</a>
+ * @see <a href=
+ *      "http://www.jqplot.com/docs/files/jqplot-lineRenderer-js.html">LineRenderer</a>
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
-public class LineRendererOptions extends RendererOptions implements
-        IHighlightDecoration<LineRendererOptions> {
+public class LineRendererOptions extends RendererOptions implements IHighlightDecoration<LineRendererOptions> {
 
     /** serial Version UID */
     private static final long serialVersionUID = -6109587609259784491L;
@@ -26,7 +26,6 @@ public class LineRendererOptions extends RendererOptions implements
      * LineRendererOptions Constructor
      */
     public LineRendererOptions() {
-        super();
         highlightDecorator = new Highlighting<>(this);
     }
 

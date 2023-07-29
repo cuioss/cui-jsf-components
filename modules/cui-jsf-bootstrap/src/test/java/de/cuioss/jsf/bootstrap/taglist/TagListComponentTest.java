@@ -34,7 +34,7 @@ class TagListComponentTest extends AbstractComponentTest<TagListComponent> {
     void shouldRenderDependingOnValue() {
         var underTest = anyComponent();
         assertFalse(underTest.isRendered());
-        underTest.setValue(new ArrayList<ConceptKeyType>());
+        underTest.setValue(new ArrayList<>());
         assertFalse(underTest.isRendered());
         underTest.setValue(conceptKeyTypeGenerator.next());
         assertTrue(underTest.isRendered());
@@ -48,7 +48,7 @@ class TagListComponentTest extends AbstractComponentTest<TagListComponent> {
     void shouldReturnCollectionOnValue() {
         var underTest = anyComponent();
         assertTrue(TagHelper.getValueAsSet(underTest.getValue()).isEmpty());
-        underTest.setValue(new ArrayList<ConceptKeyType>());
+        underTest.setValue(new ArrayList<>());
         assertTrue(TagHelper.getValueAsSet(underTest.getValue()).isEmpty());
         underTest.setValue(conceptKeyTypeGenerator.next());
         assertFalse(TagHelper.getValueAsSet(underTest.getValue()).isEmpty());

@@ -27,19 +27,19 @@ import de.cuioss.tools.string.MoreStrings;
 import lombok.experimental.Delegate;
 
 /**
- * Helper / Decorator component used for input-elements within {@link LabeledContainerComponent}.
+ * Helper / Decorator component used for input-elements within
+ * {@link LabeledContainerComponent}.
  * <p>
- * Renders an info button beside its input component. After clicking an additional information block
- * will be displayed
- * under the component.
+ * Renders an info button beside its input component. After clicking an
+ * additional information block will be displayed under the component.
  * </p>
  *
  * <h2>Attributes</h2>
  * <ul>
  * <li>{@link TitleProvider}</li>
  * <li>{@link ContentProvider}</li>
- * <li>buttonAlign: The alignment of the button relative to the wrapped input, defaults to
- * 'append'</li>
+ * <li>buttonAlign: The alignment of the button relative to the wrapped input,
+ * defaults to 'append'</li>
  * </ul>
  * <h2>Usage</h2>
  *
@@ -89,7 +89,6 @@ public class HelpTextComponent extends BaseCuiHtmlHiddenInputComponent implement
      * Constructor.
      */
     public HelpTextComponent() {
-        super();
         state = new CuiState(getStateHelper());
         titleProvider = new TitleProviderImpl(this);
         contentProvider = new ContentProvider(this);
@@ -163,8 +162,9 @@ public class HelpTextComponent extends BaseCuiHtmlHiddenInputComponent implement
     }
 
     /**
-     * @param buttonAlign to be set, expected is one of {@code ContainerFacets#APPEND} or
-     *            {@code ContainerFacets#PREPEND}
+     * @param buttonAlign to be set, expected is one of
+     *                    {@code ContainerFacets#APPEND} or
+     *                    {@code ContainerFacets#PREPEND}
      */
     public void setButtonAlign(String buttonAlign) {
         state.put(BUTTON_ALIGN_KEY, buttonAlign);

@@ -45,12 +45,12 @@ public enum IconState implements StyleClassProvider {
     }
 
     /**
-     * @param contextState
-     *            May be null, otherwise must be one of {"DEFAULT","PRIMARY",
-     *            "SUCCESS", "INFO", "WARNING", "DANGER"}
+     * @param contextState May be null, otherwise must be one of
+     *                     {"DEFAULT","PRIMARY", "SUCCESS", "INFO", "WARNING",
+     *                     "DANGER"}
      * @return the corresponding {@link IconState} derived by the given
-     *         {@link ContextState}. In case of <code>contextSize==null</code>
-     *         it will return {@link IconState#DEFAULT}.
+     *         {@link ContextState}. In case of <code>contextSize==null</code> it
+     *         will return {@link IconState#DEFAULT}.
      */
     public static final IconState getForContextState(ContextState contextState) {
         var result = DEFAULT;

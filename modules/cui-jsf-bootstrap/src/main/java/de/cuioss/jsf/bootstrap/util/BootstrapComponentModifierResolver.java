@@ -9,8 +9,9 @@ import de.cuioss.jsf.api.components.util.modifier.ComponentModifierResolver;
 import de.cuioss.jsf.bootstrap.composite.EditableDataListComponent;
 
 /**
- * Resolves bootstrap-specific components, currently the {@link EditableDataListComponent}
- * 
+ * Resolves bootstrap-specific components, currently the
+ * {@link EditableDataListComponent}
+ *
  * @author Oliver Wolff
  *
  */

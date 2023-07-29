@@ -11,8 +11,8 @@ import de.cuioss.test.jsf.component.AbstractUiComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 
-@VerifyComponentProperties(
-        of = { "decoratorClass", "mimeTypeIcon", "mimeTypeString", "size", "titleKey", "titleValue" })
+@VerifyComponentProperties(of = { "decoratorClass", "mimeTypeIcon", "mimeTypeString", "size", "titleKey",
+        "titleValue" })
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class MimeTypeIconComponentTest extends AbstractUiComponentTest<MimeTypeIconComponent> {
 

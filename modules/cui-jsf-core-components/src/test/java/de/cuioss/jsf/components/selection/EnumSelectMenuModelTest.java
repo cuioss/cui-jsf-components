@@ -12,8 +12,7 @@ import de.cuioss.tools.collect.CollectionBuilder;
 import lombok.AccessLevel;
 import lombok.Getter;
 
-class EnumSelectMenuModelTest
-        extends AbstractConverterTest<EnumSelectMenuModel<TestEnumeration>, TestEnumeration> {
+class EnumSelectMenuModelTest extends AbstractConverterTest<EnumSelectMenuModel<TestEnumeration>, TestEnumeration> {
 
     private List<SelectItem> values;
 

@@ -20,8 +20,7 @@ import lombok.ToString;
 @ToString(exclude = { "userClass" })
 @EqualsAndHashCode(exclude = { "userClass" })
 @RequiredArgsConstructor
-public class Highlighting<T extends Serializable> implements Serializable, IHighlightDecoration<T>,
-        IPropertyProvider {
+public class Highlighting<T extends Serializable> implements Serializable, IHighlightDecoration<T>, IPropertyProvider {
 
     /** serialVersionUID */
     private static final long serialVersionUID = 3957697520759215314L;

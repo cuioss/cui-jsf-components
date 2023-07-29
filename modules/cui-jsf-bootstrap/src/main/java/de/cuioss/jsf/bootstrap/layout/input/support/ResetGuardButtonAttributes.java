@@ -12,30 +12,32 @@ import lombok.NonNull;
 /**
  * <h2>Summary</h2>
  * <p>
- * This class manages the state and resolving of the information needed for creating
- * the guard- / unguard Button in context of {@link InputGuardComponent}
+ * This class manages the state and resolving of the information needed for
+ * creating the guard- / unguard Button in context of
+ * {@link InputGuardComponent}
  * </p>
  * <h2>resetGuardButtonTitleKey</h2>
  * <p>
- * The key for looking up the text to be displayed as the title. Although this attribute
- * is not required the developer must provide either this or #resetGuardButtonTitleValue if you
- * want a title to be displayed. Defaults to 'cc.unlockableField.lock.title', resulting in 'Revert
- * changes'
+ * The key for looking up the text to be displayed as the title. Although this
+ * attribute is not required the developer must provide either this or
+ * #resetGuardButtonTitleValue if you want a title to be displayed. Defaults to
+ * 'cc.unlockableField.lock.title', resulting in 'Revert changes'
  * </p>
  * <h2>resetGuardButtonTitleValue</h2>
  * <p>
  * The Object representing the title to be displayed. This is a replacement for
- * #resetGuardButtonTitleKey. If both are present resetGuardButtonTitleValue takes
- * precedence.
+ * #resetGuardButtonTitleKey. If both are present resetGuardButtonTitleValue
+ * takes precedence.
  * </p>
  * <h2>resetGuardButtonTitleConverter</h2>
  * <p>
- * The optional converterId to be used in case of resetGuardButtonTitleValue is set and needs
- * conversion.
+ * The optional converterId to be used in case of resetGuardButtonTitleValue is
+ * set and needs conversion.
  * </p>
  * <h2>resetGuardButtonTitleEscape</h2>
  * <p>
- * Indicates whether the title is to be escaped on output or not. Default is <code>true</code>.
+ * Indicates whether the title is to be escaped on output or not. Default is
+ * <code>true</code>.
  * </p>
  *
  * @author Oliver Wolff
@@ -116,7 +118,8 @@ public class ResetGuardButtonAttributes {
     }
 
     /**
-     * @param resetGuardButtonTitleConverter the resetGuardButtonTitleConverter to set
+     * @param resetGuardButtonTitleConverter the resetGuardButtonTitleConverter to
+     *                                       set
      */
     public void setResetGuardButtonTitleConverter(Object resetGuardButtonTitleConverter) {
         state.put(CONVERTER_KEY, resetGuardButtonTitleConverter);
@@ -145,8 +148,7 @@ public class ResetGuardButtonAttributes {
         if (titleValue == null && MoreStrings.isEmpty(titleKey)) {
             return null;
         }
-        return LabelResolver.builder().withConverter(getResetGuardButtonTitleConverter())
-                .withLabelKey(titleKey)
+        return LabelResolver.builder().withConverter(getResetGuardButtonTitleConverter()).withLabelKey(titleKey)
                 .withLabelValue(titleValue).build().resolve(componentBridge.facesContext());
     }
 

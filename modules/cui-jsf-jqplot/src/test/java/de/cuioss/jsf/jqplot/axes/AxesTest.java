@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.jqplot.axes.Axes;
-import de.cuioss.jsf.jqplot.axes.Axis;
 import de.cuioss.test.valueobjects.contract.SerializableContractImpl;
 
 class AxesTest {

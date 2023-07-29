@@ -14,8 +14,8 @@ import de.cuioss.test.generator.junit.EnableGeneratorController;
 @EnableGeneratorController
 class ButtonSizeTest {
 
-    private final TypedGenerator<ContextSize> validSizes =
-        Generators.fixedValues(ContextSize.LG, ContextSize.DEFAULT, ContextSize.SM);
+    private final TypedGenerator<ContextSize> validSizes = Generators.fixedValues(ContextSize.LG, ContextSize.DEFAULT,
+            ContextSize.SM);
 
     @Test
     void shouldReturnValueOnValidSize() {

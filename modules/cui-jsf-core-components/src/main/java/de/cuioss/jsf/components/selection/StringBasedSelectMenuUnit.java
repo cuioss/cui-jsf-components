@@ -26,14 +26,12 @@ public class StringBasedSelectMenuUnit extends AbstractSelectMenuModel<String> {
     }
 
     @Override
-    public String convertToObject(FacesContext context, UIComponent component,
-            String value) {
+    public String convertToObject(FacesContext context, UIComponent component, String value) {
         return value;
     }
 
     @Override
-    public String convertToString(FacesContext context, UIComponent component,
-            String value) {
+    public String convertToString(FacesContext context, UIComponent component, String value) {
         return value;
     }
 

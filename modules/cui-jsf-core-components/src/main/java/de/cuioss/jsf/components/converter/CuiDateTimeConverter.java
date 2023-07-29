@@ -13,10 +13,11 @@ import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
 /**
- * Extends standard {@link javax.faces.convert.DateTimeConverter} to support {@link ZonedDateTime}.
- * <p>
- * Accepts {@link Date}, {@link LocalDateTime} and {@link ZonedDateTime} as input, returns as
+ * Extends standard {@link javax.faces.convert.DateTimeConverter} to support
  * {@link ZonedDateTime}.
+ * <p>
+ * Accepts {@link Date}, {@link LocalDateTime} and {@link ZonedDateTime} as
+ * input, returns as {@link ZonedDateTime}.
  *
  * @author Matthias Walliczek
  */
@@ -24,12 +25,11 @@ import javax.faces.convert.FacesConverter;
 public class CuiDateTimeConverter extends javax.faces.convert.DateTimeConverter {
 
     /**
-     * @throws ConverterException {@inheritDoc}
+     * @throws ConverterException   {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public String getAsString(FacesContext context, UIComponent component,
-            Object value) {
+    public String getAsString(FacesContext context, UIComponent component, Object value) {
 
         if (value instanceof ZonedDateTime) {
             var instant = ((ZonedDateTime) value).toInstant();

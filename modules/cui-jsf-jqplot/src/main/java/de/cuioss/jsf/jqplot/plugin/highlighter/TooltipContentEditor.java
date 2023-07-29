@@ -7,13 +7,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * tooltipContentEditorFunction used to edit/augment/replace the formatted tooltip contents.
- * Called as str = tooltipContentEditor(str, seriesIndex, pointIndex)where str is the generated
- * tooltip html and seriesIndex and pointIndex identify the data point being highlighted.
- * Should return the html for the tooltip contents.
- * This is the last possibility you should use!
+ * tooltipContentEditorFunction used to edit/augment/replace the formatted
+ * tooltip contents. Called as str = tooltipContentEditor(str, seriesIndex,
+ * pointIndex)where str is the generated tooltip html and seriesIndex and
+ * pointIndex identify the data point being highlighted. Should return the html
+ * for the tooltip contents. This is the last possibility you should use!
  *
- * @see <a href="http://stackoverflow.com/questions/17719534/jqplot-tooltip-content-editor">
+ * @see <a href=
+ *      "http://stackoverflow.com/questions/17719534/jqplot-tooltip-content-editor">
  *      TooltipContentEditor</a>
  * @author Eugen Fischer
  */
@@ -26,8 +27,7 @@ public class TooltipContentEditor implements JsValue, PlotHookFunctionProvider {
 
     private static final String HOOK_NAME = "tooltip_hook";
 
-    private static final String TEMPLATE =
-        "function tooltipContentEditor(str,seriesIndex,pointIndex,plot)%s";
+    private static final String TEMPLATE = "function tooltipContentEditor(str,seriesIndex,pointIndex,plot)%s";
 
     /**
      * You have to care about to complete the JavaScript function:

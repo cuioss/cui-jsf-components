@@ -23,8 +23,7 @@ import de.cuioss.jsf.bootstrap.CssBootstrap;
  *
  * @author Oliver Wolff
  */
-@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY,
-        rendererType = BootstrapFamily.CLOSE_COMMAND_BUTTON_RENDERER)
+@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.CLOSE_COMMAND_BUTTON_RENDERER)
 public class CloseCommandButtonRenderer extends BaseDecoratorRenderer<CloseCommandButton> {
 
     /**
@@ -36,11 +35,10 @@ public class CloseCommandButtonRenderer extends BaseDecoratorRenderer<CloseComma
 
     @Override
     protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<CloseCommandButton> writer,
-            final CloseCommandButton component)
-        throws IOException {
+            final CloseCommandButton component) throws IOException {
 
-        var wrapped =
-            ElementReplacingResponseWriter.createWrappedReplacingResonseWriter(context, "input", "button", true);
+        var wrapped = ElementReplacingResponseWriter.createWrappedReplacingResonseWriter(context, "input", "button",
+                true);
 
         JsfHtmlComponent.COMMAND_BUTTON.renderer(context).encodeBegin(wrapped, component);
 
@@ -65,8 +63,7 @@ public class CloseCommandButtonRenderer extends BaseDecoratorRenderer<CloseComma
     @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
                                   // controlled by JSF
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<CloseCommandButton> writer,
-            final CloseCommandButton component)
-        throws IOException {
+            final CloseCommandButton component) throws IOException {
         writer.withEndElement(Node.BUTTON);
     }
 }

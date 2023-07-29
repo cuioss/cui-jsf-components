@@ -18,8 +18,8 @@ public class NotificationBoxHandler extends ComponentHandler {
     /** "dismissListener". */
     public static final String DISMISS_LISTENER_NAME = "dismissListener";
 
-    private static final MetaRule DISMISS_METHOD =
-        new MethodRule(DISMISS_LISTENER_NAME, null, new Class[] { ModelPayloadEvent.class });
+    private static final MetaRule DISMISS_METHOD = new MethodRule(DISMISS_LISTENER_NAME, null,
+            new Class[] { ModelPayloadEvent.class });
 
     /**
      * @param config

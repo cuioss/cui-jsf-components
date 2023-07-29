@@ -23,7 +23,7 @@ import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.mocks.CuiMockMethodExpression;
 
 @VerifyComponentProperties(of = { "model", "disposable", "contentKey", "contentValue", "size", "state", "titleKey",
-    "titleValue", "contentEscape" })
+        "titleValue", "contentEscape" })
 class TagComponentTest extends AbstractUiComponentTest<TagComponent> implements ComponentConfigurator {
 
     private static final String PAYLOAD = "data";

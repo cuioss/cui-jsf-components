@@ -18,13 +18,13 @@ public class LocaleConverter extends AbstractConverter<Locale> {
 
     @Override
     protected String convertToString(FacesContext context, UIComponent component, Locale value)
-        throws ConverterException {
+            throws ConverterException {
         return value.toLanguageTag();
     }
 
     @Override
     protected Locale convertToObject(FacesContext context, UIComponent component, String value)
-        throws ConverterException {
+            throws ConverterException {
         return Locale.forLanguageTag(value);
     }
 }

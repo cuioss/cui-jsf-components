@@ -13,7 +13,6 @@ import de.cuioss.jsf.jqplot.axes.AxisType;
 import de.cuioss.jsf.jqplot.layout.Grid;
 import de.cuioss.jsf.jqplot.layout.Series;
 import de.cuioss.jsf.jqplot.layout.Title;
-import de.cuioss.jsf.jqplot.options.Options;
 import de.cuioss.jsf.jqplot.options.legend.Legend;
 import de.cuioss.jsf.jqplot.plugin.cursor.Cursor;
 import de.cuioss.jsf.jqplot.plugin.highlighter.Highlighter;

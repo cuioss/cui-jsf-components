@@ -26,7 +26,6 @@ public class AccordionComponent extends BasicBootstrapPanelComponent {
 
     /***/
     public AccordionComponent() {
-        super();
         super.setRendererType(BootstrapFamily.ACCORDION_RENDERER);
         activeIndexManagerProvider = new ActiveIndexManagerProvider(this);
         state = new CuiState(getStateHelper());

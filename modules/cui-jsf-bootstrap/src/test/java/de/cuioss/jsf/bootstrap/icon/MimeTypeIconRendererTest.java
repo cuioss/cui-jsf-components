@@ -78,8 +78,7 @@ class MimeTypeIconRendererTest extends AbstractComponentRendererTest<MimeTypeIco
     void shouldRenderCustomSize() {
         var component = new MimeTypeIconComponent();
         component.setSize(ContextSize.LG.name());
-        var expected =
-            new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass("cui-icon-stack cui-icon-lg");
+        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass("cui-icon-stack cui-icon-lg");
         // Layer 1
         expected.withNode(Node.ITALIC).withStyleClass("cui-mime-type cui-icon-stack-1x cui-mime-type-folder")
                 .currentHierarchyUp();

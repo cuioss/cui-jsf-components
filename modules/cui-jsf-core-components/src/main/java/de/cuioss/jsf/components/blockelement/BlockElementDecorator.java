@@ -10,11 +10,11 @@ import lombok.ToString;
 
 /**
  * <p>
- * Decorator to activate the "block element" function for an (optional ajax enabled) element: After
- * activating the
- * element (e.g button click or value change) the element will be disabled and the spinner will be
- * added. To reset this
- * behaviour the element should be part of the "update" or "render" attribute of an ajax behaviour.
+ * Decorator to activate the "block element" function for an (optional ajax
+ * enabled) element: After activating the element (e.g button click or value
+ * change) the element will be disabled and the spinner will be added. To reset
+ * this behaviour the element should be part of the "update" or "render"
+ * attribute of an ajax behaviour.
  * </p>
  * <h2>Usage</h2>
  *

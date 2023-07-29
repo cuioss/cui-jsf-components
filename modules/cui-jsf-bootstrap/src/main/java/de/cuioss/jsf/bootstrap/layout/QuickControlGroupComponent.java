@@ -13,8 +13,7 @@ import lombok.experimental.Delegate;
  * Wraps a number of buttons. Quick means solely appending the CSS-class
  * 'quick-control-group' and the styleClass attribute, if set, will be attached
  * to the surrounding DIV. For more complex layouts use controlGroup
- * ({@link ControlGroupComponent}}).
- * Rendered by javax.faces.Group.
+ * ({@link ControlGroupComponent}}). Rendered by javax.faces.Group.
  *
  * @author Sven Haag
  */
@@ -26,11 +25,11 @@ public class QuickControlGroupComponent extends AbstractLayoutComponent {
     private final AlignProvider alignProvider;
 
     /**
-     * Creates a QuickControlGroupComponent with {@link BootstrapFamily#LAYOUT_RENDERER} renderer
-     * and {@link AlignProvider} as align provider.
+     * Creates a QuickControlGroupComponent with
+     * {@link BootstrapFamily#LAYOUT_RENDERER} renderer and {@link AlignProvider} as
+     * align provider.
      */
     public QuickControlGroupComponent() {
-        super();
         alignProvider = new AlignProvider(this);
         super.setRendererType(BootstrapFamily.LAYOUT_RENDERER);
     }

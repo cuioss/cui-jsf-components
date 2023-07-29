@@ -75,15 +75,12 @@ public class DashboardTagHandler extends TagHandler {
             writer.println(
                     "<ui:component xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:ui=\"http://xmlns.jcp.org/jsf/facelets\"");
             for (final DashboardWidgetModel widget : widgetList) {
-                final var currentComponentNS =
-                    widget.getCompositeComponentId()
-                            .substring(0, widget.getCompositeComponentId().lastIndexOf(':'));
+                final var currentComponentNS = widget.getCompositeComponentId().substring(0,
+                        widget.getCompositeComponentId().lastIndexOf(':'));
                 if (!taglibRegistry.contains(currentComponentNS)) {
                     taglibRegistry.add(currentComponentNS);
-                    writer.println(
-                            "xmlns:" + currentComponentNS + "=\"http://xmlns.jcp.org/jsf/composite/"
-                                    + currentComponentNS
-                                    + "\"");
+                    writer.println("xmlns:" + currentComponentNS + "=\"http://xmlns.jcp.org/jsf/composite/"
+                            + currentComponentNS + "\"");
                 }
             }
             writer.println(">");
@@ -95,20 +92,15 @@ public class DashboardTagHandler extends TagHandler {
             var widgetIndex = 0;
             for (final DashboardWidgetModel widget : widgetList) {
                 writer.println("<div class=\"" + widgetStyleClass + "\">");
-                final var currentComponentNS =
-                    widget.getCompositeComponentId()
-                            .substring(0, widget.getCompositeComponentId().lastIndexOf(':'));
-                final var componentName =
-                    widget.getCompositeComponentId()
-                            .substring(widget.getCompositeComponentId().lastIndexOf(':') + 1);
-                final var beanValExpStr =
-                    widgetsAttr.getValue().substring(0, widgetsAttr.getValue().lastIndexOf('}')) + ".get("
-                            + widgetIndex
-                            + ")}";
+                final var currentComponentNS = widget.getCompositeComponentId().substring(0,
+                        widget.getCompositeComponentId().lastIndexOf(':'));
+                final var componentName = widget.getCompositeComponentId()
+                        .substring(widget.getCompositeComponentId().lastIndexOf(':') + 1);
+                final var beanValExpStr = widgetsAttr.getValue().substring(0, widgetsAttr.getValue().lastIndexOf('}'))
+                        + ".get(" + widgetIndex + ")}";
                 widgetIndex++;
-                writer.println(
-                        "<" + currentComponentNS + ":" + componentName + " id=\"" + widget.getId() + "\" model=\""
-                                + beanValExpStr + "\" />");
+                writer.println("<" + currentComponentNS + ":" + componentName + " id=\"" + widget.getId()
+                        + "\" model=\"" + beanValExpStr + "\" />");
                 writer.println("</div>");
             }
 

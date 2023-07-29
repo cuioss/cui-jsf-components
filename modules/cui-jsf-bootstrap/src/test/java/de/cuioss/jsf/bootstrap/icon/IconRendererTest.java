@@ -39,8 +39,7 @@ class IconRendererTest extends AbstractComponentRendererTest<IconRenderer> {
 
     @Test
     void shouldRenderMinimal() {
-        var expected =
-            new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(IconProvider.FALLBACK_ICON_STRING);
+        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(IconProvider.FALLBACK_ICON_STRING);
         assertRenderResult(getComponent(), expected.getDocument());
     }
 
@@ -48,8 +47,7 @@ class IconRendererTest extends AbstractComponentRendererTest<IconRenderer> {
     void shouldRenderDefaultIconOnInvalidLibrary() {
         var component = new IconComponent();
         component.setIcon(SOME_KEY);
-        var expected =
-            new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(IconProvider.FALLBACK_ICON_STRING);
+        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(IconProvider.FALLBACK_ICON_STRING);
         assertRenderResult(component, expected.getDocument());
     }
 

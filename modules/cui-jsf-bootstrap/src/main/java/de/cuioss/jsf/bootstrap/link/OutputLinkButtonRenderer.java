@@ -16,8 +16,7 @@ import de.cuioss.jsf.bootstrap.icon.IconComponent;
  * @author Oliver Wolff
  *
  */
-@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY,
-        rendererType = BootstrapFamily.OUTPUT_LINK_BUTTON_RENDERER)
+@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.OUTPUT_LINK_BUTTON_RENDERER)
 public class OutputLinkButtonRenderer extends BaseDecoratorRenderer<OutputLinkButton> {
 
     /**
@@ -29,15 +28,13 @@ public class OutputLinkButtonRenderer extends BaseDecoratorRenderer<OutputLinkBu
 
     @Override
     protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<OutputLinkButton> writer,
-            final OutputLinkButton component)
-        throws IOException {
+            final OutputLinkButton component) throws IOException {
         JsfHtmlComponent.HTML_OUTPUT_LINK.renderer(context).encodeBegin(context, component);
     }
 
     @Override
     protected void doEncodeChildren(final FacesContext context, final DecoratingResponseWriter<OutputLinkButton> writer,
-            final OutputLinkButton component)
-        throws IOException {
+            final OutputLinkButton component) throws IOException {
         if (component.isDisplayIconLeft() && component.isIconSet()) {
             var icon = IconComponent.createComponent(context);
             icon.setIcon(component.getIcon());
@@ -62,8 +59,7 @@ public class OutputLinkButtonRenderer extends BaseDecoratorRenderer<OutputLinkBu
 
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<OutputLinkButton> writer,
-            final OutputLinkButton component)
-        throws IOException {
+            final OutputLinkButton component) throws IOException {
         JsfHtmlComponent.HTML_OUTPUT_LINK.renderer(context).encodeEnd(context, component);
     }
 

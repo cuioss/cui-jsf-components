@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.jqplot.layout.Title;
 import de.cuioss.test.valueobjects.contract.SerializableContractImpl;
 
 class TitleTest {

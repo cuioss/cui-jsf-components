@@ -24,10 +24,12 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * An individual axis object. Cannot be instantiated directly, but created by the Plot object. Axis
- * properties can be set or overriden by the options passed in from the user.
+ * An individual axis object. Cannot be instantiated directly, but created by
+ * the Plot object. Axis properties can be set or overriden by the options
+ * passed in from the user.
  *
- * @see <a href="http://www.jqplot.com/docs/files/jqplot-core-js.html#Axis.labelOptions"></a>
+ * @see <a href=
+ *      "http://www.jqplot.com/docs/files/jqplot-core-js.html#Axis.labelOptions"></a>
  * @author Eugen Fischer
  */
 @ToString
@@ -43,13 +45,16 @@ public class Axis extends JsObject implements IPluginConsumer {
     private final boolean show = true;
 
     /**
-     * A class of a rendering engine for creating the ticks labels displayed on the plot, See
-     * $.jqplot.AxisTickRenderer.
+     * A class of a rendering engine for creating the ticks labels displayed on the
+     * plot, See $.jqplot.AxisTickRenderer.
      */
     @Setter
     private AxisTickRenderer tickRenderer;
 
-    /** Options that will be passed to the tickRenderer, see $.jqplot.AxisTickRenderer options. */
+    /**
+     * Options that will be passed to the tickRenderer, see
+     * $.jqplot.AxisTickRenderer options.
+     */
     @Setter
     private TickOptions tickOptions;
 
@@ -74,9 +79,10 @@ public class Axis extends JsObject implements IPluginConsumer {
     private final boolean autoscale = false;
 
     /**
-     * Padding to extend the range above and below the data bounds. The data range is multiplied by
-     * this factor to determine minimum and maximum axis bounds. A value of 0 will be interpreted to
-     * mean no padding, and pad will be set to 1.0.
+     * Padding to extend the range above and below the data bounds. The data range
+     * is multiplied by this factor to determine minimum and maximum axis bounds. A
+     * value of 0 will be interpreted to mean no padding, and pad will be set to
+     * 1.0.
      */
     private final Double pad = null;
 
@@ -86,7 +92,10 @@ public class Axis extends JsObject implements IPluginConsumer {
     /** Padding to extend the range below data bounds. */
     private final Double padMin = null;
 
-    /** 1D [val, val, ...] or 2D [[val, label], [val, label], ...] array of ticks for the axis. */
+    /**
+     * 1D [val, val, ...] or 2D [[val, label], [val, label], ...] array of ticks for
+     * the axis.
+     */
     private Ticks ticks;
 
     /** Desired number of ticks. Default is to compute automatically. */
@@ -96,8 +105,8 @@ public class Axis extends JsObject implements IPluginConsumer {
     private String tickInterval = null;
 
     /**
-     * A class of a rendering engine that handles tick generation, scaling input data to pixel grid
-     * units and drawing the axis element.
+     * A class of a rendering engine that handles tick generation, scaling input
+     * data to pixel grid units and drawing the axis element.
      */
     @Setter
     private Renderer renderer = null;
@@ -106,14 +115,14 @@ public class Axis extends JsObject implements IPluginConsumer {
     private final RendererOptions rendererOptions = null;
 
     /**
-     * Wether to show the ticks (both marks and labels) or not. Will not override showMark and
-     * showLabel options if specified on the ticks themselves.
+     * Wether to show the ticks (both marks and labels) or not. Will not override
+     * showMark and showLabel options if specified on the ticks themselves.
      */
     private final boolean showTicks = true;
 
     /**
-     * Wether to show the tick marks (line crossing grid) or not. Overridden by showTicks and
-     * showMark option of tick itself.
+     * Wether to show the tick marks (line crossing grid) or not. Overridden by
+     * showTicks and showMark option of tick itself.
      */
     private boolean showTickMarks;
 
@@ -124,13 +133,14 @@ public class Axis extends JsObject implements IPluginConsumer {
     private boolean showMinorTicks;
 
     /**
-     * Use the color of the first series associated with this axis for the tick marks and line
-     * bordering this axis.
+     * Use the color of the first series associated with this axis for the tick
+     * marks and line bordering this axis.
      */
     private boolean useSeriesColor;
 
     /**
-     * width of line stroked at the border of the axis. Defaults to the width of the grid boarder.
+     * width of line stroked at the border of the axis. Defaults to the width of the
+     * grid boarder.
      */
     private final Double borderWidth = null;
 
@@ -138,15 +148,16 @@ public class Axis extends JsObject implements IPluginConsumer {
     private final Color borderColor = null;
 
     /**
-     * true to try and synchronize tick spacing across multiple axes so that ticks and grid lines
-     * line up. This has an impact on autoscaling algorithm, however. In general, autoscaling an
-     * individual axis will work better if it does not have to sync ticks
+     * true to try and synchronize tick spacing across multiple axes so that ticks
+     * and grid lines line up. This has an impact on autoscaling algorithm, however.
+     * In general, autoscaling an individual axis will work better if it does not
+     * have to sync ticks
      */
     private final Ticks syncTicks = null;
 
     /**
-     * Approximate pixel spacing between ticks on graph. Used during autoscaling. This number will
-     * be an upper bound, actual spacing will be less.
+     * Approximate pixel spacing between ticks on graph. Used during autoscaling.
+     * This number will be an upper bound, actual spacing will be less.
      */
     private final Integer tickSpacing = 75;
 

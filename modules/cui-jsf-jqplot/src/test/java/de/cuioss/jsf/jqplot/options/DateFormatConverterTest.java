@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.jqplot.options.DateFormatConverter;
-
 class DateFormatConverterTest {
 
     @Test
@@ -20,7 +18,8 @@ class DateFormatConverterTest {
 
     @Test
     void shouldHandleDifferentMonth() {
-        // If the number of pattern letters is 3 or more, the month is interpreted as text
+        // If the number of pattern letters is 3 or more, the month is interpreted as
+        // text
         assertEquals("%B", DateFormatConverter.convertToJavaScriptDateFormat("MMMM"));
         assertEquals("%b", DateFormatConverter.convertToJavaScriptDateFormat("MMM"));
         assertEquals("%m", DateFormatConverter.convertToJavaScriptDateFormat("MM"));
@@ -28,11 +27,9 @@ class DateFormatConverterTest {
     }
 
     /**
-     * D Day in year Number 189
-     * d Day in month Number 10
-     * F Day of week in month Number 2
-     * E Day name in week Text Tuesday; Tue
-     * u Day number of week (1 = Monday, ..., 7 = Sunday) Number 1
+     * D Day in year Number 189 d Day in month Number 10 F Day of week in month
+     * Number 2 E Day name in week Text Tuesday; Tue u Day number of week (1 =
+     * Monday, ..., 7 = Sunday) Number 1
      */
     @Test
     void shouldHandleDifferentDay() {

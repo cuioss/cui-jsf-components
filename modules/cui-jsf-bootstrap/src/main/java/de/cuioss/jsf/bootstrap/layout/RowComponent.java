@@ -48,7 +48,6 @@ public class RowComponent extends AbstractLayoutComponent {
      *
      */
     public RowComponent() {
-        super();
         super.setRendererType(BootstrapFamily.LAYOUT_RENDERER);
     }
 

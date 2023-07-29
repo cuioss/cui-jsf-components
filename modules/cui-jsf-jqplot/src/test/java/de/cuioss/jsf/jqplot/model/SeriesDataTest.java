@@ -9,9 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import de.cuioss.jsf.jqplot.js.types.JsDateTimeFormat;
 import de.cuioss.jsf.jqplot.js.types.JsInteger;
-import de.cuioss.jsf.jqplot.model.Seria;
-import de.cuioss.jsf.jqplot.model.SeriaTupelItem;
-import de.cuioss.jsf.jqplot.model.SeriesData;
 import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
 
 class SeriesDataTest implements ShouldHandleObjectContracts<SeriesData> {

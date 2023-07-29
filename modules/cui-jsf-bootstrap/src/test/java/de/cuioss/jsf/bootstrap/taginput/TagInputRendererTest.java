@@ -48,32 +48,29 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
 
     private static final String CLIENT_ID = "j_id__v_0";
 
-    private static final ConceptKeyType CODE_TYPE_3_UNDEFINED =
-            ConceptKeyTypeGenerator.TestConceptCategory.createUndefinedConceptKey("identifier3");
+    private static final ConceptKeyType CODE_TYPE_3_UNDEFINED = ConceptKeyTypeGenerator.TestConceptCategory
+            .createUndefinedConceptKey("identifier3");
 
     private static final String HARMFUL = "<script>alert('hello')</script>";
 
     private final TypedGenerator<Integer> numberGenerator = Generators.integers(1, 2);
 
-    static final ConceptKeyType CODE_TYPE_1 =
-            ConceptKeyTypeImpl.builder().identifier("identifier1")
-                    .labelResolver(new I18nDisplayNameProvider("resolved1"))
-                    .category(ConceptKeyTypeGenerator.TestConceptCategory).build();
-
-    private static final ConceptKeyType CODE_TYPE_1_HARMFUL = ConceptKeyTypeImpl.builder()
-            .identifier("identifier1" + HARMFUL).labelResolver(new I18nDisplayNameProvider.Builder().defaultValue(
-                    "resolved1" + HARMFUL).build())
+    static final ConceptKeyType CODE_TYPE_1 = ConceptKeyTypeImpl.builder().identifier("identifier1")
+            .labelResolver(new I18nDisplayNameProvider("resolved1"))
             .category(ConceptKeyTypeGenerator.TestConceptCategory).build();
 
-    static final ConceptKeyType CODE_TYPE_2 =
-            ConceptKeyTypeImpl.builder().identifier("identifier2")
-                    .labelResolver(new I18nDisplayNameProvider("resolved2"))
-                    .category(ConceptKeyTypeGenerator.TestConceptCategory).build();
+    private static final ConceptKeyType CODE_TYPE_1_HARMFUL = ConceptKeyTypeImpl.builder()
+            .identifier("identifier1" + HARMFUL)
+            .labelResolver(new I18nDisplayNameProvider.Builder().defaultValue("resolved1" + HARMFUL).build())
+            .category(ConceptKeyTypeGenerator.TestConceptCategory).build();
 
-    private static final ConceptKeyType CODE_TYPE_CLIENT_CREATED =
-            ConceptKeyTypeImpl.builder().identifier(Selectize.CLIENT_CREATED_SUFFIX + "hello")
-                    .labelResolver(new I18nDisplayNameProvider("hello"))
-                    .category(new MissingTagConceptKeyCategory()).build();
+    static final ConceptKeyType CODE_TYPE_2 = ConceptKeyTypeImpl.builder().identifier("identifier2")
+            .labelResolver(new I18nDisplayNameProvider("resolved2"))
+            .category(ConceptKeyTypeGenerator.TestConceptCategory).build();
+
+    private static final ConceptKeyType CODE_TYPE_CLIENT_CREATED = ConceptKeyTypeImpl.builder()
+            .identifier(Selectize.CLIENT_CREATED_SUFFIX + "hello").labelResolver(new I18nDisplayNameProvider("hello"))
+            .category(new MissingTagConceptKeyCategory()).build();
 
     private static final String IDENTIFIER1_HEX = Hex.encodeHexString("identifier1".getBytes());
 
@@ -86,8 +83,8 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
     private static final String DEFAULT_OPTIONS = "{\"label\":\"resolved1\",\"value\":\"" + IDENTIFIER1_HEX
             + "\"},{\"label\":\"resolved2\",\"value\":\"" + IDENTIFIER2_HEX + "\"}";
 
-    private static final NotQuotableWrapper OPTIONS_AS_NON_QUOTABLE_WRAPPER =
-            new NotQuotableWrapper("[" + DEFAULT_OPTIONS + "]");
+    private static final NotQuotableWrapper OPTIONS_AS_NON_QUOTABLE_WRAPPER = new NotQuotableWrapper(
+            "[" + DEFAULT_OPTIONS + "]");
 
     @Test
     void shouldRenderMinimal() {
@@ -160,8 +157,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
     void shouldAddUndefinedToIdentifierAsValue() {
         final var component = new TagInputComponent();
         final Set<ConceptKeyType> value = immutableSortedSet(CODE_TYPE_1, CODE_TYPE_2, CODE_TYPE_3_UNDEFINED);
-        final var expected =
-                createInputNodeWithoutValue().withAttribute(AttributeName.VALUE, value.toString());
+        final var expected = createInputNodeWithoutValue().withAttribute(AttributeName.VALUE, value.toString());
         component.setSourceSet(immutableSortedSet(CODE_TYPE_1, CODE_TYPE_2));
         component.setLetUserCreateTags(false);
         component.setValue(value);
@@ -186,8 +182,9 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
         getRequestConfigDecorator().setRequestParameter(component.getClientId(), IDENTIFIER1_HEX);
         getRenderer().decode(getFacesContext(), component);
         assertNotNull(component.getSubmittedValue());
-        @SuppressWarnings("unchecked") final var submitted =
-                (Set<CodeType>) component.getConvertedValue(getFacesContext(), component.getSubmittedValue());
+        @SuppressWarnings("unchecked")
+        final var submitted = (Set<CodeType>) component.getConvertedValue(getFacesContext(),
+                component.getSubmittedValue());
         assertEquals(1, submitted.size());
         assertEquals(CODE_TYPE_1, submitted.iterator().next());
     }
@@ -201,9 +198,9 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
                 IDENTIFIER1_HEX + "," + IDENTIFIER2_HEX);
         getRenderer().decode(getFacesContext(), component);
         assertNotNull(component.getSubmittedValue());
-        @SuppressWarnings("unchecked") final var submitted =
-                (Set<CodeType>) getRenderer().getConvertedValue(getFacesContext(), component,
-                        component.getSubmittedValue());
+        @SuppressWarnings("unchecked")
+        final var submitted = (Set<CodeType>) getRenderer().getConvertedValue(getFacesContext(), component,
+                component.getSubmittedValue());
         assertEquals(2, submitted.size());
         assertEquals(sourceSet, submitted);
     }
@@ -217,8 +214,9 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
                 IDENTIFIER1_HEX + "," + IDENTIFIER2_HEX);
         getRenderer().decode(getFacesContext(), component);
         assertNotNull(component.getSubmittedValue());
-        @SuppressWarnings("unchecked") final var submitted =
-                (Set<CodeType>) component.getConvertedValue(getFacesContext(), component.getSubmittedValue());
+        @SuppressWarnings("unchecked")
+        final var submitted = (Set<CodeType>) component.getConvertedValue(getFacesContext(),
+                component.getSubmittedValue());
         assertEquals(2, submitted.size());
         assertEquals(sourceSet, submitted);
     }
@@ -233,8 +231,9 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
                 IDENTIFIER1_HEX + "," + Hex.encodeHexString("identifier3".getBytes()));
         getRenderer().decode(getFacesContext(), component);
         assertNotNull(component.getSubmittedValue());
-        @SuppressWarnings("unchecked") final var submitted =
-                (Set<ConceptKeyType>) component.getConvertedValue(getFacesContext(), component.getSubmittedValue());
+        @SuppressWarnings("unchecked")
+        final var submitted = (Set<ConceptKeyType>) component.getConvertedValue(getFacesContext(),
+                component.getSubmittedValue());
         assertEquals(2, submitted.size());
         final var iterator = submitted.iterator();
         assertEquals(CODE_TYPE_1, iterator.next());
@@ -250,8 +249,9 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
                 IDENTIFIER1_HEX + "," + IDENTIFIER2_HEX + ",");
         getRenderer().decode(getFacesContext(), component);
         assertNotNull(component.getSubmittedValue());
-        @SuppressWarnings("unchecked") final var submitted =
-                (Set<CodeType>) component.getConvertedValue(getFacesContext(), component.getSubmittedValue());
+        @SuppressWarnings("unchecked")
+        final var submitted = (Set<CodeType>) component.getConvertedValue(getFacesContext(),
+                component.getSubmittedValue());
         assertEquals(2, submitted.size());
         assertEquals(sourceSet, submitted);
     }
@@ -261,7 +261,8 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
         final var component = new TagInputComponent();
         getRequestConfigDecorator().setRequestParameter(component.getClientId(), Selectize.CLIENT_CREATED_SUFFIX);
         getRenderer().decode(getFacesContext(), component);
-        assertThrows(ConverterException.class, () -> component.getConvertedValue(getFacesContext(), component.getSubmittedValue()));
+        assertThrows(ConverterException.class,
+                () -> component.getConvertedValue(getFacesContext(), component.getSubmittedValue()));
     }
 
     @Test
@@ -269,7 +270,8 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
         final var component = new TagInputComponent();
         getRequestConfigDecorator().setRequestParameter(component.getClientId(), CODE_TYPE_1.getIdentifier());
         getRenderer().decode(getFacesContext(), component);
-        assertThrows(ConverterException.class, () -> component.getConvertedValue(getFacesContext(), component.getSubmittedValue()));
+        assertThrows(ConverterException.class,
+                () -> component.getConvertedValue(getFacesContext(), component.getSubmittedValue()));
     }
 
     @Test
@@ -296,8 +298,9 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
                 CODE_TYPE_CLIENT_CREATED.getIdentifier());
         getRenderer().decode(getFacesContext(), component);
         assertNotNull(component.getSubmittedValue());
-        @SuppressWarnings("unchecked") final var submitted =
-                (Set<ConceptKeyType>) component.getConvertedValue(getFacesContext(), component.getSubmittedValue());
+        @SuppressWarnings("unchecked")
+        final var submitted = (Set<ConceptKeyType>) component.getConvertedValue(getFacesContext(),
+                component.getSubmittedValue());
         assertEquals(1, submitted.size());
         assertEquals(CODE_TYPE_CLIENT_CREATED, submitted.iterator().next());
         // imitate validation and Update Model Values phase
@@ -306,10 +309,9 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
         assertEquals(1, component.getClientCreated().size());
         assertEquals(CODE_TYPE_CLIENT_CREATED, component.getClientCreated().iterator().next());
         // For the next render the client created should be part options:
-        final var expected =
-                createInputNodeWithoutValue().withAttribute(AttributeName.VALUE, submitted.toString());
-        final var options =
-                "[" + DEFAULT_OPTIONS + ",{\"label\":\"hello\",\"value\":\"" + IDENTIFIER_HELLO_HEX + "\"}]";
+        final var expected = createInputNodeWithoutValue().withAttribute(AttributeName.VALUE, submitted.toString());
+        final var options = "[" + DEFAULT_OPTIONS + ",{\"label\":\"hello\",\"value\":\"" + IDENTIFIER_HELLO_HEX
+                + "\"}]";
         addDataAttributes(expected, component, options);
         assertRenderResult(component, expected.getDocument());
     }
@@ -355,7 +357,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
                         component.isLetUserCreateTags()
                                 ? TagInputComponent.CSS_CLASS_CAN_CREATE + " " + Selectize.OPTION_VALUE_DEFAULT_WRAPPER
                                 : TagInputComponent.CSS_CLASS_CANNOT_CREATE + " "
-                                + Selectize.OPTION_VALUE_DEFAULT_WRAPPER)
+                                        + Selectize.OPTION_VALUE_DEFAULT_WRAPPER)
                 .withAttribute(PassthroughAttributes.CAN_CREATE, String.valueOf(component.isLetUserCreateTags()))
                 .withAttribute(PassthroughAttributes.DELIMITER, component.getDelimiter())
                 .withAttribute(PassthroughAttributes.MAX_ITEMS, String.valueOf(component.getMaxItems()))

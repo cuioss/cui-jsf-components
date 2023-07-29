@@ -10,8 +10,8 @@ import lombok.NonNull;
 /**
  * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of the bootstrap column-css. It is
- * computed out of the given attributes.
+ * Implementors of this class manage the state and resolving of the bootstrap
+ * column-css. It is computed out of the given attributes.
  * </p>
  * <h2>contentSize</h2>
  * <p>
@@ -35,14 +35,15 @@ public class ContentColumnProvider {
     private final CuiState state;
 
     /**
-     * Defines the default size for this partial, in case no explicit size is given by the client.
+     * Defines the default size for this partial, in case no explicit size is given
+     * by the client.
      */
     private final Integer defaultSize;
 
     /**
-     * @param bridge must not be null
-     * @param defaultSize the default size for this partial, in case no explicit size is given by
-     *            the client.
+     * @param bridge      must not be null
+     * @param defaultSize the default size for this partial, in case no explicit
+     *                    size is given by the client.
      */
     public ContentColumnProvider(@NonNull ComponentBridge bridge, @NonNull Integer defaultSize) {
         state = new CuiState(bridge.stateHelper());
@@ -82,7 +83,6 @@ public class ContentColumnProvider {
      * @return the resolved column-css.
      */
     public StyleClassBuilder resolveContentCss(final boolean renderAsColumn) {
-        return new ColumnCssResolver(getContentSize(), null, renderAsColumn, getContentStyleClass())
-                .resolveColumnCss();
+        return new ColumnCssResolver(getContentSize(), null, renderAsColumn, getContentStyleClass()).resolveColumnCss();
     }
 }

@@ -29,8 +29,7 @@ class FieldsetRendererTest extends AbstractComponentRendererTest<FieldsetRendere
 
     @Test
     void shouldRenderLegend() {
-        var expected =
-            new HtmlTreeBuilder().withNode(Node.FIELDSET).withNode(Node.LEGEND).withTextContent(LEGEND_TEXT);
+        var expected = new HtmlTreeBuilder().withNode(Node.FIELDSET).withNode(Node.LEGEND).withTextContent(LEGEND_TEXT);
         var component = new FieldsetComponent();
         component.setLegendValue(LEGEND_TEXT);
         assertRenderResult(component, expected.getDocument());

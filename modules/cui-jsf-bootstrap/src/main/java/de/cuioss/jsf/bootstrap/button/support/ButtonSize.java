@@ -39,9 +39,9 @@ public enum ButtonSize implements StyleClassProvider {
     }
 
     /**
-     * @param contextSize
-     *            May be null, otherwise must be one of {@link ContextSize#LG},
-     *            {@link ContextSize#DEFAULT} or {@link ContextSize#SM}
+     * @param contextSize May be null, otherwise must be one of
+     *                    {@link ContextSize#LG}, {@link ContextSize#DEFAULT} or
+     *                    {@link ContextSize#SM}
      * @return the corresponding {@link ButtonSize} derived by the given
      *         {@link ContextSize}. In case of <code>contextSize==null</code> it
      *         will return {@link ButtonSize#DEFAULT}. In case it is none of the
@@ -50,14 +50,14 @@ public enum ButtonSize implements StyleClassProvider {
     public static final ButtonSize getForContextSize(final ContextSize contextSize) {
         if (null != contextSize) {
             switch (contextSize) {
-                case DEFAULT:
-                    return ButtonSize.DEFAULT;
-                case LG:
-                    return ButtonSize.LG;
-                case SM:
-                    return ButtonSize.SM;
-                default:
-                    throw new IllegalArgumentException("No Button-Size defined for " + contextSize);
+            case DEFAULT:
+                return ButtonSize.DEFAULT;
+            case LG:
+                return ButtonSize.LG;
+            case SM:
+                return ButtonSize.SM;
+            default:
+                throw new IllegalArgumentException("No Button-Size defined for " + contextSize);
             }
         }
         return ButtonSize.DEFAULT;

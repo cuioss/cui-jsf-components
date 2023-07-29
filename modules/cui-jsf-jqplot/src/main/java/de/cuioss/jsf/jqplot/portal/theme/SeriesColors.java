@@ -54,7 +54,7 @@ public class SeriesColors implements Serializable {
      */
     public String getColorsAsJs() {
         if (null == colorsAsJs) {
-            final JsArray<JsString> colJs = new JsArray<>();
+            final var colJs = new JsArray<JsString>();
             colJs.addAll(colors.stream().map(JsString::new).collect(toList()));
             colorsAsJs = colJs.getValueAsString();
         }
@@ -74,7 +74,7 @@ public class SeriesColors implements Serializable {
             return DEFAULT_SERIES_COLORS;
         }
 
-        final String seriesColors = cssRule.getPropertyValue("-jqplot-seriescolors");
+        final var seriesColors = cssRule.getPropertyValue("-jqplot-seriescolors");
 
         requireNotEmpty(seriesColors, "seriesColors");
 

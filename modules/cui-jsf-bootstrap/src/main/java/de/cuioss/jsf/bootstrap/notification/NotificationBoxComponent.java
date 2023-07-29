@@ -27,12 +27,13 @@ import lombok.experimental.Delegate;
  * <li>{@link ContextStateProvider}</li>
  * <li>{@link ContentProvider}</li>
  * <li>{@link ModelProvider}</li>
- * <li>dismissible: Indicates whether the notification box can be dismissed.</li>
+ * <li>dismissible: Indicates whether the notification box can be
+ * dismissed.</li>
  * <li>dismissListener: Method expression to listen to dismiss events. The
  * listener must be in the form of
- * {@code void methodName(de.cuioss.jsf.api.components.events.ModelPayloadEvent)}. In case
- * you set it to <code>true</code> you must provide the according model. If not it falls
- * back to #contentValue</li>
+ * {@code void methodName(de.cuioss.jsf.api.components.events.ModelPayloadEvent)}.
+ * In case you set it to <code>true</code> you must provide the according model.
+ * If not it falls back to #contentValue</li>
  * </ul>
  * <h2>Usage</h2>
  *
@@ -42,8 +43,7 @@ import lombok.experimental.Delegate;
  *
  * @author Matthias Walliczek
  */
-@ResourceDependency(library = "javascript.enabler", name = "enabler.notificationbox.js",
-        target = "head")
+@ResourceDependency(library = "javascript.enabler", name = "enabler.notificationbox.js", target = "head")
 @FacesComponent(BootstrapFamily.NOTIFICATION_BOX_COMPONENT)
 public class NotificationBoxComponent extends AbstractBaseCuiComponent {
 
@@ -67,7 +67,6 @@ public class NotificationBoxComponent extends AbstractBaseCuiComponent {
      * Default constructor.
      */
     public NotificationBoxComponent() {
-        super();
         super.setRendererType(BootstrapFamily.NOTIFICATION_BOX_RENDERER);
         contentProvider = new ContentProvider(this);
         contextStateProvider = new ContextStateProvider(this);
@@ -92,16 +91,15 @@ public class NotificationBoxComponent extends AbstractBaseCuiComponent {
     }
 
     /**
-     * @return boolean indicating whether the component has been dismissed.
-     *         Defaults to <code>false</code>
+     * @return boolean indicating whether the component has been dismissed. Defaults
+     *         to <code>false</code>
      */
     public boolean isDismissed() {
         return (Boolean) getStateHelper().eval(DISMISSED_KEY, Boolean.FALSE);
     }
 
     /**
-     * @param dismissed
-     *            flag
+     * @param dismissed flag
      */
     public void setDismissed(final boolean dismissed) {
         getStateHelper().put(DISMISSED_KEY, dismissed);
@@ -115,8 +113,7 @@ public class NotificationBoxComponent extends AbstractBaseCuiComponent {
     }
 
     /**
-     * @param dismissListener
-     *            the dismissListener to set
+     * @param dismissListener the dismissListener to set
      */
     public void setDismissListener(final MethodExpression dismissListener) {
         getStateHelper().put(NotificationBoxHandler.DISMISS_LISTENER_NAME, dismissListener);

@@ -15,8 +15,7 @@ import javax.faces.model.SelectItem;
  * @author Oliver Wolff
  * @param <T> enum bounded type
  */
-public class EnumSelectMenuModel<T extends Enum<T>> extends
-        AbstractSelectMenuModel<T> {
+public class EnumSelectMenuModel<T extends Enum<T>> extends AbstractSelectMenuModel<T> {
 
     private static final long serialVersionUID = -2712127262852018082L;
 
@@ -25,18 +24,16 @@ public class EnumSelectMenuModel<T extends Enum<T>> extends
 
     /**
      * @param selectableValues
-     * @param klass {@linkplain Class} target type
+     * @param klass            {@linkplain Class} target type
      */
-    public EnumSelectMenuModel(final List<SelectItem> selectableValues,
-            final Class<T> klass) {
+    public EnumSelectMenuModel(final List<SelectItem> selectableValues, final Class<T> klass) {
         super(selectableValues);
         this.targetClass = klass;
     }
 
     @Override
-    protected String convertToString(final FacesContext context,
-            final UIComponent component, final T value)
-        throws ConverterException {
+    protected String convertToString(final FacesContext context, final UIComponent component, final T value)
+            throws ConverterException {
         return getWrappedConverter().getAsString(context, component, value);
     }
 
@@ -44,11 +41,9 @@ public class EnumSelectMenuModel<T extends Enum<T>> extends
     @SuppressWarnings("unchecked")
     // Implicitly checked by using
     // de.cuioss.jsf.components.converter.AbstractConverter<T>
-    protected T convertToObject(final FacesContext context, final UIComponent component,
-            final String value)
-        throws ConverterException {
-        return (T) getWrappedConverter().getAsObject(context, component,
-                value);
+    protected T convertToObject(final FacesContext context, final UIComponent component, final String value)
+            throws ConverterException {
+        return (T) getWrappedConverter().getAsObject(context, component, value);
     }
 
     private Converter getWrappedConverter() {

@@ -18,7 +18,8 @@ import lombok.ToString;
  * Plugin which will highlight data points when they are moused over.
  *
  * @author Eugen Fischer
- * @see <a href="http://www.jqplot.com/docs/files/plugins/jqplot-highlighter-js.html">Highlighter
+ * @see <a href=
+ *      "http://www.jqplot.com/docs/files/plugins/jqplot-highlighter-js.html">Highlighter
  *      </a>
  */
 @ToString
@@ -180,8 +181,8 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
     }
 
     /**
-     * Which axes to display in tooltip, 'x', 'y' or 'both', 'xy' or 'yx' 'both' and 'xy' are
-     * equivalent, 'yx' reverses order of labels.
+     * Which axes to display in tooltip, 'x', 'y' or 'both', 'xy' or 'yx' 'both' and
+     * 'xy' are equivalent, 'yx' reverses order of labels.
      *
      * @param value {@link TooltipAxes}
      * @return fluent api style
@@ -218,8 +219,8 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
     }
 
     /**
-     * alternative to tooltipFormatString will format the whole tooltip text, populating with x, y
-     * values as indicated by tooltipAxes option
+     * alternative to tooltipFormatString will format the whole tooltip text,
+     * populating with x, y values as indicated by tooltipAxes option
      *
      * @param value {@link String}
      * @return fluent api style
@@ -230,8 +231,8 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
     }
 
     /**
-     * Number of y values to expect in the data point array. Typically this is 1. Certain plots,
-     * like OHLC, will have more y values in each data point array.
+     * Number of y values to expect in the data point array. Typically this is 1.
+     * Certain plots, like OHLC, will have more y values in each data point array.
      *
      * @param value {@link String}
      * @return fluent api style
@@ -242,8 +243,8 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
     }
 
     /**
-     * This option requires jQuery 1.4+ True to bring the series of the highlighted point to the
-     * front of other series.
+     * This option requires jQuery 1.4+ True to bring the series of the highlighted
+     * point to the front of other series.
      *
      * @param value {@link Boolean}
      * @return fluent api style

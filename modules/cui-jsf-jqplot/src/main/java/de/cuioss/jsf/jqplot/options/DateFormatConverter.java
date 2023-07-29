@@ -16,7 +16,8 @@ import lombok.ToString;
 /**
  * Supported java keys :
  * http://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormat.html
- * Supported java Script : keys http://sandbox.kendsnyder.com/date/?q=sandbox/date/#src
+ * Supported java Script : keys
+ * http://sandbox.kendsnyder.com/date/?q=sandbox/date/#src
  *
  * @author Eugen Fischer
  */
@@ -26,51 +27,30 @@ public class DateFormatConverter {
     @SuppressWarnings("squid:S2386") // owolff: all public collection-types are immutable
     private enum DatePart {
 
-        YEAR_FOUR("yyyy", "%Y"),
-        YEAR_FOUR_BIG("YYYY", "%Y"),
+        YEAR_FOUR("yyyy", "%Y"), YEAR_FOUR_BIG("YYYY", "%Y"),
 
-        YEAR_TWO("yy", "%y"),
-        YEAR_TWO_BIG("YY", "%y"),
+        YEAR_TWO("yy", "%y"), YEAR_TWO_BIG("YY", "%y"),
 
-        YEAR_ONE("y", "%Y"),
-        YEAR_ONE_BIG("Y", "%Y"),
+        YEAR_ONE("y", "%Y"), YEAR_ONE_BIG("Y", "%Y"),
 
-        MONTH_FOUR("MMMM", "%B"),
-        MONTH_THREE("MMM", "%b"),
-        MONTH_TWO("MM", "%m"),
-        MONTH_ONE("M", "%#m"),
+        MONTH_FOUR("MMMM", "%B"), MONTH_THREE("MMM", "%b"), MONTH_TWO("MM", "%m"), MONTH_ONE("M", "%#m"),
 
-        DAY_FOUR("dddd", "%A"),
-        DAY_THREE("ddd", "%a"),
-        DAY_THREE_BIG("DDD", "%a"),
-        DAY_TWO("dd", "%d"),
-        DAY_TWO_BIG("DD", "%d"),
-        DAY_ONE("d", "%#d"),
-        DAY_ONE_BIG("D", "%#d"),
-        DAY_OF_WEEK("E", "%A"),
-        DAY_OF_WEEK_NUMBER("F", "%w"),
-        DAY_OF_MONTH("u", "%o"),
+        DAY_FOUR("dddd", "%A"), DAY_THREE("ddd", "%a"), DAY_THREE_BIG("DDD", "%a"), DAY_TWO("dd", "%d"),
+        DAY_TWO_BIG("DD", "%d"), DAY_ONE("d", "%#d"), DAY_ONE_BIG("D", "%#d"), DAY_OF_WEEK("E", "%A"),
+        DAY_OF_WEEK_NUMBER("F", "%w"), DAY_OF_MONTH("u", "%o"),
 
-        HOUR_TWO_12("hh", "%#I"),
-        HOUR_ONE_12("h", "%I"),
-        HOUR_TWO_24("HH", "%H"),
-        HOUR_ONE_24("H", "%#H"),
+        HOUR_TWO_12("hh", "%#I"), HOUR_ONE_12("h", "%I"), HOUR_TWO_24("HH", "%H"), HOUR_ONE_24("H", "%#H"),
         HOUR_CLOCK("k", "%#H"),
 
         HOUR_SUFFIX("a", "%p"),
 
-        MINUTE_TWO("mm", "%M"),
-        MINUTE_ONE("m", "%#M"),
+        MINUTE_TWO("mm", "%M"), MINUTE_ONE("m", "%#M"),
 
-        SECOND_TWO("ss", "%S"),
-        SECOND_ONE("s", "%#S"),
+        SECOND_TWO("ss", "%S"), SECOND_ONE("s", "%#S"),
 
-        MILLISECONDS_THREE("SSS", "%N"),
-        MILLISECONDS_ONE("S", "%#N"),
+        MILLISECONDS_THREE("SSS", "%N"), MILLISECONDS_ONE("S", "%#N"),
 
-        TIME_ZONE_IN_MINUTES("z", "%O"),
-        TIME_ZONE_HOURS("ZZ", "%G"),
-        TIME_ZONE_NAME("Z", "%Z");
+        TIME_ZONE_IN_MINUTES("z", "%O"), TIME_ZONE_HOURS("ZZ", "%G"), TIME_ZONE_NAME("Z", "%Z");
 
         @Getter
         private final String javaFormatCode;
@@ -80,28 +60,24 @@ public class DateFormatConverter {
 
         public static final Set<DatePart> HOURS_SIFFIX = immutableSortedSet(HOUR_SUFFIX);
 
-        public static final Set<DatePart> YEARS = immutableSortedSet(YEAR_FOUR, YEAR_FOUR_BIG,
-                YEAR_TWO, YEAR_TWO_BIG, YEAR_ONE, YEAR_ONE_BIG);
+        public static final Set<DatePart> YEARS = immutableSortedSet(YEAR_FOUR, YEAR_FOUR_BIG, YEAR_TWO, YEAR_TWO_BIG,
+                YEAR_ONE, YEAR_ONE_BIG);
 
-        public static final Set<DatePart> MONTHS = immutableSortedSet(MONTH_FOUR, MONTH_THREE,
-                MONTH_TWO, MONTH_ONE);
+        public static final Set<DatePart> MONTHS = immutableSortedSet(MONTH_FOUR, MONTH_THREE, MONTH_TWO, MONTH_ONE);
 
-        public static final Set<DatePart> DAYS = immutableSortedSet(DAY_FOUR, DAY_THREE, DAY_THREE_BIG,
-                DAY_TWO, DAY_TWO_BIG, DAY_ONE, DAY_ONE_BIG, DAY_OF_WEEK, DAY_OF_WEEK_NUMBER,
-                DAY_OF_MONTH);
+        public static final Set<DatePart> DAYS = immutableSortedSet(DAY_FOUR, DAY_THREE, DAY_THREE_BIG, DAY_TWO,
+                DAY_TWO_BIG, DAY_ONE, DAY_ONE_BIG, DAY_OF_WEEK, DAY_OF_WEEK_NUMBER, DAY_OF_MONTH);
 
-        public static final Set<DatePart> HOURS = immutableSortedSet(HOUR_TWO_12, HOUR_ONE_12,
-                HOUR_TWO_24, HOUR_ONE_24, HOUR_CLOCK);
+        public static final Set<DatePart> HOURS = immutableSortedSet(HOUR_TWO_12, HOUR_ONE_12, HOUR_TWO_24, HOUR_ONE_24,
+                HOUR_CLOCK);
 
         public static final Set<DatePart> MINUTES = immutableSortedSet(MINUTE_TWO, MINUTE_ONE);
 
         public static final Set<DatePart> SECONDS = immutableSortedSet(SECOND_TWO, SECOND_ONE);
 
-        public static final Set<DatePart> MILLISECONDS = immutableSortedSet(MILLISECONDS_THREE,
-                MILLISECONDS_ONE);
+        public static final Set<DatePart> MILLISECONDS = immutableSortedSet(MILLISECONDS_THREE, MILLISECONDS_ONE);
 
-        public static final Set<DatePart> TIMEZONES = immutableSortedSet(TIME_ZONE_HOURS,
-                TIME_ZONE_NAME,
+        public static final Set<DatePart> TIMEZONES = immutableSortedSet(TIME_ZONE_HOURS, TIME_ZONE_NAME,
                 TIME_ZONE_IN_MINUTES);
 
         DatePart(final String javaFormat, final String javaScriptFormat) {
@@ -111,15 +87,8 @@ public class DateFormatConverter {
 
     }
 
-    private static final List<Set<DatePart>> TACTICS = immutableList(
-            DatePart.HOURS_SIFFIX,
-            DatePart.YEARS,
-            DatePart.MONTHS,
-            DatePart.DAYS,
-            DatePart.HOURS,
-            DatePart.MINUTES,
-            DatePart.MILLISECONDS,
-            DatePart.SECONDS,
+    private static final List<Set<DatePart>> TACTICS = immutableList(DatePart.HOURS_SIFFIX, DatePart.YEARS,
+            DatePart.MONTHS, DatePart.DAYS, DatePart.HOURS, DatePart.MINUTES, DatePart.MILLISECONDS, DatePart.SECONDS,
             DatePart.TIMEZONES);
 
     /**
@@ -142,7 +111,7 @@ public class DateFormatConverter {
     /**
      * Recursive method
      *
-     * @param target string which should be processed
+     * @param target  string which should be processed
      * @param tactics list if tactics, each recursion get less
      * @return replaces
      */
@@ -179,7 +148,7 @@ public class DateFormatConverter {
     /**
      * Verify if replace already done
      *
-     * @param value String
+     * @param value        String
      * @param replaceValue String
      * @return {@code true} if already done, {@code false} otherwise
      */

@@ -16,11 +16,11 @@ public class SeriaRenderer<R extends RendererOptions> extends Renderer {
     /** serial Version UID */
     private static final long serialVersionUID = -3845495653825273506L;
 
-    private static final SeriaRenderer<BarRendererOptions> BAR_RENDERER =
-        new SeriaRenderer<>("$.jqplot.BarRenderer", "jqplot.barRenderer.min.js");
+    private static final SeriaRenderer<BarRendererOptions> BAR_RENDERER = new SeriaRenderer<>("$.jqplot.BarRenderer",
+            "jqplot.barRenderer.min.js");
 
-    private static final SeriaRenderer<LineRendererOptions> LINE_RENDERER =
-        new SeriaRenderer<>("$.jqplot.LineRenderer");
+    private static final SeriaRenderer<LineRendererOptions> LINE_RENDERER = new SeriaRenderer<>(
+            "$.jqplot.LineRenderer");
 
     private SeriaRenderer(final String rendererName, final String... plugins) {
         super(rendererName);

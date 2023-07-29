@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.jqplot.plugin.highlighter.TooltipContentEditor;
 import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
 
 class TooltipContentEditorTest implements ShouldHandleObjectContracts<TooltipContentEditor> {

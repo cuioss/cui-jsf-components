@@ -42,7 +42,8 @@ class EditableDataListComponentWrapper extends CuiInterfaceBasedModifier {
             dataListComponent.validate(FacesContext.getCurrentInstance(), dataListComponent, null);
             return true;
         } catch (ValidatorException e) {
-            // We use the exception to check whether the component is valid, but not the exception
+            // We use the exception to check whether the component is valid, but not the
+            // exception
             // itself
             return false;
         }

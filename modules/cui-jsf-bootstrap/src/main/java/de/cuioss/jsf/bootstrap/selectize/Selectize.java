@@ -32,11 +32,10 @@ public class Selectize implements ScriptProvider {
     public static final String JS_TEMPLATE = "%s.selectize(%s);";
 
     /**
-     * "create": Allows the user to create a new items that aren't in the list
-     * of options. This option can be any of the following: "true", "false"
-     * (disabled), or a function that accepts two arguments: "input" and
-     * "callback". The callback should be invoked with the final data for the
-     * option.
+     * "create": Allows the user to create a new items that aren't in the list of
+     * options. This option can be any of the following: "true", "false" (disabled),
+     * or a function that accepts two arguments: "input" and "callback". The
+     * callback should be invoked with the final data for the option.
      */
     public static final String OPTION_KEY_CREATE = "create";
 
@@ -47,29 +46,29 @@ public class Selectize implements ScriptProvider {
     public static final String OPTION_KEY_OPTIONS = "options";
 
     /**
-     * "labelField": The name of the property to render as an option / item
-     * label (not needed when custom rendering functions are defined).
+     * "labelField": The name of the property to render as an option / item label
+     * (not needed when custom rendering functions are defined).
      */
     public static final String OPTION_KEY_LABEL_FIELD = "labelField";
 
     /**
-     * "valueField": The name of the property to use as the "value" when an item
-     * is selected.
+     * "valueField": The name of the property to use as the "value" when an item is
+     * selected.
      */
     public static final String OPTION_KEY_VALUE_FIELD = "valueField";
 
     /**
-     * "sortField": A single field or an array of fields to sort by. Each item
-     * in the array should be an object containing at least a "field" property.
-     * Optionally, "direction" can be set to "asc" or "desc". The order of the
-     * array defines the sort precedence.
+     * "sortField": A single field or an array of fields to sort by. Each item in
+     * the array should be an object containing at least a "field" property.
+     * Optionally, "direction" can be set to "asc" or "desc". The order of the array
+     * defines the sort precedence.
      * <p>
-     * Unless present, a special "$score" field will be automatically added to
-     * the beginning of the sort list. This will make results sorted primarily
-     * by match quality (descending).
+     * Unless present, a special "$score" field will be automatically added to the
+     * beginning of the sort list. This will make results sorted primarily by match
+     * quality (descending).
      * <p>
-     * You can override the "$score" function. For more information, see the
-     * sifter documentation.
+     * You can override the "$score" function. For more information, see the sifter
+     * documentation.
      */
     public static final String OPTION_KEY_SORT_FIELD = "sortField";
 
@@ -77,8 +76,8 @@ public class Selectize implements ScriptProvider {
     public static final String OPTION_KEY_MAX_ITEMS = "maxItems";
 
     /**
-     * "field": Used in conjunction with {@link #OPTION_KEY_SORT_FIELD},
-     * identifies the field being sorted.
+     * "field": Used in conjunction with {@link #OPTION_KEY_SORT_FIELD}, identifies
+     * the field being sorted.
      */
     public static final String OPTION_KEY_FIELD = "field";
 
@@ -86,15 +85,14 @@ public class Selectize implements ScriptProvider {
     public static final String OPTION_KEY_DIRECTION = "direction";
 
     /**
-     * "persist": If false, items created by the user will not show up as
-     * available options once they are unselected.
+     * "persist": If false, items created by the user will not show up as available
+     * options once they are unselected.
      */
     public static final String OPTION_KEY_PERSIST = "persist";
 
     /**
-     * "delimiter": The string to separate items by. This option is only used
-     * when Selectize is instantiated from a {@code <input type="text">}
-     * element.
+     * "delimiter": The string to separate items by. This option is only used when
+     * Selectize is instantiated from a {@code <input type="text">} element.
      */
     public static final String OPTION_KEY_DELIMITER = "delimiter";
 
@@ -132,8 +130,8 @@ public class Selectize implements ScriptProvider {
 
     /**
      * String identifier used for identifying {@link CodeType} that are user
-     * created, and must therefore handled separately. The user-input will
-     * prefixed with that String: "_client_created_"
+     * created, and must therefore handled separately. The user-input will prefixed
+     * with that String: "_client_created_"
      */
     public static final String CLIENT_CREATED_SUFFIX = "_client_created_";
 
@@ -142,8 +140,8 @@ public class Selectize implements ScriptProvider {
             + "' + input,label: input}}";
 
     /**
-     * NotQuotableWrapper variant of {@link #DEFAULT_TAG_CREATE_METHOD} to be
-     * used directly.
+     * NotQuotableWrapper variant of {@link #DEFAULT_TAG_CREATE_METHOD} to be used
+     * directly.
      */
     public static final NotQuotableWrapper DEFAULT_TAG_CREATE_METHOD_WRAPPER = new NotQuotableWrapper(
             DEFAULT_TAG_CREATE_METHOD);
@@ -181,10 +179,9 @@ public class Selectize implements ScriptProvider {
         }
 
         /**
-         * @param idExtension
-         *            if not null it will be appended to the derived ClientId.
-         *            In addition there will be an underscore appended: The
-         *            result will be component.getClientId() + "_" + idExtension
+         * @param idExtension if not null it will be appended to the derived ClientId.
+         *                    In addition there will be an underscore appended: The
+         *                    result will be component.getClientId() + "_" + idExtension
          * @return an instance of {@link SelectizeBuilder}
          */
         public SelectizeBuilder withIdExtension(String idExtension) {
@@ -202,10 +199,8 @@ public class Selectize implements ScriptProvider {
         }
 
         /**
-         * @param key
-         *            identifying the key of an entry, must no be null
-         * @param value
-         *            the concrete value of an option, may be null.
+         * @param key   identifying the key of an entry, must no be null
+         * @param value the concrete value of an option, may be null.
          * @return instance of {@link SelectizeBuilder}
          */
         public SelectizeBuilder withOption(String key, Serializable value) {

@@ -10,9 +10,10 @@ import lombok.ToString;
 
 /**
  * Represent a seria for {@linkplain SeriesData}. <br>
- * Will be represent is JSON Array [SeriaTupelItem1, SeriaTupelItem2, .. , SeriaTupelItemN]. <br>
- * Because SeriaTupelItem it self is a tuple of [x,y] the final JSON representation will be as
- * follow :<br>
+ * Will be represent is JSON Array [SeriaTupelItem1, SeriaTupelItem2, .. ,
+ * SeriaTupelItemN]. <br>
+ * Because SeriaTupelItem it self is a tuple of [x,y] the final JSON
+ * representation will be as follow :<br>
  * [ [x1, y1] , [x2, y2], .. [xn, yn] ]
  *
  * @author Eugen Fischer
@@ -21,8 +22,8 @@ import lombok.ToString;
  */
 @ToString
 @EqualsAndHashCode
-public class Seria<X extends JsValue, Y extends JsValue> implements JavaScriptSupport, JsValue, JsArrayContainer,
-        Iterable<JsValue> {
+public class Seria<X extends JsValue, Y extends JsValue>
+        implements JavaScriptSupport, JsValue, JsArrayContainer, Iterable<JsValue> {
 
     /** serial Version UID */
     private static final long serialVersionUID = 2264844925971164192L;
@@ -48,7 +49,8 @@ public class Seria<X extends JsValue, Y extends JsValue> implements JavaScriptSu
     }
 
     /**
-     * Add tuple if it's not null and tuple is complete. {@linkplain SeriaTupelItem#isComplete()}
+     * Add tuple if it's not null and tuple is complete.
+     * {@linkplain SeriaTupelItem#isComplete()}
      *
      * @param tuple {@code SeriaTupelItem}
      * @return fluent api style

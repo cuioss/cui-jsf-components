@@ -6,8 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * A single seria item which composed of two elements [x,y].
- * Only if both are available the item has a valid value.
+ * A single seria item which composed of two elements [x,y]. Only if both are
+ * available the item has a valid value.
  *
  * @author Eugen Fischer
  * @param <X> bounded type for x value

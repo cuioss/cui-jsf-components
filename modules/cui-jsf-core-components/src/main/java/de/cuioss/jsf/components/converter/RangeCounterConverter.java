@@ -18,7 +18,7 @@ public class RangeCounterConverter extends AbstractConverter<RangeCounter> {
 
     @Override
     protected String convertToString(FacesContext context, UIComponent component, RangeCounter value)
-        throws ConverterException {
+            throws ConverterException {
         var resultBuilder = new StringBuilder();
         if (value.isComplete()) {
             resultBuilder.append(value.getCount()).append("/").append(value.getTotalCount());

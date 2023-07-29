@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.jqplot.renderer.marker.MarkerRendererOptions;
-import de.cuioss.jsf.jqplot.renderer.marker.PointStyle;
 import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
 
 class MarkerRendererOptionsTest implements ShouldHandleObjectContracts<MarkerRendererOptions> {

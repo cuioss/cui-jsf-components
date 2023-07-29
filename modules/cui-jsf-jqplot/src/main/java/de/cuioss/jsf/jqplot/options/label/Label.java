@@ -20,8 +20,7 @@ import lombok.ToString;
  */
 @ToString(exclude = { "userClass" })
 @EqualsAndHashCode(exclude = { "userClass" })
-public class Label<T extends Serializable> implements ILabelDecorator<T>, Serializable,
-        IPropertyProvider {
+public class Label<T extends Serializable> implements ILabelDecorator<T>, Serializable, IPropertyProvider {
 
     /** serial Version UID */
     private static final long serialVersionUID = -5383303038095005652L;

@@ -26,7 +26,6 @@ public class InlineConfirmComponent extends BaseCuiPanel {
      *
      */
     public InlineConfirmComponent() {
-        super();
         super.setRendererType(INLINE_CONFIRM_RENDERER);
     }
 

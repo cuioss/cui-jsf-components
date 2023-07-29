@@ -18,8 +18,8 @@ public class TagHandler extends ComponentHandler {
     /** "disposeListener". */
     public static final String DISPOSE_LISTENER_NAME = "disposeListener";
 
-    private static final MetaRule DISPOSE_METHOD =
-        new MethodRule(DISPOSE_LISTENER_NAME, null, new Class[] { ModelPayloadEvent.class });
+    private static final MetaRule DISPOSE_METHOD = new MethodRule(DISPOSE_LISTENER_NAME, null,
+            new Class[] { ModelPayloadEvent.class });
 
     /**
      * @param config

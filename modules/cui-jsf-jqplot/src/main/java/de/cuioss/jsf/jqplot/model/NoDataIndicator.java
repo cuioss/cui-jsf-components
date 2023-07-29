@@ -6,8 +6,8 @@ import de.cuioss.jsf.jqplot.axes.Axes;
 import lombok.Data;
 
 /**
- * Options to set up a mock plot with a data loading indicator if no data is specified.
- * Example:
+ * Options to set up a mock plot with a data loading indicator if no data is
+ * specified. Example:
  *
  * <pre>
  * show: false,

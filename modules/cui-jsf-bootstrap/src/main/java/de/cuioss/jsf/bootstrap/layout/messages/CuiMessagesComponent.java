@@ -19,7 +19,6 @@ public class CuiMessagesComponent extends HtmlMessages {
      * Initialize and set bootstrap aligned style classes.
      */
     public CuiMessagesComponent() {
-        super();
         super.setFatalClass("alert alert-danger");
         super.setErrorClass("alert alert-danger");
         super.setWarnClass("alert alert-warning");

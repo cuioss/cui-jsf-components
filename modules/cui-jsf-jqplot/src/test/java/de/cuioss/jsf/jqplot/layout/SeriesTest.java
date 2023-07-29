@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import de.cuioss.jsf.jqplot.axes.AxisType;
-import de.cuioss.jsf.jqplot.layout.Series;
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.valueobjects.contract.SerializableContractImpl;
 

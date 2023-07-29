@@ -5,7 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * The default title renderer for jqPlot. This class has no options beyond the {@link Title}> class.
+ * The default title renderer for jqPlot. This class has no options beyond the
+ * {@link Title}> class.
  *
  * @author Eugen Fischer
  */

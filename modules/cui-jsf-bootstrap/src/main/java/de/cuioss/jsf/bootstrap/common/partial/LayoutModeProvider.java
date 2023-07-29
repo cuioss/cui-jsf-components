@@ -10,15 +10,15 @@ import lombok.NonNull;
 /**
  * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of the {@link LayoutMode}. It is
- * computed out of the given attribute 'layoutMode'.
+ * Implementors of this class manage the state and resolving of the
+ * {@link LayoutMode}. It is computed out of the given attribute 'layoutMode'.
  * </p>
  * <h2>layoutMode</h2>
  * <p>
- * The String representation of the layout mode. If not set it uses the configured default.
- * Supported values are {@linkplain LayoutMode#PLAIN},
- * {@linkplain LayoutMode#FORMGROUP},
- * {@linkplain LayoutMode#LABEL_SR_ONLY} and {@linkplain LayoutMode#COLUMN}
+ * The String representation of the layout mode. If not set it uses the
+ * configured default. Supported values are {@linkplain LayoutMode#PLAIN},
+ * {@linkplain LayoutMode#FORMGROUP}, {@linkplain LayoutMode#LABEL_SR_ONLY} and
+ * {@linkplain LayoutMode#COLUMN}
  * </p>
  *
  * @author Oliver Wolff
@@ -29,8 +29,8 @@ public class LayoutModeProvider {
     private static final String KEY = "layoutMode";
 
     /**
-     * Defines the default {@link LayoutMode} for this partial, in case no explicit layoutMode is
-     * given by the client.
+     * Defines the default {@link LayoutMode} for this partial, in case no explicit
+     * layoutMode is given by the client.
      */
     @NonNull
     private final LayoutMode defaultLayoutMode;
@@ -38,9 +38,10 @@ public class LayoutModeProvider {
     private final CuiState state;
 
     /**
-     * @param bridge must not be null
-     * @param defaultLayoutMode Defines the default {@link LayoutMode} for this partial, in case no
-     *            explicit layoutMode is given by the client.
+     * @param bridge            must not be null
+     * @param defaultLayoutMode Defines the default {@link LayoutMode} for this
+     *                          partial, in case no explicit layoutMode is given by
+     *                          the client.
      */
     public LayoutModeProvider(@NonNull ComponentBridge bridge, @NonNull LayoutMode defaultLayoutMode) {
         state = new CuiState(bridge.stateHelper());
@@ -49,8 +50,8 @@ public class LayoutModeProvider {
 
     /**
      * Store Layout mode. Supported values are {@linkplain LayoutMode#PLAIN},
-     * {@linkplain LayoutMode#FORMGROUP},
-     * {@linkplain LayoutMode#LABEL_SR_ONLY} and {@linkplain LayoutMode#COLUMN}
+     * {@linkplain LayoutMode#FORMGROUP}, {@linkplain LayoutMode#LABEL_SR_ONLY} and
+     * {@linkplain LayoutMode#COLUMN}
      *
      * @param value must not be null or empty
      */

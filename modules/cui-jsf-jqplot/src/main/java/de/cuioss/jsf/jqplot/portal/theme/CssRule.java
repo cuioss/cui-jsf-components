@@ -6,7 +6,6 @@ import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -46,7 +45,7 @@ public class CssRule implements Serializable {
      * @return value for property name
      */
     public String getPropertyValue(final String propertyName) {
-        final String key = emptyToNull(propertyName).toLowerCase();
+        final var key = emptyToNull(propertyName).toLowerCase();
         return declarations.get(key);
     }
 
@@ -65,32 +64,32 @@ public class CssRule implements Serializable {
      */
     public static CssRule createBy(final String cssText) {
 
-        final String checked = requireNotEmpty(cssText, "CssText");
+        final var checked = requireNotEmpty(cssText, "CssText");
 
         // TODO add check for syntax > name { prop1 : val1; ... propN : valN } <
 
-        final List<String> splitToList = Splitter.on("{").trimResults().omitEmptyStrings().splitToList(checked);
+        final var splitToList = Splitter.on("{").trimResults().omitEmptyStrings().splitToList(checked);
 
-        final String cssSelector = splitToList.get(0).trim();
+        final var cssSelector = splitToList.get(0).trim();
 
         return new CssRule(cssSelector, parseDeclarations(splitToList.get(1)));
     }
 
     private static Map<String, String> parseDeclarations(final String tail) {
 
-        final String plain = tail.replace("}", "").trim();
+        final var plain = tail.replace("}", "").trim();
 
-        final List<String> pairs = Splitter.on(";").trimResults().omitEmptyStrings().splitToList(plain);
+        final var pairs = Splitter.on(";").trimResults().omitEmptyStrings().splitToList(plain);
 
         final Map<String, String> result = new HashMap<>(pairs.size());
 
         for (final String pair : pairs) {
 
-            final List<String> splittedPair = Splitter.on(":").trimResults().omitEmptyStrings().splitToList(pair);
+            final var splittedPair = Splitter.on(":").trimResults().omitEmptyStrings().splitToList(pair);
 
             if (splittedPair.size() == 2) {
 
-                final String key = splittedPair.get(0).toLowerCase();
+                final var key = splittedPair.get(0).toLowerCase();
                 result.putIfAbsent(key, splittedPair.get(1));
 
             }

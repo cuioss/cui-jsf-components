@@ -12,21 +12,17 @@ import java.io.Serializable;
  *
  * @see StrategyProviderImpl as implementation of StrategyProvider
  * @author Eugen Fischer
- * @param <K>
- *            bounded type for conditions must be serializable
- * @param <V>
- *            bounded type for results must be serializable
+ * @param <K> bounded type for conditions must be serializable
+ * @param <V> bounded type for results must be serializable
  */
 @FunctionalInterface
-public interface IStrategyProvider<K extends Serializable, V extends Serializable>
-        extends Serializable {
+public interface IStrategyProvider<K extends Serializable, V extends Serializable> extends Serializable {
 
     /**
-     * Act on forwarded condition by using rules. If no known rule condition
-     * fits, fallback to default.
+     * Act on forwarded condition by using rules. If no known rule condition fits,
+     * fallback to default.
      *
-     * @param condition
-     *            of strategy
+     * @param condition of strategy
      * @return result defined in rule which fitting to the condition
      */
     V actOnCondition(K condition);

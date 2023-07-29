@@ -12,14 +12,12 @@ import javax.faces.convert.FacesConverter;
 public class TestConverterWithException implements Converter<String> {
 
     @Override
-    public String getAsObject(final FacesContext context, final UIComponent component,
-            final String value) {
+    public String getAsObject(final FacesContext context, final UIComponent component, final String value) {
         throw new ConverterException(new FacesMessage("Test"));
     }
 
     @Override
-    public String getAsString(final FacesContext context, final UIComponent component,
-            final String value) {
+    public String getAsString(final FacesContext context, final UIComponent component, final String value) {
         return null;
     }
 }

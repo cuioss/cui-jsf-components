@@ -11,8 +11,8 @@ import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.test.jsf.component.AbstractUiComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 
-@VerifyComponentProperties(of = { "pinBottomOffset", "pinTopOffset", "pinToBottom", "pinToTop" },
-        defaultValued = { "pinBottomOffset", "pinTopOffset" })
+@VerifyComponentProperties(of = { "pinBottomOffset", "pinTopOffset", "pinToBottom", "pinToTop" }, defaultValued = {
+        "pinBottomOffset", "pinTopOffset" })
 class ToolbarComponentTest extends AbstractUiComponentTest<ToolbarComponent> {
 
     @Test

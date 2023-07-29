@@ -41,9 +41,9 @@ public enum TagSize implements StyleClassProvider {
     }
 
     /**
-     * @param contextSize
-     *            May be null, otherwise must be one of {@link ContextSize#SM},
-     *            {@link ContextSize#XL}, {@link ContextSize#LG}
+     * @param contextSize May be null, otherwise must be one of
+     *                    {@link ContextSize#SM}, {@link ContextSize#XL},
+     *                    {@link ContextSize#LG}
      * @return the corresponding {@link TagSize} derived by the given
      *         {@link ContextSize}. In case of <code>contextSize==null</code> it
      *         will return {@link TagSize#DEFAULT}. In case it is none of the
@@ -53,21 +53,21 @@ public enum TagSize implements StyleClassProvider {
         var result = DEFAULT;
         if (null != contextSize) {
             switch (contextSize) {
-                case DEFAULT:
-                    result = TagSize.DEFAULT;
-                    break;
-                case SM:
-                    result = TagSize.SM;
-                    break;
-                case LG:
-                    result = TagSize.LG;
-                    break;
-                case XL:
-                    result = TagSize.XL;
-                    break;
-                // $CASES-OMITTED$
-                default:
-                    throw new IllegalArgumentException("No TagSize defined for " + contextSize);
+            case DEFAULT:
+                result = TagSize.DEFAULT;
+                break;
+            case SM:
+                result = TagSize.SM;
+                break;
+            case LG:
+                result = TagSize.LG;
+                break;
+            case XL:
+                result = TagSize.XL;
+                break;
+            // $CASES-OMITTED$
+            default:
+                throw new IllegalArgumentException("No TagSize defined for " + contextSize);
             }
         }
         return result;

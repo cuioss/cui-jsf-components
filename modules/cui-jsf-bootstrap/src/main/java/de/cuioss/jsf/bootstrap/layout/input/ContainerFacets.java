@@ -40,8 +40,8 @@ public enum ContainerFacets {
 
     /**
      * @param name must not be null
-     * @return the found {@link ContainerFacets}. In case it can not be found it returns an
-     *         {@link Optional#empty()}
+     * @return the found {@link ContainerFacets}. In case it can not be found it
+     *         returns an {@link Optional#empty()}
      */
     public static final Optional<ContainerFacets> parse(String name) {
         if (isEmpty(name)) {
@@ -57,10 +57,11 @@ public enum ContainerFacets {
     }
 
     /**
-     * @param name of the facet to be resolved. Must be one of 'append' or 'prepend'
+     * @param name          of the facet to be resolved. Must be one of 'append' or
+     *                      'prepend'
      * @param attributeName this facet is resolved for: used for creating message
-     * @return the resolved facet, throw an {@link IllegalArgumentException} if it can not be
-     *         resolved
+     * @return the resolved facet, throw an {@link IllegalArgumentException} if it
+     *         can not be resolved
      */
     public static final ContainerFacets parseButtonAlign(String name, String attributeName) {
         var resolved = parse(name);

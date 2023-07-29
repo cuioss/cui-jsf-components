@@ -23,28 +23,30 @@ import lombok.experimental.Delegate;
 
 /**
  * <p>
- * Render a twitter bootstrap based modal-dialog. Supported facets are header, and footer. In
- * case of the header you can use headerKey / headerValue. The same for
- * footerKey /footerValue as text content for footer. There are different general styles
- * available (state): one of 'primary', 'success', 'info', 'warning', 'danger'. If none of those is
- * set it uses 'default'.
+ * Render a twitter bootstrap based modal-dialog. Supported facets are header,
+ * and footer. In case of the header you can use headerKey / headerValue. The
+ * same for footerKey /footerValue as text content for footer. There are
+ * different general styles available (state): one of 'primary', 'success',
+ * 'info', 'warning', 'danger'. If none of those is set it uses 'default'.
  * </p>
  * <p>
- * <em>Caution</em>: default setting of dialog is closable, if you deactivate this you
- * should care about close functionality of the dialog.
+ * <em>Caution</em>: default setting of dialog is closable, if you deactivate
+ * this you should care about close functionality of the dialog.
  * </p>
  * <h2>Attributes</h2>
  * <ul>
- * <li>size: Supported values are 'sm', 'lg', 'fluid' based on bootstrap screen sizes. 'fluid' uses
- * max width of screen. As default no size setting is set.</li>
- * <li>id: The id is a required attribute. It must be unique within the page context. It is used to
- * identify the component from the corresponding {@link ModalControl}. It is rendered as
- * "data-modal-dialog-id" in order to select the element for the javascript call</li>
- * <li>closable: Defines if the dialog is closable on click on overlay background or default close
- * button. If value is set to false you need to provide a closing functionality by your own. Default
- * value is 'true'</li>
- * <li>animation: Optional attribute to control the appearing of the dialog: currently supported is
- * 'fade'</li>
+ * <li>size: Supported values are 'sm', 'lg', 'fluid' based on bootstrap screen
+ * sizes. 'fluid' uses max width of screen. As default no size setting is
+ * set.</li>
+ * <li>id: The id is a required attribute. It must be unique within the page
+ * context. It is used to identify the component from the corresponding
+ * {@link ModalControl}. It is rendered as "data-modal-dialog-id" in order to
+ * select the element for the javascript call</li>
+ * <li>closable: Defines if the dialog is closable on click on overlay
+ * background or default close button. If value is set to false you need to
+ * provide a closing functionality by your own. Default value is 'true'</li>
+ * <li>animation: Optional attribute to control the appearing of the dialog:
+ * currently supported is 'fade'</li>
  * <li>{@link ContextStateProvider}</li>
  * <li>{@link HeaderProvider}</li>
  * <li>{@link StyleAttributeProvider}</li>
@@ -62,8 +64,8 @@ import lombok.experimental.Delegate;
  * &lt;/boot:modalDialog&gt;
  * </pre>
  * <p>
- * <em>Opening</em>: Use {@link ModalControl} attached to button or other control for opening a
- * concrete dialog.
+ * <em>Opening</em>: Use {@link ModalControl} attached to button or other
+ * control for opening a concrete dialog.
  * </p>
  *
  * @author Oliver Wolff
@@ -72,8 +74,7 @@ import lombok.experimental.Delegate;
 @ResourceDependency(library = "thirdparty.js", name = "bootstrap.js")
 @FacesComponent(BootstrapFamily.MODAL_DIALOG_COMPONENT)
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
-public class ModalDialogComponent extends BaseCuiPanel
-        implements StyleAttributeProvider {
+public class ModalDialogComponent extends BaseCuiPanel implements StyleAttributeProvider {
 
     private static final String CLOASABLE_KEY = "closable";
     private static final String ANIMATION_KEY = "animation";
@@ -109,7 +110,7 @@ public class ModalDialogComponent extends BaseCuiPanel
      * @return boolean indicating whether the modalDialog is closable
      */
     public boolean isClosable() {
-        return state.<Boolean> get(CLOASABLE_KEY, Boolean.TRUE);
+        return state.<Boolean>get(CLOASABLE_KEY, Boolean.TRUE);
     }
 
     @Override
@@ -117,9 +118,7 @@ public class ModalDialogComponent extends BaseCuiPanel
         return CssBootstrap.MODAL.getStyleClassBuilder()
                 .append(contextStateProvider.resolveContextState()
                         .getStyleClassBuilderWithPrefix(CssBootstrap.MODAL.getStyleClass()))
-                .append(getAnimation())
-                .append(styleClassProvider)
-                .getStyleClass();
+                .append(getAnimation()).append(styleClassProvider).getStyleClass();
     }
 
     @Override
@@ -169,8 +168,8 @@ public class ModalDialogComponent extends BaseCuiPanel
     }
 
     /**
-     * @return the {@link UIComponent#getId} or throws an {@link IllegalArgumentException} if none
-     *         is set.
+     * @return the {@link UIComponent#getId} or throws an
+     *         {@link IllegalArgumentException} if none is set.
      */
     public String resolveDialogId() {
         var id = super.getId();

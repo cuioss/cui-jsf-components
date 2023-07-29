@@ -22,7 +22,6 @@ public class WaitingIndicatorComponent extends AbstractBaseCuiComponent {
      *
      */
     public WaitingIndicatorComponent() {
-        super();
         super.setRendererType(BootstrapFamily.WAITING_INDICATOR_RENDERER);
         contextSizeProvider = new ContextSizeProvider(this, "md");
     }

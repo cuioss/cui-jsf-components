@@ -33,10 +33,10 @@ public class StringToListConverter extends AbstractConverter<Collection<String>>
     private String separator = SEPARATOR_DEFAULT;
 
     /**
-     * Depending on the use-case for this converter there are different target types that should be
-     * supported: {@link List} and {@link SortedSet}. This attribute controls the behavior. In case
-     * it is "sorted_set" the resulting collection will be a {@link SortedSet} in all other cases
-     * it will be {@link List}
+     * Depending on the use-case for this converter there are different target types
+     * that should be supported: {@link List} and {@link SortedSet}. This attribute
+     * controls the behavior. In case it is "sorted_set" the resulting collection
+     * will be a {@link SortedSet} in all other cases it will be {@link List}
      */
     @Getter
     @Setter
@@ -52,16 +52,13 @@ public class StringToListConverter extends AbstractConverter<Collection<String>>
 
     @Override
     protected String convertToString(final FacesContext context, final UIComponent component,
-            final Collection<String> list)
-        throws ConverterException {
+            final Collection<String> list) throws ConverterException {
         return Joiner.on(separator).skipNulls().join(list);
     }
 
     @Override
-    protected Collection<String> convertToObject(final FacesContext context,
-            final UIComponent component,
-            final String value)
-        throws ConverterException {
+    protected Collection<String> convertToObject(final FacesContext context, final UIComponent component,
+            final String value) throws ConverterException {
 
         var splitter = Splitter.on(separator);
 

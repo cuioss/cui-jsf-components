@@ -26,9 +26,7 @@ public class ConceptKeyTypeGenerator implements TypedGenerator<ConceptKeyType> {
     @Override
     public ConceptKeyType next() {
         return ConceptKeyTypeImpl.builder().identifier(strings.next())
-                .labelResolver(new I18nDisplayNameProvider(strings.next()))
-                .category(TestConceptCategory)
-                .build();
+                .labelResolver(new I18nDisplayNameProvider(strings.next())).category(TestConceptCategory).build();
     }
 
     public Collection<ConceptKeyType> list(final int count) {

@@ -23,11 +23,11 @@ import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
  * </p>
  * <h2>Summary</h2>
  * <p>
- * Renders a number of {@link Tag}s as a a list. The tags are created from the the given
- * {@link Collection} of {@link ConceptKeyType}, see attributes #value. If you need fine grained
- * control
- * use {@link TagComponent} directly. The attributes #state, #size and #contentEscape will be passed
- * through to the used {@link TagComponent}. More information and examples can be found in the
+ * Renders a number of {@link Tag}s as a a list. The tags are created from the
+ * the given {@link Collection} of {@link ConceptKeyType}, see attributes
+ * #value. If you need fine grained control use {@link TagComponent} directly.
+ * The attributes #state, #size and #contentEscape will be passed through to the
+ * used {@link TagComponent}. More information and examples can be found in the
  * <a href=
  * "https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/tag.jsf"
  * >Reference Documentation</a>
@@ -47,8 +47,7 @@ import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
  *
  * @author Oliver Wolff
  */
-@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY,
-        rendererType = BootstrapFamily.TAG_LIST_COMPONENT_RENDERER)
+@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.TAG_LIST_COMPONENT_RENDERER)
 public class TagListRenderer extends BaseDecoratorRenderer<TagListComponent> {
 
     /**
@@ -59,10 +58,8 @@ public class TagListRenderer extends BaseDecoratorRenderer<TagListComponent> {
     }
 
     @Override
-    protected void doEncodeEnd(final FacesContext context,
-            final DecoratingResponseWriter<TagListComponent> writer,
-            final TagListComponent component)
-        throws IOException {
+    protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<TagListComponent> writer,
+            final TagListComponent component) throws IOException {
         TagHelper.writeDisabled(context, writer, createTagChildren(component), component.getStyle(),
                 component.getStyleClass());
     }
@@ -78,7 +75,6 @@ public class TagListRenderer extends BaseDecoratorRenderer<TagListComponent> {
         final var contentEscape = component.getContentEscape();
 
         return TagHelper.createFromConceptKeys(TagHelper.getValueAsSet(component.getValue()), locale, contentEscape,
-                contextSize,
-                contextState);
+                contextSize, contextState);
     }
 }

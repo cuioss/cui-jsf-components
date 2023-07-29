@@ -10,13 +10,13 @@ import lombok.NonNull;
 /**
  * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of the bootstrap column-css. It is
- * computed out of the given attributes.
+ * Implementors of this class manage the state and resolving of the bootstrap
+ * column-css. It is computed out of the given attributes.
  * </p>
  * <h2>offsetSize</h2>
  * <p>
- * The offset-size of the column. Must be between 1-12. if it is not set, there will be no offset at
- * all.
+ * The offset-size of the column. Must be between 1-12. if it is not set, there
+ * will be no offset at all.
  * </p>
  * <h2>size</h2>
  * <p>

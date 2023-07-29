@@ -71,9 +71,9 @@ class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> i
     void shouldHandleTextValue() {
         var component = new Button();
         component.setLabelValue(TEXT_VALUE);
-        var expected = new HtmlTreeBuilder().withNode(Node.BUTTON)
-                .withAttribute(AttributeName.VALUE, TEXT_VALUE).withStyleClass(DEFAULT_BTN_CLASSES).withNode(Node.SPAN)
-                .withStyleClass(CssBootstrap.BUTTON_TEXT).withTextContent(TEXT_VALUE);
+        var expected = new HtmlTreeBuilder().withNode(Node.BUTTON).withAttribute(AttributeName.VALUE, TEXT_VALUE)
+                .withStyleClass(DEFAULT_BTN_CLASSES).withNode(Node.SPAN).withStyleClass(CssBootstrap.BUTTON_TEXT)
+                .withTextContent(TEXT_VALUE);
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -82,10 +82,9 @@ class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> i
         var component = new Button();
         component.setLabelValue(TEXT_VALUE);
         component.setIcon(ANY_ICON);
-        var expected =
-            new HtmlTreeBuilder().withNode(Node.BUTTON).withAttribute(AttributeName.VALUE, TEXT_VALUE)
-                    .withStyleClass(DEFAULT_BTN_CLASSES).withNode(ICONCOMPONENT).currentHierarchyUp()
-                    .withNode(Node.SPAN).withStyleClass(CssBootstrap.BUTTON_TEXT).withTextContent(TEXT_VALUE);
+        var expected = new HtmlTreeBuilder().withNode(Node.BUTTON).withAttribute(AttributeName.VALUE, TEXT_VALUE)
+                .withStyleClass(DEFAULT_BTN_CLASSES).withNode(ICONCOMPONENT).currentHierarchyUp().withNode(Node.SPAN)
+                .withStyleClass(CssBootstrap.BUTTON_TEXT).withTextContent(TEXT_VALUE);
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -95,10 +94,9 @@ class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> i
         component.setLabelValue(TEXT_VALUE);
         component.setIconAlign("right");
         component.setIcon(ANY_ICON);
-        var expected =
-            new HtmlTreeBuilder().withNode(Node.BUTTON).withAttribute(AttributeName.VALUE, TEXT_VALUE)
-                    .withStyleClass(DEFAULT_BTN_CLASSES).withNode(Node.SPAN).withStyleClass(CssBootstrap.BUTTON_TEXT)
-                    .withTextContent(TEXT_VALUE).currentHierarchyUp().withNode(ICONCOMPONENT);
+        var expected = new HtmlTreeBuilder().withNode(Node.BUTTON).withAttribute(AttributeName.VALUE, TEXT_VALUE)
+                .withStyleClass(DEFAULT_BTN_CLASSES).withNode(Node.SPAN).withStyleClass(CssBootstrap.BUTTON_TEXT)
+                .withTextContent(TEXT_VALUE).currentHierarchyUp().withNode(ICONCOMPONENT);
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -106,8 +104,8 @@ class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> i
     void shouldHandleIconOnly() {
         var component = new Button();
         component.setIcon(ANY_ICON);
-        var expected =
-            new HtmlTreeBuilder().withNode(Node.BUTTON).withStyleClass(DEFAULT_BTN_CLASSES).withNode(ICONCOMPONENT);
+        var expected = new HtmlTreeBuilder().withNode(Node.BUTTON).withStyleClass(DEFAULT_BTN_CLASSES)
+                .withNode(ICONCOMPONENT);
         assertRenderResult(component, expected.getDocument());
     }
 

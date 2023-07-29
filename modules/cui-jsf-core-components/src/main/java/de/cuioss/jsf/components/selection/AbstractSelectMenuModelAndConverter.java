@@ -26,7 +26,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Abstract class using {@link MapInstanceConverter} to create a drop down list (h:selectOneMenu).
+ * Abstract class using {@link MapInstanceConverter} to create a drop down list
+ * (h:selectOneMenu).
  * <p>
  * Example:
  *
@@ -42,8 +43,7 @@ import lombok.ToString;
  */
 @ToString(doNotUseGetters = true, exclude = { "converter", "selectableValues" })
 @EqualsAndHashCode(doNotUseGetters = true, exclude = { "converter", "selectableValues" })
-public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable>
-        implements SelectMenuModel<T> {
+public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable> implements SelectMenuModel<T> {
 
     private static final long serialVersionUID = 5538442599313391823L;
 
@@ -70,8 +70,8 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
     /**
      * Default constructor creating the initial list of values.
      *
-     * @param sourceData the initial data to create the list with. May be null or empty, which
-     *            results in an empty drop down list.
+     * @param sourceData the initial data to create the list with. May be null or
+     *                   empty, which results in an empty drop down list.
      */
     protected AbstractSelectMenuModelAndConverter(final Set<T> sourceData) {
         initialize(sourceData);
@@ -120,8 +120,7 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
     @SuppressWarnings("unchecked")
     // Implicitly safe because of typing
     @Override
-    public void processValueChange(final ValueChangeEvent event)
-        throws AbortProcessingException {
+    public void processValueChange(final ValueChangeEvent event) throws AbortProcessingException {
         this.setSelectedValue((T) event.getNewValue());
     }
 
@@ -131,13 +130,12 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
                     .collect(Collectors.toCollection(ArrayList::new));
         }
         return values.stream().map(value -> new SelectItem(value, getLabel(value)))
-                .sorted(Comparator.comparing(SelectItem::getLabel))
-                .collect(Collectors.toCollection(ArrayList::new));
+                .sorted(Comparator.comparing(SelectItem::getLabel)).collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
-     * Initializes to the first element in the Model. Use {@link SortedSet} to control the order of
-     * entries.
+     * Initializes to the first element in the Model. Use {@link SortedSet} to
+     * control the order of entries.
      */
     public void initToFirstElement() {
         getSelectableValues().stream().findFirst().ifPresent(it -> setSelectedValue((T) it.getValue()));
@@ -146,18 +144,16 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
     /**
      * Insert a new value at a specific position in the drop down list.
      *
-     * @param position the position, e.g. 0 to set as first item.
-     * @param newValue the new value.
+     * @param position     the position, e.g. 0 to set as first item.
+     * @param newValue     the new value.
      * @param itemDisabled disabled property of the {@link SelectItem}
      */
     @SuppressWarnings("unchecked")
     // Implicitly safe because of typing
     public void add(final int position, final T newValue, final boolean itemDisabled) {
-        getSelectableValues().add(position,
-                new SelectItem(newValue, getLabel(newValue), null, itemDisabled));
-        this.converter.setInstanceMap(getMapping(getSelectableValues().stream()
-                .map(x -> (T) x.getValue())
-                .collect(Collectors.toSet())));
+        getSelectableValues().add(position, new SelectItem(newValue, getLabel(newValue), null, itemDisabled));
+        this.converter.setInstanceMap(
+                getMapping(getSelectableValues().stream().map(x -> (T) x.getValue()).collect(Collectors.toSet())));
         selectionAvailable = true;
     }
 
@@ -185,7 +181,8 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
      */
     protected abstract String getIdentifier(T value);
 
-    // Lazy initialization because #getLabel() may access properties from implementing class
+    // Lazy initialization because #getLabel() may access properties from
+    // implementing class
     @Override
     public List<SelectItem> getSelectableValues() {
         if (null == this.selectableValues) {

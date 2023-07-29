@@ -22,8 +22,8 @@ import lombok.Setter;
  * @author Oliver Wolff
  * @param <T> model item type
  */
-public class MapBackedMenuModel<T extends Serializable> extends
-        MapInstanceConverter<String, T> implements SelectMenuModel<T> {
+public class MapBackedMenuModel<T extends Serializable> extends MapInstanceConverter<String, T>
+        implements SelectMenuModel<T> {
 
     private static final long serialVersionUID = -5165456473976568944L;
 
@@ -42,17 +42,14 @@ public class MapBackedMenuModel<T extends Serializable> extends
     public boolean disabled = false;
 
     /**
-     * @param map
-     *            to be utilized. Must not be empty
+     * @param map to be utilized. Must not be empty
      */
     public MapBackedMenuModel(final Map<String, T> map) {
-        super();
         super.setInstanceMap(map);
         requireNonNull(map, "Parameter map must not be empty");
         final var itemBuilder = new CollectionBuilder<SelectItem>();
         for (final java.util.Map.Entry<String, T> mapEntry : map.entrySet()) {
-            itemBuilder.add(new SelectItem(mapEntry.getValue(), mapEntry
-                    .getKey()));
+            itemBuilder.add(new SelectItem(mapEntry.getValue(), mapEntry.getKey()));
         }
         this.selectableValues = itemBuilder.toImmutableList();
     }
@@ -65,8 +62,7 @@ public class MapBackedMenuModel<T extends Serializable> extends
     @SuppressWarnings("unchecked")
     // Implicitly safe because of typing
     @Override
-    public void processValueChange(final ValueChangeEvent event)
-        throws AbortProcessingException {
+    public void processValueChange(final ValueChangeEvent event) throws AbortProcessingException {
         this.setSelectedValue((T) event.getNewValue());
     }
 }

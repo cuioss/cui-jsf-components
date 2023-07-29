@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.jqplot.options.TickOptions;
 import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
 import de.cuioss.tools.collect.CollectionBuilder;
 
@@ -46,8 +45,8 @@ class TickOptionsTest implements ShouldHandleObjectContracts<TickOptions> {
 
     @Test
     void shouldProvideLabelSettings() {
-        final var target =
-            new TickOptions().setFontFamily("Arial").setFontSize("15px").setTextColor("red").setAngle(10);
+        final var target = new TickOptions().setFontFamily("Arial").setFontSize("15px").setTextColor("red")
+                .setAngle(10);
         assertEquals("tickOptions: {fontFamily:\"Arial\",fontSize:\"15px\",angle:10,textColor:\"red\"}",
                 target.asJavaScriptObjectNotation());
     }

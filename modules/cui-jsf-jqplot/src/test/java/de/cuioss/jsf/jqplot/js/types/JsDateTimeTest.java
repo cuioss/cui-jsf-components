@@ -9,8 +9,6 @@ import java.time.temporal.Temporal;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.jqplot.js.types.JsDateTime;
-import de.cuioss.jsf.jqplot.js.types.JsDateTimeFormat;
 import de.cuioss.test.valueobjects.ValueObjectTest;
 import de.cuioss.test.valueobjects.api.property.PropertyReflectionConfig;
 
@@ -33,10 +31,10 @@ class JsDateTimeTest extends ValueObjectTest<JsDateTime> {
         final Temporal date = LocalDateTime.of(2010, 10, 20, 12, 30, 59).atOffset(ZoneOffset.ofHours(1));
         final var onlyDate = JsDateTime.builder().formatter(JsDateTimeFormat.DATE_ONLY).value(date).build();
         final var dateTime = JsDateTime.builder().formatter(JsDateTimeFormat.DATE_TIME).value(date).build();
-        final var dateTimeMiliseconds =
-            JsDateTime.builder().formatter(JsDateTimeFormat.DATE_TIME_WITH_MILISECONDS).value(date).build();
-        final var fullIso =
-            JsDateTime.builder().formatter(JsDateTimeFormat.DATE_TIME_WITH_MILISECONDS_TIMEZONE).value(date).build();
+        final var dateTimeMiliseconds = JsDateTime.builder().formatter(JsDateTimeFormat.DATE_TIME_WITH_MILISECONDS)
+                .value(date).build();
+        final var fullIso = JsDateTime.builder().formatter(JsDateTimeFormat.DATE_TIME_WITH_MILISECONDS_TIMEZONE)
+                .value(date).build();
         assertEquals("\"2010-10-20\"", onlyDate.getValueAsString());
         assertEquals("\"2010-10-20 12:30:59\"", dateTime.getValueAsString());
         assertEquals("\"2010-10-20 12:30:59.0\"", dateTimeMiliseconds.getValueAsString());

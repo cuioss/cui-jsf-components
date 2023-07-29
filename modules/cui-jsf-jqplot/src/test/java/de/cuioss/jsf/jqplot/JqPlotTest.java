@@ -9,7 +9,6 @@ import java.util.Calendar;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.jqplot.JqPlot;
 import de.cuioss.jsf.jqplot.js.support.JsArray;
 import de.cuioss.jsf.jqplot.js.support.JsValue;
 import de.cuioss.jsf.jqplot.js.types.JsDate;

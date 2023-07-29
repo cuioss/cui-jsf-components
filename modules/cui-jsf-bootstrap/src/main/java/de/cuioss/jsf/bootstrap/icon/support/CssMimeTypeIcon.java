@@ -21,8 +21,7 @@ public enum CssMimeTypeIcon implements StyleClassProvider {
     /** The folder base class for mime-type-icon: "cui-mime-type-folder" */
     CUI_MIME_TYPE_FOLDER("cui-mime-type-folder"),
     /**
-     * The placeholder base class for mime-type-icon:
-     * "cui-mime-type-placeholder"
+     * The placeholder base class for mime-type-icon: "cui-mime-type-placeholder"
      */
     CUI_MIME_TYPE_PLACEHOLDER("cui-mime-type-placeholder"),
     /** The default mime-type icon class: "cui-mime-type-default" */
@@ -34,8 +33,7 @@ public enum CssMimeTypeIcon implements StyleClassProvider {
     /** Starting point for the layers: "cui-mime-type cui-icon-stack-1x" */
     CUI_STACKED_BASE_STRING("cui-mime-type cui-icon-stack-1x"),
     /**
-     * The default decorator is the the no-decorator:
-     * "cui-mime-type-no-decorator".
+     * The default decorator is the the no-decorator: "cui-mime-type-no-decorator".
      */
     CUI_STACKED_ICON_NO_DECORATOR("cui-mime-type-no-decorator");
 

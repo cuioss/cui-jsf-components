@@ -19,8 +19,8 @@ import lombok.experimental.UtilityClass;
 public final class HtmlSnippetRenderer {
 
     /**
-     * Renders a simple close button in the bootstrap conform css at the current position of the
-     * response writer
+     * Renders a simple close button in the bootstrap conform css at the current
+     * position of the response writer
      *
      * @param writer
      * @param dataDismissAttribute
@@ -29,8 +29,7 @@ public final class HtmlSnippetRenderer {
     @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
                                   // controlled by JSF
     public static void renderCloseButton(final DecoratingResponseWriter<? extends UIComponent> writer,
-            final String dataDismissAttribute)
-        throws IOException {
+            final String dataDismissAttribute) throws IOException {
         writer.withStartElement(Node.BUTTON);
         writer.withAttribute(AttributeName.ARIA_LABEL, AttributeValue.ARIA_CLOSE);
         writer.withAttribute(AttributeName.DATA_DISMISS, dataDismissAttribute);

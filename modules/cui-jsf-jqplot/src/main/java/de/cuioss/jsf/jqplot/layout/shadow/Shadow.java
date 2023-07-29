@@ -22,8 +22,7 @@ import lombok.ToString;
  */
 @ToString(exclude = { "userClass" })
 @EqualsAndHashCode(exclude = { "userClass" })
-public class Shadow<T extends Serializable> implements Serializable, IShadowDecoration<T>,
-        IPropertyProvider {
+public class Shadow<T extends Serializable> implements Serializable, IShadowDecoration<T>, IPropertyProvider {
 
     /** serialVersionUID */
     private static final long serialVersionUID = 569815887703832188L;

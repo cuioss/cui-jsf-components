@@ -24,15 +24,14 @@ public class EmailValidator extends AbstractValidator<String> {
     private String pattern = "^[^@]+@[^@]+$";
 
     /**
-     * The initially compiled pattern in order to reuse. Compilation of the pattern is quite
-     * expensive.
+     * The initially compiled pattern in order to reuse. Compilation of the pattern
+     * is quite expensive.
      */
     private Pattern compiledPattern;
 
     private Pattern getCompiledPattern() {
         if (compiledPattern == null) {
-            compiledPattern = Pattern.compile(pattern,
-                    Pattern.CASE_INSENSITIVE);
+            compiledPattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
         }
         return compiledPattern;
     }

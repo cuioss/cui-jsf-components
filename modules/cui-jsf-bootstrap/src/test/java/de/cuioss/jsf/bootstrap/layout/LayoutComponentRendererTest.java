@@ -24,8 +24,8 @@ class LayoutComponentRendererTest extends AbstractComponentRendererTest<LayoutCo
         var component = new RowComponent();
         component.getChildren().add(new HtmlOutputText());
         getComponentConfigDecorator().registerMockRendererForHtmlOutputText();
-        var expected =
-            new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.ROW).withNode("HtmlOutputText");
+        var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.ROW)
+                .withNode("HtmlOutputText");
         assertRenderResult(component, expected.getDocument());
     }
 

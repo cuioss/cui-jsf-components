@@ -76,7 +76,6 @@ public class ColumnComponent extends AbstractLayoutComponent {
      *
      */
     public ColumnComponent() {
-        super();
         columnProvider = new ColumnProvider(this);
         super.setRendererType(BootstrapFamily.LAYOUT_RENDERER);
     }

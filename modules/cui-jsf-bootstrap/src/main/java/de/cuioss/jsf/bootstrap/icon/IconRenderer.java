@@ -33,8 +33,7 @@ import de.cuioss.jsf.bootstrap.icon.support.IconState;
  * @author Oliver Wolff
  *
  */
-@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY,
-        rendererType = BootstrapFamily.ICON_COMPONENT_RENDERER)
+@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.ICON_COMPONENT_RENDERER)
 public class IconRenderer extends BaseDecoratorRenderer<IconComponent> {
 
     /**
@@ -48,8 +47,7 @@ public class IconRenderer extends BaseDecoratorRenderer<IconComponent> {
     @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
                                   // controlled by JSF
     protected void doEncodeEnd(FacesContext context, DecoratingResponseWriter<IconComponent> writer,
-            IconComponent component)
-        throws IOException {
+            IconComponent component) throws IOException {
 
         // Write element
         writer.withStartElement(Node.SPAN);

@@ -10,7 +10,7 @@ import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 
 @VerifyComponentProperties(of = { "closable", "footerKey", "footerValue", "headerKey", "headerValue", "size", "state",
-    "style", "animation" })
+        "style", "animation" })
 class ModalDialogComponentTest extends AbstractComponentTest<ModalDialogComponent> {
 
     @Test

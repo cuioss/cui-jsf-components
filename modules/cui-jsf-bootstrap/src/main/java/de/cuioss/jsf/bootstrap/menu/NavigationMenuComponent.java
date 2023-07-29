@@ -17,9 +17,9 @@ import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 
 /**
- * Holder of bootstrap conform navigation menu component model.
- * This component is responsible for the rendering of a {@link NavigationMenuItem}.
- * Supported models:
+ * Holder of bootstrap conform navigation menu component model. This component
+ * is responsible for the rendering of a {@link NavigationMenuItem}. Supported
+ * models:
  * <ul>
  * <li>{@link NavigationMenuItemContainer}</li>
  * <li>{@link NavigationMenuItemSingle}</li>
@@ -43,7 +43,6 @@ public class NavigationMenuComponent extends AbstractBaseCuiComponent {
 
     /***/
     public NavigationMenuComponent() {
-        super();
         super.setRendererType(BootstrapFamily.NAVIGATION_MENU_COMPONENT_RENDERER);
         state = new CuiState(getStateHelper());
     }
