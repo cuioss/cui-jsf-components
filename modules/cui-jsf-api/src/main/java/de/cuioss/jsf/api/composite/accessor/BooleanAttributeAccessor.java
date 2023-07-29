@@ -22,14 +22,11 @@ public class BooleanAttributeAccessor extends AttributeAccessorImpl<Boolean> {
     private final boolean invert;
 
     /**
-     * @param name
-     *            of the boolean
+     * @param name          of the boolean
      * @param alwaysResolve false: cache the value once it is resolved
-     * @param invertBoolean
-     *            flag indicating whether to invert the boolean logic.
+     * @param invertBoolean flag indicating whether to invert the boolean logic.
      */
-    public BooleanAttributeAccessor(final String name, final boolean alwaysResolve,
-            final boolean invertBoolean) {
+    public BooleanAttributeAccessor(final String name, final boolean alwaysResolve, final boolean invertBoolean) {
         super(name, Boolean.class, alwaysResolve);
         this.invert = invertBoolean;
     }

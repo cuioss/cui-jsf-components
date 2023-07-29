@@ -13,7 +13,9 @@ public enum EditEvent {
      */
     ADDED,
 
-    /** Defines an item that was loaded form the BE-system but modified in some way. */
+    /**
+     * Defines an item that was loaded form the BE-system but modified in some way.
+     */
     MODIFIED,
 
     /** The item is unmarked to be deleted. */

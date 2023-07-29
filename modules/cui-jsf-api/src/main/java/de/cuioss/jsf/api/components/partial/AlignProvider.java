@@ -9,15 +9,15 @@ import lombok.NonNull;
 /**
  * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of the align-attribute. The
- * implementation relies on the correct use of attribute names, saying they must exactly match the
- * accessor methods.
+ * Implementors of this class manage the state and resolving of the
+ * align-attribute. The implementation relies on the correct use of attribute
+ * names, saying they must exactly match the accessor methods.
  * </p>
  * <h2>align</h2>
  * <p>
- * Defines the alignment of a component. In case it is not set or does not match one of "left" or
- * "right" the {@link #resolveAlign()} will return {@link AlignHolder#DEFAULT}, other wise it will
- * return the according value.
+ * Defines the alignment of a component. In case it is not set or does not match
+ * one of "left" or "right" the {@link #resolveAlign()} will return
+ * {@link AlignHolder#DEFAULT}, other wise it will return the according value.
  * </p>
  *
  * @author Oliver Wolff
@@ -51,8 +51,8 @@ public class AlignProvider {
     }
 
     /**
-     * @return the resolved {@link AlignHolder} if available, otherwise it will return
-     *         {@link AlignHolder#DEFAULT}.
+     * @return the resolved {@link AlignHolder} if available, otherwise it will
+     *         return {@link AlignHolder#DEFAULT}.
      */
     public AlignHolder resolveAlign() {
         return AlignHolder.getFromString(getAlign());

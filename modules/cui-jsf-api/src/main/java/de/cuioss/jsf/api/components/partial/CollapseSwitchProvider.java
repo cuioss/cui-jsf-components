@@ -31,8 +31,8 @@ import lombok.NonNull;
  * </p>
  * <h2>collapseSwitch</h2>
  * <p>
- * {@link ToggleSwitch} Collapse state - component is collapsed or not.
- * This takes precedence over the <code>collapsed</code> attribute.
+ * {@link ToggleSwitch} Collapse state - component is collapsed or not. This
+ * takes precedence over the <code>collapsed</code> attribute.
  * </p>
  *
  * @author Sven Haag
@@ -105,9 +105,10 @@ public class CollapseSwitchProvider {
     }
 
     /**
-     * Set the value for the current collapse state (true=collapsed, false=expanded).
-     * This is an abstraction method to ensure the correct usage of the underlying state holder
-     * which can be either <code>collapseSwitch</code> or <code>collapsed</code>.
+     * Set the value for the current collapse state (true=collapsed,
+     * false=expanded). This is an abstraction method to ensure the correct usage of
+     * the underlying state holder which can be either <code>collapseSwitch</code>
+     * or <code>collapsed</code>.
      *
      * @param collapsed
      */
@@ -123,9 +124,9 @@ public class CollapseSwitchProvider {
     }
 
     /**
-     * Returns the actual collapse state.
-     * If <code>collapseSwitch</code> and <code>collapsed</code>
-     * are set, the <code>collapseSwitch</code> takes precedence.
+     * Returns the actual collapse state. If <code>collapseSwitch</code> and
+     * <code>collapsed</code> are set, the <code>collapseSwitch</code> takes
+     * precedence.
      *
      * @return toggle state.
      */

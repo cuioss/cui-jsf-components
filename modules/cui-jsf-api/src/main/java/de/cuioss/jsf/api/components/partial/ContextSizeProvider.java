@@ -9,15 +9,15 @@ import lombok.NonNull;
 /**
  * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of the Context-size. The implementation
- * relies on the correct use of attribute names, saying they must exactly match the accessor
- * methods.
+ * Implementors of this class manage the state and resolving of the
+ * Context-size. The implementation relies on the correct use of attribute
+ * names, saying they must exactly match the accessor methods.
  * </p>
  * <h2>size</h2>
  * <p>
- * Defines the component size. Supported values are "xs", "sm", "md", "lg", "xl", "xxl", "xxxl"
- * based on bootstrap screen sizes. Default: no size setting is set: {@link #resolveContextSize()}
- * will return {@link ContextSize#DEFAULT}
+ * Defines the component size. Supported values are "xs", "sm", "md", "lg",
+ * "xl", "xxl", "xxxl" based on bootstrap screen sizes. Default: no size setting
+ * is set: {@link #resolveContextSize()} will return {@link ContextSize#DEFAULT}
  * </p>
  *
  * @author Oliver Wolff
@@ -63,8 +63,8 @@ public class ContextSizeProvider {
     }
 
     /**
-     * @return the resolved {@link ContextSize} if available, otherwise it will return
-     *         {@link ContextSize#DEFAULT}.
+     * @return the resolved {@link ContextSize} if available, otherwise it will
+     *         return {@link ContextSize#DEFAULT}.
      */
     public ContextSize resolveContextSize() {
         return ContextSize.getFromString(getSize());

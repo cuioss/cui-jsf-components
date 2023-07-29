@@ -23,8 +23,8 @@ public interface WidgetModel extends LazyLoadingModel {
     String getTitleIcon();
 
     /**
-     * @return the title of the widget.
-     *         {@linkplain #getTitleValue()} takes precedence over {@linkplain #getTitle()}.
+     * @return the title of the widget. {@linkplain #getTitleValue()} takes
+     *         precedence over {@linkplain #getTitle()}.
      */
     String getTitleValue();
 
@@ -69,7 +69,8 @@ public interface WidgetModel extends LazyLoadingModel {
     boolean isRendered();
 
     /**
-     * Start the initialization during {@link PostAddToViewEvent}. Should return immediate.
+     * Start the initialization during {@link PostAddToViewEvent}. Should return
+     * immediate.
      */
     void startInitialize();
 }

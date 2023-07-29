@@ -37,8 +37,7 @@ public class DisplayNameProviderMessageProducer implements Serializable {
 
     private static final long serialVersionUID = 3367432860164772689L;
 
-    private static final String NO_FITTING_CONVERTER_REGISTERED =
-        "No fitting converter for [%s] class registered.";
+    private static final String NO_FITTING_CONVERTER_REGISTERED = "No fitting converter for [%s] class registered.";
 
     @NonNull
     private final MessageProducer messageProducer;
@@ -46,41 +45,38 @@ public class DisplayNameProviderMessageProducer implements Serializable {
     /**
      * Create and add a global faces message, use resolved text from detail
      *
-     * @param requestResultObject {@linkplain ResultObject } must not be {@code null}
+     * @param requestResultObject {@linkplain ResultObject } must not be
+     *                            {@code null}
      */
     @SuppressWarnings("squid:S3655")
     public void showAsGlobalMessageAndLog(final ResultObject<?> requestResultObject) {
         FacesMessage.Severity severity;
 
         switch (requestResultObject.getState()) {
-            case ERROR:
-                if (requestResultObject.getResultDetail().get().getCause().isPresent()) {
-                    log.error(SILENT_ERROR_LOG,
-                            requestResultObject.getResultDetail().get().getCause().get());
-                }
-                severity = FacesMessage.SEVERITY_ERROR;
-                break;
-            case WARNING:
-                if (requestResultObject.getResultDetail().get().getCause().isPresent()) {
-                    log.warn(SILENT_ERROR_LOG,
-                            requestResultObject.getResultDetail().get().getCause().get());
-                }
-                severity = FacesMessage.SEVERITY_WARN;
-                break;
-            case INFO:
-                if (requestResultObject.getResultDetail().get().getCause().isPresent()) {
-                    log.info(SILENT_ERROR_LOG,
-                            requestResultObject.getResultDetail().get().getCause().get());
-                }
-                severity = FacesMessage.SEVERITY_INFO;
-                break;
-            case VALID:
-                severity = FacesMessage.SEVERITY_INFO;
-                break;
-            default:
-                throw new UnsupportedOperationException(
-                        "No resolving defined for -> " + requestResultObject.getState(),
-                        requestResultObject.getResultDetail().get().getCause().orElse(null));
+        case ERROR:
+            if (requestResultObject.getResultDetail().get().getCause().isPresent()) {
+                log.error(SILENT_ERROR_LOG, requestResultObject.getResultDetail().get().getCause().get());
+            }
+            severity = FacesMessage.SEVERITY_ERROR;
+            break;
+        case WARNING:
+            if (requestResultObject.getResultDetail().get().getCause().isPresent()) {
+                log.warn(SILENT_ERROR_LOG, requestResultObject.getResultDetail().get().getCause().get());
+            }
+            severity = FacesMessage.SEVERITY_WARN;
+            break;
+        case INFO:
+            if (requestResultObject.getResultDetail().get().getCause().isPresent()) {
+                log.info(SILENT_ERROR_LOG, requestResultObject.getResultDetail().get().getCause().get());
+            }
+            severity = FacesMessage.SEVERITY_INFO;
+            break;
+        case VALID:
+            severity = FacesMessage.SEVERITY_INFO;
+            break;
+        default:
+            throw new UnsupportedOperationException("No resolving defined for -> " + requestResultObject.getState(),
+                    requestResultObject.getResultDetail().get().getCause().orElse(null));
         }
 
         if (requestResultObject.getResultDetail().isPresent()) {
@@ -91,11 +87,11 @@ public class DisplayNameProviderMessageProducer implements Serializable {
     /**
      * Create and add a global faces message, use resolved text from content
      *
-     * @param content {@linkplain IDisplayNameProvider} must not be {@code null}
-     * @param severity {@linkplain FacesMessage#getSeverity()} must not be {@code null}
+     * @param content  {@linkplain IDisplayNameProvider} must not be {@code null}
+     * @param severity {@linkplain FacesMessage#getSeverity()} must not be
+     *                 {@code null}
      */
-    public void showAsGlobalMessage(final IDisplayNameProvider<?> content,
-            final FacesMessage.Severity severity) {
+    public void showAsGlobalMessage(final IDisplayNameProvider<?> content, final FacesMessage.Severity severity) {
 
         final var message = resolve(requireNonNull(content, "content"));
         messageProducer.addGlobalMessage(message, severity);
@@ -113,8 +109,7 @@ public class DisplayNameProviderMessageProducer implements Serializable {
         converterAccessor.setTargetClass(targetType);
         final var converter = converterAccessor.getValue();
         if (null == converter) {
-            throw new IllegalStateException(
-                    String.format(NO_FITTING_CONVERTER_REGISTERED, targetType.getName()));
+            throw new IllegalStateException(String.format(NO_FITTING_CONVERTER_REGISTERED, targetType.getName()));
         }
         return converter.getAsString(FacesContext.getCurrentInstance(), DUMMY, content);
     }

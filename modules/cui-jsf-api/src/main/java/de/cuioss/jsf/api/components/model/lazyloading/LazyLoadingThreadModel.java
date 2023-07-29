@@ -4,8 +4,8 @@ import de.cuioss.jsf.api.components.model.resultContent.ResultErrorHandler;
 import de.cuioss.uimodel.result.ResultObject;
 
 /**
- * Enrich a {@link LazyLoadingModel} with a type and a request id to be handled in a asynchronous
- * thread.
+ * Enrich a {@link LazyLoadingModel} with a type and a request id to be handled
+ * in a asynchronous thread.
  */
 public interface LazyLoadingThreadModel<T> extends LazyLoadingModel {
 

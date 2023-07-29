@@ -34,33 +34,34 @@ public final class ComponentUtility {
     public static final String JAVAX_FACES_PARTIAL_AJAX = "javax.faces.partial.ajax";
 
     /**
-     * Checks whether the component sent the request itself or the request was sent by one of it
-     * ancestors.
+     * Checks whether the component sent the request itself or the request was sent
+     * by one of it ancestors.
      *
-     * @param map representing the external Context based request parameter , must nor be null
+     * @param map       representing the external Context based request parameter ,
+     *                  must nor be null
      * @param component the be checked against.
-     * @return boolean indicating whether the request was triggered by the component itself
+     * @return boolean indicating whether the request was triggered by the component
+     *         itself
      */
     public static boolean isSelfRequest(final Map<String, String> map, final UIComponent component) {
-        return map.containsKey(JAVAX_FACES_SOURCE)
-                && component.getClientId().equals(map.get(JAVAX_FACES_SOURCE));
+        return map.containsKey(JAVAX_FACES_SOURCE) && component.getClientId().equals(map.get(JAVAX_FACES_SOURCE));
     }
 
     /**
      * Checks whether the current request is an ajax request
      *
-     * @param map representing the external Context based request parameter, must nor be null
+     * @param map representing the external Context based request parameter, must
+     *            nor be null
      * @return boolean indicating whether the request is am Ajax-Request
      */
     public static boolean isAjaxRequest(final Map<String, String> map) {
-        return map.containsKey(JAVAX_FACES_PARTIAL_AJAX)
-                && Boolean.parseBoolean(map.get(JAVAX_FACES_PARTIAL_AJAX));
+        return map.containsKey(JAVAX_FACES_PARTIAL_AJAX) && Boolean.parseBoolean(map.get(JAVAX_FACES_PARTIAL_AJAX));
     }
 
     /**
      * @param component to be started from
-     * @return The form for the given component. If there is no form as parent for the given
-     *         component it throws an {@link IllegalArgumentException}
+     * @return The form for the given component. If there is no form as parent for
+     *         the given component it throws an {@link IllegalArgumentException}
      */
     public static UIForm findCorrespondingForm(final UIComponent component) {
         checkArgument(null != component, "Component is null, no valid form found");
@@ -81,8 +82,8 @@ public final class ComponentUtility {
     }
 
     /**
-     * Checks if the component is nested in a form.
-     * Otherwise throw an {@link IllegalStateException}.
+     * Checks if the component is nested in a form. Otherwise throw an
+     * {@link IllegalStateException}.
      *
      * @param component the component to check, must not be null.
      * @return the form is present.
@@ -91,17 +92,16 @@ public final class ComponentUtility {
         requireNonNull(component);
         final UIComponent form = ComponentUtility.findCorrespondingFormOrNull(component);
         if (form == null) {
-            throw new IllegalStateException(
-                    String.format("Component %s with id [%s] should be placed inside a form",
-                            component.getClass().getSimpleName(), component.getId()));
+            throw new IllegalStateException(String.format("Component %s with id [%s] should be placed inside a form",
+                    component.getClass().getSimpleName(), component.getId()));
         }
         return form;
     }
 
     /**
      * @param component to be started from
-     * @return The form for the given component. If there is no form as parent for the given
-     *         component it returns null. This is the main difference to
+     * @return The form for the given component. If there is no form as parent for
+     *         the given component it returns null. This is the main difference to
      *         {@link #findCorrespondingForm(UIComponent)}
      */
     public static UIForm findCorrespondingFormOrNull(final UIComponent component) {
@@ -122,8 +122,9 @@ public final class ComponentUtility {
      * Finds the nearest {@link UINamingContainer} for the given component.
      *
      * @param component to be checked
-     * @return The nearest found naming Container. If there is no {@link UINamingContainer} as
-     *         parent for the given component it throws an {@link IllegalArgumentException}
+     * @return The nearest found naming Container. If there is no
+     *         {@link UINamingContainer} as parent for the given component it throws
+     *         an {@link IllegalArgumentException}
      */
     public static NamingContainer findNearestNamingContainer(final UIComponent component) {
         checkArgument(null != component, "No parent naming container could be found");
@@ -134,21 +135,19 @@ public final class ComponentUtility {
     }
 
     /**
-     * Visits all {@link EditableValueHolder} within the given form that are rendered and resets
-     * them.
+     * Visits all {@link EditableValueHolder} within the given form that are
+     * rendered and resets them.
      *
-     * @param form to start from, must not be null
+     * @param form         to start from, must not be null
      * @param facesContext must not be null
      */
-    public static void resetEditableValueHolder(final UIForm form,
-            final FacesContext facesContext) {
+    public static void resetEditableValueHolder(final UIForm form, final FacesContext facesContext) {
 
         requireNonNull(form);
         requireNonNull(facesContext);
 
         // iterate over found sub-components and reset their values
-        final var editableValueHolders = getEditableValueHolders(form,
-                facesContext);
+        final var editableValueHolders = getEditableValueHolders(form, facesContext);
 
         for (final EditableValueHolder editableValueHolder : editableValueHolders) {
             editableValueHolder.resetValue();
@@ -157,21 +156,19 @@ public final class ComponentUtility {
     }
 
     /**
-     * Visits all {@link EditableValueHolder} within the given form that are rendered and set them
-     * as valid.
+     * Visits all {@link EditableValueHolder} within the given form that are
+     * rendered and set them as valid.
      *
-     * @param form to start from, must not be null
+     * @param form         to start from, must not be null
      * @param facesContext must not be null
      */
-    public static void setEditableValueHoldersValid(final UIForm form,
-            final FacesContext facesContext) {
+    public static void setEditableValueHoldersValid(final UIForm form, final FacesContext facesContext) {
 
         requireNonNull(form);
         requireNonNull(facesContext);
 
         // iterate over found sub-components and reset their values
-        final var editableValueHolders = getEditableValueHolders(form,
-                facesContext);
+        final var editableValueHolders = getEditableValueHolders(form, facesContext);
 
         for (final EditableValueHolder editableValueHolder : editableValueHolders) {
             editableValueHolder.setValid(true);
@@ -182,7 +179,7 @@ public final class ComponentUtility {
     /**
      * Shortcut for creating and casting a component to a given type.
      *
-     * @param context must not be null
+     * @param context       must not be null
      * @param componentType to be created, must not be null nor empty
      * @return the created component.
      */
@@ -196,8 +193,8 @@ public final class ComponentUtility {
     /**
      * Shortcut for creating and casting a renderer to a given type.
      *
-     * @param context must not be null
-     * @param family to be created, must not be null nor empty
+     * @param context      must not be null
+     * @param family       to be created, must not be null nor empty
      * @param rendererType to be created, must not be null nor empty
      * @return the created component.
      */

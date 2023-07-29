@@ -3,7 +3,6 @@ package de.cuioss.jsf.api.components.util.modifier;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
-import java.util.Optional;
 import java.util.ServiceLoader;
 
 import javax.faces.component.UIComponent;
@@ -26,18 +25,19 @@ public class ComponentModifierFactory {
     /**
      * Retrieve fitting {@linkplain ComponentModifier}
      *
-     * @param toBeWrapped {@linkplain UIComponent} target component. Must not be {@code null}
-     * @return {@linkplain ComponentModifier} if mapping is defined. if none is defined it returns
-     *         a {@link ReflectionBasedModifier}
+     * @param toBeWrapped {@linkplain UIComponent} target component. Must not be
+     *                    {@code null}
+     * @return {@linkplain ComponentModifier} if mapping is defined. if none is
+     *         defined it returns a {@link ReflectionBasedModifier}
      */
     public static ComponentModifier findFittingWrapper(final UIComponent toBeWrapped) {
         requireNonNull(toBeWrapped);
 
         LOGGER.trace("Resolving for %s. First try from SPI", toBeWrapped.getClass());
 
-        Iterator<ComponentModifierResolver> iterator = loadResolver();
+        var iterator = loadResolver();
         while (iterator.hasNext()) {
-            Optional<ComponentModifier> resolved = iterator.next().wrap(toBeWrapped);
+            var resolved = iterator.next().wrap(toBeWrapped);
             if (resolved.isPresent()) {
                 LOGGER.trace("Resolved %s for %s", resolved.get().getClass(), toBeWrapped.getClass());
                 return resolved.get();
@@ -49,8 +49,7 @@ public class ComponentModifierFactory {
     }
 
     static Iterator<ComponentModifierResolver> loadResolver() {
-        ServiceLoader<ComponentModifierResolver> loader = ServiceLoader
-                .load(ComponentModifierResolver.class);
+        ServiceLoader<ComponentModifierResolver> loader = ServiceLoader.load(ComponentModifierResolver.class);
         return loader.iterator();
     }
 

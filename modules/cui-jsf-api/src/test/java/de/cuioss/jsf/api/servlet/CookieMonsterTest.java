@@ -43,8 +43,7 @@ class CookieMonsterTest extends JsfEnabledTestEnvironment {
     @Test
     void testGetRequestCookieForNameWithNullName() {
         var facesContect = getFacesContext();
-        assertThrows(IllegalArgumentException.class,
-                () -> CookieMonster.getRequestCookieForName(facesContect, null));
+        assertThrows(IllegalArgumentException.class, () -> CookieMonster.getRequestCookieForName(facesContect, null));
     }
 
     @Test
@@ -93,8 +92,7 @@ class CookieMonsterTest extends JsfEnabledTestEnvironment {
     @Test
     void testSetResponseCookieWithNullContext() {
         var cookie = new Cookie(COUNTRY_COOKIE_NAME, COUNTRY_COOKIE_VALUE);
-        assertThrows(NullPointerException.class,
-                () -> CookieMonster.setResponseCookie(null, cookie));
+        assertThrows(NullPointerException.class, () -> CookieMonster.setResponseCookie(null, cookie));
     }
 
     @Test

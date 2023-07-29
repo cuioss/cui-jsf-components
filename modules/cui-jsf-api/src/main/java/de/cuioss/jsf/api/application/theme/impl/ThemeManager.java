@@ -15,8 +15,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Support class for translating theme-names derived from {@link ThemeConfiguration} to actual
- * css-file-names
+ * Support class for translating theme-names derived from
+ * {@link ThemeConfiguration} to actual css-file-names
  *
  * @author Oliver Wolff
  */
@@ -46,17 +46,13 @@ public class ThemeManager implements Serializable {
         defaultTheme = themeConfiguration.getDefaultTheme();
         // Set default and set implementation to immutable.
         checkCssNameContract(themeConfiguration.getCssName());
-        checkThemeNameContract(themeConfiguration.getAvailableThemes(),
-                themeConfiguration.getDefaultTheme());
-        var cssPrefixName = Splitter.on('.').splitToList(themeConfiguration.getCssName()).iterator()
-                .next();
+        checkThemeNameContract(themeConfiguration.getAvailableThemes(), themeConfiguration.getDefaultTheme());
+        var cssPrefixName = Splitter.on('.').splitToList(themeConfiguration.getCssName()).iterator().next();
         cssPrefixName = cssPrefixName + "-";
         var mapBuilder = new MapBuilder<String, String>();
         for (String themeName : themeConfiguration.getAvailableThemes()) {
-            mapBuilder.put(
-                    themeName,
-                    new StringBuilder(cssPrefixName).append(themeName.toLowerCase())
-                            .append(CSS_SUFFIX).toString());
+            mapBuilder.put(themeName,
+                    new StringBuilder(cssPrefixName).append(themeName.toLowerCase()).append(CSS_SUFFIX).toString());
         }
         themeNameCssMapping = mapBuilder.toImmutableMap();
     }
@@ -65,8 +61,8 @@ public class ThemeManager implements Serializable {
      * Actual 'business' method for getting a concrete application.css from
      *
      * @param themeName to be looked up. If it is null, empty or not part of
-     *            {@link ThemeConfiguration#getAvailableThemes()} it returns the configured
-     *            {@link ThemeConfiguration#getDefaultTheme()}
+     *                  {@link ThemeConfiguration#getAvailableThemes()} it returns
+     *                  the configured {@link ThemeConfiguration#getDefaultTheme()}
      * @return the corresponding css name.
      */
     public String getCssForThemeName(final String themeName) {
@@ -88,8 +84,8 @@ public class ThemeManager implements Serializable {
         }
         requireNotEmpty(defaultTheme, "defaultTheme");
         if (!availableThemes.contains(defaultTheme)) {
-            throw new IllegalStateException("Default theme: " + defaultTheme
-                    + " can not be found within " + availableThemes);
+            throw new IllegalStateException(
+                    "Default theme: " + defaultTheme + " can not be found within " + availableThemes);
         }
 
     }

@@ -9,8 +9,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Simple implementation of {@link ThemeNameProducer} that will always return the default theme
- * derived from {@link ThemeConfiguration}
+ * Simple implementation of {@link ThemeNameProducer} that will always return
+ * the default theme derived from {@link ThemeConfiguration}
  *
  * @author Oliver Wolff
  */

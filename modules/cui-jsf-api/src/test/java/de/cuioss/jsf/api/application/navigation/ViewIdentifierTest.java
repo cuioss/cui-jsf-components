@@ -32,20 +32,19 @@ class ViewIdentifierTest extends JsfEnabledTestEnvironment {
 
     @Test
     void shouldExtractCorrectViewIdentifier() {
-        ViewDescriptor descriptor =
-            ViewDescriptorImpl.builder().withViewId(START_URL).withLogicalViewId(START_URL).build();
+        ViewDescriptor descriptor = ViewDescriptorImpl.builder().withViewId(START_URL).withLogicalViewId(START_URL)
+                .build();
         var identifier = ViewIdentifier.getFromViewDesciptor(descriptor, null);
         assertNotNull(identifier);
         assertEquals(START_URL, identifier.getViewId());
         assertNull(identifier.getOutcome());
-        final var navigationCase =
-            identifier.toNavigationCase(FROM_VIEW_ID, FROM_ACTION, FROM_OUTCOME, null, true, false);
+        final var navigationCase = identifier.toNavigationCase(FROM_VIEW_ID, FROM_ACTION, FROM_OUTCOME, null, true,
+                false);
         assertNotNull(navigationCase);
     }
 
     @Test
     void handleNullUrlParams() {
-        assertDoesNotThrow(() -> new ViewIdentifier("some/page.jsf", null, null)
-                .redirect(getFacesContext()));
+        assertDoesNotThrow(() -> new ViewIdentifier("some/page.jsf", null, null).redirect(getFacesContext()));
     }
 }

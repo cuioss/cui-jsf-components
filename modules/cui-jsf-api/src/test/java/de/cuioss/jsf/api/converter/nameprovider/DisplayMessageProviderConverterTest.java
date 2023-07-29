@@ -14,8 +14,8 @@ class DisplayMessageProviderConverterTest
 
     @Override
     public void populate(final TestItems<DisplayMessageProvider> testItems) {
-        testItems.addValidObjectWithStringResult(new DisplayMessageProvider.Builder()
-                .messageKey(MESSAGE_KEY).add(10).build(), MESSAGE_KEY);
+        testItems.addValidObjectWithStringResult(
+                new DisplayMessageProvider.Builder().messageKey(MESSAGE_KEY).add(10).build(), MESSAGE_KEY);
 
     }
 

@@ -9,14 +9,14 @@ import lombok.NonNull;
 /**
  * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of the Context-state. The
- * implementation relies on the correct use of attribute names, saying they must exactly match the
- * accessor methods.
+ * Implementors of this class manage the state and resolving of the
+ * Context-state. The implementation relies on the correct use of attribute
+ * names, saying they must exactly match the accessor methods.
  * </p>
  * <h2>state</h2>
  * <p>
- * Different general styles available (state): one of 'primary', 'success', 'info', 'warning',
- * 'danger'. If none of those is set it uses 'default'.
+ * Different general styles available (state): one of 'primary', 'success',
+ * 'info', 'warning', 'danger'. If none of those is set it uses 'default'.
  * </p>
  *
  * @author Oliver Wolff
@@ -43,16 +43,15 @@ public class ContextStateProvider {
     }
 
     /**
-     * @param stateString
-     *            the state to set
+     * @param stateString the state to set
      */
     public void setState(String stateString) {
         state.put(KEY, stateString);
     }
 
     /**
-     * @return the resolved {@link ContextState} if available, otherwise it will return
-     *         {@link ContextState#DEFAULT}.
+     * @return the resolved {@link ContextState} if available, otherwise it will
+     *         return {@link ContextState#DEFAULT}.
      */
     public ContextState resolveContextState() {
         return ContextState.getFromString(getState());

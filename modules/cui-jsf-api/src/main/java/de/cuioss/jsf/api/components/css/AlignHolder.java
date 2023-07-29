@@ -37,11 +37,10 @@ public enum AlignHolder implements StyleClassProvider {
      * Create an instance of {@link AlignHolder} according to the given String.
      * <p>
      *
-     * @param align
-     *            String identifier, may be null. The call is case insensitive.
-     *            "right" will result in {@link AlignHolder#LEFT}, "right" in
-     *            {@link AlignHolder#RIGHT}. In all other cases it will return
-     *            {@link AlignHolder#DEFAULT}
+     * @param align String identifier, may be null. The call is case insensitive.
+     *              "right" will result in {@link AlignHolder#LEFT}, "right" in
+     *              {@link AlignHolder#RIGHT}. In all other cases it will return
+     *              {@link AlignHolder#DEFAULT}
      * @return the corresponding {@link AlignHolder}
      */
     public static final AlignHolder getFromString(String align) {
@@ -49,14 +48,14 @@ public enum AlignHolder implements StyleClassProvider {
         if (!isEmpty(align)) {
             var upperCase = align.toUpperCase();
             switch (upperCase) {
-                case "LEFT":
-                    result = LEFT;
-                    break;
-                case "RIGHT":
-                    result = RIGHT;
-                    break;
-                default:
-                    break;
+            case "LEFT":
+                result = LEFT;
+                break;
+            case "RIGHT":
+                result = RIGHT;
+                break;
+            default:
+                break;
             }
         }
         return result;

@@ -11,7 +11,8 @@ import de.cuioss.uimodel.nameprovider.DisplayName;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
 
 /**
- * Converter for implementation of {@link IDisplayNameProvider} {@link DisplayName}
+ * Converter for implementation of {@link IDisplayNameProvider}
+ * {@link DisplayName}
  *
  * @author Eugen Fischer
  */
@@ -20,7 +21,7 @@ public class DisplayNameConverter extends AbstractConverter<DisplayName> {
 
     @Override
     protected String convertToString(final FacesContext context, final UIComponent component, final DisplayName value)
-        throws ConverterException {
+            throws ConverterException {
         return CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(value.getContent());
     }
 

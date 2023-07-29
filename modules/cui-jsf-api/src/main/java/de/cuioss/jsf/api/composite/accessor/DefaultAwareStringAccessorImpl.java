@@ -27,15 +27,11 @@ public class DefaultAwareStringAccessorImpl extends StringAttributeAccessor {
     /**
      * Constructor.
      *
-     * @param name
-     *            of the attribute, must not be null or empty
-     * @param alwaysResolve
-     *            indicates whether to resolve once or on every access
-     * @param defaultValue
-     *            may be null
+     * @param name          of the attribute, must not be null or empty
+     * @param alwaysResolve indicates whether to resolve once or on every access
+     * @param defaultValue  may be null
      */
-    public DefaultAwareStringAccessorImpl(final String name, final boolean alwaysResolve,
-            final String defaultValue) {
+    public DefaultAwareStringAccessorImpl(final String name, final boolean alwaysResolve, final String defaultValue) {
         super(name, alwaysResolve, true);
         this.defaultValue = MoreStrings.emptyToNull(defaultValue);
     }

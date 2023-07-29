@@ -14,33 +14,38 @@ import lombok.NonNull;
 /**
  * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of the header string of a component.
- * The implementation relies on the correct use of attribute names, saying they must exactly match
- * the accessor methods.
+ * Implementors of this class manage the state and resolving of the header
+ * string of a component. The implementation relies on the correct use of
+ * attribute names, saying they must exactly match the accessor methods.
  * </p>
  * <h2>headerKey</h2>
  * <p>
- * The key for looking up the text to be displayed as the text header. Although this attribute is
- * not required you must provide either this or #headerValue if you want a label to be displayed.
+ * The key for looking up the text to be displayed as the text header. Although
+ * this attribute is not required you must provide either this or #headerValue
+ * if you want a label to be displayed.
  * </p>
  * <h2>headerValue</h2>
  * <p>
- * The Object representing the text to be displayed. This is a replacement for #headerKey. If both
- * are present headerValue takes precedence. The object is usually a string. If not, the developer
- * must ensure that a corresponding converter is either registered for the type or must provide a
- * converter using #headerConverter.
+ * The Object representing the text to be displayed. This is a replacement for
+ * #headerKey. If both are present headerValue takes precedence. The object is
+ * usually a string. If not, the developer must ensure that a corresponding
+ * converter is either registered for the type or must provide a converter using
+ * #headerConverter.
  * </p>
  * <h2>headerConverter</h2>
  * <p>
- * The optional converterId to be used in case of headerValue is set and needs conversion.
+ * The optional converterId to be used in case of headerValue is set and needs
+ * conversion.
  * </p>
  * <h2>headerEscape</h2>
  * <p>
- * Indicates whether the header is to be escaped on output or not. Default is <code>true</code>.
+ * Indicates whether the header is to be escaped on output or not. Default is
+ * <code>true</code>.
  * </p>
  * <h2>headerTag</h2>
  * <p>
- * Defines the HTML element to be used within the header. Default is <code>h4</code>.
+ * Defines the HTML element to be used within the header. Default is
+ * <code>h4</code>.
  * </p>
  *
  * @author Matthias Walliczek
@@ -167,9 +172,9 @@ public class HeaderProvider {
         if (headerValue == null && MoreStrings.isEmpty(headerKey)) {
             return null;
         }
-        return LabelResolver.builder().withConverter(getHeaderConverter())
-                .withLabelKey(headerKey).withEscape(isHeaderEscape())
-                .withLabelValue(headerValue).build().resolve(componentBridge.facesContext());
+        return LabelResolver.builder().withConverter(getHeaderConverter()).withLabelKey(headerKey)
+                .withEscape(isHeaderEscape()).withLabelValue(headerValue).build()
+                .resolve(componentBridge.facesContext());
     }
 
     /**
@@ -195,8 +200,8 @@ public class HeaderProvider {
     }
 
     /**
-     * @return boolean indicating whether there is a 'header' facet available <em>and</em> whether
-     *         this facet is rendered.
+     * @return boolean indicating whether there is a 'header' facet available
+     *         <em>and</em> whether this facet is rendered.
      */
     public boolean shouldRenderHeader() {
         return hasHeaderTitleSet() || shouldRenderHeaderFacet();

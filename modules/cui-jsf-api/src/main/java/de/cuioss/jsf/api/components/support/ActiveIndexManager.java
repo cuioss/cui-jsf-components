@@ -17,7 +17,8 @@ public interface ActiveIndexManager extends Serializable {
     String getActiveIndexesString();
 
     /**
-     * @param activeIndexesString to be set. The implementation may support multiple indexes.
+     * @param activeIndexesString to be set. The implementation may support multiple
+     *                            indexes.
      */
     void setActiveIndexesString(String activeIndexesString);
 
@@ -29,8 +30,8 @@ public interface ActiveIndexManager extends Serializable {
     /**
      * Sets the active index
      *
-     * @param indexes identifying the open tabs, starting from 0. Empty call results in all tabs
-     *            being closed.
+     * @param indexes identifying the open tabs, starting from 0. Empty call results
+     *                in all tabs being closed.
      */
     void setActiveIndex(Integer... indexes);
 
@@ -42,7 +43,8 @@ public interface ActiveIndexManager extends Serializable {
     /**
      * Alternative to Constructor.
      *
-     * @param defaultIndexes to be used as default index and as initial activeIndexesString
+     * @param defaultIndexes to be used as default index and as initial
+     *                       activeIndexesString
      */
     void setDefaultIndex(List<Integer> defaultIndexes);
 
@@ -55,8 +57,8 @@ public interface ActiveIndexManager extends Serializable {
     /**
      * Sets the active index
      *
-     * @param indexes identifying the open tabs, starting from 0. Empty call results in all tabs
-     *            being closed.
+     * @param indexes identifying the open tabs, starting from 0. Empty call results
+     *                in all tabs being closed.
      */
     void setActiveIndex(List<Integer> indexes);
 

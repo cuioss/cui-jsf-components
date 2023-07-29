@@ -13,8 +13,7 @@ import de.cuioss.tools.string.Splitter;
 public abstract class JQuerySelector implements ScriptProvider {
 
     /**
-     * The javaScript template for creating the jQuery-selector:
-     * "jQuery('#%s')".
+     * The javaScript template for creating the jQuery-selector: "jQuery('#%s')".
      */
     public static final String SELECTOR_TEMPLATE = "jQuery('#%s')";
 
@@ -31,9 +30,9 @@ public abstract class JQuerySelector implements ScriptProvider {
     protected abstract String getIdString();
 
     /**
-     * Escapes a given id String in order to be used within javascript, e.g for a given component
-     * providing the id "a:b" it returns "'a\\\\:b'" saying it
-     * takes care on the proper masking of the clientIds.
+     * Escapes a given id String in order to be used within javascript, e.g for a
+     * given component providing the id "a:b" it returns "'a\\\\:b'" saying it takes
+     * care on the proper masking of the clientIds.
      *
      * @param idString
      * @return the escaped String

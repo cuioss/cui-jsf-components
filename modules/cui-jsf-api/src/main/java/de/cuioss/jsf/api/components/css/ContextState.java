@@ -30,15 +30,15 @@ public enum ContextState implements StyleClassProvider {
      * Factory method for computing an {@link ContextState} out of a given
      * {@link String}
      *
-     * @param state
-     *            String representation of the state. It is interpreted case
-     *            insensitive. It can be either null or empty or must be one of
-     *            {"DEFAULT","PRIMARY", "SUCCESS", "INFO", "WARNING", "DANGER", "LIGHT"}
-     *            (case insensitive). The Input will implicitly be trimmed.
-     * @return The {@link ContextState} representation computed of the given
-     *         String. If it is null or empty {@link ContextState#DEFAULT} will
-     *         be returned. If the given String does not match to the constants
-     *         a {@link IllegalArgumentException} will be thrown.
+     * @param state String representation of the state. It is interpreted case
+     *              insensitive. It can be either null or empty or must be one of
+     *              {"DEFAULT","PRIMARY", "SUCCESS", "INFO", "WARNING", "DANGER",
+     *              "LIGHT"} (case insensitive). The Input will implicitly be
+     *              trimmed.
+     * @return The {@link ContextState} representation computed of the given String.
+     *         If it is null or empty {@link ContextState#DEFAULT} will be returned.
+     *         If the given String does not match to the constants a
+     *         {@link IllegalArgumentException} will be thrown.
      */
     public static final ContextState getFromString(final String state) {
         var result = DEFAULT;
@@ -58,11 +58,7 @@ public enum ContextState implements StyleClassProvider {
         if (MoreStrings.isEmpty(prefix)) {
             return getStyleClass();
         }
-        return new StringBuilder()
-                .append(prefix)
-                .append('-')
-                .append(name().toLowerCase())
-                .toString();
+        return new StringBuilder().append(prefix).append('-').append(name().toLowerCase()).toString();
     }
 
     /**
@@ -84,7 +80,8 @@ public enum ContextState implements StyleClassProvider {
     }
 
     /**
-     * @return StyleClassBuilder with the current ContextState in lower case as base class.
+     * @return StyleClassBuilder with the current ContextState in lower case as base
+     *         class.
      */
     @Override
     public StyleClassBuilder getStyleClassBuilder() {

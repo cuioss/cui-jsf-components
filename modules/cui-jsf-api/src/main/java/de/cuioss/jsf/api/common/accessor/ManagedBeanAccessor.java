@@ -8,8 +8,9 @@ import de.cuioss.jsf.api.common.ManagedBeansProvider;
 
 /**
  * @deprecated use CuiBeanManager instead
- * <p>
- *             {@link ManagedAccessor} for managed Beans utilizing {@link ManagedBeansProvider}.
+ *             <p>
+ *             {@link ManagedAccessor} for managed Beans utilizing
+ *             {@link ManagedBeansProvider}.
  *
  * @author Oliver Wolff
  * @param <T> identifying the concrete type
@@ -22,7 +23,10 @@ public class ManagedBeanAccessor<T> implements ManagedAccessor<T> {
     /** The 'safely' stored value. */
     private transient T value;
 
-    /** Flag defining whether to store locally or always resolve from managed Bean context. */
+    /**
+     * Flag defining whether to store locally or always resolve from managed Bean
+     * context.
+     */
     private final boolean alwaysResolve;
 
     /**
@@ -36,11 +40,12 @@ public class ManagedBeanAccessor<T> implements ManagedAccessor<T> {
     /**
      * Constructor.
      *
-     * @param beanLookupName must not be null, must determine an existing bean. It can be either an
-     *            EL-expression or the plain name.
-     * @param valueType must not be null, holder for the value type to be provided by this accessor.
-     * @param alwaysResolve Flag defining whether to store locally or always resolve from managed
-     *            Bean context.
+     * @param beanLookupName must not be null, must determine an existing bean. It
+     *                       can be either an EL-expression or the plain name.
+     * @param valueType      must not be null, holder for the value type to be
+     *                       provided by this accessor.
+     * @param alwaysResolve  Flag defining whether to store locally or always
+     *                       resolve from managed Bean context.
      */
     public ManagedBeanAccessor(final String beanLookupName, final Class<T> valueType, final boolean alwaysResolve) {
         this.valueType = requireNonNull(valueType);
@@ -51,9 +56,7 @@ public class ManagedBeanAccessor<T> implements ManagedAccessor<T> {
     @Override
     public final T getValue() {
         if (null == value || alwaysResolve) {
-            value =
-                ManagedBeansProvider.getManagedBean(beanLookupName, valueType,
-                        FacesContext.getCurrentInstance());
+            value = ManagedBeansProvider.getManagedBean(beanLookupName, valueType, FacesContext.getCurrentInstance());
         }
         return value;
     }

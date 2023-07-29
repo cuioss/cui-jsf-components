@@ -56,8 +56,7 @@ public abstract class AbstractStyleClassModifier implements StyleClassModifier {
     }
 
     protected String writeStyleClass(List<String> classList) {
-        var result = MoreStrings.emptyToNull(Joiner.on(SEPARATOR).skipNulls()
-                .join(classList));
+        var result = MoreStrings.emptyToNull(Joiner.on(SEPARATOR).skipNulls().join(classList));
         setStyleClass(result);
         return result;
     }
@@ -73,8 +72,7 @@ public abstract class AbstractStyleClassModifier implements StyleClassModifier {
     /**
      * The actual writing / storing of the StyleClass
      *
-     * @param styleClass
-     *            to be set
+     * @param styleClass to be set
      */
     public abstract void setStyleClass(String styleClass);
 

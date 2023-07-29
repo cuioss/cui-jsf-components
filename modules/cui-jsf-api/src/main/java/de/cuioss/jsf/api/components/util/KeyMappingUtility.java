@@ -16,10 +16,10 @@ public final class KeyMappingUtility {
     /**
      * Creates a key String depending on its input.
      *
-     * @param key must not be null, must implement toString properly.
+     * @param key       must not be null, must implement toString properly.
      * @param extension may be null or empty
-     * @return If extension-parameter is null or empty it returns key.toString(). Otherwise it
-     *         returns key.toString()_extension
+     * @return If extension-parameter is null or empty it returns key.toString().
+     *         Otherwise it returns key.toString()_extension
      */
     public static String mapKeyWithExtension(Serializable key, String extension) {
         requireNonNull(key);

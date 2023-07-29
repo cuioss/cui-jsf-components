@@ -37,13 +37,11 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
     /**
      * Constructor.
      *
-     * @param renderChildren
-     *            indicating whether the concrete renderer is rendering its
-     *            children. Usually this is the cases if the {@link Renderer}
-     *            renders a leaf.
+     * @param renderChildren indicating whether the concrete renderer is rendering
+     *                       its children. Usually this is the cases if the
+     *                       {@link Renderer} renders a leaf.
      */
     public BaseDecoratorRenderer(final boolean renderChildren) {
-        super();
         this.renderChildren = renderChildren;
     }
 
@@ -56,8 +54,7 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
     }
 
     @Override
-    public void encodeBegin(final FacesContext context, final UIComponent component)
-        throws IOException {
+    public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
         // Checks the contract
         super.encodeBegin(context, component);
         // Stop here if the component will not be rendered
@@ -68,13 +65,11 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
                                        // the cast is safe because of the
                                        // typing
         final var typedComponent = (T) component;
-        doEncodeBegin(context, new DecoratingResponseWriter<>(context, typedComponent),
-                typedComponent);
+        doEncodeBegin(context, new DecoratingResponseWriter<>(context, typedComponent), typedComponent);
     }
 
     @Override
-    public void encodeChildren(final FacesContext context, final UIComponent component)
-        throws IOException {
+    public void encodeChildren(final FacesContext context, final UIComponent component) throws IOException {
         // Checks the contract
         if (context == null || component == null) {
             throw new NullPointerException();
@@ -91,8 +86,7 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
     }
 
     @Override
-    public void encodeEnd(final FacesContext context, final UIComponent component)
-        throws IOException {
+    public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
         // Checks the contract
         super.encodeEnd(context, component);
         // Stop here if the component will not be rendered
@@ -103,8 +97,7 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
                                        // the cast is safe because of the
                                        // typing
         final var typedComponent = (T) component;
-        doEncodeEnd(context, new DecoratingResponseWriter<>(context, typedComponent),
-                typedComponent);
+        doEncodeEnd(context, new DecoratingResponseWriter<>(context, typedComponent), typedComponent);
     }
 
     @Override
@@ -133,8 +126,8 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
         }
         if (null == converter && null != valueExpression) {
             final Class<?> converterType = valueExpression.getType(context.getELContext());
-            if (null == converterType || Object.class == converterType || converterType == String.class && null != context.getApplication()
-                    .createConverter(String.class)) {
+            if (null == converterType || Object.class == converterType || converterType == String.class
+                    && null != context.getApplication().createConverter(String.class)) {
                 return submittedValue;
             }
             try {
@@ -159,13 +152,11 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
      * {@link #decode(FacesContext, UIComponent)} before
      * {@link #doDecode(FacesContext, ComponentWrapper)} is called.
      *
-     * @param context {@link FacesContext} must not be null
+     * @param context          {@link FacesContext} must not be null
      * @param componentWrapper {@link ComponentWrapper} must not be null
      */
-    protected void decodeClientBehavior(final FacesContext context,
-            final ComponentWrapper<T> componentWrapper) {
-        if (!componentWrapper.isClientBehaviorHolder()
-                || componentWrapper.getClientBehaviors().isEmpty()) {
+    protected void decodeClientBehavior(final FacesContext context, final ComponentWrapper<T> componentWrapper) {
+        if (!componentWrapper.isClientBehaviorHolder() || componentWrapper.getClientBehaviors().isEmpty()) {
             return;
         }
         final var external = context.getExternalContext();
@@ -173,8 +164,7 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
         final var behaviorEvent = params.get(JAVAX_FACES_BEHAVIOR_EVENT);
 
         if (null != behaviorEvent) {
-            final var behaviorsForEvent =
-                componentWrapper.getClientBehaviors().get(behaviorEvent);
+            final var behaviorsForEvent = componentWrapper.getClientBehaviors().get(behaviorEvent);
 
             if (null != behaviorsForEvent && !behaviorsForEvent.isEmpty()) {
                 final var behaviorSource = params.get(JAVAX_FACES_SOURCE);
@@ -188,10 +178,10 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
     }
 
     /**
-     * @param behaviorSourceId value could be missing
+     * @param behaviorSourceId  value could be missing
      * @param componentClientId value which should be checked
-     * @return true, if the ID given in <code>behaviorSourceId</code> is supposed
-     *         to come from the component with <code>componentClientId</code>
+     * @return true, if the ID given in <code>behaviorSourceId</code> is supposed to
+     *         come from the component with <code>componentClientId</code>
      */
     protected static boolean isFromBehaviorSource(final String behaviorSourceId, final String componentClientId) {
         return !MoreStrings.isEmpty(behaviorSourceId) && behaviorSourceId.equals(componentClientId);
@@ -201,46 +191,35 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
      * The actual method of the renderer to be implemented as replacement for
      * {@link Renderer#encodeBegin(FacesContext, UIComponent)}. The default
      * implementation is NOOP. The calling method
-     * {@link BaseDecoratorRenderer#encodeBegin(FacesContext, UIComponent)}
-     * takes care about checking the initial parameter and whether the component
-     * will be rendered at all.
+     * {@link BaseDecoratorRenderer#encodeBegin(FacesContext, UIComponent)} takes
+     * care about checking the initial parameter and whether the component will be
+     * rendered at all.
      *
-     * @param context
-     *            FacesContext for the request we are processing
-     * @param writer
-     *            decorated writer to be used
-     * @param component
-     *            to be rendered
-     * @throws IOException
-     *             occurs on interrupted I/O operations
+     * @param context   FacesContext for the request we are processing
+     * @param writer    decorated writer to be used
+     * @param component to be rendered
+     * @throws IOException occurs on interrupted I/O operations
      */
-    protected void doEncodeBegin(final FacesContext context,
-            final DecoratingResponseWriter<T> writer,
-            final T component)
-        throws IOException {
+    protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<T> writer,
+            final T component) throws IOException {
         // NOOP if not overridden by subclass
     }
 
     /**
      * The actual method of the renderer to be implemented as replacement for
-     * {@link Renderer#encodeChildren(FacesContext, UIComponent)}. The calling method
-     * {@link BaseDecoratorRenderer#encodeChildren(FacesContext, UIComponent)}
-     * takes care about checking the initial parameter and whether the component
-     * will be rendered at all.
+     * {@link Renderer#encodeChildren(FacesContext, UIComponent)}. The calling
+     * method
+     * {@link BaseDecoratorRenderer#encodeChildren(FacesContext, UIComponent)} takes
+     * care about checking the initial parameter and whether the component will be
+     * rendered at all.
      *
-     * @param context
-     *            FacesContext for the request we are processing
-     * @param writer
-     *            decorated writer to be used
-     * @param component
-     *            to be rendered
-     * @throws IOException
-     *             occurs on interrupted I/O operations
+     * @param context   FacesContext for the request we are processing
+     * @param writer    decorated writer to be used
+     * @param component to be rendered
+     * @throws IOException occurs on interrupted I/O operations
      */
-    protected void doEncodeChildren(final FacesContext context,
-            final DecoratingResponseWriter<T> writer,
-            final T component)
-        throws IOException {
+    protected void doEncodeChildren(final FacesContext context, final DecoratingResponseWriter<T> writer,
+            final T component) throws IOException {
         for (final UIComponent child : component.getChildren()) {
             if (child.isRendered()) {
                 child.encodeAll(context);
@@ -252,22 +231,17 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
      * The actual method of the renderer to be implemented as replacement for
      * {@link Renderer#encodeEnd(FacesContext, UIComponent)}. The default
      * implementation is NOOP. The calling method
-     * {@link BaseDecoratorRenderer#encodeEnd(FacesContext, UIComponent)} takes
-     * care about checking the initial parameter and whether the component will
-     * be rendered at all.
+     * {@link BaseDecoratorRenderer#encodeEnd(FacesContext, UIComponent)} takes care
+     * about checking the initial parameter and whether the component will be
+     * rendered at all.
      *
-     * @param context
-     *            FacesContext for the request we are processing
-     * @param writer
-     *            decorated writer to be used
-     * @param component
-     *            to be rendered
-     * @throws IOException
-     *             occurs on interrupted I/O operations
+     * @param context   FacesContext for the request we are processing
+     * @param writer    decorated writer to be used
+     * @param component to be rendered
+     * @throws IOException occurs on interrupted I/O operations
      */
-    protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<T> writer,
-            final T component)
-        throws IOException {
+    protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<T> writer, final T component)
+            throws IOException {
         // NOOP if not overridden by subclass
     }
 
@@ -275,17 +249,14 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
      * The actual method of the renderer to be implemented as replacement for
      * {@link Renderer#decode(FacesContext, UIComponent)}. The default
      * implementation is NOOP. The calling method
-     * {@link BaseDecoratorRenderer#decode(FacesContext, UIComponent)} takes
-     * care about checking the initial parameter and whether the component will
-     * be decoded at all.
+     * {@link BaseDecoratorRenderer#decode(FacesContext, UIComponent)} takes care
+     * about checking the initial parameter and whether the component will be
+     * decoded at all.
      *
-     * @param context
-     *            FacesContext for the request we are processing
-     * @param componentWrapper
-     *            to be decoded
+     * @param context          FacesContext for the request we are processing
+     * @param componentWrapper to be decoded
      */
-    protected void doDecode(final FacesContext context,
-            final ComponentWrapper<T> componentWrapper) {
+    protected void doDecode(final FacesContext context, final ComponentWrapper<T> componentWrapper) {
         // NOOP if not overridden by subclass
     }
 
@@ -293,8 +264,8 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
      * Simple helper method that strips on prefixes from possible dom-event-names
      *
      * @param domEventName may be null or empty
-     * @return in case of the given event starts with "on", e.g. "onclick" it returns the token
-     *         after on "on" in the example this would be "click"
+     * @return in case of the given event starts with "on", e.g. "onclick" it
+     *         returns the token after on "on" in the example this would be "click"
      */
     public static final String fixDomeEventName(final String domEventName) {
         if (isEmpty(domEventName)) {

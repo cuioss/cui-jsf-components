@@ -45,11 +45,11 @@ public enum IconLibrary {
     /**
      * Strips and matches the corresponding library name.
      *
-     * @param iconClass
-     *            must not be null
+     * @param iconClass must not be null
      * @return the resolved library, if there is a match, otherwise it throws an
      *         {@link IllegalArgumentException}
-     * @throws IllegalArgumentException if iconClass is {@code null} or {@code empty}.
+     * @throws IllegalArgumentException if iconClass is {@code null} or
+     *                                  {@code empty}.
      */
     public static final String resolveLibraryFromIconClass(String iconClass) {
 
@@ -60,31 +60,30 @@ public enum IconLibrary {
                 return library.libraryPrefix;
             }
         }
-        throw new IllegalArgumentException("No valid library found for "
-                + checked);
+        throw new IllegalArgumentException("No valid library found for " + checked);
     }
 
     /**
-     * Strip the corresponding library class and creates the combined css
-     * String, e.g. "pxs-icon pxs-icon-warning" for for
-     * iconClass=pxs-icon-warning.
+     * Strip the corresponding library class and creates the combined css String,
+     * e.g. "pxs-icon pxs-icon-warning" for for iconClass=pxs-icon-warning.
      *
-     * @param iconClass
-     *            must not be null
+     * @param iconClass must not be null
      * @return the computed css String.
      */
     public static final String resolveCssString(String iconClass) {
         var libraryName = resolveLibraryFromIconClass(iconClass);
-        return new StringBuilder(libraryName).append(' ').append(iconClass)
-                .toString();
+        return new StringBuilder(libraryName).append(' ').append(iconClass).toString();
     }
 
     /**
      * Provide possibility to verify icon name belongs to known namespaces
      *
-     * @param iconName target which should be verified. Must not be {@code null} or {@code empty}.
-     * @return {@code true} if icon name belongs to known namespaces, {@code false} otherwise
-     * @throws IllegalArgumentException if iconName is {@code null} or {@code empty}.
+     * @param iconName target which should be verified. Must not be {@code null} or
+     *                 {@code empty}.
+     * @return {@code true} if icon name belongs to known namespaces, {@code false}
+     *         otherwise
+     * @throws IllegalArgumentException if iconName is {@code null} or
+     *                                  {@code empty}.
      */
     public static boolean isIconUsagePossible(final String iconName) {
 

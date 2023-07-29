@@ -15,18 +15,18 @@ import lombok.ToString;
 
 /**
  * Base class for implementing {@link EditableDataListModel}. In addition to
- * {@link AbstractEditableDataListModel} it provides reflection based implementations of
- * {@link EditableDataListModel#createEmptyItem()} and
+ * {@link AbstractEditableDataListModel} it provides reflection based
+ * implementations of {@link EditableDataListModel#createEmptyItem()} and
  * {@link EditableDataListModel#createCopy(Serializable)}
  *
  * @author Oliver Wolff
- * @param <T> identifying the type of items to be created. Must be at least {@link Serializable} and
- *            implement {@link Object#hashCode()} and {@link Object#equals(Object)} correctly.
+ * @param <T> identifying the type of items to be created. Must be at least
+ *            {@link Serializable} and implement {@link Object#hashCode()} and
+ *            {@link Object#equals(Object)} correctly.
  */
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class ReflectionBasedEditableDataListModel<T extends Serializable>
-        extends AbstractEditableDataListModel<T> {
+public class ReflectionBasedEditableDataListModel<T extends Serializable> extends AbstractEditableDataListModel<T> {
 
     private static final long serialVersionUID = 6139592941529357681L;
 
@@ -36,9 +36,11 @@ public class ReflectionBasedEditableDataListModel<T extends Serializable>
     private final List<T> loadedItems;
 
     /**
-     * @param modelClass must not be null and provide a default and a Copy-Constructor
-     * @param intialItems The initial item for populating the dataModel, may be null. In case you
-     *            want to load the items lazily you can override {@link #getLoadedItems()}
+     * @param modelClass  must not be null and provide a default and a
+     *                    Copy-Constructor
+     * @param intialItems The initial item for populating the dataModel, may be
+     *                    null. In case you want to load the items lazily you can
+     *                    override {@link #getLoadedItems()}
      */
     public ReflectionBasedEditableDataListModel(final Class<T> modelClass, final List<T> intialItems) {
         this.modelClass = requireNonNull(modelClass);
@@ -59,8 +61,8 @@ public class ReflectionBasedEditableDataListModel<T extends Serializable>
     public T createCopy(final T item) {
         try {
             return modelClass.getConstructor(modelClass).newInstance(item);
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException e) {
             throw new IllegalStateException(
                     "Unable to create an Instances using the copy constructor, offending class: " + modelClass, e);
         }

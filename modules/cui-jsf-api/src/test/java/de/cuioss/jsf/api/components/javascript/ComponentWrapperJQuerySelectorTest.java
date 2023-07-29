@@ -33,16 +33,15 @@ class ComponentWrapperJQuerySelectorTest extends JsfEnabledTestEnvironment imple
 
     @Test
     void shouldCreateWithoutExtension() {
-        var selector =
-            ComponentWrapperJQuerySelector.builder().withComponentWrapper(componentWrapper).build();
+        var selector = ComponentWrapperJQuerySelector.builder().withComponentWrapper(componentWrapper).build();
         assertNotNull(selector);
         assertEquals("jQuery('#form\\\\:mock')", selector.script());
     }
 
     @Test
     void shouldCreateWithExtension() {
-        var selector = ComponentWrapperJQuerySelector.builder()
-                .withComponentWrapper(componentWrapper).withIdExtension(EXTENSION).build();
+        var selector = ComponentWrapperJQuerySelector.builder().withComponentWrapper(componentWrapper)
+                .withIdExtension(EXTENSION).build();
         assertNotNull(selector);
         assertEquals("jQuery('#form\\\\:mock_extension')", selector.script());
     }

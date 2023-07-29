@@ -42,20 +42,17 @@ public enum DisableUIComponentStrategy {
     }
 
     /**
-     * @param component
-     *            {@link UIComponent} to be disabled
+     * @param component {@link UIComponent} to be disabled
      */
     protected abstract void disable(final UIComponent component);
 
     /**
      * Disable the component which is passed on.
      *
-     * @param component
-     *            {@link UIComponent} must not be null.
-     * @throws NullPointerException
-     *             id parameter is null
-     * @throws IllegalArgumentException
-     *             if no fitting strategy to disable the component exists
+     * @param component {@link UIComponent} must not be null.
+     * @throws NullPointerException     id parameter is null
+     * @throws IllegalArgumentException if no fitting strategy to disable the
+     *                                  component exists
      */
     public static final void disableComponent(final UIComponent component) {
         requireNonNull(component, "UIComponent must not be null");
@@ -66,8 +63,7 @@ public enum DisableUIComponentStrategy {
             }
         }
         throw new IllegalArgumentException(
-                String.format("[%s] has no coresponding disable strategy",
-                        component.getClass().getSimpleName()));
+                String.format("[%s] has no coresponding disable strategy", component.getClass().getSimpleName()));
     }
 
 }

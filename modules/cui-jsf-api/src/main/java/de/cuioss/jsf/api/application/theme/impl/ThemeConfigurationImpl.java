@@ -17,18 +17,20 @@ import lombok.ToString;
 /**
  * Support class for {@link ThemeResourceHandler} utilized to configure it.
  * <ul>
- * <li>It provides a set of default Themes: "Blue", "Sunny", "Green", "High-Contrast",
- * attribute-name is "availableThemes".</li>
+ * <li>It provides a set of default Themes: "Blue", "Sunny", "Green",
+ * "High-Contrast", attribute-name is "availableThemes".</li>
  * <li>The default theme is "Blue", attribute-name is "defaultTheme"</li>
  * <li>The default css name is application.css, attribute-name is "cssName"</li>
- * <li>The default library is 'de.cuioss.portal.css', attribute-name is "cssLibrary"</li>
+ * <li>The default library is 'de.cuioss.portal.css', attribute-name is
+ * "cssLibrary"</li>
  * </ul>
  * <p>
- * All this attributes can be altered by overwriting the corresponding resource within the
- * faces-config.xml declaration.
+ * All this attributes can be altered by overwriting the corresponding resource
+ * within the faces-config.xml declaration.
  * </p>
- * <em>Caution: </em> In order to work you need to expose this class as an application scoped bean
- * with the name {@link ThemeConfigurationImpl#BEAN_NAME}
+ * <em>Caution: </em> In order to work you need to expose this class as an
+ * application scoped bean with the name
+ * {@link ThemeConfigurationImpl#BEAN_NAME}
  *
  * @author Oliver Wolff
  */
@@ -38,8 +40,7 @@ public class ThemeConfigurationImpl implements ThemeConfiguration, Serializable 
 
     private static final long serialVersionUID = 8201161314453668030L;
 
-    private static final List<String> DEFAULT_THEMES = immutableList("Blue", "Sunny", "Green",
-            "High-Contrast");
+    private static final List<String> DEFAULT_THEMES = immutableList("Blue", "Sunny", "Green", "High-Contrast");
 
     private ThemeManager themeManager;
 

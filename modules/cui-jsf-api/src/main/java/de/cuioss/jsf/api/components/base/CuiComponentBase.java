@@ -8,8 +8,9 @@ import javax.faces.context.FacesContext;
 import de.cuioss.jsf.api.components.partial.ComponentBridge;
 
 /**
- * Base class for creating custom cui-components that are {@link UIComponentBase} without further
- * specification. It acts as a component bridge.
+ * Base class for creating custom cui-components that are
+ * {@link UIComponentBase} without further specification. It acts as a component
+ * bridge.
  *
  * @author Oliver Wolff
  */

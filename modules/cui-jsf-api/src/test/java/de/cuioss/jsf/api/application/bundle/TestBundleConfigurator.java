@@ -9,8 +9,7 @@ import de.cuioss.test.jsf.config.ApplicationConfigurator;
 import de.cuioss.test.jsf.config.decorator.ApplicationConfigDecorator;
 
 @SuppressWarnings("javadoc")
-public class TestBundleConfigurator
-        implements ApplicationConfigurator, TypedGenerator<ResourceBundleWrapper> {
+public class TestBundleConfigurator implements ApplicationConfigurator, TypedGenerator<ResourceBundleWrapper> {
 
     public static final String TEST_BUNDLE_BASE_PATH = "de.cuioss.jsf.components.bundle.";
 
@@ -24,8 +23,7 @@ public class TestBundleConfigurator
     public void configureApplication(final ApplicationConfigDecorator decorator) {
         decorator.registerResourceBundle(BUNDLE1_NAME, TEST_BUNDLE_BASE_PATH + BUNDLE1_NAME);
         decorator.registerResourceBundle(BUNDLE2_NAME, TEST_BUNDLE_BASE_PATH + BUNDLE2_NAME);
-        decorator.registerResourceBundle(TEST_BUNDLE_NAME,
-                TEST_BUNDLE_BASE_PATH + TEST_BUNDLE_NAME);
+        decorator.registerResourceBundle(TEST_BUNDLE_NAME, TEST_BUNDLE_BASE_PATH + TEST_BUNDLE_NAME);
     }
 
     public static ResourceBundleWrapperImpl getTestBundleWrapper() {

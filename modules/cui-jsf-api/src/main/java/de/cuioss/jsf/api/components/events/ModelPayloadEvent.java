@@ -24,8 +24,7 @@ public class ModelPayloadEvent extends FacesEvent {
 
     /**
      * @param component
-     * @param payload
-     *            defining the payload
+     * @param payload   defining the payload
      */
     public ModelPayloadEvent(UIComponent component, Serializable payload) {
         super(component);

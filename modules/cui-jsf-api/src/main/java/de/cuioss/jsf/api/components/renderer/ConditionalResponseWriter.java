@@ -34,17 +34,15 @@ public class ConditionalResponseWriter extends ResponseWriterWrapper {
     /**
      * Constructor.
      *
-     * @param wrapped
-     *            the wrapped {@link ResponseWriter}, must not be null
-     * @param matchElement
-     *            Identifying the marker element on which the filter will be
-     *            switched. The element itself will never be rendered, must not be null
-     * @param writeUntilElement
-     *            if it is <code>true</code> the writer will pass the calls
-     *            until the the element defined with elementName is called. From
-     *            that point on the calls will be filtered. elementName will
-     *            never be rendered. If it is <code>false</code> it is the other
-     *            way round.
+     * @param wrapped           the wrapped {@link ResponseWriter}, must not be null
+     * @param matchElement      Identifying the marker element on which the filter
+     *                          will be switched. The element itself will never be
+     *                          rendered, must not be null
+     * @param writeUntilElement if it is <code>true</code> the writer will pass the
+     *                          calls until the the element defined with elementName
+     *                          is called. From that point on the calls will be
+     *                          filtered. elementName will never be rendered. If it
+     *                          is <code>false</code> it is the other way round.
      */
     public ConditionalResponseWriter(final ResponseWriter wrapped, final String matchElement,
             final boolean writeUntilElement) {
@@ -66,8 +64,7 @@ public class ConditionalResponseWriter extends ResponseWriterWrapper {
     }
 
     @Override
-    public void writeAttribute(final String name, final Object value, final String property)
-        throws IOException {
+    public void writeAttribute(final String name, final Object value, final String property) throws IOException {
         if (pass) {
             getWrapped().writeAttribute(name, value, property);
         }

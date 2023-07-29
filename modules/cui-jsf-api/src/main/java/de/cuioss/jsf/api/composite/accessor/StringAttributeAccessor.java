@@ -23,13 +23,11 @@ public class StringAttributeAccessor extends AttributeAccessorImpl<String> {
     /**
      * Constructor.
      *
-     * @param name
-     *            of the attribute to accessed. Must not be null or empty
-     * @param alwaysResolve
-     *            Flag defining whether to store locally or always resolve from
-     *            the attribute map
-     * @param considerEmptyStringAsNull
-     *            indicates how to treat empty Strings
+     * @param name                      of the attribute to accessed. Must not be
+     *                                  null or empty
+     * @param alwaysResolve             Flag defining whether to store locally or
+     *                                  always resolve from the attribute map
+     * @param considerEmptyStringAsNull indicates how to treat empty Strings
      */
     public StringAttributeAccessor(final String name, final boolean alwaysResolve,
             final boolean considerEmptyStringAsNull) {

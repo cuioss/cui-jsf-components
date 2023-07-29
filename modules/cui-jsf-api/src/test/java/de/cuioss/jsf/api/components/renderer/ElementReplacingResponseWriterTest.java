@@ -39,8 +39,8 @@ class ElementReplacingResponseWriterTest extends JsfEnabledTestEnvironment {
 
     @Test
     void shouldFilterElement() throws IOException {
-        var writer =
-            new ElementReplacingResponseWriter(getFacesContext().getResponseWriter(), FILTER, REPLACEMENT, false);
+        var writer = new ElementReplacingResponseWriter(getFacesContext().getResponseWriter(), FILTER, REPLACEMENT,
+                false);
         assertTrue(isEmpty(output.toString()));
         writer.startElement(FILTER, component);
         writer.endElement(FILTER);
@@ -51,8 +51,8 @@ class ElementReplacingResponseWriterTest extends JsfEnabledTestEnvironment {
 
     @Test
     void shouldPassthroughElement() throws IOException {
-        var writer =
-            new ElementReplacingResponseWriter(getFacesContext().getResponseWriter(), FILTER, REPLACEMENT, false);
+        var writer = new ElementReplacingResponseWriter(getFacesContext().getResponseWriter(), FILTER, REPLACEMENT,
+                false);
         assertTrue(isEmpty(output.toString()));
         writer.startElement(PASSTHROUGH, component);
         writer.endElement(PASSTHROUGH);
@@ -62,8 +62,8 @@ class ElementReplacingResponseWriterTest extends JsfEnabledTestEnvironment {
 
     @Test
     void shouldFilterCloseElement() throws IOException {
-        var writer =
-            new ElementReplacingResponseWriter(getFacesContext().getResponseWriter(), FILTER, REPLACEMENT, true);
+        var writer = new ElementReplacingResponseWriter(getFacesContext().getResponseWriter(), FILTER, REPLACEMENT,
+                true);
         writer.startElement(FILTER, component);
         writer.endElement(FILTER);
         assertEquals("<" + REPLACEMENT, output.toString());

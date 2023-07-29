@@ -16,8 +16,7 @@ public class CodeTypeDisplayNameProviderConverter extends AbstractConverter<Code
 
     @Override
     protected String convertToString(FacesContext context, UIComponent component, CodeTypeDisplayNameProvider value)
-        throws ConverterException {
-        return COMPLEX_HTML
-                .apply(value.getContent().getResolved(new LocaleProducerAccessor().getValue().getLocale()));
+            throws ConverterException {
+        return COMPLEX_HTML.apply(value.getContent().getResolved(new LocaleProducerAccessor().getValue().getLocale()));
     }
 }

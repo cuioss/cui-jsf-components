@@ -57,8 +57,8 @@ public abstract class NavigationMenuItemImpl implements NavigationMenuItem {
     private String parentId;
 
     /**
-     * Allows to configure a list of view ids that should trigger displaying the menu item in
-     * "active" mode.
+     * Allows to configure a list of view ids that should trigger displaying the
+     * menu item in "active" mode.
      */
     @Getter
     @Setter
@@ -71,10 +71,8 @@ public abstract class NavigationMenuItemImpl implements NavigationMenuItem {
 
     @Override
     public String getResolvedTitle() {
-        return LabelResolver.builder()
-                .withLabelKey(titleKey)
-                .withLabelValue(titleValue)
-                .build().resolve(FacesContext.getCurrentInstance());
+        return LabelResolver.builder().withLabelKey(titleKey).withLabelValue(titleValue).build()
+                .resolve(FacesContext.getCurrentInstance());
     }
 
     @Override
@@ -84,9 +82,8 @@ public abstract class NavigationMenuItemImpl implements NavigationMenuItem {
 
     @Override
     public boolean isActive() {
-        return !getActiveForAdditionalViewId().isEmpty()
-                && getActiveForAdditionalViewId()
-                        .contains(NavigationUtils.getCurrentView(FacesContext.getCurrentInstance()).getViewId());
+        return !getActiveForAdditionalViewId().isEmpty() && getActiveForAdditionalViewId()
+                .contains(NavigationUtils.getCurrentView(FacesContext.getCurrentInstance()).getViewId());
     }
 
 }

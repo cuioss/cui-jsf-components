@@ -28,8 +28,7 @@ class ConditionalResponseWriterTest {
         var builder = createSimplePartialRenderBuilder();
         var sink = new StringWriter();
         var mockWriter = new MockResponseWriter(sink);
-        var writer =
-            new ConditionalResponseWriter(mockWriter, HtmlTreeBuilder.CHILD_BREAKPOINT_ELEMENT, true);
+        var writer = new ConditionalResponseWriter(mockWriter, HtmlTreeBuilder.CHILD_BREAKPOINT_ELEMENT, true);
         builder.writeToResponseWriter(writer);
         assertEquals(PARTIAL_SIMPLE_RENDER_START, sink.toString());
     }
@@ -39,8 +38,7 @@ class ConditionalResponseWriterTest {
         var builder = createSimplePartialRenderBuilder();
         var sink = new StringWriter();
         var mockWriter = new MockResponseWriter(sink);
-        var writer =
-            new ConditionalResponseWriter(mockWriter, HtmlTreeBuilder.CHILD_BREAKPOINT_ELEMENT, false);
+        var writer = new ConditionalResponseWriter(mockWriter, HtmlTreeBuilder.CHILD_BREAKPOINT_ELEMENT, false);
         builder.writeToResponseWriter(writer);
         assertEquals(PARTIAL_SIMPLE_RENDER_END, sink.toString());
     }
@@ -50,8 +48,7 @@ class ConditionalResponseWriterTest {
         var builder = createWrappedPartialRenderBuilder();
         var sink = new StringWriter();
         var mockWriter = new MockResponseWriter(sink);
-        var writer =
-            new ConditionalResponseWriter(mockWriter, HtmlTreeBuilder.CHILD_BREAKPOINT_ELEMENT, true);
+        var writer = new ConditionalResponseWriter(mockWriter, HtmlTreeBuilder.CHILD_BREAKPOINT_ELEMENT, true);
         builder.writeToResponseWriter(writer);
         assertEquals(PARTIAL_WRAPPED_RENDER_START, sink.toString());
     }
@@ -61,8 +58,7 @@ class ConditionalResponseWriterTest {
         var builder = createWrappedPartialRenderBuilder();
         var sink = new StringWriter();
         var mockWriter = new MockResponseWriter(sink);
-        var writer =
-            new ConditionalResponseWriter(mockWriter, HtmlTreeBuilder.CHILD_BREAKPOINT_ELEMENT, false);
+        var writer = new ConditionalResponseWriter(mockWriter, HtmlTreeBuilder.CHILD_BREAKPOINT_ELEMENT, false);
         builder.writeToResponseWriter(writer);
         assertEquals(PARTIAL_WRAPPED_RENDER_END, sink.toString());
     }

@@ -19,8 +19,7 @@ public class NavigationMenuItemGenerator implements TypedGenerator<NavigationMen
     private static final TypedGenerator<Boolean> boolGenerator = Generators.booleans();
 
     private static final List<Class<? extends NavigationMenuItem>> possibleItems = immutableList(
-            NavigationMenuItemSingleImpl.class,
-            NavigationMenuItemContainerImpl.class,
+            NavigationMenuItemSingleImpl.class, NavigationMenuItemContainerImpl.class,
             NavigationMenuItemSeparatorImpl.class);
 
     @Override

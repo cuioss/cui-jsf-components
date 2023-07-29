@@ -25,8 +25,7 @@ public class OneTimeCheck {
     private final String compoundKey;
 
     /**
-     * @param componentBridge
-     *            must not be null
+     * @param componentBridge must not be null
      */
     public OneTimeCheck(final ComponentBridge componentBridge) {
         this.componentBridge = requireNonNull(componentBridge);
@@ -37,10 +36,8 @@ public class OneTimeCheck {
      * Constructor. Needed only for cases, if a component uses more than one
      * {@link OneTimeCheck}
      *
-     * @param componentBridge
-     *            must not be null
-     * @param extension
-     *            to be appended to the key.
+     * @param componentBridge must not be null
+     * @param extension       to be appended to the key.
      */
     public OneTimeCheck(final ComponentBridge componentBridge, final String extension) {
         this.componentBridge = requireNonNull(componentBridge);
@@ -58,16 +55,15 @@ public class OneTimeCheck {
     /**
      * Sets the checked value
      *
-     * @param checked
-     *            to be set
+     * @param checked to be set
      */
     public void setChecked(final boolean checked) {
         this.componentBridge.stateHelper().put(this.compoundKey, checked);
     }
 
     /**
-     * Convenient method that reads the actual state and returns it. If it is
-     * false it additionally sets the value to true
+     * Convenient method that reads the actual state and returns it. If it is false
+     * it additionally sets the value to true
      *
      * @return the initial set value
      */

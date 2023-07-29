@@ -8,9 +8,9 @@ import lombok.NonNull;
 /**
  * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of the disabled-attribute. The
- * implementation relies on the correct use of attribute names, saying they must exactly match the
- * accessor methods.
+ * Implementors of this class manage the state and resolving of the
+ * disabled-attribute. The implementation relies on the correct use of attribute
+ * names, saying they must exactly match the accessor methods.
  * </p>
  * <h2>disabled</h2>
  * <p>

@@ -15,15 +15,14 @@ import lombok.NonNull;
 /**
  * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of the activeIndexManager-attribute.
- * The
- * implementation relies on the correct use of attribute names, saying they must exactly match the
- * accessor methods.
+ * Implementors of this class manage the state and resolving of the
+ * activeIndexManager-attribute. The implementation relies on the correct use of
+ * attribute names, saying they must exactly match the accessor methods.
  * </p>
  * <h2>activeIndexManager</h2>
  * <p>
- * Defines the activeIndexManager for a concrete component. The actual active indices are accessed
- * using {@link #resolveActiveIndexes()}
+ * Defines the activeIndexManager for a concrete component. The actual active
+ * indices are accessed using {@link #resolveActiveIndexes()}
  * </p>
  *
  * @author Oliver Wolff
@@ -32,8 +31,7 @@ public class ActiveIndexManagerProvider {
 
     private static final CuiLogger log = new CuiLogger(ActiveIndexManagerProvider.class);
 
-    private static final String MANAGER_EVALUATION_ERROR_MSG =
-        "Portal-114: Could not evaluate accordions active indexes from ActiveIndexManager. Returning list with entry {0}.";
+    private static final String MANAGER_EVALUATION_ERROR_MSG = "Portal-114: Could not evaluate accordions active indexes from ActiveIndexManager. Returning list with entry {0}.";
 
     /** The key for the {@link StateHelper} */
     private static final String ACTIVE_INDEX_MANAGER = "activeIndexManager";
@@ -62,9 +60,9 @@ public class ActiveIndexManagerProvider {
     }
 
     /**
-     * @return {@link List} {@link Integer} of active indexes or a list with the element '0' if
-     *         there is not {@linkplain ActiveIndexManager} set. This is a replacement for the
-     *         previous return {@code null}
+     * @return {@link List} {@link Integer} of active indexes or a list with the
+     *         element '0' if there is not {@linkplain ActiveIndexManager} set. This
+     *         is a replacement for the previous return {@code null}
      */
     public List<Integer> resolveActiveIndexes() {
         try {

@@ -13,8 +13,8 @@ import de.cuioss.test.generator.junit.EnableGeneratorController;
 @EnableGeneratorController
 class ContextStateTest {
 
-    private final TypedGenerator<String> states =
-        fixedValues("DEFAULT", "PRIMARY", "SUCCESS", "INFO", "WARNING", "DANGER");
+    private final TypedGenerator<String> states = fixedValues("DEFAULT", "PRIMARY", "SUCCESS", "INFO", "WARNING",
+            "DANGER");
 
     @Test
     void shouldReturnDefaultForNullOrEmpty() {

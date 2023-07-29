@@ -10,9 +10,9 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * Helper class utilized for accessing Project Stage information in a convenient way. It needs to be
- * registered as an Application Scoped bean, because the Project stage does not change between
- * startup.
+ * Helper class utilized for accessing Project Stage information in a convenient
+ * way. It needs to be registered as an Application Scoped bean, because the
+ * Project stage does not change between startup.
  *
  * @author Oliver Wolff
  * @author Sven Haag

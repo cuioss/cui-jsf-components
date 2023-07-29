@@ -13,8 +13,8 @@ import de.cuioss.jsf.api.security.CuiSanitizer;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
 
 /**
- * Converter handle to convert {@linkplain I18nDisplayNameProvider} to locale specific text
- * representation
+ * Converter handle to convert {@linkplain I18nDisplayNameProvider} to locale
+ * specific text representation
  *
  * @author Eugen Fischer
  */
@@ -25,8 +25,7 @@ public class I18nDisplayNameProviderConverter extends AbstractConverter<I18nDisp
 
     @Override
     protected String convertToString(final FacesContext context, final UIComponent component,
-            final I18nDisplayNameProvider value)
-        throws ConverterException {
+            final I18nDisplayNameProvider value) throws ConverterException {
 
         final var locale = localeProducerAccessor.getValue().getLocale();
 

@@ -7,19 +7,18 @@ import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
 import de.cuioss.uimodel.result.ResultObject;
 
 /**
- * Handle errors and warning of a {@link ResultObject}.
- * Allow displaying of a notification box or a GlobalFacesMessage and set if the content should be
- * rendered depending on
- * the result state and error.
+ * Handle errors and warning of a {@link ResultObject}. Allow displaying of a
+ * notification box or a GlobalFacesMessage and set if the content should be
+ * rendered depending on the result state and error.
  */
 public interface ErrorController {
 
     /**
      * Set the value and state of a notification box.
      *
-     * @param value if not null, a notification box will be rendered and this value will be
-     *            displayed. Otherwise no
-     *            notification box will be rendered.
+     * @param value if not null, a notification box will be rendered and this value
+     *              will be displayed. Otherwise no notification box will be
+     *              rendered.
      * @param state the state of the notification box.
      */
     void addNotificationBox(IDisplayNameProvider<?> value, ContextState state);
@@ -27,7 +26,7 @@ public interface ErrorController {
     /**
      * Add a GlobalFacesMessage.
      *
-     * @param value the text of the faces message.
+     * @param value    the text of the faces message.
      * @param severity the severity.
      */
     void addGlobalFacesMessage(IDisplayNameProvider<?> value, FacesMessage.Severity severity);

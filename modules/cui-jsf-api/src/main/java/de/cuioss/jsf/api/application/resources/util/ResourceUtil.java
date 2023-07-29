@@ -40,8 +40,6 @@ public class ResourceUtil {
         if (null != libraryName) {
             uri += "?ln=" + libraryName;
         }
-        uri = context.getApplication().getViewHandler().getResourceURL(context, uri);
-
-        return uri;
+        return context.getApplication().getViewHandler().getResourceURL(context, uri);
     }
 }

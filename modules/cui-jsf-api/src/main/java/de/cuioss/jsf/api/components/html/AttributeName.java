@@ -45,8 +45,8 @@ public enum AttributeName {
      *
      * @see <a href="http://www.w3schools.com/html/html_classes.asp">HTML
      *      Classes</a>
-     * @see <a href="http://www.w3schools.com/cssref/sel_class.asp">Definition
-     *      and Usage</a>
+     * @see <a href="http://www.w3schools.com/cssref/sel_class.asp">Definition and
+     *      Usage</a>
      */
     CLASS("class"),
 
@@ -99,8 +99,8 @@ public enum AttributeName {
     /**
      * <b>href</b> attribute.<br>
      *
-     * @see <a href="http://www.w3schools.com/tags/tag_href.asp">
-     *      Definition and Usage</a>
+     * @see <a href="http://www.w3schools.com/tags/tag_href.asp"> Definition and
+     *      Usage</a>
      */
     HREF("href"),
 
@@ -126,16 +126,16 @@ public enum AttributeName {
     /**
      * <b>role</b> attribute.<br>
      *
-     * @see <a href="http://www.w3schools.com/tags/tag_role.asp">HTML
-     *      &lt;role&gt; </a>
+     * @see <a href="http://www.w3schools.com/tags/tag_role.asp">HTML &lt;role&gt;
+     *      </a>
      */
     ROLE("role"),
 
     /**
      * <b>style</b> attribute.<br>
      *
-     * @see <a href="//www.w3schools.com/tags/att_global_style.asp">Definition
-     *      and Usage</a>
+     * @see <a href="//www.w3schools.com/tags/att_global_style.asp">Definition and
+     *      Usage</a>
      */
     STYLE("style"),
 
@@ -147,16 +147,16 @@ public enum AttributeName {
     /**
      * <b>title</b> attribute.<br>
      *
-     * @see <a href="http://www.w3schools.com/tags/tag_title.asp">HTML
-     *      &lt;title&gt; </a>
+     * @see <a href="http://www.w3schools.com/tags/tag_title.asp">HTML &lt;title&gt;
+     *      </a>
      */
     TITLE("title"),
 
     /**
      * <b>type</b> attribute.<br>
      *
-     * @see <a href="http://www.w3schools.com/tags/att_input_type.asp">
-     *      Definition and Usage</a>
+     * @see <a href="http://www.w3schools.com/tags/att_input_type.asp"> Definition
+     *      and Usage</a>
      */
     TYPE("type"),
 

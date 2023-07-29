@@ -15,13 +15,15 @@ import lombok.experimental.Delegate;
 
 /**
  * <p>
- * Base class for creating CuiComponents that are based on on simple span-element, The default
- * renderer is "javax.faces.Text". It acts as {@link ComponentBridge}.
+ * Base class for creating CuiComponents that are based on on simple
+ * span-element, The default renderer is "javax.faces.Text". It acts as
+ * {@link ComponentBridge}.
  * </p>
  * <h2>Attributes</h2>
  * <ul>
- * <li>{@link TitleProvider}: This mechanism overrides {@link HtmlOutputText#getTitle()}. In
- * addition it will throw an {@link UnsupportedOperationException} on calling
+ * <li>{@link TitleProvider}: This mechanism overrides
+ * {@link HtmlOutputText#getTitle()}. In addition it will throw an
+ * {@link UnsupportedOperationException} on calling
  * {@link HtmlOutputText#setTitle(String)}</li>
  * <li>All attributes from {@link HtmlOutputText}</li>
  * </ul>
@@ -44,7 +46,6 @@ public abstract class BaseCuiOutputText extends HtmlOutputText implements Compon
      *
      */
     protected BaseCuiOutputText() {
-        super();
         titleProvider = new TitleProviderImpl(this);
         styleClassProvider = new ComponentStyleClassProviderImpl(this);
     }
@@ -75,10 +76,12 @@ public abstract class BaseCuiOutputText extends HtmlOutputText implements Compon
     }
 
     /**
-     * @return the component specific style-classes. Must no be null.The parent component
-     *         (BaseCuiOutputText) takes care on the configured styleClass attribute and implements
-     *         the actual method {@link HtmlOutputText#getStyleClass()} by calling this method and
-     *         appending the styleClass configured by the developer / concrete usage.
+     * @return the component specific style-classes. Must no be null.The parent
+     *         component (BaseCuiOutputText) takes care on the configured styleClass
+     *         attribute and implements the actual method
+     *         {@link HtmlOutputText#getStyleClass()} by calling this method and
+     *         appending the styleClass configured by the developer / concrete
+     *         usage.
      */
     public abstract StyleClassBuilder getComponentSpecificStyleClasses();
 

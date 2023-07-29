@@ -15,8 +15,8 @@ public interface StyleClassProvider {
     String getStyleClass();
 
     /**
-     * @return newly created {@link StyleClassBuilder} with the current
-     *         style-class set
+     * @return newly created {@link StyleClassBuilder} with the current style-class
+     *         set
      */
     StyleClassBuilder getStyleClassBuilder();
 }

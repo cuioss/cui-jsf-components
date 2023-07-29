@@ -40,8 +40,7 @@ class DisplayNameProviderMessageProducerTest extends JsfEnabledTestEnvironment {
     @Test
     void testShowAsGlobalMessageAndLogWithError() {
         getComponentConfigDecorator().registerConverter(LabeledKeyConverter.class, LabeledKey.class);
-        var result =
-            new ResultObject<>(STRING_RESULT, ResultState.ERROR, new ResultDetail(DETAIL));
+        var result = new ResultObject<>(STRING_RESULT, ResultState.ERROR, new ResultDetail(DETAIL));
         underTest.showAsGlobalMessageAndLog(result);
         assertEquals(1, messageProducerMock.getGlobalMessages().size());
         messageProducerMock.assertSingleGlobalMessageWithKeyPresent(MESSAGE_KEY);
@@ -50,8 +49,7 @@ class DisplayNameProviderMessageProducerTest extends JsfEnabledTestEnvironment {
     @Test
     void testShowAsGlobalMessageAndLogWithWarn() {
         getComponentConfigDecorator().registerConverter(LabeledKeyConverter.class, LabeledKey.class);
-        var result =
-            new ResultObject<>(STRING_RESULT, ResultState.WARNING, new ResultDetail(DETAIL));
+        var result = new ResultObject<>(STRING_RESULT, ResultState.WARNING, new ResultDetail(DETAIL));
         underTest.showAsGlobalMessageAndLog(result);
         assertEquals(1, messageProducerMock.getGlobalMessages().size());
         messageProducerMock.assertSingleGlobalMessageWithKeyPresent(MESSAGE_KEY);
@@ -60,8 +58,7 @@ class DisplayNameProviderMessageProducerTest extends JsfEnabledTestEnvironment {
     @Test
     void testShowAsGlobalMessageAndLogWithInfo() {
         getComponentConfigDecorator().registerConverter(LabeledKeyConverter.class, LabeledKey.class);
-        var result =
-            new ResultObject<>(STRING_RESULT, ResultState.INFO, new ResultDetail(DETAIL));
+        var result = new ResultObject<>(STRING_RESULT, ResultState.INFO, new ResultDetail(DETAIL));
         underTest.showAsGlobalMessageAndLog(result);
         assertEquals(1, messageProducerMock.getGlobalMessages().size());
         messageProducerMock.assertSingleGlobalMessageWithKeyPresent(MESSAGE_KEY);

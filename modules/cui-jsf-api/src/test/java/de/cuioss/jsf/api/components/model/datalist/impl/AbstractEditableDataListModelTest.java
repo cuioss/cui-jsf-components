@@ -76,9 +76,8 @@ class AbstractEditableDataListModelTest extends ValueObjectTest<SomeModelEditabl
     }
 
     /**
-     * 1.) Add new item --> puts it in edit mode
-     * 2.) Cancel
-     * ==> item should be non existent
+     * 1.) Add new item --> puts it in edit mode 2.) Cancel ==> item should be non
+     * existent
      */
     @Test
     void shouldRemoveAddedOnImmediateCancel() {
@@ -92,10 +91,7 @@ class AbstractEditableDataListModelTest extends ValueObjectTest<SomeModelEditabl
     }
 
     /**
-     * 1.) Add new item --> puts it in edit mode
-     * 2.) Save
-     * 3.) Edit again
-     * 4.) Cancel
+     * 1.) Add new item --> puts it in edit mode 2.) Save 3.) Edit again 4.) Cancel
      * ==> Item should still exist
      */
     @Test
@@ -227,8 +223,8 @@ class AbstractEditableDataListModelTest extends ValueObjectTest<SomeModelEditabl
     }
 
     /**
-     * Add a new item, then switch to edit mode of another item. This should cancel and remove the
-     * first one.
+     * Add a new item, then switch to edit mode of another item. This should cancel
+     * and remove the first one.
      */
     @Test
     void shouldRemoveAddItemFromResultList() {

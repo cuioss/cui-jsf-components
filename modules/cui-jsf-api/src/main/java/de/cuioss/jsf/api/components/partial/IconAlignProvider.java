@@ -9,16 +9,17 @@ import lombok.NonNull;
 /**
  * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of the iconAlign-attribute. The
- * implementation relies on the correct use of attribute names, saying they must exactly match the
- * accessor methods.
+ * Implementors of this class manage the state and resolving of the
+ * iconAlign-attribute. The implementation relies on the correct use of
+ * attribute names, saying they must exactly match the accessor methods.
  * </p>
  * <h2>iconAlign</h2>
  * <p>
- * Defines The alignment of the icon within a given component. In case it is not set or does not
- * match one of "left" or "right" the {@link #resolveIconAlign()} will return
- * {@link AlignHolder#DEFAULT}, other wise it will return the according value. The default icon
- * alignment is usually 'left'
+ * Defines The alignment of the icon within a given component. In case it is not
+ * set or does not match one of "left" or "right" the
+ * {@link #resolveIconAlign()} will return {@link AlignHolder#DEFAULT}, other
+ * wise it will return the according value. The default icon alignment is
+ * usually 'left'
  * </p>
  *
  * @author Oliver Wolff
@@ -52,8 +53,8 @@ public class IconAlignProvider {
     }
 
     /**
-     * @return the resolved {@link AlignHolder} if available, otherwise it will return
-     *         {@link AlignHolder#DEFAULT}.
+     * @return the resolved {@link AlignHolder} if available, otherwise it will
+     *         return {@link AlignHolder#DEFAULT}.
      */
     public AlignHolder resolveIconAlign() {
         return AlignHolder.getFromString(getIconAlign());

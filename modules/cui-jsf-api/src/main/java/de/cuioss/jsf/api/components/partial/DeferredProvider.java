@@ -8,8 +8,8 @@ import lombok.NonNull;
 /**
  * <h2>Summary</h2>
  * <p>
- * Defines the deferred loading provider. Implementors of this class manage the state and resolving
- * of the 'deferred' boolean of a component.
+ * Defines the deferred loading provider. Implementors of this class manage the
+ * state and resolving of the 'deferred' boolean of a component.
  * </p>
  *
  * @author Sven Haag
@@ -36,8 +36,7 @@ public class DeferredProvider {
     }
 
     /**
-     * @param deferred
-     *            the value to set
+     * @param deferred the value to set
      */
     public void setDeferred(final boolean deferred) {
         state.put(KEY, deferred);

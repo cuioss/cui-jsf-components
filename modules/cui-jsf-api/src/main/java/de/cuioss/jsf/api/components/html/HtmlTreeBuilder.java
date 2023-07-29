@@ -20,8 +20,8 @@ import de.cuioss.tools.string.MoreStrings;
 import lombok.Getter;
 
 /**
- * Represents a partial html tree. It provides a number of fluent builder in order to simplify the
- * creation. methods in order to interact with
+ * Represents a partial html tree. It provides a number of fluent builder in
+ * order to simplify the creation. methods in order to interact with
  *
  * @author Oliver Wolff
  */
@@ -31,7 +31,8 @@ public class HtmlTreeBuilder {
     public static final String ROOT = "root";
 
     /**
-     * The identifier for the child breakpoint, see {@link #withNodeChildBreakpoint()}
+     * The identifier for the child breakpoint, see
+     * {@link #withNodeChildBreakpoint()}
      */
     public static final String CHILD_BREAKPOINT_ELEMENT = "CHILD_BREAKPOINT";
 
@@ -48,8 +49,8 @@ public class HtmlTreeBuilder {
     /**
      * Default Constructor
      * <p>
-     * Creates an {@link Document} and an empty {@link Element} with the name {@value #ROOT} as
-     * root-element that is the current element.
+     * Creates an {@link Document} and an empty {@link Element} with the name
+     * {@value #ROOT} as root-element that is the current element.
      * </p>
      */
     public HtmlTreeBuilder() {
@@ -60,9 +61,10 @@ public class HtmlTreeBuilder {
     /**
      * Constructor for creating an instance of a given htmlString
      *
-     * @param htmlString used for creating the html-tree If it is null or empty it creates an
-     *            {@link Document} and an empty {@link Element} with the name {@value #ROOT} as
-     *            root-element that is the current element.
+     * @param htmlString used for creating the html-tree If it is null or empty it
+     *                   creates an {@link Document} and an empty {@link Element}
+     *                   with the name {@value #ROOT} as root-element that is the
+     *                   current element.
      */
     public HtmlTreeBuilder(final String htmlString) {
 
@@ -107,8 +109,9 @@ public class HtmlTreeBuilder {
     }
 
     /**
-     * While {@link #withNode(String)} sets the newly created node as current this method provides a
-     * way to go up in the tree for adding additional child elements.
+     * While {@link #withNode(String)} sets the newly created node as current this
+     * method provides a way to go up in the tree for adding additional child
+     * elements.
      *
      * @return the {@link HtmlTreeBuilder}
      */
@@ -173,12 +176,11 @@ public class HtmlTreeBuilder {
     /**
      * Adds an attribute to the current dom-element.
      *
-     * @param attributeName must not be null
+     * @param attributeName  must not be null
      * @param attributeValue
      * @return the {@link HtmlTreeBuilder}
      */
-    public HtmlTreeBuilder withAttribute(final AttributeName attributeName,
-            final String attributeValue) {
+    public HtmlTreeBuilder withAttribute(final AttributeName attributeName, final String attributeValue) {
         return withAttribute(attributeName.getContent(), attributeValue);
     }
 
@@ -189,25 +191,24 @@ public class HtmlTreeBuilder {
      * @return the {@link HtmlTreeBuilder}
      */
     public HtmlTreeBuilder withAttributeNameAndId(final String attributeValue) {
-        return withAttribute(AttributeName.ID, attributeValue).withAttribute(AttributeName.NAME,
-                attributeValue);
+        return withAttribute(AttributeName.ID, attributeValue).withAttribute(AttributeName.NAME, attributeValue);
     }
 
     /**
      * Adds an attribute to the current dom-element.
      *
-     * @param attributeName must not be null
+     * @param attributeName  must not be null
      * @param attributeValue
      * @return the {@link HtmlTreeBuilder}
      */
-    public HtmlTreeBuilder withAttribute(final AttributeName attributeName,
-            final AttributeValue attributeValue) {
+    public HtmlTreeBuilder withAttribute(final AttributeName attributeName, final AttributeValue attributeValue) {
         return withAttribute(attributeName.getContent(), attributeValue.getContent());
     }
 
     /**
-     * Adds a {@value #CHILD_BREAKPOINT_ELEMENT} node to the current tree and sets it as current.
-     * This special marking node is for partial tree rendering within JSF-Renderer.
+     * Adds a {@value #CHILD_BREAKPOINT_ELEMENT} node to the current tree and sets
+     * it as current. This special marking node is for partial tree rendering within
+     * JSF-Renderer.
      *
      * @return the {@link HtmlTreeBuilder}
      */
@@ -216,7 +217,8 @@ public class HtmlTreeBuilder {
     }
 
     /**
-     * Writes the complete tree to the response writer. This includes closing tags as well
+     * Writes the complete tree to the response writer. This includes closing tags
+     * as well
      *
      * @param writer
      * @throws IOException
@@ -231,11 +233,10 @@ public class HtmlTreeBuilder {
      * Writes recursively the elements given.
      *
      * @param element to be written
-     * @param writer to be written to, must not be null
+     * @param writer  to be written to, must not be null
      * @throws IOException usually thrown by given {@link ResponseWriter}
      */
-    private void writeElementToResponseWriter(final Element element, final ResponseWriter writer)
-        throws IOException {
+    private void writeElementToResponseWriter(final Element element, final ResponseWriter writer) throws IOException {
         writer.startElement(element.getName(), null);
         for (final Attribute attribute : element.getAttributes()) {
             writer.writeAttribute(attribute.getName(), attribute.getValue(), null);
@@ -248,15 +249,14 @@ public class HtmlTreeBuilder {
 
     /**
      * <p>
-     * Writes that part of the tree to the given {@link ResponseWriter} that is <em>before</em>
-     * {@link #CHILD_BREAKPOINT_ELEMENT}.
+     * Writes that part of the tree to the given {@link ResponseWriter} that is
+     * <em>before</em> {@link #CHILD_BREAKPOINT_ELEMENT}.
      * </p>
      *
      * @param writer to be used
      * @throws IOException
      */
-    public void writeToResponseWriterUntilChildBreakpoint(final ResponseWriter writer)
-        throws IOException {
+    public void writeToResponseWriterUntilChildBreakpoint(final ResponseWriter writer) throws IOException {
         for (final Element element : document.getRootElement().getChildren()) {
             if (CHILD_BREAKPOINT_ELEMENT.equals(element.getName())) {
                 return;
@@ -267,28 +267,26 @@ public class HtmlTreeBuilder {
 
     /**
      * <p>
-     * Writes that part of the tree to the given {@link ResponseWriter} that is <em>after</em>
-     * {@link #CHILD_BREAKPOINT_ELEMENT}.
+     * Writes that part of the tree to the given {@link ResponseWriter} that is
+     * <em>after</em> {@link #CHILD_BREAKPOINT_ELEMENT}.
      * </p>
      *
      * @param writer to be used
      * @throws IOException
      */
-    public void writeToResponseWriterFromChildBreakpointOn(final ResponseWriter writer)
-        throws IOException {
-        writeToResponseWriter(
-                new ConditionalResponseWriter(writer, CHILD_BREAKPOINT_ELEMENT, false));
+    public void writeToResponseWriterFromChildBreakpointOn(final ResponseWriter writer) throws IOException {
+        writeToResponseWriter(new ConditionalResponseWriter(writer, CHILD_BREAKPOINT_ELEMENT, false));
     }
 
     /**
-     * Writes recursively the elements given until {@value #CHILD_BREAKPOINT_ELEMENT} is reached.
+     * Writes recursively the elements given until
+     * {@value #CHILD_BREAKPOINT_ELEMENT} is reached.
      *
      * @param writer to be written to, must not be null
      * @throws IOException usually thrown by given {@link ResponseWriter}
      */
     private void writeElementsUntilChildBreakpoint(final ResponseWriter writer) throws IOException {
-        writeToResponseWriter(
-                new ConditionalResponseWriter(writer, CHILD_BREAKPOINT_ELEMENT, true));
+        writeToResponseWriter(new ConditionalResponseWriter(writer, CHILD_BREAKPOINT_ELEMENT, true));
     }
 
     /**

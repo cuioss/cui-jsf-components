@@ -6,17 +6,16 @@
  * </p>
  * <h2>MessageProducer</h2>
  * <p>
- * Provides methods for simplified,
- * {@link java.util.ResourceBundle}-based creating / setting of
- * {@link javax.faces.application.FacesMessage}s. Provided classes are:
+ * Provides methods for simplified, {@link java.util.ResourceBundle}-based
+ * creating / setting of {@link javax.faces.application.FacesMessage}s. Provided
+ * classes are:
  * </p>
  * <ul>
  * <li>{@link de.cuioss.jsf.api.application.message.MessageProducer}: Defines
  * methods for creating / setting of Jsf-messages</li>
  * <li>{@link de.cuioss.jsf.api.application.message.MessageProducerImpl}:
  * Default implementation, needs to be configured within faces-config</li>
- * <li>
- * {@link de.cuioss.jsf.api.application.message.MessageProducerAccessor}:
+ * <li>{@link de.cuioss.jsf.api.application.message.MessageProducerAccessor}:
  * Accessor for concrete instances of
  * {@link de.cuioss.jsf.api.application.message.MessageProducer}. Assumes a
  * configured bean under the name of

@@ -21,8 +21,7 @@ public class DisplayMessageProviderConverter extends AbstractConverter<DisplayMe
 
     @Override
     protected String convertToString(final FacesContext context, final UIComponent component,
-            final DisplayMessageProvider value)
-        throws ConverterException {
+            final DisplayMessageProvider value) throws ConverterException {
 
         return value.getMessageFormated(bundleAccessor.getValue());
     }

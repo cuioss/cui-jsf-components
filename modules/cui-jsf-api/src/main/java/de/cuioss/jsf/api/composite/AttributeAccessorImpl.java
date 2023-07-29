@@ -34,8 +34,8 @@ public class AttributeAccessorImpl<T> implements AttributeAccessor<T> {
     private transient T value = null;
 
     /**
-     * Flag defining whether to store locally or always resolve from the
-     * attribute map.
+     * Flag defining whether to store locally or always resolve from the attribute
+     * map.
      */
     private final boolean alwaysResolve;
 
@@ -50,8 +50,7 @@ public class AttributeAccessorImpl<T> implements AttributeAccessor<T> {
             if (null != found) {
                 if (!MoreReflection.checkWhetherParameterIsAssignable(valueType, found.getClass())) {
                     throw new IllegalStateException(
-                            "Invalid attribute type: Expected=" + valueType + ", found="
-                                    + found.getClass());
+                            "Invalid attribute type: Expected=" + valueType + ", found=" + found.getClass());
                 }
                 value = valueType.cast(found);
             } else {

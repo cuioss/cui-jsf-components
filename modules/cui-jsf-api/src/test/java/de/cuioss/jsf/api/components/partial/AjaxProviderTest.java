@@ -50,8 +50,7 @@ class AjaxProviderTest extends AbstractPartialComponentTest {
         any.setUpdate(someId);
         any.setProcess(someId);
 
-        CuiMockSearchExpressionHandler.retrieve(getFacesContext())
-                .setResolvedClientIds(mutableList(someId));
+        CuiMockSearchExpressionHandler.retrieve(getFacesContext()).setResolvedClientIds(mutableList(someId));
 
         var ajaxAttributes = any.resolveAjaxAttributesAsMap(any);
         assertEquals(2, ajaxAttributes.size());
@@ -70,8 +69,7 @@ class AjaxProviderTest extends AbstractPartialComponentTest {
         any.setUpdate("");
         any.setProcess(someId);
 
-        CuiMockSearchExpressionHandler.retrieve(getFacesContext())
-                .setResolvedClientIds(Collections.emptyList());
+        CuiMockSearchExpressionHandler.retrieve(getFacesContext()).setResolvedClientIds(Collections.emptyList());
 
         var ajaxAttributes = any.resolveAjaxAttributesAsMap(any);
         assertTrue(ajaxAttributes.isEmpty());
@@ -86,8 +84,7 @@ class AjaxProviderTest extends AbstractPartialComponentTest {
         any.setUpdate(someId);
         any.setProcess(someId);
 
-        CuiMockSearchExpressionHandler.retrieve(getFacesContext())
-                .setResolvedClientIds(mutableList(someId));
+        CuiMockSearchExpressionHandler.retrieve(getFacesContext()).setResolvedClientIds(mutableList(someId));
 
         var ajaxAttributes = any.resolveAjaxAttributesAsMap(any);
         assertEquals(2, ajaxAttributes.size());

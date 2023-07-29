@@ -12,8 +12,8 @@ public class ResultObjectBackingBean extends UINamingContainer {
 
     private static final CuiLogger log = new CuiLogger(ResultObjectBackingBean.class);
 
-    private final AttributeAccessorImpl<ResultObject> modelAccessor =
-        new AttributeAccessorImpl<>("model", ResultObject.class, false);
+    private final AttributeAccessorImpl<ResultObject> modelAccessor = new AttributeAccessorImpl<>("model",
+            ResultObject.class, false);
 
     private ResultContent resultContent;
 

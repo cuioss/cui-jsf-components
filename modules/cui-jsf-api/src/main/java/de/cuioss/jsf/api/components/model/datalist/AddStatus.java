@@ -1,8 +1,8 @@
 package de.cuioss.jsf.api.components.model.datalist;
 
 /**
- * Defines the current status of persisting for that precise new created {@link Object}. Is is always used in
- * conjunction with {@link ItemWrapper}
+ * Defines the current status of persisting for that precise new created
+ * {@link Object}. Is is always used in conjunction with {@link ItemWrapper}
  *
  * @author Matthias Walliczek
  */

@@ -3,8 +3,8 @@ package de.cuioss.jsf.api.components.model.menu;
 import java.util.List;
 
 /**
- * Implementation of {@linkplain NavigationMenuItem} providing the option to add children of type
- * {@linkplain NavigationMenuItem}.
+ * Implementation of {@linkplain NavigationMenuItem} providing the option to add
+ * children of type {@linkplain NavigationMenuItem}.
  *
  * @author Sven Haag
  */

@@ -14,16 +14,14 @@ import javax.faces.component.UIComponent;
 public interface ComponentModifier {
 
     /**
-     * @return flag indicating whether the wrapper supports the
-     *         styleClassAttribute;
+     * @return flag indicating whether the wrapper supports the styleClassAttribute;
      */
     boolean isSupportsStyleClass();
 
     /**
      * Sets the styleClass attribute.
      *
-     * @param styleClass
-     *            may be null
+     * @param styleClass may be null
      */
     void setStyleClass(String styleClass);
 
@@ -33,16 +31,14 @@ public interface ComponentModifier {
     String getStyleClass();
 
     /**
-     * @return flag indicating whether the wrapper supports the
-     *         style-attribute;
+     * @return flag indicating whether the wrapper supports the style-attribute;
      */
     boolean isSupportsStyle();
 
     /**
      * Sets the style-attribute.
      *
-     * @param style
-     *            may be null
+     * @param style may be null
      */
     void setStyle(String style);
 
@@ -57,22 +53,19 @@ public interface ComponentModifier {
     boolean isDisabled();
 
     /**
-     * @param disabled
-     *            attribute to be set.
+     * @param disabled attribute to be set.
      */
     void setDisabled(boolean disabled);
 
     /**
-     * @return flag indicating whether the wrapper supports the disabled
-     *         attribute;
+     * @return flag indicating whether the wrapper supports the disabled attribute;
      */
     boolean isSupportsDisabled();
 
     /**
      * Sets the role attribute.
      *
-     * @param role
-     *            may be null
+     * @param role may be null
      */
     void setRole(String role);
 
@@ -89,8 +82,7 @@ public interface ComponentModifier {
     /**
      * Sets the title attribute.
      *
-     * @param title
-     *            may be null
+     * @param title may be null
      */
     void setTitle(String title);
 
@@ -111,16 +103,18 @@ public interface ComponentModifier {
     boolean isEditableValueHolder();
 
     /**
-     * @return in case of {@link #isEditableValueHolder()} this flag indicates whether the
-     *         component is valid. throws {@link UnsupportedOperationException}
-     *         if not {@link #isEditableValueHolder()}.
+     * @return in case of {@link #isEditableValueHolder()} this flag indicates
+     *         whether the component is valid. throws
+     *         {@link UnsupportedOperationException} if not
+     *         {@link #isEditableValueHolder()}.
      */
     boolean isValid();
 
     /**
-     * @return in case of {@link #isEditableValueHolder()} this flag indicates whether the
-     *         component is required. throws
-     *         {@link UnsupportedOperationException} if not {@link #isEditableValueHolder()}.
+     * @return in case of {@link #isEditableValueHolder()} this flag indicates
+     *         whether the component is required. throws
+     *         {@link UnsupportedOperationException} if not
+     *         {@link #isEditableValueHolder()}.
      */
     boolean isRequired();
 
@@ -144,15 +138,14 @@ public interface ComponentModifier {
     void resetValue();
 
     /**
-     * @param label
-     *            change the label of component
+     * @param label change the label of component
      */
     void setLabel(String label);
 
     /**
      * @param klazz
-     * @return boolean indicating whether the wrapped component is exact from
-     *         one type
+     * @return boolean indicating whether the wrapped component is exact from one
+     *         type
      */
     boolean wrapsComponentClass(Class<? extends UIComponent> klazz);
 
@@ -167,9 +160,9 @@ public interface ComponentModifier {
     String getLabel();
 
     /**
-     * @return flag indicating whether the concrete component consists of more
-     *         than one input element, requiring more than one message element
-     *         to be rendered and attached. This flag works together with
+     * @return flag indicating whether the concrete component consists of more than
+     *         one input element, requiring more than one message element to be
+     *         rendered and attached. This flag works together with
      *         #getForIndentifiers that in consequence returns the corresponding
      *         multiple ids identifying the components.
      */
@@ -180,9 +173,10 @@ public interface ComponentModifier {
      * {@link UIComponent#getPassThroughAttributes()}
      * {@link Map#put(Object, Object)}
      *
-     * @param key to be put as Passthrough-attribute
+     * @param key   to be put as Passthrough-attribute
      * @param value to be put as Passthrough-attribute
-     * @return the {@link ComponentModifier} itself in order to be used in a fluent style
+     * @return the {@link ComponentModifier} itself in order to be used in a fluent
+     *         style
      */
     default ComponentModifier addPassThrough(String key, Object value) {
         var map = getComponent().getPassThroughAttributes();

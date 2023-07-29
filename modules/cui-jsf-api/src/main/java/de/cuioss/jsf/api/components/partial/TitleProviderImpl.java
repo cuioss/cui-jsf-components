@@ -12,25 +12,28 @@ import lombok.NonNull;
 /**
  * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of the title attribute. The
- * implementation relies on the correct user of the attribute names, saying they must exactly match
- * the accessor methods.
+ * Implementors of this class manage the state and resolving of the title
+ * attribute. The implementation relies on the correct user of the attribute
+ * names, saying they must exactly match the accessor methods.
  * </p>
  * <h2>titleKey</h2>
  * <p>
- * The key for looking up the text for the title-attribute. Although this attribute is not required
- * you must provide either this or #titleValue if you want a title to be displayed.
+ * The key for looking up the text for the title-attribute. Although this
+ * attribute is not required you must provide either this or #titleValue if you
+ * want a title to be displayed.
  * </p>
  * <h2>titleValue</h2>
  * <p>
- * The Object displayed for the title-attribute. This is a replacement for #titleKey. If both are
- * present titleValue takes precedence. This object is usually a String. If not, the developer
- * must ensure that a corresponding converter is either registered for the type or must provide a
- * converter using #titleConverter.
+ * The Object displayed for the title-attribute. This is a replacement for
+ * #titleKey. If both are present titleValue takes precedence. This object is
+ * usually a String. If not, the developer must ensure that a corresponding
+ * converter is either registered for the type or must provide a converter using
+ * #titleConverter.
  * </p>
  * <h2>titleConverter</h2>
  * <p>
- * The optional converterId to be used in case of titleValue is set and needs conversion.
+ * The optional converterId to be used in case of titleValue is set and needs
+ * conversion.
  * </p>
  *
  * @author Oliver Wolff
@@ -98,8 +101,7 @@ public class TitleProviderImpl implements TitleProvider {
         if (labelValue == null && MoreStrings.isEmpty(labelKey)) {
             return null;
         }
-        return LabelResolver.builder().withLabelKey(labelKey).withStrictMode(false)
-                .withConverter(getTitleConverter())
+        return LabelResolver.builder().withLabelKey(labelKey).withStrictMode(false).withConverter(getTitleConverter())
                 .withLabelValue(labelValue).build().resolve(componentBridge.facesContext());
     }
 
@@ -110,9 +112,8 @@ public class TitleProviderImpl implements TitleProvider {
 
     @Override
     public void setTitle(final String title) {
-        throw new UnsupportedOperationException(
-                componentBridge.getClass().getCanonicalName()
-                        + " wrong usage detected. Use setTitleKey() or setTitleValue(Serializable) instead.");
+        throw new UnsupportedOperationException(componentBridge.getClass().getCanonicalName()
+                + " wrong usage detected. Use setTitleKey() or setTitleValue(Serializable) instead.");
     }
 
 }

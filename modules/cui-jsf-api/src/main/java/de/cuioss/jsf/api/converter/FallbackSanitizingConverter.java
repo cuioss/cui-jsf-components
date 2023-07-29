@@ -12,9 +12,8 @@ import de.cuioss.jsf.api.security.CuiSanitizer;
 import de.cuioss.tools.logging.CuiLogger;
 
 /**
- * Converter utilized for ensuring proper escaping of output fields. Input fields are ignored, only
- * output fields
- * with no escaping are handled.
+ * Converter utilized for ensuring proper escaping of output fields. Input
+ * fields are ignored, only output fields with no escaping are handled.
  * <p>
  * To be configured as fallback converter for all String.
  */
@@ -27,13 +26,13 @@ public class FallbackSanitizingConverter extends AbstractConverter<String> {
 
     @Override
     protected String convertToString(final FacesContext context, final UIComponent component, final String value)
-        throws ConverterException {
+            throws ConverterException {
         return checkAndSanitize(component, value);
     }
 
     @Override
     protected String convertToObject(final FacesContext context, final UIComponent component, final String value)
-        throws ConverterException {
+            throws ConverterException {
         return checkAndSanitize(component, value);
     }
 

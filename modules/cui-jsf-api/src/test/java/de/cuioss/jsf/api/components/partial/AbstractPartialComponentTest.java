@@ -10,8 +10,7 @@ import de.cuioss.test.jsf.config.JsfTestConfiguration;
  * @author Oliver Wolff
  */
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
-public abstract class AbstractPartialComponentTest
-        extends AbstractComponentTest<MockPartialComponent> {
+public abstract class AbstractPartialComponentTest extends AbstractComponentTest<MockPartialComponent> {
 
     protected static final String MESSAGE_KEY = "some.key";
 

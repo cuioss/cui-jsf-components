@@ -34,8 +34,7 @@ class ManagedBeanAccessorTest extends JsfEnabledTestEnvironment {
 
     @Test
     void shouldAlwaysResolveWithPlainName() {
-        var underTest =
-            new ManagedBeanAccessor<>(BEAN_IDENTIFIER_PLAIN_NAME, String.class, true);
+        var underTest = new ManagedBeanAccessor<>(BEAN_IDENTIFIER_PLAIN_NAME, String.class, true);
         assertEquals(FIRST_BEAN, underTest.getValue());
         // Because the Provider should always resolve, it should resolve the
         // second bean

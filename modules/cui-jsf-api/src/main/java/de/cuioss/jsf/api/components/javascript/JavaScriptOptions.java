@@ -97,10 +97,8 @@ public class JavaScriptOptions implements ScriptProvider {
         }
 
         /**
-         * @param key
-         *            identifying the key of an entry, must no be null
-         * @param value
-         *            the concrete value of an option, may be null.
+         * @param key   identifying the key of an entry, must no be null
+         * @param value the concrete value of an option, may be null.
          * @return the instance of {@link JavaScriptOptionsBuilder}
          */
         public JavaScriptOptionsBuilder withOption(String key, Serializable value) {
@@ -109,9 +107,8 @@ public class JavaScriptOptions implements ScriptProvider {
         }
 
         /**
-         * @param wrapInBrackets
-         *            Indicates whether to wrap the result in curly brackets,
-         *            defaults to true
+         * @param wrapInBrackets Indicates whether to wrap the result in curly brackets,
+         *                       defaults to true
          * @return the instance of {@link JavaScriptOptionsBuilder}
          */
         public JavaScriptOptionsBuilder withWrapInBrackets(boolean wrapInBrackets) {
@@ -120,8 +117,7 @@ public class JavaScriptOptions implements ScriptProvider {
         }
 
         /**
-         * @param options
-         *            a map of concrete options.
+         * @param options a map of concrete options.
          * @return the instance of {@link JavaScriptOptionsBuilder}
          */
         public JavaScriptOptionsBuilder withOptions(Map<String, Serializable> options) {
@@ -145,18 +141,14 @@ public class JavaScriptOptions implements ScriptProvider {
     }
 
     /**
-     * Add a number of quoted String options to the given map with the given
-     * key. The option will be wrapped into an instance of
-     * {@link NotQuotableWrapper}
+     * Add a number of quoted String options to the given map with the given key.
+     * The option will be wrapped into an instance of {@link NotQuotableWrapper}
      *
-     * @param options
-     *            must not be null
-     * @param optionKey
-     *            must not be null or empty
-     * @param optionParameter
-     *            must not be null. If it is empty the element will not be
-     *            added. Each option will be single quoted and separated by
-     *            {@link #OPTION_VALUE_DELIMITER}
+     * @param options         must not be null
+     * @param optionKey       must not be null or empty
+     * @param optionParameter must not be null. If it is empty the element will not
+     *                        be added. Each option will be single quoted and
+     *                        separated by {@link #OPTION_VALUE_DELIMITER}
      */
     public static void addStringOptions(Map<String, Serializable> options, String optionKey,
             List<String> optionParameter) {
@@ -165,8 +157,7 @@ public class JavaScriptOptions implements ScriptProvider {
             for (String name : optionParameter) {
                 elements.add(String.format(SINGLE_QUOTE_WRAPPER, name));
             }
-            var nameString = String.format(SQUARE_BRACKETS_WRAPPER,
-                    Joiner.on(OPTION_VALUE_DELIMITER).join(elements));
+            var nameString = String.format(SQUARE_BRACKETS_WRAPPER, Joiner.on(OPTION_VALUE_DELIMITER).join(elements));
             options.put(optionKey, new NotQuotableWrapper(nameString));
         }
     }

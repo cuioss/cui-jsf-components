@@ -1,7 +1,8 @@
 package de.cuioss.jsf.api.composite.accessor;
 
 /**
- * Shorthand for creating a {@link StringAttributeAccessor} for the attribute 'styleClass'
+ * Shorthand for creating a {@link StringAttributeAccessor} for the attribute
+ * 'styleClass'
  *
  * @author Oliver Wolff
  */

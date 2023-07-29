@@ -67,8 +67,7 @@ public class HistoryManagerImpl implements HistoryManager {
     /**
      * Constructor.
      *
-     * @param historyConfiguration
-     *            must not be null
+     * @param historyConfiguration must not be null
      */
     public HistoryManagerImpl(final HistoryConfiguration historyConfiguration) {
         this.historyConfiguration = historyConfiguration;
@@ -98,8 +97,7 @@ public class HistoryManagerImpl implements HistoryManager {
         log.trace("addCurrentUriToHistory(id = {}, viewDescriptor = {})", String.valueOf(System.identityHashCode(this)),
                 viewDescriptor);
         if (viewDescriptor.isViewDefined() && !excludeFromHistoryMatcher.match(viewDescriptor)) {
-            final var currentViewIdentifier =
-                ViewIdentifier.getFromViewDesciptor(viewDescriptor, parameterFilter);
+            final var currentViewIdentifier = ViewIdentifier.getFromViewDesciptor(viewDescriptor, parameterFilter);
             log.trace("currentViewIdentifier = {}", currentViewIdentifier);
             if (null != currentViewIdentifier) {
                 handleAddCurrentView(currentViewIdentifier);
@@ -108,10 +106,10 @@ public class HistoryManagerImpl implements HistoryManager {
     }
 
     /**
-     * Adds a view identifier as history entry. <em>Caution: </em> While the
-     * method {@link #addCurrentUriToHistory(ViewDescriptor)} explicitly
-     * checks against {@link HistoryConfiguration#getExcludeFromHistoryMatcher()}
-     * this method assumes this is already done, therefore the caller must ensure this.
+     * Adds a view identifier as history entry. <em>Caution: </em> While the method
+     * {@link #addCurrentUriToHistory(ViewDescriptor)} explicitly checks against
+     * {@link HistoryConfiguration#getExcludeFromHistoryMatcher()} this method
+     * assumes this is already done, therefore the caller must ensure this.
      *
      * @param viewIdentifier must not be null
      */
@@ -158,8 +156,8 @@ public class HistoryManagerImpl implements HistoryManager {
     }
 
     /**
-     * verify if history has enough space, if not remove the first entry that is
-     * not the fallback
+     * verify if history has enough space, if not remove the first entry that is not
+     * the fallback
      */
     private void ensureCapacity() {
         if (getHistory().size() > historySize) {
@@ -169,7 +167,8 @@ public class HistoryManagerImpl implements HistoryManager {
     }
 
     /**
-     * Calculate the fallback identifier (e.g. "home"). Take care of conditional navigation!
+     * Calculate the fallback identifier (e.g. "home"). Take care of conditional
+     * navigation!
      *
      * @return the fallback identifier for the given state of the application.
      */
@@ -180,11 +179,10 @@ public class HistoryManagerImpl implements HistoryManager {
             throw new IllegalStateException("Neither fallback url nor fallbackOutcome configured");
         }
 
-        var fallbackIdentifier = new ViewIdentifier(fallback, fallbackOutcome,
-                Collections.emptyList());
+        var fallbackIdentifier = new ViewIdentifier(fallback, fallbackOutcome, Collections.emptyList());
         if (null == emptyToNull(fallback) && null != emptyToNull(fallbackOutcome)) {
-            fallbackIdentifier =
-                NavigationUtils.lookUpToViewIdentifierBy(FacesContext.getCurrentInstance(), fallbackOutcome);
+            fallbackIdentifier = NavigationUtils.lookUpToViewIdentifierBy(FacesContext.getCurrentInstance(),
+                    fallbackOutcome);
             log.debug("fallback was calculated to : ['{}']", fallbackIdentifier);
         }
         return fallbackIdentifier;

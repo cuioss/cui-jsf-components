@@ -7,8 +7,8 @@
  *
  * <h2>Attribute Accessor</h2>
  * <p>
- * The {@link de.cuioss.jsf.api.composite.AttributeAccessor} streamlines
- * the access on Attributes within component classes. <br>
+ * The {@link de.cuioss.jsf.api.composite.AttributeAccessor} streamlines the
+ * access on Attributes within component classes. <br>
  * Say you want to access an attribute like styleClass of type String. You need
  * to lookup within the attribute map the corresponding key: <br>
  * <code>if(getAttributes().containsKey("styleClass")) {<br>

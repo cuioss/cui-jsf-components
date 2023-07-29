@@ -12,8 +12,8 @@ import de.cuioss.test.valueobjects.ValueObjectTest;
 import de.cuioss.test.valueobjects.api.contracts.VerifyBeanProperty;
 
 @VerifyBeanProperty(exclude = { "primaryActionTitle", "notificationBoxState", "primaryAction", "notificationBoxValue",
-    "title", "content", "disableCoreAction", "disablePrimaryAction", "rendered", "compositeComponentId", "coreAction",
-    "renderPrimaryAction", "initialized", "renderContent", "id", "titleIcon", "titleValue" })
+        "title", "content", "disableCoreAction", "disablePrimaryAction", "rendered", "compositeComponentId",
+        "coreAction", "renderPrimaryAction", "initialized", "renderContent", "id", "titleIcon", "titleValue" })
 class BaseDeferredLoadingWidgetTest extends ValueObjectTest<DeferredLoadingWidgetMock> {
 
     @Test

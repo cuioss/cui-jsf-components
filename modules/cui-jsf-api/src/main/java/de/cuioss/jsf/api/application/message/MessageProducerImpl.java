@@ -14,12 +14,13 @@ import lombok.Setter;
 /**
  * Helper class simplifying the production of {@link FacesMessage}s.
  * <p>
- * It enforces the use of {@link ResourceBundle} by accepting resourceBundle keys only. Therefore it
- * needs the property {@link CuiResourceBundle} to be injected in order to work at all
+ * It enforces the use of {@link ResourceBundle} by accepting resourceBundle
+ * keys only. Therefore it needs the property {@link CuiResourceBundle} to be
+ * injected in order to work at all
  * </p>
  * <p>
- * It needs to be session or none scoped in order to be injected into viewScoped / Session Scoped
- * beans.
+ * It needs to be session or none scoped in order to be injected into viewScoped
+ * / Session Scoped beans.
  * </p>
  *
  * @author Oliver Wolff
@@ -40,8 +41,7 @@ public class MessageProducerImpl implements MessageProducer {
     public FacesMessage getMessageFor(final String messageKey, final FacesMessage.Severity severity,
             final Object... parameter) {
         try {
-            final var result =
-                MessageFormat.format(this.resourceBundle.getString(messageKey), parameter);
+            final var result = MessageFormat.format(this.resourceBundle.getString(messageKey), parameter);
             return new FacesMessage(severity, result, result);
         } catch (final MissingResourceException e) {
             final var missingKey = "missing key : " + messageKey;
@@ -61,18 +61,16 @@ public class MessageProducerImpl implements MessageProducer {
     }
 
     @Override
-    public void setFacesMessage(final String messagekey, final FacesMessage.Severity severity,
-            final String componentId, final Object... parameter) {
-        FacesContext.getCurrentInstance().addMessage(componentId,
-                getMessageFor(messagekey, severity, parameter));
+    public void setFacesMessage(final String messagekey, final FacesMessage.Severity severity, final String componentId,
+            final Object... parameter) {
+        FacesContext.getCurrentInstance().addMessage(componentId, getMessageFor(messagekey, severity, parameter));
     }
 
     @Override
-    public void addMessage(String message, javax.faces.application.FacesMessage.Severity severity,
-            String componentId, Object... parameter) {
+    public void addMessage(String message, javax.faces.application.FacesMessage.Severity severity, String componentId,
+            Object... parameter) {
         final var format = MessageFormat.format(message, parameter);
-        FacesContext.getCurrentInstance().addMessage(componentId,
-                new FacesMessage(severity, format, format));
+        FacesContext.getCurrentInstance().addMessage(componentId, new FacesMessage(severity, format, format));
     }
 
     @Override
@@ -82,8 +80,8 @@ public class MessageProducerImpl implements MessageProducer {
     }
 
     @Override
-    public void addGlobalMessage(@NonNull final String message,
-            @NonNull final FacesMessage.Severity severity, final Object... parameter) {
+    public void addGlobalMessage(@NonNull final String message, @NonNull final FacesMessage.Severity severity,
+            final Object... parameter) {
         addMessage(message, severity, null, parameter);
     }
 

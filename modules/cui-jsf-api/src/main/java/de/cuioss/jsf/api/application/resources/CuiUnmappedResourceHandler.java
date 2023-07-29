@@ -19,10 +19,10 @@ import de.cuioss.tools.string.MoreStrings;
 import de.cuioss.tools.string.Splitter;
 
 /**
- * This resource handler wrap omnifaces UnmappedResourceHandler for restriction of handling only
- * harmless resources.
- * Blacklist could be adapted by add context-param to web.xml (or fragment), this is the common JSF
- * configuration parameter
+ * This resource handler wrap omnifaces UnmappedResourceHandler for restriction
+ * of handling only harmless resources. Blacklist could be adapted by add
+ * context-param to web.xml (or fragment), this is the common JSF configuration
+ * parameter
  * <p>
  * <code>
  *         &lt;context-param&gt;<br>
@@ -32,8 +32,8 @@ import de.cuioss.tools.string.Splitter;
  *      </code>
  * </p>
  *
- * TODO : could be replaced by original after https://github.com/omnifaces/omnifaces/issues/481 is
- * solved. See CUI-915
+ * TODO : could be replaced by original after
+ * https://github.com/omnifaces/omnifaces/issues/481 is solved. See CUI-915
  *
  * @author Eugen Fischer
  */
@@ -42,8 +42,8 @@ public class CuiUnmappedResourceHandler extends UnmappedResourceHandler {
     private static final List<Pattern> EXCLUDE_RESOURCES = initExclusionPatterns();
 
     /**
-     * Creates a new instance of this unmapped resource handler which wraps the given resource
-     * handler.
+     * Creates a new instance of this unmapped resource handler which wraps the
+     * given resource handler.
      *
      * @param wrapped The resource handler to be wrapped.
      */
@@ -110,8 +110,7 @@ public class CuiUnmappedResourceHandler extends UnmappedResourceHandler {
      * {@link javax.faces.application.ResourceHandler#RESOURCE_EXCLUDES_DEFAULT_VALUE}
      */
     private static List<String> configuredExclusions() {
-        final var exclusions = Optional
-                .ofNullable(getContextParameter())
+        final var exclusions = Optional.ofNullable(getContextParameter())
                 .orElse(ResourceHandler.RESOURCE_EXCLUDES_DEFAULT_VALUE);
         return Splitter.on(' ').omitEmptyStrings().trimResults().splitToList(exclusions);
     }

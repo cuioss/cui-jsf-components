@@ -18,7 +18,8 @@ public interface NavigationMenuItemSingle extends NavigationMenuItem, Navigation
     String getTarget();
 
     /**
-     * @return a map of key / value parameters to be added to the {@link #getOutcome()}
+     * @return a map of key / value parameters to be added to the
+     *         {@link #getOutcome()}
      */
     Map<String, String> getOutcomeParameter();
 

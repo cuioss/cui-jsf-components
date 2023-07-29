@@ -57,8 +57,7 @@ class JavaScriptOptionsTest {
     @Test
     void shouldAddSingleOption() {
         Map<String, Serializable> options = new HashMap<>();
-        JavaScriptOptions.addStringOptions(options, OPTION_KEY_SEARCH_FIELD,
-                immutableList(OPTION_VALUE_LABEL_KEY));
+        JavaScriptOptions.addStringOptions(options, OPTION_KEY_SEARCH_FIELD, immutableList(OPTION_VALUE_LABEL_KEY));
         assertEquals(1, options.size());
         assertEquals("['label']", ((NotQuotableWrapper) options.get(OPTION_KEY_SEARCH_FIELD)).getValue());
     }
@@ -76,7 +75,6 @@ class JavaScriptOptionsTest {
         JavaScriptOptions.addStringOptions(options, OPTION_KEY_SEARCH_FIELD,
                 immutableList(OPTION_VALUE_LABEL_KEY, OPTION_VALUE_VALUE_KEY));
         assertEquals(1, options.size());
-        assertEquals("['label','value']",
-                ((NotQuotableWrapper) options.get(OPTION_KEY_SEARCH_FIELD)).getValue());
+        assertEquals("['label','value']", ((NotQuotableWrapper) options.get(OPTION_KEY_SEARCH_FIELD)).getValue());
     }
 }

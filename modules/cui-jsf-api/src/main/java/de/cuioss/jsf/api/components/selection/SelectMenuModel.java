@@ -10,14 +10,15 @@ import javax.faces.model.SelectItem;
 import de.cuioss.uimodel.model.TypedSelection;
 
 /**
- * Interfaces for combining functionality used by selection elements. <em>Caution: </em> Because of
- * the technical limitation of JSF selection components (They do not serialize the objects itself)
- * this component extends {@link Converter}
+ * Interfaces for combining functionality used by selection elements.
+ * <em>Caution: </em> Because of the technical limitation of JSF selection
+ * components (They do not serialize the objects itself) this component extends
+ * {@link Converter}
  *
  * @param <T>
  */
-public interface SelectMenuModel<T extends Serializable> extends Converter<T>, ValueChangeListener, Serializable,
-        TypedSelection<T> {
+public interface SelectMenuModel<T extends Serializable>
+        extends Converter<T>, ValueChangeListener, Serializable, TypedSelection<T> {
 
     /**
      * @return the list of SelectItems

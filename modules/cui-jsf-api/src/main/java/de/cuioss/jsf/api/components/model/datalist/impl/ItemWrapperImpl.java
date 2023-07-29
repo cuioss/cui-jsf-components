@@ -14,8 +14,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * @param <T> identifying the type of items to be created. Must be at least {@link Serializable} and
- *            implement {@link Object#hashCode()} and {@link Object#equals(Object)} correctly.
+ * @param <T> identifying the type of items to be created. Must be at least
+ *            {@link Serializable} and implement {@link Object#hashCode()} and
+ *            {@link Object#equals(Object)} correctly.
  *
  * @author Oliver Wolff
  */
@@ -48,7 +49,7 @@ public class ItemWrapperImpl<T extends Serializable> implements ItemWrapper<T> {
     private int listIndex;
 
     /**
-     * @param wrapped may be null
+     * @param wrapped    may be null
      * @param editStatus must not be null.
      */
     public ItemWrapperImpl(final T wrapped, final EditStatus editStatus) {
@@ -80,16 +81,15 @@ public class ItemWrapperImpl<T extends Serializable> implements ItemWrapper<T> {
     public void doSave() {
         requireNonNull(wrapped, "Invalid usage: wrapped should not be null");
         switch (initalEditStatus) {
-            case ADDED:
-                editStatus = EditStatus.ADDED;
-                addStatus = AddStatus.ADDED;
-                break;
-            case EDIT:
-                throw new IllegalStateException(
-                        "Invalid usage: You must not doCancel or doSave prior to doEdit");
-            default:
-                editStatus = wrapped.equals(initialWrapped) ? EditStatus.INITIAL : EditStatus.MODIFIED;
-                break;
+        case ADDED:
+            editStatus = EditStatus.ADDED;
+            addStatus = AddStatus.ADDED;
+            break;
+        case EDIT:
+            throw new IllegalStateException("Invalid usage: You must not doCancel or doSave prior to doEdit");
+        default:
+            editStatus = wrapped.equals(initialWrapped) ? EditStatus.INITIAL : EditStatus.MODIFIED;
+            break;
         }
         initialWrapped = null;
     }
@@ -114,8 +114,7 @@ public class ItemWrapperImpl<T extends Serializable> implements ItemWrapper<T> {
     @Override
     public void doEdit(final T copyToEdit) {
         requireNonNull(copyToEdit);
-        checkState(!EditStatus.DELETED.equals(getEditStatus()),
-                "Invalid usage: deleted elements can not be edited.");
+        checkState(!EditStatus.DELETED.equals(getEditStatus()), "Invalid usage: deleted elements can not be edited.");
         initialWrapped = wrapped;
         wrapped = copyToEdit;
         initalEditStatus = editStatus;

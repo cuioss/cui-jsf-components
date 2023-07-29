@@ -26,16 +26,16 @@ import de.cuioss.test.jsf.defaults.BasicApplicationConfiguration;
 import de.cuioss.test.jsf.mocks.CuiMockRenderer;
 
 /**
- * Defines a base setup for testing. Implicitly uses {@link BasicApplicationConfiguration}. In
- * addition, it:
+ * Defines a base setup for testing. Implicitly uses
+ * {@link BasicApplicationConfiguration}. In addition, it:
  * <ul>
- * <li>Registers {@link StringIdentConverter} {@link ObjectToStringConverter} and
- * {@link NumberConverter}</li>
+ * <li>Registers {@link StringIdentConverter} {@link ObjectToStringConverter}
+ * and {@link NumberConverter}</li>
  * <li>Registers {@link CuiResourceBundle} and {@link MessageProducer}</li>
  * <li>Register a minimal {@link ResourceBundle}: {@link #TEST_BUNDLE_NAME}</li>
  * <li>Register the cui component messages</li>
- * <li>Registers a number of default components and {@link Renderer} derived from
- * {@link JsfHtmlComponent}</li>
+ * <li>Registers a number of default components and {@link Renderer} derived
+ * from {@link JsfHtmlComponent}</li>
  * </ul>
  *
  * @author Oliver Wolff
@@ -75,8 +75,7 @@ public class CoreJsfTestConfiguration extends BasicApplicationConfiguration
     @Override
     public void configureApplication(final ApplicationConfigDecorator decorator) {
         super.configureApplication(decorator);
-        decorator.registerResourceBundle(TEST_BUNDLE_NAME,
-                TEST_BUNDLE_BASE_PATH + TEST_BUNDLE_NAME);
+        decorator.registerResourceBundle(TEST_BUNDLE_NAME, TEST_BUNDLE_BASE_PATH + TEST_BUNDLE_NAME);
         decorator.registerResourceBundle(CUI_BUNDLE_NAME, CUI_BUNDLE_BASE_PATH + CUI_BUNDLE_NAME);
     }
 
@@ -86,9 +85,9 @@ public class CoreJsfTestConfiguration extends BasicApplicationConfiguration
         decorator.registerConverter(NumberConverter.class, NumberConverter.CONVERTER_ID);
         decorator.registerConverter(ObjectToStringConverter.class);
         for (JsfHtmlComponent<?> component : JsfHtmlComponent.VALUES) {
-            decorator.registerUIComponent(component.getComponentType(), component.getComponentClass())
-                    .registerRenderer(component.getFamily(), component.getRendererType(),
-                            new CuiMockRenderer(component.getDefaultHtmlElement().getContent()));
+            decorator.registerUIComponent(component.getComponentType(), component.getComponentClass()).registerRenderer(
+                    component.getFamily(), component.getRendererType(),
+                    new CuiMockRenderer(component.getDefaultHtmlElement().getContent()));
         }
     }
 

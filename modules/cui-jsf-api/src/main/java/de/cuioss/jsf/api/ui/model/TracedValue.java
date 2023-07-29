@@ -9,8 +9,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Class provide functionality to recognize if value was changed or not and is able to restore
- * default value.
+ * Class provide functionality to recognize if value was changed or not and is
+ * able to restore default value.
  *
  * @author Eugen Fischer
  * @param <T> bounded type must be Serializable
@@ -29,12 +29,12 @@ public class TracedValue<T extends Serializable> implements ITracedValue<T> {
     private T value;
 
     /**
-     * Initialize traced object with default value. This will be used to recognize if new value was
-     * set.
-     * Therefore {@linkplain #equals(Object)} method will be used.
+     * Initialize traced object with default value. This will be used to recognize
+     * if new value was set. Therefore {@linkplain #equals(Object)} method will be
+     * used.
      *
-     * @param initialValue object could be null, but must follow the convention of Serializable
-     *            objects.
+     * @param initialValue object could be null, but must follow the convention of
+     *                     Serializable objects.
      */
     public TracedValue(final T initialValue) {
         this.defaultValue = initialValue;

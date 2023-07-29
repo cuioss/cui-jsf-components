@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * Represent a generic {@linkplain UIInput} ComponentModifier.
- * Used as fallback for any UIInput components
+ * Represent a generic {@linkplain UIInput} ComponentModifier. Used as fallback
+ * for any UIInput components
  */
 @SuppressWarnings("common-java:DuplicatedBlocks")
 @ToString

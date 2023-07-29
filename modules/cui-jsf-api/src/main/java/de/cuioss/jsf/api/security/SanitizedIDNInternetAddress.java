@@ -23,8 +23,8 @@ public class SanitizedIDNInternetAddress {
      * Decode the domain part of an email address
      *
      * @param completeAddress the address to decode in RFC822 format
-     * @return the decoded and sanitized address in RFC822 format, does not need to be sanitized
-     *         again
+     * @return the decoded and sanitized address in RFC822 format, does not need to
+     *         be sanitized again
      */
     public static String decode(@NonNull final String completeAddress) {
         return IDNInternetAddress.decode(completeAddress, sanitizer);

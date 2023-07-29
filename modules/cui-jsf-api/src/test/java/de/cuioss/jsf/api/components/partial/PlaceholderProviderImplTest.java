@@ -58,7 +58,8 @@ class PlaceholderProviderImplTest extends AbstractPartialComponentTest {
     }
 
     /**
-     * Tests adding and removing of passthrough attributes emulating an ui:repeat scenario.
+     * Tests adding and removing of passthrough attributes emulating an ui:repeat
+     * scenario.
      */
     @Test
     void shouldRemoveIfNull() {

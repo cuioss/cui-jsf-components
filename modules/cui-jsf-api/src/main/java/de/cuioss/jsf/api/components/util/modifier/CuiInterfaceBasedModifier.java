@@ -12,7 +12,8 @@ import de.cuioss.jsf.api.components.util.ComponentModifier;
 
 /**
  * Variant that can be used for Cui-components that implements at least one of
- * {@link TitleProvider}, {@link ComponentStyleClassProvider} {@link StyleAttributeProvider}
+ * {@link TitleProvider}, {@link ComponentStyleClassProvider}
+ * {@link StyleAttributeProvider}
  *
  * @author Oliver Wolff
  */
@@ -123,13 +124,13 @@ public class CuiInterfaceBasedModifier extends ReflectionBasedModifier {
 
     /**
      * @param component to be checked, must not be null
-     * @return {@link Optional} {@link ComponentModifier} valid if the class in hand implements at
-     *         least one of {@link TitleProvider}, {@link StyleClassProvider}
-     *         {@link StyleAttributeProvider}, {@link Optional#empty()} otherwise
+     * @return {@link Optional} {@link ComponentModifier} valid if the class in hand
+     *         implements at least one of {@link TitleProvider},
+     *         {@link StyleClassProvider} {@link StyleAttributeProvider},
+     *         {@link Optional#empty()} otherwise
      */
     public static Optional<ComponentModifier> wrap(final UIComponent component) {
-        if (component instanceof TitleProvider
-                || component instanceof ComponentStyleClassProvider
+        if (component instanceof TitleProvider || component instanceof ComponentStyleClassProvider
                 || component instanceof StyleAttributeProvider) {
             return Optional.of(new CuiInterfaceBasedModifier(component));
         }

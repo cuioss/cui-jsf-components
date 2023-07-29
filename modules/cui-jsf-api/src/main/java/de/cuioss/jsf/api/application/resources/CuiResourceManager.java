@@ -34,9 +34,8 @@ public class CuiResourceManager implements Serializable {
     private final ConcurrentHashMap<String, LibraryInventory> libraries = new ConcurrentHashMap<>();
 
     /**
-     * @param librayname
-     *            defining the desired {@link LibraryInventory}. Must not be
-     *            null.
+     * @param librayname defining the desired {@link LibraryInventory}. Must not be
+     *                   null.
      * @return the found {@link LibraryInventory}. If there is no corresponding
      *         library there it will create one.
      */

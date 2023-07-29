@@ -13,29 +13,33 @@ import lombok.NonNull;
 /**
  * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of the footer string of a component.
- * The implementation relies on the correct use of attribute names, saying they must exactly match
- * the accessor methods.
+ * Implementors of this class manage the state and resolving of the footer
+ * string of a component. The implementation relies on the correct use of
+ * attribute names, saying they must exactly match the accessor methods.
  * </p>
  * <h2>footerKey</h2>
  * <p>
- * The key for looking up the text to be displayed as the text footer. Although this attribute is
- * not required you must provide either this or #footerValue if you want a label to be displayed.
+ * The key for looking up the text to be displayed as the text footer. Although
+ * this attribute is not required you must provide either this or #footerValue
+ * if you want a label to be displayed.
  * </p>
  * <h2>footerValue</h2>
  * <p>
- * The Object representing the text to be displayed. This is a replacement for #footerKey. If both
- * are present footerValue takes precedence. The object is usually a string. If not, the developer
- * must ensure that a corresponding converter is either registered for the type or must provide a
- * converter using #footerConverter.
+ * The Object representing the text to be displayed. This is a replacement for
+ * #footerKey. If both are present footerValue takes precedence. The object is
+ * usually a string. If not, the developer must ensure that a corresponding
+ * converter is either registered for the type or must provide a converter using
+ * #footerConverter.
  * </p>
  * <h2>footerConverter</h2>
  * <p>
- * The optional converterId to be used in case of footerValue is set and needs conversion.
+ * The optional converterId to be used in case of footerValue is set and needs
+ * conversion.
  * </p>
  * <h2>footerEscape</h2>
  * <p>
- * Indicates whether the footer is to be escaped on output or not. Default is <code>true</code>
+ * Indicates whether the footer is to be escaped on output or not. Default is
+ * <code>true</code>
  * </p>
  *
  * @author Sven Haag
@@ -141,9 +145,9 @@ public class FooterProvider {
         if (footerValue == null && MoreStrings.isEmpty(footerKey)) {
             return null;
         }
-        return LabelResolver.builder().withConverter(getFooterConverter())
-                .withLabelKey(footerKey).withEscape(isFooterEscape())
-                .withLabelValue(footerValue).build().resolve(componentBridge.facesContext());
+        return LabelResolver.builder().withConverter(getFooterConverter()).withLabelKey(footerKey)
+                .withEscape(isFooterEscape()).withLabelValue(footerValue).build()
+                .resolve(componentBridge.facesContext());
     }
 
     /**
@@ -154,8 +158,8 @@ public class FooterProvider {
     }
 
     /**
-     * @return boolean indicating whether there is a 'footer' facet available <em>and</em> whether
-     *         this facet is rendered.
+     * @return boolean indicating whether there is a 'footer' facet available
+     *         <em>and</em> whether this facet is rendered.
      */
     public boolean shouldRenderFooterFacet() {
         var facet = getFooterFacet();

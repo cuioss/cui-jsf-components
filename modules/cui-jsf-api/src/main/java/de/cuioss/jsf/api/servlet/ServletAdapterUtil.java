@@ -13,7 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import lombok.experimental.UtilityClass;
 
 /**
- * Utility class, introducing functionality not covered within {@link ExternalContext}
+ * Utility class, introducing functionality not covered within
+ * {@link ExternalContext}
  * <p>
  * In essence these are mainly convenience methods
  * </p>
@@ -27,8 +28,9 @@ public final class ServletAdapterUtil {
     /**
      * Reads an Parameter from the external Request.
      *
-     * @param facesContext representing current state. Must not be null or empty
-     * @param parameterName identifying the wanted parameter. Must not be null or empty
+     * @param facesContext  representing current state. Must not be null or empty
+     * @param parameterName identifying the wanted parameter. Must not be null or
+     *                      empty
      * @return the loaded parameter if available
      */
     public static String getRequestParameter(FacesContext facesContext, String parameterName) {

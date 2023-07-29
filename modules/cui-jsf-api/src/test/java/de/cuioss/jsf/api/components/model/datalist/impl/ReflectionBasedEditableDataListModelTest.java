@@ -15,37 +15,32 @@ class ReflectionBasedEditableDataListModelTest {
 
     @Test
     void shouldHandleGoodCase() {
-        var model =
-            new ReflectionBasedEditableDataListModel<>(SomeModel.class, null);
+        var model = new ReflectionBasedEditableDataListModel<>(SomeModel.class, null);
         assertNotNull(model.createEmptyItem());
         assertNotNull(model.createCopy(new SomeModel()));
     }
 
     @Test
     void shouldHandleMissingDefaultConstructor() {
-        var model =
-            new ReflectionBasedEditableDataListModel<>(MissingDefaultConstructor.class, null);
+        var model = new ReflectionBasedEditableDataListModel<>(MissingDefaultConstructor.class, null);
         assertThrows(IllegalStateException.class, model::createEmptyItem);
     }
 
     @Test
     void shouldHandleMissingCopyConstructor() {
-        var model =
-            new ReflectionBasedEditableDataListModel<>(MissingCopyConstructor.class, null);
+        var model = new ReflectionBasedEditableDataListModel<>(MissingCopyConstructor.class, null);
         assertThrows(IllegalStateException.class, () -> model.createCopy(new MissingCopyConstructor("")));
     }
 
     @Test
     void shouldHandleExplodingCopyConstructor() {
-        var model =
-            new ReflectionBasedEditableDataListModel<>(ExplodingModel.class, null);
+        var model = new ReflectionBasedEditableDataListModel<>(ExplodingModel.class, null);
         assertThrows(IllegalStateException.class, () -> model.createCopy(new ExplodingModel("")));
     }
 
     @Test
     void shouldHandleExplodingDefaultConstructor() {
-        var model =
-            new ReflectionBasedEditableDataListModel<>(ExplodingModel.class, new ArrayList<>());
+        var model = new ReflectionBasedEditableDataListModel<>(ExplodingModel.class, new ArrayList<>());
         assertThrows(IllegalStateException.class, model::createEmptyItem);
     }
 }

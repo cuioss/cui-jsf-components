@@ -10,8 +10,8 @@ class ComplexHtmlSanitizingConverterTest extends AbstractConverterTest<ComplexHt
 
     @Override
     public void populate(final TestItems<String> testItems) {
-        testItems.addValidObjectWithStringResult(SIMPLE_HTML, SIMPLE_HTML)
-            .addValidStringWithObjectResult(MALICIOS_HTML, SIMPLE_HTML);
+        testItems.addValidObjectWithStringResult(SIMPLE_HTML, SIMPLE_HTML).addValidStringWithObjectResult(MALICIOS_HTML,
+                SIMPLE_HTML);
 
     }
 }

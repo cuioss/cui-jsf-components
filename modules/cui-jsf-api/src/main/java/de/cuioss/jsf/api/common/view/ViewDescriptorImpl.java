@@ -50,11 +50,9 @@ public class ViewDescriptorImpl implements ViewDescriptor {
     /**
      * Copy Constructor that can additionally filter the given parameter
      *
-     * @param other
-     *            to be copied from. must not be null
-     * @param parameterFilter
-     *            if not null it will will filter the contained
-     *            {@link UrlParameter}
+     * @param other           to be copied from. must not be null
+     * @param parameterFilter if not null it will will filter the contained
+     *                        {@link UrlParameter}
      */
     public ViewDescriptorImpl(final ViewDescriptor other, final ParameterFilter parameterFilter) {
         this(other.getViewId(), other.getLogicalViewId(),
@@ -68,8 +66,7 @@ public class ViewDescriptorImpl implements ViewDescriptor {
      * @param logicalViewId
      * @param urlParameter
      */
-    public ViewDescriptorImpl(final String viewId, final String logicalViewId,
-            final List<UrlParameter> urlParameter) {
+    public ViewDescriptorImpl(final String viewId, final String logicalViewId, final List<UrlParameter> urlParameter) {
         this.viewId = viewId;
         if (null != viewId) {
             var sanitizedId = NON_LATIN.matcher(viewId).replaceAll("_");

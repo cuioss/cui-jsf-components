@@ -7,8 +7,7 @@ import de.cuioss.jsf.api.common.accessor.ManagedBeanAccessor;
  * @author Oliver Wolff
  *
  */
-public class CuiResourceManagerAccessor extends
-        ManagedBeanAccessor<CuiResourceManager> {
+public class CuiResourceManagerAccessor extends ManagedBeanAccessor<CuiResourceManager> {
 
     private static final long serialVersionUID = -4061081985792532561L;
 

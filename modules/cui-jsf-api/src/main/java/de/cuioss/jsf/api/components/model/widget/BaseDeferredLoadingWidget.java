@@ -11,8 +11,8 @@ import lombok.Synchronized;
 import lombok.ToString;
 
 /**
- * Abstract implementation of the {@link WidgetModel} supporting deferred loading of the content
- * and/or error message.
+ * Abstract implementation of the {@link WidgetModel} supporting deferred
+ * loading of the content and/or error message.
  *
  * @param <T> type of the content.
  * @author Matthias Walliczek

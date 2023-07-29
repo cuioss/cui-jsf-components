@@ -14,12 +14,12 @@ import lombok.NonNull;
 /**
  * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of an HTML element to be used in
- * component context
+ * Implementors of this class manage the state and resolving of an HTML element
+ * to be used in component context
  * </p>
  * <p>
- * The implementation relies on the correct use of attribute names,
- * saying they must exactly match the accessor methods.
+ * The implementation relies on the correct use of attribute names, saying they
+ * must exactly match the accessor methods.
  * </p>
  * <h2>htmlElement</h2>
  * <p>
@@ -76,8 +76,8 @@ public class HtmlElementProvider {
         for (Node node : Node.values()) {
             allowedList.add(node.getContent());
         }
-        var message =
-            "Unexpected Html-element found: '" + name + "' expected one of " + Joiner.on(",").join(allowedList);
+        var message = "Unexpected Html-element found: '" + name + "' expected one of "
+                + Joiner.on(",").join(allowedList);
         throw new IllegalArgumentException(message);
     }
 

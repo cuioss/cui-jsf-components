@@ -13,9 +13,10 @@ import de.cuioss.jsf.api.components.partial.StyleAttributeProviderImpl;
 import lombok.experimental.Delegate;
 
 /**
- * Minimal super-set for cui-based components that are at least {@link HtmlSelectBooleanCheckbox}.
- * Therefore it provides the handling of the styleClass and style attribute and
- * the implicit attributes provided by {@link HtmlSelectBooleanCheckbox}. In addition it acts as a
+ * Minimal super-set for cui-based components that are at least
+ * {@link HtmlSelectBooleanCheckbox}. Therefore it provides the handling of the
+ * styleClass and style attribute and the implicit attributes provided by
+ * {@link HtmlSelectBooleanCheckbox}. In addition it acts as a
  * {@link ComponentBridge}
  *
  * @author Sven Haag
@@ -32,7 +33,6 @@ public class BaseCuiHtmlSelectBooleanCheckboxComponent extends HtmlSelectBoolean
 
     /***/
     public BaseCuiHtmlSelectBooleanCheckboxComponent() {
-        super();
         styleClassProvider = new ComponentStyleClassProviderImpl(this);
         styleAttributeProvider = new StyleAttributeProviderImpl(this);
     }

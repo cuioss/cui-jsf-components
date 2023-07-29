@@ -16,17 +16,17 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Base class for implementing {@link EditableDataListModel}, should be the usual starting point for
- * concrete implementations.
+ * Base class for implementing {@link EditableDataListModel}, should be the
+ * usual starting point for concrete implementations.
  *
  * @author Oliver Wolff
- * @param <T> identifying the type of items to be created. Must be at least {@link Serializable} and
- *            implement {@link Object#hashCode()} and {@link Object#equals(Object)} correctly.
+ * @param <T> identifying the type of items to be created. Must be at least
+ *            {@link Serializable} and implement {@link Object#hashCode()} and
+ *            {@link Object#equals(Object)} correctly.
  */
 @ToString(doNotUseGetters = true)
 @EqualsAndHashCode(doNotUseGetters = true)
-public abstract class AbstractEditableDataListModel<T extends Serializable>
-        implements EditableDataListModel<T> {
+public abstract class AbstractEditableDataListModel<T extends Serializable> implements EditableDataListModel<T> {
 
     private static final long serialVersionUID = 2719782028119450821L;
     private List<ItemWrapper<T>> displayItems;
@@ -54,8 +54,8 @@ public abstract class AbstractEditableDataListModel<T extends Serializable>
     }
 
     /**
-     * Adds the item to the model while keeping the indexes intact.
-     * The status of the added item is {@linkplain EditStatus#ADDED}.
+     * Adds the item to the model while keeping the indexes intact. The status of
+     * the added item is {@linkplain EditStatus#ADDED}.
      *
      * @param item to be added to the model
      * @return added display item ({@link ItemWrapperImpl})
@@ -114,9 +114,7 @@ public abstract class AbstractEditableDataListModel<T extends Serializable>
     }
 
     protected void cancelAllEditItems() {
-        getDisplayItems().stream()
-                .filter(ItemWrapper::isEditMode)
-                .forEach(ItemWrapper::doCancel);
+        getDisplayItems().stream().filter(ItemWrapper::isEditMode).forEach(ItemWrapper::doCancel);
         removeNullItems();
     }
 
@@ -141,15 +139,12 @@ public abstract class AbstractEditableDataListModel<T extends Serializable>
     public List<T> getDeletedItems() {
         return getDisplayItems().stream()
                 .filter(item -> item.isMarkedForDelete() && PERSISTED.equals(item.getAddStatus()))
-                .map(ItemWrapper::getWrapped)
-                .collect(Collectors.toList());
+                .map(ItemWrapper::getWrapped).collect(Collectors.toList());
     }
 
     @Override
     public List<T> getResultItems() {
-        return getDisplayItems().stream()
-                .filter(item -> !item.isMarkedForDelete())
-                .map(ItemWrapper::getWrapped)
+        return getDisplayItems().stream().filter(item -> !item.isMarkedForDelete()).map(ItemWrapper::getWrapped)
                 .collect(Collectors.toList());
     }
 

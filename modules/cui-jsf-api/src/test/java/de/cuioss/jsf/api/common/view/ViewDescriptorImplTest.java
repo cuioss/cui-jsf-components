@@ -30,8 +30,7 @@ class ViewDescriptorImplTest extends ValueObjectTest<ViewDescriptorImpl> {
     void shouldBuildWithCopyConstructorAndFilter() {
         final var built = ViewDescriptorImpl.builder().withLogicalViewId(stringGenerator.next())
                 .withUrlParameter(Collections.emptyList()).withViewId(stringGenerator.next()).build();
-        final var copy =
-            new ViewDescriptorImpl(built, new ParameterFilter(Collections.emptyList(), true));
+        final var copy = new ViewDescriptorImpl(built, new ParameterFilter(Collections.emptyList(), true));
         assertEquals(built, copy);
     }
 

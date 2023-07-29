@@ -30,8 +30,7 @@ public class CodeTypeOptionRenderer {
     private final List<CodeType> codeTypes;
 
     /**
-     * @param codeType
-     *            to be rendered, must not be null
+     * @param codeType to be rendered, must not be null
      */
     public CodeTypeOptionRenderer(final CodeType codeType) {
         this(immutableList(requireNonNull(codeType)));
@@ -40,20 +39,15 @@ public class CodeTypeOptionRenderer {
     /**
      * Renders an option element for each contained {@link CodeType}
      *
-     * @param writer
-     *            to be written to
-     * @param locale
-     *            needed for looking up the correct display-String.
-     * @param escape
-     *            indicating whether or not escape the Test-child.
+     * @param writer to be written to
+     * @param locale needed for looking up the correct display-String.
+     * @param escape indicating whether or not escape the Test-child.
      * @throws IOException
      */
     @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
                                   // controlled by JSF
-    public void render(final DecoratingResponseWriter<? extends UIComponent> writer,
-            final Locale locale,
-            final boolean escape)
-        throws IOException {
+    public void render(final DecoratingResponseWriter<? extends UIComponent> writer, final Locale locale,
+            final boolean escape) throws IOException {
         for (CodeType codeType : codeTypes) {
             writer.withStartElement(Node.OPTION);
             writer.withAttribute(AttributeName.VALUE, codeType.getIdentifier());

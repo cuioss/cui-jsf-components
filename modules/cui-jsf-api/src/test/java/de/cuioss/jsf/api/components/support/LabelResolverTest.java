@@ -38,15 +38,15 @@ class LabelResolverTest extends JsfEnabledTestEnvironment {
     @Test
     void shouldResolveWithConverterId() {
         getComponentConfigDecorator().registerConverter(ReverseConverter.class);
-        final var resolver =
-            LabelResolver.builder().withLabelValue("test").withConverter(ReverseConverter.CONVERTER_ID).build();
+        final var resolver = LabelResolver.builder().withLabelValue("test").withConverter(ReverseConverter.CONVERTER_ID)
+                .build();
         assertEquals("tset", resolver.resolve(getFacesContext()));
     }
 
     @Test
     void shouldResolveWithConverter() {
-        final var resolver =
-            LabelResolver.builder().withLabelValue("test").withConverter(new ReverseConverter()).build();
+        final var resolver = LabelResolver.builder().withLabelValue("test").withConverter(new ReverseConverter())
+                .build();
         assertEquals("tset", resolver.resolve(getFacesContext()));
     }
 
@@ -54,8 +54,8 @@ class LabelResolverTest extends JsfEnabledTestEnvironment {
     void shouldResolveMessageOnConverterError() {
         getFacesContext().getApplication().addConverter(NumberConverter.CONVERTER_ID, NumberConverter.class.getName());
         final var test = someStrings.next();
-        final var resolver =
-            LabelResolver.builder().withLabelValue(test).withConverter(NumberConverter.CONVERTER_ID).build();
+        final var resolver = LabelResolver.builder().withLabelValue(test).withConverter(NumberConverter.CONVERTER_ID)
+                .build();
         assertNotNull(resolver.resolve(getFacesContext()));
     }
 

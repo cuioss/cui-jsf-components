@@ -1,7 +1,8 @@
 /**
  * <p>
- * Cui provides a full featured Server side Url History. In essence you use on any page the action
- * or outcome attribute "back" in order to navigate back from the previous page with a redirect.
+ * Cui provides a full featured Server side Url History. In essence you use on
+ * any page the action or outcome attribute "back" in order to navigate back
+ * from the previous page with a redirect.
  * </p>
  * <h2>Configuration: faces-config.xml</h2>
  * <h3>NavigationHandler</h3>
@@ -44,25 +45,28 @@
  </managed-bean>}
  * </pre>
  *
- * <h2>Usage</h2>
- * Each page that should be historized should use
+ * <h2>Usage</h2> Each page that should be historized should use
  *
  * <pre>
- * {@code <f:event listener="#&#123;historyManagerBean.addCurrentUriToHistory&#125;" type="postAddToView" />}
+ * {@code <f:event listener=
+"#&#123;historyManagerBean.addCurrentUriToHistory&#125;" type=
+"postAddToView" />}
  * </pre>
  *
- * This is usually done in a high level template for all pages. In case you want a certain page opt
- * out
- * the handling you can use:
+ * This is usually done in a high level template for all pages. In case you want
+ * a certain page opt out the handling you can use:
  *
  * <pre>
- * {@code <f:event listener="#&#123;historyManagerBean.vetoCurrentUriToHistory&#125;" type="postAddToView" />}
+ * {@code <f:event listener=
+"#&#123;historyManagerBean.vetoCurrentUriToHistory&#125;" type=
+"postAddToView" />}
  * </pre>
  *
  * Now you can utilize the back functionality quite easily:
  *
  * <pre>
- * {@code <boot:button icon="ui-icon-cancel" id="cancel" titleKey="common.button.cancel" labelKey="common.button.cancel" outcome="back" />}
+ * {@code <boot:button icon="ui-icon-cancel" id="cancel" titleKey=
+"common.button.cancel" labelKey="common.button.cancel" outcome="back" />}
  * </pre>
  *
  * or

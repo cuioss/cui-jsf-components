@@ -18,8 +18,8 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * Implementation of {@link ComponentModifier} that uses reflection in order to determine the
- * corresponding methods.
+ * Implementation of {@link ComponentModifier} that uses reflection in order to
+ * determine the corresponding methods.
  *
  * @author Oliver Wolff
  */

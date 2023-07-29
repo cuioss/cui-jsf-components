@@ -15,7 +15,8 @@ class JsfHtmlComponentTest extends JsfEnabledTestEnvironment {
 
     @Test
     void shouldFailToResolveNotConfiguredComponent() {
-        assertThrows(FacesException.class, () -> JsfHtmlComponent.createComponent(getFacesContext(), JsfHtmlComponent.SPAN));
+        assertThrows(FacesException.class,
+                () -> JsfHtmlComponent.createComponent(getFacesContext(), JsfHtmlComponent.SPAN));
     }
 
     @Test
@@ -68,7 +69,8 @@ class JsfHtmlComponentTest extends JsfEnabledTestEnvironment {
     }
 
     /**
-     * Registers a given {@link JsfHtmlComponent} with a corresponding {@link CuiMockRenderer}
+     * Registers a given {@link JsfHtmlComponent} with a corresponding
+     * {@link CuiMockRenderer}
      *
      * @param component
      */

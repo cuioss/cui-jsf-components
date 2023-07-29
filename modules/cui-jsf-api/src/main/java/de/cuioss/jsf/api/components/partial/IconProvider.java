@@ -12,15 +12,17 @@ import lombok.NonNull;
 /**
  * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of the icon in form of name regarding
- * to the cui-icon-naming contract. The implementation relies on the correct use of attribute names,
- * saying they must exactly match the accessor methods.
+ * Implementors of this class manage the state and resolving of the icon in form
+ * of name regarding to the cui-icon-naming contract. The implementation relies
+ * on the correct use of attribute names, saying they must exactly match the
+ * accessor methods.
  * </p>
  * <h2>icon</h2>
  * <p>
- * A defined icon class, defined within stylesheet, e.g. cui-icon-warning. In order to prevent
- * improper usage the matching is restricted to the prefixes: "cui-icon, cui-mime-type, ui-icon-".
- * If none of them is matched it will default to "cui-icon-circle_question_mark".
+ * A defined icon class, defined within stylesheet, e.g. cui-icon-warning. In
+ * order to prevent improper usage the matching is restricted to the prefixes:
+ * "cui-icon, cui-mime-type, ui-icon-". If none of them is matched it will
+ * default to "cui-icon-circle_question_mark".
  * </p>
  *
  * @author Oliver Wolff
@@ -62,12 +64,13 @@ public class IconProvider {
     }
 
     /**
-     * The default fail-safe method to create icon css strings that can be directly consumed as
-     * css-class. Sample: If the set icon is "cui-icon-alarm" it will return the css-String
-     * "cui-icon cui-icon-alarm"
+     * The default fail-safe method to create icon css strings that can be directly
+     * consumed as css-class. Sample: If the set icon is "cui-icon-alarm" it will
+     * return the css-String "cui-icon cui-icon-alarm"
      *
-     * @return the css-string representing an icon. If the configured string is not valid according
-     *         the rule or not set it will return {@value #FALLBACK_ICON_STRING} as fallback.
+     * @return the css-string representing an icon. If the configured string is not
+     *         valid according the rule or not set it will return
+     *         {@value #FALLBACK_ICON_STRING} as fallback.
      */
     public String resolveIconCss() {
         final var configuredIcon = getIcon();

@@ -44,11 +44,11 @@ public final class CookieMonster {
      * Accesses a cookie for a given name.
      *
      * @param facesContext representing current state. Must not be null or empty
-     * @param cookieName name of the cookie to be looked up. Must not be null or empty
+     * @param cookieName   name of the cookie to be looked up. Must not be null or
+     *                     empty
      * @return the found cookie or null if none is found.
      */
-    public static Cookie getRequestCookieForName(final FacesContext facesContext,
-            final String cookieName) {
+    public static Cookie getRequestCookieForName(final FacesContext facesContext, final String cookieName) {
         requireNotEmpty(cookieName, "cookieName");
         Cookie found = null;
         for (final Cookie cookie : getRequestCookies(facesContext)) {
@@ -61,15 +61,14 @@ public final class CookieMonster {
     }
 
     /**
-     * Simplified adding of a cookie. It solely sets the payload. It utilizes RequestContextPath as
-     * path for the cookie.
+     * Simplified adding of a cookie. It solely sets the payload. It utilizes
+     * RequestContextPath as path for the cookie.
      *
      * @param facesContext representing current state. Must not be null or empty
-     * @param cookieName Must not be null or empty
-     * @param cookieValue Must not be null
+     * @param cookieName   Must not be null or empty
+     * @param cookieValue  Must not be null
      */
-    public static void setSimpleResponseCookie(final FacesContext facesContext,
-            final String cookieName,
+    public static void setSimpleResponseCookie(final FacesContext facesContext, final String cookieName,
             final String cookieValue) {
         requireNotEmpty(cookieName, "cookieName");
         requireNotEmpty(cookieValue, "cookieValue");
@@ -85,7 +84,7 @@ public final class CookieMonster {
      * Adding a cookie.
      *
      * @param facesContext representing current state. Must not be null or empty
-     * @param cookie Must not be null
+     * @param cookie       Must not be null
      */
     public static void setResponseCookie(final FacesContext facesContext, final Cookie cookie) {
         requireNonNull(cookie, "cookie");

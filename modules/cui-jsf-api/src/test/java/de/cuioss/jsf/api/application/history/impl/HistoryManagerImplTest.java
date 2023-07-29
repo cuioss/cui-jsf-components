@@ -26,14 +26,14 @@ class HistoryManagerImplTest extends JsfEnabledTestEnvironment {
 
     public static final String VETO_VIEW_XHTML = "current/veto.jsf";
 
-    private final ViewDescriptorImpl currentView =
-        ViewDescriptorImpl.builder().withViewId(CURRENT_VIEW_XHTML).withLogicalViewId(CURRENT_VIEW_XHTML).build();
+    private final ViewDescriptorImpl currentView = ViewDescriptorImpl.builder().withViewId(CURRENT_VIEW_XHTML)
+            .withLogicalViewId(CURRENT_VIEW_XHTML).build();
 
-    private final ViewDescriptorImpl secondView =
-        ViewDescriptorImpl.builder().withViewId(SECOND_VIEW_XHTML).withLogicalViewId(SECOND_VIEW_XHTML).build();
+    private final ViewDescriptorImpl secondView = ViewDescriptorImpl.builder().withViewId(SECOND_VIEW_XHTML)
+            .withLogicalViewId(SECOND_VIEW_XHTML).build();
 
-    private final ViewDescriptorImpl vetoView =
-        ViewDescriptorImpl.builder().withViewId(VETO_VIEW_XHTML).withLogicalViewId(VETO_VIEW_XHTML).build();
+    private final ViewDescriptorImpl vetoView = ViewDescriptorImpl.builder().withViewId(VETO_VIEW_XHTML)
+            .withLogicalViewId(VETO_VIEW_XHTML).build();
 
     private HistoryConfigurationImpl historyConfiguration;
 
@@ -77,8 +77,7 @@ class HistoryManagerImplTest extends JsfEnabledTestEnvironment {
     void shouldLimitStackSizeCorrectly() {
         for (var i = 0; i < 15; i++) {
             final var viewId = i + "/" + CURRENT_VIEW_XHTML;
-            final var currentView =
-                ViewDescriptorImpl.builder().withViewId(viewId).withLogicalViewId(viewId).build();
+            final var currentView = ViewDescriptorImpl.builder().withViewId(viewId).withLogicalViewId(viewId).build();
             underTest.addCurrentUriToHistory(currentView);
         }
         // Limit is 10 + fallback
@@ -137,8 +136,8 @@ class HistoryManagerImplTest extends JsfEnabledTestEnvironment {
 
     @Test
     void shouldOnlyAddViewToHistoryIfWasNotLast() {
-        final var firstNavigation =
-            ViewDescriptorImpl.builder().withViewId(FIRST_NAVIGATION).withLogicalViewId(FIRST_NAVIGATION).build();
+        final var firstNavigation = ViewDescriptorImpl.builder().withViewId(FIRST_NAVIGATION)
+                .withLogicalViewId(FIRST_NAVIGATION).build();
         historyConfiguration.setHistorySize(2);
         underTest = new HistoryManagerImpl(historyConfiguration);
         underTest.addCurrentUriToHistory(firstNavigation);

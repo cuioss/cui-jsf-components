@@ -3,11 +3,13 @@ package de.cuioss.jsf.api.application.locale;
 import de.cuioss.jsf.api.common.accessor.ManagedBeanAccessor;
 
 /**
- * Class for lookup managed bean which implements {@linkplain LocaleProducer} interface. The implementation assumes an
- * instance of {@link LocaleProducer} being present under the name of {@link LocaleProducerImpl#BEAN_NAME}
+ * Class for lookup managed bean which implements {@linkplain LocaleProducer}
+ * interface. The implementation assumes an instance of {@link LocaleProducer}
+ * being present under the name of {@link LocaleProducerImpl#BEAN_NAME}
  *
  * @author Eugen Fischer
- * @deprecated ManagedBeans are replaced by CDI. Use {@code PortalBeanManager.resolveBeanOrThrowIllegalStateException(Locale.class,
+ * @deprecated ManagedBeans are replaced by CDI. Use
+ *             {@code PortalBeanManager.resolveBeanOrThrowIllegalStateException(Locale.class,
  * PortalLocale.class)}; instead
  */
 @Deprecated

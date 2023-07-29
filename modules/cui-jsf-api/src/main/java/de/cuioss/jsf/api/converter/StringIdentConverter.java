@@ -16,20 +16,17 @@ import javax.faces.convert.FacesConverter;
 public class StringIdentConverter extends AbstractConverter<String> {
 
     /** de.cuioss.jsf.api.converter.StringIdentConverter. */
-    public static final String CONVERTER_ID =
-        "de.cuioss.jsf.api.converter.StringIdentConverter";
+    public static final String CONVERTER_ID = "de.cuioss.jsf.api.converter.StringIdentConverter";
 
     @Override
-    protected String convertToString(final FacesContext context, final UIComponent component,
-            final String value)
-        throws ConverterException {
+    protected String convertToString(final FacesContext context, final UIComponent component, final String value)
+            throws ConverterException {
         return value;
     }
 
     @Override
-    protected String convertToObject(final FacesContext context, final UIComponent component,
-            final String value)
-        throws ConverterException {
+    protected String convertToObject(final FacesContext context, final UIComponent component, final String value)
+            throws ConverterException {
         return value;
     }
 }

@@ -20,8 +20,8 @@ class CuiSanitizerTest {
 
     public static final String SIMPLE_HTML = "<div><p>" + PLAIN_TEXT + "</p></div>";
 
-    public static final String COMPLEX_HTML =
-        "<div " + BOLD_STYLE + "><p><span " + BOLD_STYLE + ">" + PLAIN_TEXT + "</span></p></div>";
+    public static final String COMPLEX_HTML = "<div " + BOLD_STYLE + "><p><span " + BOLD_STYLE + ">" + PLAIN_TEXT
+            + "</span></p></div>";
 
     public static final String COMPLEX_HTML_WITH_TABLE = "<div " + BOLD_STYLE + ">" + "<p>" + "<span " + BOLD_STYLE
             + ">" + PLAIN_TEXT + "</span>" + "</p>" + "<table " + ELEMENT_CLASS_ATTRIBUTE + ">" + "<tbody>" + "<tr>"
@@ -29,8 +29,8 @@ class CuiSanitizerTest {
 
     public static final String SCRIPT = "<script>alert('malicious')</script>";
 
-    public static final String MALICIOUS_HTML =
-        "<div " + BOLD_STYLE + "><p><span " + BOLD_STYLE + ">" + PLAIN_TEXT + "</span></p>" + SCRIPT + "</div>";
+    public static final String MALICIOUS_HTML = "<div " + BOLD_STYLE + "><p><span " + BOLD_STYLE + ">" + PLAIN_TEXT
+            + "</span></p>" + SCRIPT + "</div>";
 
     @Test
     void shouldSanitizeToPlainText() {
@@ -77,10 +77,9 @@ class CuiSanitizerTest {
         assertEquals("", CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(""));
         assertEquals("abc", CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply("abc"));
         assertEquals("abc", CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply("abc<script>javascript</script>"));
+        assertEquals("abc", CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply("&lt;script&gt;javascript</script>abc"));
         assertEquals("abc",
-                CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply("&lt;script&gt;javascript</script>abc"));
-        assertEquals("abc", CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES
-                .apply("a&amp;lt;script&amp;amp;gt;javascript</script>bc"));
+                CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply("a&amp;lt;script&amp;amp;gt;javascript</script>bc"));
     }
 
     @Test
@@ -96,11 +95,9 @@ class CuiSanitizerTest {
             assertEquals("", sanitizer.apply(null),
                     "null must be converter to empty string, using sanitizer: " + sanitizer);
 
-            assertEquals("", sanitizer.apply(""),
-                    "empty string must be returned, using sanitizer: " + sanitizer);
+            assertEquals("", sanitizer.apply(""), "empty string must be returned, using sanitizer: " + sanitizer);
 
-            assertEquals(" ", sanitizer.apply(" "),
-                    "whitespaces should not be trimmed, using sanitizer: " + sanitizer);
+            assertEquals(" ", sanitizer.apply(" "), "whitespaces should not be trimmed, using sanitizer: " + sanitizer);
         }
     }
 }

@@ -11,8 +11,8 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * Default implementation of {@link LocaleProducer} that mimics the jsf default behavior for locale
- * computation.
+ * Default implementation of {@link LocaleProducer} that mimics the jsf default
+ * behavior for locale computation.
  *
  * @author Oliver Wolff
  */

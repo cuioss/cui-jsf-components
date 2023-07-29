@@ -24,9 +24,9 @@ public class ComponentWrapperJQuerySelector extends JQuerySelector {
     private final ComponentWrapper<? extends UIComponent> componentWrapper;
 
     /**
-     * if not null it will be appended to the derived ClientId. In addition
-     * there will be an underscore appended: The result will be
-     * component.getClientId() + "_" + idExtension
+     * if not null it will be appended to the derived ClientId. In addition there
+     * will be an underscore appended: The result will be component.getClientId() +
+     * "_" + idExtension
      */
     private final String idExtension;
 
@@ -56,10 +56,9 @@ public class ComponentWrapperJQuerySelector extends JQuerySelector {
         }
 
         /**
-         * @param idExtension
-         *            if not null it will be appended to the derived ClientId.
-         *            In addition there will be an underscore appended: The
-         *            result will be component.getClientId() + "_" + idExtension
+         * @param idExtension if not null it will be appended to the derived ClientId.
+         *                    In addition there will be an underscore appended: The
+         *                    result will be component.getClientId() + "_" + idExtension
          * @return an instance of {@link ComponentWrapperJQuerySelectorBuilder}
          */
         public ComponentWrapperJQuerySelectorBuilder withIdExtension(final String idExtension) {

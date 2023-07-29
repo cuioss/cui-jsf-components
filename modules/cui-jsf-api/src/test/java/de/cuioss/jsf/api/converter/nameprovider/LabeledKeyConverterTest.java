@@ -9,8 +9,7 @@ import de.cuioss.test.jsf.converter.TestItems;
 import de.cuioss.uimodel.nameprovider.LabeledKey;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
-class LabeledKeyConverterTest extends
-        AbstractConverterTest<LabeledKeyConverter, LabeledKey> {
+class LabeledKeyConverterTest extends AbstractConverterTest<LabeledKeyConverter, LabeledKey> {
 
     private static final String MESSAGE_KEY = "common.abb.day";
 

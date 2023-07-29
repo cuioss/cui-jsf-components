@@ -11,8 +11,8 @@ import de.cuioss.jsf.api.components.partial.TitleProviderImpl;
 import lombok.experimental.Delegate;
 
 /**
- * Base class for creating cui variants of {@link HtmlCommandButton} implementing
- * {@link ComponentBridge} and {@link TitleProvider}
+ * Base class for creating cui variants of {@link HtmlCommandButton}
+ * implementing {@link ComponentBridge} and {@link TitleProvider}
  *
  * @author Oliver Wolff
  *

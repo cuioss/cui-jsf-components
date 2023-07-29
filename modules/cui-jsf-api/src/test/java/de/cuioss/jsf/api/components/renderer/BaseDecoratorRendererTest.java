@@ -47,7 +47,8 @@ class BaseDecoratorRendererTest extends AbstractRendererTestBase<MockDecoratorRe
     }
 
     /**
-     * Renders the given component / renderer into a {@link HtmlTreeBuilder} representation
+     * Renders the given component / renderer into a {@link HtmlTreeBuilder}
+     * representation
      *
      * @param component
      * @param renderer
@@ -55,7 +56,7 @@ class BaseDecoratorRendererTest extends AbstractRendererTestBase<MockDecoratorRe
      * @throws IOException
      */
     protected HtmlTreeBuilder renderToTreeBuilder(final UIComponent component, final MockDecoratorRenderer renderer)
-        throws IOException {
+            throws IOException {
         var writer = new StringWriter();
         getFacesContext().setResponseWriter(new MockResponseWriter(writer));
         renderer.encodeBegin(getFacesContext(), component);

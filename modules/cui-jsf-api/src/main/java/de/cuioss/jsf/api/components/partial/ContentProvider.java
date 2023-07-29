@@ -13,28 +13,30 @@ import lombok.RequiredArgsConstructor;
 /**
  * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of the content string of a component.
- * The implementation relies on the correct use of attribute names, saying they must exactly match
- * the accessor methods.
+ * Implementors of this class manage the state and resolving of the content
+ * string of a component. The implementation relies on the correct use of
+ * attribute names, saying they must exactly match the accessor methods.
  * </p>
  * <h2>contentKey</h2>
  * <p>
- * The key for looking up the text to be displayed as the text content. Although this attribute is
- * not required the developer must provide either this or #contentValue if you want a content to be
- * displayed.
+ * The key for looking up the text to be displayed as the text content. Although
+ * this attribute is not required the developer must provide either this or
+ * #contentValue if you want a content to be displayed.
  * </p>
  * <h2>contentValue</h2>
  * <p>
- * The Object representing the text to be displayed. This is a replacement for #contentKey. If both
- * are present contentValue takes precedence.
+ * The Object representing the text to be displayed. This is a replacement for
+ * #contentKey. If both are present contentValue takes precedence.
  * </p>
  * <h2>contentConverter</h2>
  * <p>
- * The optional converterId to be used in case of contentValue is set and need conversion.
+ * The optional converterId to be used in case of contentValue is set and need
+ * conversion.
  * </p>
  * <h2>contentEscape</h2>
  * <p>
- * Indicates whether the content is to be escaped on output or not. Default is <code>true</code>
+ * Indicates whether the content is to be escaped on output or not. Default is
+ * <code>true</code>
  * </p>
  *
  * @author Oliver Wolff
@@ -132,9 +134,9 @@ public class ContentProvider {
         if (contentValue == null && MoreStrings.isEmpty(contentKey)) {
             return null;
         }
-        return LabelResolver.builder().withConverter(getContentConverter())
-                .withLabelKey(contentKey).withEscape(getContentEscape())
-                .withLabelValue(contentValue).build().resolve(componentBridge.facesContext());
+        return LabelResolver.builder().withConverter(getContentConverter()).withLabelKey(contentKey)
+                .withEscape(getContentEscape()).withLabelValue(contentValue).build()
+                .resolve(componentBridge.facesContext());
     }
 
 }

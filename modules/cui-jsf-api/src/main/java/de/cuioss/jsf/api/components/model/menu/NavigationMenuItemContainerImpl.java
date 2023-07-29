@@ -43,8 +43,7 @@ public class NavigationMenuItemContainerImpl extends NavigationMenuItemImpl impl
 
     @Override
     public String getResolvedLabel() {
-        return LabelResolver.builder()
-                .withLabelKey(labelKey)
-                .withLabelValue(labelValue).build().resolve(FacesContext.getCurrentInstance());
+        return LabelResolver.builder().withLabelKey(labelKey).withLabelValue(labelValue).build()
+                .resolve(FacesContext.getCurrentInstance());
     }
 }

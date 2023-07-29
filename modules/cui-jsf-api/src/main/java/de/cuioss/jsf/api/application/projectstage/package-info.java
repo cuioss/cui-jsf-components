@@ -3,11 +3,12 @@
  * <p>
  * Simplifies accessing Project Stage information.
  * </p>
- * <h2>Configuration</h2>
- * In order to work in a non CDI-/portal- context you need to declare
+ * <h2>Configuration</h2> In order to work in a non CDI-/portal- context you
+ * need to declare
  * {@link de.cuioss.jsf.api.application.projectstage.CuiProjectStageImpl} as an
  * {@link javax.faces.bean.ApplicationScoped} bean with the name
- * {@link de.cuioss.jsf.api.application.projectstage.CuiProjectStageAccessor#BEAN_NAME} :
+ * {@link de.cuioss.jsf.api.application.projectstage.CuiProjectStageAccessor#BEAN_NAME}
+ * :
  *
  * <pre>
 {@code

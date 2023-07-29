@@ -43,13 +43,11 @@ public class ViewIdentifier implements Serializable, Redirector {
     private final List<UrlParameter> urlParameters;
 
     /**
-     * @param viewDescriptor
-     *            represents the view
-     * @param parameterFilter
-     *            defines the parameter to be filtered. May be null or empty.
+     * @param viewDescriptor  represents the view
+     * @param parameterFilter defines the parameter to be filtered. May be null or
+     *                        empty.
      * @return The {@link ViewIdentifier} representing the current view incl
-     *         {@link UrlParameter}. If a view can not be determined it returns
-     *         null
+     *         {@link UrlParameter}. If a view can not be determined it returns null
      */
     public static final ViewIdentifier getFromViewDesciptor(final ViewDescriptor viewDescriptor,
             final ParameterFilter parameterFilter) {
@@ -61,37 +59,31 @@ public class ViewIdentifier implements Serializable, Redirector {
     }
 
     /**
-     * Create a {@link NavigationCase} representation of this
-     * {@link ViewIdentifier} the number of parameters is in respect to the API
-     * contract. A shorthand version is {@link #toBackNavigationCase()}. The
-     * elements String toViewId, {@code Map<String, List<String>>} parameters
-     * are derived by this object, the others are passed in.
+     * Create a {@link NavigationCase} representation of this {@link ViewIdentifier}
+     * the number of parameters is in respect to the API contract. A shorthand
+     * version is {@link #toBackNavigationCase()}. The elements String toViewId,
+     * {@code Map<String, List<String>>} parameters are derived by this object, the
+     * others are passed in.
      *
-     * @param fromViewId
-     *            return from {@link NavigationCase#getFromViewId}
-     * @param fromAction
-     *            return from {@link NavigationCase#getFromAction}
-     * @param fromOutcome
-     *            return from {@link NavigationCase#getFromOutcome}
-     * @param condition
-     *            A string to be interpreted as a <code>ValueExpression</code>
-     *            by a call to {@link NavigationCase#getCondition}
-     * @param redirect
-     *            return from {@link NavigationCase#isRedirect}
-     * @param includeViewParams
-     *            return {@link NavigationCase#isIncludeViewParams}
+     * @param fromViewId        return from {@link NavigationCase#getFromViewId}
+     * @param fromAction        return from {@link NavigationCase#getFromAction}
+     * @param fromOutcome       return from {@link NavigationCase#getFromOutcome}
+     * @param condition         A string to be interpreted as a
+     *                          <code>ValueExpression</code> by a call to
+     *                          {@link NavigationCase#getCondition}
+     * @param redirect          return from {@link NavigationCase#isRedirect}
+     * @param includeViewParams return {@link NavigationCase#isIncludeViewParams}
      * @return the corresponding navigation case
      */
     public NavigationCase toNavigationCase(final String fromViewId, final String fromAction, final String fromOutcome,
-            final String condition,
-            final boolean redirect, final boolean includeViewParams) {
+            final String condition, final boolean redirect, final boolean includeViewParams) {
         return new NavigationCase(fromViewId, fromAction, outcome, condition, viewId,
                 UrlParameter.createParameterMap(urlParameters), redirect, includeViewParams);
     }
 
     /**
-     * @return a {@link NavigationCase} representing a back navigation
-     *         incorporating a redirect and the according {@link UrlParameter}
+     * @return a {@link NavigationCase} representing a back navigation incorporating
+     *         a redirect and the according {@link UrlParameter}
      */
     public NavigationCase toBackNavigationCase() {
         return toNavigationCase(null, null, BACK, null, true, false);
@@ -106,8 +98,7 @@ public class ViewIdentifier implements Serializable, Redirector {
         var windowId = facesContext.getExternalContext().getRequestParameterMap().get(DSWID);
 
         var parameterList = CollectionLiterals.mutableList(parameters);
-        if (!MoreStrings.isEmpty(windowId)
-                && parameterList.stream().noneMatch(x -> DSWID.equals(x.getName()))) {
+        if (!MoreStrings.isEmpty(windowId) && parameterList.stream().noneMatch(x -> DSWID.equals(x.getName()))) {
             parameterList.add(new UrlParameter(DSWID, windowId));
         }
         if (null != viewId) {

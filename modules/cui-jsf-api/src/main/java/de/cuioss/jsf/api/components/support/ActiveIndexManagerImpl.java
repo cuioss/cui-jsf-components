@@ -12,8 +12,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Default implementation for {@link ActiveIndexManager}.
- * Adds convenient methods for programmatically manipulating the active indexes.
+ * Default implementation for {@link ActiveIndexManager}. Adds convenient
+ * methods for programmatically manipulating the active indexes.
  *
  * @author Oliver Wolff
  * @author Sven Haag
@@ -26,24 +26,23 @@ public class ActiveIndexManagerImpl implements ActiveIndexManager {
     private static final String INDEX_SEPARATOR = " ";
 
     /**
-     * The indexes of the content-accordion that are to be active(open) on initial display/change of
-     * grouping.
+     * The indexes of the content-accordion that are to be active(open) on initial
+     * display/change of grouping.
      */
     private String defaultIndex;
 
     /**
-     * The active index or indexes.
-     * Multiple indexes are separated with space.
+     * The active index or indexes. Multiple indexes are separated with space.
      */
     @Getter
     @Setter
     private String activeIndexesString;
 
     /**
-     * @param defaultIndexes to be used as default index and as initial activeIndexesString
+     * @param defaultIndexes to be used as default index and as initial
+     *                       activeIndexesString
      */
     public ActiveIndexManagerImpl(final List<Integer> defaultIndexes) {
-        super();
         setActiveIndex(defaultIndexes);
         defaultIndex = activeIndexesString;
     }

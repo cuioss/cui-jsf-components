@@ -21,8 +21,7 @@ public class CuiVersionLoggerEventListener implements SystemEventListener {
         log.info("Running on {} ( Version : {} )",
                 pack.getImplementationTitle() != null ? pack.getImplementationTitle().toUpperCase()
                         : "cuioss-Common-Ui",
-                pack.getImplementationVersion() != null ? pack.getImplementationVersion().toUpperCase()
-                        : "unknown");
+                pack.getImplementationVersion() != null ? pack.getImplementationVersion().toUpperCase() : "unknown");
     }
 
     @Override

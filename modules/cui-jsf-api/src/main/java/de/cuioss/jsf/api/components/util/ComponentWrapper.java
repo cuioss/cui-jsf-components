@@ -28,8 +28,7 @@ import lombok.RequiredArgsConstructor;
  * </p>
  *
  * @author Oliver Wolff
- * @param <T>
- *            Must be at least {@link UIComponent}
+ * @param <T> Must be at least {@link UIComponent}
  */
 @RequiredArgsConstructor
 public class ComponentWrapper<T extends UIComponent> {
@@ -61,15 +60,13 @@ public class ComponentWrapper<T extends UIComponent> {
      */
     public boolean isClientBehaviorHolder() {
         if (null == this.clientBehaviorHolder) {
-            this.clientBehaviorHolder =
-                getWrapped() instanceof ClientBehaviorHolder;
+            this.clientBehaviorHolder = getWrapped() instanceof ClientBehaviorHolder;
         }
         return this.clientBehaviorHolder;
     }
 
     /**
-     * @return boolean indicating whether the wrapped component is a
-     *         {@link UIInput}
+     * @return boolean indicating whether the wrapped component is a {@link UIInput}
      */
     public boolean isUIInput() {
         if (null == this.uiInput) {
@@ -79,9 +76,9 @@ public class ComponentWrapper<T extends UIComponent> {
     }
 
     /**
-     * @return the map of {@link ClientBehavior} associated with this component.
-     *         In case the component is not {@link ClientBehaviorHolder} it
-     *         returns an empty Map but never null.
+     * @return the map of {@link ClientBehavior} associated with this component. In
+     *         case the component is not {@link ClientBehaviorHolder} it returns an
+     *         empty Map but never null.
      */
     public Map<String, List<ClientBehavior>> getClientBehaviors() {
         if (null == this.clientBehaviors) {
@@ -108,18 +105,17 @@ public class ComponentWrapper<T extends UIComponent> {
      */
     public boolean shouldRenderClientId() {
         final var componentId = getWrapped().getId();
-        if (!MoreStrings.isEmpty(componentId)
-                && !componentId.startsWith(UIViewRoot.UNIQUE_ID_PREFIX)) {
+        if (!MoreStrings.isEmpty(componentId) && !componentId.startsWith(UIViewRoot.UNIQUE_ID_PREFIX)) {
             return true;
         }
         return !getClientBehaviors().isEmpty();
     }
 
     /**
-     * @param idExtension
-     *            if not null or empty it will be appended to the derived
-     *            ClientId. In addition there will be an underscore appended:
-     *            The result will be component.getClientId() + "_" + idExtension
+     * @param idExtension if not null or empty it will be appended to the derived
+     *                    ClientId. In addition there will be an underscore
+     *                    appended: The result will be component.getClientId() + "_"
+     *                    + idExtension
      * @return the created id
      */
     public String getSuffixedClientId(final String idExtension) {

@@ -40,8 +40,7 @@ class DecoratingResponseWriterTest extends JsfEnabledTestEnvironment implements 
 
     private static final String SIMPLE_DIV_WITH_COMPONENT_ID = "<div id=\"componentId\" name=\"componentId\"></div>";
 
-    private static final String SIMPLE_DIV_WITH_COMPUTED_COMPONENT_ID =
-        "<div id=\"j_id__v_0\" name=\"j_id__v_0\"></div>";
+    private static final String SIMPLE_DIV_WITH_COMPUTED_COMPONENT_ID = "<div id=\"j_id__v_0\" name=\"j_id__v_0\"></div>";
 
     private static final String SIMPLE_DIV_WITH_NESTED_SPAN = "<div><span></span></div>";
 
@@ -49,8 +48,7 @@ class DecoratingResponseWriterTest extends JsfEnabledTestEnvironment implements 
 
     private static final String NESTED_WITH_ID = "<div><span id=\"id\" name=\"id\"></span></div>";
 
-    private static final String NESTED_WITH_SUFFIXED_ID =
-        "<div><span id=\"id_suffix\" name=\"id_suffix\"></span></div>";
+    private static final String NESTED_WITH_SUFFIXED_ID = "<div><span id=\"id_suffix\" name=\"id_suffix\"></span></div>";
 
     private static final String ID_SUFFIX = "suffix";
 

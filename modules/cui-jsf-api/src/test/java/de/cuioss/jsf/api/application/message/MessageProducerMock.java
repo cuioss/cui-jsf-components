@@ -26,8 +26,7 @@ public class MessageProducerMock extends MessageProducerImpl {
     private final List<FacesMessage> componentMessages = new ArrayList<>();
 
     /**
-     * @param expectedKey
-     *            to be checked against
+     * @param expectedKey to be checked against
      */
     public void assertSingleGlobalMessageWithKeyPresent(String expectedKey) {
         assertEquals(1, globalMessages.size());

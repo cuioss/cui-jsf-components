@@ -16,7 +16,8 @@ import lombok.ToString;
  * <ul>
  * <li>historySize=10</li>
  * <li>excludeFacesParameter=true</li>
- * <li>excludeFromHistoryMatcher = {@link EmptyViewMatcher} that will always return false.
+ * <li>excludeFromHistoryMatcher = {@link EmptyViewMatcher} that will always
+ * return false.
  * <li>
  * </ul>
  *

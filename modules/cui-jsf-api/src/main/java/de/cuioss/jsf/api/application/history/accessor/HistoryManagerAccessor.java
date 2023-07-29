@@ -5,8 +5,9 @@ import de.cuioss.jsf.api.application.history.impl.HistoryManagerImpl;
 import de.cuioss.jsf.api.common.accessor.ManagedBeanAccessor;
 
 /**
- * Helper class for accessing instances of {@link HistoryManager} within objects that are not under
- * control of the MangedBeanFacility, e.g. Converter, validators, components.
+ * Helper class for accessing instances of {@link HistoryManager} within objects
+ * that are not under control of the MangedBeanFacility, e.g. Converter,
+ * validators, components.
  *
  * @author Oliver Wolff
  */

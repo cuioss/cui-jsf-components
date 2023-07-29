@@ -66,16 +66,14 @@ public class LabelResolver {
             } else if (converter instanceof String) {
                 resolvedConverter = resolveConverterById((String) converter);
             } else if (null != converter) {
-                throw new IllegalStateException(
-                        "Invalid converter property - can not handle " + converter.getClass());
+                throw new IllegalStateException("Invalid converter property - can not handle " + converter.getClass());
             }
             if (null == resolvedConverter) {
                 resolvedConverter = resolveConverterByClass(labelValue.getClass());
             }
             if (null == resolvedConverter) {
                 throw new IllegalStateException(
-                        "Unable to determine converter for valueClass="
-                                + labelValue.getClass());
+                        "Unable to determine converter for valueClass=" + labelValue.getClass());
             }
             DUMMY.setEscape(escape);
             return resolvedConverter.getAsString(context, DUMMY, labelValue);

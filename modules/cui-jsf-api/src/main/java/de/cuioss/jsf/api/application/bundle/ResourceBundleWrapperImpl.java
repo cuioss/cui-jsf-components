@@ -20,12 +20,12 @@ import lombok.ToString;
 
 /**
  * <p>
- * Aggregates a number of configured {@link ResourceBundle} in order to unify the access to multiple
- * ResourceBundles.
+ * Aggregates a number of configured {@link ResourceBundle} in order to unify
+ * the access to multiple ResourceBundles.
  * </p>
- * <em>Caution: </em> If {@link ResourceBundleWrapperImpl} is not {@link RequestScoped} you need to
- * configure resourceBundleNames as well in order to enable restoring of the
- * wrapper after Serialization.
+ * <em>Caution: </em> If {@link ResourceBundleWrapperImpl} is not
+ * {@link RequestScoped} you need to configure resourceBundleNames as well in
+ * order to enable restoring of the wrapper after Serialization.
  *
  * @author Oliver Wolff
  */
@@ -55,13 +55,11 @@ public class ResourceBundleWrapperImpl implements ResourceBundleWrapper {
                 return bundle.getString(key);
             }
         }
-        throw new MissingResourceException("No key '" + key
-                + "' defined within any of the configuredBundles: "
-                + Joiner.on(", ").skipNulls()
-                        .join(resourceBundles.stream().map(ResourceBundle::getBaseBundleName)
-                                .collect(Collectors.toList())),
-                "ResourceBundleWrapperImpl",
-                key);
+        throw new MissingResourceException(
+                "No key '" + key + "' defined within any of the configuredBundles: "
+                        + Joiner.on(", ").skipNulls().join(resourceBundles.stream()
+                                .map(ResourceBundle::getBaseBundleName).collect(Collectors.toList())),
+                "ResourceBundleWrapperImpl", key);
     }
 
     /**
@@ -71,8 +69,7 @@ public class ResourceBundleWrapperImpl implements ResourceBundleWrapper {
         if (null == resourceBundles || resourceBundles.isEmpty()) {
             resourceBundles = new ArrayList<>();
             if (null == resourceBundleNames || resourceBundleNames.isEmpty()) {
-                log.error(
-                        "Unable to restore ResourceBundles. They have been lost because of serialization");
+                log.error("Unable to restore ResourceBundles. They have been lost because of serialization");
             } else {
                 final var context = FacesContext.getCurrentInstance();
                 final var application = context.getApplication();
@@ -98,7 +95,7 @@ public class ResourceBundleWrapperImpl implements ResourceBundleWrapper {
 
     @Override
     public String getBundleContent() {
-        return Joiner.on(", ").skipNulls().join(resourceBundles.stream().map(ResourceBundle::getBaseBundleName)
-                .collect(Collectors.toList()));
+        return Joiner.on(", ").skipNulls()
+                .join(resourceBundles.stream().map(ResourceBundle::getBaseBundleName).collect(Collectors.toList()));
     }
 }

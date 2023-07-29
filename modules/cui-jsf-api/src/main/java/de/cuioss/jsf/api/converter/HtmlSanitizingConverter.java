@@ -31,7 +31,7 @@ public class HtmlSanitizingConverter extends AbstractConverter<String> {
 
     @Override
     protected String convertToString(final FacesContext context, final UIComponent component, final String value)
-        throws ConverterException {
+            throws ConverterException {
         var sanitizedValue = sanitizer.apply(value);
         if (null == sanitizedValue) {
             return "";
@@ -41,16 +41,17 @@ public class HtmlSanitizingConverter extends AbstractConverter<String> {
 
     @Override
     protected String convertToObject(final FacesContext context, final UIComponent component, final String value)
-        throws ConverterException {
+            throws ConverterException {
         return sanitizer.apply(value);
     }
 
     /**
      * Sets the corresponding sanitizer.
      *
-     * @param sanitizerIdentifier
-     *            to set. One of "PLAIN_TEXT", "PLAIN_TEXT_PRESERVE_ENTITIES", "SIMPLE_HTML",
-     *            "COMPLEX_HTML", "COMPLEX_HTML_PRESERVE_ENTITIES", "PASSTHROUGH" expected.
+     * @param sanitizerIdentifier to set. One of "PLAIN_TEXT",
+     *                            "PLAIN_TEXT_PRESERVE_ENTITIES", "SIMPLE_HTML",
+     *                            "COMPLEX_HTML", "COMPLEX_HTML_PRESERVE_ENTITIES",
+     *                            "PASSTHROUGH" expected.
      */
     public void setStrategy(final String sanitizerIdentifier) {
         if (isNotBlank(sanitizerIdentifier)) {

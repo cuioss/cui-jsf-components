@@ -28,7 +28,8 @@ class ServletAdapterUtilTest extends JsfEnabledTestEnvironment {
 
     @Test
     void testGetRequestParameterWithNullParameter() {
-        assertThrows(IllegalArgumentException.class, () -> ServletAdapterUtil.getRequestParameter(getFacesContext(), null));
+        assertThrows(IllegalArgumentException.class,
+                () -> ServletAdapterUtil.getRequestParameter(getFacesContext(), null));
     }
 
     @Test

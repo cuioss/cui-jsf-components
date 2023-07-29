@@ -34,9 +34,8 @@ public class StyleClassBuilderImpl implements StyleClassBuilder, Serializable {
     }
 
     /**
-     * @param initialClass
-     *            to be added to the builder. It can be a single class, or a
-     *            number of space separated classes.
+     * @param initialClass to be added to the builder. It can be a single class, or
+     *                     a number of space separated classes.
      */
     public StyleClassBuilderImpl(final String initialClass) {
         this();

@@ -105,8 +105,7 @@ class ComponentUtilityTest extends JsfEnabledTestEnvironment implements Componen
     @Test
     void shouldCreateRenderer() {
         getComponentConfigDecorator().registerMockRenderer("family", "javax.faces.Form");
-        final var renderer =
-            ComponentUtility.createRenderer(getFacesContext(), "family", "javax.faces.Form");
+        final var renderer = ComponentUtility.createRenderer(getFacesContext(), "family", "javax.faces.Form");
         assertNotNull(renderer);
     }
 

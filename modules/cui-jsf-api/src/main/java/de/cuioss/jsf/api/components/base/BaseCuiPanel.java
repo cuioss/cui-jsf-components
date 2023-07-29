@@ -28,11 +28,9 @@ public class BaseCuiPanel extends HtmlPanelGroup implements ComponentBridge {
     }
 
     /**
-     * @param panelType
-     *            , must not be null
+     * @param panelType , must not be null
      */
     public BaseCuiPanel(final PanelType panelType) {
-        super();
         requireNonNull(panelType);
         super.setLayout(panelType.getIdentifier());
     }

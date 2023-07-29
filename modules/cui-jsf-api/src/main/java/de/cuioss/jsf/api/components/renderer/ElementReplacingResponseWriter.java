@@ -14,7 +14,8 @@ import javax.faces.context.ResponseWriterWrapper;
 import lombok.Getter;
 
 /**
- * This response writer is used for replacing certain html elements, see javadoc of
+ * This response writer is used for replacing certain html elements, see javadoc
+ * of
  * {@link #ElementReplacingResponseWriter(ResponseWriter, String, String, boolean)}
  *
  * @author Oliver Wolff
@@ -32,10 +33,13 @@ public class ElementReplacingResponseWriter extends ResponseWriterWrapper {
     /**
      * Constructor.
      *
-     * @param delegate the {@link ResponseWriter} to be delegated to
-     * @param filterElement the Html element to be filtered, / replaced, must not be null nor empty.
-     * @param replaceElement the replacement element, must not be null nor empty.
-     * @param ignoreCloseElement indicates whether to filter / ignore the closing of an element
+     * @param delegate           the {@link ResponseWriter} to be delegated to
+     * @param filterElement      the Html element to be filtered, / replaced, must
+     *                           not be null nor empty.
+     * @param replaceElement     the replacement element, must not be null nor
+     *                           empty.
+     * @param ignoreCloseElement indicates whether to filter / ignore the closing of
+     *                           an element
      */
     public ElementReplacingResponseWriter(final ResponseWriter delegate, final String filterElement,
             final String replaceElement, final boolean ignoreCloseElement) {
@@ -67,18 +71,20 @@ public class ElementReplacingResponseWriter extends ResponseWriterWrapper {
     }
 
     /**
-     * @param context to be wrapped
-     * @param filterElement the Html element to be filtered, / replaced, must not be null nor empty.
-     * @param replaceElement the replacement element, must not be null nor empty.
-     * @param ignoreCloseElement indicates whether to filter / ignore the closing of an element
+     * @param context            to be wrapped
+     * @param filterElement      the Html element to be filtered, / replaced, must
+     *                           not be null nor empty.
+     * @param replaceElement     the replacement element, must not be null nor
+     *                           empty.
+     * @param ignoreCloseElement indicates whether to filter / ignore the closing of
+     *                           an element
      * @return a {@link FacesContextWrapper} providing an instance of
      *         {@link ElementReplacingResponseWriter} with the configured parameter
      */
     @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
                                   // controlled by JSF
     public static FacesContext createWrappedReplacingResonseWriter(final FacesContext context,
-            final String filterElement,
-            final String replaceElement, final boolean ignoreCloseElement) {
+            final String filterElement, final String replaceElement, final boolean ignoreCloseElement) {
         return new FacesContextWrapper(context) {
 
             @Override

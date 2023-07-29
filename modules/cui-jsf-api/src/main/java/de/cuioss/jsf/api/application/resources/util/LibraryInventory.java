@@ -9,7 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
- * Helper class keeping track of the resources provided by concrete / theme / library
+ * Helper class keeping track of the resources provided by concrete / theme /
+ * library
  *
  * @author Oliver Wolff
  */
@@ -25,8 +26,9 @@ public class LibraryInventory implements Serializable {
     private final String libraryName;
 
     /**
-     * The currently used resouceNames / mapping. The resourceName is a key. The value can either be
-     * the resourcename or the min-variant if configured this way.
+     * The currently used resouceNames / mapping. The resourceName is a key. The
+     * value can either be the resourcename or the min-variant if configured this
+     * way.
      */
     private final ConcurrentHashMap<String, String> resourceNameMapping = new ConcurrentHashMap<>();
 
@@ -34,7 +36,8 @@ public class LibraryInventory implements Serializable {
      * Computes the library for a given resource.
      *
      * @param resourceName identifying the resource, must not be null
-     * @return The given resourceName or the min-variant if mapped within resourceNameMapping.
+     * @return The given resourceName or the min-variant if mapped within
+     *         resourceNameMapping.
      */
     public String getResourceMapping(String resourceName) {
         return resourceNameMapping.get(resourceName);
@@ -52,7 +55,7 @@ public class LibraryInventory implements Serializable {
      * Adds a concrete mapping.
      *
      * @param resourceName must not be null
-     * @param mappedName must not be null
+     * @param mappedName   must not be null
      */
     public void addMapping(String resourceName, String mappedName) {
         resourceNameMapping.putIfAbsent(resourceName, mappedName);

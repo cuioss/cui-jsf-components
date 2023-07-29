@@ -33,8 +33,8 @@ class ResourceBundleWrapperImplTest extends JsfEnabledTestEnvironment {
 
     public static final String BUNDLE2_NAME = "bundle2";
 
-    private final Set<String> containedKeys = mutableSet("bundle1.property1", "bundle1.property2",
-            "bundle1.property3", "bundle2.property1", "bundle2.property2", "bundle2.property3", "common.property");
+    private final Set<String> containedKeys = mutableSet("bundle1.property1", "bundle1.property2", "bundle1.property3",
+            "bundle2.property1", "bundle2.property2", "bundle2.property3", "common.property");
 
     @Test
     void testGetMessage() {
@@ -46,7 +46,8 @@ class ResourceBundleWrapperImplTest extends JsfEnabledTestEnvironment {
 
     @Test
     void shouldFailOnInvalidKey() {
-        assertThrows(MissingResourceException.class, () -> TestBundleConfigurator.getTestBundleWrapper().getMessage("not.there"));
+        assertThrows(MissingResourceException.class,
+                () -> TestBundleConfigurator.getTestBundleWrapper().getMessage("not.there"));
     }
 
     @Test

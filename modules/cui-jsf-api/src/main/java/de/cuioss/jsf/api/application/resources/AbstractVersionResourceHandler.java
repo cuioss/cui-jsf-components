@@ -9,8 +9,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Resource Handle does adapt the request ulr for any resource
- * covered by {@link #shouldHandleRequestedResource(String, String)} by adding current module version to resource path
+ * Resource Handle does adapt the request ulr for any resource covered by
+ * {@link #shouldHandleRequestedResource(String, String)} by adding current
+ * module version to resource path
  */
 @RequiredArgsConstructor
 public abstract class AbstractVersionResourceHandler extends ResourceHandlerWrapper {
@@ -27,7 +28,8 @@ public abstract class AbstractVersionResourceHandler extends ResourceHandlerWrap
     }
 
     /**
-     * provide modul specific decision if the requested resource should get handled by this resource handler
+     * provide modul specific decision if the requested resource should get handled
+     * by this resource handler
      */
     protected abstract boolean shouldHandleRequestedResource(String resourceName, String libraryName);
 

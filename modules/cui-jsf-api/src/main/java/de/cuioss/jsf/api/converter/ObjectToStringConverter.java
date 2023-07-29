@@ -15,13 +15,11 @@ import javax.faces.convert.FacesConverter;
 public class ObjectToStringConverter extends AbstractConverter<Object> {
 
     /** de.cuioss.jsf.components.converter.ObjectToStringConverter */
-    public static final String CONVERTER_ID =
-        "de.cuioss.jsf.components.converter.ObjectToStringConverter";
+    public static final String CONVERTER_ID = "de.cuioss.jsf.components.converter.ObjectToStringConverter";
 
     @Override
-    protected String convertToString(final FacesContext context, final UIComponent component,
-            final Object value)
-        throws ConverterException {
+    protected String convertToString(final FacesContext context, final UIComponent component, final Object value)
+            throws ConverterException {
         return value.toString();
     }
 

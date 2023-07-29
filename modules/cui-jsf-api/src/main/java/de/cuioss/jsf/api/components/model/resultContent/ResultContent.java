@@ -21,10 +21,11 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Model for requestResultContent.xhtml to display a {@link ResultObject} and handle its errors.
+ * Model for requestResultContent.xhtml to display a {@link ResultObject} and
+ * handle its errors.
  * <p>
- * Should be part of the view (page bean) and instantiated with the {@link ResultObject} during init
- * view action.
+ * Should be part of the view (page bean) and instantiated with the
+ * {@link ResultObject} during init view action.
  */
 @NoArgsConstructor
 @ToString
@@ -44,7 +45,7 @@ public class ResultContent implements ErrorController, Serializable {
      * Default constructor using {@link ResultErrorHandler}.
      *
      * @param resultObject the {@link ResultObject} to display.
-     * @param log the logger of the page bean.
+     * @param log          the logger of the page bean.
      */
     public ResultContent(ResultObject<?> resultObject, CuiLogger log) {
         this(resultObject, new ResultErrorHandler(), log);
@@ -55,17 +56,14 @@ public class ResultContent implements ErrorController, Serializable {
      *
      * @param resultObject the {@link ResultObject} to display.
      * @param errorHandler a {@link ResultErrorHandler} that will be called when a
-     *            {@link ResultDetail} is present.
-     * @param log the logger of the page bean.
+     *                     {@link ResultDetail} is present.
+     * @param log          the logger of the page bean.
      */
     public ResultContent(ResultObject<?> resultObject, ResultErrorHandler errorHandler, CuiLogger log) {
         var resultDetail = resultObject.getResultDetail();
         if (resultDetail.isPresent()) {
-            errorHandler.handleResultDetail(
-                resultObject.getState(),
-                resultDetail.get(),
-                resultObject.getErrorCode().orElse(null),
-                this, log);
+            errorHandler.handleResultDetail(resultObject.getState(), resultDetail.get(),
+                    resultObject.getErrorCode().orElse(null), this, log);
         }
     }
 
@@ -73,31 +71,31 @@ public class ResultContent implements ErrorController, Serializable {
      * Handle (and display) a additional {@link ResultDetail} with default
      * {@link ResultErrorHandler}.
      *
-     * @param resultObject a {@link ResultObject} that may contain a {@link ResultDetail}. If a does
-     *            not contain a {@link ResultDetail}, nothing will happen.
-     * @param log the logger of the page bean.
+     * @param resultObject a {@link ResultObject} that may contain a
+     *                     {@link ResultDetail}. If a does not contain a
+     *                     {@link ResultDetail}, nothing will happen.
+     * @param log          the logger of the page bean.
      */
     public void handleAdditionalResult(ResultObject<?> resultObject, CuiLogger log) {
         handleAdditionalResult(resultObject, new ResultErrorHandler(), log);
     }
 
     /**
-     * Handle (and display) a additional {@link ResultDetail} with given {@link ResultErrorHandler}.
+     * Handle (and display) a additional {@link ResultDetail} with given
+     * {@link ResultErrorHandler}.
      *
-     * @param resultObject a {@link ResultObject} that may contain a {@link ResultDetail}. If a does
-     *            not contain a {@link ResultDetail}, nothing will happen.
+     * @param resultObject a {@link ResultObject} that may contain a
+     *                     {@link ResultDetail}. If a does not contain a
+     *                     {@link ResultDetail}, nothing will happen.
      * @param errorHandler a {@link ResultErrorHandler} that will be called when a
-     *            {@link ResultDetail} is present.
-     * @param log the logger of the page bean.
+     *                     {@link ResultDetail} is present.
+     * @param log          the logger of the page bean.
      */
     public void handleAdditionalResult(ResultObject<?> resultObject, ResultErrorHandler errorHandler, CuiLogger log) {
         var resultDetail = resultObject.getResultDetail();
         if (resultDetail.isPresent()) {
-            errorHandler.handleResultDetail(
-                resultObject.getState(),
-                resultDetail.get(),
-                resultObject.getErrorCode().orElse(null),
-                this, log);
+            errorHandler.handleResultDetail(resultObject.getState(), resultDetail.get(),
+                    resultObject.getErrorCode().orElse(null), this, log);
         }
     }
 
@@ -112,8 +110,8 @@ public class ResultContent implements ErrorController, Serializable {
 
     @Override
     public void addGlobalFacesMessage(IDisplayNameProvider<?> value, FacesMessage.Severity severity) {
-        new DisplayNameProviderMessageProducer(new MessageProducerAccessor().getValue())
-                .showAsGlobalMessage(value, severity);
+        new DisplayNameProviderMessageProducer(new MessageProducerAccessor().getValue()).showAsGlobalMessage(value,
+                severity);
     }
 
     @Override

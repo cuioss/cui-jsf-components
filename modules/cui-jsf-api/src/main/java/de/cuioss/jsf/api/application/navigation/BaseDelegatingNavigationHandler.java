@@ -13,9 +13,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 
 /**
- * Base class simplifying the creation of our own {@link NavigationHandler}. In essence it
- * does the delegating stuff to the wrapped navigationHandler and let the implementor focus on the
- * actual logic needed.
+ * Base class simplifying the creation of our own {@link NavigationHandler}. In
+ * essence it does the delegating stuff to the wrapped navigationHandler and let
+ * the implementor focus on the actual logic needed.
  *
  * @author Oliver Wolff
  */
@@ -28,13 +28,15 @@ public class BaseDelegatingNavigationHandler extends ConfigurableNavigationHandl
     private final ConfigurableNavigationHandler configurableNavigationHandler;
 
     /**
-     * Flag indicating whether the wrapped handler is of type {@link ConfigurableNavigationHandler}
+     * Flag indicating whether the wrapped handler is of type
+     * {@link ConfigurableNavigationHandler}
      */
     @Getter(value = AccessLevel.PROTECTED)
     private final boolean wrappedConfigurableNavigationHandler;
 
     /**
-     * @param wrapped may be {@link NavigationHandler} or {@link ConfigurableNavigationHandler}
+     * @param wrapped may be {@link NavigationHandler} or
+     *                {@link ConfigurableNavigationHandler}
      */
     public BaseDelegatingNavigationHandler(final NavigationHandler wrapped) {
         if (wrapped instanceof ConfigurableNavigationHandler) {

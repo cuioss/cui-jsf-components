@@ -10,8 +10,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Messages provider utilized for combining multiple {@link ResourceBundle} usually in the form of a
- * {@link ResourceBundleWrapper}. It is normally utilized as a ManagedBean.
+ * Messages provider utilized for combining multiple {@link ResourceBundle}
+ * usually in the form of a {@link ResourceBundleWrapper}. It is normally
+ * utilized as a ManagedBean.
  *
  * @author Oliver Wolff
  */

@@ -6,15 +6,16 @@ import javax.faces.context.FacesContext;
 
 /**
  * <p>
- * This Interface builds the bridge for the interaction between {@link UIComponent} and the partial
- * elements. In essence it exposes the {@link StateHelper}, {@link FacesContext} and
- * {@link UIComponent Facets} to the
- * corresponding composite element.
+ * This Interface builds the bridge for the interaction between
+ * {@link UIComponent} and the partial elements. In essence it exposes the
+ * {@link StateHelper}, {@link FacesContext} and {@link UIComponent Facets} to
+ * the corresponding composite element.
  * </p>
  * <p>
- * <em>Caution:</em> With this concept we introduce a cyclic dependency into the component classes.
- * Use it with care. The actual implementations, like {@link TitleProviderImpl} must <em>not</em>
- * contain any state within a field. Especially not {@link FacesContext} or {@link StateHelper}
+ * <em>Caution:</em> With this concept we introduce a cyclic dependency into the
+ * component classes. Use it with care. The actual implementations, like
+ * {@link TitleProviderImpl} must <em>not</em> contain any state within a field.
+ * Especially not {@link FacesContext} or {@link StateHelper}
  * </p>
  *
  * @author Oliver Wolff

@@ -9,10 +9,12 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * TypedSelectItem is a wrapper for {@link SelectItem} which provide a Type safety for stored Value
+ * TypedSelectItem is a wrapper for {@link SelectItem} which provide a Type
+ * safety for stored Value
  *
  * @author Eugen Fischer
- * @param <T> bounded Parameter Type for {@link SelectItem} Value which must be {@link Serializable}
+ * @param <T> bounded Parameter Type for {@link SelectItem} Value which must be
+ *            {@link Serializable}
  */
 @EqualsAndHashCode(callSuper = false)
 @ToString
@@ -27,7 +29,6 @@ public class TypedSelectItem<T extends Serializable> extends SelectItem {
      * Constructor.
      */
     public TypedSelectItem() {
-        super();
     }
 
     /**

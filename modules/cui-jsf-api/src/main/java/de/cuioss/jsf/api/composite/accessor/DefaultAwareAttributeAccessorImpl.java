@@ -14,14 +14,12 @@ import lombok.ToString;
  * corresponding attribute.
  *
  * @author Oliver Wolff
- * @param <T>
- *            identifying the concrete type of the attribute to be accessed, needs to at least
- *            {@link Serializable}
+ * @param <T> identifying the concrete type of the attribute to be accessed,
+ *            needs to at least {@link Serializable}
  */
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class DefaultAwareAttributeAccessorImpl<T extends Serializable>
-        extends AttributeAccessorImpl<T> {
+public class DefaultAwareAttributeAccessorImpl<T extends Serializable> extends AttributeAccessorImpl<T> {
 
     private static final long serialVersionUID = -3779458673451938363L;
 
@@ -31,17 +29,13 @@ public class DefaultAwareAttributeAccessorImpl<T extends Serializable>
     /**
      * Constructor.
      *
-     * @param name
-     *            of the attribute, must not be null or empty
-     * @param valueType
-     *            The concrete type to be looked up.
-     * @param alwaysResolve
-     *            indicates whether to resolve once or on every access
-     * @param defaultValue
-     *            may be null
+     * @param name          of the attribute, must not be null or empty
+     * @param valueType     The concrete type to be looked up.
+     * @param alwaysResolve indicates whether to resolve once or on every access
+     * @param defaultValue  may be null
      */
-    public DefaultAwareAttributeAccessorImpl(final String name, final Class<T> valueType,
-            final boolean alwaysResolve, final T defaultValue) {
+    public DefaultAwareAttributeAccessorImpl(final String name, final Class<T> valueType, final boolean alwaysResolve,
+            final T defaultValue) {
         super(name, valueType, alwaysResolve);
         this.defaultValue = defaultValue;
     }

@@ -6,8 +6,8 @@ import de.cuioss.jsf.api.components.util.CuiState;
 import lombok.NonNull;
 
 /**
- * Sets the ignoreAutoUpdate flag to ajax calls. When set to true, {@code <p:autoUpdate/>} elements will not
- * be updated.
+ * Sets the ignoreAutoUpdate flag to ajax calls. When set to true,
+ * {@code <p:autoUpdate/>} elements will not be updated.
  */
 public class IgnoreAutoUpdateProvider {
 
@@ -31,8 +31,7 @@ public class IgnoreAutoUpdateProvider {
     }
 
     /**
-     * @param ignoreAutoUpdate
-     *            the value to set
+     * @param ignoreAutoUpdate the value to set
      */
     public void setIgnoreAutoUpdate(final boolean ignoreAutoUpdate) {
         state.put(KEY, ignoreAutoUpdate);
