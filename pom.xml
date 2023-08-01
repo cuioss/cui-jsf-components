@@ -27,7 +27,7 @@
         <system>GitHub Issues</system>
     </issueManagement>
     <properties>
-        <version.cui.parent>0.2.7</version.cui.parent>
+        <version.cui.parent>0.2.9</version.cui.parent>
         <version.primefaces>13.0.0</version.primefaces>
         <!-- Neede for js / css -->
         <version.frontend-maven-plugin>1.13.4</version.frontend-maven-plugin>
