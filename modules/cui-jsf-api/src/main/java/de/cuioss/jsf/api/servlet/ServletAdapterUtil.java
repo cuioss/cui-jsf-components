@@ -4,11 +4,13 @@ import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Map;
+import java.util.Optional;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import lombok.experimental.UtilityClass;
 
@@ -72,5 +74,16 @@ public final class ServletAdapterUtil {
         requireNonNull(facesContext);
         final var externalContext = facesContext.getExternalContext();
         return (HttpServletRequest) externalContext.getRequest();
+    }
+
+    /**
+     * Returns an already <em>existing</em> {@link HttpSession} if present
+     * 
+     * @param facesContext
+     * @return an already <em>existing</em> {@link HttpSession} if present
+     */
+    public static Optional<HttpSession> getSession(FacesContext facesContext) {
+        var request = getRequest(facesContext);
+        return Optional.ofNullable(request.getSession(false));
     }
 }

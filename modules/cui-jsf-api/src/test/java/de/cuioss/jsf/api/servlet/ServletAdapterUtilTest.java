@@ -2,6 +2,7 @@ package de.cuioss.jsf.api.servlet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +37,12 @@ class ServletAdapterUtilTest extends JsfEnabledTestEnvironment {
     void testGetResponse() {
         final var response = (HttpServletResponse) getFacesContext().getExternalContext().getResponse();
         assertEquals(response, ServletAdapterUtil.getResponse(getFacesContext()));
+    }
+
+    @Test
+    void shouldProduceSession() {
+        var session = ServletAdapterUtil.getSession(getFacesContext());
+        assertTrue(session.isPresent());
     }
 
     @Test
