@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.dev.metadata;
 
 import java.io.IOException;
@@ -37,14 +52,12 @@ public class TagLib implements Serializable {
     /**
      * Name space for JSF 2.2 schema
      */
-    public static final String JSF_2_2_FACELET_TAGLIB_NAMESPACE =
-        "http://xmlns.jcp.org/xml/ns/javaee";
+    public static final String JSF_2_2_FACELET_TAGLIB_NAMESPACE = "http://xmlns.jcp.org/xml/ns/javaee";
 
     /**
      * Name space for JSF 2.0 schema
      */
-    public static final String JSF_2_FACELET_TAGLIB_NAMESPACE =
-        "http://java.sun.com/xml/ns/javaee";
+    public static final String JSF_2_FACELET_TAGLIB_NAMESPACE = "http://java.sun.com/xml/ns/javaee";
 
     private static final String COMPONENT = "component";
     private static final String TAG = "tag";
@@ -71,7 +84,7 @@ public class TagLib implements Serializable {
     /**
      * Constructor
      *
-     * @param tagLibPath tag lib name
+     * @param tagLibPath         tag lib name
      * @param tagLibNamespaceUrl jsf namespace
      */
     public TagLib(final String tagLibPath, final String tagLibNamespaceUrl) {
@@ -115,8 +128,7 @@ public class TagLib implements Serializable {
                     converterMetadata.add(createConverterMetadata(tag));
                 } else if (null != tag.getChild("validator", taglibNamespace)) {
                     validatorMetadata.add(createValidatorMetadata(tag));
-                } else if (null != tag.getChild("handler-class",
-                        taglibNamespace)) {
+                } else if (null != tag.getChild("handler-class", taglibNamespace)) {
                     componentMetadata.add(createComponentMetadata(tag));
                 } else if (null != tag.getChild("behavior", taglibNamespace)) {
                     behaviorMetadata.add(createBehaviorMetadata(tag));
@@ -124,64 +136,49 @@ public class TagLib implements Serializable {
             }
 
         } catch (JDOMException | IOException e) {
-            throw new IllegalArgumentException(String.format("Unable to access file '%s', due to '%s'",
-                    tagPath, e.getMessage()), e);
+            throw new IllegalArgumentException(
+                    "Unable to access file '%s', due to '%s'".formatted(tagPath, e.getMessage()), e);
         }
     }
 
     private ValidatorMetadata createValidatorMetadata(final Element tag) {
-        var validatorDescriptor = tag
-                .getChild("validator", taglibNamespace);
-        var validatorId = validatorDescriptor.getChildTextTrim(
-                "validator-id", taglibNamespace);
-        return new ValidatorMetadata(extractTagName(tag),
-                extractDescription(tag), extractAttrbutesMetadata(tag),
+        var validatorDescriptor = tag.getChild("validator", taglibNamespace);
+        var validatorId = validatorDescriptor.getChildTextTrim("validator-id", taglibNamespace);
+        return new ValidatorMetadata(extractTagName(tag), extractDescription(tag), extractAttrbutesMetadata(tag),
                 validatorId);
     }
 
     private BehaviorMetadata createBehaviorMetadata(final Element tag) {
-        var behaviorDescriptor = tag
-                .getChild("behavior", taglibNamespace);
-        var behaviorId = behaviorDescriptor.getChildTextTrim(
-                "behavior-id", taglibNamespace);
-        return new BehaviorMetadata(extractTagName(tag),
-                extractDescription(tag), extractAttrbutesMetadata(tag),
+        var behaviorDescriptor = tag.getChild("behavior", taglibNamespace);
+        var behaviorId = behaviorDescriptor.getChildTextTrim("behavior-id", taglibNamespace);
+        return new BehaviorMetadata(extractTagName(tag), extractDescription(tag), extractAttrbutesMetadata(tag),
                 behaviorId);
     }
 
     private ConverterMetadata createConverterMetadata(final Element tag) {
-        var converterDescriptor = tag
-                .getChild("converter", taglibNamespace);
-        var converterId = converterDescriptor.getChildTextTrim(
-                "converter-id", taglibNamespace);
-        return new ConverterMetadata(extractTagName(tag),
-                extractDescription(tag), extractAttrbutesMetadata(tag),
+        var converterDescriptor = tag.getChild("converter", taglibNamespace);
+        var converterId = converterDescriptor.getChildTextTrim("converter-id", taglibNamespace);
+        return new ConverterMetadata(extractTagName(tag), extractDescription(tag), extractAttrbutesMetadata(tag),
                 converterId);
     }
 
     private UIComponentMetadata createComponentMetadata(final Element tag) {
-        var componentDescriptor = tag
-                .getChild(COMPONENT, taglibNamespace);
+        var componentDescriptor = tag.getChild(COMPONENT, taglibNamespace);
         String componentType = null;
         String rendererType = null;
         if (null != componentDescriptor) {
-            componentType = componentDescriptor.getChildTextTrim(
-                    "component-type", taglibNamespace);
-            rendererType = componentDescriptor.getChildTextTrim(
-                    "renderer-type", taglibNamespace);
+            componentType = componentDescriptor.getChildTextTrim("component-type", taglibNamespace);
+            rendererType = componentDescriptor.getChildTextTrim("renderer-type", taglibNamespace);
         }
-        var handlerClass = tag.getChildTextTrim("handler-class",
-                taglibNamespace);
-        return new UIComponentMetadata(extractTagName(tag),
-                extractAttrbutesMetadata(tag), extractDescription(tag),
+        var handlerClass = tag.getChildTextTrim("handler-class", taglibNamespace);
+        return new UIComponentMetadata(extractTagName(tag), extractAttrbutesMetadata(tag), extractDescription(tag),
                 componentType, rendererType, handlerClass);
     }
 
     private List<AttributeMetadata> extractAttrbutesMetadata(final Element tag) {
         List<AttributeMetadata> attributeList = new ArrayList<>();
         for (Element attribute : tag.getChildren("attribute", taglibNamespace)) {
-            var requiredString = attribute.getChildTextTrim("required",
-                    taglibNamespace);
+            var requiredString = attribute.getChildTextTrim("required", taglibNamespace);
             Boolean required = null;
             if (null != requiredString) {
                 required = Boolean.valueOf(requiredString);
@@ -189,11 +186,10 @@ public class TagLib implements Serializable {
             var type = attribute.getChildTextTrim("type", taglibNamespace);
             // Method binding are declared different
             if (null == type) {
-                type = attribute.getChildTextTrim("method-signature",
-                        taglibNamespace);
+                type = attribute.getChildTextTrim("method-signature", taglibNamespace);
             }
-            attributeList.add(new AttributeMetadata(extractName(attribute),
-                    type, extractDescription(attribute), required));
+            attributeList
+                    .add(new AttributeMetadata(extractName(attribute), type, extractDescription(attribute), required));
         }
         attributeList.sort(Comparator.comparing(AttributeMetadata::getName));
         return attributeList;

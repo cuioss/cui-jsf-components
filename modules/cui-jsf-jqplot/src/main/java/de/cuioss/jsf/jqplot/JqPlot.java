@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.jqplot;
 
 import static de.cuioss.tools.base.Preconditions.checkState;
@@ -47,11 +62,11 @@ public class JqPlot extends JsObject {
      */
     public JqPlot(final String targetId, final SeriesData data) {
         super(OBJECT_NAME);
-        this.chartId = targetId;
+        chartId = targetId;
         this.targetId = new JsString(targetId);
         this.data = checkData(data);
-        this.nothingToDisplay = data.isEmpty();
-        this.options = null;
+        nothingToDisplay = data.isEmpty();
+        options = null;
     }
 
     /**
@@ -61,10 +76,10 @@ public class JqPlot extends JsObject {
      */
     public JqPlot(final String targetId, final SeriesData data, final Options options) {
         super(OBJECT_NAME);
-        this.chartId = targetId;
+        chartId = targetId;
         this.targetId = new JsString(targetId);
         this.data = checkData(data);
-        this.nothingToDisplay = data.isEmpty();
+        nothingToDisplay = data.isEmpty();
         this.options = requireNonNull(options, "Options must not be null");
     }
 
@@ -90,7 +105,7 @@ public class JqPlot extends JsObject {
      * @return {@link JqPlot}
      */
     public JqPlot setNothingToDisplay(final boolean value) {
-        this.nothingToDisplay = value;
+        nothingToDisplay = value;
         return this;
     }
 

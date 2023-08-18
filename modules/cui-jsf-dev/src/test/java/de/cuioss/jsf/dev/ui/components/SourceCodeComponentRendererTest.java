@@ -1,8 +1,25 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.dev.ui.components;
 
 import static de.cuioss.jsf.dev.ui.components.SourceCodeComponent.LangStyle.LANG_HTML;
 import static de.cuioss.jsf.dev.ui.components.SourceCodeComponentRenderer.PRE_STYLE_CLASS;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +76,7 @@ class SourceCodeComponentRendererTest extends AbstractComponentRendererTest<Sour
         expected.withNode(Node.P).withTextContent(MINIMAL_DESCRIPTION).currentHierarchyUp();
         // Actual Content of source area
         expected.withNode(Node.PRE).withAttributeNameAndId(PRE_WRAPPER_ID).withStyleClass(PRE_STYLE_CLASS)
-            .withNode(Node.CODE).withStyleClass(LANG_HTML.getStyle()).withTextContent(MINIMAL_CONTENT);
+                .withNode(Node.CODE).withStyleClass(LANG_HTML.getStyle()).withTextContent(MINIMAL_CONTENT);
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -74,7 +91,7 @@ class SourceCodeComponentRendererTest extends AbstractComponentRendererTest<Sour
         expected.withNode(Node.BUTTON).withAttributeNameAndId(COPY_BUTTON_ID)
                 .withStyleClass(SourceCodeComponentRenderer.COPY_BTN_CLASS)
                 .withAttribute(AttributeName.JS_ON_CLICK,
-                        String.format(SourceCodeComponentRenderer.COPY_ON_CLICK_HANDLER, TEXT_AREA_ID, COPY_BUTTON_ID))
+                        (SourceCodeComponentRenderer.COPY_ON_CLICK_HANDLER).formatted(TEXT_AREA_ID, COPY_BUTTON_ID))
                 .withAttribute(AttributeName.TITLE, SourceCodeComponentRenderer.COPY_BUTTON_TITLE)
                 .withAttribute(AttributeName.DATA_TOGGLE, AttributeValue.TOOLTIP);
         // Text-Content of copy-button
@@ -136,13 +153,9 @@ class SourceCodeComponentRendererTest extends AbstractComponentRendererTest<Sour
         final var component = new SourceCodeComponent();
         component.setEnableClipboard(false);
         component.setSource("1\n2\r3\n\r4\r\n5%n6");
-        final var expected = new HtmlTreeBuilder()
-            .withNode(Node.PRE)
-            .withAttributeNameAndId(PRE_WRAPPER_ID)
-            .withStyleClass(PRE_STYLE_CLASS)
-            .withNode(Node.CODE)
-            .withStyleClass(LANG_HTML.getStyle())
-            .withTextContent("1\n2\n3\n4\n5\n6");
+        final var expected = new HtmlTreeBuilder().withNode(Node.PRE).withAttributeNameAndId(PRE_WRAPPER_ID)
+                .withStyleClass(PRE_STYLE_CLASS).withNode(Node.CODE).withStyleClass(LANG_HTML.getStyle())
+                .withTextContent("1\n2\n3\n4\n5\n6");
         assertRenderResult(component, expected.getDocument());
     }
 }

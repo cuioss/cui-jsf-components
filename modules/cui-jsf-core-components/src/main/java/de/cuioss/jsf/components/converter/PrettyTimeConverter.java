@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.components.converter;
 
 import java.time.LocalDate;
@@ -70,20 +85,17 @@ public class PrettyTimeConverter extends AbstractConverter<Object> {
     protected String convertToString(final FacesContext context, final UIComponent component, final Object value)
             throws ConverterException {
         Date toBeConverted = null;
-        if (value instanceof Date) {
-            toBeConverted = (Date) value;
-        } else if (value instanceof Calendar) {
-            toBeConverted = ((Calendar) value).getTime();
-        } else if (value instanceof ZonedDateTime) {
-            var zDate = (ZonedDateTime) value;
+        if (value instanceof Date date) {
+            toBeConverted = date;
+        } else if (value instanceof Calendar calendar) {
+            toBeConverted = calendar.getTime();
+        } else if (value instanceof ZonedDateTime zDate) {
             var instant = zDate.toInstant();
             toBeConverted = Date.from(instant);
-        } else if (value instanceof LocalDateTime) {
-            var lDate = (LocalDateTime) value;
+        } else if (value instanceof LocalDateTime lDate) {
             var instant = lDate.atZone(ZoneId.systemDefault()).toInstant();
             toBeConverted = Date.from(instant);
-        } else if (value instanceof LocalDate) {
-            var lDate = (LocalDate) value;
+        } else if (value instanceof LocalDate lDate) {
             var instant = lDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
             toBeConverted = Date.from(instant);
         }

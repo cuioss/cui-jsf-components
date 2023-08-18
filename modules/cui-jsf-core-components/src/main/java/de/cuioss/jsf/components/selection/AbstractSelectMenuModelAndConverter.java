@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.components.selection;
 
 import java.io.Serializable;
@@ -79,23 +94,23 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
 
     protected void initialize(final Set<T> newSourceData) {
         if (null == newSourceData) {
-            this.sourceData = null;
-            this.selectionAvailable = false;
-            this.selectableValues = initializeSelectItems(Collections.emptySet());
-            this.converter.setInstanceMap(Collections.emptyMap());
+            sourceData = null;
+            selectionAvailable = false;
+            selectableValues = initializeSelectItems(Collections.emptySet());
+            converter.setInstanceMap(Collections.emptyMap());
         } else {
             if (newSourceData.isEmpty()) {
                 sourceData = Collections.emptySet();
-                this.selectionAvailable = false;
+                selectionAvailable = false;
             } else {
-                this.selectionAvailable = true;
-                if (newSourceData instanceof SortedSet) {
-                    sourceData = new TreeSet<T>((SortedSet) newSourceData);
+                selectionAvailable = true;
+                if (newSourceData instanceof SortedSet set) {
+                    sourceData = new TreeSet<T>(set);
                 } else {
                     sourceData = new HashSet<>(newSourceData);
                 }
             }
-            this.converter.setInstanceMap(getMapping(newSourceData));
+            converter.setInstanceMap(getMapping(newSourceData));
         }
     }
 
@@ -152,7 +167,7 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
     // Implicitly safe because of typing
     public void add(final int position, final T newValue, final boolean itemDisabled) {
         getSelectableValues().add(position, new SelectItem(newValue, getLabel(newValue), null, itemDisabled));
-        this.converter.setInstanceMap(
+        converter.setInstanceMap(
                 getMapping(getSelectableValues().stream().map(x -> (T) x.getValue()).collect(Collectors.toSet())));
         selectionAvailable = true;
     }
@@ -185,10 +200,10 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
     // implementing class
     @Override
     public List<SelectItem> getSelectableValues() {
-        if (null == this.selectableValues) {
-            this.selectableValues = initializeSelectItems(this.sourceData);
+        if (null == selectableValues) {
+            selectableValues = initializeSelectItems(sourceData);
         }
-        return this.selectableValues;
+        return selectableValues;
     }
 
     @Override

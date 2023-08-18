@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.jqplot.plugin.highlighter;
 
 import java.util.List;
@@ -78,7 +93,7 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
      * @return fluent api style
      */
     public Highlighter setShow(final Boolean value) {
-        this.show = JsBoolean.create(value);
+        show = JsBoolean.create(value);
         return this;
     }
 
@@ -91,7 +106,7 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
      * @return fluent api style
      */
     public Highlighter setShowMarker(final Boolean value) {
-        this.showMarker = JsBoolean.create(value);
+        showMarker = JsBoolean.create(value);
         return this;
     }
 
@@ -102,7 +117,7 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
      * @return fluent api style
      */
     public Highlighter setLineWidthAdjust(final Double value) {
-        this.lineWidthAdjust = new JsDouble(value);
+        lineWidthAdjust = new JsDouble(value);
         return this;
     }
 
@@ -113,7 +128,7 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
      * @return fluent api style
      */
     public Highlighter setSizeAdjust(final Double value) {
-        this.sizeAdjust = new JsDouble(value);
+        sizeAdjust = new JsDouble(value);
         return this;
     }
 
@@ -124,7 +139,7 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
      * @return fluent api style
      */
     public Highlighter setShowTooltip(final Boolean value) {
-        this.showTooltip = JsBoolean.create(value);
+        showTooltip = JsBoolean.create(value);
         return this;
     }
 
@@ -136,9 +151,9 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
      */
     public Highlighter setTooltipLocation(final Location value) {
         if (null == value) {
-            this.tooltipLocation = null;
+            tooltipLocation = null;
         } else {
-            this.tooltipLocation = new JsString(value.getConstant());
+            tooltipLocation = new JsString(value.getConstant());
         }
         return this;
     }
@@ -150,7 +165,7 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
      * @return fluent api style
      */
     public Highlighter setFadeTooltip(final Boolean value) {
-        this.fadeTooltip = JsBoolean.create(value);
+        fadeTooltip = JsBoolean.create(value);
         return this;
     }
 
@@ -162,9 +177,9 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
      */
     public Highlighter setTooltipFadeSpeed(final FadeSpeed value) {
         if (null == value) {
-            this.tooltipFadeSpeed = null;
+            tooltipFadeSpeed = null;
         } else {
-            this.tooltipFadeSpeed = new JsString(value.getConstant());
+            tooltipFadeSpeed = new JsString(value.getConstant());
         }
         return this;
     }
@@ -176,7 +191,7 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
      * @return fluent api style
      */
     public Highlighter setTooltipOffset(final Double value) {
-        this.tooltipOffset = new JsDouble(value);
+        tooltipOffset = new JsDouble(value);
         return this;
     }
 
@@ -189,9 +204,9 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
      */
     public Highlighter setTooltipAxes(final TooltipAxes value) {
         if (null == value) {
-            this.tooltipAxes = null;
+            tooltipAxes = null;
         } else {
-            this.tooltipAxes = new JsString(value.getConstant());
+            tooltipAxes = new JsString(value.getConstant());
         }
         return this;
     }
@@ -203,7 +218,7 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
      * @return fluent api style
      */
     public Highlighter setUseAxesFormatters(final Boolean value) {
-        this.useAxesFormatters = JsBoolean.create(value);
+        useAxesFormatters = JsBoolean.create(value);
         return this;
     }
 
@@ -214,7 +229,7 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
      * @return fluent api style
      */
     public Highlighter setTooltipFormatString(final String value) {
-        this.tooltipFormatString = new JsString(value);
+        tooltipFormatString = new JsString(value);
         return this;
     }
 
@@ -226,7 +241,7 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
      * @return fluent api style
      */
     public Highlighter setFormatString(final String value) {
-        this.formatString = new JsString(value);
+        formatString = new JsString(value);
         return this;
     }
 
@@ -238,7 +253,7 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
      * @return fluent api style
      */
     public Highlighter setYValues(final Integer value) {
-        this.yvalues = new JsInteger(value);
+        yvalues = new JsInteger(value);
         return this;
     }
 
@@ -250,7 +265,7 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
      * @return fluent api style
      */
     public Highlighter setBringSeriesToFront(final Boolean value) {
-        this.bringSeriesToFront = JsBoolean.create(value);
+        bringSeriesToFront = JsBoolean.create(value);
         return this;
     }
 
@@ -261,7 +276,7 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
      * @return fluent api style
      */
     public Highlighter setTooltipContentEditor(final TooltipContentEditor value) {
-        this.tooltipContentEditor = value;
+        tooltipContentEditor = value;
         return this;
     }
 
@@ -294,7 +309,7 @@ public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFu
         this.addProperty("yvalues", yvalues);
         this.addProperty("bringSeriesToFront", bringSeriesToFront);
         this.addProperty("tooltipContentEditor", tooltipContentEditor);
-        return this.createAsJSON();
+        return createAsJSON();
     }
 
     @Override

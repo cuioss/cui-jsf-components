@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.dev.metadata.composite;
 
 import java.beans.BeanDescriptor;
@@ -38,8 +53,7 @@ public final class CompositeComponentTag extends UINamingContainer {
     private BeanInfo metadata;
 
     /** Storage for the metadata object. not to be serialized. */
-    private ComponentPropertiesWrapper componentPropertiesWrapper =
-        new ComponentPropertiesWrapper();
+    private ComponentPropertiesWrapper componentPropertiesWrapper = new ComponentPropertiesWrapper();
 
     /**
      * @return the string representation of the library
@@ -54,8 +68,7 @@ public final class CompositeComponentTag extends UINamingContainer {
     private String getCompositeName() {
         var composite = String.valueOf(getAttributes().get("compositeName"));
         if (null == composite || composite.isEmpty()) {
-            throw new IllegalArgumentException(
-                    "Composite name must not be empty");
+            throw new IllegalArgumentException("Composite name must not be empty");
         }
         if (!composite.endsWith(DEFAULT_COMPONENT_SUFIX)) {
             composite += DEFAULT_COMPONENT_SUFIX;
@@ -74,8 +87,8 @@ public final class CompositeComponentTag extends UINamingContainer {
      * @return the actual ViewDeclarationLanguage
      */
     private ViewDeclarationLanguage getDeclarationLanguage() {
-        return getFacesContext().getApplication().getViewHandler()
-                .getViewDeclarationLanguage(getFacesContext(), getViewName());
+        return getFacesContext().getApplication().getViewHandler().getViewDeclarationLanguage(getFacesContext(),
+                getViewName());
     }
 
     /**
@@ -84,19 +97,16 @@ public final class CompositeComponentTag extends UINamingContainer {
     private BeanInfo getMetadataInfo() {
         if (null == metadata) {
             synchronized (this) {
-                var resourceHandler = getFacesContext()
-                        .getApplication().getResourceHandler();
-                var compositeComponentResource = resourceHandler
-                        .createResource(getCompositeName(), getLibrary());
+                var resourceHandler = getFacesContext().getApplication().getResourceHandler();
+                var compositeComponentResource = resourceHandler.createResource(getCompositeName(), getLibrary());
                 if (null == compositeComponentResource) {
-                    throw new IllegalArgumentException("No resource found for "
-                            + getLibrary() + "/" + getCompositeName());
+                    throw new IllegalArgumentException(
+                            "No resource found for " + getLibrary() + "/" + getCompositeName());
                 }
-                metadata = getDeclarationLanguage().getComponentMetadata(
-                        getFacesContext(), compositeComponentResource);
+                metadata = getDeclarationLanguage().getComponentMetadata(getFacesContext(), compositeComponentResource);
                 if (log.isTraceEnabled()) {
-                    log.trace("Lazy loaded metadata for Composite Component "
-                            + getLibrary() + "/" + getCompositeName());
+                    log.trace(
+                            "Lazy loaded metadata for Composite Component " + getLibrary() + "/" + getCompositeName());
                 }
             }
         }
@@ -122,15 +132,11 @@ public final class CompositeComponentTag extends UINamingContainer {
             Map<String, String> additionalInfo = new HashMap<>();
             additionalInfo.put(ComponentPropertiesWrapper.COMOPOSITE_NAME_KEY,
                     getCompositeName().replace(DEFAULT_COMPONENT_SUFIX, ""));
-            additionalInfo.put(
-                    ComponentPropertiesWrapper.COMOPOSITE_LIBRARY_KEY,
-                    getLibrary());
+            additionalInfo.put(ComponentPropertiesWrapper.COMOPOSITE_LIBRARY_KEY, getLibrary());
             componentPropertiesWrapper = new ComponentPropertiesWrapper();
             componentPropertiesWrapper.addParentComponentDescriptor(getMetadataInfo().getBeanDescriptor());
-            for (PropertyDescriptor descriptor : getMetadataInfo()
-                    .getPropertyDescriptors()) {
-                componentPropertiesWrapper
-                        .addChildComponentDescriptor(descriptor);
+            for (PropertyDescriptor descriptor : getMetadataInfo().getPropertyDescriptors()) {
+                componentPropertiesWrapper.addChildComponentDescriptor(descriptor);
             }
             componentPropertiesWrapper.setConfigured(true);
         }
@@ -140,8 +146,7 @@ public final class CompositeComponentTag extends UINamingContainer {
     /**
      * Listener for AddToViewEvent, currently only for demonstration purpose.
      *
-     * @param event
-     *            , not utilized.
+     * @param event , not utilized.
      */
     public void processAddToViewEvent(final ComponentSystemEvent event) {
         getPropertyDescriptors();
@@ -172,13 +177,9 @@ public final class CompositeComponentTag extends UINamingContainer {
      * @return the source for the sample facet
      */
     public String getSampleFacetSource() {
-        final var context =
-            (javax.servlet.ServletContext) getFacesContext()
-                    .getExternalContext().getContext();
+        final var context = (javax.servlet.ServletContext) getFacesContext().getExternalContext().getContext();
         final var sampleSourceFinder = new SampleSourceFinder(
-                new File(context.getRealPath(getFacesContext().getViewRoot()
-                        .getViewId())),
-                getId());
+                new File(context.getRealPath(getFacesContext().getViewRoot().getViewId())), getId());
         return sampleSourceFinder.getSampleSource();
     }
 }

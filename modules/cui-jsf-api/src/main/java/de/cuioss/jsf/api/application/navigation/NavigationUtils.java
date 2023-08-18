@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.application.navigation;
 
 import static de.cuioss.jsf.api.servlet.ServletAdapterUtil.getRequest;
@@ -141,19 +156,16 @@ public final class NavigationUtils implements Serializable {
     private static NavigationCase findNavigationCaseForOutcome(final FacesContext facesContext, final String outcome) {
         final var navigationHandler = facesContext.getApplication().getNavigationHandler();
 
-        if (navigationHandler instanceof ConfigurableNavigationHandler) {
-
-            final var con = (ConfigurableNavigationHandler) navigationHandler;
+        if (navigationHandler instanceof ConfigurableNavigationHandler con) {
 
             final var navigationCase = con.getNavigationCase(facesContext, null, outcome);
 
             if (null == navigationCase) {
-                throw new IllegalStateException(String.format(INCOMPLETE_CONFIG, outcome));
+                throw new IllegalStateException(INCOMPLETE_CONFIG.formatted(outcome));
             }
             return navigationCase;
         }
-        throw new IllegalStateException(
-                String.format(UNSUPPORTED_CONFIGURATION, navigationHandler.getClass().getName()));
+        throw new IllegalStateException(UNSUPPORTED_CONFIGURATION.formatted(navigationHandler.getClass().getName()));
     }
 
     /**
@@ -273,8 +285,8 @@ public final class NavigationUtils implements Serializable {
      *         return an empty List.
      */
     public static List<UrlParameter> extractUrlParameters(final Object request) {
-        if (request instanceof HttpServletRequest) {
-            return UrlParameter.fromQueryString(Servlets.getRequestQueryString((HttpServletRequest) request));
+        if (request instanceof HttpServletRequest servletRequest) {
+            return UrlParameter.fromQueryString(Servlets.getRequestQueryString(servletRequest));
         }
         log.warn(
                 "Unexpected environment. {} is not of type javax.servlet.http.HttpServletRequest. This call therefore returns null",
@@ -335,8 +347,7 @@ public final class NavigationUtils implements Serializable {
      * @return the request url if it can be determined, null otherwise
      */
     public static String extractRequestUri(final Object request) {
-        if (request instanceof HttpServletRequest) {
-            final var servletRequest = (HttpServletRequest) request;
+        if (request instanceof HttpServletRequest servletRequest) {
             return nullToEmpty(servletRequest.getRequestURI())
                     .replaceFirst(nullToEmpty(servletRequest.getContextPath()), "");
         }

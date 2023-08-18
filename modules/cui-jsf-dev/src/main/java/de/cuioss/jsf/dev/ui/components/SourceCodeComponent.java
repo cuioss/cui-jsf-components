@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.dev.ui.components;
 
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
@@ -47,32 +62,34 @@ import lombok.Getter;
  * </p>
  * <h2>source</h2>
  * <p>
- * Inline attribute to be used for small amounts of Source code. If it is set it takes precedence
- * over the other attributes for source.
+ * Inline attribute to be used for small amounts of Source code. If it is set it
+ * takes precedence over the other attributes for source.
  * </p>
  * <h2>sourcePath</h2>
  * <p>
- * The path to the source code. It takes precedence over #sourceContainerId. It can be
- * either a fully qualified path, like
- * '/META-INF/faces/pages/documentation/portal/portal_templates.xhtml' or a relative path like
- * 'portal_templates.xhtml'. The implementation
- * checks for '/' in order to decide whether it is an relative path or not. All relative addressed
- * files are assumed to be found under '/META-INF/'.
+ * The path to the source code. It takes precedence over #sourceContainerId. It
+ * can be either a fully qualified path, like
+ * '/META-INF/faces/pages/documentation/portal/portal_templates.xhtml' or a
+ * relative path like 'portal_templates.xhtml'. The implementation checks for
+ * '/' in order to decide whether it is an relative path or not. All relative
+ * addressed files are assumed to be found under '/META-INF/'.
  * </p>
  * <h2>sourceContainerId</h2>
  * <p>
- * The id of the container wrapping the source to be displayed. It is assumed that it resides on the
- * current view. <em>Caution:</em> It is not the clientId but the actual id-Attribute on the view
+ * The id of the container wrapping the source to be displayed. It is assumed
+ * that it resides on the current view. <em>Caution:</em> It is not the clientId
+ * but the actual id-Attribute on the view
  * </p>
  * <h2>enableClipboard</h2>
  * <p>
- * Indicating whether to display copy to clipboard button. Defaults to {@code true}
+ * Indicating whether to display copy to clipboard button. Defaults to
+ * {@code true}
  * </p>
  * <h2>type</h2>
  * <p>
- * The type of the source code, needed for proper formatting. Defaults to 'lang-html'.
- * Must be one of 'lang-html', 'lang-java', 'lang-sql', 'lang-js', 'lang-css', 'lang-yaml',
- * 'lang-properties'.
+ * The type of the source code, needed for proper formatting. Defaults to
+ * 'lang-html'. Must be one of 'lang-html', 'lang-java', 'lang-sql', 'lang-js',
+ * 'lang-css', 'lang-yaml', 'lang-properties'.
  * </p>
  * <h2>description</h2>
  * <p>
@@ -80,7 +97,8 @@ import lombok.Getter;
  * </p>
  * <h2>maxLineLength</h2>
  * <p>
- * The maximum number of characters to be displayed in a line. Defaults to '96', minimum is '32' .
+ * The maximum number of characters to be displayed in a line. Defaults to '96',
+ * minimum is '32' .
  * </p>
  *
  * @author Oliver Wolff
@@ -91,8 +109,7 @@ import lombok.Getter;
 @ResourceDependency(library = "thirdparty.prettify", name = "lang-sql.js", target = "head")
 @ResourceDependency(library = "thirdparty.prettify", name = "lang-yaml.js", target = "head")
 @ResourceDependency(library = "thirdparty.prettify", name = "lang-properties.js", target = "head")
-@ResourceDependency(library = "thirdparty.prettify", name = "run_prettify.js",
-        target = "head")
+@ResourceDependency(library = "thirdparty.prettify", name = "run_prettify.js", target = "head")
 @FacesComponent(SourceCodeComponent.COMPONENT_ID)
 public class SourceCodeComponent extends BaseCuiNamingContainer {
 
@@ -100,13 +117,8 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
 
     protected enum LangStyle {
 
-        LANG_HTML("lang-html"),
-        LANG_JAVA("lang-java"),
-        LANG_CSS("lang-css"),
-        LANG_JS("lang-js"),
-        LANG_SQL("lang-sql"),
-        LANG_YAML("lang-yaml"),
-        LANG_PROPERTIES("lang-properties");
+        LANG_HTML("lang-html"), LANG_JAVA("lang-java"), LANG_CSS("lang-css"), LANG_JS("lang-js"), LANG_SQL("lang-sql"),
+        LANG_YAML("lang-yaml"), LANG_PROPERTIES("lang-properties");
 
         @Getter
         final String style;
@@ -120,8 +132,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
     public static final String COMPONENT_ID = "de.cuioss.jsf.dev.ui.components.SourceCode";
 
     /** Renderer type. */
-    public static final String RENDERER_TYPE =
-        "de.cuioss.jsf.dev.ui.renderer.SourceCodeComponentRenderer";
+    public static final String RENDERER_TYPE = "de.cuioss.jsf.dev.ui.renderer.SourceCodeComponentRenderer";
 
     /** The component family. */
     public static final String COMPONENT_FAMILY_FIELD = "de.cuioss.jsf.dev.ui";
@@ -131,7 +142,9 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
     /** The key for the {@link StateHelper} used by {@link #getSource()} */
     private static final String SOURCE_ATTRIBUTE_KEY = "source";
 
-    /** The key for the {@link StateHelper} used by {@link #getSourceContainerId()} */
+    /**
+     * The key for the {@link StateHelper} used by {@link #getSourceContainerId()}
+     */
     private static final String SOURCE_CONTAINER_ID_ATTRIBUTE_KEY = "sourceContainerId";
 
     /** The key for the {@link StateHelper} used by {@link #getSourcePath()} */
@@ -157,8 +170,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
     private static final XMLOutputProcessor NO_NAMESPACES = new AbstractXMLOutputProcessor() {
 
         @Override
-        protected void printNamespace(final Writer out, final FormatStack fstack,
-                final Namespace ns) {
+        protected void printNamespace(final Writer out, final FormatStack fstack, final Namespace ns) {
             // NOOP by design
         }
 
@@ -191,20 +203,20 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
     private String resolveFromSourcePath(final String sourcePath) {
         final var resolved = resolvePath(sourcePath);
         if (null == resolved) {
-            return String.format("Unable lo load path '%s', because the file can not be found or is not readable",
-                    determineViewRelativePath(sourcePath));
+            return "Unable lo load path '%s', because the file can not be found or is not readable"
+                    .formatted(determineViewRelativePath(sourcePath));
         }
         try {
             return IOStreams.toString(resolved.openStream(), StandardCharsets.UTF_8);
         } catch (final IOException e) {
-            return String.format("Unable lo load path '%s', due to '%s'", resolved, e.getMessage());
+            return "Unable lo load path '%s', due to '%s'".formatted(resolved, e.getMessage());
         }
     }
 
     /**
-     * Checks whether it is a relative path or an absolute path. In case it
-     * starts with '/' it is assumed that the requested resource can be found
-     * under /META-INF
+     * Checks whether it is a relative path or an absolute path. In case it starts
+     * with '/' it is assumed that the requested resource can be found under
+     * /META-INF
      *
      * @param path
      *
@@ -220,8 +232,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
     private String determineViewRelativePath(final String path) {
         final var requestPath = NavigationUtils.getCurrentView(getFacesContext()).getViewId();
         final var currentFolder = requestPath.substring(0, requestPath.lastIndexOf('/') + 1);
-        return new StringBuilder().append("/META-INF").append(currentFolder).append(path)
-                .toString();
+        return new StringBuilder().append("/META-INF").append(currentFolder).append(path).toString();
     }
 
     private String resolveFromContainerId(final String sourceContainerId) {
@@ -233,14 +244,13 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
             saxBuilder.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
             saxBuilder.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
             saxBuilder.setExpandEntities(false);
-            saxBuilder.setFeature(
-                    "http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+            saxBuilder.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
             document = saxBuilder.build(new InputSource(inputStream));
         } catch (final JDOMException | IOException e) {
             throw new IllegalStateException("Unable to parse file " + loader.getFileName().getOriginalName(), e);
         }
         final var root = document.getRootElement();
-        final var query = String.format("//*[@id='%s']", sourceContainerId);
+        final var query = "//*[@id='%s']".formatted(sourceContainerId);
         final XPathExpression<Element> xpath = XPathFactory.instance().compile(query, Filters.element());
         log.debug("Created xPathExpression: {}", xpath);
         final var filteredElements = xpath.evaluate(root);
@@ -343,7 +353,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
      * @return maxLineLength
      */
     public Integer getMaxLineLength() {
-        final var actual = state.<Integer> get(MAX_LINE_LENGTH_ATTRIBUTE_KEY, LINE_LENGTH_DEFAULT);
+        final var actual = state.<Integer>get(MAX_LINE_LENGTH_ATTRIBUTE_KEY, LINE_LENGTH_DEFAULT);
         return Math.max(actual, LINE_LENGTH_MINIMUM);
     }
 
@@ -359,30 +369,22 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
      */
     public String getType() {
         final var defaultValue = LangStyle.LANG_HTML.getStyle();
-        var type = state.<String> get(TYPE_ATTRIBUTE_KEY);
+        var type = state.<String>get(TYPE_ATTRIBUTE_KEY);
         if (null == type) {
             if (null == getSourcePath()) {
                 return defaultValue;
             }
             final var path = getSourcePath().toLowerCase(Locale.ENGLISH);
             final var extension = path.substring(0, path.lastIndexOf(".") + 1);
-            switch (extension) {
-                case "properties":
-                    return LangStyle.LANG_PROPERTIES.getStyle();
-                case "yaml":
-                case "yml":
-                    return LangStyle.LANG_YAML.getStyle();
-                case "java":
-                    return LangStyle.LANG_JAVA.getStyle();
-                case "sql":
-                    return LangStyle.LANG_SQL.getStyle();
-                case "js":
-                    return LangStyle.LANG_JS.getStyle();
-                case "css":
-                    return LangStyle.LANG_CSS.getStyle();
-                default:
-                    return defaultValue;
-            }
+            return switch (extension) {
+            case "properties" -> LangStyle.LANG_PROPERTIES.getStyle();
+            case "yaml", "yml" -> LangStyle.LANG_YAML.getStyle();
+            case "java" -> LangStyle.LANG_JAVA.getStyle();
+            case "sql" -> LangStyle.LANG_SQL.getStyle();
+            case "js" -> LangStyle.LANG_JS.getStyle();
+            case "css" -> LangStyle.LANG_CSS.getStyle();
+            default -> defaultValue;
+            };
         }
         return type;
     }

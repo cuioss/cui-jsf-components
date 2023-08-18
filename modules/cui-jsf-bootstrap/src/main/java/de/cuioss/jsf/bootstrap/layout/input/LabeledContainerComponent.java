@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.layout.input;
 
 import static de.cuioss.jsf.api.components.util.ComponentUtility.findNearestNamingContainer;
@@ -253,8 +268,8 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
         var iterator = getFacetsAndChildren();
         while (iterator.hasNext()) {
             var next = iterator.next();
-            if (next instanceof ContainerPlugin) {
-                found.add((ContainerPlugin) next);
+            if (next instanceof ContainerPlugin plugin) {
+                found.add(plugin);
             }
         }
 
@@ -281,16 +296,17 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
                         if (getChildren().isEmpty()) {
                             log.debug("LabeledContainer '{}' does not contain any children and no content.");
                         } else if (isApplicationInProductionStage()) {
-                            log.debug("LabeledContainer '{}' does not contain an input component with id '{}'. "
-                                    + "Please check if you want to render an input element and did not "
-                                    + "adapt the id of this element. If you want to use it for output "
-                                    + "text, you can ignore this message", getClientId(), forId.get());
+                            log.debug("""
+                                    LabeledContainer '{}' does not contain an input component with id '{}'.\s\
+                                    Please check if you want to render an input element and did not\s\
+                                    adapt the id of this element. If you want to use it for output\s\
+                                    text, you can ignore this message""", getClientId(), forId.get());
                         } else if (!shouldRenderComplexOutput()) {
-                            log.info(
-                                    "LabeledContainer '{}' does not contain an input component with id '{}' and is "
-                                            + "not configured for complex output. Please check if you want to "
-                                            + "render an input element and did not adapt the id of this element. "
-                                            + "If you want to use it for output text, you can ignore this message",
+                            log.info("""
+                                    LabeledContainer '{}' does not contain an input component with id '{}' and is\s\
+                                    not configured for complex output. Please check if you want to\s\
+                                    render an input element and did not adapt the id of this element.\s\
+                                    If you want to use it for output text, you can ignore this message""",
                                     getClientId(), forId.get());
                         }
                     }
@@ -349,8 +365,8 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
      */
     public CuiMessageComponent getCuiMessage() {
         for (final UIComponent component : getChildren()) {
-            if (component instanceof CuiMessageComponent) {
-                return (CuiMessageComponent) component;
+            if (component instanceof CuiMessageComponent messageComponent) {
+                return messageComponent;
             }
         }
         return null;

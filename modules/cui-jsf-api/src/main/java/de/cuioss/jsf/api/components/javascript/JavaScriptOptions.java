@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.components.javascript;
 
 import java.io.Serializable;
@@ -67,10 +82,10 @@ public class JavaScriptOptions implements ScriptProvider {
             entryBuilder.append(':');
             if (null != entry.getValue()) {
                 var entryValue = entry.getValue();
-                if (entryValue instanceof NotQuotableWrapper) {
-                    entryBuilder.append(((NotQuotableWrapper) entryValue).getValue());
+                if (entryValue instanceof NotQuotableWrapper wrapper) {
+                    entryBuilder.append(wrapper.getValue());
                 } else {
-                    entryBuilder.append(String.format(SINGLE_QUOTE_WRAPPER, entry.getValue()));
+                    entryBuilder.append(SINGLE_QUOTE_WRAPPER.formatted(entry.getValue()));
                 }
             }
             entries.add(entryBuilder.toString());
@@ -155,9 +170,9 @@ public class JavaScriptOptions implements ScriptProvider {
         if (!optionParameter.isEmpty()) {
             List<String> elements = new ArrayList<>();
             for (String name : optionParameter) {
-                elements.add(String.format(SINGLE_QUOTE_WRAPPER, name));
+                elements.add(SINGLE_QUOTE_WRAPPER.formatted(name));
             }
-            var nameString = String.format(SQUARE_BRACKETS_WRAPPER, Joiner.on(OPTION_VALUE_DELIMITER).join(elements));
+            var nameString = SQUARE_BRACKETS_WRAPPER.formatted(Joiner.on(OPTION_VALUE_DELIMITER).join(elements));
             options.put(optionKey, new NotQuotableWrapper(nameString));
         }
     }

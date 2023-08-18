@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.icon.strategy;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableMap;
@@ -35,10 +50,10 @@ public class StrategyProviderImpl<K extends Serializable, V extends Serializable
 
     @Override
     public V actOnCondition(final K condition) {
-        if (this.rules.containsKey(condition)) {
-            return this.rules.get(condition);
+        if (rules.containsKey(condition)) {
+            return rules.get(condition);
         }
-        return this.defaultRule.getResult();
+        return defaultRule.getResult();
     }
 
     /**
@@ -93,8 +108,8 @@ public class StrategyProviderImpl<K extends Serializable, V extends Serializable
          *                                  during building object.
          */
         public Builder<K, V> defineDefaultRule(final Rule<? extends Serializable, V> rule) {
-            Preconditions.checkState(null == this.defRule, "You try to overwrite allready defined default rule");
-            this.defRule = requireNonNull(rule, "Default Rule must not be null");
+            Preconditions.checkState(null == defRule, "You try to overwrite allready defined default rule");
+            defRule = requireNonNull(rule, "Default Rule must not be null");
             return this;
         }
 
@@ -106,8 +121,8 @@ public class StrategyProviderImpl<K extends Serializable, V extends Serializable
          * @throws IllegalStateException    - if default value was not defined
          */
         public StrategyProviderImpl<K, V> build() {
-            Preconditions.checkState(null != this.defRule, "You need to define default rule");
-            return new StrategyProviderImpl<>(immutableMap(mapBuilder), this.defRule);
+            Preconditions.checkState(null != defRule, "You need to define default rule");
+            return new StrategyProviderImpl<>(immutableMap(mapBuilder), defRule);
         }
 
     }

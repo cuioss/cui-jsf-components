@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.components.renderer;
 
 import static java.util.Objects.requireNonNull;
@@ -49,7 +64,7 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     public DecoratingResponseWriter(final FacesContext facesContext, final T component) {
         super(requireNonNull(facesContext.getResponseWriter()));
         this.component = requireNonNull(component);
-        this.componentWrapper = new ComponentWrapper<>(component);
+        componentWrapper = new ComponentWrapper<>(component);
         this.facesContext = facesContext;
     }
 
@@ -200,7 +215,7 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
      * @throws IOException
      */
     public DecoratingResponseWriter<T> withClientId(final String idExtension) throws IOException {
-        final var idString = this.componentWrapper.getSuffixedClientId(idExtension);
+        final var idString = componentWrapper.getSuffixedClientId(idExtension);
         withAttribute(AttributeName.ID, idString);
         return withAttribute(AttributeName.NAME, idString);
     }
@@ -213,8 +228,8 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
      * @throws IOException
      */
     public DecoratingResponseWriter<T> withClientId() throws IOException {
-        withAttribute(AttributeName.ID, this.componentWrapper.getClientId());
-        return withAttribute(AttributeName.NAME, this.componentWrapper.getClientId());
+        withAttribute(AttributeName.ID, componentWrapper.getClientId());
+        return withAttribute(AttributeName.NAME, componentWrapper.getClientId());
     }
 
     /**
@@ -242,7 +257,7 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
      * @throws IOException
      */
     public DecoratingResponseWriter<T> withClientIdIfNecessary() throws IOException {
-        if (this.componentWrapper.shouldRenderClientId()) {
+        if (componentWrapper.shouldRenderClientId()) {
             return withClientId();
         }
         return this;
@@ -293,7 +308,7 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
      * @return the value if present, otherwise null
      */
     public Object getRenderAttribute(final Serializable key) {
-        return this.component.getTransientStateHelper().getTransient(key);
+        return component.getTransientStateHelper().getTransient(key);
     }
 
     /**
@@ -303,6 +318,6 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
      * @param value the value
      */
     public void putRenderAttribute(final Serializable key, final Serializable value) {
-        this.component.getTransientStateHelper().putTransient(key, value);
+        component.getTransientStateHelper().putTransient(key, value);
     }
 }

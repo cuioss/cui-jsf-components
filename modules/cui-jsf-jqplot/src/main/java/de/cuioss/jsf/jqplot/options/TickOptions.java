@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.jqplot.options;
 
 import static de.cuioss.jsf.jqplot.options.DateFormatConverter.convertToJavaScriptDateFormat;
@@ -44,7 +59,7 @@ public class TickOptions extends JsObject implements ILabelDecorator<TickOptions
      * @return fluent api style
      */
     public TickOptions setShowGridline(final Boolean value) {
-        this.showGridline = JsBoolean.create(value);
+        showGridline = JsBoolean.create(value);
         return this;
     }
 
@@ -57,7 +72,7 @@ public class TickOptions extends JsObject implements ILabelDecorator<TickOptions
      * @return fluent api style
      */
     public TickOptions setShowMark(final Boolean value) {
-        this.showMark = JsBoolean.create(value);
+        showMark = JsBoolean.create(value);
         return this;
     }
 
@@ -75,7 +90,7 @@ public class TickOptions extends JsObject implements ILabelDecorator<TickOptions
         final var checkedValue = emptyToNull(value);
         if (null != checkedValue) {
             final var dateFormat = convertToJavaScriptDateFormat(checkedValue);
-            this.setFormatString(dateFormat);
+            setFormatString(dateFormat);
         }
         return this;
     }
@@ -84,8 +99,8 @@ public class TickOptions extends JsObject implements ILabelDecorator<TickOptions
     public String asJavaScriptObjectNotation() {
         this.addProperty("showGridline", showGridline);
         this.addProperty("showMark", showMark);
-        this.addProperties(labelDecorator);
-        return this.createAsJSON();
+        addProperties(labelDecorator);
+        return createAsJSON();
     }
 
 }

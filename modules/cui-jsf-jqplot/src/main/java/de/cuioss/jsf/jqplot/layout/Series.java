@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.jqplot.layout;
 
 import static de.cuioss.jsf.jqplot.axes.AxisType.X_AXES;
@@ -96,7 +111,7 @@ public class Series extends JsObject implements IPluginConsumer, JsValue, IShado
         if (null == type) {
             xaxis = null;
         } else {
-            checkArgument(X_AXES.contains(type), String.format("X-Axis [%s] is not supported.", type));
+            checkArgument(X_AXES.contains(type), "X-Axis [%s] is not supported.".formatted(type));
             xaxis = new JsString(type.getAxisName());
         }
         return this;
@@ -117,7 +132,7 @@ public class Series extends JsObject implements IPluginConsumer, JsValue, IShado
         if (null == type) {
             yaxis = null;
         } else {
-            checkArgument(Y_AXES.contains(type), String.format("Y-Axis [%s] is not supported.", type));
+            checkArgument(Y_AXES.contains(type), "Y-Axis [%s] is not supported.".formatted(type));
             yaxis = new JsString(type.getAxisName());
         }
         return this;

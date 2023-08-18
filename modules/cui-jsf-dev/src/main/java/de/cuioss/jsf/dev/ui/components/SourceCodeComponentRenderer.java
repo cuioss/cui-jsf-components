@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.dev.ui.components;
 
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
@@ -23,8 +38,7 @@ import de.cuioss.tools.string.Splitter;
 /**
  * @author Oliver Wolff
  */
-@FacesRenderer(componentFamily = SourceCodeComponent.COMPONENT_FAMILY_FIELD,
-        rendererType = SourceCodeComponent.RENDERER_TYPE)
+@FacesRenderer(componentFamily = SourceCodeComponent.COMPONENT_FAMILY_FIELD, rendererType = SourceCodeComponent.RENDERER_TYPE)
 public class SourceCodeComponentRenderer extends BaseDecoratorRenderer<SourceCodeComponent> {
 
     private static final CuiLogger log = new CuiLogger(SourceCodeComponentRenderer.class);
@@ -38,8 +52,7 @@ public class SourceCodeComponentRenderer extends BaseDecoratorRenderer<SourceCod
     static final String COPY_BTN_CLASS = "cui-btn-copy";
     static final String COPY_BTN_WRAPPER_CLASS = "cui-btn-copy-wrapper";
 
-    static final String COPY_ON_CLICK_HANDLER =
-            "icw.cui.CopyToClipboard('%s', '%s');return false;";
+    static final String COPY_ON_CLICK_HANDLER = "icw.cui.CopyToClipboard('%s', '%s');return false;";
 
     static final String PRE_STYLE_CLASS = "prettyprint linenums";
 
@@ -52,29 +65,24 @@ public class SourceCodeComponentRenderer extends BaseDecoratorRenderer<SourceCod
 
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<SourceCodeComponent> writer,
-            final SourceCodeComponent component)
-            throws IOException {
+            final SourceCodeComponent component) throws IOException {
         if (!isEmpty(component.getDescription())) {
             writer.withStartElement(Node.P);
-            writer.withTextContent(String.format(component.getDescription()), true);
+            writer.withTextContent(component.getDescription().formatted(), true);
             writer.withEndElement(Node.P);
         }
-        final var resolvedSource =
-                String.format(component.resolveSource().replace("%", "%%")).replace("%n", LINE_SEPARATOR);
+        final var resolvedSource = component.resolveSource().replace("%", "%%").formatted().replace("%n",
+                LINE_SEPARATOR);
         if (component.isEnableClipboard()) {
             renderCopyElements(writer, resolvedSource);
         }
         writer.withStartElement(Node.PRE).withClientId(ID_PRE_WRAPPER)
-                .withStyleClass(component.getStyleClassBuilder().append(PRE_STYLE_CLASS))
-                .withPassThroughAttributes().withAttributeStyle(component.getStyle());
+                .withStyleClass(component.getStyleClassBuilder().append(PRE_STYLE_CLASS)).withPassThroughAttributes()
+                .withAttributeStyle(component.getStyle());
 
-        writer.withStartElement(Node.CODE).withStyleClass(component.getType())
-                .withTextContent(
-                        replaceHtmlEntities(
-                                limitLineSize(
-                                        sanitizeLineBreaks(resolvedSource),
-                                        component.getMaxLineLength())),
-                        false);
+        writer.withStartElement(Node.CODE).withStyleClass(component.getType()).withTextContent(
+                replaceHtmlEntities(limitLineSize(sanitizeLineBreaks(resolvedSource), component.getMaxLineLength())),
+                false);
 
         writer.withEndElement(Node.CODE).withEndElement(Node.PRE);
     }
@@ -163,20 +171,17 @@ public class SourceCodeComponentRenderer extends BaseDecoratorRenderer<SourceCod
      * @param resolvedSource
      * @throws IOException
      */
-    private static void renderCopyElements(
-            final DecoratingResponseWriter<SourceCodeComponent> writer,
-            final String resolvedSource)
-            throws IOException {
+    private static void renderCopyElements(final DecoratingResponseWriter<SourceCodeComponent> writer,
+            final String resolvedSource) throws IOException {
         final var copyButtonId = writer.getComponentWrapper().getSuffixedClientId(COPY_BTN_IDENTIFIER);
 
-        final var invisibleTextArea =
-                writer.getComponentWrapper().getSuffixedClientId(ID_INVISIBLE_TEXT_AREA_SUFFIX);
+        final var invisibleTextArea = writer.getComponentWrapper().getSuffixedClientId(ID_INVISIBLE_TEXT_AREA_SUFFIX);
 
         writer.withStartElement(Node.DIV).withStyleClass(COPY_BTN_WRAPPER_CLASS);
         writer.withStartElement(Node.BUTTON).withClientId(COPY_BTN_IDENTIFIER).withStyleClass(COPY_BTN_CLASS)
                 .withAttributeTitle(COPY_BUTTON_TITLE).withAttribute(AttributeName.DATA_TOGGLE, AttributeValue.TOOLTIP);
         writer.withAttribute(AttributeName.JS_ON_CLICK,
-                String.format(COPY_ON_CLICK_HANDLER, invisibleTextArea, copyButtonId));
+                COPY_ON_CLICK_HANDLER.formatted(invisibleTextArea, copyButtonId));
 
         writer.withStartElement(Node.SPAN).withTextContent(COPY_BUTTON_LABEL, true);
         writer.withEndElement(Node.SPAN).withEndElement(Node.BUTTON).withEndElement(Node.DIV);

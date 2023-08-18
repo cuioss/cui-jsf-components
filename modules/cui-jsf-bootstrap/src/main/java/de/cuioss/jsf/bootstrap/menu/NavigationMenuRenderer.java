@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.menu;
 
 import java.io.IOException;
@@ -61,25 +76,21 @@ public class NavigationMenuRenderer extends BaseDecoratorRenderer<NavigationMenu
                     menuItem.getId());
             i++;
 
-            if (menuItem instanceof NavigationMenuItemSingle) {
-                NavigationMenuSingleRenderer.render(context, writer, (NavigationMenuItemSingle) menuItem, component,
-                        componentId);
+            if (menuItem instanceof NavigationMenuItemSingle single) {
+                NavigationMenuSingleRenderer.render(context, writer, single, component, componentId);
 
-            } else if (menuItem instanceof NavigationMenuItemExternalSingle) {
-                NavigationMenuExternalSingleRenderer.render(context, writer,
-                        (NavigationMenuItemExternalSingle) menuItem, component, componentId);
+            } else if (menuItem instanceof NavigationMenuItemExternalSingle single) {
+                NavigationMenuExternalSingleRenderer.render(context, writer, single, component, componentId);
 
-            } else if (menuItem instanceof NavigationMenuItemSeparator) {
-                NavigationMenuSeparatorRenderer.render(writer, (NavigationMenuItemSeparator) menuItem, component,
-                        componentId);
+            } else if (menuItem instanceof NavigationMenuItemSeparator separator) {
+                NavigationMenuSeparatorRenderer.render(writer, separator, component, componentId);
 
-            } else if (menuItem instanceof NavigationMenuItemContainer) {
-                final var containerModel = (NavigationMenuItemContainer) menuItem;
+            } else if (menuItem instanceof NavigationMenuItemContainer containerModel) {
                 NavigationMenuContainerRenderer.renderBegin(context, writer, containerModel, component,
                         parentIsContainer, componentId);
                 renderNavigationMenuItems(containerModel.getChildren(), context, writer, component, true,
                         componentId + "_");
-                NavigationMenuContainerRenderer.renderEnd(writer, (NavigationMenuItemContainer) menuItem);
+                NavigationMenuContainerRenderer.renderEnd(writer, containerModel);
             }
         }
     }
