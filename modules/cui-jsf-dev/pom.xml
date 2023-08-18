@@ -7,10 +7,11 @@
     </parent>
     <artifactId>cui-jsf-dev</artifactId>
     <name>cui dev components</name>
-    <description>Components for creating the deleoper documentation</description>
+    <description>Components for creating the developer documentation</description>
     <properties>
         <version.jaxen>2.0.0</version.jaxen>
         <sonar.skip>true</sonar.skip>
+        <maven.jar.plugin.automatic.module.name>de.cuioss.jsf.dev</maven.jar.plugin.automatic.module.name>
     </properties>
     <dependencyManagement>
         <dependencies>

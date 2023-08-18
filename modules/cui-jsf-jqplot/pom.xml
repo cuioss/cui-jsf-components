@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>de.cuioss.jsf</groupId>
@@ -7,9 +9,10 @@
     </parent>
     <artifactId>cui-jsf-jqplot</artifactId>
     <name>cui jqplot</name>
-    <description>Defines componente s / structures to render jqplot base diagrams</description>
+    <description>Defines components / structures to render jqplot base diagrams</description>
     <properties>
         <sonar.skip>true</sonar.skip>
+        <maven.jar.plugin.automatic.module.name>de.cuioss.jsf.jqplot</maven.jar.plugin.automatic.module.name>
     </properties>
     <dependencies>
         <dependency>

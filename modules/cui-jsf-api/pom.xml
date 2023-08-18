@@ -11,6 +11,9 @@
     <name>cui jsf api</name>
     <description>Provides classes and structures that can be used for creating
         ui-components.</description>
+    <properties>
+        <maven.jar.plugin.automatic.module.name>de.cuioss.jsf.api</maven.jar.plugin.automatic.module.name>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>com.googlecode.owasp-java-html-sanitizer</groupId>

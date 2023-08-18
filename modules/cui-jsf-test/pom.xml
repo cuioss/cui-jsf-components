@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -8,9 +9,11 @@
     </parent>
     <artifactId>cui-jsf-test</artifactId>
     <name>cui jsf test</name>
-    <description>Provides mock classes and structures that can be used for testing ui-components</description>
+    <description>Provides mock classes and structures that can be used for
+        testing ui-components</description>
     <properties>
         <sonar.skip>true</sonar.skip>
+        <maven.jar.plugin.automatic.module.name>de.cuioss.jsf.test</maven.jar.plugin.automatic.module.name>
     </properties>
     <dependencies>
         <dependency>

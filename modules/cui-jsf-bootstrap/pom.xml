@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -9,6 +10,9 @@
     <artifactId>cui-jsf-bootstrap</artifactId>
     <name>cui bootstrap</name>
     <description>Bootstrap components, based on cui-api</description>
+    <properties>
+        <maven.jar.plugin.automatic.module.name>de.cuioss.jsf.bootstrap</maven.jar.plugin.automatic.module.name>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>de.cuioss.jsf</groupId>
