@@ -18,9 +18,7 @@ package de.cuioss.jsf.api.components.css;
 import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
 
 /**
- * <p>
  * Simple interface defining a way to resolve-style-class(es).
- * <p>
  *
  * @author Oliver Wolff
  */
