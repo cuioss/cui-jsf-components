@@ -37,6 +37,7 @@ import de.cuioss.jsf.bootstrap.button.CommandButton;
 import de.cuioss.jsf.bootstrap.layout.input.support.GuardButtonAttributes;
 import de.cuioss.jsf.bootstrap.layout.input.support.ResetGuardButtonAttributes;
 import de.cuioss.tools.logging.CuiLogger;
+import lombok.NonNull;
 import lombok.experimental.Delegate;
 
 /**
@@ -155,7 +156,7 @@ public class InputGuardComponent extends BaseCuiHtmlHiddenInputComponent impleme
         return PluginStateInfo.WARNING;
     }
 
-    private CommandButton updateGuardButtonContent(CommandButton button, Boolean guarded) {
+    private CommandButton updateGuardButtonContent(CommandButton button, @NonNull Boolean guarded) {
         if (Boolean.TRUE.equals(guarded)) {
             button.setIcon(guardAttributes.getGuardIcon());
             button.setTitleValue(guardAttributes.resolveGuardButtonTitle());
@@ -233,7 +234,7 @@ public class InputGuardComponent extends BaseCuiHtmlHiddenInputComponent impleme
 
         if (areAllTrue(newValueBoolean, getResetInputValue())) {
             var forComponent = getParentContainer(this).findRelatedComponentModifier();
-            if (null != forComponent && forComponent.isSupportsResetValue()) {
+            if ((null != forComponent) && forComponent.isSupportsResetValue()) {
                 forComponent.resetValue();
             }
         }

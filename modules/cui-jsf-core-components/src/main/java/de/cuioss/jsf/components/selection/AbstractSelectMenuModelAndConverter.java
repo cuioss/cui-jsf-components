@@ -104,8 +104,8 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
                 selectionAvailable = false;
             } else {
                 selectionAvailable = true;
-                if (newSourceData instanceof SortedSet set) {
-                    sourceData = new TreeSet<T>(set);
+                if (newSourceData instanceof SortedSet<T> set) {
+                    sourceData = new TreeSet<>(set);
                 } else {
                     sourceData = new HashSet<>(newSourceData);
                 }
