@@ -97,7 +97,7 @@ jobs:
       # javadoc:aggregate -> Needs to be fixed: "Error: No source files for package de.cuioss.jsf.api.components.model"
       # Actually we need to resolve it regarding https://maven.apache.org/plugins/maven-javadoc-plugin/examples/aggregate.html
       run: |
-        mvn -B --no-transfer-progress -Prelease-snapshot,javadoc-mm-reporting javadoc:aggregate install
+        mvn -B --no-transfer-progress -Prelease-snapshot javadoc:aggregate install
         mvn -B --no-transfer-progress -Prelease-snapshot deploy -Dmaven.test.skip=true
       env:
         MAVEN_USERNAME: ${{ secrets.OSS_SONATYPE_USERNAME }}
