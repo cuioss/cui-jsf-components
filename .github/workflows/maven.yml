@@ -95,8 +95,8 @@ jobs:
     - name: Deploy Snapshot with Maven, version ${{ steps.project.outputs.version }}
       if: ${{endsWith(steps.project.outputs.version, '-SNAPSHOT')}}
       run: |
-        mvn --no-transfer-progress -Prelease-snapshot,javadoc-mm-reporting javadoc:aggregate install
-        mvn --no-transfer-progress -Prelease-snapshot deploy -Dmaven.test.skip=true
+        mvn -B --no-transfer-progress -Prelease-snapshot install -Dmaven.javadoc.skip=true
+        mvn -B --no-transfer-progress -Prelease-snapshot deploy -Dmaven.test.skip=true
       env:
         MAVEN_USERNAME: ${{ secrets.OSS_SONATYPE_USERNAME }}
         MAVEN_CENTRAL_TOKEN: ${{ secrets.OSS_SONATYPE_PASSWORD }}
