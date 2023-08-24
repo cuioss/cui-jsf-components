@@ -1,1 +1,0 @@
-The initial sass port is derived from https://github.com/jhilden/jquery-ui-sass-rails

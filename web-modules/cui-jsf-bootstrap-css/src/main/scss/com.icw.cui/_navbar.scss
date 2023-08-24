@@ -1,9 +1,0 @@
-@if $cui-navbar-dark == 'true' {
-  .cui-navbar {
-    @extend .navbar-inverse;
-  }
-} @else {
-  .cui-navbar {
-    @extend .navbar-default;
-  }
-}

@@ -1,7 +1,0 @@
-@import "../../thirdparty/bootstrap/mixins";
-
-body {
-  .ui-tooltip.ui-tooltip-right, .ui-tooltip.ui-tooltip-left {
-    @include box-shadow(none);
-  }
-}
