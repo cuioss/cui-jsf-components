@@ -1,6 +1,6 @@
 module.exports = function (grunt) {
 
-  // Keep in sync with maven-property 'plugin.resources.cui_css.target' 
+  // Keep in sync with maven-property 'plugin.resources.cui_css.target'
   const sassOutput = 'target/sass_target/**.*';
   const sass = require('node-sass');
 
@@ -16,7 +16,7 @@ module.exports = function (grunt) {
       },
       dist: {
         files: {
-          'target/sass_target/application-default.css': 'src/main/scss/com.icw.portal.css/application-default.scss',       // 'destination': 'source'
+          'target/sass_target/application-default.css': 'src/main/scss/de/cuioss/portal/application-default.scss',       // 'destination': 'source'
         }
       }
     }
