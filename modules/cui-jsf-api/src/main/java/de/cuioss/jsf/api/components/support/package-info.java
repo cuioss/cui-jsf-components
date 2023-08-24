@@ -10,8 +10,7 @@
  * components It eases the usage: labelKey="some.label.key" is much simpler than
  * using <code>labelValue="#{msgs['key']}"</code> In order to work the
  * {@link de.cuioss.jsf.api.components.support.LabelResolver} uses the
- * {@link de.cuioss.jsf.api.application.bundle.CuiResourceBundle}
- * approach.
+ * {@link de.cuioss.jsf.api.application.bundle.CuiResourceBundle} approach.
  * </p>
  * <h3>Algorithm</h3>
  * <ul>

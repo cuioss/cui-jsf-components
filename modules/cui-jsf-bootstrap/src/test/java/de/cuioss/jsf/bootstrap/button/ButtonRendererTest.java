@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.button;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -71,9 +86,9 @@ class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> i
     void shouldHandleTextValue() {
         var component = new Button();
         component.setLabelValue(TEXT_VALUE);
-        var expected = new HtmlTreeBuilder().withNode(Node.BUTTON)
-                .withAttribute(AttributeName.VALUE, TEXT_VALUE).withStyleClass(DEFAULT_BTN_CLASSES).withNode(Node.SPAN)
-                .withStyleClass(CssBootstrap.BUTTON_TEXT).withTextContent(TEXT_VALUE);
+        var expected = new HtmlTreeBuilder().withNode(Node.BUTTON).withAttribute(AttributeName.VALUE, TEXT_VALUE)
+                .withStyleClass(DEFAULT_BTN_CLASSES).withNode(Node.SPAN).withStyleClass(CssBootstrap.BUTTON_TEXT)
+                .withTextContent(TEXT_VALUE);
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -82,10 +97,9 @@ class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> i
         var component = new Button();
         component.setLabelValue(TEXT_VALUE);
         component.setIcon(ANY_ICON);
-        var expected =
-            new HtmlTreeBuilder().withNode(Node.BUTTON).withAttribute(AttributeName.VALUE, TEXT_VALUE)
-                    .withStyleClass(DEFAULT_BTN_CLASSES).withNode(ICONCOMPONENT).currentHierarchyUp()
-                    .withNode(Node.SPAN).withStyleClass(CssBootstrap.BUTTON_TEXT).withTextContent(TEXT_VALUE);
+        var expected = new HtmlTreeBuilder().withNode(Node.BUTTON).withAttribute(AttributeName.VALUE, TEXT_VALUE)
+                .withStyleClass(DEFAULT_BTN_CLASSES).withNode(ICONCOMPONENT).currentHierarchyUp().withNode(Node.SPAN)
+                .withStyleClass(CssBootstrap.BUTTON_TEXT).withTextContent(TEXT_VALUE);
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -95,10 +109,9 @@ class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> i
         component.setLabelValue(TEXT_VALUE);
         component.setIconAlign("right");
         component.setIcon(ANY_ICON);
-        var expected =
-            new HtmlTreeBuilder().withNode(Node.BUTTON).withAttribute(AttributeName.VALUE, TEXT_VALUE)
-                    .withStyleClass(DEFAULT_BTN_CLASSES).withNode(Node.SPAN).withStyleClass(CssBootstrap.BUTTON_TEXT)
-                    .withTextContent(TEXT_VALUE).currentHierarchyUp().withNode(ICONCOMPONENT);
+        var expected = new HtmlTreeBuilder().withNode(Node.BUTTON).withAttribute(AttributeName.VALUE, TEXT_VALUE)
+                .withStyleClass(DEFAULT_BTN_CLASSES).withNode(Node.SPAN).withStyleClass(CssBootstrap.BUTTON_TEXT)
+                .withTextContent(TEXT_VALUE).currentHierarchyUp().withNode(ICONCOMPONENT);
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -106,8 +119,8 @@ class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> i
     void shouldHandleIconOnly() {
         var component = new Button();
         component.setIcon(ANY_ICON);
-        var expected =
-            new HtmlTreeBuilder().withNode(Node.BUTTON).withStyleClass(DEFAULT_BTN_CLASSES).withNode(ICONCOMPONENT);
+        var expected = new HtmlTreeBuilder().withNode(Node.BUTTON).withStyleClass(DEFAULT_BTN_CLASSES)
+                .withNode(ICONCOMPONENT);
         assertRenderResult(component, expected.getDocument());
     }
 

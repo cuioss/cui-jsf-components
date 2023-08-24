@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.ui.model;
 
 import java.io.Serializable;
@@ -9,8 +24,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Class provide functionality to recognize if value was changed or not and is able to restore
- * default value.
+ * Class provide functionality to recognize if value was changed or not and is
+ * able to restore default value.
  *
  * @author Eugen Fischer
  * @param <T> bounded type must be Serializable
@@ -29,16 +44,16 @@ public class TracedValue<T extends Serializable> implements ITracedValue<T> {
     private T value;
 
     /**
-     * Initialize traced object with default value. This will be used to recognize if new value was
-     * set.
-     * Therefore {@linkplain #equals(Object)} method will be used.
+     * Initialize traced object with default value. This will be used to recognize
+     * if new value was set. Therefore {@linkplain #equals(Object)} method will be
+     * used.
      *
-     * @param initialValue object could be null, but must follow the convention of Serializable
-     *            objects.
+     * @param initialValue object could be null, but must follow the convention of
+     *                     Serializable objects.
      */
     public TracedValue(final T initialValue) {
-        this.defaultValue = initialValue;
-        this.value = this.defaultValue;
+        defaultValue = initialValue;
+        value = defaultValue;
     }
 
     @Override
@@ -48,7 +63,7 @@ public class TracedValue<T extends Serializable> implements ITracedValue<T> {
 
     @Override
     public TracedValue<T> rollBackToDefault() {
-        this.value = defaultValue;
+        value = defaultValue;
         return this;
     }
 

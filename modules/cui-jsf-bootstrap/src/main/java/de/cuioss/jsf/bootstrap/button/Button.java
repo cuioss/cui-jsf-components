@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.button;
 
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
@@ -33,9 +48,10 @@ import lombok.experimental.Delegate;
 
 /**
  * <p>
- * An extension to h:button that conforms to Bootstrap styling and incorporates the display
- * of icons. Caution: do not use the value attribute but the corresponding labelKey / labelValue.
- * The same goes for the title element: use titleKey or titleValue.
+ * An extension to h:button that conforms to Bootstrap styling and incorporates
+ * the display of icons. Caution: do not use the value attribute but the
+ * corresponding labelKey / labelValue. The same goes for the title element: use
+ * titleKey or titleValue.
  * </p>
  * <h2>Attributes</h2>
  * <ul>
@@ -46,9 +62,10 @@ import lombok.experimental.Delegate;
  * <li>{@link IconAlignProvider}</li>
  * <li>{@link LabelProvider}</li>
  * <li>All attributes from {@link HtmlOutcomeTargetButton}</li>
- * <li>keyBinding: The key-binding for this button, aka keyboard shortcut. The key will be bound as
- * onClickHandler. Caution: The implementor must ensure that there is only one button for the same
- * type existent per page, otherwise the behavior is non-deterministic.</li>
+ * <li>keyBinding: The key-binding for this button, aka keyboard shortcut. The
+ * key will be bound as onClickHandler. Caution: The implementor must ensure
+ * that there is only one button for the same type existent per page, otherwise
+ * the behavior is non-deterministic.</li>
  * </ul>
  *
  * @author Oliver Wolff
@@ -57,8 +74,7 @@ import lombok.experimental.Delegate;
 @FacesComponent(BootstrapFamily.BUTTON_COMPONENT)
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
-public class Button extends HtmlOutcomeTargetButton
-        implements ComponentBridge, TitleProvider {
+public class Button extends HtmlOutcomeTargetButton implements ComponentBridge, TitleProvider {
 
     private static final String KEY_BINDING_KEY = "keyBinding";
 
@@ -88,7 +104,6 @@ public class Button extends HtmlOutcomeTargetButton
      * Constructor.
      */
     public Button() {
-        super();
         super.setRendererType(BootstrapFamily.BUTTON_RENDERER);
         titleProvider = new TitleProviderImpl(this);
         contextSizeProvider = new ContextSizeProvider(this);
@@ -105,8 +120,7 @@ public class Button extends HtmlOutcomeTargetButton
         return CssBootstrap.BUTTON.getStyleClassBuilder()
                 .append(ButtonState.getForContextState(contextStateProvider.getState()))
                 .append(ButtonSize.getForContextSize(contextSizeProvider.resolveContextSize()))
-                .append(styleClassProvider)
-                .getStyleClass();
+                .append(styleClassProvider).getStyleClass();
     }
 
     @Override
@@ -158,14 +172,16 @@ public class Button extends HtmlOutcomeTargetButton
     }
 
     /**
-     * @return boolean indicating whether to display an icon on the right side of the button text
+     * @return boolean indicating whether to display an icon on the right side of
+     *         the button text
      */
     public boolean isDisplayIconRight() {
         return iconProvider.isIconSet() && AlignHolder.RIGHT.equals(iconAlignProvider.resolveIconAlign());
     }
 
     /**
-     * @return boolean indicating whether to display an icon on the left side of the button text
+     * @return boolean indicating whether to display an icon on the left side of the
+     *         button text
      */
     public boolean isDisplayIconLeft() {
         return iconProvider.isIconSet() && !AlignHolder.RIGHT.equals(iconAlignProvider.resolveIconAlign());
@@ -186,16 +202,13 @@ public class Button extends HtmlOutcomeTargetButton
     }
 
     /**
-     * Factory method to instantiate a concrete instance of
-     * {@link Button}, usually used if you programmatically add it
-     * as a child.
+     * Factory method to instantiate a concrete instance of {@link Button}, usually
+     * used if you programmatically add it as a child.
      *
-     * @param facesContext
-     *            must not be null
+     * @param facesContext must not be null
      * @return concrete instance of {@link Button}
      */
     public static final Button create(final FacesContext facesContext) {
-        return (Button) facesContext.getApplication()
-                .createComponent(BootstrapFamily.BUTTON_COMPONENT);
+        return (Button) facesContext.getApplication().createComponent(BootstrapFamily.BUTTON_COMPONENT);
     }
 }

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.dev.metadata.composite;
 
 import static java.util.Objects.requireNonNull;
@@ -30,8 +45,8 @@ public final class CompositeUtil {
      * @param compositeName
      * @return {@link BeanInfo} representing the metadata for that composite
      */
-    public static BeanInfo loadMetadataInfo(final FacesContext facesContext,
-            final String libraryName, final String compositeName) {
+    public static BeanInfo loadMetadataInfo(final FacesContext facesContext, final String libraryName,
+            final String compositeName) {
         requireNonNull(facesContext);
         requireNonNull(libraryName);
         requireNonNull(compositeName);
@@ -42,17 +57,14 @@ public final class CompositeUtil {
             name = name + XHTML_SUFFIX;
         }
 
-        var resourceHandler = facesContext
-                .getApplication().getResourceHandler();
-        var compositeComponentResource = resourceHandler
-                .createResource(name, libraryName);
+        var resourceHandler = facesContext.getApplication().getResourceHandler();
+        var compositeComponentResource = resourceHandler.createResource(name, libraryName);
         if (null == compositeComponentResource) {
-            throw new IllegalArgumentException("No resource found for "
-                    + libraryName + "/" + compositeName);
+            throw new IllegalArgumentException("No resource found for " + libraryName + "/" + compositeName);
         }
         metadata = facesContext.getApplication().getViewHandler()
-                .getViewDeclarationLanguage(facesContext, FACELET_SUFFIX).getComponentMetadata(
-                        facesContext, compositeComponentResource);
+                .getViewDeclarationLanguage(facesContext, FACELET_SUFFIX)
+                .getComponentMetadata(facesContext, compositeComponentResource);
         log.trace("Lazy loaded metadata for Composite Component %s:%s", libraryName, compositeName);
         return metadata;
     }

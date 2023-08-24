@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.tag.support;
 
 import static de.cuioss.tools.collect.CollectionLiterals.mutableSortedSet;
@@ -30,8 +45,7 @@ import lombok.experimental.UtilityClass;
 public class TagHelper {
 
     /** Default exception message for an invalid value. */
-    public static final String INVALID_VALUE_EXCEPTION =
-        "Neither java.util.Collection, ConceptKeyType, nor String found for the value-attribute: %";
+    public static final String INVALID_VALUE_EXCEPTION = "Neither java.util.Collection, ConceptKeyType, nor String found for the value-attribute: %";
 
     /**
      * @param types
@@ -40,13 +54,11 @@ public class TagHelper {
      * @param contextSize
      * @param contextState
      *
-     * @return a {@link List} of {@link TagComponent}s representing the given ConceptKeys
+     * @return a {@link List} of {@link TagComponent}s representing the given
+     *         ConceptKeys
      */
-    public static List<TagComponent> createFromConceptKeys(final SortedSet<ConceptKeyType> types,
-            final Locale locale,
-            final boolean contentEscape,
-            final String contextSize,
-            final String contextState) {
+    public static List<TagComponent> createFromConceptKeys(final SortedSet<ConceptKeyType> types, final Locale locale,
+            final boolean contentEscape, final String contextSize, final String contextState) {
         final List<TagComponent> result = new ArrayList<>();
         for (final ConceptKeyType type : types) {
             result.add(createFromConceptKey(type, locale, contentEscape, contextSize, contextState));
@@ -63,11 +75,8 @@ public class TagHelper {
      *
      * @return an {@link TagComponent} instance representing the given ConceptKey
      */
-    public static TagComponent createFromConceptKey(final ConceptKeyType type,
-            final Locale locale,
-            final boolean contentEscape,
-            final String contextSize,
-            final String contextState) {
+    public static TagComponent createFromConceptKey(final ConceptKeyType type, final Locale locale,
+            final boolean contentEscape, final String contextSize, final String contextState) {
         final var tagComponent = new TagComponent();
         tagComponent.setContentEscape(contentEscape);
         final var resolved = type.getResolved(locale);
@@ -85,21 +94,19 @@ public class TagHelper {
      *
      * @param value to be used for creating a {@link ConceptKeyType} from.
      *
-     * @return {@link Optional} with created {@link ConceptKeyType} if the the given element is a
-     *         {@link String} or {@link ConceptKeyType} otherwise it will return
-     *         {@link Optional#empty()}
+     * @return {@link Optional} with created {@link ConceptKeyType} if the the given
+     *         element is a {@link String} or {@link ConceptKeyType} otherwise it
+     *         will return {@link Optional#empty()}
      */
     public static Optional<ConceptKeyType> resolveFrom(final Object value) {
-        if (value instanceof ConceptKeyType) {
-            return Optional.of((ConceptKeyType) value);
+        if (value instanceof ConceptKeyType type) {
+            return Optional.of(type);
         }
-        if (value instanceof String) {
-            var elementAsString = (String) value;
+        if (value instanceof String elementAsString) {
             if (elementAsString.isEmpty()) {
                 return Optional.empty();
             }
-            return Optional.of(ConceptKeyTypeImpl.builder()
-                    .identifier(elementAsString)
+            return Optional.of(ConceptKeyTypeImpl.builder().identifier(elementAsString)
                     .labelResolver(new I18nDisplayNameProvider(elementAsString))
                     .category(new MissingTagConceptKeyCategory()).build());
         }
@@ -123,18 +130,15 @@ public class TagHelper {
         }
         final var finalValue = value;
         if (null != finalValue) {
-            if (finalValue instanceof Collection<?>) {
-                final Collection<?> set = (Collection<?>) finalValue;
+            if (finalValue instanceof Collection<?> set) {
                 for (final Object element : set) {
                     values.add(resolveFrom(element).orElseThrow(
-                            () -> new IllegalArgumentException(String.format(INVALID_VALUE_EXCEPTION,
-                                    element))));
+                            () -> new IllegalArgumentException(INVALID_VALUE_EXCEPTION.formatted(element))));
                 }
 
             } else {
                 values.add(resolveFrom(finalValue).orElseThrow(
-                        () -> new IllegalArgumentException(String.format(INVALID_VALUE_EXCEPTION,
-                                finalValue))));
+                        () -> new IllegalArgumentException(INVALID_VALUE_EXCEPTION.formatted(finalValue))));
             }
         }
 
@@ -153,12 +157,8 @@ public class TagHelper {
      */
     @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
                                   // controlled by JSF
-    public static void writeDisabled(final FacesContext context,
-            final DecoratingResponseWriter<?> writer,
-            final List<TagComponent> tagsToDisplay,
-            final String style,
-            final String styleClass)
-        throws IOException {
+    public static void writeDisabled(final FacesContext context, final DecoratingResponseWriter<?> writer,
+            final List<TagComponent> tagsToDisplay, final String style, final String styleClass) throws IOException {
         writer.withStartElement(Node.UL);
         writer.withClientIdIfNecessary();
         writer.withPassThroughAttributes();

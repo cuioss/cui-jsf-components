@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.modal;
 
 import static de.cuioss.jsf.api.components.html.AttributeName.DATA_BACKDROP;
@@ -31,14 +46,14 @@ import de.cuioss.jsf.bootstrap.modal.support.ModalDialogSize;
  * Renders a bootstrap-conform modal dialog.
  * <h2>Opening and Closing</h2>
  * <p>
- * The Dialog renders the attribute {@link AttributeName#DATA_MODAL_ID} with the dialog-id
+ * The Dialog renders the attribute {@link AttributeName#DATA_MODAL_ID} with the
+ * dialog-id
  * </p>
  *
  * @author Oliver Wolff
  *
  */
-@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY,
-        rendererType = BootstrapFamily.MODAL_DIALOG_COMPONENT_RENDERER)
+@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.MODAL_DIALOG_COMPONENT_RENDERER)
 @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
                               // controlled by JSF
 public class ModalDialogRenderer extends BaseDecoratorRenderer<ModalDialogComponent> {
@@ -50,14 +65,12 @@ public class ModalDialogRenderer extends BaseDecoratorRenderer<ModalDialogCompon
 
     @Override
     protected void doEncodeBegin(final FacesContext context,
-            final DecoratingResponseWriter<ModalDialogComponent> writer,
-            final ModalDialogComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<ModalDialogComponent> writer, final ModalDialogComponent component)
+            throws IOException {
         // wrapper element
         writer.withStartElement(DIV).withClientIdIfNecessary().withStyleClass(component.getStyleClass())
                 .withAttributeStyle(component.getStyle()).withPassThroughAttributes()
-                .withAttribute(DATA_MODAL_ID, component.resolveDialogId())
-                .withAttribute(TABINDEX, "-1")
+                .withAttribute(DATA_MODAL_ID, component.resolveDialogId()).withAttribute(TABINDEX, "-1")
                 .withAttribute(ROLE, ROLE_DIALOG);
 
         // if dialog should not be closable data-backdrop="static" must be available
@@ -65,10 +78,8 @@ public class ModalDialogRenderer extends BaseDecoratorRenderer<ModalDialogCompon
             writer.withAttribute(DATA_BACKDROP, "static");
         }
         // Inner Wrapper
-        writer.withStartElement(DIV)
-                .withStyleClass(CssBootstrap.MODAL_DIALOG.getStyleClassBuilder()
-                        .append(ModalDialogSize.getFromString(component.getSize())))
-                .withAttribute(ROLE, "document");
+        writer.withStartElement(DIV).withStyleClass(CssBootstrap.MODAL_DIALOG.getStyleClassBuilder()
+                .append(ModalDialogSize.getFromString(component.getSize()))).withAttribute(ROLE, "document");
         // Modal Content
         writer.withStartElement(DIV).withStyleClass(CssBootstrap.MODAL_CONTENT);
 
@@ -80,8 +91,7 @@ public class ModalDialogRenderer extends BaseDecoratorRenderer<ModalDialogCompon
 
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<ModalDialogComponent> writer,
-            final ModalDialogComponent component)
-        throws IOException {
+            final ModalDialogComponent component) throws IOException {
         // Body End
         writer.withEndElement(DIV);
         writeFooter(context, writer, component);
@@ -94,9 +104,8 @@ public class ModalDialogRenderer extends BaseDecoratorRenderer<ModalDialogCompon
     }
 
     private static void writeHeader(final FacesContext context,
-            final DecoratingResponseWriter<ModalDialogComponent> writer,
-            final ModalDialogComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<ModalDialogComponent> writer, final ModalDialogComponent component)
+            throws IOException {
         writer.withStartElement(DIV).withStyleClass(MODAL_DIALOG_HEADER);
         if (component.isClosable()) {
             HtmlSnippetRenderer.renderCloseButton(writer, "modal");
@@ -114,9 +123,8 @@ public class ModalDialogRenderer extends BaseDecoratorRenderer<ModalDialogCompon
     }
 
     private static void writeFooter(final FacesContext context,
-            final DecoratingResponseWriter<ModalDialogComponent> writer,
-            final ModalDialogComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<ModalDialogComponent> writer, final ModalDialogComponent component)
+            throws IOException {
         if (!component.shouldRenderFooter()) {
             return;
         }

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.layout;
 
 import javax.faces.component.FacesComponent;
@@ -17,7 +32,8 @@ import lombok.experimental.Delegate;
  * Renders a bootstrap conform div with the styleClass 'toolbar'.
  * </p>
  * <p>
- * It uses the affix plugin for positioning the toolbar, see Attributes for details
+ * It uses the affix plugin for positioning the toolbar, see Attributes for
+ * details
  * <p>
  * More information and examples can be found in the <a href=
  * "https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf">Reference
@@ -26,14 +42,14 @@ import lombok.experimental.Delegate;
  * <h2>Attributes</h2>
  * <ul>
  * <li>{@link ContextSizeProvider}</li>
- * <li>pinToTop: Indicates whether to pin this component to the top. The default value for this
- * property is false.</li>
- * <li>pinTopOffset: Defines the offset of this component when pinned to top. The default value for
- * this property is 5.</li>
- * <li>pinToBottom: Indicates whether to pin this component to the bottom. The default value for
- * this property is false.</li>
- * <li>pinBottomOffset: Defines the offset of this component when pinned to bottom. The default
- * value for this property is 5.</li>
+ * <li>pinToTop: Indicates whether to pin this component to the top. The default
+ * value for this property is false.</li>
+ * <li>pinTopOffset: Defines the offset of this component when pinned to top.
+ * The default value for this property is 5.</li>
+ * <li>pinToBottom: Indicates whether to pin this component to the bottom. The
+ * default value for this property is false.</li>
+ * <li>pinBottomOffset: Defines the offset of this component when pinned to
+ * bottom. The default value for this property is 5.</li>
  * </ul>
  * <h2>Usage</h2>
  *
@@ -87,7 +103,6 @@ public class ToolbarComponent extends AbstractLayoutComponent {
      *
      */
     public ToolbarComponent() {
-        super();
         super.setRendererType(BootstrapFamily.LAYOUT_RENDERER);
         state = new CuiState(getStateHelper());
         contextSizeProvider = new ContextSizeProvider(this);
@@ -129,8 +144,7 @@ public class ToolbarComponent extends AbstractLayoutComponent {
     }
 
     /**
-     * @param value
-     *            to be set
+     * @param value to be set
      */
     public void setPinToTop(final boolean value) {
         state.put(PIN_TO_TOP_KEY, value);
@@ -144,8 +158,7 @@ public class ToolbarComponent extends AbstractLayoutComponent {
     }
 
     /**
-     * @param value
-     *            to be set
+     * @param value to be set
      */
     public void setPinToBottom(final boolean value) {
         state.put(PIN_TO_BOTTOM_KEY, value);
@@ -159,8 +172,7 @@ public class ToolbarComponent extends AbstractLayoutComponent {
     }
 
     /**
-     * @param value
-     *            to be set
+     * @param value to be set
      */
     public void setPinTopOffset(final int value) {
         state.put(PIN_TOP_OFFSET_KEY, value);
@@ -174,8 +186,7 @@ public class ToolbarComponent extends AbstractLayoutComponent {
     }
 
     /**
-     * @param value
-     *            to be set
+     * @param value to be set
      */
     public void setPinBottomOffset(final int value) {
         state.put(PIN_BOTTOM_OFFSET_KEY, value);

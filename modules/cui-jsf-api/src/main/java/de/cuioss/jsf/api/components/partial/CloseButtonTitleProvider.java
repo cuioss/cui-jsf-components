@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.components.partial;
 
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
@@ -14,25 +29,28 @@ import lombok.NonNull;
 /**
  * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of the title attribute of a close
- * button. The implementation relies on the correct user of the attribute names, saying they must
- * exactly match the accessor methods.
+ * Implementors of this class manage the state and resolving of the title
+ * attribute of a close button. The implementation relies on the correct user of
+ * the attribute names, saying they must exactly match the accessor methods.
  * </p>
  * <h2>closeButtonTitleKey</h2>
  * <p>
- * The key for looking up the text for the title-attribute. Although this attribute is not required
- * you must provide either this or #closeButtonTitleValue if you want a title to be displayed.
+ * The key for looking up the text for the title-attribute. Although this
+ * attribute is not required you must provide either this or
+ * #closeButtonTitleValue if you want a title to be displayed.
  * </p>
  * <h2>closeButtonTitleValue</h2>
  * <p>
- * The Object displayed for the title-attribute. This is a replacement for #closeButtonTitleKey. If
- * both are present titleValue takes precedence. This object is usually a String. If not, the
- * developer must ensure that a corresponding converter is either registered for the type or must
- * provide a converter using #closeButtonTitleConverter.
+ * The Object displayed for the title-attribute. This is a replacement for
+ * #closeButtonTitleKey. If both are present titleValue takes precedence. This
+ * object is usually a String. If not, the developer must ensure that a
+ * corresponding converter is either registered for the type or must provide a
+ * converter using #closeButtonTitleConverter.
  * </p>
  * <h2>closeButtonTitleConverter</h2>
  * <p>
- * The optional converterId to be used in case of closeButtonTitleValue is set and needs conversion.
+ * The optional converterId to be used in case of closeButtonTitleValue is set
+ * and needs conversion.
  * </p>
  *
  * @author Matthias Walliczek
@@ -111,8 +129,8 @@ public class CloseButtonTitleProvider {
             return null;
         }
         return LabelResolver.builder().withLabelKey(labelKey).withStrictMode(false)
-                .withConverter(getCloseButtonTitleConverter())
-                .withLabelValue(labelValue).build().resolve(componentBridge.facesContext());
+                .withConverter(getCloseButtonTitleConverter()).withLabelValue(labelValue).build()
+                .resolve(componentBridge.facesContext());
     }
 
     /**

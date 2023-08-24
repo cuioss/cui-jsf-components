@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.common;
 
 import static de.cuioss.tools.string.MoreStrings.emptyToNull;
@@ -25,23 +40,27 @@ public final class ManagedBeansProvider {
 
     /**
      * <p>
-     * Retrieve a JSF managed bean instance by name. If the bean has never been accessed before then
-     * it will likely be instantiated by the JSF framework during the execution of this method.
+     * Retrieve a JSF managed bean instance by name. If the bean has never been
+     * accessed before then it will likely be instantiated by the JSF framework
+     * during the execution of this method.
      * </p>
      *
-     * @param <T> return type of retrieved object
+     * @param <T>            return type of retrieved object
      * @param managedBeanKey EL-String containing the name of the managed bean, e.g.
-     *            "#{managedBeanKey}". If it is "managedBeanKey" the EL-Expression will be
-     *            generated. Must not be null nor empty
-     * @param clazz Class object that corresponds to the expected managed bean type. Must not be
-     *            null
-     * @param facesContext to be utilized. Must not be null
+     *                       "#{managedBeanKey}". If it is "managedBeanKey" the
+     *                       EL-Expression will be generated. Must not be null nor
+     *                       empty
+     * @param clazz          Class object that corresponds to the expected managed
+     *                       bean type. Must not be null
+     * @param facesContext   to be utilized. Must not be null
      * @return T retrieved object
-     * @throws IllegalArgumentException when the supplied key does not resolve to any managed bean
-     *             or when a managed bean is found but the object is not of type T
-     * @throws NullPointerException if one of the parameter is {@code null}
-     * @throws IllegalStateException may occur in corner cases, where {@link FacesContext} is not
-     *             initialized properly
+     * @throws IllegalArgumentException when the supplied key does not resolve to
+     *                                  any managed bean or when a managed bean is
+     *                                  found but the object is not of type T
+     * @throws NullPointerException     if one of the parameter is {@code null}
+     * @throws IllegalStateException    may occur in corner cases, where
+     *                                  {@link FacesContext} is not initialized
+     *                                  properly
      */
     public static <T> T getManagedBean(final String managedBeanKey, final Class<T> clazz,
             final FacesContext facesContext) {
@@ -51,32 +70,34 @@ public final class ManagedBeansProvider {
 
         T loadedBean = null;
         try {
-            loadedBean = facesContext.getApplication().evaluateExpressionGet(facesContext,
-                    checkedManagedBeanKey, clazz);
+            loadedBean = facesContext.getApplication().evaluateExpressionGet(facesContext, checkedManagedBeanKey,
+                    clazz);
         } catch (NullPointerException | ELException e) {
-            // These are rare cases, usually on startup with incomplete FacesContext definitions
-            throw new IllegalStateException("Could not load bean of type " + clazz.getName()
-                    + " and name " + checkedManagedBeanKey, e);
+            // These are rare cases, usually on startup with incomplete FacesContext
+            // definitions
+            throw new IllegalStateException(
+                    "Could not load bean of type " + clazz.getName() + " and name " + checkedManagedBeanKey, e);
         }
         if (null == loadedBean) {
-            throw new IllegalArgumentException("Could not load bean of type " + clazz.getName()
-                    + " and name " + checkedManagedBeanKey);
+            throw new IllegalArgumentException(
+                    "Could not load bean of type " + clazz.getName() + " and name " + checkedManagedBeanKey);
         }
         return loadedBean;
     }
 
     /**
-     * In case the beanKey is not an el expression (starting not with '#{') this method wraps the
-     * expression accordingly.
+     * In case the beanKey is not an el expression (starting not with '#{') this
+     * method wraps the expression accordingly.
      *
      * @param managedBeanKey must not be null or empty
-     * @return the key wrapped as an EL-Expression if needed, otherwise the given key.
+     * @return the key wrapped as an EL-Expression if needed, otherwise the given
+     *         key.
      */
     public static String checkManagedBeanKey(final String managedBeanKey) {
         requireNonNull(emptyToNull(managedBeanKey), "managedBeanKey must not be null nor empty");
         var elKey = managedBeanKey;
         if (!elKey.startsWith(EL_START)) {
-            elKey = String.format(EL_WRAPPER, elKey);
+            elKey = EL_WRAPPER.formatted(elKey);
         }
         return elKey;
     }

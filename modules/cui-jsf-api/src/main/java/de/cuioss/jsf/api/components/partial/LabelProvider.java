@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.components.partial;
 
 import java.io.Serializable;
@@ -12,29 +27,33 @@ import lombok.NonNull;
 /**
  * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of the label string of a component. The
- * implementation relies on the correct use of attribute names, saying they must exactly match the
- * accessor methods.
+ * Implementors of this class manage the state and resolving of the label string
+ * of a component. The implementation relies on the correct use of attribute
+ * names, saying they must exactly match the accessor methods.
  * </p>
  * <h2>labelKey</h2>
  * <p>
- * The key for looking up the text to be displayed as the text label. Although this attribute is not
- * required you must provide either this or #labelValue if you want a label to be displayed.
+ * The key for looking up the text to be displayed as the text label. Although
+ * this attribute is not required you must provide either this or #labelValue if
+ * you want a label to be displayed.
  * </p>
  * <h2>labelValue</h2>
  * <p>
- * The Object representing the text to be displayed. This is a replacement for #labelKey. If both
- * are present labelValue takes precedence. The object is usually a string. If not, the developer
- * must ensure that a corresponding converter is either registered for the type or must provide a
- * converter using #labelConverter.
+ * The Object representing the text to be displayed. This is a replacement for
+ * #labelKey. If both are present labelValue takes precedence. The object is
+ * usually a string. If not, the developer must ensure that a corresponding
+ * converter is either registered for the type or must provide a converter using
+ * #labelConverter.
  * </p>
  * <h2>labelConverter</h2>
  * <p>
- * The optional converterId to be used in case of labelValue is set and needs conversion.
+ * The optional converterId to be used in case of labelValue is set and needs
+ * conversion.
  * </p>
  * <h2>labelEscape</h2>
  * <p>
- * Indicates whether the label is to be escaped on output or not. Default is <code>true</code>
+ * Indicates whether the label is to be escaped on output or not. Default is
+ * <code>true</code>
  * </p>
  *
  * @author Oliver Wolff
@@ -130,9 +149,8 @@ public class LabelProvider {
         if (labelValue == null && MoreStrings.isEmpty(labelKey)) {
             return null;
         }
-        return LabelResolver.builder().withConverter(getLabelConverter())
-                .withLabelKey(labelKey).withEscape(isLabelEscape())
-                .withLabelValue(labelValue).build().resolve(componentBridge.facesContext());
+        return LabelResolver.builder().withConverter(getLabelConverter()).withLabelKey(labelKey)
+                .withEscape(isLabelEscape()).withLabelValue(labelValue).build().resolve(componentBridge.facesContext());
     }
 
 }

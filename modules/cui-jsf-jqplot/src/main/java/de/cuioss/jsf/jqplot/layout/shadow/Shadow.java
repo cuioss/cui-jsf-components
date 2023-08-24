@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.jqplot.layout.shadow;
 
 import java.io.Serializable;
@@ -22,8 +37,7 @@ import lombok.ToString;
  */
 @ToString(exclude = { "userClass" })
 @EqualsAndHashCode(exclude = { "userClass" })
-public class Shadow<T extends Serializable> implements Serializable, IShadowDecoration<T>,
-        IPropertyProvider {
+public class Shadow<T extends Serializable> implements Serializable, IShadowDecoration<T>, IPropertyProvider {
 
     /** serialVersionUID */
     private static final long serialVersionUID = 569815887703832188L;
@@ -43,7 +57,7 @@ public class Shadow<T extends Serializable> implements Serializable, IShadowDeco
 
     @Override
     public T setShadow(final Boolean value) {
-        this.shadowed = JsBoolean.create(value);
+        shadowed = JsBoolean.create(value);
         return userClass;
     }
 
@@ -51,7 +65,7 @@ public class Shadow<T extends Serializable> implements Serializable, IShadowDeco
 
     @Override
     public T setShadowAngle(final Double value) {
-        this.shadowAngle = new JsDouble(value);
+        shadowAngle = new JsDouble(value);
         return userClass;
     }
 
@@ -59,7 +73,7 @@ public class Shadow<T extends Serializable> implements Serializable, IShadowDeco
 
     @Override
     public T setShadowOffset(final Integer value) {
-        this.shadowOffset = new JsInteger(value);
+        shadowOffset = new JsInteger(value);
         return userClass;
     }
 
@@ -67,7 +81,7 @@ public class Shadow<T extends Serializable> implements Serializable, IShadowDeco
 
     @Override
     public T setShadowDepth(final Integer value) {
-        this.shadowDepth = new JsInteger(value);
+        shadowDepth = new JsInteger(value);
         return userClass;
     }
 
@@ -75,7 +89,7 @@ public class Shadow<T extends Serializable> implements Serializable, IShadowDeco
 
     @Override
     public T setShadowAlpha(final String value) {
-        this.shadowAlpha = new JsString(value);
+        shadowAlpha = new JsString(value);
         return userClass;
     }
 

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.application.resources;
 
 import java.util.logging.Level;
@@ -24,32 +39,25 @@ public class CuiResourceHandler extends AbstractVersionResourceHandler {
 
     private static final CuiLogger log = new CuiLogger(CuiResourceHandler.class);
 
-    private final CuiResourceConfigurationAccessor configurationAccessor =
-        new CuiResourceConfigurationAccessor();
+    private final CuiResourceConfigurationAccessor configurationAccessor = new CuiResourceConfigurationAccessor();
 
-    private final CuiResourceManagerAccessor resourceManagerAccessor =
-        new CuiResourceManagerAccessor();
+    private final CuiResourceManagerAccessor resourceManagerAccessor = new CuiResourceManagerAccessor();
 
-    private final CuiProjectStageAccessor projectStageProducerAccessor =
-        new CuiProjectStageAccessor();
+    private final CuiProjectStageAccessor projectStageProducerAccessor = new CuiProjectStageAccessor();
 
     /**
-     * The name for the mojarra application logger. used for temporarily
-     * disabling.
+     * The name for the mojarra application logger. used for temporarily disabling.
      */
-    public static final String FACES_LOGGER =
-        "javax.enterprise.resource.webcontainer.jsf.application";
+    public static final String FACES_LOGGER = "javax.enterprise.resource.webcontainer.jsf.application";
 
     public CuiResourceHandler(final ResourceHandler wrapped) {
         super(wrapped);
     }
 
     @Override
-    public Resource createResource(final String resourceName,
-            final String libraryName) {
+    public Resource createResource(final String resourceName, final String libraryName) {
         if (shouldHandle(resourceName, libraryName)) {
-            final var determinedResourceName = determineResourceName(
-                    resourceName, libraryName);
+            final var determinedResourceName = determineResourceName(resourceName, libraryName);
             return super.createResource(determinedResourceName, libraryName);
         }
         return super.createResource(resourceName, libraryName);
@@ -70,8 +78,8 @@ public class CuiResourceHandler extends AbstractVersionResourceHandler {
      *
      * @param resourceName
      * @param libraryName
-     * @return boolean indicating whether the resourceHandler should handle
-     *         (modify) the given resource Request
+     * @return boolean indicating whether the resourceHandler should handle (modify)
+     *         the given resource Request
      */
     private boolean shouldHandle(final String resourceName, final String libraryName) {
         if (projectStageProducerAccessor.getValue().isDevelopment()) {
@@ -80,17 +88,15 @@ public class CuiResourceHandler extends AbstractVersionResourceHandler {
         var structuredFilename = new StructuredFilename(resourceName);
         var configuration = configurationAccessor.getValue();
         return configuration.getHandledLibraries().contains(libraryName)
-            && configuration.getHandledSuffixes().contains(structuredFilename.getSuffix());
+                && configuration.getHandledSuffixes().contains(structuredFilename.getSuffix());
     }
 
     /**
-     * Computes / checks whether the Resource name needs to be adapted /
-     * suffixed with min, if corresponding version is available.
+     * Computes / checks whether the Resource name needs to be adapted / suffixed
+     * with min, if corresponding version is available.
      *
-     * @param resourceName
-     *            to be checked against
-     * @param libraryName
-     *            to be checked against
+     * @param resourceName to be checked against
+     * @param libraryName  to be checked against
      * @return the computed resourceName;
      */
     private String determineResourceName(final String resourceName, final String libraryName) {
@@ -115,8 +121,7 @@ public class CuiResourceHandler extends AbstractVersionResourceHandler {
      * @param libraryInventory
      * @param filename
      */
-    private void registerResourceName(final LibraryInventory libraryInventory,
-        final StructuredFilename filename) {
+    private void registerResourceName(final LibraryInventory libraryInventory, final StructuredFilename filename) {
         var minResourceName = filename.getAppendedName(MINIMIZED_SUFFIX);
         synchronized (CuiResourceHandler.class) {
             // This is a hack and I know it *g*

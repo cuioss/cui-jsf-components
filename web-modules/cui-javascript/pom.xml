@@ -11,6 +11,7 @@
     <name>cui javascript module</name>
     <description>Provides cui js</description>
     <properties>
+        <maven.jar.plugin.automatic.module.name>de.cuioss.jsf.javascript</maven.jar.plugin.automatic.module.name>
         <plugin.resources.cuijs.target>
             ${project.build.directory}/classes/META-INF/resources/de.cuioss.javascript</plugin.resources.cuijs.target>
         <!-- Output from grunt-uglify task-->

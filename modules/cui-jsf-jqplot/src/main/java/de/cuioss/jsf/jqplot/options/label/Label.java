@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.jqplot.options.label;
 
 import java.io.Serializable;
@@ -20,8 +35,7 @@ import lombok.ToString;
  */
 @ToString(exclude = { "userClass" })
 @EqualsAndHashCode(exclude = { "userClass" })
-public class Label<T extends Serializable> implements ILabelDecorator<T>, Serializable,
-        IPropertyProvider {
+public class Label<T extends Serializable> implements ILabelDecorator<T>, Serializable, IPropertyProvider {
 
     /** serial Version UID */
     private static final long serialVersionUID = -5383303038095005652L;
@@ -41,7 +55,7 @@ public class Label<T extends Serializable> implements ILabelDecorator<T>, Serial
 
     @Override
     public T setShowLabel(final Boolean value) {
-        this.showLabel = JsBoolean.create(value);
+        showLabel = JsBoolean.create(value);
         return userClass;
     }
 
@@ -49,7 +63,7 @@ public class Label<T extends Serializable> implements ILabelDecorator<T>, Serial
 
     @Override
     public T setFormatString(final String value) {
-        this.formatString = new JsString(value);
+        formatString = new JsString(value);
         return userClass;
     }
 
@@ -57,7 +71,7 @@ public class Label<T extends Serializable> implements ILabelDecorator<T>, Serial
 
     @Override
     public T setFontFamily(final String value) {
-        this.fontFamily = new JsString(value);
+        fontFamily = new JsString(value);
         return userClass;
     }
 
@@ -65,7 +79,7 @@ public class Label<T extends Serializable> implements ILabelDecorator<T>, Serial
 
     @Override
     public T setFontSize(final String value) {
-        this.fontSize = new JsString(value);
+        fontSize = new JsString(value);
         return userClass;
     }
 
@@ -85,7 +99,7 @@ public class Label<T extends Serializable> implements ILabelDecorator<T>, Serial
 
     @Override
     public T setTextColor(final String value) {
-        this.textColor = Color.createFrom(value);
+        textColor = Color.createFrom(value);
         return userClass;
     }
 
@@ -93,7 +107,7 @@ public class Label<T extends Serializable> implements ILabelDecorator<T>, Serial
 
     @Override
     public T setEscapeHTML(final Boolean value) {
-        this.escapeHTML = JsBoolean.create(value);
+        escapeHTML = JsBoolean.create(value);
         return userClass;
     }
 

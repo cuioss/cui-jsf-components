@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.application.bundle;
 
 import java.util.ArrayList;
@@ -5,7 +20,6 @@ import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -20,12 +34,12 @@ import lombok.ToString;
 
 /**
  * <p>
- * Aggregates a number of configured {@link ResourceBundle} in order to unify the access to multiple
- * ResourceBundles.
+ * Aggregates a number of configured {@link ResourceBundle} in order to unify
+ * the access to multiple ResourceBundles.
  * </p>
- * <em>Caution: </em> If {@link ResourceBundleWrapperImpl} is not {@link RequestScoped} you need to
- * configure resourceBundleNames as well in order to enable restoring of the
- * wrapper after Serialization.
+ * <em>Caution: </em> If {@link ResourceBundleWrapperImpl} is not
+ * {@link RequestScoped} you need to configure resourceBundleNames as well in
+ * order to enable restoring of the wrapper after Serialization.
  *
  * @author Oliver Wolff
  */
@@ -55,13 +69,11 @@ public class ResourceBundleWrapperImpl implements ResourceBundleWrapper {
                 return bundle.getString(key);
             }
         }
-        throw new MissingResourceException("No key '" + key
-                + "' defined within any of the configuredBundles: "
-                + Joiner.on(", ").skipNulls()
-                        .join(resourceBundles.stream().map(ResourceBundle::getBaseBundleName)
-                                .collect(Collectors.toList())),
-                "ResourceBundleWrapperImpl",
-                key);
+        throw new MissingResourceException(
+                "No key '" + key + "' defined within any of the configuredBundles: "
+                        + Joiner.on(", ").skipNulls()
+                                .join(resourceBundles.stream().map(ResourceBundle::getBaseBundleName).toList()),
+                "ResourceBundleWrapperImpl", key);
     }
 
     /**
@@ -71,8 +83,7 @@ public class ResourceBundleWrapperImpl implements ResourceBundleWrapper {
         if (null == resourceBundles || resourceBundles.isEmpty()) {
             resourceBundles = new ArrayList<>();
             if (null == resourceBundleNames || resourceBundleNames.isEmpty()) {
-                log.error(
-                        "Unable to restore ResourceBundles. They have been lost because of serialization");
+                log.error("Unable to restore ResourceBundles. They have been lost because of serialization");
             } else {
                 final var context = FacesContext.getCurrentInstance();
                 final var application = context.getApplication();
@@ -98,7 +109,7 @@ public class ResourceBundleWrapperImpl implements ResourceBundleWrapper {
 
     @Override
     public String getBundleContent() {
-        return Joiner.on(", ").skipNulls().join(resourceBundles.stream().map(ResourceBundle::getBaseBundleName)
-                .collect(Collectors.toList()));
+        return Joiner.on(", ").skipNulls()
+                .join(resourceBundles.stream().map(ResourceBundle::getBaseBundleName).toList());
     }
 }

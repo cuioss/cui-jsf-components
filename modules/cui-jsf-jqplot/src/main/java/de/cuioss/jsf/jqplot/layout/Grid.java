@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.jqplot.layout;
 
 import de.cuioss.jsf.jqplot.js.support.JsObject;
@@ -35,7 +50,9 @@ import lombok.experimental.Delegate;
  * </pre>
  *
  * @author Oliver Wolff
- * @see <a href="http://www.jqplot.com/docs/files/jqplot-core-js.html#Grid">jqplot core grid</a>
+ * @see <a href=
+ *      "http://www.jqplot.com/docs/files/jqplot-core-js.html#Grid">jqplot core
+ *      grid</a>
  */
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = false)
@@ -83,12 +100,12 @@ public class Grid extends JsObject implements IShadowDecoration<Grid> {
     /**
      * "#cccccc" *Color of the grid lines.
      */
-    private final ColorProperty gridLineColor =
-        new ColorProperty("gridLineColor", DEFAULT_GRID_LINE_COLOR);
+    private final ColorProperty gridLineColor = new ColorProperty("gridLineColor", DEFAULT_GRID_LINE_COLOR);
 
     /**
      * Change color of the grid lines.<br>
-     * If parameter value is {@code null} or empty the color will be set to 'transparent'.<br>
+     * If parameter value is {@code null} or empty the color will be set to
+     * 'transparent'.<br>
      * Otherwise it should match the html color definition.<br>
      * <b>Default</b> value is <i>#cccccc</i>
      *
@@ -108,7 +125,8 @@ public class Grid extends JsObject implements IShadowDecoration<Grid> {
 
     /**
      * Change color of the grid background.<br>
-     * If parameter value is {@code null} or empty the color will be set to 'transparent'.<br>
+     * If parameter value is {@code null} or empty the color will be set to
+     * 'transparent'.<br>
      * Otherwise it should match the html color definition.<br>
      * <b>Default</b> value is <i>#cccccc</i>
      *
@@ -128,7 +146,8 @@ public class Grid extends JsObject implements IShadowDecoration<Grid> {
 
     /**
      * Change color of the grid border.<br>
-     * If parameter value is {@code null} or empty the color will be set to 'transparent'.<br>
+     * If parameter value is {@code null} or empty the color will be set to
+     * 'transparent'.<br>
      * Otherwise it should match the html color definition.<br>
      * <b>Default</b> value is <i>#999999</i>
      *
@@ -162,8 +181,8 @@ public class Grid extends JsObject implements IShadowDecoration<Grid> {
     private final CanvasGridRenderer renderer = null;
 
     /**
-     * options to pass to the renderer. Note, the default
-     * CanvasGridRenderer takes no additional options.
+     * options to pass to the renderer. Note, the default CanvasGridRenderer takes
+     * no additional options.
      */
     private final RendererOptions rendererOptions = null;
 

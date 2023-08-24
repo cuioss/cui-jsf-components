@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.components.renderer;
 
 import java.io.IOException;
@@ -21,9 +36,9 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Base class for providing convenience methods on {@link ResponseWriter} without
- * {@link UIComponent} context, compared to {@link DecoratingResponseWriter}. It defines a fluent
- * api.
+ * Base class for providing convenience methods on {@link ResponseWriter}
+ * without {@link UIComponent} context, compared to
+ * {@link DecoratingResponseWriter}. It defines a fluent api.
  */
 @RequiredArgsConstructor
 @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
@@ -57,15 +72,13 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
     /**
      * Adds the "class" attribute to the current dom-element.
      *
-     * @param styleClass
-     *            to be set
+     * @param styleClass to be set
      * @return the {@link DecoratingResponseWriter}
      * @throws IOException
      */
     public ResponseWriterBase withStyleClass(final String styleClass) throws IOException {
         if (styleClass != null && !styleClass.isEmpty()) {
-            writeAttribute(AttributeName.CLASS.getContent(), styleClass,
-                    AttributeName.CLASS.getContent());
+            writeAttribute(AttributeName.CLASS.getContent(), styleClass, AttributeName.CLASS.getContent());
         }
         return this;
     }
@@ -73,41 +86,35 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
     /**
      * Adds the "class" attribute to the current dom-element.
      *
-     * @param styleClass
-     *            to be set
+     * @param styleClass to be set
      * @return the {@link DecoratingResponseWriter}
      * @throws IOException
      */
-    public ResponseWriterBase withStyleClass(final StyleClassProvider styleClass)
-        throws IOException {
+    public ResponseWriterBase withStyleClass(final StyleClassProvider styleClass) throws IOException {
         return withStyleClass(styleClass.getStyleClass());
     }
 
     /**
      * Adds the "class" attribute to the current dom-element.
      *
-     * @param styleClass
-     *            to be set
+     * @param styleClass to be set
      * @return the {@link DecoratingResponseWriter}
      * @throws IOException
      */
-    public ResponseWriterBase withStyleClass(final StyleClassBuilder styleClass)
-        throws IOException {
+    public ResponseWriterBase withStyleClass(final StyleClassBuilder styleClass) throws IOException {
         return withStyleClass(styleClass.getStyleClass());
     }
 
     /**
      * Adds an attribute to the current dom-element.
      *
-     * @param attributeName
-     *            must not be null
+     * @param attributeName  must not be null
      * @param attributeValue
      * @return the {@link DecoratingResponseWriter}
      * @throws IOException
      */
-    public ResponseWriterBase withAttribute(final AttributeName attributeName,
-            final String attributeValue)
-        throws IOException {
+    public ResponseWriterBase withAttribute(final AttributeName attributeName, final String attributeValue)
+            throws IOException {
         writeAttribute(attributeName.getContent(), attributeValue, attributeName.getContent());
         return this;
     }
@@ -115,23 +122,20 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
     /**
      * Adds an attribute to the current dom-element.
      *
-     * @param attributeName
-     *            must not be null
+     * @param attributeName  must not be null
      * @param attributeValue
      * @return the {@link DecoratingResponseWriter}
      * @throws IOException
      */
-    public ResponseWriterBase withAttribute(final AttributeName attributeName,
-            final AttributeValue attributeValue)
-        throws IOException {
+    public ResponseWriterBase withAttribute(final AttributeName attributeName, final AttributeValue attributeValue)
+            throws IOException {
         return withAttribute(attributeName, attributeValue.getContent());
     }
 
     /**
      * Adds the title attribute to the current dom-element.
      *
-     * @param title
-     *            if it is null or empty, not title will be written
+     * @param title if it is null or empty, not title will be written
      * @return the {@link DecoratingResponseWriter}
      * @throws IOException
      */
@@ -145,8 +149,7 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
     /**
      * Adds the style attribute to the current dom-element.
      *
-     * @param style
-     *            if it is null or empty, not style-attribute will be written
+     * @param style if it is null or empty, not style-attribute will be written
      * @return the {@link DecoratingResponseWriter}
      * @throws IOException
      */
@@ -168,8 +171,7 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
      * @throws IOException
      */
     public ResponseWriterBase withPassThroughAttributes(final FacesContext facesContext,
-            final Map<String, Object> passThroughAttributes)
-        throws IOException {
+            final Map<String, Object> passThroughAttributes) throws IOException {
         if (null != passThroughAttributes && !passThroughAttributes.isEmpty()) {
             for (final Entry<String, Object> entry : passThroughAttributes.entrySet()) {
                 getWrapped().writeAttribute(entry.getKey(), resolveValue(facesContext, entry.getValue()), null);
@@ -179,8 +181,8 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
     }
 
     private static Object resolveValue(final FacesContext facesContext, final Object value) {
-        if (value instanceof ValueExpression) {
-            return ((ValueExpression) value).getValue(facesContext.getELContext());
+        if (value instanceof ValueExpression expression) {
+            return expression.getValue(facesContext.getELContext());
         }
         return value;
     }

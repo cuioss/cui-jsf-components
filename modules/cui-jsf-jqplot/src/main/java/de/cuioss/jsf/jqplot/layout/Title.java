@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.jqplot.layout;
 
 import de.cuioss.jsf.jqplot.js.support.JsObject;
@@ -78,8 +93,8 @@ public class Title extends JsObject {
     private RendererOptions rendererOptions;
 
     /**
-     * True to escape special characters with their html entity equivalents in title text. "<"
-     * becomes &lt; and so on, so html tags are not rendered.
+     * True to escape special characters with their html entity equivalents in title
+     * text. "<" becomes &lt; and so on, so html tags are not rendered.
      */
     private JsBoolean escapeHtml;
 
@@ -95,8 +110,8 @@ public class Title extends JsObject {
      */
     public Title(final String titleText) {
         this();
-        this.text = new JsString(titleText);
-        this.escapeHtml = JsBoolean.create(Boolean.TRUE);
+        text = new JsString(titleText);
+        escapeHtml = JsBoolean.create(Boolean.TRUE);
     }
 
     @Override
@@ -109,7 +124,7 @@ public class Title extends JsObject {
         this.addProperty("renderer", renderer);
         this.addProperty(rendererOptions);
         this.addProperty("escapeHtml", escapeHtml);
-        return this.createAsJSON();
+        return createAsJSON();
     }
 
 }

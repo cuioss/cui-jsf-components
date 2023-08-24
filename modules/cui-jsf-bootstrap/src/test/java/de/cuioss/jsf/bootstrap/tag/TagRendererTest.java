@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.tag;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -50,8 +65,8 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> impleme
     void shouldRenderMinimal() {
         final var component = new TagComponent();
         component.setContentKey(SOME_KEY);
-        final var expected =
-            new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(LABEL_PRIMARY_STYLECLASS).withTextContent(SOME_KEY);
+        final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(LABEL_PRIMARY_STYLECLASS)
+                .withTextContent(SOME_KEY);
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -60,9 +75,8 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> impleme
         final var component = new TagComponent();
         component.setContentValue(SOME_CONTENT_VALUE);
         component.setTitleKey(SOME_KEY);
-        final var expected =
-            new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(LABEL_PRIMARY_STYLECLASS)
-                    .withAttribute(AttributeName.TITLE, SOME_KEY).withTextContent(SOME_CONTENT_VALUE);
+        final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(LABEL_PRIMARY_STYLECLASS)
+                .withAttribute(AttributeName.TITLE, SOME_KEY).withTextContent(SOME_CONTENT_VALUE);
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -142,12 +156,10 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> impleme
         // Hidden input
         /*
          * final String inputId = computeSuffixedAttribute(component,
-         * TagComponent.DISPOSE_INFO_SUFFIX);
-         * expected.withNode(Node.INPUT)
+         * TagComponent.DISPOSE_INFO_SUFFIX); expected.withNode(Node.INPUT)
          * .withAttribute(AttributeName.TYPE, AttributeValue.HIDDEN)
-         * .withAttribute(AttributeName.ID, inputId)
-         * .withAttribute(AttributeName.NAME, inputId)
-         * .withAttribute(AttributeName.VALUE, Boolean.FALSE.toString());
+         * .withAttribute(AttributeName.ID, inputId) .withAttribute(AttributeName.NAME,
+         * inputId) .withAttribute(AttributeName.VALUE, Boolean.FALSE.toString());
          */
         assertRenderResult(component, expected.getDocument());
     }

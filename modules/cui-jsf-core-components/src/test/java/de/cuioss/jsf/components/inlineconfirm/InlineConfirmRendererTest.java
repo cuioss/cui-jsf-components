@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.components.inlineconfirm;
 
 import static de.cuioss.jsf.components.inlineconfirm.InlineConfirmRenderer.DATA_IDENTIFIER;
@@ -20,7 +35,7 @@ import de.cuioss.test.jsf.renderer.CommonRendererAsserts;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @VetoRenderAttributeAssert({ CommonRendererAsserts.STYLE, CommonRendererAsserts.STYLE_CLASS,
-    CommonRendererAsserts.PASSTHROUGH, CommonRendererAsserts.ID })
+        CommonRendererAsserts.PASSTHROUGH, CommonRendererAsserts.ID })
 class InlineConfirmRendererTest extends AbstractComponentRendererTest<InlineConfirmRenderer> {
 
     @Override
@@ -36,8 +51,7 @@ class InlineConfirmRendererTest extends AbstractComponentRendererTest<InlineConf
 
     @Test
     void shouldRenderMinimal() {
-        var expected =
-            new HtmlTreeBuilder().withNode(Node.BUTTON).withAttribute(DATA_IDENTIFIER, DATA_IDENTIFIER);
+        var expected = new HtmlTreeBuilder().withNode(Node.BUTTON).withAttribute(DATA_IDENTIFIER, DATA_IDENTIFIER);
         expected.currentHierarchyUp().withNode(Node.BUTTON)
                 .withAttribute(DATA_TARGET_IDENTIFIER, DATA_TARGET_IDENTIFIER).withAttribute(AttributeName.STYLE,
                         AttributeValue.STYLE_DISPLAY_NONE.getContent() + "border-radius: 3px;");

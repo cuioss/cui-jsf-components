@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.tag;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
@@ -57,9 +72,9 @@ import lombok.experimental.Delegate;
  * <li>disposable: Indicates whether the tag can be disposed.
  * <li>disposeListener: Method expression to listen to dispose events. The
  * listener must be in the form of
- * {@code void methodName(de.cuioss.jsf.api.components.events.ModelPayloadEvent)}. In case
- * you set it to <code>true</code> you must provide the according model. If not it falls back to
- * #contentValue</li>
+ * {@code void methodName(de.cuioss.jsf.api.components.events.ModelPayloadEvent)}.
+ * In case you set it to <code>true</code> you must provide the according model.
+ * If not it falls back to #contentValue</li>
  * </ul>
  * <h2>Usage</h2>
  *
@@ -71,8 +86,7 @@ import lombok.experimental.Delegate;
  */
 @FacesComponent(BootstrapFamily.TAG_COMPONENT)
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
-@ResourceDependency(library = "javascript.enabler", name = "enabler.tagdispose.js",
-        target = "head")
+@ResourceDependency(library = "javascript.enabler", name = "enabler.tagdispose.js", target = "head")
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
 public class TagComponent extends BaseCuiInputComponent
         implements TitleProvider, ClientBehaviorHolder, ValueChangeListener {
@@ -120,7 +134,6 @@ public class TagComponent extends BaseCuiInputComponent
      * TagComponent constructor
      */
     public TagComponent() {
-        super();
         super.setRendererType(BootstrapFamily.TAG_COMPONENT_RENDERER);
         titleProvider = new TitleProviderImpl(this);
         contentProvider = new ContentProvider(this);
@@ -145,9 +158,7 @@ public class TagComponent extends BaseCuiInputComponent
             return Optional.empty();
         }
 
-        final var hiddenInput = getChildren().stream()
-                .filter(component -> component instanceof UIInput)
-                .findFirst();
+        final var hiddenInput = getChildren().stream().filter(component -> component instanceof UIInput).findFirst();
 
         if (hiddenInput.isPresent()) {
             return Optional.of((UIInput) hiddenInput.get());
@@ -169,8 +180,7 @@ public class TagComponent extends BaseCuiInputComponent
             return Optional.empty();
         }
 
-        final var found = getChildren().stream()
-                .filter(component -> component instanceof CloseCommandButton)
+        final var found = getChildren().stream().filter(component -> component instanceof CloseCommandButton)
                 .findFirst();
 
         if (found.isPresent()) {
@@ -213,8 +223,8 @@ public class TagComponent extends BaseCuiInputComponent
     }
 
     /**
-     * @return boolean indicating whether the component has been disposed.
-     *         Defaults to <code>false</code>
+     * @return boolean indicating whether the component has been disposed. Defaults
+     *         to <code>false</code>
      */
     private boolean isDisposed() {
         final var inputOption = accessDisposeValueHolder();
@@ -231,7 +241,8 @@ public class TagComponent extends BaseCuiInputComponent
     }
 
     /**
-     * ATTENTION: Evaluation the MethodExpression may already trigger executing the method!
+     * ATTENTION: Evaluation the MethodExpression may already trigger executing the
+     * method!
      *
      * @return the disposeListener
      */

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.jqplot.options;
 
 import java.util.List;
@@ -37,61 +52,59 @@ public class Options extends JsObject implements IPluginConsumer, PlotHookFuncti
     private final PluginSupport plugins = new PluginSupport();
 
     /**
-     * prop: title
-     * Title object. See {@link Title} for specific options. As a shortcut, you
-     * can specify the title option as just a string like: title: 'My Plot'
-     * and this will create a new title object with the specified text.
+     * prop: title Title object. See {@link Title} for specific options. As a
+     * shortcut, you can specify the title option as just a string like: title: 'My
+     * Plot' and this will create a new title object with the specified text.
      */
     @Setter
     private Title title = new Title();
 
     /**
      * up to 4 axes are supported, each with its own options, see
-     * {@linkplain de.cuioss.jsf.jqplot.axes.Axis} for axis
-     * specific options.
+     * {@linkplain de.cuioss.jsf.jqplot.axes.Axis} for axis specific options.
      */
     private Axes axes = null;
 
     private Cursor cursor;
 
     /**
-     * True to animate the series on initial plot draw (renderer dependent). Actual animation
-     * functionality must be supported in the renderer.
+     * True to animate the series on initial plot draw (renderer dependent). Actual
+     * animation functionality must be supported in the renderer.
      */
     private final boolean animate = false;
 
     // private baseCanvas ???
     /**
-     * true to intercept right click events and fire a 'jqplotRightClick' event. this will also
-     * block the context menu.
+     * true to intercept right click events and fire a 'jqplotRightClick' event.
+     * this will also block the context menu.
      */
     private final boolean captureRightClick = false;
 
     /**
-     * A callable which can be used to preprocess data passed into the plot.
-     * Will be called with 3 arguments: the plot data, a reference to the plot,
-     * and the value of dataRendererOptions.
+     * A callable which can be used to preprocess data passed into the plot. Will be
+     * called with 3 arguments: the plot data, a reference to the plot, and the
+     * value of dataRendererOptions.
      */
     private DataRenderer dataRenderer;
 
     /**
-     * Options that will be passed to the dataRenderer.
-     * Can be of any type.
+     * Options that will be passed to the dataRenderer. Can be of any type.
      */
     private DataRendererOptions dataRendererOptions;
 
     /**
-     * True to animate series after a call to the replot() method. Use with caution! Replots can
-     * happen very frequently under certain circumstances (e.g. resizing, dragging points) and
-     * animation in these situations can cause problems.
+     * True to animate series after a call to the replot() method. Use with caution!
+     * Replots can happen very frequently under certain circumstances (e.g.
+     * resizing, dragging points) and animation in these situations can cause
+     * problems.
      */
     private final int defaultAxisStart = 1;
 
     /**
-     * True to execute the draw method even if the plot target is hidden.
-     * Generally, this should be false. Most plot elements will not be sized/
-     * positioned correclty if renderered into a hidden container. To render into
-     * a hidden container, call the replot method when the container is shown.
+     * True to execute the draw method even if the plot target is hidden. Generally,
+     * this should be false. Most plot elements will not be sized/ positioned
+     * correclty if renderered into a hidden container. To render into a hidden
+     * container, call the replot method when the container is shown.
      */
     private final boolean drawIfHidden = false;
 
@@ -139,22 +152,22 @@ public class Options extends JsObject implements IPluginConsumer, PlotHookFuncti
     private Highlighter highlighter;
 
     /**
-     * prop: series
-     * Array of series object options.
-     * see {@link Series} for series specific options.
-     * this.series = [];
+     * prop: series Array of series object options. see {@link Series} for series
+     * specific options. this.series = [];
      */
     private JsArray<Series> series;
 
     /**
-     * default options that will be applied to all series. {@linkplain #addSeriaOption(Series)} can
-     * be used to define different seria options
+     * default options that will be applied to all series.
+     * {@linkplain #addSeriaOption(Series)} can be used to define different seria
+     * options
      */
     @Setter
     private Series seriesDefaults;
 
     /**
-     * Options to set up a mock plot with a data loading indicator if no data is specified.
+     * Options to set up a mock plot with a data loading indicator if no data is
+     * specified.
      */
     private NoDataIndicator noDataIndicator;
 
@@ -171,9 +184,8 @@ public class Options extends JsObject implements IPluginConsumer, PlotHookFuncti
     private final boolean sortData = true;
 
     /**
-     * prop: stackSeries
-     * true or false, creates a stack or "mountain" plot.
-     * Not all series renderers may implement this option.
+     * prop: stackSeries true or false, creates a stack or "mountain" plot. Not all
+     * series renderers may implement this option.
      */
     private final boolean stackSeries = false;
 
@@ -188,24 +200,23 @@ public class Options extends JsObject implements IPluginConsumer, PlotHookFuncti
     private final boolean syncYTicks = true;
 
     /**
-     * prop textColor
-     * css spec for the css color attribute. Default for the entire plot.
+     * prop textColor css spec for the css color attribute. Default for the entire
+     * plot.
      */
     private final Color textColor = null;
 
     /**
-     * Count how many times the draw method has been called while the plot is visible.
-     * Mostly used to test if plot has never been dran (=0), has been successfully drawn
-     * into a visible container once (=1) or draw more than once into a visible container.
-     * Can use this in tests to see if plot has been visibly drawn at least one time.
-     * After plot has been visibly drawn once, it generally doesn't need redrawing if its
-     * container is hidden and shown.
+     * Count how many times the draw method has been called while the plot is
+     * visible. Mostly used to test if plot has never been dran (=0), has been
+     * successfully drawn into a visible container once (=1) or draw more than once
+     * into a visible container. Can use this in tests to see if plot has been
+     * visibly drawn at least one time. After plot has been visibly drawn once, it
+     * generally doesn't need redrawing if its container is hidden and shown.
      */
     private final int _drawCount = 0;
 
     /**
-     * sum of y values for all series in plot.
-     * used in mekko chart.
+     * sum of y values for all series in plot. used in mekko chart.
      */
     private final int _sumy = 0;
 

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.components.html;
 
 import lombok.AccessLevel;
@@ -16,8 +31,7 @@ public enum Node {
     /**
      * Html <b>a</b> tag.<br>
      *
-     * @see <a href="http://www.w3schools.com/tags/tag_a.asp">HTML &lt;a&gt;
-     *      Tag</a>
+     * @see <a href="http://www.w3schools.com/tags/tag_a.asp">HTML &lt;a&gt; Tag</a>
      */
     A("a"),
 
@@ -55,56 +69,55 @@ public enum Node {
     /**
      * Html <b>h1</b> tag.<br>
      *
-     * @see <a href="http://www.w3schools.com/tags/tag_hn.asp">HTML &lt;h1&gt;
-     *      to &lt;h6&gt; Tags</a>
+     * @see <a href="http://www.w3schools.com/tags/tag_hn.asp">HTML &lt;h1&gt; to
+     *      &lt;h6&gt; Tags</a>
      */
     H1("h1"),
 
     /**
      * Html <b>h2</b> tag.<br>
      *
-     * @see <a href="http://www.w3schools.com/tags/tag_hn.asp">HTML &lt;h1&gt;
-     *      to &lt;h6&gt; Tags</a>
+     * @see <a href="http://www.w3schools.com/tags/tag_hn.asp">HTML &lt;h1&gt; to
+     *      &lt;h6&gt; Tags</a>
      */
     H2("h2"),
 
     /**
      * Html <b>h3</b> tag.<br>
      *
-     * @see <a href="http://www.w3schools.com/tags/tag_hn.asp">HTML &lt;h1&gt;
-     *      to &lt;h6&gt; Tags</a>
+     * @see <a href="http://www.w3schools.com/tags/tag_hn.asp">HTML &lt;h1&gt; to
+     *      &lt;h6&gt; Tags</a>
      */
     H3("h3"),
 
     /**
      * Html <b>h4</b> tag.<br>
      *
-     * @see <a href="http://www.w3schools.com/tags/tag_hn.asp">HTML &lt;h1&gt;
-     *      to &lt;h6&gt; Tags</a>
+     * @see <a href="http://www.w3schools.com/tags/tag_hn.asp">HTML &lt;h1&gt; to
+     *      &lt;h6&gt; Tags</a>
      */
     H4("h4"),
 
     /**
      * Html <b>input</b> tag.<br>
      *
-     * @see <a href="http://www.w3schools.com/tags/tag_input.asp">HTML
-     *      &lt;input&gt; Tag</a>
+     * @see <a href="http://www.w3schools.com/tags/tag_input.asp">HTML &lt;input&gt;
+     *      Tag</a>
      */
     INPUT("input"),
 
     /**
      * Html <b>i</b> tag.<br>
      *
-     * @see <a href="http://www.w3schools.com/tags/tag_i.asp">HTML &lt;i&gt;
-     *      Tag</a>
+     * @see <a href="http://www.w3schools.com/tags/tag_i.asp">HTML &lt;i&gt; Tag</a>
      */
     ITALIC("i"),
 
     /**
      * Html <b>label</b> tag.<br>
      *
-     * @see <a href="http://www.w3schools.com/tags/tag_label.asp">HTML
-     *      &lt;label&gt; Tag</a>
+     * @see <a href="http://www.w3schools.com/tags/tag_label.asp">HTML &lt;label&gt;
+     *      Tag</a>
      */
     LABEL("label"),
 
@@ -148,8 +161,7 @@ public enum Node {
     /**
      * Html <b>p</b> tag.<br>
      *
-     * @see <a href="http://www.w3schools.com/tags/tag_p.asp">HTML &lt;p&gt;
-     *      Tag</a>
+     * @see <a href="http://www.w3schools.com/tags/tag_p.asp">HTML &lt;p&gt; Tag</a>
      */
     P("p"),
 
@@ -177,8 +189,8 @@ public enum Node {
     /**
      * Html <b>span</b> tag.<br>
      *
-     * @see <a href="http://www.w3schools.com/tags/tag_span.asp">HTML
-     *      &lt;span&gt; Tag</a>
+     * @see <a href="http://www.w3schools.com/tags/tag_span.asp">HTML &lt;span&gt;
+     *      Tag</a>
      */
     SPAN("span"),
 

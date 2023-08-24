@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.components.model.menu;
 
 import java.io.Serializable;
@@ -10,47 +25,51 @@ import java.io.Serializable;
 public interface NavigationMenuItem extends Serializable, Comparable<NavigationMenuItem> {
 
     /**
-     * @return the (technical) ID of the menu item. This may be utilized for technical aspects like
-     *         access rights or dynamically hiding the corresponding menu. Mandatory.
+     * @return the (technical) ID of the menu item. This may be utilized for
+     *         technical aspects like access rights or dynamically hiding the
+     *         corresponding menu. Mandatory.
      */
     String getId();
 
     /**
      * <p>
-     * Ordering of {@link NavigationMenuItem}s: The usual range is 1 &lt; {@link #getOrder()} &lt;
-     * 50. For
-     * the top-level elements this will result in items with a lower order to be ordered to the left
-     * side, while a higher order will result in being put to the right side. For container elements
-     * (Dropdowns) a lower ordered item will be put to the top of the list, while a higher ordered
-     * item will be be put to the bottom.
+     * Ordering of {@link NavigationMenuItem}s: The usual range is 1 &lt;
+     * {@link #getOrder()} &lt; 50. For the top-level elements this will result in
+     * items with a lower order to be ordered to the left side, while a higher order
+     * will result in being put to the right side. For container elements
+     * (Dropdowns) a lower ordered item will be put to the top of the list, while a
+     * higher ordered item will be be put to the bottom.
      * </p>
      * Sample from the portal:
      * <ul>
-     * <li>The logout menu item has the order '48', will therefore be rendered to the very
-     * right</li>
-     * <li>The user menu item has the order '40', will therefore be rendered left compared to the
-     * logout-item, but right to all other items assuming they have a order &lt; 40</li>
+     * <li>The logout menu item has the order '48', will therefore be rendered to
+     * the very right</li>
+     * <li>The user menu item has the order '40', will therefore be rendered left
+     * compared to the logout-item, but right to all other items assuming they have
+     * a order &lt; 40</li>
      * <li>The user Menu provides two items as default.</li>
      * </ul>
      *
-     * @return the number for the ordering for the concrete {@link NavigationMenuItem}. The lower
-     *         the number the higher the element is displayed. The default implementations like
-     *         {@link NavigationMenuItemImpl} default to 25. The number is used implicitly by
-     *         {@link Comparable#compareTo(Object)}.
+     * @return the number for the ordering for the concrete
+     *         {@link NavigationMenuItem}. The lower the number the higher the
+     *         element is displayed. The default implementations like
+     *         {@link NavigationMenuItemImpl} default to 25. The number is used
+     *         implicitly by {@link Comparable#compareTo(Object)}.
      */
     Integer getOrder();
 
     /**
-     * @return the ID of the parent {@link NavigationMenuItem}. This is needed for nesting the
-     *         Menus dynamically. If it returns 'top' it is assumed to be a top-level
-     *         element.
+     * @return the ID of the parent {@link NavigationMenuItem}. This is needed for
+     *         nesting the Menus dynamically. If it returns 'top' it is assumed to
+     *         be a top-level element.
      */
     String getParentId();
 
     /**
-     * @return the resolved title to display for this menu-item: Optional for non separator items
-     *         but recommended to be used (accessibility). <em>Caution:</em> check with
-     *         {@link #isTitleAvailable()} before accessing
+     * @return the resolved title to display for this menu-item: Optional for non
+     *         separator items but recommended to be used (accessibility).
+     *         <em>Caution:</em> check with {@link #isTitleAvailable()} before
+     *         accessing
      */
     String getResolvedTitle();
 
@@ -70,14 +89,10 @@ public interface NavigationMenuItem extends Serializable, Comparable<NavigationM
     boolean isTitleAvailable();
 
     /**
-     * @return The css class to be utilized for displaying a corresponding icon. Optional
+     * @return The css class to be utilized for displaying a corresponding icon.
+     *         Optional
      */
     String getIconStyleClass();
-
-    /**
-     * @return flag indicating whether the navigation element is disabled
-     */
-    boolean isDisabled();
 
     /**
      * @return flag indicating whether the navigation element should be rendered
@@ -85,8 +100,8 @@ public interface NavigationMenuItem extends Serializable, Comparable<NavigationM
     boolean isRendered();
 
     /**
-     * @return boolean indicating whether the current {@link NavigationMenuItem} is active, aka
-     *         selected.
+     * @return boolean indicating whether the current {@link NavigationMenuItem} is
+     *         active, aka selected.
      */
     default boolean isActive() {
         return false;

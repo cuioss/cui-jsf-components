@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>de.cuioss.jsf</groupId>
@@ -7,11 +9,21 @@
     </parent>
     <artifactId>cui-jsf-api</artifactId>
     <name>cui jsf api</name>
-    <description>Provides classes and structures that can be used for creating ui-components.</description>
+    <description>Provides classes and structures that can be used for creating
+        ui-components.</description>
+    <properties>
+        <maven.jar.plugin.automatic.module.name>de.cuioss.jsf.api</maven.jar.plugin.automatic.module.name>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
             <artifactId>owasp-java-html-sanitizer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <!-- Sadly needed by sanitizer-->
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

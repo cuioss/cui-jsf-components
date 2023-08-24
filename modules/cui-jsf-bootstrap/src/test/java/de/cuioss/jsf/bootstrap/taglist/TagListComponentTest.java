@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.taglist;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,7 +36,6 @@ import de.cuioss.jsf.bootstrap.tag.support.TagHelper;
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
-import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 
 @VerifyComponentProperties(of = { "state", "size", "contentEscape", "style", "styleClass" })
 class TagListComponentTest extends AbstractComponentTest<TagListComponent> {
@@ -34,7 +48,7 @@ class TagListComponentTest extends AbstractComponentTest<TagListComponent> {
     void shouldRenderDependingOnValue() {
         var underTest = anyComponent();
         assertFalse(underTest.isRendered());
-        underTest.setValue(new ArrayList<ConceptKeyType>());
+        underTest.setValue(new ArrayList<>());
         assertFalse(underTest.isRendered());
         underTest.setValue(conceptKeyTypeGenerator.next());
         assertTrue(underTest.isRendered());
@@ -48,7 +62,7 @@ class TagListComponentTest extends AbstractComponentTest<TagListComponent> {
     void shouldReturnCollectionOnValue() {
         var underTest = anyComponent();
         assertTrue(TagHelper.getValueAsSet(underTest.getValue()).isEmpty());
-        underTest.setValue(new ArrayList<ConceptKeyType>());
+        underTest.setValue(new ArrayList<>());
         assertTrue(TagHelper.getValueAsSet(underTest.getValue()).isEmpty());
         underTest.setValue(conceptKeyTypeGenerator.next());
         assertFalse(TagHelper.getValueAsSet(underTest.getValue()).isEmpty());

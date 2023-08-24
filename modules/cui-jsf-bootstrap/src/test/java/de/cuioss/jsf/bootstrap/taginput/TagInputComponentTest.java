@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.taginput;
 
 import static de.cuioss.tools.collect.CollectionLiterals.mutableSet;
@@ -25,9 +40,8 @@ import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
 
-@VerifyComponentProperties(
-        of = { "maxItems", "letUserCreateTags", "delimiter", "itemConverterId", "displayRemoveButton" },
-        defaultValued = { "maxItems", "displayRemoveButton" })
+@VerifyComponentProperties(of = { "maxItems", "letUserCreateTags", "delimiter", "itemConverterId",
+        "displayRemoveButton" }, defaultValued = { "maxItems", "displayRemoveButton" })
 @PropertyConfig(name = "sourceSet", propertyClass = ConceptKeyType.class, collectionType = CollectionType.SET)
 @PropertyConfig(name = "clientCreated", propertyClass = ConceptKeyType.class, collectionType = CollectionType.SET)
 @PropertyGenerator(ConceptKeyTypeGenerator.class)
@@ -56,13 +70,12 @@ class TagInputComponentTest extends AbstractUiComponentTest<TagInputComponent> {
         underTest.setValue(Collections.singleton(conceptKeyTypeGenerator.next()));
         assertEquals(1, TagHelper.getValueAsSet(underTest.getSubmittedValue(), underTest.getValue()).size());
         final Set<ConceptKeyType> valueSet = mutableSet(conceptKeyTypeSetGenerator.next());
-        valueSet.add(ConceptKeyTypeImpl.builder().identifier("same")
-                .labelResolver(new I18nDisplayNameProvider("same1")).build());
-        valueSet.add(ConceptKeyTypeImpl.builder().identifier("same")
-                .labelResolver(new I18nDisplayNameProvider("same2")).build());
+        valueSet.add(ConceptKeyTypeImpl.builder().identifier("same").labelResolver(new I18nDisplayNameProvider("same1"))
+                .build());
+        valueSet.add(ConceptKeyTypeImpl.builder().identifier("same").labelResolver(new I18nDisplayNameProvider("same2"))
+                .build());
         underTest.setValue(valueSet);
-        final var result =
-                TagHelper.getValueAsSet(underTest.getSubmittedValue(), underTest.getValue());
+        final var result = TagHelper.getValueAsSet(underTest.getSubmittedValue(), underTest.getValue());
         assertEquals(valueSet.size(), result.size());
     }
 

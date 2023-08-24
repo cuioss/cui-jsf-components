@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.jqplot.hook;
 
 import static java.util.Objects.requireNonNull;
@@ -9,8 +24,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Hook functions provider, manage list of IPlotHookFunctionProvider able to create string
- * representation of all collected.
+ * Hook functions provider, manage list of IPlotHookFunctionProvider able to
+ * create string representation of all collected.
  *
  * @author Eugen Fischer
  */
@@ -25,16 +40,15 @@ public class HookFunctionsManager implements Serializable {
     /**
      * Add hook function to list
      *
-     * @param hookFunction {@linkplain PlotHookFunctionProvider} should not be {@code null}
+     * @param hookFunction {@linkplain PlotHookFunctionProvider} should not be
+     *                     {@code null}
      */
     public void addHookFunction(final PlotHookFunctionProvider hookFunction) {
 
-        final var function =
-            requireNonNull(hookFunction, "hookFunction");
+        final var function = requireNonNull(hookFunction, "hookFunction");
 
         if (hooks.contains(function)) {
-            throw new IllegalArgumentException(
-                    "Hook function [" + function.getIdentifier() + "] already in use.");
+            throw new IllegalArgumentException("Hook function [" + function.getIdentifier() + "] already in use.");
         }
 
         hooks.add(function);

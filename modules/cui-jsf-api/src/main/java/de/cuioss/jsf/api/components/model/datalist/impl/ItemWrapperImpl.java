@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.components.model.datalist.impl;
 
 import static de.cuioss.tools.base.Preconditions.checkState;
@@ -14,8 +29,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * @param <T> identifying the type of items to be created. Must be at least {@link Serializable} and
- *            implement {@link Object#hashCode()} and {@link Object#equals(Object)} correctly.
+ * @param <T> identifying the type of items to be created. Must be at least
+ *            {@link Serializable} and implement {@link Object#hashCode()} and
+ *            {@link Object#equals(Object)} correctly.
  *
  * @author Oliver Wolff
  */
@@ -48,14 +64,14 @@ public class ItemWrapperImpl<T extends Serializable> implements ItemWrapper<T> {
     private int listIndex;
 
     /**
-     * @param wrapped may be null
+     * @param wrapped    may be null
      * @param editStatus must not be null.
      */
     public ItemWrapperImpl(final T wrapped, final EditStatus editStatus) {
         requireNonNull(editStatus);
         this.wrapped = wrapped;
         this.editStatus = editStatus;
-        this.addStatus = EditStatus.ADDED.equals(editStatus) ? AddStatus.CREATED : AddStatus.PERSISTED;
+        addStatus = EditStatus.ADDED.equals(editStatus) ? AddStatus.CREATED : AddStatus.PERSISTED;
     }
 
     /**
@@ -80,16 +96,15 @@ public class ItemWrapperImpl<T extends Serializable> implements ItemWrapper<T> {
     public void doSave() {
         requireNonNull(wrapped, "Invalid usage: wrapped should not be null");
         switch (initalEditStatus) {
-            case ADDED:
-                editStatus = EditStatus.ADDED;
-                addStatus = AddStatus.ADDED;
-                break;
-            case EDIT:
-                throw new IllegalStateException(
-                        "Invalid usage: You must not doCancel or doSave prior to doEdit");
-            default:
-                editStatus = wrapped.equals(initialWrapped) ? EditStatus.INITIAL : EditStatus.MODIFIED;
-                break;
+        case ADDED:
+            editStatus = EditStatus.ADDED;
+            addStatus = AddStatus.ADDED;
+            break;
+        case EDIT:
+            throw new IllegalStateException("Invalid usage: You must not doCancel or doSave prior to doEdit");
+        default:
+            editStatus = wrapped.equals(initialWrapped) ? EditStatus.INITIAL : EditStatus.MODIFIED;
+            break;
         }
         initialWrapped = null;
     }
@@ -114,8 +129,7 @@ public class ItemWrapperImpl<T extends Serializable> implements ItemWrapper<T> {
     @Override
     public void doEdit(final T copyToEdit) {
         requireNonNull(copyToEdit);
-        checkState(!EditStatus.DELETED.equals(getEditStatus()),
-                "Invalid usage: deleted elements can not be edited.");
+        checkState(!EditStatus.DELETED.equals(getEditStatus()), "Invalid usage: deleted elements can not be edited.");
         initialWrapped = wrapped;
         wrapped = copyToEdit;
         initalEditStatus = editStatus;

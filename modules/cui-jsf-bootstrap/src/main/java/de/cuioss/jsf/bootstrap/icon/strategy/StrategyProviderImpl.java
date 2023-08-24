@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.icon.strategy;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableMap;
@@ -14,8 +29,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
- * Strategy Provider Implementation. Furthermore StrategyProviderImpl provide a builder to create
- * the StrategyProvider (see {@linkplain Builder}).
+ * Strategy Provider Implementation. Furthermore StrategyProviderImpl provide a
+ * builder to create the StrategyProvider (see {@linkplain Builder}).
  *
  * @author Eugen Fischer
  * @param <K> bounded type for condition must be serializable
@@ -24,8 +39,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-public class StrategyProviderImpl<K extends Serializable, V extends Serializable> implements
-        IStrategyProvider<K, V> {
+public class StrategyProviderImpl<K extends Serializable, V extends Serializable> implements IStrategyProvider<K, V> {
 
     /** serial Version UID */
     private static final long serialVersionUID = 8396786922039611120L;
@@ -36,10 +50,10 @@ public class StrategyProviderImpl<K extends Serializable, V extends Serializable
 
     @Override
     public V actOnCondition(final K condition) {
-        if (this.rules.containsKey(condition)) {
-            return this.rules.get(condition);
+        if (rules.containsKey(condition)) {
+            return rules.get(condition);
         }
-        return this.defaultRule.getResult();
+        return defaultRule.getResult();
     }
 
     /**
@@ -57,8 +71,9 @@ public class StrategyProviderImpl<K extends Serializable, V extends Serializable
      * For <i>small</i> immutable maps, the {@code ImmutableMap.of()} methods are
      * even more convenient.
      * <p>
-     * Builder instances can be reused - it is safe to call {@link #build} multiple times to build
-     * multiple maps in series. Each map is a superset of the maps created before it.
+     * Builder instances can be reused - it is safe to call {@link #build} multiple
+     * times to build multiple maps in series. Each map is a superset of the maps
+     * created before it.
      * </p>
      *
      * @author Eugen Fischer
@@ -83,17 +98,18 @@ public class StrategyProviderImpl<K extends Serializable, V extends Serializable
         }
 
         /**
-         * Define default behavior. To protect user of wrong usage default rule can be set once.
+         * Define default behavior. To protect user of wrong usage default rule can be
+         * set once.
          *
-         * @param rule {@linkplain Rule} must not be {@code null}. If there is a need of return
-         *            {@code null} define a fitting default rule.
+         * @param rule {@linkplain Rule} must not be {@code null}. If there is a need of
+         *             return {@code null} define a fitting default rule.
          * @return fluent api style reference to the builder
-         * @throws IllegalArgumentException if default value should be overwritten during building
-         *             object.
+         * @throws IllegalArgumentException if default value should be overwritten
+         *                                  during building object.
          */
         public Builder<K, V> defineDefaultRule(final Rule<? extends Serializable, V> rule) {
-            Preconditions.checkState(null == this.defRule, "You try to overwrite allready defined default rule");
-            this.defRule = requireNonNull(rule, "Default Rule must not be null");
+            Preconditions.checkState(null == defRule, "You try to overwrite allready defined default rule");
+            defRule = requireNonNull(rule, "Default Rule must not be null");
             return this;
         }
 
@@ -102,11 +118,11 @@ public class StrategyProviderImpl<K extends Serializable, V extends Serializable
          *
          * @return complete type safe StrategyHolder object which is ready for use
          * @throws IllegalArgumentException - if duplicate rues were added
-         * @throws IllegalStateException - if default value was not defined
+         * @throws IllegalStateException    - if default value was not defined
          */
         public StrategyProviderImpl<K, V> build() {
-            Preconditions.checkState(null != this.defRule, "You need to define default rule");
-            return new StrategyProviderImpl<>(immutableMap(mapBuilder), this.defRule);
+            Preconditions.checkState(null != defRule, "You need to define default rule");
+            return new StrategyProviderImpl<>(immutableMap(mapBuilder), defRule);
         }
 
     }

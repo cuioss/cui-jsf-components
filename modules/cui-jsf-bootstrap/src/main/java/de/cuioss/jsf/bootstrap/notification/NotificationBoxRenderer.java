@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.notification;
 
 import java.io.IOException;
@@ -24,8 +39,7 @@ import de.cuioss.jsf.bootstrap.CssBootstrap;
  *
  * @author Matthias Walliczek
  */
-@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY,
-        rendererType = BootstrapFamily.NOTIFICATION_BOX_RENDERER)
+@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.NOTIFICATION_BOX_RENDERER)
 @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
                               // controlled by JSF
 public class NotificationBoxRenderer extends BaseDecoratorRenderer<NotificationBoxComponent> {
@@ -38,26 +52,19 @@ public class NotificationBoxRenderer extends BaseDecoratorRenderer<NotificationB
     }
 
     private static String getAlertClassForState(final ContextState state) {
-        switch (state) {
-            case SUCCESS:
-                return "alert-success";
-            case DANGER:
-                return "alert-danger";
-            case INFO:
-                return "alert-info";
-            case WARNING:
-                return "alert-warning";
-            // $CASES-OMITTED$
-            default:
-                return "";
-        }
+        return switch (state) {
+        case SUCCESS -> "alert-success";
+        case DANGER -> "alert-danger";
+        case INFO -> "alert-info";
+        case WARNING -> "alert-warning";
+        default -> "";
+        };
     }
 
     @Override
     protected void doEncodeBegin(final FacesContext context,
-            final DecoratingResponseWriter<NotificationBoxComponent> writer,
-            final NotificationBoxComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<NotificationBoxComponent> writer, final NotificationBoxComponent component)
+            throws IOException {
         writer.withStartElement(Node.DIV);
         if (component.isDismissible() && null != component.getDismissListener()) {
             writer.withClientId();
@@ -97,9 +104,8 @@ public class NotificationBoxRenderer extends BaseDecoratorRenderer<NotificationB
 
     @Override
     protected void doEncodeEnd(final FacesContext context,
-            final DecoratingResponseWriter<NotificationBoxComponent> writer,
-            final NotificationBoxComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<NotificationBoxComponent> writer, final NotificationBoxComponent component)
+            throws IOException {
 
         writer.withEndElement(Node.DIV);
     }

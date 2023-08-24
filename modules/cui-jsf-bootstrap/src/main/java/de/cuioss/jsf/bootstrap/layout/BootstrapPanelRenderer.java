@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.layout;
 
 import java.io.IOException;
@@ -43,9 +58,8 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
 
     @Override
     protected void doEncodeBegin(final FacesContext context,
-            final DecoratingResponseWriter<BootstrapPanelComponent> writer,
-            final BootstrapPanelComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<BootstrapPanelComponent> writer, final BootstrapPanelComponent component)
+            throws IOException {
         writePanelBegin(writer, component);
         writeStateHolder(writer, component);
         writeHeader(writer, component, context);
@@ -54,9 +68,8 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
 
     @Override
     protected void doEncodeChildren(final FacesContext context,
-            final DecoratingResponseWriter<BootstrapPanelComponent> writer,
-            final BootstrapPanelComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<BootstrapPanelComponent> writer, final BootstrapPanelComponent component)
+            throws IOException {
         if (component.shouldRenderSpinnerIcon()) {
             writeSpinnerIcon(context);
         } else {
@@ -67,9 +80,8 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
 
     @Override
     protected void doEncodeEnd(final FacesContext context,
-            final DecoratingResponseWriter<BootstrapPanelComponent> writer,
-            final BootstrapPanelComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<BootstrapPanelComponent> writer, final BootstrapPanelComponent component)
+            throws IOException {
         writePanelBodyEnd(writer);
         writeFooter(writer, component, context);
         writePanelEnd(writer);
@@ -111,9 +123,7 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
      * Panel header / toggle element
      */
     private static void writeHeader(final DecoratingResponseWriter<BootstrapPanelComponent> writer,
-            final BootstrapPanelComponent component,
-            final FacesContext context)
-        throws IOException {
+            final BootstrapPanelComponent component, final FacesContext context) throws IOException {
         if (component.shouldRenderHeader()) {
             writer.withStartElement(Node.DIV);
             writer.withClientId(ID_SUFFIX_TOGGLER);
@@ -125,8 +135,8 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
                 writer.withAttribute(AttributeName.DATA_TARGET,
                         "#" + DecoratingResponseWriter.escapeJavaScriptIdentifier(getPanelBodyId(component)));
                 writer.withAttribute(AttributeName.ARIA_CONTROLS, getPanelBodyId(component));
-                writer.withStyleClass(CssBootstrap.PANEL_HEADING.getStyleClassBuilder()
-                        .append(CssCuiBootstrap.CUI_COLLAPSIBLE));
+                writer.withStyleClass(
+                        CssBootstrap.PANEL_HEADING.getStyleClassBuilder().append(CssCuiBootstrap.CUI_COLLAPSIBLE));
             } else {
                 writer.withStyleClass(CssBootstrap.PANEL_HEADING.getStyleClassBuilder());
             }
@@ -143,13 +153,11 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
     }
 
     /**
-     * Write heading for panel header.
-     * A header facet takes precedence over set header values/keys.
+     * Write heading for panel header. A header facet takes precedence over set
+     * header values/keys.
      */
     private static void writeHeading(final DecoratingResponseWriter<BootstrapPanelComponent> writer,
-            final BootstrapPanelComponent component,
-            final FacesContext context)
-        throws IOException {
+            final BootstrapPanelComponent component, final FacesContext context) throws IOException {
         if (component.shouldRenderHeaderFacet()) {
             // Facet needs to take care about collapse icon.
             component.getHeaderFacet().encodeAll(context);
@@ -173,13 +181,11 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
     }
 
     /**
-     * Write footer if necessary.
-     * A footer facet takes precedence over set footer values/keys.
+     * Write footer if necessary. A footer facet takes precedence over set footer
+     * values/keys.
      */
     private static void writeFooter(final DecoratingResponseWriter<BootstrapPanelComponent> writer,
-            final BootstrapPanelComponent component,
-            final FacesContext context)
-        throws IOException {
+            final BootstrapPanelComponent component, final FacesContext context) throws IOException {
         if (component.shouldRenderFooter()) {
             writer.withStartElement(Node.DIV);
             writer.withStyleClass(CssBootstrap.PANEL_FOOTER);
@@ -205,8 +211,7 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
      * Start panel HTML.
      */
     private static void writePanelBegin(final DecoratingResponseWriter<BootstrapPanelComponent> writer,
-            final BootstrapPanelComponent component)
-        throws IOException {
+            final BootstrapPanelComponent component) throws IOException {
         writer.withStartElement(Node.DIV);
         writer.withClientId();
 
@@ -224,10 +229,8 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
         writer.withPassThroughAttributes();
         writer.withAttribute(AttributeName.DATA_NOT_COLLAPSED, Boolean.toString(!component.resolveCollapsed()));
 
-        writer.withStyleClass(CssBootstrap.PANEL.getStyleClassBuilder()
-                .append(getPanelClassForState(component))
-                .append(CssCuiBootstrap.CUI_PANEL)
-                .append(component.getStyleClass()));
+        writer.withStyleClass(CssBootstrap.PANEL.getStyleClassBuilder().append(getPanelClassForState(component))
+                .append(CssCuiBootstrap.CUI_PANEL).append(component.getStyleClass()));
 
     }
 
@@ -235,8 +238,7 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
      * Start panel HTML body.
      */
     private static void writeBodyBegin(final DecoratingResponseWriter<BootstrapPanelComponent> writer,
-            final BootstrapPanelComponent component)
-        throws IOException {
+            final BootstrapPanelComponent component) throws IOException {
         writer.withStartElement(Node.DIV);
         writer.withClientId(ID_SUFFIX_BODY);
         writer.withStyleClass(
@@ -254,8 +256,7 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
     /**
      * Close panel HTML body.
      */
-    private static void writePanelBodyEnd(final ResponseWriterBase writer)
-        throws IOException {
+    private static void writePanelBodyEnd(final ResponseWriterBase writer) throws IOException {
         writer.withEndElement(Node.DIV);
         writer.withEndElement(Node.DIV);
     }
@@ -263,17 +264,16 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
     /**
      * Close panel HTML
      */
-    private static void writePanelEnd(final ResponseWriterBase writer)
-        throws IOException {
+    private static void writePanelEnd(final ResponseWriterBase writer) throws IOException {
         writer.withEndElement(Node.DIV);
     }
 
     /**
-     * Write element to keep track of current collapse state - necessary for AJAX request.
+     * Write element to keep track of current collapse state - necessary for AJAX
+     * request.
      */
     private static void writeStateHolder(final DecoratingResponseWriter<BootstrapPanelComponent> writer,
-            final BootstrapPanelComponent component)
-        throws IOException {
+            final BootstrapPanelComponent component) throws IOException {
         writer.withStartElement(Node.INPUT);
         writer.withClientId(ID_SUFFIX_ISEXPANDED);
         writer.withAttribute(AttributeName.TYPE, AttributeValue.HIDDEN);
@@ -284,8 +284,7 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
     /**
      * Write element to indicate ongoing deferred content retrieval.
      */
-    private static void writeSpinnerIcon(final FacesContext facesContext)
-        throws IOException {
+    private static void writeSpinnerIcon(final FacesContext facesContext) throws IOException {
         var indicator = WaitingIndicatorComponent.createComponent(facesContext);
         indicator.setSize("sm");
         indicator.encodeAll(facesContext);

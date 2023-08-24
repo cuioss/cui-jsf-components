@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.taglist;
 
 import java.util.Collection;
@@ -28,8 +43,8 @@ import lombok.experimental.Delegate;
  * <li>{@link StyleAttributeProvider}</li>
  * <li>{@link ContextStateProvider}</li>
  * <li>value: the value of the component. It is supposed to be either a single
- * {@link ConceptKeyType}, {@link String} or a {@link Collection} of {@link ConceptKeyType} or
- * {@link String}</li>
+ * {@link ConceptKeyType}, {@link String} or a {@link Collection} of
+ * {@link ConceptKeyType} or {@link String}</li>
  * <li>contentEscape: indicating whether the content of the tags need to be
  * escaped. defaults to <code>true</code></li>
  * </ul>
@@ -45,8 +60,7 @@ import lombok.experimental.Delegate;
 public class TagListComponent extends BaseCuiNamingContainer {
 
     /** Default exception message for an invalid value. */
-    public static final String INVALID_VALUE_EXCEPTION =
-        "Neither java.util.Collection, ConceptKeyType, nor String found for the value-attribute: %s";
+    public static final String INVALID_VALUE_EXCEPTION = "Neither java.util.Collection, ConceptKeyType, nor String found for the value-attribute: %s";
 
     private static final String TAG_LIST_KEY = "value";
 
@@ -64,7 +78,6 @@ public class TagListComponent extends BaseCuiNamingContainer {
      *
      */
     public TagListComponent() {
-        super();
         super.setRendererType(BootstrapFamily.TAG_LIST_COMPONENT_RENDERER);
         contextSizeProvider = new ContextSizeProvider(this);
         contextStateProvider = new ContextStateProvider(this);
@@ -73,17 +86,17 @@ public class TagListComponent extends BaseCuiNamingContainer {
 
     /**
      * @return the value of the component. It is supposed to be either a single
-     *         {@link ConceptKeyType} or a {@link Collection} of {@link ConceptKeyType}
+     *         {@link ConceptKeyType} or a {@link Collection} of
+     *         {@link ConceptKeyType}
      */
     public Object getValue() {
         return getStateHelper().eval(TAG_LIST_KEY);
     }
 
     /**
-     * @param tagList
-     *            the value of the component. It is supposed to be either a
-     *            single {@link ConceptKeyType} or a {@link Collection} of
-     *            {@link ConceptKeyType}
+     * @param tagList the value of the component. It is supposed to be either a
+     *                single {@link ConceptKeyType} or a {@link Collection} of
+     *                {@link ConceptKeyType}
      */
     public void setValue(final Object tagList) {
         getStateHelper().put(TAG_LIST_KEY, tagList);
@@ -98,8 +111,7 @@ public class TagListComponent extends BaseCuiNamingContainer {
     }
 
     /**
-     * @param contentEscape
-     *            to set.
+     * @param contentEscape to set.
      */
     public void setContentEscape(final boolean contentEscape) {
         contentProvider.setContentEscape(contentEscape);

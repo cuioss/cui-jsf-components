@@ -14,7 +14,6 @@ indent_style = space
 indent_size = 4
 trim_trailing_whitespace = true
 
-# Matches the exact files either package.json or .travis.yml
-[*.{css,sass,scss,json}]
+[*.{css, sass, scss, js}]
 indent_style = space
-indent_size = 2
+indent_size = 4

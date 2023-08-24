@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.jqplot.plugin.cursor;
 
 import java.util.List;
@@ -14,7 +29,8 @@ import lombok.ToString;
 
 /**
  * @author Eugen Fischer
- * @see <a href="http://www.jqplot.com/docs/files/plugins/jqplot-cursor-js.html">Cursor</a>
+ * @see <a href=
+ *      "http://www.jqplot.com/docs/files/plugins/jqplot-cursor-js.html">Cursor</a>
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
@@ -87,8 +103,9 @@ public class Cursor extends JsObject implements IPluginConsumer {
     private JsString tooltipLocation;
 
     /**
-     * Where to position tooltip. If followMouse is true, this is relative to the cursor, otherwise,
-     * it is relative to the grid. One of ‘n’, ‘ne’, ‘e’, ‘se’, ‘s’, ‘sw’, ‘w’, ‘nw’
+     * Where to position tooltip. If followMouse is true, this is relative to the
+     * cursor, otherwise, it is relative to the grid. One of ‘n’, ‘ne’, ‘e’, ‘se’,
+     * ‘s’, ‘sw’, ‘w’, ‘nw’
      *
      * @param value {@link Location}
      * @return fluent api style
@@ -196,8 +213,8 @@ public class Cursor extends JsObject implements IPluginConsumer {
     private JsBoolean looseZoom;
 
     /**
-     * Will expand zoom range to provide more rounded tick values. Works only with linear axes and
-     * date axes.
+     * Will expand zoom range to provide more rounded tick values. Works only with
+     * linear axes and date axes.
      *
      * @param value {@link Boolean}
      * @return fluent api style
@@ -236,8 +253,9 @@ public class Cursor extends JsObject implements IPluginConsumer {
     private JsBoolean showVerticalLine;
 
     /**
-     * draw a vertical line across the plot which follows the cursor. When the line is near a data
-     * point, a special legend and/or tooltip can be updated with the data values.
+     * draw a vertical line across the plot which follows the cursor. When the line
+     * is near a data point, a special legend and/or tooltip can be updated with the
+     * data values.
      *
      * @param value {@link Boolean}
      * @return fluent api style
@@ -280,7 +298,8 @@ public class Cursor extends JsObject implements IPluginConsumer {
     private JsBoolean showCursorLegend;
 
     /**
-     * Replace the plot legend with an enhanced legend displaying intersection information.
+     * Replace the plot legend with an enhanced legend displaying intersection
+     * information.
      *
      * @param value {@link Boolean}
      * @return fluent api style

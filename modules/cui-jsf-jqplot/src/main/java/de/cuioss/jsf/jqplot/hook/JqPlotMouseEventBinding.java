@@ -1,6 +1,19 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.jqplot.hook;
-
-import static java.lang.String.format;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -38,8 +51,7 @@ public class JqPlotMouseEventBinding extends PlotHookFunctionProviderImpl {
      * <li>is function logic</li>
      * </ol>
      */
-    private static final String MOUSE_DOWN_BINDING_TEMPALTE =
-        "$('#%s').bind('jqplotMouseDown',function(ev,seriesIndex,pointIndex,data){%s});";
+    private static final String MOUSE_DOWN_BINDING_TEMPALTE = "$('#%s').bind('jqplotMouseDown',function(ev,seriesIndex,pointIndex,data){%s});";
 
     /**
      * Create JavaScript event binding for JqPlot on mouse down event
@@ -48,11 +60,10 @@ public class JqPlotMouseEventBinding extends PlotHookFunctionProviderImpl {
      * @param functionImp
      * @return {@linkplain JqPlotMouseEventBinding}
      */
-    public static JqPlotMouseEventBinding mouseDownEventBinding(final String plotId,
-            final String functionImp) {
+    public static JqPlotMouseEventBinding mouseDownEventBinding(final String plotId, final String functionImp) {
 
         return new JqPlotMouseEventBinding("mouseDownEvent_hook",
-                format(MOUSE_DOWN_BINDING_TEMPALTE, plotId, functionImp));
+                MOUSE_DOWN_BINDING_TEMPALTE.formatted(plotId, functionImp));
     }
 
     /**
@@ -62,8 +73,7 @@ public class JqPlotMouseEventBinding extends PlotHookFunctionProviderImpl {
      * <li>is function logic</li>
      * </ol>
      */
-    private static final String MOUSE_UP_BINDING_TEMPALTE =
-        "$('#%s').bind('jqplotMouseUp',function(ev,seriesIndex,pointIndex,data){%s});";
+    private static final String MOUSE_UP_BINDING_TEMPALTE = "$('#%s').bind('jqplotMouseUp',function(ev,seriesIndex,pointIndex,data){%s});";
 
     /**
      * Create JavaScript event binding for JqPlot on mouse up event
@@ -72,11 +82,10 @@ public class JqPlotMouseEventBinding extends PlotHookFunctionProviderImpl {
      * @param functionImp
      * @return {@linkplain JqPlotMouseEventBinding}
      */
-    public static JqPlotMouseEventBinding mouseUpEventBinding(final String plotId,
-            final String functionImp) {
+    public static JqPlotMouseEventBinding mouseUpEventBinding(final String plotId, final String functionImp) {
 
         return new JqPlotMouseEventBinding("mouseUpEvent_hook",
-                format(MOUSE_UP_BINDING_TEMPALTE, plotId, functionImp));
+                MOUSE_UP_BINDING_TEMPALTE.formatted(plotId, functionImp));
     }
 
     /**
@@ -86,8 +95,7 @@ public class JqPlotMouseEventBinding extends PlotHookFunctionProviderImpl {
      * <li>is function logic</li>
      * </ol>
      */
-    private static final String MOUSE_DBL_CLICK_BINDING_TEMPALTE =
-        "$('#%s').bind('jqplotDblClick',function(ev,seriesIndex,pointIndex,data){%s});";
+    private static final String MOUSE_DBL_CLICK_BINDING_TEMPALTE = "$('#%s').bind('jqplotDblClick',function(ev,seriesIndex,pointIndex,data){%s});";
 
     /**
      * Create JavaScript event binding for JqPlot on mouse double click event
@@ -96,10 +104,9 @@ public class JqPlotMouseEventBinding extends PlotHookFunctionProviderImpl {
      * @param functionImp
      * @return {@linkplain JqPlotMouseEventBinding}
      */
-    public static JqPlotMouseEventBinding mouseDblClickEventBinding(final String plotId,
-            final String functionImp) {
+    public static JqPlotMouseEventBinding mouseDblClickEventBinding(final String plotId, final String functionImp) {
 
         return new JqPlotMouseEventBinding("mouseDblClickEvent_hook",
-                format(MOUSE_DBL_CLICK_BINDING_TEMPALTE, plotId, functionImp));
+                MOUSE_DBL_CLICK_BINDING_TEMPALTE.formatted(plotId, functionImp));
     }
 }

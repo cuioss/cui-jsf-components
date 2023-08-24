@@ -1,10 +1,8 @@
 /**
- * <h2>Summary</h2>
- * Provides common helper classes / utilities that can be used for the creation
- * of partial html-trees. The central class is
- * {@link de.cuioss.jsf.api.components.html.HtmlTreeBuilder} with a
- * number of fluent-style methods for creating the trees. A typical using-code
- * is
+ * <h2>Summary</h2> Provides common helper classes / utilities that can be used
+ * for the creation of partial html-trees. The central class is
+ * {@link de.cuioss.jsf.api.components.html.HtmlTreeBuilder} with a number of
+ * fluent-style methods for creating the trees. A typical using-code is
  *
  * <pre>
  *{@code

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.application.theme.impl;
 
 import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
@@ -15,8 +30,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Support class for translating theme-names derived from {@link ThemeConfiguration} to actual
- * css-file-names
+ * Support class for translating theme-names derived from
+ * {@link ThemeConfiguration} to actual css-file-names
  *
  * @author Oliver Wolff
  */
@@ -46,17 +61,13 @@ public class ThemeManager implements Serializable {
         defaultTheme = themeConfiguration.getDefaultTheme();
         // Set default and set implementation to immutable.
         checkCssNameContract(themeConfiguration.getCssName());
-        checkThemeNameContract(themeConfiguration.getAvailableThemes(),
-                themeConfiguration.getDefaultTheme());
-        var cssPrefixName = Splitter.on('.').splitToList(themeConfiguration.getCssName()).iterator()
-                .next();
+        checkThemeNameContract(themeConfiguration.getAvailableThemes(), themeConfiguration.getDefaultTheme());
+        var cssPrefixName = Splitter.on('.').splitToList(themeConfiguration.getCssName()).iterator().next();
         cssPrefixName = cssPrefixName + "-";
         var mapBuilder = new MapBuilder<String, String>();
         for (String themeName : themeConfiguration.getAvailableThemes()) {
-            mapBuilder.put(
-                    themeName,
-                    new StringBuilder(cssPrefixName).append(themeName.toLowerCase())
-                            .append(CSS_SUFFIX).toString());
+            mapBuilder.put(themeName,
+                    new StringBuilder(cssPrefixName).append(themeName.toLowerCase()).append(CSS_SUFFIX).toString());
         }
         themeNameCssMapping = mapBuilder.toImmutableMap();
     }
@@ -65,8 +76,8 @@ public class ThemeManager implements Serializable {
      * Actual 'business' method for getting a concrete application.css from
      *
      * @param themeName to be looked up. If it is null, empty or not part of
-     *            {@link ThemeConfiguration#getAvailableThemes()} it returns the configured
-     *            {@link ThemeConfiguration#getDefaultTheme()}
+     *                  {@link ThemeConfiguration#getAvailableThemes()} it returns
+     *                  the configured {@link ThemeConfiguration#getDefaultTheme()}
      * @return the corresponding css name.
      */
     public String getCssForThemeName(final String themeName) {
@@ -88,8 +99,8 @@ public class ThemeManager implements Serializable {
         }
         requireNotEmpty(defaultTheme, "defaultTheme");
         if (!availableThemes.contains(defaultTheme)) {
-            throw new IllegalStateException("Default theme: " + defaultTheme
-                    + " can not be found within " + availableThemes);
+            throw new IllegalStateException(
+                    "Default theme: " + defaultTheme + " can not be found within " + availableThemes);
         }
 
     }
@@ -104,8 +115,10 @@ public class ThemeManager implements Serializable {
         }
         if (MoreStrings.countMatches(cssName, ".") > 1) {
             throw new IllegalStateException(
-                    "Only 1 '.' as suffix separator is permitted. Caution the implementations expects .min.css variants as optional. "
-                            + "The .css variant (without further '.') is mandatory.");
+                    """
+                            Only 1 '.' as suffix separator is permitted. Caution the implementations expects .min.css variants as optional. \
+                            The .css variant (without further '.') is mandatory.\
+                            """);
         }
     }
 }

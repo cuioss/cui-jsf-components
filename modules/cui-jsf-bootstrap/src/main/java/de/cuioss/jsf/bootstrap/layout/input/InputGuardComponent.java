@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.layout.input;
 
 import static de.cuioss.jsf.api.components.util.ComponentUtility.JAVAX_FACES_SOURCE;
@@ -22,28 +37,31 @@ import de.cuioss.jsf.bootstrap.button.CommandButton;
 import de.cuioss.jsf.bootstrap.layout.input.support.GuardButtonAttributes;
 import de.cuioss.jsf.bootstrap.layout.input.support.ResetGuardButtonAttributes;
 import de.cuioss.tools.logging.CuiLogger;
+import lombok.NonNull;
 import lombok.experimental.Delegate;
 
 /**
  * Helper / Decorator component used for guarding input-elements within
  * {@link LabeledContainerComponent}.
  * <p>
- * Renders an unlock button beside its input component. The input component will be disabled
- * per default. It can be unlocked on demand. A warning message is shown right beside if it is
- * unlocked
+ * Renders an unlock button beside its input component. The input component will
+ * be disabled per default. It can be unlocked on demand. A warning message is
+ * shown right beside if it is unlocked
  * </p>
  *
  * <h2>Attributes</h2>
  * <ul>
  * <li>{@link GuardButtonAttributes}</li>
  * <li>{@link ResetGuardButtonAttributes}</li>
- * <li>{@link AjaxProvider}: Default to "@namingcontainer" for update and "@this" for process</li>
- * <li>buttonAlign: The alignment of the button relative to the wrapped input, defaults to
- * 'append'</li>
- * <li>renderButtons: If set to {@code true}, default, the guard/resetGuard buttons are
- * rendered, if set to {@code false} they are not rendered.</li>
- * <li>resetInputValue: If set to {@code true}, default, the clicking of the resestGuard
- * button will result in a {@link EditableValueHolder#resetValue()} on the guarded component</li>
+ * <li>{@link AjaxProvider}: Default to "@namingcontainer" for update and
+ * "@this" for process</li>
+ * <li>buttonAlign: The alignment of the button relative to the wrapped input,
+ * defaults to 'append'</li>
+ * <li>renderButtons: If set to {@code true}, default, the guard/resetGuard
+ * buttons are rendered, if set to {@code false} they are not rendered.</li>
+ * <li>resetInputValue: If set to {@code true}, default, the clicking of the
+ * resestGuard button will result in a {@link EditableValueHolder#resetValue()}
+ * on the guarded component</li>
  * </ul>
  *
  * @author Oliver Wolff
@@ -52,8 +70,7 @@ import lombok.experimental.Delegate;
 @FacesComponent(BootstrapFamily.GUARDED_INPUT_COMPONENT)
 @ResourceDependency(library = "javascript.enabler", name = "enabler.input_guard.js", target = "head")
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
-public class InputGuardComponent extends BaseCuiHtmlHiddenInputComponent
-        implements ContainerPlugin {
+public class InputGuardComponent extends BaseCuiHtmlHiddenInputComponent implements ContainerPlugin {
 
     private static final CuiLogger log = new CuiLogger(InputGuardComponent.class);
 
@@ -92,12 +109,10 @@ public class InputGuardComponent extends BaseCuiHtmlHiddenInputComponent
      * Constructor.
      */
     public InputGuardComponent() {
-        super();
         state = new CuiState(getStateHelper());
         guardAttributes = new GuardButtonAttributes(this);
         resetGuardButtonAttributes = new ResetGuardButtonAttributes(this);
-        ajaxProvider =
-            new AjaxProvider(this).ajaxDefaultProcess("@this").ajaxDefaultUpdate("@namingcontainer");
+        ajaxProvider = new AjaxProvider(this).ajaxDefaultProcess("@this").ajaxDefaultUpdate("@namingcontainer");
     }
 
     // ContainerPlugin
@@ -114,8 +129,7 @@ public class InputGuardComponent extends BaseCuiHtmlHiddenInputComponent
 
     @Override
     public Optional<UIComponent> provideFacetContent(ContainerFacets facet) {
-        if (isAnyFalse(isRendered(), ContainerFacets.INPUT_DECORATOR.contains(facet),
-                getRenderButtons())) {
+        if (isAnyFalse(isRendered(), ContainerFacets.INPUT_DECORATOR.contains(facet), getRenderButtons())) {
             return Optional.empty();
         }
         var align = ContainerFacets.parseButtonAlign(getButtonAlign(), BUTTON_ALIGN_KEY);
@@ -142,7 +156,7 @@ public class InputGuardComponent extends BaseCuiHtmlHiddenInputComponent
         return PluginStateInfo.WARNING;
     }
 
-    private CommandButton updateGuardButtonContent(CommandButton button, Boolean guarded) {
+    private CommandButton updateGuardButtonContent(CommandButton button, @NonNull Boolean guarded) {
         if (Boolean.TRUE.equals(guarded)) {
             button.setIcon(guardAttributes.getGuardIcon());
             button.setTitleValue(guardAttributes.resolveGuardButtonTitle());
@@ -219,9 +233,8 @@ public class InputGuardComponent extends BaseCuiHtmlHiddenInputComponent
         setSubmittedValue(newValueBoolean.toString());
 
         if (areAllTrue(newValueBoolean, getResetInputValue())) {
-            var forComponent =
-                getParentContainer(this).findRelatedComponentModifier();
-            if (null != forComponent && forComponent.isSupportsResetValue()) {
+            var forComponent = getParentContainer(this).findRelatedComponentModifier();
+            if ((null != forComponent) && forComponent.isSupportsResetValue()) {
                 forComponent.resetValue();
             }
         }
@@ -229,8 +242,8 @@ public class InputGuardComponent extends BaseCuiHtmlHiddenInputComponent
 
     private static LabeledContainerComponent getParentContainer(UIComponent component) {
         checkState(null != component, "InputGuard is designed to work as a child of LabeledContainer");
-        if (component instanceof LabeledContainerComponent) {
-            return (LabeledContainerComponent) component;
+        if (component instanceof LabeledContainerComponent containerComponent) {
+            return containerComponent;
         }
         return getParentContainer(component.getParent());
     }
@@ -257,8 +270,9 @@ public class InputGuardComponent extends BaseCuiHtmlHiddenInputComponent
     }
 
     /**
-     * @param buttonAlign to be set, expected is one of {@link ContainerFacets#APPEND} or
-     *            {@link ContainerFacets#PREPEND}
+     * @param buttonAlign to be set, expected is one of
+     *                    {@link ContainerFacets#APPEND} or
+     *                    {@link ContainerFacets#PREPEND}
      */
     public void setButtonAlign(String buttonAlign) {
         state.put(BUTTON_ALIGN_KEY, buttonAlign);

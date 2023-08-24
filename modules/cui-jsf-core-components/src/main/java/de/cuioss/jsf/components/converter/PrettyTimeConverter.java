@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.components.converter;
 
 import java.time.LocalDate;
@@ -22,10 +37,11 @@ import de.cuioss.jsf.api.converter.AbstractConverter;
 
 /**
  * Converter to display a {@link Date}, {@link Calendar}, {@link LocalDateTime},
- * {@link ZonedDateTime} or {@link LocalDate} as pretty time. If it detects a {@link LocalDate} it
- * uses {@link LocalDate#atStartOfDay()} in order to set a defined point in time. It
- * loads the current {@link Locale} using the {@link LocaleProducerAccessor}. If
- * you want to use it you need the dependency at runtime
+ * {@link ZonedDateTime} or {@link LocalDate} as pretty time. If it detects a
+ * {@link LocalDate} it uses {@link LocalDate#atStartOfDay()} in order to set a
+ * defined point in time. It loads the current {@link Locale} using the
+ * {@link LocaleProducerAccessor}. If you want to use it you need the dependency
+ * at runtime
  *
  * <pre>
  * {@code
@@ -41,17 +57,15 @@ public class PrettyTimeConverter extends AbstractConverter<Object> {
     // See
     // https://github.com/ocpsoft/prettytime/blob/master/jsf/src/main/java/org/ocpsoft/prettytime/jsf/PrettyTimeConverter.java
     private static final int CACHE_SIZE = 20;
-    private static final Map<Locale, PrettyTime> PRETTY_TIME_MAP =
-        new LinkedHashMap<>(CACHE_SIZE + 1,
-                1.1F, true) {
+    private static final Map<Locale, PrettyTime> PRETTY_TIME_MAP = new LinkedHashMap<>(CACHE_SIZE + 1, 1.1F, true) {
 
-            private static final long serialVersionUID = -8941794067746423324L;
+        private static final long serialVersionUID = -8941794067746423324L;
 
-            @Override
-            protected boolean removeEldestEntry(final Map.Entry<Locale, PrettyTime> eldest) {
-                return size() > CACHE_SIZE;
-            }
-        };
+        @Override
+        protected boolean removeEldestEntry(final Map.Entry<Locale, PrettyTime> eldest) {
+            return size() > CACHE_SIZE;
+        }
+    };
 
     private final LocaleProducerAccessor localeProducerAccessor = new LocaleProducerAccessor();
 
@@ -68,24 +82,20 @@ public class PrettyTimeConverter extends AbstractConverter<Object> {
     }
 
     @Override
-    protected String convertToString(final FacesContext context, final UIComponent component,
-            final Object value)
-        throws ConverterException {
+    protected String convertToString(final FacesContext context, final UIComponent component, final Object value)
+            throws ConverterException {
         Date toBeConverted = null;
-        if (value instanceof Date) {
-            toBeConverted = (Date) value;
-        } else if (value instanceof Calendar) {
-            toBeConverted = ((Calendar) value).getTime();
-        } else if (value instanceof ZonedDateTime) {
-            var zDate = (ZonedDateTime) value;
+        if (value instanceof Date date) {
+            toBeConverted = date;
+        } else if (value instanceof Calendar calendar) {
+            toBeConverted = calendar.getTime();
+        } else if (value instanceof ZonedDateTime zDate) {
             var instant = zDate.toInstant();
             toBeConverted = Date.from(instant);
-        } else if (value instanceof LocalDateTime) {
-            var lDate = (LocalDateTime) value;
+        } else if (value instanceof LocalDateTime lDate) {
             var instant = lDate.atZone(ZoneId.systemDefault()).toInstant();
             toBeConverted = Date.from(instant);
-        } else if (value instanceof LocalDate) {
-            var lDate = (LocalDate) value;
+        } else if (value instanceof LocalDate lDate) {
             var instant = lDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
             toBeConverted = Date.from(instant);
         }

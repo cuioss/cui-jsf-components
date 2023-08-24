@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.modal;
 
 import static de.cuioss.tools.base.Preconditions.checkArgument;
@@ -13,39 +28,40 @@ import de.cuioss.jsf.api.components.util.ComponentModifier;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 
 /**
- * Enables a parent element like cui:button to control a {@link ModalDialogComponent} to show or
- * hide. It acts as an {@link AbstractParentDecorator} saying it writes Html-5 attributes to
- * the parent components, the actual heavy-lifting is done by the javascript
+ * Enables a parent element like boot:button to control a
+ * {@link ModalDialogComponent} to show or hide. It acts as an
+ * {@link AbstractParentDecorator} saying it writes Html-5 attributes to the
+ * parent components, the actual heavy-lifting is done by the javascript
  * 'javascript.enabler/enabler.modal.js'
  * <h2>Attributes</h2>
  * <ul>
- * <li>for: Defines the id of the modal to be opened. Is required. Results in a corresponding
- * 'data-modal-for'-attribute</li>
- * <li>event: Defines the javascript / dom event, the open call is attached to, defaults to
- * 'click'. Results in a corresponding 'data-modal-event'-attribute</li>
- * <li>action: Defines the parameter to be passed to the modal() call, defaults to
- * 'show'. Results in a corresponding 'data-modal-action'-attribute</li>
+ * <li>for: Defines the id of the modal to be opened. Is required. Results in a
+ * corresponding 'data-modal-for'-attribute</li>
+ * <li>event: Defines the javascript / dom event, the open call is attached to,
+ * defaults to 'click'. Results in a corresponding
+ * 'data-modal-event'-attribute</li>
+ * <li>action: Defines the parameter to be passed to the modal() call, defaults
+ * to 'show'. Results in a corresponding 'data-modal-action'-attribute</li>
  * </ul>
  * <h2>Usage</h2>
  *
  * <pre>
- * &lt;cui:button labelValue="Open"&gt;
+ * &lt;boot:button labelValue="Open"&gt;
  *   &lt;cui:modalControl for="dialogId"/&gt;
- * &lt;/cui:button&gt;
- * &lt;cui:modalDialog id="dialogId" headerValue="Dialog-Header"&gt;
+ * &lt;/boot:button&gt;
+ * &lt;boot:modalDialog id="dialogId" headerValue="Dialog-Header"&gt;
  *   Some Dialog Content
- * &lt;/cui:modalDialog&gt;
+ * &lt;/boot:modalDialog&gt;
  * </pre>
  * <p>
- * <em>Opening</em>: Use {@link ModalControl} attached to button or other control for opening a
- * concrete dialog.
+ * <em>Opening</em>: Use {@link ModalControl} attached to button or other
+ * control for opening a concrete dialog.
  * </p>
  *
  * @author Oliver Wolff
  *
  */
-@ResourceDependency(library = "javascript.enabler", name = "enabler.modal.js",
-        target = "head")
+@ResourceDependency(library = "javascript.enabler", name = "enabler.modal.js", target = "head")
 @ResourceDependency(library = "thirdparty.js", name = "bootstrap.js")
 @FacesComponent(BootstrapFamily.MODAL_DIALOG_CONTROL)
 public class ModalControl extends AbstractParentDecorator {
@@ -77,7 +93,6 @@ public class ModalControl extends AbstractParentDecorator {
      *
      */
     public ModalControl() {
-        super();
         state = new State(getStateHelper());
     }
 
@@ -116,7 +131,8 @@ public class ModalControl extends AbstractParentDecorator {
     }
 
     /**
-     * @return the event to be rendered as {@link #DATA_EVENT}, defaults to {@link #DEFAULT_EVENT}
+     * @return the event to be rendered as {@link #DATA_EVENT}, defaults to
+     *         {@link #DEFAULT_EVENT}
      */
     public String getEvent() {
         return state.get(EVENT_KEY, DEFAULT_EVENT);

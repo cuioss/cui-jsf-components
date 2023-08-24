@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.icon;
 
 import javax.faces.component.UIComponent;
@@ -27,8 +42,7 @@ class LabeledIconRendererTest extends AbstractComponentRendererTest<LabeledIconR
 
     @Test
     void shouldRenderMinimal() {
-        var expected =
-            new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER);
+        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER);
         // Icon
         expected.withNode(Node.SPAN).withStyleClass(IconProvider.FALLBACK_ICON_STRING).currentHierarchyUp();
         // Text
@@ -40,8 +54,7 @@ class LabeledIconRendererTest extends AbstractComponentRendererTest<LabeledIconR
     void shouldRenderLabelContent() {
         var component = new LabeledIconComponent();
         component.setLabelValue(SOME_TITLE);
-        var expected =
-            new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER);
+        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER);
         // Icon
         expected.withNode(Node.SPAN).withStyleClass(IconProvider.FALLBACK_ICON_STRING).currentHierarchyUp();
         // Text
@@ -55,8 +68,7 @@ class LabeledIconRendererTest extends AbstractComponentRendererTest<LabeledIconR
         var component = new LabeledIconComponent();
         component.setLabelValue(SOME_TITLE);
         component.setIcon(ICON);
-        var expected =
-            new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER);
+        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER);
         // Icon
         expected.withNode(Node.SPAN).withStyleClass(ICON_RESULT_CSS).currentHierarchyUp();
         // Text
@@ -71,8 +83,7 @@ class LabeledIconRendererTest extends AbstractComponentRendererTest<LabeledIconR
         component.setIconAlign(AlignHolder.RIGHT.name());
         component.setLabelValue(SOME_TITLE);
         component.setIcon(ICON);
-        var expected =
-            new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER);
+        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER);
         // Text
         expected.withNode(Node.SPAN).withStyleClass(CssCuiBootstrap.LABELED_ICON_TEXT).withTextContent(SOME_TITLE)
                 .currentHierarchyUp();
@@ -87,8 +98,8 @@ class LabeledIconRendererTest extends AbstractComponentRendererTest<LabeledIconR
         component.setLabelValue(SOME_TITLE);
         component.setTitleValue(SOME_TITLE);
         component.setIcon(ICON);
-        var expected = new HtmlTreeBuilder().withNode(Node.SPAN)
-                .withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER).withAttribute(AttributeName.TITLE, SOME_TITLE);
+        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER)
+                .withAttribute(AttributeName.TITLE, SOME_TITLE);
         // Icon
         expected.withNode(Node.SPAN).withStyleClass(ICON_RESULT_CSS).currentHierarchyUp();
         // Text

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap;
 
 import de.cuioss.jsf.api.components.decorator.AbstractParentDecorator;
@@ -49,8 +64,7 @@ public final class BootstrapFamily {
     /**
      * The component for {@link AccordionComponent}
      */
-    public static final String ACCORDION_COMPONENT =
-        "de.cuioss.bootstrap.accordion";
+    public static final String ACCORDION_COMPONENT = "de.cuioss.bootstrap.accordion";
 
     /**
      * Default Renderer for {@link AccordionComponent}
@@ -60,8 +74,7 @@ public final class BootstrapFamily {
     /**
      * The component id for {@link BadgeComponent}
      */
-    public static final String BADGE_COMPONENT =
-        "de.cuioss.bootstrap.badge";
+    public static final String BADGE_COMPONENT = "de.cuioss.bootstrap.badge";
 
     // Button
     /**
@@ -72,8 +85,7 @@ public final class BootstrapFamily {
     /**
      * Standard renderer for {@link Button}
      */
-    public static final String BUTTON_RENDERER =
-        "de.cuioss.bootstrap.button_renderer";
+    public static final String BUTTON_RENDERER = "de.cuioss.bootstrap.button_renderer";
 
     // CommandButton
     /**
@@ -84,8 +96,7 @@ public final class BootstrapFamily {
     /**
      * Standard renderer for {@link CommandButton}
      */
-    public static final String COMMAND_BUTTON_RENDERER =
-        "de.cuioss.bootstrap.commandbutton_renderer";
+    public static final String COMMAND_BUTTON_RENDERER = "de.cuioss.bootstrap.commandbutton_renderer";
     /**
      * The component id for {@link CloseCommandButton}
      */
@@ -94,8 +105,7 @@ public final class BootstrapFamily {
     /**
      * Standard renderer for {@link CloseCommandButton}
      */
-    public static final String CLOSE_COMMAND_BUTTON_RENDERER =
-        "de.cuioss.bootstrap.close_commandbutton_renderer";
+    public static final String CLOSE_COMMAND_BUTTON_RENDERER = "de.cuioss.bootstrap.close_commandbutton_renderer";
 
     /**
      * "de.cuioss.cui.components.bootstrap.family"
@@ -110,8 +120,7 @@ public final class BootstrapFamily {
     /**
      * Standard renderer for {@link CuiMessageComponent}
      */
-    public static final String CUI_MESSAGE_COMPONENT_RENDERER =
-        "de.cuioss.bootstrap.cuimessage_renderer";
+    public static final String CUI_MESSAGE_COMPONENT_RENDERER = "de.cuioss.bootstrap.cuimessage_renderer";
 
     /**
      * The component id for {@link CuiMessagesComponent}
@@ -137,20 +146,17 @@ public final class BootstrapFamily {
     /**
      * The component id for {@link LabeledContainerComponent}
      */
-    public static final String LABELED_CONTAINER_COMPONENT =
-        "de.cuioss.bootstrap.labeledContainer";
+    public static final String LABELED_CONTAINER_COMPONENT = "de.cuioss.bootstrap.labeledContainer";
 
     /**
      * Standard renderer for {@link LabeledContainerComponent}
      */
-    public static final String LABELED_CONTAINER_COMPONENT_RENDERER =
-        "de.cuioss.bootstrap.labeledContainer_renderer";
+    public static final String LABELED_CONTAINER_COMPONENT_RENDERER = "de.cuioss.bootstrap.labeledContainer_renderer";
 
     /**
      * The component id for {@link InputGuardComponent}
      */
-    public static final String GUARDED_INPUT_COMPONENT =
-        "de.cuioss.bootstrap.guarded_input";
+    public static final String GUARDED_INPUT_COMPONENT = "de.cuioss.bootstrap.guarded_input";
 
     // labeledIcon
     /**
@@ -161,8 +167,7 @@ public final class BootstrapFamily {
     /**
      * Default Renderer for {@link MimeTypeIconComponent}
      */
-    public static final String LABELED_ICON_COMPONENT_RENDERER =
-        "de.cuioss.bootstrap.icon.labeled_renderer";
+    public static final String LABELED_ICON_COMPONENT_RENDERER = "de.cuioss.bootstrap.icon.labeled_renderer";
 
     /**
      * The component id for {@link ColumnComponent}
@@ -172,14 +177,12 @@ public final class BootstrapFamily {
     /**
      * The component id for {@link ControlGroupComponent}
      */
-    public static final String LAYOUT_CONTROL_GROUP_COMPONENT =
-        "de.cuioss.bootstrap.controlgroup";
+    public static final String LAYOUT_CONTROL_GROUP_COMPONENT = "de.cuioss.bootstrap.controlgroup";
 
     /**
      * Default Renderer for {@link ControlGroupComponent}
      */
-    public static final String LAYOUT_CONTROL_GROUP_RENDERER =
-        "de.cuioss.bootstrap.controlgroup_renderer";
+    public static final String LAYOUT_CONTROL_GROUP_RENDERER = "de.cuioss.bootstrap.controlgroup_renderer";
 
     /**
      * The component id for {@link FormGroupComponent}
@@ -209,8 +212,7 @@ public final class BootstrapFamily {
     /**
      * Default Renderer for {@link ModalDialogComponent}
      */
-    public static final String MODAL_DIALOG_COMPONENT_RENDERER =
-        "de.cuioss.bootstrap.modal_dialog_renderer";
+    public static final String MODAL_DIALOG_COMPONENT_RENDERER = "de.cuioss.bootstrap.modal_dialog_renderer";
 
     /**
      * {@link AbstractParentDecorator} for controlling {@link ModalDialogComponent}
@@ -226,8 +228,7 @@ public final class BootstrapFamily {
     /**
      * Default Renderer for {@link MimeTypeIconComponent}
      */
-    public static final String MIME_TYPE_ICON_COMPONENT_RENDERER =
-        "de.cuioss.bootstrap.icon.mime_type_renderer";
+    public static final String MIME_TYPE_ICON_COMPONENT_RENDERER = "de.cuioss.bootstrap.icon.mime_type_renderer";
 
     // NavigationMenu
     /**
@@ -238,8 +239,7 @@ public final class BootstrapFamily {
     /**
      * Default Renderer for {@link NavigationMenuComponent}
      */
-    public static final String NAVIGATION_MENU_COMPONENT_RENDERER =
-        "de.cuioss.bootstrap.navigationmenu_renderer";
+    public static final String NAVIGATION_MENU_COMPONENT_RENDERER = "de.cuioss.bootstrap.navigationmenu_renderer";
 
     // NavigationMenu
     /**
@@ -250,8 +250,7 @@ public final class BootstrapFamily {
     /**
      * Default Renderer for {@link NavigationMenuComponent}
      */
-    public static final String NAVIGATION_MENU_CONTAINER_COMPONENT_RENDERER =
-        "de.cuioss.bootstrap.navigationmenu_container_renderer";
+    public static final String NAVIGATION_MENU_CONTAINER_COMPONENT_RENDERER = "de.cuioss.bootstrap.navigationmenu_container_renderer";
 
     /**
      * The component id for {@link NotificationBoxComponent}
@@ -261,8 +260,7 @@ public final class BootstrapFamily {
     /**
      * Standard renderer for {@link NotificationBoxComponent}
      */
-    public static final String NOTIFICATION_BOX_RENDERER =
-        "de.cuioss.bootstrap.notificationbox_renderer";
+    public static final String NOTIFICATION_BOX_RENDERER = "de.cuioss.bootstrap.notificationbox_renderer";
 
     /**
      * The component id for {@link OutputLabelComponent}
@@ -287,8 +285,7 @@ public final class BootstrapFamily {
     /**
      * The component for {@link TabPanelComponent}
      */
-    public static final String TAB_PANEL_COMPONENT =
-        "de.cuioss.bootstrap.tab_panel";
+    public static final String TAB_PANEL_COMPONENT = "de.cuioss.bootstrap.tab_panel";
 
     /**
      * Default Renderer for {@link TabPanelComponent}
@@ -315,8 +312,7 @@ public final class BootstrapFamily {
     /**
      * Default Renderer for {@link TagInputRenderer}
      */
-    public static final String TAG_INPUT_COMPONENT_RENDERER =
-        "de.cuioss.bootstrap.taginput_renderer";
+    public static final String TAG_INPUT_COMPONENT_RENDERER = "de.cuioss.bootstrap.taginput_renderer";
 
     // TagList
     /**
@@ -327,8 +323,7 @@ public final class BootstrapFamily {
     /**
      * Default Renderer for {@link TagListComponent}
      */
-    public static final String TAG_LIST_COMPONENT_RENDERER =
-        "de.cuioss.bootstrap.taglist_renderer";
+    public static final String TAG_LIST_COMPONENT_RENDERER = "de.cuioss.bootstrap.taglist_renderer";
 
     /**
      * The component for {@link ToolbarComponent}

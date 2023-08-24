@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.dev.metadata.composite.attributes;
 
 import java.beans.FeatureDescriptor;
@@ -38,8 +53,7 @@ public class AttributePropertyWrapper extends AbstractPropertyWrapper {
         result.add(new LabelValueDisplay(LABEL_NAME, descriptor.getName()));
         result.add(new LabelValueDisplay(LABEL_REQUIRED, getRequired(descriptor)));
         result.add(new LabelValueDisplay(LABEL_TYPE, getType(descriptor)));
-        result.add(new LabelValueDisplay(LABEL_SHORT_DESCRIPTION, descriptor
-                .getShortDescription()));
+        result.add(new LabelValueDisplay(LABEL_SHORT_DESCRIPTION, descriptor.getShortDescription()));
         return result;
     }
 
@@ -53,7 +67,7 @@ public class AttributePropertyWrapper extends AbstractPropertyWrapper {
         var type = QA_NO_TYPE_DEFINED;
         final Class<?> clazz = (Class<?>) featureDescriptor.getValue(ATTRIBUTE_TYPE);
         if (null != clazz) {
-            type = String.format(TYPE_WRAPPER, clazz.getName());
+            type = TYPE_WRAPPER.formatted(clazz.getName());
         }
         return type;
     }

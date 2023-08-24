@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.icon;
 
 import javax.faces.component.FacesComponent;
@@ -30,10 +45,11 @@ import lombok.experimental.Delegate;
  * <li>{@link StyleAttributeProvider}</li>
  * <li>decoratorClass: Additional class for the decorating layer. Defaults to
  * "cui-mime-type-no-decorator"</li>
- * <li>mimeTypeIcon: The MimeTypeIcon to be displayed. In case #mimeTypeIcon and #mimeTypeString is
- * set #mimeTypeIcon take precedence</li>
- * <li>mimeTypeString: The string representation of a concrete mime-type. In case #mimeTypeIcon and
- * #mimeTypeString is set #mimeTypeIcon take precedence.</li>
+ * <li>mimeTypeIcon: The MimeTypeIcon to be displayed. In case #mimeTypeIcon and
+ * #mimeTypeString is set #mimeTypeIcon take precedence</li>
+ * <li>mimeTypeString: The string representation of a concrete mime-type. In
+ * case #mimeTypeIcon and #mimeTypeString is set #mimeTypeIcon take
+ * precedence.</li>
  * </ul>
  * <h2>Usage</h2>
  *
@@ -44,8 +60,7 @@ import lombok.experimental.Delegate;
  * @author Oliver Wolff
  */
 @FacesComponent(BootstrapFamily.MIME_TYPE_ICON_COMPONENT)
-public class MimeTypeIconComponent extends AbstractBaseCuiComponent
-        implements TitleProvider {
+public class MimeTypeIconComponent extends AbstractBaseCuiComponent implements TitleProvider {
 
     private static final String DECORATOR_CLASS_KEY = "decoratorClass";
 
@@ -63,7 +78,6 @@ public class MimeTypeIconComponent extends AbstractBaseCuiComponent
      *
      */
     public MimeTypeIconComponent() {
-        super();
         super.setRendererType(BootstrapFamily.MIME_TYPE_ICON_COMPONENT_RENDERER);
         titleProvider = new TitleProviderImpl(this);
         contextSizeProvider = new ContextSizeProvider(this);
@@ -98,8 +112,8 @@ public class MimeTypeIconComponent extends AbstractBaseCuiComponent
     }
 
     /**
-     * @return the resolved {@link MimeTypeIcon}. In case #mimeTypeIcon and #mimeTypeString is set
-     *         #mimeTypeIcon take precedence.
+     * @return the resolved {@link MimeTypeIcon}. In case #mimeTypeIcon and
+     *         #mimeTypeString is set #mimeTypeIcon take precedence.
      */
     public MimeTypeIcon resolveMimeTypeIcon() {
         var icon = getMimeTypeIcon();
@@ -115,8 +129,8 @@ public class MimeTypeIconComponent extends AbstractBaseCuiComponent
     }
 
     /**
-     * In case of this class being present an additional layer will be rendered with the
-     * decoratorStyleClass being applied.
+     * In case of this class being present an additional layer will be rendered with
+     * the decoratorStyleClass being applied.
      *
      * @return the decoratorClass. If none is set it returns
      *         {@link CssMimeTypeIcon#CUI_STACKED_ICON_NO_DECORATOR}

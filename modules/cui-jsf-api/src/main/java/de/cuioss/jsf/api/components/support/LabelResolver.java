@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.components.support;
 
 import java.io.Serializable;
@@ -61,21 +76,19 @@ public class LabelResolver {
         }
         if (null != labelValue) {
             Converter resolvedConverter = null;
-            if (converter instanceof Converter) {
-                resolvedConverter = (Converter) converter;
-            } else if (converter instanceof String) {
-                resolvedConverter = resolveConverterById((String) converter);
+            if (converter instanceof Converter converter1) {
+                resolvedConverter = converter1;
+            } else if (converter instanceof String string) {
+                resolvedConverter = resolveConverterById(string);
             } else if (null != converter) {
-                throw new IllegalStateException(
-                        "Invalid converter property - can not handle " + converter.getClass());
+                throw new IllegalStateException("Invalid converter property - can not handle " + converter.getClass());
             }
             if (null == resolvedConverter) {
                 resolvedConverter = resolveConverterByClass(labelValue.getClass());
             }
             if (null == resolvedConverter) {
                 throw new IllegalStateException(
-                        "Unable to determine converter for valueClass="
-                                + labelValue.getClass());
+                        "Unable to determine converter for valueClass=" + labelValue.getClass());
             }
             DUMMY.setEscape(escape);
             return resolvedConverter.getAsString(context, DUMMY, labelValue);

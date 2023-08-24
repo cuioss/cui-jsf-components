@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.jqplot.layout;
 
 import static de.cuioss.jsf.jqplot.axes.AxisType.X_AXES;
@@ -28,19 +43,18 @@ import lombok.ToString;
 import lombok.experimental.Delegate;
 
 /**
- * Class: Series
- * An individual data series object. Cannot be instantiated directly, but created
- * by the Plot object. Series properties can be set or overridden by the
- * options passed in from the user. Properties will be assigned from a series array at the top level
- * of the options.
+ * Class: Series An individual data series object. Cannot be instantiated
+ * directly, but created by the Plot object. Series properties can be set or
+ * overridden by the options passed in from the user. Properties will be
+ * assigned from a series array at the top level of the options.
  *
- * @see <a href="http://www.jqplot.com/docs/files/jqplot-core-js.html#Series.Properties">Series.
+ * @see <a href=
+ *      "http://www.jqplot.com/docs/files/jqplot-core-js.html#Series.Properties">Series.
  *      Properties</a>
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
-public class Series extends JsObject
-        implements IPluginConsumer, JsValue, IShadowDecoration<Series> {
+public class Series extends JsObject implements IPluginConsumer, JsValue, IShadowDecoration<Series> {
 
     /** serial Version UID */
     private static final long serialVersionUID = -7480172463037356837L;
@@ -59,7 +73,8 @@ public class Series extends JsObject
     }
 
     /**
-     * Factory Method for {@link Series} object using for seriesDefaults as stand alone object
+     * Factory Method for {@link Series} object using for seriesDefaults as stand
+     * alone object
      *
      * @return {@link Series}
      */
@@ -86,16 +101,17 @@ public class Series extends JsObject
     /**
      * change which x axis to use with this series
      *
-     * @param type AxisType expected is {@code null} or any member from {@linkplain AxisType#X_AXES}
+     * @param type AxisType expected is {@code null} or any member from
+     *             {@linkplain AxisType#X_AXES}
      * @return {@link Series} in fluent api style
-     * @throws IllegalArgumentException if type is not a member from {@linkplain AxisType#X_AXES}
+     * @throws IllegalArgumentException if type is not a member from
+     *                                  {@linkplain AxisType#X_AXES}
      */
     public Series setXaxis(final AxisType type) {
         if (null == type) {
             xaxis = null;
         } else {
-            checkArgument(X_AXES.contains(type),
-                    String.format("X-Axis [%s] is not supported.", type));
+            checkArgument(X_AXES.contains(type), "X-Axis [%s] is not supported.".formatted(type));
             xaxis = new JsString(type.getAxisName());
         }
         return this;
@@ -106,16 +122,17 @@ public class Series extends JsObject
     /**
      * change which y axis to use with this series
      *
-     * @param type AxisType expected is {@code null} or any member from {@linkplain AxisType#Y_AXES}
+     * @param type AxisType expected is {@code null} or any member from
+     *             {@linkplain AxisType#Y_AXES}
      * @return {@link Series} in fluent api style
-     * @throws IllegalArgumentException if type is not a member from {@linkplain AxisType#Y_AXES}
+     * @throws IllegalArgumentException if type is not a member from
+     *                                  {@linkplain AxisType#Y_AXES}
      */
     public Series setYaxis(final AxisType type) {
         if (null == type) {
             yaxis = null;
         } else {
-            checkArgument(Y_AXES.contains(type),
-                    String.format("Y-Axis [%s] is not supported.", type));
+            checkArgument(Y_AXES.contains(type), "Y-Axis [%s] is not supported.".formatted(type));
             yaxis = new JsString(type.getAxisName());
         }
         return this;
@@ -211,8 +228,8 @@ public class Series extends JsObject
     private JsString lineCap;
 
     /**
-     * Wether line segments should be be broken at null value. False will join point on either side
-     * of line.
+     * Wether line segments should be be broken at null value. False will join point
+     * on either side of line.
      */
     private JsBoolean breakOnNull;
 
@@ -224,7 +241,8 @@ public class Series extends JsObject
     private MarkerRendererOptions markerOptions;
 
     /**
-     * renderer specific options to pass to the markerRenderer, see $.jqplot.MarkerRenderer.
+     * renderer specific options to pass to the markerRenderer, see
+     * $.jqplot.MarkerRenderer.
      *
      * @param options
      * @return {@link Series}
@@ -271,30 +289,31 @@ public class Series extends JsObject
     private Color fillColor;
 
     /**
-     * Alpha transparency to apply to the fill under the line. Use this to adjust alpha separate
-     * from fill color.
+     * Alpha transparency to apply to the fill under the line. Use this to adjust
+     * alpha separate from fill color.
      */
     private JsDouble fillAlpha;
 
     /**
-     * If true will stroke the line (with color this.color) as well as fill under it. Applies only
-     * when fill is true.
+     * If true will stroke the line (with color this.color) as well as fill under
+     * it. Applies only when fill is true.
      */
     private JsBoolean fillAndStroke;
 
     /**
-     * true to not stack this series with other series in the plot.
-     * To render properly, non-stacked series must come after any stacked series in the plot’s data
-     * series array. So, the plot’s data series array would look like:
-     * [stackedSeries1, stackedSeries2, ..., nonStackedSeries1, nonStackedSeries2, ...]
-     * disableStack will put a gap in the stacking order of series, and subsequent stacked series
-     * will not fill down through the non-stacked series and will most likely not stack properly on
-     * top of the non-stacked series.
+     * true to not stack this series with other series in the plot. To render
+     * properly, non-stacked series must come after any stacked series in the plot’s
+     * data series array. So, the plot’s data series array would look like:
+     * [stackedSeries1, stackedSeries2, ..., nonStackedSeries1, nonStackedSeries2,
+     * ...] disableStack will put a gap in the stacking order of series, and
+     * subsequent stacked series will not fill down through the non-stacked series
+     * and will most likely not stack properly on top of the non-stacked series.
      */
     private JsBoolean disableStack;
 
     /**
-     * how close or far (in pixels) the cursor must be from a point marker to detect the point.
+     * how close or far (in pixels) the cursor must be from a point marker to detect
+     * the point.
      */
     private JsInteger neighborThreshold;
 
@@ -304,14 +323,14 @@ public class Series extends JsObject
     private JsBoolean fillToZero;
 
     /**
-     * fill a filled series to this value on the fill axis. Works in conjunction with fillToZero, so
-     * that must be true.
+     * fill a filled series to this value on the fill axis. Works in conjunction
+     * with fillToZero, so that must be true.
      */
     private JsInteger fillToValue;
 
     /**
-     * Either ‘x’ or ‘y’. Which axis to fill the line toward if fillToZero is true. ‘y’ means fill
-     * up/down to 0 on the y axis for this series
+     * Either ‘x’ or ‘y’. Which axis to fill the line toward if fillToZero is true.
+     * ‘y’ means fill up/down to 0 on the y axis for this series
      */
     private JsString fillAxis;
 

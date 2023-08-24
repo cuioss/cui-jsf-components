@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.jqplot.options.color;
 
 import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
@@ -10,8 +25,9 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Color property combine {@linkplain Color} as {@linkplain JsValue} and {@linkplain JsProperty} to
- * be able to provide simple way to add any color property to an complex {@linkplain JsObject}
+ * Color property combine {@linkplain Color} as {@linkplain JsValue} and
+ * {@linkplain JsProperty} to be able to provide simple way to add any color
+ * property to an complex {@linkplain JsObject}
  *
  * @author Eugen Fischer
  */
@@ -26,8 +42,8 @@ public class ColorProperty implements JavaScriptSupport {
     private Color colorValue;
 
     /**
-     * Create a ColorProperty which has empty color value. This means it will be ignored on creation
-     * of JSON object
+     * Create a ColorProperty which has empty color value. This means it will be
+     * ignored on creation of JSON object
      *
      * @param propertyName must not be {@code null} or empty
      */
@@ -47,8 +63,8 @@ public class ColorProperty implements JavaScriptSupport {
     }
 
     /**
-     * Set color value for property. If parameter color is {@code null} or empty color value will be
-     * set to {@linkplain Color#TRANSPARENT}
+     * Set color value for property. If parameter color is {@code null} or empty
+     * color value will be set to {@linkplain Color#TRANSPARENT}
      *
      * @param color any css color value representation.
      */

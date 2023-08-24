@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.components.selection;
 
 import static java.util.Objects.requireNonNull;
@@ -35,10 +50,8 @@ import lombok.ToString;
  *
  * @author Oliver Wolff
  * @author Eugen Fischer
- * @param <K>
- *            key type must be {@link Serializable}
- * @param <T>
- *            object type must be {@link Serializable}
+ * @param <K> key type must be {@link Serializable}
+ * @param <T> object type must be {@link Serializable}
  */
 @ToString
 public class MapInstanceConverter<K extends Serializable, T extends Serializable> extends AbstractConverter<T>
@@ -59,8 +72,7 @@ public class MapInstanceConverter<K extends Serializable, T extends Serializable
     private boolean rescrictModeActive = true;
 
     /**
-     * @throws {@link
-     *             IllegalStateException}
+     * @throws {@link IllegalStateException}
      */
     @Override
     protected T convertToObject(final FacesContext context, final UIComponent component, final String value) {
@@ -102,20 +114,18 @@ public class MapInstanceConverter<K extends Serializable, T extends Serializable
     }
 
     /**
-     * @param instanceMap
-     *            the instanceMap to set. Must not be null
+     * @param instanceMap the instanceMap to set. Must not be null
      */
     public void setInstanceMap(final Map<K, T> instanceMap) {
         this.instanceMap = new HashMap<>(requireNonNull(instanceMap, "instanceMap must not be null."));
     }
 
     /**
-     * usage of {@link #setInstanceMap(Map)} is not enforced, so instanceMap
-     * could be null
+     * usage of {@link #setInstanceMap(Map)} is not enforced, so instanceMap could
+     * be null
      *
      * @return verified instanceMap
-     * @throws NullPointerException
-     *             if instanceMap is null
+     * @throws NullPointerException if instanceMap is null
      */
     private Map<K, T> getInstanceMap() {
         return requireNonNull(instanceMap, "instanceMap must not be null.");

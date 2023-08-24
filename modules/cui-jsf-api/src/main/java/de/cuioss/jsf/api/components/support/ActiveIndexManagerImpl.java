@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.components.support;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
@@ -12,8 +27,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Default implementation for {@link ActiveIndexManager}.
- * Adds convenient methods for programmatically manipulating the active indexes.
+ * Default implementation for {@link ActiveIndexManager}. Adds convenient
+ * methods for programmatically manipulating the active indexes.
  *
  * @author Oliver Wolff
  * @author Sven Haag
@@ -26,24 +41,23 @@ public class ActiveIndexManagerImpl implements ActiveIndexManager {
     private static final String INDEX_SEPARATOR = " ";
 
     /**
-     * The indexes of the content-accordion that are to be active(open) on initial display/change of
-     * grouping.
+     * The indexes of the content-accordion that are to be active(open) on initial
+     * display/change of grouping.
      */
     private String defaultIndex;
 
     /**
-     * The active index or indexes.
-     * Multiple indexes are separated with space.
+     * The active index or indexes. Multiple indexes are separated with space.
      */
     @Getter
     @Setter
     private String activeIndexesString;
 
     /**
-     * @param defaultIndexes to be used as default index and as initial activeIndexesString
+     * @param defaultIndexes to be used as default index and as initial
+     *                       activeIndexesString
      */
     public ActiveIndexManagerImpl(final List<Integer> defaultIndexes) {
-        super();
         setActiveIndex(defaultIndexes);
         defaultIndex = activeIndexesString;
     }

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.taginput;
 
 import static de.cuioss.jsf.bootstrap.selectize.Selectize.OPTION_VALUE_DEFAULT_WRAPPER;
@@ -56,13 +71,13 @@ import lombok.experimental.Delegate;
  * create own Tags on the fly. User Created tags, e.g. with the label 'MyTag'
  * will be translated into a {@link ConceptKeyType} with the
  * {@link ConceptKeyType#getResolved(java.util.Locale)} resulting in 'MyTag'
- * {@link ConceptKeyType#getIdentifier()} resulting in '_client_created_MyTag'. The
- * suffix '_client_created_' is useful to differentiate between the original
+ * {@link ConceptKeyType#getIdentifier()} resulting in '_client_created_MyTag'.
+ * The suffix '_client_created_' is useful to differentiate between the original
  * tags and the ones create on the fly</li>
  * <li>maxItems: Defines the maximum number of items to be selected, defaults to
  * 10.</li>
- * <li>delimiter: Defines the delimiter to separate the identifier in the input value, default to
- * {@link JavaScriptOptions#OPTION_VALUE_DELIMITER}</li>
+ * <li>delimiter: Defines the delimiter to separate the identifier in the input
+ * value, default to {@link JavaScriptOptions#OPTION_VALUE_DELIMITER}</li>
  * </ul>
  * <h2>Usage</h2>
  *
@@ -76,8 +91,7 @@ import lombok.experimental.Delegate;
 @FacesComponent(BootstrapFamily.TAG_INPUT_COMPONENT)
 @ResourceDependency(library = "javascript.enabler", name = "enabler.selectize.js", target = "head")
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
-public class TagInputComponent extends BaseCuiHtmlInputComponent
-        implements StyleClassResolver {
+public class TagInputComponent extends BaseCuiHtmlInputComponent implements StyleClassResolver {
 
     private static final CuiLogger log = new CuiLogger(TagInputComponent.class);
 
@@ -96,11 +110,15 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent
     private static final String ITEM_CONVERTER_ID_KEY = "itemConverterId";
     private static final String REMOVE_BUTTON_KEY = "displayRemoveButton";
 
-    /** Style class for the Selectize wrapper to indicate that it is allowed to create new tags */
+    /**
+     * Style class for the Selectize wrapper to indicate that it is allowed to
+     * create new tags
+     */
     static final String CSS_CLASS_CAN_CREATE = "selectize-cancreate";
 
     /**
-     * Style class for the Selectize wrapper to indicate that it is not allowed to create new tags
+     * Style class for the Selectize wrapper to indicate that it is not allowed to
+     * create new tags
      */
     static final String CSS_CLASS_CANNOT_CREATE = "selectize-cannotcreate";
 
@@ -112,7 +130,6 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent
      *
      */
     public TagInputComponent() {
-        super();
         disabledProvider = new DisabledComponentProvider(this);
         setRendererType(BootstrapFamily.TAG_INPUT_COMPONENT_RENDERER);
         super.setConverter(new ConceptKeyStringConverter());
@@ -128,7 +145,7 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent
      * @return the sourceList
      */
     public Set<ConceptKeyType> getSourceSet() {
-        return state.get(SOURCE_SET_KEY, Collections.<ConceptKeyType> emptySet());
+        return state.get(SOURCE_SET_KEY, Collections.<ConceptKeyType>emptySet());
     }
 
     /**
@@ -142,7 +159,7 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent
      * @return the clientCreated
      */
     public Set<ConceptKeyType> getClientCreated() {
-        return state.get(CLIENT_CREATED_KEY, Collections.<ConceptKeyType> emptySet());
+        return state.get(CLIENT_CREATED_KEY, Collections.<ConceptKeyType>emptySet());
     }
 
     /**
@@ -240,17 +257,15 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent
     }
 
     /**
-     * @return the {@link Set} of ConceptKeyType of {@link TagHelper#getValueAsSet(Object...)}
-     *         marked as undefined and
+     * @return the {@link Set} of ConceptKeyType of
+     *         {@link TagHelper#getValueAsSet(Object...)} marked as undefined and
      *         not part of {@link #getSourceSet()}.
      */
     Set<ConceptKeyType> getUndefinedValues() {
         if (null == getValue()) {
             return Collections.emptySet();
         }
-        return getValue().stream()
-                .filter(AugmentationKeyConstans::isUndefinedValue)
-                .collect(Collectors.toSet());
+        return getValue().stream().filter(AugmentationKeyConstans::isUndefinedValue).collect(Collectors.toSet());
     }
 
     /**
@@ -264,7 +279,7 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent
     /**
      * @param value {@link java.util.Set} of {@link ConceptKeyType}
      * @throws IllegalArgumentException if value is not a {@link java.util.Set} of
-     *             {@link ConceptKeyType}
+     *                                  {@link ConceptKeyType}
      */
     @Override
     public void setValue(final Object value) {
@@ -273,19 +288,20 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent
     }
 
     /**
-     * Ensure that <code>value</code> is a {@link java.util.Set} of {@link ConceptKeyType}.
+     * Ensure that <code>value</code> is a {@link java.util.Set} of
+     * {@link ConceptKeyType}.
      *
      * @param value to be checked
      * @throws IllegalArgumentException if value is not a {@link java.util.Set} of
-     *             {@link ConceptKeyType}
+     *                                  {@link ConceptKeyType}
      */
     private void checkValue(final Object value) {
         if (null == value) {
             return;
         }
 
-        final var errorMessage =
-            "value must be a java.util.Set of ConceptKeyType, but is: " + value.getClass().getName();
+        final var errorMessage = "value must be a java.util.Set of ConceptKeyType, but is: "
+                + value.getClass().getName();
 
         checkArgument(value instanceof Set, errorMessage);
 
@@ -297,14 +313,13 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent
 
     @Override
     protected Object getConvertedValue(final FacesContext context, final Object submittedValue)
-        throws ConverterException {
+            throws ConverterException {
         return new ConceptKeyStringConverter().getAsObject(context, this, (String) submittedValue);
     }
 
     @Override
     public StyleClassBuilder resolveStyleClass() {
-        return getStyleClassBuilder()
-                .append(isLetUserCreateTags() ? CSS_CLASS_CAN_CREATE : CSS_CLASS_CANNOT_CREATE);
+        return getStyleClassBuilder().append(isLetUserCreateTags() ? CSS_CLASS_CAN_CREATE : CSS_CLASS_CANNOT_CREATE);
     }
 
     @Override
@@ -327,7 +342,7 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent
         source.addAll(getClientCreated());
         source.addAll(getUndefinedValues());
         final var options = buildOptionElements(source);
-        return String.format(JavaScriptOptions.SQUARE_BRACKETS_WRAPPER, options);
+        return (JavaScriptOptions.SQUARE_BRACKETS_WRAPPER).formatted(options);
     }
 
     @Override
@@ -353,16 +368,8 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent
     }
 
     private static String buildOptionElement(final String label, final String identifier) {
-        return new StringBuilder()
-                .append("{\"")
-                .append(OPTION_VALUE_LABEL_KEY)
-                .append("\":\"")
-                .append(label)
-                .append("\",\"")
-                .append(OPTION_VALUE_VALUE_KEY)
-                .append("\":\"")
-                .append(identifier)
-                .append("\"}")
+        return new StringBuilder().append("{\"").append(OPTION_VALUE_LABEL_KEY).append("\":\"").append(label)
+                .append("\",\"").append(OPTION_VALUE_VALUE_KEY).append("\":\"").append(identifier).append("\"}")
                 .toString();
     }
 }

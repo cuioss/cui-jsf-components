@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.components.renderer;
 
 import static java.util.Objects.requireNonNull;
@@ -26,8 +41,7 @@ import lombok.NonNull;
  * passed to the corresponding calls.
  *
  * @author Oliver Wolff
- * @param <T>
- *            identifying the wrapped component, must be at least
+ * @param <T> identifying the wrapped component, must be at least
  *            {@link UIComponent}
  */
 @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
@@ -45,12 +59,12 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
 
     /**
      * @param facesContext must not be null
-     * @param component must not be null
+     * @param component    must not be null
      */
     public DecoratingResponseWriter(final FacesContext facesContext, final T component) {
         super(requireNonNull(facesContext.getResponseWriter()));
         this.component = requireNonNull(component);
-        this.componentWrapper = new ComponentWrapper<>(component);
+        componentWrapper = new ComponentWrapper<>(component);
         this.facesContext = facesContext;
     }
 
@@ -79,16 +93,12 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     /**
      * Write the given text either HTML-escaped or unescaped.
      *
-     * @param text
-     *            to be written. If it is null or empty, nothing will be written
-     * @param escape
-     *            Whether to HTML-escape the given text or not.
+     * @param text   to be written. If it is null or empty, nothing will be written
+     * @param escape Whether to HTML-escape the given text or not.
      * @return the {@link DecoratingResponseWriter}
-     * @throws IOException
-     *             When on I/O error.
+     * @throws IOException When on I/O error.
      */
-    public DecoratingResponseWriter<T> withTextContent(final String text, final boolean escape)
-        throws IOException {
+    public DecoratingResponseWriter<T> withTextContent(final String text, final boolean escape) throws IOException {
         if (!MoreStrings.isEmpty(text)) {
             if (escape) {
                 writeText(text, null, null);
@@ -102,8 +112,7 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     /**
      * Adds the "class" attribute to the current dom-element.
      *
-     * @param styleClass
-     *            to be set
+     * @param styleClass to be set
      * @return the {@link DecoratingResponseWriter}
      * @throws IOException
      */
@@ -116,14 +125,12 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     /**
      * Adds the "class" attribute to the current dom-element.
      *
-     * @param styleClass
-     *            to be set
+     * @param styleClass to be set
      * @return the {@link DecoratingResponseWriter}
      * @throws IOException
      */
     @Override
-    public DecoratingResponseWriter<T> withStyleClass(final StyleClassProvider styleClass)
-        throws IOException {
+    public DecoratingResponseWriter<T> withStyleClass(final StyleClassProvider styleClass) throws IOException {
         super.withStyleClass(styleClass);
         return this;
     }
@@ -131,14 +138,12 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     /**
      * Adds the "class" attribute to the current dom-element.
      *
-     * @param styleClass
-     *            to be set
+     * @param styleClass to be set
      * @return the {@link DecoratingResponseWriter}
      * @throws IOException
      */
     @Override
-    public DecoratingResponseWriter<T> withStyleClass(final StyleClassBuilder styleClass)
-        throws IOException {
+    public DecoratingResponseWriter<T> withStyleClass(final StyleClassBuilder styleClass) throws IOException {
         super.withStyleClass(styleClass);
         return this;
     }
@@ -146,16 +151,14 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     /**
      * Adds an attribute to the current dom-element.
      *
-     * @param attributeName
-     *            must not be null
+     * @param attributeName  must not be null
      * @param attributeValue
      * @return the {@link DecoratingResponseWriter}
      * @throws IOException
      */
     @Override
-    public DecoratingResponseWriter<T> withAttribute(final AttributeName attributeName,
-            final String attributeValue)
-        throws IOException {
+    public DecoratingResponseWriter<T> withAttribute(final AttributeName attributeName, final String attributeValue)
+            throws IOException {
         super.withAttribute(attributeName, attributeValue);
         return this;
     }
@@ -163,16 +166,14 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     /**
      * Adds an attribute to the current dom-element.
      *
-     * @param attributeName
-     *            must not be null
+     * @param attributeName  must not be null
      * @param attributeValue
      * @return the {@link DecoratingResponseWriter}
      * @throws IOException
      */
     @Override
     public DecoratingResponseWriter<T> withAttribute(final AttributeName attributeName,
-            final AttributeValue attributeValue)
-        throws IOException {
+            final AttributeValue attributeValue) throws IOException {
         super.withAttribute(attributeName, attributeValue);
         return this;
     }
@@ -180,8 +181,7 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     /**
      * Adds the title attribute to the current dom-element.
      *
-     * @param title
-     *            if it is null or empty, not title will be written
+     * @param title if it is null or empty, not title will be written
      * @return the {@link DecoratingResponseWriter}
      * @throws IOException
      */
@@ -194,8 +194,7 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     /**
      * Adds the style attribute to the current dom-element.
      *
-     * @param style
-     *            if it is null or empty, no style-attribute will be written
+     * @param style if it is null or empty, no style-attribute will be written
      * @return the {@link DecoratingResponseWriter}
      * @throws IOException
      */
@@ -206,37 +205,36 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     }
 
     /**
-     * Writes the id AND the name attribute for a given element (represented by
-     * the state of the given ResponseWriter)
+     * Writes the id AND the name attribute for a given element (represented by the
+     * state of the given ResponseWriter)
      *
-     * @param idExtension
-     *            if not null it will be appended to the derived ClientId. In
-     *            addition there will be an underscore appended: The result will
-     *            be component.getClientId() + "_" + idExtension
+     * @param idExtension if not null it will be appended to the derived ClientId.
+     *                    In addition there will be an underscore appended: The
+     *                    result will be component.getClientId() + "_" + idExtension
      * @return the {@link DecoratingResponseWriter}
      * @throws IOException
      */
     public DecoratingResponseWriter<T> withClientId(final String idExtension) throws IOException {
-        final var idString = this.componentWrapper.getSuffixedClientId(idExtension);
+        final var idString = componentWrapper.getSuffixedClientId(idExtension);
         withAttribute(AttributeName.ID, idString);
         return withAttribute(AttributeName.NAME, idString);
     }
 
     /**
-     * Writes the id AND the name attribute for a given element (represented by
-     * the state of the given ResponseWriter)
+     * Writes the id AND the name attribute for a given element (represented by the
+     * state of the given ResponseWriter)
      *
      * @return the {@link DecoratingResponseWriter}
      * @throws IOException
      */
     public DecoratingResponseWriter<T> withClientId() throws IOException {
-        withAttribute(AttributeName.ID, this.componentWrapper.getClientId());
-        return withAttribute(AttributeName.NAME, this.componentWrapper.getClientId());
+        withAttribute(AttributeName.ID, componentWrapper.getClientId());
+        return withAttribute(AttributeName.NAME, componentWrapper.getClientId());
     }
 
     /**
-     * Escape id for JavaScript selector.
-     * Escapes the following chars with a single backslash: :.[],=@
+     * Escape id for JavaScript selector. Escapes the following chars with a single
+     * backslash: :.[],=@
      *
      * @see <a href="http://api.jquery.com/category/selectors/">jQuery Selectors</a>
      * @see <a href=
@@ -251,24 +249,23 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     }
 
     /**
-     * Writes the id AND the name attribute for a given element (represented by
-     * the state of the given ResponseWriter) if the client id is to be
-     * rendered, see {@link ComponentWrapper#shouldRenderClientId()} on the
-     * algorithm.
+     * Writes the id AND the name attribute for a given element (represented by the
+     * state of the given ResponseWriter) if the client id is to be rendered, see
+     * {@link ComponentWrapper#shouldRenderClientId()} on the algorithm.
      *
      * @return the {@link DecoratingResponseWriter}
      * @throws IOException
      */
     public DecoratingResponseWriter<T> withClientIdIfNecessary() throws IOException {
-        if (this.componentWrapper.shouldRenderClientId()) {
+        if (componentWrapper.shouldRenderClientId()) {
             return withClientId();
         }
         return this;
     }
 
     /**
-     * Writes the pass-through-attributes to the given element (represented by
-     * the state of the given ResponseWriter). In case there are no
+     * Writes the pass-through-attributes to the given element (represented by the
+     * state of the given ResponseWriter). In case there are no
      * pass-through-attributes nothing will happen.
      *
      * @return the {@link DecoratingResponseWriter}
@@ -282,18 +279,15 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     /**
      * Write an input with type=hidden a generated id and the given value
      *
-     * @param idExtension
-     *            if not null it will be appended to the derived ClientId. In
-     *            addition there will be an underscore appended: The result will
-     *            be component.getClientId() + "_" + idExtension
-     * @param value
-     *            to be written if not null.
+     * @param idExtension if not null it will be appended to the derived ClientId.
+     *                    In addition there will be an underscore appended: The
+     *                    result will be component.getClientId() + "_" + idExtension
+     * @param value       to be written if not null.
      * @return the {@link DecoratingResponseWriter}
      * @throws IOException
      */
-    public DecoratingResponseWriter<T> withHiddenField(final String idExtension,
-            final Serializable value)
-        throws IOException {
+    public DecoratingResponseWriter<T> withHiddenField(final String idExtension, final Serializable value)
+            throws IOException {
 
         final var valueString = String.valueOf(value);
 
@@ -314,16 +308,16 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
      * @return the value if present, otherwise null
      */
     public Object getRenderAttribute(final Serializable key) {
-        return this.component.getTransientStateHelper().getTransient(key);
+        return component.getTransientStateHelper().getTransient(key);
     }
 
     /**
      * Store a attribute for the renderer
      *
-     * @param key the key
+     * @param key   the key
      * @param value the value
      */
     public void putRenderAttribute(final Serializable key, final Serializable value) {
-        this.component.getTransientStateHelper().putTransient(key, value);
+        component.getTransientStateHelper().putTransient(key, value);
     }
 }

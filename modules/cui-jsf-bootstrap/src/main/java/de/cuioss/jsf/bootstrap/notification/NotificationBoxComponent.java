@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.notification;
 
 import javax.el.MethodExpression;
@@ -27,23 +42,23 @@ import lombok.experimental.Delegate;
  * <li>{@link ContextStateProvider}</li>
  * <li>{@link ContentProvider}</li>
  * <li>{@link ModelProvider}</li>
- * <li>dismissible: Indicates whether the notification box can be dismissed.</li>
+ * <li>dismissible: Indicates whether the notification box can be
+ * dismissed.</li>
  * <li>dismissListener: Method expression to listen to dismiss events. The
  * listener must be in the form of
- * {@code void methodName(de.cuioss.jsf.api.components.events.ModelPayloadEvent)}. In case
- * you set it to <code>true</code> you must provide the according model. If not it falls
- * back to #contentValue</li>
+ * {@code void methodName(de.cuioss.jsf.api.components.events.ModelPayloadEvent)}.
+ * In case you set it to <code>true</code> you must provide the according model.
+ * If not it falls back to #contentValue</li>
  * </ul>
  * <h2>Usage</h2>
  *
  * <pre>
- * &lt;cui:notificationBox state="WARN" /&gt;
+ * &lt;boot:notificationBox state="WARN" /&gt;
  * </pre>
  *
  * @author Matthias Walliczek
  */
-@ResourceDependency(library = "javascript.enabler", name = "enabler.notificationbox.js",
-        target = "head")
+@ResourceDependency(library = "javascript.enabler", name = "enabler.notificationbox.js", target = "head")
 @FacesComponent(BootstrapFamily.NOTIFICATION_BOX_COMPONENT)
 public class NotificationBoxComponent extends AbstractBaseCuiComponent {
 
@@ -67,7 +82,6 @@ public class NotificationBoxComponent extends AbstractBaseCuiComponent {
      * Default constructor.
      */
     public NotificationBoxComponent() {
-        super();
         super.setRendererType(BootstrapFamily.NOTIFICATION_BOX_RENDERER);
         contentProvider = new ContentProvider(this);
         contextStateProvider = new ContextStateProvider(this);
@@ -92,16 +106,15 @@ public class NotificationBoxComponent extends AbstractBaseCuiComponent {
     }
 
     /**
-     * @return boolean indicating whether the component has been dismissed.
-     *         Defaults to <code>false</code>
+     * @return boolean indicating whether the component has been dismissed. Defaults
+     *         to <code>false</code>
      */
     public boolean isDismissed() {
         return (Boolean) getStateHelper().eval(DISMISSED_KEY, Boolean.FALSE);
     }
 
     /**
-     * @param dismissed
-     *            flag
+     * @param dismissed flag
      */
     public void setDismissed(final boolean dismissed) {
         getStateHelper().put(DISMISSED_KEY, dismissed);
@@ -115,8 +128,7 @@ public class NotificationBoxComponent extends AbstractBaseCuiComponent {
     }
 
     /**
-     * @param dismissListener
-     *            the dismissListener to set
+     * @param dismissListener the dismissListener to set
      */
     public void setDismissListener(final MethodExpression dismissListener) {
         getStateHelper().put(NotificationBoxHandler.DISMISS_LISTENER_NAME, dismissListener);

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.application.theme.impl;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
@@ -17,18 +32,20 @@ import lombok.ToString;
 /**
  * Support class for {@link ThemeResourceHandler} utilized to configure it.
  * <ul>
- * <li>It provides a set of default Themes: "Blue", "Sunny", "Green", "High-Contrast",
- * attribute-name is "availableThemes".</li>
+ * <li>It provides a set of default Themes: "Blue", "Sunny", "Green",
+ * "High-Contrast", attribute-name is "availableThemes".</li>
  * <li>The default theme is "Blue", attribute-name is "defaultTheme"</li>
  * <li>The default css name is application.css, attribute-name is "cssName"</li>
- * <li>The default library is 'de.cuioss.portal.css', attribute-name is "cssLibrary"</li>
+ * <li>The default library is 'de.cuioss.portal.css', attribute-name is
+ * "cssLibrary"</li>
  * </ul>
  * <p>
- * All this attributes can be altered by overwriting the corresponding resource within the
- * faces-config.xml declaration.
+ * All this attributes can be altered by overwriting the corresponding resource
+ * within the faces-config.xml declaration.
  * </p>
- * <em>Caution: </em> In order to work you need to expose this class as an application scoped bean
- * with the name {@link ThemeConfigurationImpl#BEAN_NAME}
+ * <em>Caution: </em> In order to work you need to expose this class as an
+ * application scoped bean with the name
+ * {@link ThemeConfigurationImpl#BEAN_NAME}
  *
  * @author Oliver Wolff
  */
@@ -38,8 +55,7 @@ public class ThemeConfigurationImpl implements ThemeConfiguration, Serializable 
 
     private static final long serialVersionUID = 8201161314453668030L;
 
-    private static final List<String> DEFAULT_THEMES = immutableList("Blue", "Sunny", "Green",
-            "High-Contrast");
+    private static final List<String> DEFAULT_THEMES = immutableList("Blue", "Sunny", "Green", "High-Contrast");
 
     private ThemeManager themeManager;
 

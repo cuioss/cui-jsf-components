@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.lazyloading;
 
 import static de.cuioss.jsf.bootstrap.lazyloading.LazyLoadingComponent.DATA_RESULT_NOTIFICATION_BOX;
@@ -44,9 +59,8 @@ public class LazyLoadingRenderer extends BaseDecoratorRenderer<LazyLoadingCompon
 
     @Override
     protected void doEncodeBegin(final FacesContext context,
-            final DecoratingResponseWriter<LazyLoadingComponent> writer,
-            final LazyLoadingComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<LazyLoadingComponent> writer, final LazyLoadingComponent component)
+            throws IOException {
         writer.withStartElement(Node.DIV);
         writer.withClientId();
         if (!component.shouldRenderWaitingIndicator(context)) {
@@ -55,7 +69,7 @@ public class LazyLoadingRenderer extends BaseDecoratorRenderer<LazyLoadingCompon
         writer.writeAttribute(DATA_IGNORE_AUTO_UPDATE, component.isIgnoreAutoUpdate(), DATA_IGNORE_AUTO_UPDATE);
         writer.writeAttribute(DATA_ASYNC, component.isAsync(), DATA_ASYNC);
         var waitingIndicatorComponentResult = component.retrieveWaitingIndicator();
-        if (!waitingIndicatorComponentResult.isPresent()) {
+        if (waitingIndicatorComponentResult.isEmpty()) {
             throw new IllegalStateException("Waiting indicator not found!");
         }
         writer.writeAttribute(DATA_WAITING_INDICATOR_ID, waitingIndicatorComponentResult.get().getClientId(),
@@ -67,26 +81,23 @@ public class LazyLoadingRenderer extends BaseDecoratorRenderer<LazyLoadingCompon
     }
 
     @Override
-    protected void doEncodeEnd(final FacesContext context,
-            final DecoratingResponseWriter<LazyLoadingComponent> writer,
-            final LazyLoadingComponent component)
-        throws IOException {
+    protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<LazyLoadingComponent> writer,
+            final LazyLoadingComponent component) throws IOException {
         writer.withEndElement(Node.DIV);
     }
 
     @Override
     protected void doEncodeChildren(final FacesContext context,
-            final DecoratingResponseWriter<LazyLoadingComponent> writer,
-            final LazyLoadingComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<LazyLoadingComponent> writer, final LazyLoadingComponent component)
+            throws IOException {
 
         var waitingIndicatorComponentResult = component.retrieveWaitingIndicator();
-        if (!waitingIndicatorComponentResult.isPresent()) {
+        if (waitingIndicatorComponentResult.isEmpty()) {
             throw new IllegalStateException("Waiting indicator not found!");
         }
         var waitingIndicatorComponent = waitingIndicatorComponentResult.get();
-        waitingIndicatorComponent.getAttributes()
-                .put("style", "display: " + (component.shouldRenderWaitingIndicator(context) ? "block;" : "none;"));
+        waitingIndicatorComponent.getAttributes().put("style",
+                "display: " + (component.shouldRenderWaitingIndicator(context) ? "block;" : "none;"));
 
         if (!component.shouldRenderWaitingIndicator(context)) { // render all children including
             // waiting indicator
@@ -94,9 +105,8 @@ public class LazyLoadingRenderer extends BaseDecoratorRenderer<LazyLoadingCompon
             writer.withStartElement(Node.DIV);
             writer.withClientId(LAZY_LOADING_CONTENT_ID);
             writer.writeAttribute(DATA_LAZY_LOADING_CONTENT, DATA_LAZY_LOADING_CONTENT, DATA_LAZY_LOADING_CONTENT);
-            var resultNotificationBoxComponent =
-                (NotificationBoxComponent) component.retrieveNotificationBox()
-                        .orElseThrow(IllegalStateException::new);
+            var resultNotificationBoxComponent = (NotificationBoxComponent) component.retrieveNotificationBox()
+                    .orElseThrow(IllegalStateException::new);
             if (null != component.evaluateNotificationBoxValue()) {
                 resultNotificationBoxComponent.setState(component.evaluateNotificationBoxState().name());
                 resultNotificationBoxComponent.setContentValue(component.evaluateNotificationBoxValue());
@@ -108,8 +118,8 @@ public class LazyLoadingRenderer extends BaseDecoratorRenderer<LazyLoadingCompon
             resultNotificationBoxComponent.encodeAll(context);
             if (component.evaluateRenderContent()) {
                 for (final UIComponent child : component.getChildren()) {
-                    if (child.isRendered() && !child.getPassThroughAttributes()
-                            .containsKey(DATA_RESULT_NOTIFICATION_BOX)
+                    if (child.isRendered()
+                            && !child.getPassThroughAttributes().containsKey(DATA_RESULT_NOTIFICATION_BOX)
                             && !WAITING_INDICATOR_ID.equals(child.getId())) {
                         child.encodeAll(context);
                     }
@@ -124,8 +134,7 @@ public class LazyLoadingRenderer extends BaseDecoratorRenderer<LazyLoadingCompon
      * Update loaded state from request.
      */
     @Override
-    protected void doDecode(final FacesContext context,
-            final ComponentWrapper<LazyLoadingComponent> componentWrapper) {
+    protected void doDecode(final FacesContext context, final ComponentWrapper<LazyLoadingComponent> componentWrapper) {
         final var component = componentWrapper.getWrapped();
         final var map = context.getExternalContext().getRequestParameterMap();
 

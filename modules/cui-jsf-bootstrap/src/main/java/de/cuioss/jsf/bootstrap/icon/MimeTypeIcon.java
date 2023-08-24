@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.icon;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
@@ -16,7 +31,8 @@ import lombok.Getter;
 
 /**
  * Each constant represent a mime type icon, defined within icons.css.<br>
- * Currently supported mime types see https://jira.x-tention.com/browse/VMR-5009 <br>
+ * Currently supported mime types see https://jira.x-tention.com/browse/VMR-5009
+ * <br>
  *
  * @author Oliver Wolff
  * @author Eugen Fischer
@@ -107,51 +123,29 @@ public enum MimeTypeIcon {
     /**
      * Strategy for hl7 types which will be resolved by format code
      */
-    private static final IStrategyProvider<String, MimeTypeIcon> HL7_TYPES =
-        new StrategyProviderImpl.Builder<String, MimeTypeIcon>()
-                .add(Rule.create("CCD", CCD))
-                .add(Rule.create("CCDA", CCDA))
-                .add(Rule.create("CCR", CCR))
-                .add(Rule.create("CDA", CDA))
-                .defineDefaultRule(Rule.createDefaultRule(XXX))
-                .build();
+    private static final IStrategyProvider<String, MimeTypeIcon> HL7_TYPES = new StrategyProviderImpl.Builder<String, MimeTypeIcon>()
+            .add(Rule.create("CCD", CCD)).add(Rule.create("CCDA", CCDA)).add(Rule.create("CCR", CCR))
+            .add(Rule.create("CDA", CDA)).defineDefaultRule(Rule.createDefaultRule(XXX)).build();
 
     /**
      * Strategy for all known mime types with default
      */
-    private static final IStrategyProvider<String, MimeTypeIcon> MIME_TYPES =
-        new StrategyProviderImpl.Builder<String, MimeTypeIcon>()
+    private static final IStrategyProvider<String, MimeTypeIcon> MIME_TYPES = new StrategyProviderImpl.Builder<String, MimeTypeIcon>()
 
-                .add(DCM.getRule())
-                .add(DOC.getRule()).add(DOCX.getRule())
-                .add(PDF.getRule())
-                .add(OCTET_STREAM.getRule())
-                .add(SHOCKWAVE_FLASH.getRule())
+            .add(DCM.getRule()).add(DOC.getRule()).add(DOCX.getRule()).add(PDF.getRule()).add(OCTET_STREAM.getRule())
+            .add(SHOCKWAVE_FLASH.getRule())
 
-                .add(AUDIO_BASIC.getRule())
-                .add(K32ADPCM.getRule())
-                .add(AUDIO_MPEG.getRule())
+            .add(AUDIO_BASIC.getRule()).add(K32ADPCM.getRule()).add(AUDIO_MPEG.getRule())
 
-                .add(G3FAX.getRule())
-                .add(GIF.getRule())
-                .add(JPEG.getRule())
-                .add(PNG.getRule())
-                .add(TIF.getRule())
+            .add(G3FAX.getRule()).add(GIF.getRule()).add(JPEG.getRule()).add(PNG.getRule()).add(TIF.getRule())
 
-                .add(HTML.getRule())
-                .add(TXT.getRule())
-                .add(RTF.getRule())
-                .add(SGML.getRule())
-                .add(XML.getRule())
+            .add(HTML.getRule()).add(TXT.getRule()).add(RTF.getRule()).add(SGML.getRule()).add(XML.getRule())
 
-                .add(VIDEO_MPEG.getRule())
-                .add(AVI.getRule())
+            .add(VIDEO_MPEG.getRule()).add(AVI.getRule())
 
-                .add(Rule.create("text/x-hl7-ft", CDA))
-                .add(CDA.getRule())
+            .add(Rule.create("text/x-hl7-ft", CDA)).add(CDA.getRule())
 
-                .defineDefaultRule(Rule.createDefaultRule(UNDEFINED))
-                .build();
+            .defineDefaultRule(Rule.createDefaultRule(UNDEFINED)).build();
 
     private static final String PLACEHOLDER_SUFFIX = "-placeholder";
 
@@ -167,13 +161,13 @@ public enum MimeTypeIcon {
     /**
      * Factory method returning a concrete {@link MimeTypeIcon}
      *
-     * @param mimeTypeIdentifier if it is null or empty {@link #UNDEFINED} will be chosen.
-     * @param formatCode if it is not null and within #XML_FORMAT_CODES it will be directly
-     *            used, identifier will be ignored
+     * @param mimeTypeIdentifier if it is null or empty {@link #UNDEFINED} will be
+     *                           chosen.
+     * @param formatCode         if it is not null and within #XML_FORMAT_CODES it
+     *                           will be directly used, identifier will be ignored
      * @return the found identifier, always defaulting to {@link #UNDEFINED}
      */
-    public static final MimeTypeIcon valueOfIdentifier(final String mimeTypeIdentifier,
-            final String formatCode) {
+    public static final MimeTypeIcon valueOfIdentifier(final String mimeTypeIdentifier, final String formatCode) {
 
         final var uppFormatCode = saveToUpperCase(formatCode);
         var result = HL7_TYPES.actOnCondition(uppFormatCode);
@@ -187,8 +181,9 @@ public enum MimeTypeIcon {
      * Resolves a {@link MimeTypeIcon} for a given filename
      *
      * @param fileName to be checked
-     * @return {@link MimeTypeIcon#UNDEFINED} in case the given filename is null or empty or does
-     *         not map to {@link MimeTypeIcon}, the found {@link MimeTypeIcon} otherwise.
+     * @return {@link MimeTypeIcon#UNDEFINED} in case the given filename is null or
+     *         empty or does not map to {@link MimeTypeIcon}, the found
+     *         {@link MimeTypeIcon} otherwise.
      */
     public static final MimeTypeIcon determineForFilenameSuffix(String fileName) {
         if (isEmpty(fileName)) {
@@ -231,22 +226,21 @@ public enum MimeTypeIcon {
         }
         final var lowerCaseName = name().toLowerCase();
         iconClass = new StringBuilder(PREFIX).append(lowerCaseName).toString();
-        placeholder =
-            new StringBuilder(PREFIX).append(lowerCaseName).append(PLACEHOLDER_SUFFIX).toString();
+        placeholder = new StringBuilder(PREFIX).append(lowerCaseName).append(PLACEHOLDER_SUFFIX).toString();
         rule = Rule.create(htmlIdentifier, this);
     }
 
     /**
-     * @return boolean indicating whether the concrete enum is an image, saying one of GIF, JPEG,
-     *         PNG, TIF
+     * @return boolean indicating whether the concrete enum is an image, saying one
+     *         of GIF, JPEG, PNG, TIF
      */
     public boolean isImage() {
         return IMAGES.contains(this);
     }
 
     /**
-     * @return boolean indicating whether the concrete enum is an hl7-format, saying one of CCD,
-     *         CDA, CCDA, CCR, 'XXX'
+     * @return boolean indicating whether the concrete enum is an hl7-format, saying
+     *         one of CCD, CDA, CCDA, CCR, 'XXX'
      */
     public boolean isHL7Format() {
         return HL7_FORMATS.contains(this);

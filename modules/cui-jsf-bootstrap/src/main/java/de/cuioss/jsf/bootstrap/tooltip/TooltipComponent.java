@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.tooltip;
 
 import static de.cuioss.jsf.bootstrap.BootstrapFamily.COMPONENT_FAMILY;
@@ -16,11 +31,12 @@ import lombok.experimental.Delegate;
 
 /**
  * <p>
- * Renders a bootstrap based tooltip component for an existing parent-component. It acts as
- * {@link de.cuioss.jsf.api.components.decorator}, saying itself it renders no output but
- * changes the attributes of the parent element accordingly. The actual rendering of the tooltip is
- * done by the javascript "component.enabler.tooltip.js", see
- * <a href="http://getbootstrap.com/javascript/#tooltips">Bootstrap-Documentation</a>
+ * Renders a bootstrap based tooltip component for an existing parent-component.
+ * It acts as {@link de.cuioss.jsf.api.components.decorator}, saying itself it
+ * renders no output but changes the attributes of the parent element
+ * accordingly. The actual rendering of the tooltip is done by the javascript
+ * "component.enabler.tooltip.js", see <a href=
+ * "http://getbootstrap.com/javascript/#tooltips">Bootstrap-Documentation</a>
  * </p>
  * <p>
  * Examples can be found in the <a href=
@@ -30,22 +46,21 @@ import lombok.experimental.Delegate;
  * <h2>Attributes</h2>
  * <ul>
  * <li>{@link ContentProvider}</li>
- * <li><b>placement</b>: String identifying the relative positioning of the tooltip: One of 'left',
- * 'top',
- * 'bottom', 'right' expected, defaults to {@value #PLACEMENT_DEFAULT}. For example, if placement is
- * "auto left", the tooltip will display to the left when possible, otherwise it will display
+ * <li><b>placement</b>: String identifying the relative positioning of the
+ * tooltip: One of 'left', 'top', 'bottom', 'right' expected, defaults to
+ * {@value #PLACEMENT_DEFAULT}. For example, if placement is "auto left", the
+ * tooltip will display to the left when possible, otherwise it will display
  * right.</li>
- * <li><b>trigger</b>: String identifying the dom-event when to trigger the display of the tooltip.
- * One of
- * 'click', 'hover', 'focus', 'manual' expected, defaults to {@value #TRIGGER_DEFAULT}</li>
- * <li><b>delay</b>: showing and hiding the tooltip (ms). Expected setting is integer value,
- * defaults to 500 (ms)</li>
+ * <li><b>trigger</b>: String identifying the dom-event when to trigger the
+ * display of the tooltip. One of 'click', 'hover', 'focus', 'manual' expected,
+ * defaults to {@value #TRIGGER_DEFAULT}</li>
+ * <li><b>delay</b>: showing and hiding the tooltip (ms). Expected setting is
+ * integer value, defaults to 500 (ms)</li>
  * </ul>
  *
  * @author Oliver Wolff
  */
-@ResourceDependency(library = "javascript.enabler", name = "enabler.tooltip.js",
-        target = "head")
+@ResourceDependency(library = "javascript.enabler", name = "enabler.tooltip.js", target = "head")
 @FacesComponent(BootstrapFamily.TOOLTIP_COMPONENT)
 public class TooltipComponent extends AbstractParentDecorator {
 

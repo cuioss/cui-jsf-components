@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.checkbox;
 
 import java.io.IOException;
@@ -53,10 +68,8 @@ public class SwitchRenderer extends BaseDecoratorRenderer<SwitchComponent> {
     }
 
     @Override
-    protected void doEncodeBegin(final FacesContext context,
-            final DecoratingResponseWriter<SwitchComponent> writer,
-            final SwitchComponent component)
-        throws IOException {
+    protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<SwitchComponent> writer,
+            final SwitchComponent component) throws IOException {
         renderContainerBegin(context, writer, component);
         renderColumnBegin(context, component);
         renderLabelBegin(writer, component);
@@ -68,8 +81,7 @@ public class SwitchRenderer extends BaseDecoratorRenderer<SwitchComponent> {
 
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<SwitchComponent> writer,
-            final SwitchComponent component)
-        throws IOException {
+            final SwitchComponent component) throws IOException {
         renderSlider(writer);
         renderLabelEnd(writer);
         renderText(writer, component);
@@ -85,14 +97,14 @@ public class SwitchRenderer extends BaseDecoratorRenderer<SwitchComponent> {
     @Override
     protected void decodeClientBehavior(final FacesContext context,
             final ComponentWrapper<SwitchComponent> componentWrapper) {
-        // decoding must take place only in JsfHtmlComponent.CHECKBOX. Otherwise it would be
+        // decoding must take place only in JsfHtmlComponent.CHECKBOX. Otherwise it
+        // would be
         // redundant.
     }
 
     private void renderContainerBegin(final FacesContext context,
-            final DecoratingResponseWriter<SwitchComponent> writer,
-            final SwitchComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<SwitchComponent> writer, final SwitchComponent component)
+            throws IOException {
         writer.withStartElement(Node.DIV);
         writer.withClientId(SwitchComponent.CONTAINER_SUFFIX);
         writer.withStyleClass(component.getStyleClassBuilder());
@@ -109,8 +121,7 @@ public class SwitchRenderer extends BaseDecoratorRenderer<SwitchComponent> {
     }
 
     private void renderLabelBegin(final DecoratingResponseWriter<SwitchComponent> writer,
-            final SwitchComponent component)
-        throws IOException {
+            final SwitchComponent component) throws IOException {
         writer.withStartElement(Node.LABEL);
         writer.withStyleClass(SWITCH_STYLE_CLASS);
         writer.withAttribute(AttributeName.TITLE, component.resolveTitle());
@@ -126,9 +137,8 @@ public class SwitchRenderer extends BaseDecoratorRenderer<SwitchComponent> {
         writer.withEndElement(Node.LABEL);
     }
 
-    private void renderText(final DecoratingResponseWriter<SwitchComponent> writer,
-            final SwitchComponent component)
-        throws IOException {
+    private void renderText(final DecoratingResponseWriter<SwitchComponent> writer, final SwitchComponent component)
+            throws IOException {
         writer.withStartElement(Node.SPAN);
         writer.withAttribute(AttributeName.CLASS, getTextStyleClass(!component.isSelected()));
         writer.withAttribute(AttributeName.DATA_ITEM_ACTIVE, "true");

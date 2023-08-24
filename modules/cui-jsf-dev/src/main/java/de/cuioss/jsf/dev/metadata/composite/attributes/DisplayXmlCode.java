@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.dev.metadata.composite.attributes;
 
 import java.beans.BeanDescriptor;
@@ -63,8 +78,8 @@ public final class DisplayXmlCode extends UINamingContainer {
      * @return the actual ViewDeclarationLanguage
      */
     private ViewDeclarationLanguage getDeclarationLanguage() {
-        return getFacesContext().getApplication().getViewHandler()
-                .getViewDeclarationLanguage(getFacesContext(), getViewName());
+        return getFacesContext().getApplication().getViewHandler().getViewDeclarationLanguage(getFacesContext(),
+                getViewName());
     }
 
     /**
@@ -73,16 +88,13 @@ public final class DisplayXmlCode extends UINamingContainer {
     private BeanInfo getMetadataInfo() {
         if (null == metadata) {
             synchronized (this) {
-                var resourceHandler = getFacesContext().getApplication()
-                        .getResourceHandler();
-                var compositeComponentResource = resourceHandler.createResource(
-                        getCompositeName(), getLibrary());
+                var resourceHandler = getFacesContext().getApplication().getResourceHandler();
+                var compositeComponentResource = resourceHandler.createResource(getCompositeName(), getLibrary());
                 if (null == compositeComponentResource) {
-                    throw new IllegalArgumentException("No resource found for " + getLibrary()
-                            + "/" + getCompositeName());
+                    throw new IllegalArgumentException(
+                            "No resource found for " + getLibrary() + "/" + getCompositeName());
                 }
-                metadata = getDeclarationLanguage().getComponentMetadata(getFacesContext(),
-                        compositeComponentResource);
+                metadata = getDeclarationLanguage().getComponentMetadata(getFacesContext(), compositeComponentResource);
                 LOGGER.trace("Lazy loaded metadata for Composite Component {}/{}", getLibrary(), getCompositeName());
             }
         }
@@ -106,8 +118,8 @@ public final class DisplayXmlCode extends UINamingContainer {
     public ComponentPropertiesWrapper getPropertyDescriptors() {
         if (!componentPropertiesWrapper.isConfigured()) {
             Map<String, String> additionalInfo = new HashMap<>();
-            additionalInfo.put(ComponentPropertiesWrapper.COMOPOSITE_NAME_KEY, getCompositeName()
-                    .replace(DEFAULT_COMPONENT_SUFIX, ""));
+            additionalInfo.put(ComponentPropertiesWrapper.COMOPOSITE_NAME_KEY,
+                    getCompositeName().replace(DEFAULT_COMPONENT_SUFIX, ""));
             additionalInfo.put(ComponentPropertiesWrapper.COMOPOSITE_LIBRARY_KEY, getLibrary());
             componentPropertiesWrapper = new ComponentPropertiesWrapper();
             componentPropertiesWrapper.addParentComponentDescriptor(getMetadataInfo().getBeanDescriptor());
@@ -140,7 +152,8 @@ public final class DisplayXmlCode extends UINamingContainer {
     /**
      * Return whether a facet with name="sampleSource" is defined
      *
-     * @return boolean indicating whether a facet with name="sampleSource" is defined
+     * @return boolean indicating whether a facet with name="sampleSource" is
+     *         defined
      */
     public boolean isSampleSourceFacetAvailable() {
         return null != getFacet("sampleSource");
@@ -152,10 +165,9 @@ public final class DisplayXmlCode extends UINamingContainer {
      * @return the source for the sample facet
      */
     public String getSampleFacetSource() {
-        final var context = (javax.servlet.ServletContext) getFacesContext()
-                .getExternalContext().getContext();
-        final var sampleSourceFinder = new SampleSourceFinder(new File(
-                context.getRealPath(getFacesContext().getViewRoot().getViewId())), getId());
+        final var context = (javax.servlet.ServletContext) getFacesContext().getExternalContext().getContext();
+        final var sampleSourceFinder = new SampleSourceFinder(
+                new File(context.getRealPath(getFacesContext().getViewRoot().getViewId())), getId());
         return sampleSourceFinder.getSampleSource();
     }
 

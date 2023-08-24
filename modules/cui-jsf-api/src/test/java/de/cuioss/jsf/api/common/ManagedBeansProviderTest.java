@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.common;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -31,7 +46,6 @@ class ManagedBeansProviderTest extends JsfEnabledTestEnvironment {
         private static final long serialVersionUID = 7053420614897774823L;
 
         public ClientInformationImplExt() {
-            super();
         }
     }
 
@@ -43,7 +57,8 @@ class ManagedBeansProviderTest extends JsfEnabledTestEnvironment {
 
     @Test
     void testGetManagedBeanInvalidBeanKeyNull() {
-        assertThrows(NullPointerException.class, () -> ManagedBeansProvider.getManagedBean(null, SomeTestBean.class, getFacesContext()));
+        assertThrows(NullPointerException.class,
+                () -> ManagedBeansProvider.getManagedBean(null, SomeTestBean.class, getFacesContext()));
     }
 
     @Test
@@ -68,7 +83,8 @@ class ManagedBeansProviderTest extends JsfEnabledTestEnvironment {
 
     @Test
     void testGetManagedBeanInvalidBeanKeyEmpty() {
-        assertThrows(NullPointerException.class, () -> ManagedBeansProvider.getManagedBean("", SomeTestBean.class, getFacesContext()));
+        assertThrows(NullPointerException.class,
+                () -> ManagedBeansProvider.getManagedBean("", SomeTestBean.class, getFacesContext()));
     }
 
     /**
@@ -76,14 +92,17 @@ class ManagedBeansProviderTest extends JsfEnabledTestEnvironment {
      */
     @Test
     void shouldFailIfBeanNotFound() {
-        assertThrows(IllegalArgumentException.class, () -> ManagedBeansProvider.getManagedBean("unknonBean", SomeTestBean.class, getFacesContext()));
+        assertThrows(IllegalArgumentException.class,
+                () -> ManagedBeansProvider.getManagedBean("unknonBean", SomeTestBean.class, getFacesContext()));
     }
 
     /**
-     * Expected : IllegalArgumentException if ManagedBean doesn't implement the expected interface
+     * Expected : IllegalArgumentException if ManagedBean doesn't implement the
+     * expected interface
      */
     @Test
     void shouldFailIfBeanHasNoExpectedInterface() {
-        assertThrows(IllegalArgumentException.class, () -> ManagedBeansProvider.getManagedBean(BEAN_KEY_EL, Date.class, getFacesContext()));
+        assertThrows(IllegalArgumentException.class,
+                () -> ManagedBeansProvider.getManagedBean(BEAN_KEY_EL, Date.class, getFacesContext()));
     }
 }

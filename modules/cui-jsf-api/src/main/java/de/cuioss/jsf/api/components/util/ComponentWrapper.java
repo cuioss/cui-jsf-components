@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.components.util;
 
 import java.util.Collections;
@@ -28,8 +43,7 @@ import lombok.RequiredArgsConstructor;
  * </p>
  *
  * @author Oliver Wolff
- * @param <T>
- *            Must be at least {@link UIComponent}
+ * @param <T> Must be at least {@link UIComponent}
  */
 @RequiredArgsConstructor
 public class ComponentWrapper<T extends UIComponent> {
@@ -49,10 +63,10 @@ public class ComponentWrapper<T extends UIComponent> {
      * @return the clientId for the wrapped component.
      */
     public String getClientId() {
-        if (null == this.clientId) {
-            this.clientId = this.wrapped.getClientId();
+        if (null == clientId) {
+            clientId = wrapped.getClientId();
         }
-        return this.clientId;
+        return clientId;
     }
 
     /**
@@ -60,38 +74,36 @@ public class ComponentWrapper<T extends UIComponent> {
      *         {@link ClientBehaviorHolder}
      */
     public boolean isClientBehaviorHolder() {
-        if (null == this.clientBehaviorHolder) {
-            this.clientBehaviorHolder =
-                getWrapped() instanceof ClientBehaviorHolder;
+        if (null == clientBehaviorHolder) {
+            clientBehaviorHolder = getWrapped() instanceof ClientBehaviorHolder;
         }
-        return this.clientBehaviorHolder;
+        return clientBehaviorHolder;
     }
 
     /**
-     * @return boolean indicating whether the wrapped component is a
-     *         {@link UIInput}
+     * @return boolean indicating whether the wrapped component is a {@link UIInput}
      */
     public boolean isUIInput() {
-        if (null == this.uiInput) {
-            this.uiInput = getWrapped() instanceof UIInput;
+        if (null == uiInput) {
+            uiInput = getWrapped() instanceof UIInput;
         }
-        return this.uiInput;
+        return uiInput;
     }
 
     /**
-     * @return the map of {@link ClientBehavior} associated with this component.
-     *         In case the component is not {@link ClientBehaviorHolder} it
-     *         returns an empty Map but never null.
+     * @return the map of {@link ClientBehavior} associated with this component. In
+     *         case the component is not {@link ClientBehaviorHolder} it returns an
+     *         empty Map but never null.
      */
     public Map<String, List<ClientBehavior>> getClientBehaviors() {
-        if (null == this.clientBehaviors) {
+        if (null == clientBehaviors) {
             if (!isClientBehaviorHolder()) {
-                this.clientBehaviors = Collections.emptyMap();
+                clientBehaviors = Collections.emptyMap();
             } else {
-                this.clientBehaviors = ((ClientBehaviorHolder) getWrapped()).getClientBehaviors();
+                clientBehaviors = ((ClientBehaviorHolder) getWrapped()).getClientBehaviors();
             }
         }
-        return this.clientBehaviors;
+        return clientBehaviors;
     }
 
     /**
@@ -108,18 +120,17 @@ public class ComponentWrapper<T extends UIComponent> {
      */
     public boolean shouldRenderClientId() {
         final var componentId = getWrapped().getId();
-        if (!MoreStrings.isEmpty(componentId)
-                && !componentId.startsWith(UIViewRoot.UNIQUE_ID_PREFIX)) {
+        if (!MoreStrings.isEmpty(componentId) && !componentId.startsWith(UIViewRoot.UNIQUE_ID_PREFIX)) {
             return true;
         }
         return !getClientBehaviors().isEmpty();
     }
 
     /**
-     * @param idExtension
-     *            if not null or empty it will be appended to the derived
-     *            ClientId. In addition there will be an underscore appended:
-     *            The result will be component.getClientId() + "_" + idExtension
+     * @param idExtension if not null or empty it will be appended to the derived
+     *                    ClientId. In addition there will be an underscore
+     *                    appended: The result will be component.getClientId() + "_"
+     *                    + idExtension
      * @return the created id
      */
     public String getSuffixedClientId(final String idExtension) {

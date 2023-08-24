@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.application.bundle;
 
 import static de.cuioss.tools.collect.CollectionLiterals.mutableList;
@@ -33,8 +48,8 @@ class ResourceBundleWrapperImplTest extends JsfEnabledTestEnvironment {
 
     public static final String BUNDLE2_NAME = "bundle2";
 
-    private final Set<String> containedKeys = mutableSet("bundle1.property1", "bundle1.property2",
-            "bundle1.property3", "bundle2.property1", "bundle2.property2", "bundle2.property3", "common.property");
+    private final Set<String> containedKeys = mutableSet("bundle1.property1", "bundle1.property2", "bundle1.property3",
+            "bundle2.property1", "bundle2.property2", "bundle2.property3", "common.property");
 
     @Test
     void testGetMessage() {
@@ -46,7 +61,8 @@ class ResourceBundleWrapperImplTest extends JsfEnabledTestEnvironment {
 
     @Test
     void shouldFailOnInvalidKey() {
-        assertThrows(MissingResourceException.class, () -> TestBundleConfigurator.getTestBundleWrapper().getMessage("not.there"));
+        assertThrows(MissingResourceException.class,
+                () -> TestBundleConfigurator.getTestBundleWrapper().getMessage("not.there"));
     }
 
     @Test

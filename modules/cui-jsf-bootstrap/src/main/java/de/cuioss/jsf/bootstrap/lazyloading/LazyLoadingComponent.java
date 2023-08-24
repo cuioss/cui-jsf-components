@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.lazyloading;
 
 import java.util.Optional;
@@ -34,9 +49,10 @@ import lombok.experimental.Delegate;
 /**
  * Displays a content that should be loaded lazy after initial page rendering.
  * <p>
- * The initial page will display the waiting indicator and trigger an ajax update of the content.
- * This update will first call an ActionListener (if defined) during Invoke Application phase,
- * and then switch the waiting indicator to be hidden and render the content.
+ * The initial page will display the waiting indicator and trigger an ajax
+ * update of the content. This update will first call an ActionListener (if
+ * defined) during Invoke Application phase, and then switch the waiting
+ * indicator to be hidden and render the content.
  */
 @ResourceDependency(library = "javascript.enabler", name = "enabler.lazyLoading.js", target = "head")
 @FacesComponent(BootstrapFamily.LAZYLOADING_COMPONENT)
@@ -85,7 +101,6 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
      *
      */
     public LazyLoadingComponent() {
-        super();
         state = new CuiState(getStateHelper());
         super.setRendererType(BootstrapFamily.LAZYLOADING_RENDERER);
         ignoreAutoUpdateProvider = new IgnoreAutoUpdateProvider(this);
@@ -134,9 +149,11 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
     }
 
     /**
-     * ATTENTION: Evaluation the MethodExpression may already trigger executing the method!
+     * ATTENTION: Evaluation the MethodExpression may already trigger executing the
+     * method!
      *
-     * @return the startInitialize, a function to be called one time at PreRenderViewEvent
+     * @return the startInitialize, a function to be called one time at
+     *         PreRenderViewEvent
      */
     public MethodExpression getStartInitialize() {
         return (MethodExpression) getStateHelper().eval(START_INITIALIZE_KEY);
@@ -269,16 +286,19 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
     }
 
     /**
-     * @return boolean indicating whether the children are rendered or should be rendered
+     * @return boolean indicating whether the children are rendered or should be
+     *         rendered
      */
     public boolean getChildrenLoaded() {
         return state.getBoolean(CHILDREN_LOADED_KEY);
     }
 
     /**
-     * Remember that childs were already rendered or trigger loading in the next request.
+     * Remember that childs were already rendered or trigger loading in the next
+     * request.
      *
-     * @param childrenLoaded true when the children should be rendered in the next render phase.
+     * @param childrenLoaded true when the children should be rendered in the next
+     *                       render phase.
      */
     public void setChildrenLoaded(final boolean childrenLoaded) {
         state.put(CHILDREN_LOADED_KEY, childrenLoaded);
@@ -320,12 +340,12 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
     }
 
     /**
-     * Check if the current request was triggered by the ajax request to reload the lazy loading
-     * content
+     * Check if the current request was triggered by the ajax request to reload the
+     * lazy loading content
      *
      * @param context the FacesContext
-     * @return true if the current request was triggered by the ajax request to reload the lazy
-     *         loading content
+     * @return true if the current request was triggered by the ajax request to
+     *         reload the lazy loading content
      */
     public boolean isContentLoadRequest(FacesContext context) {
         var componentWrapper = new ComponentWrapper<>(this);
@@ -334,17 +354,16 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
     }
 
     /**
-     * Create a waiting indicator based on the composite component
-     * if not already existing.
+     * Create a waiting indicator based on the composite component if not already
+     * existing.
      *
      * @return the waiting indicator as {@link UIComponent}.
      */
     UIComponent createWaitingIndicator() {
         var result = retrieveWaitingIndicator();
 
-        if (!result.isPresent()) {
-            var waitingIndicator =
-                WaitingIndicatorComponent.createComponent(FacesContext.getCurrentInstance());
+        if (result.isEmpty()) {
+            var waitingIndicator = WaitingIndicatorComponent.createComponent(FacesContext.getCurrentInstance());
             if (!MoreStrings.isEmpty(getWaitingIndicatorStyleClass())) {
                 waitingIndicator.setStyleClass(getWaitingIndicatorStyleClass());
             }
@@ -362,10 +381,10 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
      */
     NotificationBoxComponent createNotificationBox() {
         var result = retrieveNotificationBox();
-        if (!result.isPresent()) {
+        if (result.isEmpty()) {
             var notificationBoxComponent = new NotificationBoxComponent();
-            notificationBoxComponent.getPassThroughAttributes()
-                    .put(DATA_RESULT_NOTIFICATION_BOX, DATA_RESULT_NOTIFICATION_BOX);
+            notificationBoxComponent.getPassThroughAttributes().put(DATA_RESULT_NOTIFICATION_BOX,
+                    DATA_RESULT_NOTIFICATION_BOX);
             getChildren().add(0, notificationBoxComponent);
             return notificationBoxComponent;
         }

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.layout.input;
 
 import java.io.IOException;
@@ -29,8 +44,7 @@ import de.cuioss.tools.string.MoreStrings;
  *
  * @author Matthias Walliczek
  */
-@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY,
-        rendererType = BootstrapFamily.LABELED_CONTAINER_COMPONENT_RENDERER)
+@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.LABELED_CONTAINER_COMPONENT_RENDERER)
 @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
                               // controlled by JSF
 public class LabeledContainerRenderer extends BaseDecoratorRenderer<LabeledContainerComponent> {
@@ -44,17 +58,15 @@ public class LabeledContainerRenderer extends BaseDecoratorRenderer<LabeledConta
 
     @Override
     protected void doEncodeBegin(final FacesContext context,
-            final DecoratingResponseWriter<LabeledContainerComponent> writer,
-            final LabeledContainerComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<LabeledContainerComponent> writer, final LabeledContainerComponent component)
+            throws IOException {
 
         writeContainerStart(writer, component);
 
         if (component.containsCheckbox()) {
             if (component.shouldRenderAsColumn()) {
                 writer.withStartElement(Node.DIV);
-                writer.withStyleClass(new ColumnCssResolver(component.getContentSize(),
-                        component.getLabelSize(), true,
+                writer.withStyleClass(new ColumnCssResolver(component.getContentSize(), component.getLabelSize(), true,
                         component.getContentStyleClass()).resolveColumnCss());
             }
             writer.withStartElement(Node.DIV);
@@ -65,10 +77,8 @@ public class LabeledContainerRenderer extends BaseDecoratorRenderer<LabeledConta
             beginLabel(writer, component);
 
             if (component.containsUIInput()) {
-                writer.withAttribute(AttributeName.FOR,
-                        component.getClientId(context)
-                                + UINamingContainer.getSeparatorChar(context)
-                                + component.getForIdentifier());
+                writer.withAttribute(AttributeName.FOR, component.getClientId(context)
+                        + UINamingContainer.getSeparatorChar(context) + component.getForIdentifier());
             }
             if (component.isLabelFacetRendered()) {
                 component.getLabelFacet().encodeAll(context);
@@ -77,9 +87,7 @@ public class LabeledContainerRenderer extends BaseDecoratorRenderer<LabeledConta
             }
             writer.withEndElement(Node.LABEL);
 
-            var contentCss = component
-                    .resolveContentCss(component.shouldRenderAsColumn())
-                    .getStyleClass();
+            var contentCss = component.resolveContentCss(component.shouldRenderAsColumn()).getStyleClass();
             if (!MoreStrings.isEmpty(contentCss)) {
                 // Open Column
                 writer.withStartElement(Node.DIV);
@@ -91,8 +99,7 @@ public class LabeledContainerRenderer extends BaseDecoratorRenderer<LabeledConta
     }
 
     private static void writeContainerStart(final DecoratingResponseWriter<LabeledContainerComponent> writer,
-            final LabeledContainerComponent component)
-        throws IOException {
+            final LabeledContainerComponent component) throws IOException {
         writer.withStartElement(Node.DIV);
         writer.withAttributeTitle(component.resolveTitle());
         if (component.shouldWriteFormGroup()) {
@@ -107,9 +114,8 @@ public class LabeledContainerRenderer extends BaseDecoratorRenderer<LabeledConta
     }
 
     private static void doEncodeInputBegin(final FacesContext context,
-            final DecoratingResponseWriter<LabeledContainerComponent> writer,
-            final LabeledContainerComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<LabeledContainerComponent> writer, final LabeledContainerComponent component)
+            throws IOException {
         if (!component.containsUIInput() && !component.shouldRenderComplexOutput()) {
             writer.withStartElement(Node.P);
             writer.withStyleClass(CssBootstrap.FORM_CONTROL_STATIC);
@@ -126,15 +132,12 @@ public class LabeledContainerRenderer extends BaseDecoratorRenderer<LabeledConta
         }
     }
 
-    private static void beginLabel(
-            final DecoratingResponseWriter<LabeledContainerComponent> writer,
-            final LabeledContainerComponent component)
-        throws IOException {
+    private static void beginLabel(final DecoratingResponseWriter<LabeledContainerComponent> writer,
+            final LabeledContainerComponent component) throws IOException {
         writer.withStartElement(Node.LABEL);
         StyleClassBuilder labelStyleClassBuilder = new StyleClassBuilderImpl();
         if (!component.containsCheckbox()) {
-            labelStyleClassBuilder = component.resolveLabelCss(
-                    component.shouldRenderAsColumn());
+            labelStyleClassBuilder = component.resolveLabelCss(component.shouldRenderAsColumn());
             labelStyleClassBuilder.append(CssBootstrap.CONTROL_LABEL);
         }
         if (LayoutMode.LABEL_SR_ONLY.equals(component.resolveLayoutMode())) {
@@ -145,14 +148,13 @@ public class LabeledContainerRenderer extends BaseDecoratorRenderer<LabeledConta
     }
 
     /**
-     * Overriding this method is necessary in order to render the correct order of the dynamically
-     * added {@link CuiMessageComponent}
+     * Overriding this method is necessary in order to render the correct order of
+     * the dynamically added {@link CuiMessageComponent}
      */
     @Override
     protected void doEncodeChildren(final FacesContext context,
-            final DecoratingResponseWriter<LabeledContainerComponent> writer,
-            final LabeledContainerComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<LabeledContainerComponent> writer, final LabeledContainerComponent component)
+            throws IOException {
         for (final UIComponent child : component.getChildren()) {
             if (child.isRendered() && !(child instanceof CuiMessageComponent)) {
                 child.encodeAll(context);
@@ -162,9 +164,8 @@ public class LabeledContainerRenderer extends BaseDecoratorRenderer<LabeledConta
 
     @Override
     protected void doEncodeEnd(final FacesContext context,
-            final DecoratingResponseWriter<LabeledContainerComponent> writer,
-            final LabeledContainerComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<LabeledContainerComponent> writer, final LabeledContainerComponent component)
+            throws IOException {
 
         if (component.containsCheckbox()) {
             handleEncodeEndCheckbox(context, writer, component);
@@ -185,8 +186,7 @@ public class LabeledContainerRenderer extends BaseDecoratorRenderer<LabeledConta
             if (additionalHelpText.isPresent()) {
                 additionalHelpText.get().encodeAll(context);
             }
-            if (!MoreStrings.isEmpty(component.resolveContentCss(component.shouldRenderAsColumn())
-                    .getStyleClass())) {
+            if (!MoreStrings.isEmpty(component.resolveContentCss(component.shouldRenderAsColumn()).getStyleClass())) {
                 writer.withEndElement(Node.DIV);
             }
         }
@@ -197,7 +197,7 @@ public class LabeledContainerRenderer extends BaseDecoratorRenderer<LabeledConta
 
     private static void handleEncodeEndCheckbox(final FacesContext context,
             final DecoratingResponseWriter<LabeledContainerComponent> writer, final LabeledContainerComponent component)
-        throws IOException {
+            throws IOException {
         if (component.isLabelFacetRendered()) {
             component.getLabelFacet().encodeAll(context);
         } else {

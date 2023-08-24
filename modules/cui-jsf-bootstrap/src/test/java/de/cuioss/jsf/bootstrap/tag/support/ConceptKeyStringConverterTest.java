@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.tag.support;
 
 import static de.cuioss.jsf.bootstrap.selectize.Selectize.CLIENT_CREATED_SUFFIX;
@@ -48,17 +63,14 @@ class ConceptKeyStringConverterTest
     private final ConceptKeyTypeGenerator conceptKeyTypeGenerator = new ConceptKeyTypeGenerator();
 
     private static final ConceptKeyType IDENTIFIER1_CONCEPT_KEY = ConceptKeyTypeImpl.builder().identifier(IDENTIFIER1)
-            .labelResolver(new I18nDisplayNameProvider(IDENTIFIER1))
-            .category(new BaseConceptCategory()).build();
+            .labelResolver(new I18nDisplayNameProvider(IDENTIFIER1)).category(new BaseConceptCategory()).build();
 
     private static final ConceptKeyType IDENTIFIER2_CONCEPT_KEY = ConceptKeyTypeImpl.builder().identifier(IDENTIFIER2)
-            .labelResolver(new I18nDisplayNameProvider(IDENTIFIER2))
-            .category(new BaseConceptCategory()).build();
+            .labelResolver(new I18nDisplayNameProvider(IDENTIFIER2)).category(new BaseConceptCategory()).build();
 
-    private static final ConceptKeyType IDENTIFIER1_CLIENT_CREATED_CONCEPT_KEY =
-        ConceptKeyTypeImpl.builder().identifier(CLIENT_CREATED_SUFFIX + IDENTIFIER1)
-                .labelResolver(new I18nDisplayNameProvider(IDENTIFIER1))
-                .category(new MissingTagConceptKeyCategory()).build();
+    private static final ConceptKeyType IDENTIFIER1_CLIENT_CREATED_CONCEPT_KEY = ConceptKeyTypeImpl.builder()
+            .identifier(CLIENT_CREATED_SUFFIX + IDENTIFIER1).labelResolver(new I18nDisplayNameProvider(IDENTIFIER1))
+            .category(new MissingTagConceptKeyCategory()).build();
 
     @Override
     public void populate(final TestItems<Collection<ConceptKeyType>> testItems) {
@@ -140,8 +152,8 @@ class ConceptKeyStringConverterTest
         getFacesContext().getApplication().addConverter(TestTagItemConverter.ID, TestTagItemConverter.class.getName());
         final var component = new TagInputComponent();
         component.setItemConverterId(TestTagItemConverter.ID);
-        final Set<ConceptKeyType> result =
-            getConverter().getAsObject(getFacesContext(), component, "5f636c69656e745f637265617465645f7465737431");
+        final Set<ConceptKeyType> result = getConverter().getAsObject(getFacesContext(), component,
+                "5f636c69656e745f637265617465645f7465737431");
         assertNotNull(result, "TestConceptKey expected instead of null when using item converter");
         assertTrue(result.iterator().next() instanceof TestConceptKey);
         assertEquals(1, component.getClientCreated().size());

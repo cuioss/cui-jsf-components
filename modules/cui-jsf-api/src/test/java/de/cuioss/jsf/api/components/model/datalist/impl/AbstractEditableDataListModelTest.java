@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.components.model.datalist.impl;
 
 import static de.cuioss.test.generator.Generators.letterStrings;
@@ -76,9 +91,8 @@ class AbstractEditableDataListModelTest extends ValueObjectTest<SomeModelEditabl
     }
 
     /**
-     * 1.) Add new item --> puts it in edit mode
-     * 2.) Cancel
-     * ==> item should be non existent
+     * 1.) Add new item --> puts it in edit mode 2.) Cancel ==> item should be non
+     * existent
      */
     @Test
     void shouldRemoveAddedOnImmediateCancel() {
@@ -92,10 +106,7 @@ class AbstractEditableDataListModelTest extends ValueObjectTest<SomeModelEditabl
     }
 
     /**
-     * 1.) Add new item --> puts it in edit mode
-     * 2.) Save
-     * 3.) Edit again
-     * 4.) Cancel
+     * 1.) Add new item --> puts it in edit mode 2.) Save 3.) Edit again 4.) Cancel
      * ==> Item should still exist
      */
     @Test
@@ -227,8 +238,8 @@ class AbstractEditableDataListModelTest extends ValueObjectTest<SomeModelEditabl
     }
 
     /**
-     * Add a new item, then switch to edit mode of another item. This should cancel and remove the
-     * first one.
+     * Add a new item, then switch to edit mode of another item. This should cancel
+     * and remove the first one.
      */
     @Test
     void shouldRemoveAddItemFromResultList() {

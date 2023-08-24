@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.jqplot.axes;
 
 import java.util.ArrayList;
@@ -47,8 +62,8 @@ public class Axes extends JsObject implements IPluginConsumer {
     private Axis checkAxis(final Axis axis) {
         for (final Axis element : axisList) {
             if (element.getType().equals(axis.getType())) {
-                throw new IllegalArgumentException(String.format(
-                        "Attention you try to add allreay existing axis [%s]", axis));
+                throw new IllegalArgumentException(
+                        "Attention you try to add allreay existing axis [%s]".formatted(axis));
             }
         }
         return axis;
@@ -59,7 +74,7 @@ public class Axes extends JsObject implements IPluginConsumer {
         for (final Axis element : axisList) {
             this.addProperty(element);
         }
-        return this.createAsJSON();
+        return createAsJSON();
     }
 
     @Override
@@ -77,14 +92,13 @@ public class Axes extends JsObject implements IPluginConsumer {
         }
         var other = (Axes) obj;
 
-        return this.hashCode() == other.hashCode();
+        return hashCode() == other.hashCode();
     }
 
     @Override
     public int hashCode() {
         final var prime = 31;
         var result = axisList.hashCode();
-        result = prime * result + plugins.hashCode();
-        return result;
+        return prime * result + plugins.hashCode();
     }
 }

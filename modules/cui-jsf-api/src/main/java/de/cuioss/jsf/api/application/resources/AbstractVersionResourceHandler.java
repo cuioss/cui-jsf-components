@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.application.resources;
 
 import javax.faces.application.Resource;
@@ -9,8 +24,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Resource Handle does adapt the request ulr for any resource
- * covered by {@link #shouldHandleRequestedResource(String, String)} by adding current module version to resource path
+ * Resource Handle does adapt the request ulr for any resource covered by
+ * {@link #shouldHandleRequestedResource(String, String)} by adding current
+ * module version to resource path
  */
 @RequiredArgsConstructor
 public abstract class AbstractVersionResourceHandler extends ResourceHandlerWrapper {
@@ -27,7 +43,8 @@ public abstract class AbstractVersionResourceHandler extends ResourceHandlerWrap
     }
 
     /**
-     * provide modul specific decision if the requested resource should get handled by this resource handler
+     * provide modul specific decision if the requested resource should get handled
+     * by this resource handler
      */
     protected abstract boolean shouldHandleRequestedResource(String resourceName, String libraryName);
 

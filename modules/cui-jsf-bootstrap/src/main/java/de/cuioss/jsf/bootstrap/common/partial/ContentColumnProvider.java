@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.common.partial;
 
 import javax.faces.component.StateHelper;
@@ -10,8 +25,8 @@ import lombok.NonNull;
 /**
  * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of the bootstrap column-css. It is
- * computed out of the given attributes.
+ * Implementors of this class manage the state and resolving of the bootstrap
+ * column-css. It is computed out of the given attributes.
  * </p>
  * <h2>contentSize</h2>
  * <p>
@@ -35,14 +50,15 @@ public class ContentColumnProvider {
     private final CuiState state;
 
     /**
-     * Defines the default size for this partial, in case no explicit size is given by the client.
+     * Defines the default size for this partial, in case no explicit size is given
+     * by the client.
      */
     private final Integer defaultSize;
 
     /**
-     * @param bridge must not be null
-     * @param defaultSize the default size for this partial, in case no explicit size is given by
-     *            the client.
+     * @param bridge      must not be null
+     * @param defaultSize the default size for this partial, in case no explicit
+     *                    size is given by the client.
      */
     public ContentColumnProvider(@NonNull ComponentBridge bridge, @NonNull Integer defaultSize) {
         state = new CuiState(bridge.stateHelper());
@@ -82,7 +98,6 @@ public class ContentColumnProvider {
      * @return the resolved column-css.
      */
     public StyleClassBuilder resolveContentCss(final boolean renderAsColumn) {
-        return new ColumnCssResolver(getContentSize(), null, renderAsColumn, getContentStyleClass())
-                .resolveColumnCss();
+        return new ColumnCssResolver(getContentSize(), null, renderAsColumn, getContentStyleClass()).resolveColumnCss();
     }
 }

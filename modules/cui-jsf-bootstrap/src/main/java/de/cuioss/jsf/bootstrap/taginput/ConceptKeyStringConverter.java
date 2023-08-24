@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.taginput;
 
 import static de.cuioss.jsf.bootstrap.selectize.Selectize.CLIENT_CREATED_SUFFIX;
@@ -34,8 +49,8 @@ import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
 
 /**
- * Converts a {@link ConceptKeyType} collection to {@link String} and vice versa utilizing the
- * {@link TagInputComponent}.
+ * Converts a {@link ConceptKeyType} collection to {@link String} and vice versa
+ * utilizing the {@link TagInputComponent}.
  *
  * @author Sven Haag
  */
@@ -45,11 +60,12 @@ public class ConceptKeyStringConverter extends AbstractConverter<Collection<Conc
     private static final CuiLogger log = new CuiLogger(ConceptKeyStringConverter.class);
 
     /**
-     * @param context {@link FacesContext} for the request being processed
-     * @param component {@link TagInputComponent}
+     * @param context         {@link FacesContext} for the request being processed
+     * @param component       {@link TagInputComponent}
      * @param conceptKeyTypes the values to be converted
      *
-     * @return String of {@link TagInputComponent#getDelimiter()} separated identifiers
+     * @return String of {@link TagInputComponent#getDelimiter()} separated
+     *         identifiers
      */
     @Override
     protected String convertToString(final FacesContext context, final UIComponent component,
@@ -81,9 +97,9 @@ public class ConceptKeyStringConverter extends AbstractConverter<Collection<Conc
     }
 
     /**
-     * @param context {@link FacesContext} for the request being processed
+     * @param context   {@link FacesContext} for the request being processed
      * @param component {@link TagInputComponent}
-     * @param value to be converted
+     * @param value     to be converted
      *
      * @return ConceptKeyTypes
      */
@@ -111,8 +127,8 @@ public class ConceptKeyStringConverter extends AbstractConverter<Collection<Conc
 
         for (final String element : splitted) {
             if (!MoreStrings.isEmpty(element)) {
-                selectedCodedValues.add(convertToConceptKeyType(element, combinedSources, clientCreated,
-                        context, component, itemConverter));
+                selectedCodedValues.add(convertToConceptKeyType(element, combinedSources, clientCreated, context,
+                        component, itemConverter));
             }
         }
 
@@ -125,10 +141,8 @@ public class ConceptKeyStringConverter extends AbstractConverter<Collection<Conc
         return selectedCodedValues;
     }
 
-    private static ConceptKeyType convertToConceptKeyType(final String element,
-            final Collection<ConceptKeyType> source,
-            final Collection<ConceptKeyType> clientCreated,
-            final FacesContext context, final UIComponent component,
+    private static ConceptKeyType convertToConceptKeyType(final String element, final Collection<ConceptKeyType> source,
+            final Collection<ConceptKeyType> clientCreated, final FacesContext context, final UIComponent component,
             final Optional<Converter> itemConverter) {
         // find existing
         for (final ConceptKeyType codeType : source) {
@@ -138,8 +152,7 @@ public class ConceptKeyStringConverter extends AbstractConverter<Collection<Conc
         }
 
         // create new custom tag
-        final var userTag =
-            createNewUserTagIfClientCreated(element, context, component, itemConverter);
+        final var userTag = createNewUserTagIfClientCreated(element, context, component, itemConverter);
         if (userTag.isPresent()) {
             // source.add(clientCreatedConceptKey);
             clientCreated.add(userTag.get());
@@ -149,8 +162,7 @@ public class ConceptKeyStringConverter extends AbstractConverter<Collection<Conc
         // create old custom tag
         try {
             final var decoded = new String(Hex.decodeHex(element));
-            final var userTagDecoded =
-                createNewUserTagIfClientCreated(decoded, context, component, itemConverter);
+            final var userTagDecoded = createNewUserTagIfClientCreated(decoded, context, component, itemConverter);
             if (userTagDecoded.isPresent()) {
                 clientCreated.add(userTagDecoded.get());
                 return userTagDecoded.get();
@@ -165,9 +177,7 @@ public class ConceptKeyStringConverter extends AbstractConverter<Collection<Conc
     }
 
     private static Optional<ConceptKeyType> createNewUserTagIfClientCreated(final String value,
-            final FacesContext context,
-            final UIComponent component,
-            final Optional<Converter> itemConverter) {
+            final FacesContext context, final UIComponent component, final Optional<Converter> itemConverter) {
         if (value.startsWith(CLIENT_CREATED_SUFFIX)) {
             final var name = value.substring(CLIENT_CREATED_SUFFIX.length());
             if (MoreStrings.isEmpty(name)) {
@@ -184,8 +194,7 @@ public class ConceptKeyStringConverter extends AbstractConverter<Collection<Conc
     }
 
     private static ConceptKeyType createMissingTagConceptKey(final String identifier, final String label) {
-        return ConceptKeyTypeImpl.builder()
-                .identifier(CuiSanitizer.PLAIN_TEXT.apply(identifier))
+        return ConceptKeyTypeImpl.builder().identifier(CuiSanitizer.PLAIN_TEXT.apply(identifier))
                 .labelResolver(new I18nDisplayNameProvider(CuiSanitizer.PLAIN_TEXT.apply(label)))
                 .category(new MissingTagConceptKeyCategory()).build();
     }

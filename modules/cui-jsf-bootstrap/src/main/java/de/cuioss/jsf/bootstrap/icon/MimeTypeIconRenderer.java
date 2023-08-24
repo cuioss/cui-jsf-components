@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.icon;
 
 import java.io.IOException;
@@ -26,8 +41,7 @@ import de.cuioss.jsf.bootstrap.icon.support.IconSize;
  * @author Oliver Wolff
  *
  */
-@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY,
-        rendererType = BootstrapFamily.MIME_TYPE_ICON_COMPONENT_RENDERER)
+@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.MIME_TYPE_ICON_COMPONENT_RENDERER)
 public class MimeTypeIconRenderer extends BaseDecoratorRenderer<MimeTypeIconComponent> {
 
     /**
@@ -41,8 +55,7 @@ public class MimeTypeIconRenderer extends BaseDecoratorRenderer<MimeTypeIconComp
     @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
                                   // controlled by JSF
     protected void doEncodeEnd(FacesContext context, DecoratingResponseWriter<MimeTypeIconComponent> writer,
-            MimeTypeIconComponent component)
-        throws IOException {
+            MimeTypeIconComponent component) throws IOException {
 
         // span wrapper
         writer.withStartElement(Node.SPAN);

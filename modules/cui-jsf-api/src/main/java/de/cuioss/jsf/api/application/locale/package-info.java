@@ -3,13 +3,14 @@
  * <p>
  * Provides the cui specific locale management. The
  * {@link de.cuioss.jsf.api.application.locale.LocaleProducer} accesses the
- * {@link java.util.Locale} currently active for the user. The default implementation
+ * {@link java.util.Locale} currently active for the user. The default
+ * implementation
  * {@link de.cuioss.jsf.api.application.locale.LocaleProducerImpl} resolves the
  * {@link java.util.Locale} from
  * {@link javax.faces.application.ViewHandler#calculateLocale(javax.faces.context.FacesContext)}
  * </p>
- * <h2>Configuration</h2>
- * In order to work in a non CDI-/portal- context you need to declare
+ * <h2>Configuration</h2> In order to work in a non CDI-/portal- context you
+ * need to declare
  * {@link de.cuioss.jsf.api.application.locale.LocaleProducerImpl} as an
  * {@link javax.faces.bean.ApplicationScoped} bean with the name
  * {@link de.cuioss.jsf.api.application.locale.LocaleProducerImpl#BEAN_NAME}:

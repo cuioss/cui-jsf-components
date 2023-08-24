@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.layout.messages;
 
 import java.io.IOException;
@@ -28,8 +43,7 @@ import de.cuioss.tools.string.Joiner;
  *
  * @author Matthias Walliczek
  */
-@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY,
-        rendererType = BootstrapFamily.CUI_MESSAGE_COMPONENT_RENDERER)
+@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.CUI_MESSAGE_COMPONENT_RENDERER)
 @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
                               // controlled by JSF
 public class CuiMessageRenderer extends BaseDecoratorRenderer<CuiMessageComponent> {
@@ -53,35 +67,29 @@ public class CuiMessageRenderer extends BaseDecoratorRenderer<CuiMessageComponen
     }
 
     @Override
-    protected void doEncodeBegin(final FacesContext context,
-            final DecoratingResponseWriter<CuiMessageComponent> writer,
-            final CuiMessageComponent component)
-        throws IOException {
+    protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<CuiMessageComponent> writer,
+            final CuiMessageComponent component) throws IOException {
 
         writer.withStartElement(Node.DIV);
         writer.withClientIdIfNecessary();
         writer.withAttributeStyle(component.getStyle());
         writer.withPassThroughAttributes();
-        writer.withStyleClass(
-                CssBootstrap.CUI_MESSAGE.getStyleClassBuilder().append(component.getStyleClass()));
+        writer.withStyleClass(CssBootstrap.CUI_MESSAGE.getStyleClassBuilder().append(component.getStyleClass()));
         writer.withAttribute(AttributeName.ARIA_LIVE, "polite");
     }
 
     /**
-     * Renders the faces message.
-     * If tooltip is true, the message only contains the summary, the detail is in the tooltip.
-     * If tooltip is false, the message contains summary and detail, the tooltips contains the
-     * summary.
+     * Renders the faces message. If tooltip is true, the message only contains the
+     * summary, the detail is in the tooltip. If tooltip is false, the message
+     * contains summary and detail, the tooltips contains the summary.
      *
      * @param facesMessage
      * @param cuiMessage
      * @param writer
      * @throws IOException
      */
-    private static void writeFacesMessage(final FacesMessage facesMessage,
-            final CuiMessageComponent cuiMessage,
-            final DecoratingResponseWriter<CuiMessageComponent> writer)
-        throws IOException {
+    private static void writeFacesMessage(final FacesMessage facesMessage, final CuiMessageComponent cuiMessage,
+            final DecoratingResponseWriter<CuiMessageComponent> writer) throws IOException {
         final var showDetail = cuiMessage.isShowDetail();
 
         writer.withStartElement(Node.SPAN);
@@ -100,10 +108,8 @@ public class CuiMessageRenderer extends BaseDecoratorRenderer<CuiMessageComponen
     }
 
     @Override
-    protected void doEncodeEnd(final FacesContext context,
-            final DecoratingResponseWriter<CuiMessageComponent> writer,
-            final CuiMessageComponent component)
-        throws IOException {
+    protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<CuiMessageComponent> writer,
+            final CuiMessageComponent component) throws IOException {
         if (component.isRendered()) {
             var messages = component.readMessages();
             if (!messages.isEmpty()) {
@@ -117,10 +123,8 @@ public class CuiMessageRenderer extends BaseDecoratorRenderer<CuiMessageComponen
         writer.withEndElement(Node.DIV);
     }
 
-    private static void writeFacesMessages(List<FacesMessage> messages,
-            final CuiMessageComponent component,
-            final DecoratingResponseWriter<CuiMessageComponent> writer)
-        throws IOException {
+    private static void writeFacesMessages(List<FacesMessage> messages, final CuiMessageComponent component,
+            final DecoratingResponseWriter<CuiMessageComponent> writer) throws IOException {
 
         writer.withStartElement(Node.UL);
         writer.withStyleClass(CssCuiBootstrap.CUI_MESSAGE_LIST);

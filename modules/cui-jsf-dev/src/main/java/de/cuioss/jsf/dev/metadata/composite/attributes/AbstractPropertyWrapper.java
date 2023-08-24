@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.dev.metadata.composite.attributes;
 
 import java.beans.FeatureDescriptor;
@@ -16,8 +31,8 @@ import lombok.ToString;
 /**
  * Wraps a concrete Property for composite components.
  * <p>
- * In order to simplify composite component the values to be displayed will be kept in a list of
- * {@link LabelValueDisplay} objects.
+ * In order to simplify composite component the values to be displayed will be
+ * kept in a list of {@link LabelValueDisplay} objects.
  * </p>
  *
  * @author e0571
@@ -66,7 +81,9 @@ public abstract class AbstractPropertyWrapper implements Serializable {
     @Getter
     private final List<LabelValueDisplay> displayData;
 
-    /** The metadata to be displayed, that is more advanced, like expert Mode & co. */
+    /**
+     * The metadata to be displayed, that is more advanced, like expert Mode & co.
+     */
     @Getter
     private final List<LabelValueDisplay> advancedMetaData;
 
@@ -74,18 +91,18 @@ public abstract class AbstractPropertyWrapper implements Serializable {
      * Constructor.
      *
      * @param featureDescriptor to be wrapped
-     * @param displayData The data to be displayed
+     * @param displayData       The data to be displayed
      */
     protected AbstractPropertyWrapper(final FeatureDescriptor featureDescriptor,
             final List<LabelValueDisplay> displayData) {
         this.displayData = displayData;
         advancedMetaData = new ArrayList<>();
-        advancedMetaData.add(new LabelValueDisplay("metadata.advanced.expert", String
-                .valueOf(featureDescriptor.isExpert())));
-        advancedMetaData.add(new LabelValueDisplay("metadata.advanced.hidden", String
-                .valueOf(featureDescriptor.isHidden())));
-        advancedMetaData.add(new LabelValueDisplay("metadata.advanced.preferred", String
-                .valueOf(featureDescriptor.isPreferred())));
+        advancedMetaData
+                .add(new LabelValueDisplay("metadata.advanced.expert", String.valueOf(featureDescriptor.isExpert())));
+        advancedMetaData
+                .add(new LabelValueDisplay("metadata.advanced.hidden", String.valueOf(featureDescriptor.isHidden())));
+        advancedMetaData.add(
+                new LabelValueDisplay("metadata.advanced.preferred", String.valueOf(featureDescriptor.isPreferred())));
     }
 
     /**
@@ -147,7 +164,8 @@ public abstract class AbstractPropertyWrapper implements Serializable {
     }
 
     /**
-     * @return boolean indicating whether current property represents an attached object.
+     * @return boolean indicating whether current property represents an attached
+     *         object.
      */
     public boolean isAttachedObject() {
         return PropertyType.ATTACHED_OBJECT.equals(getPropertyType());

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.components.util.modifier;
 
 import javax.faces.component.UIInput;
@@ -7,8 +22,8 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * Represent a generic {@linkplain UIInput} ComponentModifier.
- * Used as fallback for any UIInput components
+ * Represent a generic {@linkplain UIInput} ComponentModifier. Used as fallback
+ * for any UIInput components
  */
 @SuppressWarnings("common-java:DuplicatedBlocks")
 @ToString
@@ -20,7 +35,7 @@ public class GenericUiInputComponentWrapper extends ReflectionBasedModifier {
      */
     public GenericUiInputComponentWrapper(final UIInput component) {
         super(component);
-        this.inputComponent = component;
+        inputComponent = component;
     }
 
     @Getter
@@ -33,12 +48,12 @@ public class GenericUiInputComponentWrapper extends ReflectionBasedModifier {
 
     @Override
     public boolean isValid() {
-        return this.inputComponent.isValid();
+        return inputComponent.isValid();
     }
 
     @Override
     public boolean isRequired() {
-        return this.inputComponent.isRequired();
+        return inputComponent.isRequired();
     }
 
 }

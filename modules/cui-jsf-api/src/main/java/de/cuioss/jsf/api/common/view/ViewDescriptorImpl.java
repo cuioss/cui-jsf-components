@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.common.view;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
@@ -50,11 +65,9 @@ public class ViewDescriptorImpl implements ViewDescriptor {
     /**
      * Copy Constructor that can additionally filter the given parameter
      *
-     * @param other
-     *            to be copied from. must not be null
-     * @param parameterFilter
-     *            if not null it will will filter the contained
-     *            {@link UrlParameter}
+     * @param other           to be copied from. must not be null
+     * @param parameterFilter if not null it will will filter the contained
+     *                        {@link UrlParameter}
      */
     public ViewDescriptorImpl(final ViewDescriptor other, final ParameterFilter parameterFilter) {
         this(other.getViewId(), other.getLogicalViewId(),
@@ -68,8 +81,7 @@ public class ViewDescriptorImpl implements ViewDescriptor {
      * @param logicalViewId
      * @param urlParameter
      */
-    public ViewDescriptorImpl(final String viewId, final String logicalViewId,
-            final List<UrlParameter> urlParameter) {
+    public ViewDescriptorImpl(final String viewId, final String logicalViewId, final List<UrlParameter> urlParameter) {
         this.viewId = viewId;
         if (null != viewId) {
             var sanitizedId = NON_LATIN.matcher(viewId).replaceAll("_");

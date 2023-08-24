@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.layout.input;
 
 import java.io.IOException;
@@ -27,27 +42,27 @@ import de.cuioss.tools.string.MoreStrings;
 import lombok.experimental.Delegate;
 
 /**
- * Helper / Decorator component used for input-elements within {@link LabeledContainerComponent}.
+ * Helper / Decorator component used for input-elements within
+ * {@link LabeledContainerComponent}.
  * <p>
- * Renders an info button beside its input component. After clicking an additional information block
- * will be displayed
- * under the component.
+ * Renders an info button beside its input component. After clicking an
+ * additional information block will be displayed under the component.
  * </p>
  *
  * <h2>Attributes</h2>
  * <ul>
  * <li>{@link TitleProvider}</li>
  * <li>{@link ContentProvider}</li>
- * <li>buttonAlign: The alignment of the button relative to the wrapped input, defaults to
- * 'append'</li>
+ * <li>buttonAlign: The alignment of the button relative to the wrapped input,
+ * defaults to 'append'</li>
  * </ul>
  * <h2>Usage</h2>
  *
  * <pre>
- * &lt;cui:labeledContainer&gt;
+ * &lt;boot:labeledContainer&gt;
  *   &lt;h:inputText /&gt;
  *   &lt;cui:helpText contentKey="xy" /&gt;
- * &lt;/cui:labeledContainer&gt;
+ * &lt;/boot:labeledContainer&gt;
  * </pre>
  *
  * @author Matthias Walliczek
@@ -89,7 +104,6 @@ public class HelpTextComponent extends BaseCuiHtmlHiddenInputComponent implement
      * Constructor.
      */
     public HelpTextComponent() {
-        super();
         state = new CuiState(getStateHelper());
         titleProvider = new TitleProviderImpl(this);
         contentProvider = new ContentProvider(this);
@@ -163,8 +177,9 @@ public class HelpTextComponent extends BaseCuiHtmlHiddenInputComponent implement
     }
 
     /**
-     * @param buttonAlign to be set, expected is one of {@code ContainerFacets#APPEND} or
-     *            {@code ContainerFacets#PREPEND}
+     * @param buttonAlign to be set, expected is one of
+     *                    {@code ContainerFacets#APPEND} or
+     *                    {@code ContainerFacets#PREPEND}
      */
     public void setButtonAlign(String buttonAlign) {
         state.put(BUTTON_ALIGN_KEY, buttonAlign);

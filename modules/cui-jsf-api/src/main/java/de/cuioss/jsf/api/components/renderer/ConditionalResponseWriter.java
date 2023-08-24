@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.components.renderer;
 
 import static java.util.Objects.requireNonNull;
@@ -34,17 +49,15 @@ public class ConditionalResponseWriter extends ResponseWriterWrapper {
     /**
      * Constructor.
      *
-     * @param wrapped
-     *            the wrapped {@link ResponseWriter}, must not be null
-     * @param matchElement
-     *            Identifying the marker element on which the filter will be
-     *            switched. The element itself will never be rendered, must not be null
-     * @param writeUntilElement
-     *            if it is <code>true</code> the writer will pass the calls
-     *            until the the element defined with elementName is called. From
-     *            that point on the calls will be filtered. elementName will
-     *            never be rendered. If it is <code>false</code> it is the other
-     *            way round.
+     * @param wrapped           the wrapped {@link ResponseWriter}, must not be null
+     * @param matchElement      Identifying the marker element on which the filter
+     *                          will be switched. The element itself will never be
+     *                          rendered, must not be null
+     * @param writeUntilElement if it is <code>true</code> the writer will pass the
+     *                          calls until the the element defined with elementName
+     *                          is called. From that point on the calls will be
+     *                          filtered. elementName will never be rendered. If it
+     *                          is <code>false</code> it is the other way round.
      */
     public ConditionalResponseWriter(final ResponseWriter wrapped, final String matchElement,
             final boolean writeUntilElement) {
@@ -66,8 +79,7 @@ public class ConditionalResponseWriter extends ResponseWriterWrapper {
     }
 
     @Override
-    public void writeAttribute(final String name, final Object value, final String property)
-        throws IOException {
+    public void writeAttribute(final String name, final Object value, final String property) throws IOException {
         if (pass) {
             getWrapped().writeAttribute(name, value, property);
         }

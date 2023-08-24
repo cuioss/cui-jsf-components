@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.components.javascript;
 
 import java.io.Serializable;
@@ -67,10 +82,10 @@ public class JavaScriptOptions implements ScriptProvider {
             entryBuilder.append(':');
             if (null != entry.getValue()) {
                 var entryValue = entry.getValue();
-                if (entryValue instanceof NotQuotableWrapper) {
-                    entryBuilder.append(((NotQuotableWrapper) entryValue).getValue());
+                if (entryValue instanceof NotQuotableWrapper wrapper) {
+                    entryBuilder.append(wrapper.getValue());
                 } else {
-                    entryBuilder.append(String.format(SINGLE_QUOTE_WRAPPER, entry.getValue()));
+                    entryBuilder.append(SINGLE_QUOTE_WRAPPER.formatted(entry.getValue()));
                 }
             }
             entries.add(entryBuilder.toString());
@@ -97,10 +112,8 @@ public class JavaScriptOptions implements ScriptProvider {
         }
 
         /**
-         * @param key
-         *            identifying the key of an entry, must no be null
-         * @param value
-         *            the concrete value of an option, may be null.
+         * @param key   identifying the key of an entry, must no be null
+         * @param value the concrete value of an option, may be null.
          * @return the instance of {@link JavaScriptOptionsBuilder}
          */
         public JavaScriptOptionsBuilder withOption(String key, Serializable value) {
@@ -109,9 +122,8 @@ public class JavaScriptOptions implements ScriptProvider {
         }
 
         /**
-         * @param wrapInBrackets
-         *            Indicates whether to wrap the result in curly brackets,
-         *            defaults to true
+         * @param wrapInBrackets Indicates whether to wrap the result in curly brackets,
+         *                       defaults to true
          * @return the instance of {@link JavaScriptOptionsBuilder}
          */
         public JavaScriptOptionsBuilder withWrapInBrackets(boolean wrapInBrackets) {
@@ -120,8 +132,7 @@ public class JavaScriptOptions implements ScriptProvider {
         }
 
         /**
-         * @param options
-         *            a map of concrete options.
+         * @param options a map of concrete options.
          * @return the instance of {@link JavaScriptOptionsBuilder}
          */
         public JavaScriptOptionsBuilder withOptions(Map<String, Serializable> options) {
@@ -145,28 +156,23 @@ public class JavaScriptOptions implements ScriptProvider {
     }
 
     /**
-     * Add a number of quoted String options to the given map with the given
-     * key. The option will be wrapped into an instance of
-     * {@link NotQuotableWrapper}
+     * Add a number of quoted String options to the given map with the given key.
+     * The option will be wrapped into an instance of {@link NotQuotableWrapper}
      *
-     * @param options
-     *            must not be null
-     * @param optionKey
-     *            must not be null or empty
-     * @param optionParameter
-     *            must not be null. If it is empty the element will not be
-     *            added. Each option will be single quoted and separated by
-     *            {@link #OPTION_VALUE_DELIMITER}
+     * @param options         must not be null
+     * @param optionKey       must not be null or empty
+     * @param optionParameter must not be null. If it is empty the element will not
+     *                        be added. Each option will be single quoted and
+     *                        separated by {@link #OPTION_VALUE_DELIMITER}
      */
     public static void addStringOptions(Map<String, Serializable> options, String optionKey,
             List<String> optionParameter) {
         if (!optionParameter.isEmpty()) {
             List<String> elements = new ArrayList<>();
             for (String name : optionParameter) {
-                elements.add(String.format(SINGLE_QUOTE_WRAPPER, name));
+                elements.add(SINGLE_QUOTE_WRAPPER.formatted(name));
             }
-            var nameString = String.format(SQUARE_BRACKETS_WRAPPER,
-                    Joiner.on(OPTION_VALUE_DELIMITER).join(elements));
+            var nameString = SQUARE_BRACKETS_WRAPPER.formatted(Joiner.on(OPTION_VALUE_DELIMITER).join(elements));
             options.put(optionKey, new NotQuotableWrapper(nameString));
         }
     }

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.components.javascript;
 
 import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
@@ -13,8 +28,7 @@ import de.cuioss.tools.string.Splitter;
 public abstract class JQuerySelector implements ScriptProvider {
 
     /**
-     * The javaScript template for creating the jQuery-selector:
-     * "jQuery('#%s')".
+     * The javaScript template for creating the jQuery-selector: "jQuery('#%s')".
      */
     public static final String SELECTOR_TEMPLATE = "jQuery('#%s')";
 
@@ -25,15 +39,15 @@ public abstract class JQuerySelector implements ScriptProvider {
      */
     @Override
     public String script() {
-        return String.format(SELECTOR_TEMPLATE, escapeClientId(getIdString()));
+        return SELECTOR_TEMPLATE.formatted(escapeClientId(getIdString()));
     }
 
     protected abstract String getIdString();
 
     /**
-     * Escapes a given id String in order to be used within javascript, e.g for a given component
-     * providing the id "a:b" it returns "'a\\\\:b'" saying it
-     * takes care on the proper masking of the clientIds.
+     * Escapes a given id String in order to be used within javascript, e.g for a
+     * given component providing the id "a:b" it returns "'a\\\\:b'" saying it takes
+     * care on the proper masking of the clientIds.
      *
      * @param idString
      * @return the escaped String

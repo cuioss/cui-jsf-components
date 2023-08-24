@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.components.renderer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,8 +55,7 @@ class DecoratingResponseWriterTest extends JsfEnabledTestEnvironment implements 
 
     private static final String SIMPLE_DIV_WITH_COMPONENT_ID = "<div id=\"componentId\" name=\"componentId\"></div>";
 
-    private static final String SIMPLE_DIV_WITH_COMPUTED_COMPONENT_ID =
-        "<div id=\"j_id__v_0\" name=\"j_id__v_0\"></div>";
+    private static final String SIMPLE_DIV_WITH_COMPUTED_COMPONENT_ID = "<div id=\"j_id__v_0\" name=\"j_id__v_0\"></div>";
 
     private static final String SIMPLE_DIV_WITH_NESTED_SPAN = "<div><span></span></div>";
 
@@ -49,8 +63,7 @@ class DecoratingResponseWriterTest extends JsfEnabledTestEnvironment implements 
 
     private static final String NESTED_WITH_ID = "<div><span id=\"id\" name=\"id\"></span></div>";
 
-    private static final String NESTED_WITH_SUFFIXED_ID =
-        "<div><span id=\"id_suffix\" name=\"id_suffix\"></span></div>";
+    private static final String NESTED_WITH_SUFFIXED_ID = "<div><span id=\"id_suffix\" name=\"id_suffix\"></span></div>";
 
     private static final String ID_SUFFIX = "suffix";
 

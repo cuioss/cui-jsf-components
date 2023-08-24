@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.dashboard;
 
 import java.io.File;
@@ -75,15 +90,12 @@ public class DashboardTagHandler extends TagHandler {
             writer.println(
                     "<ui:component xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:ui=\"http://xmlns.jcp.org/jsf/facelets\"");
             for (final DashboardWidgetModel widget : widgetList) {
-                final var currentComponentNS =
-                    widget.getCompositeComponentId()
-                            .substring(0, widget.getCompositeComponentId().lastIndexOf(':'));
+                final var currentComponentNS = widget.getCompositeComponentId().substring(0,
+                        widget.getCompositeComponentId().lastIndexOf(':'));
                 if (!taglibRegistry.contains(currentComponentNS)) {
                     taglibRegistry.add(currentComponentNS);
-                    writer.println(
-                            "xmlns:" + currentComponentNS + "=\"http://xmlns.jcp.org/jsf/composite/"
-                                    + currentComponentNS
-                                    + "\"");
+                    writer.println("xmlns:" + currentComponentNS + "=\"http://xmlns.jcp.org/jsf/composite/"
+                            + currentComponentNS + "\"");
                 }
             }
             writer.println(">");
@@ -95,20 +107,15 @@ public class DashboardTagHandler extends TagHandler {
             var widgetIndex = 0;
             for (final DashboardWidgetModel widget : widgetList) {
                 writer.println("<div class=\"" + widgetStyleClass + "\">");
-                final var currentComponentNS =
-                    widget.getCompositeComponentId()
-                            .substring(0, widget.getCompositeComponentId().lastIndexOf(':'));
-                final var componentName =
-                    widget.getCompositeComponentId()
-                            .substring(widget.getCompositeComponentId().lastIndexOf(':') + 1);
-                final var beanValExpStr =
-                    widgetsAttr.getValue().substring(0, widgetsAttr.getValue().lastIndexOf('}')) + ".get("
-                            + widgetIndex
-                            + ")}";
+                final var currentComponentNS = widget.getCompositeComponentId().substring(0,
+                        widget.getCompositeComponentId().lastIndexOf(':'));
+                final var componentName = widget.getCompositeComponentId()
+                        .substring(widget.getCompositeComponentId().lastIndexOf(':') + 1);
+                final var beanValExpStr = widgetsAttr.getValue().substring(0, widgetsAttr.getValue().lastIndexOf('}'))
+                        + ".get(" + widgetIndex + ")}";
                 widgetIndex++;
-                writer.println(
-                        "<" + currentComponentNS + ":" + componentName + " id=\"" + widget.getId() + "\" model=\""
-                                + beanValExpStr + "\" />");
+                writer.println("<" + currentComponentNS + ":" + componentName + " id=\"" + widget.getId()
+                        + "\" model=\"" + beanValExpStr + "\" />");
                 writer.println("</div>");
             }
 

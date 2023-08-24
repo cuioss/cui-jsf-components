@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.security;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,8 +35,8 @@ class CuiSanitizerTest {
 
     public static final String SIMPLE_HTML = "<div><p>" + PLAIN_TEXT + "</p></div>";
 
-    public static final String COMPLEX_HTML =
-        "<div " + BOLD_STYLE + "><p><span " + BOLD_STYLE + ">" + PLAIN_TEXT + "</span></p></div>";
+    public static final String COMPLEX_HTML = "<div " + BOLD_STYLE + "><p><span " + BOLD_STYLE + ">" + PLAIN_TEXT
+            + "</span></p></div>";
 
     public static final String COMPLEX_HTML_WITH_TABLE = "<div " + BOLD_STYLE + ">" + "<p>" + "<span " + BOLD_STYLE
             + ">" + PLAIN_TEXT + "</span>" + "</p>" + "<table " + ELEMENT_CLASS_ATTRIBUTE + ">" + "<tbody>" + "<tr>"
@@ -29,8 +44,8 @@ class CuiSanitizerTest {
 
     public static final String SCRIPT = "<script>alert('malicious')</script>";
 
-    public static final String MALICIOUS_HTML =
-        "<div " + BOLD_STYLE + "><p><span " + BOLD_STYLE + ">" + PLAIN_TEXT + "</span></p>" + SCRIPT + "</div>";
+    public static final String MALICIOUS_HTML = "<div " + BOLD_STYLE + "><p><span " + BOLD_STYLE + ">" + PLAIN_TEXT
+            + "</span></p>" + SCRIPT + "</div>";
 
     @Test
     void shouldSanitizeToPlainText() {
@@ -77,10 +92,9 @@ class CuiSanitizerTest {
         assertEquals("", CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(""));
         assertEquals("abc", CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply("abc"));
         assertEquals("abc", CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply("abc<script>javascript</script>"));
+        assertEquals("abc", CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply("&lt;script&gt;javascript</script>abc"));
         assertEquals("abc",
-                CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply("&lt;script&gt;javascript</script>abc"));
-        assertEquals("abc", CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES
-                .apply("a&amp;lt;script&amp;amp;gt;javascript</script>bc"));
+                CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply("a&amp;lt;script&amp;amp;gt;javascript</script>bc"));
     }
 
     @Test
@@ -96,11 +110,9 @@ class CuiSanitizerTest {
             assertEquals("", sanitizer.apply(null),
                     "null must be converter to empty string, using sanitizer: " + sanitizer);
 
-            assertEquals("", sanitizer.apply(""),
-                    "empty string must be returned, using sanitizer: " + sanitizer);
+            assertEquals("", sanitizer.apply(""), "empty string must be returned, using sanitizer: " + sanitizer);
 
-            assertEquals(" ", sanitizer.apply(" "),
-                    "whitespaces should not be trimmed, using sanitizer: " + sanitizer);
+            assertEquals(" ", sanitizer.apply(" "), "whitespaces should not be trimmed, using sanitizer: " + sanitizer);
         }
     }
 }

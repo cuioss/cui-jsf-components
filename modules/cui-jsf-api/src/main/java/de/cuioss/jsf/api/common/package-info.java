@@ -3,13 +3,13 @@
  *
  *             <h2>Summary</h2>
  *             <p>
- *             Provides common helper classes / utilities that simplify accessing runtime
- *             {@link javax.faces.bean.ManagedBean}.
+ *             Provides common helper classes / utilities that simplify
+ *             accessing runtime {@link javax.faces.bean.ManagedBean}.
  *             </p>
  *             <h2>ManagedBeansProvider</h2>
  *             <p>
- *             Utility for accessing {@link javax.faces.bean.ManagedBean} instance
- *             programmatically. See Documentation of
+ *             Utility for accessing {@link javax.faces.bean.ManagedBean}
+ *             instance programmatically. See Documentation of
  *             {@link de.cuioss.jsf.api.common.ManagedBeansProvider#getManagedBean(String, Class, javax.faces.context.FacesContext)}
  *             and
  *             {@link de.cuioss.jsf.api.common.ManagedBeansProvider#checkManagedBeanKey(String)}

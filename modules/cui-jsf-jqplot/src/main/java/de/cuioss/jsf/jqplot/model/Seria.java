@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.jqplot.model;
 
 import java.util.Iterator;
@@ -10,9 +25,10 @@ import lombok.ToString;
 
 /**
  * Represent a seria for {@linkplain SeriesData}. <br>
- * Will be represent is JSON Array [SeriaTupelItem1, SeriaTupelItem2, .. , SeriaTupelItemN]. <br>
- * Because SeriaTupelItem it self is a tuple of [x,y] the final JSON representation will be as
- * follow :<br>
+ * Will be represent is JSON Array [SeriaTupelItem1, SeriaTupelItem2, .. ,
+ * SeriaTupelItemN]. <br>
+ * Because SeriaTupelItem it self is a tuple of [x,y] the final JSON
+ * representation will be as follow :<br>
  * [ [x1, y1] , [x2, y2], .. [xn, yn] ]
  *
  * @author Eugen Fischer
@@ -21,8 +37,8 @@ import lombok.ToString;
  */
 @ToString
 @EqualsAndHashCode
-public class Seria<X extends JsValue, Y extends JsValue> implements JavaScriptSupport, JsValue, JsArrayContainer,
-        Iterable<JsValue> {
+public class Seria<X extends JsValue, Y extends JsValue>
+        implements JavaScriptSupport, JsValue, JsArrayContainer, Iterable<JsValue> {
 
     /** serial Version UID */
     private static final long serialVersionUID = 2264844925971164192L;
@@ -33,7 +49,7 @@ public class Seria<X extends JsValue, Y extends JsValue> implements JavaScriptSu
      *
      */
     public Seria() {
-        this.data = new JsArray<>();
+        data = new JsArray<>();
     }
 
     /**
@@ -48,14 +64,15 @@ public class Seria<X extends JsValue, Y extends JsValue> implements JavaScriptSu
     }
 
     /**
-     * Add tuple if it's not null and tuple is complete. {@linkplain SeriaTupelItem#isComplete()}
+     * Add tuple if it's not null and tuple is complete.
+     * {@linkplain SeriaTupelItem#isComplete()}
      *
      * @param tuple {@code SeriaTupelItem}
      * @return fluent api style
      */
     public Seria<X, Y> addTupleIfComplete(final SeriaTupelItem<X, Y> tuple) {
         if (null != tuple && tuple.isComplete()) {
-            this.data.addValueIfNotNull(tuple);
+            data.addValueIfNotNull(tuple);
         }
         return this;
     }

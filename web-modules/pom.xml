@@ -13,9 +13,7 @@
     <description>Aggregates the non-java modules especially web-resssources like
         javascript, css ...</description>
     <properties>
-
         <version.slf4j>2.0.7</version.slf4j>
-
     </properties>
     <build>
         <resources>
@@ -30,15 +28,6 @@
                 </excludes>
             </resource>
         </resources>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>com.github.eirslett</groupId>
-                    <artifactId>frontend-maven-plugin</artifactId>
-                    <version>${version.frontend-maven-plugin}</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
     <modules>
         <module>cui-javascript</module>

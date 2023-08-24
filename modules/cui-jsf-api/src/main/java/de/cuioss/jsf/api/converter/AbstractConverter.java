@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.converter;
 
 import java.util.Objects;
@@ -12,8 +27,8 @@ import de.cuioss.jsf.api.application.message.MessageProducerAccessor;
 /**
  * Base abstract converter class which handles null and empty checks as
  * specified in the JSF converter contract. To support i18n conversion
- * exceptions we provide derived classes the message producer.
- * The runtime type of the payload is given in the generic argument T.
+ * exceptions we provide derived classes the message producer. The runtime type
+ * of the payload is given in the generic argument T.
  *
  * @param <T> bounded type for converter
  *
@@ -22,8 +37,7 @@ import de.cuioss.jsf.api.application.message.MessageProducerAccessor;
 public abstract class AbstractConverter<T> implements Converter<T> {
 
     /**
-     * String to Object conversion as specified in JSF converter, plus null
-     * check.
+     * String to Object conversion as specified in JSF converter, plus null check.
      */
     @Override
     public T getAsObject(final FacesContext context, final UIComponent component, final String value) {
@@ -38,8 +52,8 @@ public abstract class AbstractConverter<T> implements Converter<T> {
     }
 
     /**
-     * Object to String serialization as specified in the JSF converter
-     * contract, null checks and casting to generic type.
+     * Object to String serialization as specified in the JSF converter contract,
+     * null checks and casting to generic type.
      */
     @Override
     public String getAsString(final FacesContext context, final UIComponent component, final T value) {
@@ -59,18 +73,18 @@ public abstract class AbstractConverter<T> implements Converter<T> {
      * Converter.getAsObject(). If not implemented the implementation assumes an
      * Formatting only converter throwing the appropriate exception.
      *
-     * @param context {@link FacesContext} for the request being processed
+     * @param context   {@link FacesContext} for the request being processed
      * @param component {@link UIComponent} with which this model object value is
-     *            associated
-     * @param value String value to be converted, can't be <code>null</code> but could be empty
-     *            String
+     *                  associated
+     * @param value     String value to be converted, can't be <code>null</code> but
+     *                  could be empty String
      *
      * @return converted Object
      * @throws ConverterException
      * @throws UnsupportedOperationException by default implementation
      */
     protected T convertToObject(final FacesContext context, final UIComponent component, final String value)
-        throws ConverterException {
+            throws ConverterException {
         throw new UnsupportedOperationException("Converter is used for formatting only.");
     }
 
@@ -78,16 +92,17 @@ public abstract class AbstractConverter<T> implements Converter<T> {
      * Typesafe, boilerplate-free method which gets called by
      * Converter.getAsString()
      *
-     * @param context {@link FacesContext} for the request being processed
+     * @param context   {@link FacesContext} for the request being processed
      * @param component {@link UIComponent} with which this model object value is
-     *            associated
-     * @param value Generic type value to be converted, can't be <code>null</code>
+     *                  associated
+     * @param value     Generic type value to be converted, can't be
+     *                  <code>null</code>
      *
      * @return converted String
      * @throws ConverterException
      */
     protected abstract String convertToString(FacesContext context, UIComponent component, T value)
-        throws ConverterException;
+            throws ConverterException;
 
     /**
      * Ensures the truth of an expression involving the state of the calling
@@ -95,8 +110,8 @@ public abstract class AbstractConverter<T> implements Converter<T> {
      *
      * @param expression a boolean expression
      * @param messageKey key string to be looked up in messages.properties
-     * @param parameter (optional) varargs parameters to be included in the resulting
-     *            Exception string.
+     * @param parameter  (optional) varargs parameters to be included in the
+     *                   resulting Exception string.
      *
      * @throws ConverterException if {@code expression} is false
      */
@@ -109,10 +124,10 @@ public abstract class AbstractConverter<T> implements Converter<T> {
     /**
      * Ensures the string value is not empty
      *
-     * @param value to be verified
+     * @param value      to be verified
      * @param messageKey key string to be looked up in messages.properties
-     * @param parameter (optional) varargs parameters to be included in the resulting
-     *            Exception string.
+     * @param parameter  (optional) varargs parameters to be included in the
+     *                   resulting Exception string.
      *
      * @return verified value
      * @throws ConverterException if {@code expression} is false
@@ -128,20 +143,21 @@ public abstract class AbstractConverter<T> implements Converter<T> {
      * optional varargs parameters.
      *
      * @param messageKey key string to be looked up in messages.properties
-     * @param parameter (optional) varargs parameters to be included in the resulting
-     *            Exception string.
+     * @param parameter  (optional) varargs parameters to be included in the
+     *                   resulting Exception string.
      */
     public static void throwConverterException(final String messageKey, final Object... parameter)
-        throws ConverterException {
+            throws ConverterException {
 
         throw new ConverterException(
                 new MessageProducerAccessor().getValue().getErrorMessageFor(messageKey, parameter));
     }
 
     /**
-     * Throws a {@link NullPointerException} if either context is null or component is null.
+     * Throws a {@link NullPointerException} if either context is null or component
+     * is null.
      *
-     * @param context the faces context, must not be null
+     * @param context   the faces context, must not be null
      * @param component the UI component, must not be null
      */
     protected void verifyApiContract(final FacesContext context, final UIComponent component) {

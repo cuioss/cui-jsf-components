@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.bootstrap.common.partial;
 
 import static java.util.Objects.requireNonNull;
@@ -9,16 +24,16 @@ import lombok.RequiredArgsConstructor;
 /**
  * This class simplifies the accessing /creation / interacting with css styles
  * related to bootstrap grid layout.
- * <h3>Design</h3>
- * The general design assumes that the consuming component defines four
- * attributes in order to be used properly:
+ * <h3>Design</h3> The general design assumes that the consuming component
+ * defines four attributes in order to be used properly:
  * <ul>
- * <li>size: Integer: The size of the appropriate column. Must be between 1-12</li>
+ * <li>size: Integer: The size of the appropriate column. Must be between
+ * 1-12</li>
  * <li>styleClass: String: Additional styleClasses to be added</li>
  * <li>offsetSize: Integer: Optional attribute resulting in an corresponding
  * bootstrap-offset class with the given classPrefix</li>
- * <li>renderAsColumn: Boolean: If column classes should be rendered. Otherwise only styleClass is
- * passed through</li>
+ * <li>renderAsColumn: Boolean: If column classes should be rendered. Otherwise
+ * only styleClass is passed through</li>
  * </ul>
  * With these attribute set / defined properly this class always creates a
  * proper css class String.
@@ -51,8 +66,8 @@ public class ColumnCssResolver {
     private final String styleClass;
 
     /**
-     * @return a {@link StyleClassBuilder} containing the the column specific css classes, e.g.
-     *         "col-md-4 col-md-offset-2"
+     * @return a {@link StyleClassBuilder} containing the the column specific css
+     *         classes, e.g. "col-md-4 col-md-offset-2"
      */
     public StyleClassBuilder resolveColumnCss() {
         final StyleClassBuilder builder = new StyleClassBuilderImpl();

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.components.util;
 
 import static java.util.Objects.requireNonNull;
@@ -38,24 +53,21 @@ public enum DisableUIComponentStrategy {
     private final Class<? extends UIComponent> clazz;
 
     DisableUIComponentStrategy(final Class<? extends UIComponent> klass) {
-        this.clazz = klass;
+        clazz = klass;
     }
 
     /**
-     * @param component
-     *            {@link UIComponent} to be disabled
+     * @param component {@link UIComponent} to be disabled
      */
     protected abstract void disable(final UIComponent component);
 
     /**
      * Disable the component which is passed on.
      *
-     * @param component
-     *            {@link UIComponent} must not be null.
-     * @throws NullPointerException
-     *             id parameter is null
-     * @throws IllegalArgumentException
-     *             if no fitting strategy to disable the component exists
+     * @param component {@link UIComponent} must not be null.
+     * @throws NullPointerException     id parameter is null
+     * @throws IllegalArgumentException if no fitting strategy to disable the
+     *                                  component exists
      */
     public static final void disableComponent(final UIComponent component) {
         requireNonNull(component, "UIComponent must not be null");
@@ -66,8 +78,7 @@ public enum DisableUIComponentStrategy {
             }
         }
         throw new IllegalArgumentException(
-                String.format("[%s] has no coresponding disable strategy",
-                        component.getClass().getSimpleName()));
+                "[%s] has no coresponding disable strategy".formatted(component.getClass().getSimpleName()));
     }
 
 }

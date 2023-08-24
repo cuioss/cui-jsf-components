@@ -4,6 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd">
     <namespace>https://cuioss.de/jsf/bootstrap</namespace>
+    <short-name>boot</short-name>
     <tag>
         <description>
             <![CDATA[Renders a message list. It is based on h:messages but implicitly sets Bootstrap-styling]]></description>
@@ -1775,15 +1776,15 @@
         <description>
             <![CDATA[
              <p>
-                Enables a parent element like cui:button to control a ModalDialogComponent to show or hide.
+                Enables a parent element like boot:button to control a ModalDialogComponent to show or hide.
                 It acts as an AbstractParentDecorator saying it solely write Html-5 attributes to the parent components,
                 the actual heavy-lifting is done by the javascript 'javascript.enabler/enabler.modal.js'
-                 <cui:button labelValue="Open">
+                 <boot:button labelValue="Open">
                    <cui:modalControl for="dialogId"/>
-                 </cui:button>
-                 <cui:modalDialog id="dialogId" headerValue="Dialog-Header">
+                 </boot:button>
+                 <boot:modalDialog id="dialogId" headerValue="Dialog-Header">
                    Some Dialog Content
-                 </cui:modalDialog>
+                 </boot:modalDialog>
             </p>
        ]]></description>
         <tag-name>modalControl</tag-name>
@@ -1838,10 +1839,10 @@
          <pre>
          &lt;cui-boot:button labelValue="Open"&gt;
            &lt;cui-boot:modalControl for="dialogId"/&gt;
-         &lt;/cui:button&gt;
+         &lt;/boot:button&gt;
          &lt;cui-boot:modalDialog id="dialogId" headerValue="Dialog-Header"&gt;
            Some Dialog Content
-         &lt;/cui:modalDialog&gt;
+         &lt;/boot:modalDialog&gt;
          </pre>
         <h3>Using JavaScript</h3>
         <pre>

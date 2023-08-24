@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.cuioss.jsf.api.components.model.menu;
 
 import java.util.ArrayList;
@@ -57,8 +72,8 @@ public abstract class NavigationMenuItemImpl implements NavigationMenuItem {
     private String parentId;
 
     /**
-     * Allows to configure a list of view ids that should trigger displaying the menu item in
-     * "active" mode.
+     * Allows to configure a list of view ids that should trigger displaying the
+     * menu item in "active" mode.
      */
     @Getter
     @Setter
@@ -71,10 +86,8 @@ public abstract class NavigationMenuItemImpl implements NavigationMenuItem {
 
     @Override
     public String getResolvedTitle() {
-        return LabelResolver.builder()
-                .withLabelKey(titleKey)
-                .withLabelValue(titleValue)
-                .build().resolve(FacesContext.getCurrentInstance());
+        return LabelResolver.builder().withLabelKey(titleKey).withLabelValue(titleValue).build()
+                .resolve(FacesContext.getCurrentInstance());
     }
 
     @Override
@@ -84,9 +97,8 @@ public abstract class NavigationMenuItemImpl implements NavigationMenuItem {
 
     @Override
     public boolean isActive() {
-        return !getActiveForAdditionalViewId().isEmpty()
-                && getActiveForAdditionalViewId()
-                        .contains(NavigationUtils.getCurrentView(FacesContext.getCurrentInstance()).getViewId());
+        return !getActiveForAdditionalViewId().isEmpty() && getActiveForAdditionalViewId()
+                .contains(NavigationUtils.getCurrentView(FacesContext.getCurrentInstance()).getViewId());
     }
 
 }
