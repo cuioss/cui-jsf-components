@@ -210,14 +210,14 @@ class NavigationUtilsTest extends JsfEnabledTestEnvironment implements Applicati
     /**
      * The home navigation view
      */
-    private static final String VIEW_HOME = "/faces/portal/home.jsf";
+    private static final String VIEW_HOME = "/portal/home.jsf";
 
     private static final String OUTCOME_HOME = "home";
 
     /**
      * The home navigation view
      */
-    private static final String VIEW_NAVIGATED = "/faces/portal/navigated.jsf";
+    private static final String VIEW_NAVIGATED = "/portal/navigated.jsf";
 
     private static final String OUTCOME_NAVIGATED = "navigate";
 

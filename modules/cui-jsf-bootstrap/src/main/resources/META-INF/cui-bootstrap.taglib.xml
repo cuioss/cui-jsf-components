@@ -146,7 +146,7 @@
            <p>
             Renders a bootstrap style badge. In essence it is an h:outputText with additional configuration
                The title is resolved using the cui standard label-resolving mechanism.</p>
-            <p>A list of all available icons can be found at the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/miscellaneous.jsf">Reference Documentation</a> </p>
+            <p>A list of all available icons can be found at the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/miscellaneous.jsf">Reference Documentation</a> </p>
             <h3>Usage</h3>
                 <table>
                     <tr>
@@ -298,7 +298,7 @@
             </ul>
             <p>
                More information and
-               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
+               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
             <h3>Usage</h3>
                 <pre>&lt;cui-boot:formGroup /&gt;</pre>
              <h3>Styling</h3>
@@ -362,7 +362,7 @@
             </p>
             <p>
                More information and
-               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
+               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
             <h3>Usage</h3>
                 <pre>&lt;cui-boot:inputGroup /&gt;</pre>
              <h3>Styling</h3>
@@ -1633,7 +1633,7 @@
            <p>
             Renders an icon with a text. The icon is rendered as a span with the according classes.
                The label and icons are resolved using the cui standard label-resolving mechanism.</p>
-            <p>Sample can be found at the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/icons/icon_components.jsf">Reference Documentation</a> </p>
+            <p>Sample can be found at the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/icons/icon_components.jsf">Reference Documentation</a> </p>
             <h3>Usage</h3>
                 <table>
                     <tr>
@@ -1833,7 +1833,7 @@
         The same for footerKey /footerValue as text content for footer.
         There are different general styles available (state): one of 'primary', 'success', 'info', 'warning', 'danger'.
         If none of those is set it uses 'default'. </p>
-        <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/dialog.jsf">Reference Documentation</a>
+        <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/dialog.jsf">Reference Documentation</a>
         <h3>Usage</h3>
         <h3>Using cui:modalControl</h3>
          <pre>
@@ -1972,7 +1972,7 @@
             <![CDATA[
              <p>
                 Renders a <a href="http://getbootstrap.com/components/#alerts">bootstrap alert</a>.  More information and
-               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/miscellaneous.jsf" >Reference Documentation</a></p>
+               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/miscellaneous.jsf" >Reference Documentation</a></p>
        ]]>
         </description>
         <tag-name>notificationBox</tag-name>
@@ -2123,7 +2123,7 @@
     the implementer must ensure that it has a form-control specific styleClass set.</p><p>
     To display additional elements a 'prepend' and 'append' facet can be added. This triggers rendering the input
     element into a 'input-group'.</p><p> More information and
-    examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/labeledContainerDemo.jsf" >Reference Documentation</a>
+    examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/labeledContainerDemo.jsf" >Reference Documentation</a>
     </p>]]></description>
         <tag-name>labeledContainer</tag-name>
         <component>
@@ -2687,7 +2687,7 @@
     <tag>
         <description><![CDATA[
         Renders a bootstrap conform accordion.
-        More information and examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/panel.jsf" >Reference Documentation</a></p>
+        More information and examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/panel.jsf" >Reference Documentation</a></p>
         ]]>
             </description>
         <tag-name>accordion</tag-name>
@@ -2758,7 +2758,7 @@
             state within a given bean, because ui:repeat removes the state for the components.
           </p>
           <p>
-            More information and examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/panel.jsf" >Reference Documentation</a></p>
+            More information and examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/panel.jsf" >Reference Documentation</a></p>
           </p>
             ]]>
             </description>
@@ -2926,7 +2926,7 @@
 			 itself it renders no output but changes the attributes of the parent element accordingly.
 			 The actual rendering of the tooltip is done by the javascript "component.enabler.tooltip.js", see  <a href="http://getbootstrap.com/javascript/#tooltips">bootstrap tooltip</a>
 			   More information and examples can be found in the
-			   <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/miscellaneous.jsf" >Reference Documentation</a></p>
+			   <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/miscellaneous.jsf" >Reference Documentation</a></p>
        ]]></description>
         <tag-name>tooltip</tag-name>
         <component>
@@ -3034,7 +3034,7 @@
             </ul>
              <p>
                More information and
-               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
+               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
             <h3>Usage</h3>
                 <pre>
 &lt;cui-boot:row&gt;
@@ -3133,7 +3133,7 @@
             </ul>
             <p>
                More information and
-               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
+               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
              <h3>Styling</h3>
              <ul>
                 <li>The marker css class is 'form-group' and 'col-md-' + size attribute</li>
@@ -3203,7 +3203,7 @@
            <p>
             Renders an Icon according to the cui-icon contract. The icon is rendered as a span with the according classes.
                The title is resolved using the cui standard label-resolving mechanism.</p>
-            <p>A list of all available icons can be found at the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/icons/cui_icons.jsf">Reference Documentation</a> </p>
+            <p>A list of all available icons can be found at the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/icons/cui_icons.jsf">Reference Documentation</a> </p>
             <h3>Usage</h3>
                 <table>
                     <tr>
@@ -3320,7 +3320,7 @@
         not one of the attributes errorClass, infoClass, .. . Depending on the severity of the faces Messages,
         there will we be rendered the class attribute to the surrounding span:
         "cui_msg_info", "cui_msg_warn", "cui_msg_error" or "cui_msg_fatal".</p><p> More information and
-    examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a>
+    examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a>
     </p>]]></description>
         <tag-name>message</tag-name>
         <component>
@@ -3390,7 +3390,7 @@
             <![CDATA[
              <p>
                 Renders an MimeTypeIcon regarding to the cui-icon contract.</p>
-             <p>A list of all available mimeTypeIcons can be found at the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/icons/mime_types.jsf">Reference Documentation</a> </p>
+             <p>A list of all available mimeTypeIcons can be found at the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/icons/mime_types.jsf">Reference Documentation</a> </p>
 
             <h3>Usage</h3>
                 <table>
@@ -3570,7 +3570,7 @@
            <p>
             Renders an Label for input elements.
                The label and title are resolved using the cui standard label-resolving mechanism.</p>
-            <p>Sample can be found at the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf">Reference Documentation</a> </p>]]>
+            <p>Sample can be found at the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/layout.jsf">Reference Documentation</a> </p>]]>
             </description>
         <tag-name>outputLabel</tag-name>
         <component>
@@ -3695,7 +3695,7 @@
             </ul>
             <p>
                More information and
-               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
+               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
             <h3>Usage</h3>
                 <pre>&lt;cui-boot:row /&gt;</pre>
              <h3>Styling</h3>
@@ -3864,7 +3864,7 @@
              <h3>Ajax Events</h3>
              All HtmlInputText AJAX events are supported.
              <h3>Usage</h3>
-             <p>See <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/tag.jsf">Reference Documentation</a></p>
+             <p>See <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/tag.jsf">Reference Documentation</a></p>
              <h3>Styling</h3>
              <p>The styling is defined by the selecitze.js plugin, see <a href="https://selectize.github.io/selectize.js/">Selectize</a> for details</p>.
                 ]]>
@@ -4024,7 +4024,7 @@
              <p>
                 Renders an Tag similar to a JIRA Tag. The tag is rendered within a span with the according classes.
                The content and title are resolved using the cui standard label-resolving mechanism. More information and
-               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/tag.jsf" >Reference Documentation</a></p>
+               examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/tag.jsf" >Reference Documentation</a></p>
             <h3>Usage</h3>
                 <table>
                     <tr>
@@ -4202,7 +4202,7 @@
             <![CDATA[
              <p>
                Renders a number of <cui:tag /> as a a list. The tags are created from the the given Collection of ConceptKeyType or String, see attributes #value. If you need fine grained control use <cui:tag /> directly. The attributes #state, #size and #contentEscape will be passed through to the used TagComponent.
-               More information and examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/tag.jsf" >Reference Documentation</a></p>
+               More information and examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/tag.jsf" >Reference Documentation</a></p>
             <h3>Usage</h3>
                 <pre>&lt;tagList value="#{bean.tags}" /&gt;</pre>
              <h3>Styling</h3>

@@ -40,7 +40,7 @@ import lombok.experimental.Delegate;
  * </p>
  * <p>
  * Examples can be found in the <a href=
- * "https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/miscellaneous.jsf"
+ * "https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/miscellaneous.jsf"
  * >Reference Documentation</a>
  * </p>
  * <h2>Attributes</h2>

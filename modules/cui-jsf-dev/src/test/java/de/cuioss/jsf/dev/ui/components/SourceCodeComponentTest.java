@@ -28,7 +28,7 @@ import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
         "description" }, defaultValued = { "enableClipboard" })
 class SourceCodeComponentTest extends AbstractComponentTest<SourceCodeComponent> {
 
-    private static final String BASE = "/faces/samples/";
+    private static final String BASE = "/samples/";
 
     private static final String VIEW_ID = BASE + "source.xhtml";
 

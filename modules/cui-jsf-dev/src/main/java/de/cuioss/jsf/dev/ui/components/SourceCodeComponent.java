@@ -69,7 +69,7 @@ import lombok.Getter;
  * <p>
  * The path to the source code. It takes precedence over #sourceContainerId. It
  * can be either a fully qualified path, like
- * '/META-INF/faces/pages/documentation/portal/portal_templates.xhtml' or a
+ * '/META-INF/pages/documentation/portal/portal_templates.xhtml' or a
  * relative path like 'portal_templates.xhtml'. The implementation checks for
  * '/' in order to decide whether it is an relative path or not. All relative
  * addressed files are assumed to be found under '/META-INF/'.

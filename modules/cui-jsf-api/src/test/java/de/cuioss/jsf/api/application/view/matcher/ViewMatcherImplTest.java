@@ -30,11 +30,11 @@ import de.cuioss.tools.net.UrlParameter;
 
 class ViewMatcherImplTest {
 
-    private static final String FACES_CONTENT = "/faces/content/";
+    private static final String FACES_CONTENT = "/content/";
 
-    private static final String FACES_GUEST = "/faces/guest/";
+    private static final String FACES_GUEST = "/guest/";
 
-    private static final String FACES_NOT_THERE = "/faces/not/there";
+    private static final String FACES_NOT_THERE = "/not/there";
 
     private static final String LOGIN_VIEW_PATH = FACES_GUEST + "login.jsf";
 
