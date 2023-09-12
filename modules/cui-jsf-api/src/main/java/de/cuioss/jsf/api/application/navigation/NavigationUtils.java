@@ -66,10 +66,6 @@ public final class NavigationUtils implements Serializable {
     private static final String INCOMPLETE_CONFIG = "No NavigationCase defined for outcome ['%s']. Verify your faces configuration.";
 
     private static final String UNABLE_TO_REDIRECT_RESPONSE_ALREADY_COMMITTED = "Unable to redirect, response already committed.";
-    /**
-     * The prefix for all our jsf-views.
-     */
-    public static final String FACES_VIEW_PREFIX = "/faces/";
 
     /**
      * Try to look up view id or view id expression for outcome by using
@@ -218,7 +214,7 @@ public final class NavigationUtils implements Serializable {
      */
     public static void sendRedirectParameterList(final FacesContext facesContext, final String url,
             final List<UrlParameter> parameterList) {
-        if (parameterList != null && !parameterList.isEmpty()) {
+        if ((parameterList != null) && !parameterList.isEmpty()) {
             final var parameters = parameterList.toArray(new UrlParameter[parameterList.size()]);
             sendRedirect(facesContext, url, true, parameters);
         } else {

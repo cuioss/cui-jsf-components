@@ -46,7 +46,7 @@ public class HistoryManagerMock implements HistoryManager, BeanConfigurator {
     private static final long serialVersionUID = -3934691506290620858L;
 
     /** The home navigation view */
-    public static final String VIEW_HOME = "/faces/portal/home.jsf";
+    public static final String VIEW_HOME = "/portal/home.jsf";
 
     /**
      * {@link ViewIdentifier}, representing home navigation.

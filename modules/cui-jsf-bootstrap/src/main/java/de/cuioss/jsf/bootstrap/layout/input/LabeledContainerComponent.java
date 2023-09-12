@@ -78,7 +78,7 @@ import lombok.experimental.Delegate;
  * </p>
  * <p>
  * More information and examples can be found in the <a href=
- * "https://cuioss.de/cui-reference-documentation/faces/pages/documentation/cui_components/demo/labeledContainerDemo.jsf"></a>
+ * "https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/labeledContainerDemo.jsf"></a>
  * </p>
  * <h2>Attributes</h2>
  * <ul>

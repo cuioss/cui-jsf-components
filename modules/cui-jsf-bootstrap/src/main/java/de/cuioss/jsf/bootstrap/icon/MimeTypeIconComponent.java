@@ -34,7 +34,7 @@ import lombok.experimental.Delegate;
  * </p>
  * <p>
  * A list of all available mimeTypeIcons can be found at the <a href=
- * "https://cuioss.de/cui-reference-documentation/faces/pages/documentation/icons/mime_types.jsf">
+ * "https://cuioss.de/cui-reference-documentation/pages/documentation/icons/mime_types.jsf">
  * Reference Documentation</a>
  * </p>
  * <h2>Attributes</h2>

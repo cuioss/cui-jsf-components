@@ -36,7 +36,7 @@ import lombok.experimental.Delegate;
  * </p>
  * <p>
  * Sample can be found at the <a href=
- * "https://cuioss.de/cui-reference-documentation/faces/pages/documentation/icons/icon_components.jsf">
+ * "https://cuioss.de/cui-reference-documentation/pages/documentation/icons/icon_components.jsf">
  * Reference Documentation</a>
  * </p>
  *

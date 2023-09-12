@@ -36,7 +36,7 @@ class ViewIdentifierTest extends JsfEnabledTestEnvironment {
 
     private static final String FROM_VIEW_ID = "fromViewId";
 
-    private static final String START_URL = "/faces/some/page.jsf";
+    private static final String START_URL = "/some/page.jsf";
 
     private CuiMockConfigurableNavigationHandler mockNavigationHandler;
 
