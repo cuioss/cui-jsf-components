@@ -4716,9 +4716,7 @@
         <p>Each widget model should contain the name of the composite component to be rendered and to display its content.</p>
    ]]></description>
         <tag-name>dashboard</tag-name>
-        <component>
             <handler-class>de.cuioss.jsf.bootstrap.dashboard.DashboardTagHandler</handler-class>
-        </component>
         <attribute>
             <description>
                 <![CDATA[A list of de.cuioss.jsf.api.components.model.widget.DashboardWidgetModel]]>
