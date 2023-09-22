@@ -38,7 +38,6 @@ public class ViewDescriptorImpl implements ViewDescriptor {
     private static final long serialVersionUID = -7389597518902482078L;
 
     private static final Pattern NON_LATIN = Pattern.compile("[^A-Za-z ]");
-    private static final Pattern FACES = Pattern.compile("^_faces_");
     private static final Pattern XHTML = Pattern.compile("_xhtml$");
     private static final Pattern JSF = Pattern.compile("_jsf$");
 
@@ -85,7 +84,6 @@ public class ViewDescriptorImpl implements ViewDescriptor {
         this.viewId = viewId;
         if (null != viewId) {
             var sanitizedId = NON_LATIN.matcher(viewId).replaceAll("_");
-            sanitizedId = FACES.matcher(sanitizedId).replaceAll("");
             sanitizedId = XHTML.matcher(sanitizedId).replaceAll("");
             shortIdentifier = JSF.matcher(sanitizedId).replaceAll("");
         } else {
