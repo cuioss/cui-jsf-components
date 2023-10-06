@@ -23,7 +23,7 @@ import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.uimodel.model.code.CodeType;
 
-@SuppressWarnings({ "rawtypes", "javadoc" })
+@SuppressWarnings({ "rawtypes" })
 public class CodeTypeSetGenerator implements TypedGenerator<Set> {
 
     private final CodeTypeGenerator codeType = new CodeTypeGenerator();

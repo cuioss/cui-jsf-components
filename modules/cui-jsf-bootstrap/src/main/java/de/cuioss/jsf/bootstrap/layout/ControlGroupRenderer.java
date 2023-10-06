@@ -33,8 +33,6 @@ import de.cuioss.jsf.bootstrap.CssBootstrap;
  *
  */
 @FacesRenderer(rendererType = BootstrapFamily.LAYOUT_CONTROL_GROUP_RENDERER, componentFamily = BootstrapFamily.COMPONENT_FAMILY)
-@SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                              // controlled by JSF
 public class ControlGroupRenderer extends BaseDecoratorRenderer<ControlGroupComponent> {
 
     /**

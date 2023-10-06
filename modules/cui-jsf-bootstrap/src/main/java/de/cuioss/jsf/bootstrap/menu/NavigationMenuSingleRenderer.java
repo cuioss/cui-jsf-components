@@ -51,8 +51,6 @@ import lombok.NoArgsConstructor;
  * @author Sven Haag
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                              // controlled by JSF
 public class NavigationMenuSingleRenderer {
 
     /**

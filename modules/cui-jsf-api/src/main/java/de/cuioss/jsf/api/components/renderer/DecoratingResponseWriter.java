@@ -44,8 +44,6 @@ import lombok.NonNull;
  * @param <T> identifying the wrapped component, must be at least
  *            {@link UIComponent}
  */
-@SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                              // controlled by JSF
 public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWriterBase {
 
     private final FacesContext facesContext;

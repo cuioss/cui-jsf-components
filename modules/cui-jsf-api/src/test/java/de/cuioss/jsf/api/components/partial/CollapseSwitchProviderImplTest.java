@@ -28,7 +28,6 @@ import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 @VerifyComponentProperties(of = { "collapsible", "collapseSwitch", "collapsed" })
 class CollapseSwitchProviderImplTest extends AbstractPartialComponentTest {
 
-    @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
         assertThrows(NullPointerException.class, () -> new CollapseSwitchProvider(null));

@@ -86,7 +86,6 @@ class DisplayNameProviderMessageProducerTest extends JsfEnabledTestEnvironment {
         assertEquals(0, messageProducerMock.getGlobalMessages().size());
     }
 
-    @SuppressWarnings("unused")
     @Test
     void shouldFailOnNullConstructor() {
         assertThrows(NullPointerException.class, () -> new DisplayNameProviderMessageProducer(null));

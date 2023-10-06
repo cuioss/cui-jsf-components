@@ -44,8 +44,6 @@ import de.cuioss.tools.string.Joiner;
  * @author Matthias Walliczek
  */
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.CUI_MESSAGE_COMPONENT_RENDERER)
-@SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                              // controlled by JSF
 public class CuiMessageRenderer extends BaseDecoratorRenderer<CuiMessageComponent> {
 
     private static final Map<Severity, StyleClassProvider> SEVERITIES = createSeverities();

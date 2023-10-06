@@ -26,7 +26,6 @@ import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 @VerifyComponentProperties(of = "align")
 class AlignProviderImplTest extends AbstractPartialComponentTest {
 
-    @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
         assertThrows(NullPointerException.class, () -> new AlignProvider(null));

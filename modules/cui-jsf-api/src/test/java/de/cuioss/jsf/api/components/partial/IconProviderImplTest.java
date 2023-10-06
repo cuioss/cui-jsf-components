@@ -27,7 +27,6 @@ import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 @VerifyComponentProperties(of = "icon")
 class IconProviderImplTest extends AbstractPartialComponentTest {
 
-    @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
         assertThrows(NullPointerException.class, () -> new IconProvider(null));

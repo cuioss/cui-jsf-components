@@ -26,7 +26,7 @@ import javax.faces.validator.ValidatorException;
 import de.cuioss.jsf.api.components.model.datalist.EditableDataListModel;
 import de.cuioss.jsf.api.validator.AbstractValidator;
 
-@SuppressWarnings({ "rawtypes", "javadoc" })
+@SuppressWarnings({ "rawtypes" })
 @FacesValidator("test.EditableDataListValidator")
 public class EditableDataListValidator extends AbstractValidator<EditableDataListModel> {
 

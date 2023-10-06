@@ -41,7 +41,6 @@ class ForIdentifierProviderImplTest {
 
     private ForIdentifierProvider target;
 
-    @SuppressWarnings("unused")
     @Test
     final void shouldVerifyMandatoryConstructorParameter() {
         assertThrows(NullPointerException.class,

@@ -24,7 +24,6 @@ import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 @VerifyComponentProperties(of = "deferred")
 class DeferredProviderImplTest extends AbstractPartialComponentTest {
 
-    @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
         assertThrows(NullPointerException.class, () -> new DeferredProvider(null));

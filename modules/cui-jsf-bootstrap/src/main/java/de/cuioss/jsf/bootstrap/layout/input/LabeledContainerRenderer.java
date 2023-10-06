@@ -45,8 +45,6 @@ import de.cuioss.tools.string.MoreStrings;
  * @author Matthias Walliczek
  */
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.LABELED_CONTAINER_COMPONENT_RENDERER)
-@SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                              // controlled by JSF
 public class LabeledContainerRenderer extends BaseDecoratorRenderer<LabeledContainerComponent> {
 
     /**

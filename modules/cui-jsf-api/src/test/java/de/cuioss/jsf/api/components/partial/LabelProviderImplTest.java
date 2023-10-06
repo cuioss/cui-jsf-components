@@ -29,7 +29,6 @@ import de.cuioss.test.jsf.mocks.ReverseConverter;
 @VerifyComponentProperties(of = { "labelKey", "labelValue", "labelEscape", "labelConverter" })
 class LabelProviderImplTest extends AbstractPartialComponentTest {
 
-    @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
         assertThrows(NullPointerException.class, () -> new LabelProvider(null));

@@ -108,7 +108,6 @@ public class ModalDialogComponent extends BaseCuiPanel implements StyleAttribute
 
     private final State state;
 
-    @SuppressWarnings("javadoc")
     public ModalDialogComponent() {
         super.setRendererType(BootstrapFamily.MODAL_DIALOG_COMPONENT_RENDERER);
         contextStateProvider = new ContextStateProvider(this);

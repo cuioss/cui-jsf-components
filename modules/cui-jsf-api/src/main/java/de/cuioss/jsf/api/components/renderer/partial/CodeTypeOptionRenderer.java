@@ -59,8 +59,6 @@ public class CodeTypeOptionRenderer {
      * @param escape indicating whether or not escape the Test-child.
      * @throws IOException
      */
-    @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                                  // controlled by JSF
     public void render(final DecoratingResponseWriter<? extends UIComponent> writer, final Locale locale,
             final boolean escape) throws IOException {
         for (CodeType codeType : codeTypes) {

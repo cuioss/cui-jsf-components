@@ -96,8 +96,6 @@ public class ElementReplacingResponseWriter extends ResponseWriterWrapper {
      * @return a {@link FacesContextWrapper} providing an instance of
      *         {@link ElementReplacingResponseWriter} with the configured parameter
      */
-    @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                                  // controlled by JSF
     public static FacesContext createWrappedReplacingResonseWriter(final FacesContext context,
             final String filterElement, final String replaceElement, final boolean ignoreCloseElement) {
         return new FacesContextWrapper(context) {

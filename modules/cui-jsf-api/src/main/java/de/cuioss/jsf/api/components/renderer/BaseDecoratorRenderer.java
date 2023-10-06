@@ -40,8 +40,6 @@ import de.cuioss.tools.string.MoreStrings;
  * @param <T> identifying the concrete component to be rendered, at least
  *            {@link UIComponent}
  */
-@SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                              // controlled by JSF
 public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
 
     private static final String JAVAX_FACES_SOURCE = "javax.faces.source";

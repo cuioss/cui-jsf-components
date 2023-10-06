@@ -37,8 +37,6 @@ import de.cuioss.jsf.bootstrap.layout.BootstrapPanelComponent;
  * @author Sven Haag
  */
 @FacesRenderer(rendererType = BootstrapFamily.ACCORDION_RENDERER, componentFamily = BootstrapFamily.COMPONENT_FAMILY)
-@SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                              // controlled by JSF
 public class AccordionRenderer extends BaseDecoratorRenderer<AccordionComponent> {
 
     /***/

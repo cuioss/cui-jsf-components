@@ -22,7 +22,6 @@ import javax.faces.convert.FacesConverter;
 
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 
-@SuppressWarnings("javadoc")
 @FacesConverter(TestTagItemConverter.ID)
 public class TestTagItemConverter implements Converter<ConceptKeyType> {
 

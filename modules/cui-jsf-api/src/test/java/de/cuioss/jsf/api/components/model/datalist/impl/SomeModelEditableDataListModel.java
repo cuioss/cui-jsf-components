@@ -24,7 +24,6 @@ import java.util.List;
 import de.cuioss.jsf.api.components.model.datalist.EditEvent;
 import lombok.Getter;
 
-@SuppressWarnings("javadoc")
 public class SomeModelEditableDataListModel extends AbstractEditableDataListModel<SomeModel> {
 
     private static final long serialVersionUID = 1781925834449349626L;

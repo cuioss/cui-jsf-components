@@ -39,8 +39,6 @@ public class WaitingIndicatorRenderer extends BaseDecoratorRenderer<WaitingIndic
     }
 
     @Override
-    @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                                  // controlled by JSF
     protected void doEncodeEnd(FacesContext context, DecoratingResponseWriter<WaitingIndicatorComponent> writer,
             WaitingIndicatorComponent component) throws IOException {
 

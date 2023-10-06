@@ -30,7 +30,6 @@ import de.cuioss.test.jsf.mocks.ReverseConverter;
 @VerifyComponentProperties(of = { "placeholderKey", "placeholderValue", "placeholderConverter" })
 class PlaceholderProviderImplTest extends AbstractPartialComponentTest {
 
-    @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
         assertThrows(NullPointerException.class, () -> new PlaceholderProvider(null));

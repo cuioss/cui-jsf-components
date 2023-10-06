@@ -23,7 +23,6 @@ import de.cuioss.uimodel.model.conceptkey.impl.BaseConceptCategory;
 import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
 
-@SuppressWarnings("javadoc")
 public class ConceptKeyTypeGenerator implements TypedGenerator<ConceptKeyType> {
 
     public static final ConceptKeyType TEST_CODE = ConceptKeyTypeImpl.builder().identifier("test")

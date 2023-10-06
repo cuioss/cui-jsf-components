@@ -41,8 +41,6 @@ import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
 import de.cuioss.test.jsf.renderer.util.HtmlTreeAsserts;
 
-@SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                              // controlled by JSF
 class DecoratingResponseWriterTest extends JsfEnabledTestEnvironment implements ComponentConfigurator {
 
     private static final String SIMPLE_DIV = "<div />";

@@ -20,7 +20,6 @@ import java.io.Serializable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@SuppressWarnings("javadoc")
 @Data
 @NoArgsConstructor
 public class SomeModel implements Serializable {

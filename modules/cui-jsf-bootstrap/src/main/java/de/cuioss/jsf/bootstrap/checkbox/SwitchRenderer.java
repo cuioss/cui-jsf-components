@@ -51,8 +51,6 @@ import de.cuioss.jsf.bootstrap.layout.ColumnComponent;
  */
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.SWITCH_RENDERER)
 @ResourceDependency(library = "javascript.enabler", name = "enabler.switch.js", target = "head")
-@SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                              // controlled by JSF
 public class SwitchRenderer extends BaseDecoratorRenderer<SwitchComponent> {
 
     private static final String SWITCH_PLACING_STYLE_CLASS = "switch-placing";

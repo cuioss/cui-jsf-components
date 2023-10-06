@@ -25,7 +25,6 @@ import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 @VerifyComponentProperties(of = "disabled")
 class DisabledComponentProviderImplTest extends AbstractPartialComponentTest {
 
-    @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
         assertThrows(NullPointerException.class, () -> new DisabledComponentProvider(null));

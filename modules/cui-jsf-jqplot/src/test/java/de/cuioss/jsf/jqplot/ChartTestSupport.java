@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.cuioss.jsf.jqplot.plugin.IPluginConsumer;
 
-@SuppressWarnings("javadoc")
 public class ChartTestSupport {
 
     public static void assertThatNoPluginsAreUsed(final IPluginConsumer consumer) {

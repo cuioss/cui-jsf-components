@@ -30,7 +30,6 @@ import de.cuioss.test.jsf.mocks.ReverseConverter;
 @VerifyComponentProperties(of = { "headerKey", "headerValue", "headerConverter", "headerEscape", "headerTag" })
 class HeaderProviderImplTest extends AbstractPartialComponentTest {
 
-    @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
         assertThrows(NullPointerException.class, () -> new HeaderProvider(null));

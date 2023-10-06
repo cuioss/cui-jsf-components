@@ -92,8 +92,6 @@ public class ButtonRenderer extends BaseDecoratorRenderer<Button> {
     }
 
     @Override
-    @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                                  // controlled by JSF
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<Button> writer,
             final Button component) throws IOException {
         writer.withEndElement(Node.BUTTON);

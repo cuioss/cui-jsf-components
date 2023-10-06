@@ -17,7 +17,6 @@ package de.cuioss.jsf.api.components.util;
 
 import de.cuioss.jsf.api.components.base.CuiComponentBase;
 
-@SuppressWarnings("javadoc")
 public class CuiStateComponent extends CuiComponentBase {
 
     private static final String BOOLEAN_KEY = "booleanKey";

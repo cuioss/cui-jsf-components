@@ -54,11 +54,8 @@ import de.cuioss.jsf.bootstrap.modal.support.ModalDialogSize;
  *
  */
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.MODAL_DIALOG_COMPONENT_RENDERER)
-@SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                              // controlled by JSF
 public class ModalDialogRenderer extends BaseDecoratorRenderer<ModalDialogComponent> {
 
-    @SuppressWarnings("javadoc")
     public ModalDialogRenderer() {
         super(false);
     }

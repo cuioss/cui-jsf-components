@@ -20,7 +20,6 @@ import java.io.Serializable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@SuppressWarnings({ "javadoc", "serial" })
 @RequiredArgsConstructor
 public class ExplodingModel implements Serializable {
 
@@ -31,7 +30,7 @@ public class ExplodingModel implements Serializable {
     @Getter
     private final String name;
 
-    public ExplodingModel(@SuppressWarnings("unused") final ExplodingModel other) {
+    public ExplodingModel(final ExplodingModel other) {
         throw new RuntimeException();
     }
 

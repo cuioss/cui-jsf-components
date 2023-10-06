@@ -75,8 +75,6 @@ public class CloseCommandButtonRenderer extends BaseDecoratorRenderer<CloseComma
     }
 
     @Override
-    @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                                  // controlled by JSF
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<CloseCommandButton> writer,
             final CloseCommandButton component) throws IOException {
         writer.withEndElement(Node.BUTTON);

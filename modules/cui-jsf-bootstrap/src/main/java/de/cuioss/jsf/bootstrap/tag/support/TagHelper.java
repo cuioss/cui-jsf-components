@@ -155,8 +155,6 @@ public class TagHelper {
      *
      * @throws IOException
      */
-    @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                                  // controlled by JSF
     public static void writeDisabled(final FacesContext context, final DecoratingResponseWriter<?> writer,
             final List<TagComponent> tagsToDisplay, final String style, final String styleClass) throws IOException {
         writer.withStartElement(Node.UL);

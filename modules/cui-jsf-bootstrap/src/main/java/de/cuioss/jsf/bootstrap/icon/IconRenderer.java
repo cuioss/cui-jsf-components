@@ -59,8 +59,6 @@ public class IconRenderer extends BaseDecoratorRenderer<IconComponent> {
     }
 
     @Override
-    @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                                  // controlled by JSF
     protected void doEncodeEnd(FacesContext context, DecoratingResponseWriter<IconComponent> writer,
             IconComponent component) throws IOException {
 

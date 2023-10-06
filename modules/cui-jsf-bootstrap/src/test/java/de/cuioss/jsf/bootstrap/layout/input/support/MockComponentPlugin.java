@@ -21,7 +21,6 @@ import de.cuioss.jsf.bootstrap.layout.input.LabeledContainerComponent;
 import lombok.Getter;
 import lombok.Setter;
 
-@SuppressWarnings("javadoc")
 public class MockComponentPlugin extends CuiComponentBase implements ContainerPlugin {
 
     @Getter
