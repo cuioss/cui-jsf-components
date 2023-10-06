@@ -44,7 +44,6 @@ class ElementReplacingResponseWriterTest extends JsfEnabledTestEnvironment {
 
     private StringWriter output;
 
-    @SuppressWarnings("resource")
     @BeforeEach
     void beforeTest() {
         output = new StringWriter();

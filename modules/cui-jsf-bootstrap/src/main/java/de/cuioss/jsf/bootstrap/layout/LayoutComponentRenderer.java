@@ -32,8 +32,6 @@ import de.cuioss.jsf.bootstrap.BootstrapFamily;
  * @author Oliver Wolff
  */
 @FacesRenderer(rendererType = BootstrapFamily.LAYOUT_RENDERER, componentFamily = BootstrapFamily.COMPONENT_FAMILY)
-@SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                              // controlled by JSF
 public class LayoutComponentRenderer extends BaseDecoratorRenderer<AbstractLayoutComponent> {
 
     /**

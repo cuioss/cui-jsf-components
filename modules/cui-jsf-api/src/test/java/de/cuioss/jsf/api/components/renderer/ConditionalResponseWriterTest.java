@@ -27,7 +27,6 @@ import org.junit.jupiter.api.Test;
 
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 
-@SuppressWarnings({ "resource" })
 class ConditionalResponseWriterTest {
 
     public static final String PARTIAL_SIMPLE_RENDER_START = "<div name=\"header\"/>";

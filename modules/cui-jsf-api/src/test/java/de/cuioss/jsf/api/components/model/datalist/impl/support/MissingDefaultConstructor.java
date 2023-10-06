@@ -20,7 +20,6 @@ import java.io.Serializable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@SuppressWarnings({ "javadoc", "serial" })
 @RequiredArgsConstructor
 public class MissingDefaultConstructor implements Serializable {
 

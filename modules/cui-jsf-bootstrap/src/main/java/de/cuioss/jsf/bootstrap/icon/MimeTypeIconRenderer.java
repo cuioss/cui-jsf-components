@@ -52,8 +52,6 @@ public class MimeTypeIconRenderer extends BaseDecoratorRenderer<MimeTypeIconComp
     }
 
     @Override
-    @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                                  // controlled by JSF
     protected void doEncodeEnd(FacesContext context, DecoratingResponseWriter<MimeTypeIconComponent> writer,
             MimeTypeIconComponent component) throws IOException {
 

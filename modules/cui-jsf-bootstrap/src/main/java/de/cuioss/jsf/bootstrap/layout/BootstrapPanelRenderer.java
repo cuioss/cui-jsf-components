@@ -40,8 +40,6 @@ import de.cuioss.jsf.bootstrap.waitingindicator.WaitingIndicatorComponent;
  * @author Sven Haag
  */
 @FacesRenderer(rendererType = BootstrapFamily.PANEL_RENDERER, componentFamily = BootstrapFamily.COMPONENT_FAMILY)
-@SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                              // controlled by JSF
 public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanelComponent> {
 
     private static final String ID_SUFFIX_ISEXPANDED = "isexpanded";

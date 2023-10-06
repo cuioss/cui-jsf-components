@@ -22,7 +22,6 @@ import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
 import lombok.Getter;
 import lombok.Setter;
 
-@SuppressWarnings("javadoc")
 public class StyleClassProvider extends UIComponentBase implements ComponentStyleClassProvider {
 
     @Getter

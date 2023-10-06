@@ -29,7 +29,6 @@ import lombok.experimental.Delegate;
  *
  * @author Oliver Wolff
  */
-@SuppressWarnings("javadoc")
 public class MockPartialComponent extends UIComponentBase implements ComponentBridge {
 
     @Delegate

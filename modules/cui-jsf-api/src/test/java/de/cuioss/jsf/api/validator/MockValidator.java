@@ -18,7 +18,6 @@ package de.cuioss.jsf.api.validator;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-@SuppressWarnings("javadoc")
 public class MockValidator extends AbstractValidator<String> {
 
     public static final String ERROR_KEY = "error";

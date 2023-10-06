@@ -37,8 +37,6 @@ import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
  * @author Oliver Wolff
  */
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.LABELED_ICON_COMPONENT_RENDERER)
-@SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                              // controlled by JSF
 public class LabeledIconRenderer extends BaseDecoratorRenderer<LabeledIconComponent> {
 
     /**

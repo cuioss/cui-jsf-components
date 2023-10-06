@@ -23,7 +23,7 @@ import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 
-@SuppressWarnings({ "rawtypes", "javadoc" })
+@SuppressWarnings({ "rawtypes" })
 public class ConceptKeyTypeSetGenerator implements TypedGenerator<Set> {
 
     private final ConceptKeyTypeGenerator codeType = new ConceptKeyTypeGenerator();

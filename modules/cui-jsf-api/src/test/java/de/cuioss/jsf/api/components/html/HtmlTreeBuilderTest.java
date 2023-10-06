@@ -26,7 +26,6 @@ import java.io.StringWriter;
 import org.apache.myfaces.test.mock.MockResponseWriter;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "resource", "javadoc" })
 class HtmlTreeBuilderTest {
 
     public static final String SIMPLE_DIV = "<div />";

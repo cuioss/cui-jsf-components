@@ -40,8 +40,6 @@ import de.cuioss.jsf.bootstrap.CssBootstrap;
  * @author Matthias Walliczek
  */
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.NOTIFICATION_BOX_RENDERER)
-@SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                              // controlled by JSF
 public class NotificationBoxRenderer extends BaseDecoratorRenderer<NotificationBoxComponent> {
 
     /**

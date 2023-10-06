@@ -26,7 +26,6 @@ import de.cuioss.test.generator.Generators;
 import lombok.Getter;
 import lombok.Setter;
 
-@SuppressWarnings("javadoc")
 public class MockEditableDataListModel implements EditableDataListModel<Serializable> {
 
     private static final long serialVersionUID = -5295825178881746472L;

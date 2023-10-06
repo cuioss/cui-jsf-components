@@ -92,7 +92,6 @@ class ViewMatcherImplTest {
         assertFalse(underTest.match(CONTENT_VIEW));
     }
 
-    @SuppressWarnings("unused")
     @Test
     void shouldFAilOnNullMatchList() {
         assertThrows(NullPointerException.class, () -> new ViewMatcherImpl(null));

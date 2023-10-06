@@ -29,7 +29,6 @@ import de.cuioss.uimodel.application.CuiProjectStage;
 @VerifyComponentProperties(of = { "contentKey", "contentValue", "contentEscape", "contentConverter" })
 class ContentProviderImplTest extends AbstractPartialComponentTest {
 
-    @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
         assertThrows(NullPointerException.class, () -> new ContentProvider(null));

@@ -88,7 +88,6 @@ class ColumnProviderImplTest extends AbstractComponentTest<MockPartialComponent>
         assertThrows(NullPointerException.class, () -> underTest.resolveColumnCss());
     }
 
-    @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
         assertThrows(NullPointerException.class, () -> new ColumnProvider(null));

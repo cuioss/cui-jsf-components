@@ -47,8 +47,6 @@ import de.cuioss.tools.string.MoreStrings;
 
 @ResourceDependency(library = "thirdparty.js", name = "selectize.js", target = "head")
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.TAG_COMPONENT_RENDERER)
-@SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                              // controlled by JSF
 public class TagRenderer extends BaseDecoratorRenderer<TagComponent> {
 
     /**

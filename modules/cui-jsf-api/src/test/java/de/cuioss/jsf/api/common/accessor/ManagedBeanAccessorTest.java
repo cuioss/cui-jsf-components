@@ -67,13 +67,11 @@ class ManagedBeanAccessorTest extends JsfEnabledTestEnvironment {
         assertEquals(FIRST_BEAN, underTest.getValue());
     }
 
-    @SuppressWarnings("unused")
     @Test
     void shouldFailOnEmptyIdentifier() {
         assertThrows(NullPointerException.class, () -> new ManagedBeanAccessor<>("", String.class, false));
     }
 
-    @SuppressWarnings("unused")
     @Test
     void testShouldFailOnNullClassParameter() {
         assertThrows(NullPointerException.class, () -> new ManagedBeanAccessor<>(BEAN_IDENTIFIER, null, false));

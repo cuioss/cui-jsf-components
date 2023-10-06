@@ -30,7 +30,6 @@ import de.cuioss.test.jsf.mocks.ReverseConverter;
 @VerifyComponentProperties(of = { "footerKey", "footerValue", "footerConverter", "footerEscape" })
 class FooterProviderImplTest extends AbstractPartialComponentTest {
 
-    @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
         assertThrows(NullPointerException.class, () -> new FooterProvider(null));

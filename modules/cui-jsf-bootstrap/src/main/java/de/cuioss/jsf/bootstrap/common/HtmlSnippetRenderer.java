@@ -41,8 +41,6 @@ public final class HtmlSnippetRenderer {
      * @param dataDismissAttribute
      * @throws IOException
      */
-    @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                                  // controlled by JSF
     public static void renderCloseButton(final DecoratingResponseWriter<? extends UIComponent> writer,
             final String dataDismissAttribute) throws IOException {
         writer.withStartElement(Node.BUTTON);

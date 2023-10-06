@@ -32,8 +32,6 @@ import lombok.Getter;
  *
  * @author Oliver Wolff
  */
-@SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                              // controlled by JSF
 public class ConditionalResponseWriter extends ResponseWriterWrapper {
 
     @Getter

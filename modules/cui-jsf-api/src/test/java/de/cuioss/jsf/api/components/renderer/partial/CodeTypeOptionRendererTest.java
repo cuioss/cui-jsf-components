@@ -49,7 +49,6 @@ class CodeTypeOptionRendererTest extends JsfEnabledTestEnvironment {
 
     private DecoratingResponseWriter<UIComponent> responseWriter;
 
-    @SuppressWarnings("resource")
     @BeforeEach
     void before() {
         output = new StringWriter();

@@ -19,7 +19,6 @@ import de.cuioss.jsf.api.components.util.ComponentModifier;
 import lombok.Getter;
 import lombok.Setter;
 
-@SuppressWarnings("javadoc")
 public class ParentDecoratorDummy extends AbstractParentDecorator {
 
     @Getter

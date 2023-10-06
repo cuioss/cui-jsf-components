@@ -30,7 +30,6 @@ import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.test.jsf.renderer.AbstractRendererTestBase;
 
-@SuppressWarnings({ "resource" })
 class BaseDecoratorRendererTest extends AbstractRendererTestBase<MockDecoratorRenderer> {
 
     @Override

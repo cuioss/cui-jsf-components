@@ -22,7 +22,6 @@ import javax.faces.context.FacesContext;
 
 import de.cuioss.jsf.api.components.html.Node;
 
-@SuppressWarnings({ "javadoc", "resource" })
 public class MockDecoratorRenderer extends BaseDecoratorRenderer<HtmlInputText> {
 
     public MockDecoratorRenderer(final boolean renderChildren) {

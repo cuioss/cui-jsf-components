@@ -22,7 +22,6 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
-@SuppressWarnings("javadoc")
 @FacesConverter("TestConverterWithException")
 public class TestConverterWithException implements Converter<String> {
 

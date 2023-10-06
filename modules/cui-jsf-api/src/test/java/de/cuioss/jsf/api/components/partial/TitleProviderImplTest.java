@@ -30,7 +30,6 @@ import de.cuioss.test.jsf.mocks.ReverseConverter;
 @VerifyComponentProperties(of = { "titleKey", "titleValue", "titleConverter" })
 class TitleProviderImplTest extends AbstractPartialComponentTest {
 
-    @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
         assertThrows(NullPointerException.class, () -> new TitleProviderImpl(null));

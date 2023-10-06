@@ -25,7 +25,6 @@ import javax.faces.component.html.HtmlPanelGroup;
 
 import de.cuioss.jsf.api.components.util.ComponentModifier;
 
-@SuppressWarnings({ "javadoc" })
 public class ComponentModifierAssert {
 
     public static void assertContracts(final ComponentModifier componentModifier, final UIComponent uiComponent) {

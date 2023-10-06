@@ -26,7 +26,6 @@ import de.cuioss.uimodel.model.conceptkey.impl.BaseConceptCategory;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-@SuppressWarnings("javadoc")
 @EqualsAndHashCode
 @ToString(callSuper = true)
 public class TestConceptKey implements ConceptKeyType {

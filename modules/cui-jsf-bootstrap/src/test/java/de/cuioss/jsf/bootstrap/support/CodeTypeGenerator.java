@@ -20,7 +20,6 @@ import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.uimodel.model.code.CodeType;
 import de.cuioss.uimodel.model.code.CodeTypeImpl;
 
-@SuppressWarnings("javadoc")
 public class CodeTypeGenerator implements TypedGenerator<CodeType> {
 
     private final TypedGenerator<String> strings = Generators.letterStrings(1, 10);

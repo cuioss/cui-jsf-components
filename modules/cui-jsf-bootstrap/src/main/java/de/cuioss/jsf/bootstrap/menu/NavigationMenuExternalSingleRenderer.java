@@ -49,8 +49,6 @@ import lombok.experimental.UtilityClass;
  * @author Matthias Walliczek
  */
 @UtilityClass
-@SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                              // controlled by JSF
 public class NavigationMenuExternalSingleRenderer {
 
     /**

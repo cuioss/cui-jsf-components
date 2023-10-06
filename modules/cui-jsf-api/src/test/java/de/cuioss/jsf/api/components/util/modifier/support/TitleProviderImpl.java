@@ -23,7 +23,6 @@ import de.cuioss.jsf.api.components.partial.TitleProvider;
 import lombok.Getter;
 import lombok.Setter;
 
-@SuppressWarnings("javadoc")
 public class TitleProviderImpl extends UIComponentBase implements TitleProvider {
 
     @Getter

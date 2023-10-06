@@ -30,8 +30,6 @@ import de.cuioss.jsf.components.CuiFamily;
  *
  */
 @FacesRenderer(rendererType = CuiFamily.FIELDSET_RENDERER, componentFamily = CuiFamily.COMPONENT_FAMILY)
-@SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                              // controlled by JSF
 public class FieldsetRenderer extends BaseDecoratorRenderer<FieldsetComponent> {
 
     /**

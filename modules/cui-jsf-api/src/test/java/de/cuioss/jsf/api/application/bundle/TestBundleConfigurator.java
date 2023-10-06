@@ -23,7 +23,6 @@ import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.jsf.config.ApplicationConfigurator;
 import de.cuioss.test.jsf.config.decorator.ApplicationConfigDecorator;
 
-@SuppressWarnings("javadoc")
 public class TestBundleConfigurator implements ApplicationConfigurator, TypedGenerator<ResourceBundleWrapper> {
 
     public static final String TEST_BUNDLE_BASE_PATH = "de.cuioss.jsf.components.bundle.";

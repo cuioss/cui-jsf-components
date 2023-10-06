@@ -28,7 +28,6 @@ import lombok.ToString;
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
-@SuppressWarnings("javadoc")
 public class TestObject1 extends JsObject {
 
     /** serial Version UID */

@@ -18,7 +18,7 @@ package de.cuioss.jsf.api.common.accessor;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.jsf.generator.JsfProvidedConverter;
 
-@SuppressWarnings({ "javadoc", "rawtypes" })
+@SuppressWarnings({ "rawtypes" })
 public class ConverterTargetClassesGenerator implements TypedGenerator<Class> {
 
     @Override

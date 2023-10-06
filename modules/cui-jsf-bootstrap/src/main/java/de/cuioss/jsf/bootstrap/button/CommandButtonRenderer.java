@@ -93,8 +93,6 @@ public class CommandButtonRenderer extends BaseDecoratorRenderer<CommandButton> 
     }
 
     @Override
-    @SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                                  // controlled by JSF
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<CommandButton> writer,
             final CommandButton component) throws IOException {
         writer.withEndElement(Node.BUTTON);

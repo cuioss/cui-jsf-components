@@ -34,7 +34,6 @@ class AjaxProviderTest extends AbstractPartialComponentTest {
     private static final String DEFAULT_UPDATE_KEY = AjaxProvider.DATA_CUI_AJAX + AjaxProvider.UPDATE_KEY;
     private static final String DEFAULT_PROCESS_KEY = AjaxProvider.DATA_CUI_AJAX + AjaxProvider.PROCESS_KEY;
 
-    @SuppressWarnings("unused")
     @Test
     void shouldFailWithNullConstructor() {
         assertThrows(NullPointerException.class, () -> new AjaxProvider(null));

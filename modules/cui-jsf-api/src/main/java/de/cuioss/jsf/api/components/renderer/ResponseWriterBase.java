@@ -41,8 +41,6 @@ import lombok.RequiredArgsConstructor;
  * {@link DecoratingResponseWriter}. It defines a fluent api.
  */
 @RequiredArgsConstructor
-@SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                              // controlled by JSF
 public class ResponseWriterBase extends ResponseWriterWrapper {
 
     @Getter

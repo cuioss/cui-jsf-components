@@ -39,8 +39,6 @@ import de.cuioss.jsf.bootstrap.notification.NotificationBoxComponent;
  * Renderer for {@linkplain LazyLoadingComponent}.
  */
 @FacesRenderer(rendererType = BootstrapFamily.LAZYLOADING_RENDERER, componentFamily = BootstrapFamily.COMPONENT_FAMILY)
-@SuppressWarnings("resource") // owolff: No resource leak, because the actual response-writer is
-                              // controlled by JSF
 public class LazyLoadingRenderer extends BaseDecoratorRenderer<LazyLoadingComponent> {
 
     private static final String DATA_LAZY_LOADING_CONTENT = "data-lazyloading-content";
