@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.cuioss.jsf.api.application.locale;
+package de.cuioss.jsf.api.common.accessor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -21,6 +21,7 @@ import java.util.Locale;
 
 import org.junit.jupiter.api.Test;
 
+import de.cuioss.jsf.api.common.accessor.LocaleAccessor;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.defaults.BasicApplicationConfiguration;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;

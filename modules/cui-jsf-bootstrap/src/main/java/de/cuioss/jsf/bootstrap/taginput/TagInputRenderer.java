@@ -27,7 +27,7 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.context.FacesContext;
 import javax.faces.render.FacesRenderer;
 
-import de.cuioss.jsf.api.application.locale.LocaleAccessor;
+import de.cuioss.jsf.api.common.accessor.LocaleAccessor;
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.jsf.api.components.css.ContextSize;
 import de.cuioss.jsf.api.components.css.ContextState;
