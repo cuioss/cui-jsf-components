@@ -30,7 +30,7 @@
     </issueManagement>
     <properties>
         <version.cui.parent>0.4.2</version.cui.parent>
-        <version.primefaces>13.0.0</version.primefaces>
+        <version.primefaces>13.0.1</version.primefaces>
         <!-- Neede for js / css -->
         <version.nodejs>v18.16.0</version.nodejs>
     </properties>
