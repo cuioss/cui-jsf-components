@@ -40,13 +40,13 @@ import javax.faces.context.FacesContext;
  */
 public interface ManagedAccessor<T> extends Serializable {
 
-	/**
-	 * Accesses the managed value.
-	 *
-	 * @return the managed value.
-	 * @throws IllegalStateException may occur in corner cases, where
-	 *                               {@link FacesContext} is not initialized
-	 *                               properly
-	 */
-	T getValue();
+    /**
+     * Accesses the managed value.
+     *
+     * @return the managed value.
+     * @throws IllegalStateException may occur in corner cases, where
+     *                               {@link FacesContext} is not initialized
+     *                               properly
+     */
+    T getValue();
 }

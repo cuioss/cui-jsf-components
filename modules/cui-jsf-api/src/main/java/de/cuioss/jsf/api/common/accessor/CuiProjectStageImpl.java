@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.cuioss.jsf.api.application.projectstage;
+package de.cuioss.jsf.api.common.accessor;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.ProjectStage;
 import javax.faces.context.FacesContext;
 
@@ -34,7 +33,7 @@ import lombok.ToString;
  */
 @EqualsAndHashCode
 @ToString
-public class CuiProjectStageImpl implements CuiProjectStage {
+class CuiProjectStageImpl implements CuiProjectStage {
 
     private static final long serialVersionUID = -2464134252511225231L;
 
@@ -53,8 +52,7 @@ public class CuiProjectStageImpl implements CuiProjectStage {
     /**
      * Initializes the bean. See class documentation for expected result.
      */
-    @PostConstruct
-    public void initBean() {
+    void initBean() {
         var projectStage = FacesContext.getCurrentInstance().getApplication().getProjectStage();
         development = ProjectStage.Development.equals(projectStage);
         test = ProjectStage.SystemTest.equals(projectStage);

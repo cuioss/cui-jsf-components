@@ -29,8 +29,6 @@ import javax.faces.application.ProjectStage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.api.application.projectstage.CuiProjectStageAccessor;
-import de.cuioss.jsf.api.application.projectstage.CuiProjectStageImpl;
 import de.cuioss.jsf.api.application.resources.impl.CuiResourceConfigurationImpl;
 import de.cuioss.test.generator.internal.net.java.quickcheck.generator.support.IntegerGenerator;
 import de.cuioss.test.generator.junit.EnableGeneratorController;
@@ -62,16 +60,11 @@ class CuiResourceHandlerTest extends JsfEnabledTestEnvironment {
 
     private CuiMockResourceHandler mockResourceHandler;
 
-    private CuiProjectStageImpl projectStageProducer;
-
     @BeforeEach
     void setUpHandlerTest() {
-        projectStageProducer = new CuiProjectStageImpl();
-        projectStageProducer.initBean();
-        getBeanConfigDecorator().register(new CuiProjectStageImpl(), CuiProjectStageAccessor.BEAN_NAME);
         setupResourceHandlerMock();
-        underTest = new CuiResourceHandler(mockResourceHandler);
         getApplicationConfigDecorator().setProjectStage(ProjectStage.Production);
+        underTest = new CuiResourceHandler(mockResourceHandler);
         createResourceConfiguration();
         createResourceManager();
     }
@@ -113,12 +106,11 @@ class CuiResourceHandlerTest extends JsfEnabledTestEnvironment {
     @Test
     void testCreateResourceDevelopment() {
         getApplicationConfigDecorator().setProjectStage(ProjectStage.Development);
-        projectStageProducer.initBean();
         underTest = new CuiResourceHandler(mockResourceHandler);
         var resource = underTest.createResource(STYLE_CSS, CSS);
         assertNotNull(resource);
         assertEquals(CSS, resource.getLibraryName());
-        assertEquals(STYLE_MIN_CSS, resource.getResourceName());
+        assertEquals(STYLE_CSS, resource.getResourceName());
     }
 
     @Test

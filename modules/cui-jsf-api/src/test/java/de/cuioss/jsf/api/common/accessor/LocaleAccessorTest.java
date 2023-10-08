@@ -21,7 +21,6 @@ import java.util.Locale;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.api.common.accessor.LocaleAccessor;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.defaults.BasicApplicationConfiguration;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
@@ -31,12 +30,12 @@ import de.cuioss.test.valueobjects.api.property.PropertyReflectionConfig;
 @PropertyReflectionConfig(skip = true)
 class LocaleAccessorTest extends JsfEnabledTestEnvironment {
 
-	@Test
-	void shouldProvideLocale() {
-		var producer = new LocaleAccessor();
-		assertEquals(Locale.ENGLISH, producer.getValue());
-		// Access cached Value
-		assertEquals(Locale.ENGLISH, producer.getValue());
-	}
+    @Test
+    void shouldProvideLocale() {
+        var producer = new LocaleAccessor();
+        assertEquals(Locale.ENGLISH, producer.getValue());
+        // Access cached Value
+        assertEquals(Locale.ENGLISH, producer.getValue());
+    }
 
 }

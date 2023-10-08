@@ -29,9 +29,9 @@ import de.cuioss.uimodel.nameprovider.CodeTypeDisplayNameProvider;
 @FacesConverter(forClass = CodeTypeDisplayNameProvider.class)
 public class CodeTypeDisplayNameProviderConverter extends AbstractConverter<CodeTypeDisplayNameProvider> {
 
-	@Override
-	protected String convertToString(FacesContext context, UIComponent component, CodeTypeDisplayNameProvider value)
-			throws ConverterException {
-		return COMPLEX_HTML.apply(value.getContent().getResolved(new LocaleAccessor().getValue()));
-	}
+    @Override
+    protected String convertToString(FacesContext context, UIComponent component, CodeTypeDisplayNameProvider value)
+            throws ConverterException {
+        return COMPLEX_HTML.apply(value.getContent().getResolved(new LocaleAccessor().getValue()));
+    }
 }

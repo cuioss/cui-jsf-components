@@ -214,7 +214,7 @@ public final class NavigationUtils implements Serializable {
      */
     public static void sendRedirectParameterList(final FacesContext facesContext, final String url,
             final List<UrlParameter> parameterList) {
-        if ((parameterList != null) && !parameterList.isEmpty()) {
+        if (parameterList != null && !parameterList.isEmpty()) {
             final var parameters = parameterList.toArray(new UrlParameter[parameterList.size()]);
             sendRedirect(facesContext, url, true, parameters);
         } else {

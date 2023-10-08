@@ -19,12 +19,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import javax.faces.application.ProjectStage;
+
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.api.application.projectstage.CuiProjectStageAccessor;
 import de.cuioss.jsf.api.converter.FallbackSanitizingConverter;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
-import de.cuioss.uimodel.application.CuiProjectStage;
 
 @VerifyComponentProperties(of = { "contentKey", "contentValue", "contentEscape", "contentConverter" })
 class ContentProviderImplTest extends AbstractPartialComponentTest {
@@ -55,30 +55,7 @@ class ContentProviderImplTest extends AbstractPartialComponentTest {
 
     @Test
     void shouldSanitizeWithFallback() {
-        getBeanConfigDecorator().register(new CuiProjectStage() {
-
-            private static final long serialVersionUID = 5774194992001533462L;
-
-            @Override
-            public boolean isDevelopment() {
-                return true;
-            }
-
-            @Override
-            public boolean isTest() {
-                return false;
-            }
-
-            @Override
-            public boolean isConfiguration() {
-                return false;
-            }
-
-            @Override
-            public boolean isProduction() {
-                return false;
-            }
-        }, CuiProjectStageAccessor.BEAN_NAME);
+        getApplicationConfigDecorator().setProjectStage(ProjectStage.Development);
         var any = anyComponent();
         any.setContentValue("<script>");
         any.setContentEscape(false);
