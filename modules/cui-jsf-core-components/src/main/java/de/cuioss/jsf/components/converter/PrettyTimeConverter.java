@@ -32,7 +32,7 @@ import javax.faces.convert.FacesConverter;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
-import de.cuioss.jsf.api.application.locale.LocaleAccessor;
+import de.cuioss.jsf.api.common.accessor.LocaleAccessor;
 import de.cuioss.jsf.api.converter.AbstractConverter;
 
 /**

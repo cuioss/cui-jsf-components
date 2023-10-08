@@ -22,7 +22,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
-import de.cuioss.jsf.api.application.locale.LocaleAccessor;
+import de.cuioss.jsf.api.common.accessor.LocaleAccessor;
 import de.cuioss.jsf.api.converter.AbstractConverter;
 import de.cuioss.tools.string.Joiner;
 import de.cuioss.uimodel.model.code.CodeType;

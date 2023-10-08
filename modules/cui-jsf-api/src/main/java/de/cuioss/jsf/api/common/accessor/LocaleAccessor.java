@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.cuioss.jsf.api.application.locale;
+package de.cuioss.jsf.api.common.accessor;
 
 import java.util.Locale;
 
 import javax.faces.application.ViewHandler;
 import javax.faces.context.FacesContext;
-
-import de.cuioss.jsf.api.common.accessor.ManagedAccessor;
 
 /**
  * Determines the current active user-locale. It uses the {@link ViewHandler}

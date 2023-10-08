@@ -24,7 +24,7 @@ import javax.faces.render.FacesRenderer;
 import javax.faces.render.Renderer;
 import javax.faces.view.facelets.Tag;
 
-import de.cuioss.jsf.api.application.locale.LocaleAccessor;
+import de.cuioss.jsf.api.common.accessor.LocaleAccessor;
 import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
