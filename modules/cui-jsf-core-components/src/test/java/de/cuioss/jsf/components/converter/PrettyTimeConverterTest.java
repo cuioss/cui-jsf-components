@@ -21,22 +21,22 @@ import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
-import de.cuioss.jsf.test.mock.application.LocaleProducerMock;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
+import de.cuioss.test.jsf.defaults.BasicApplicationConfiguration;
 
-@JsfTestConfiguration(LocaleProducerMock.class)
+@JsfTestConfiguration(BasicApplicationConfiguration.class)
 class PrettyTimeConverterTest extends AbstractConverterTest<PrettyTimeConverter, Object> {
 
-    private static final String MOMENTS_AGO = "moments ago";
+	private static final String MOMENTS_AGO = "moments ago";
 
-    @Override
-    public void populate(final TestItems<Object> testItems) {
-        testItems.addValidObjectWithStringResult(new Date(System.currentTimeMillis() - 10000), MOMENTS_AGO)
-                .addInvalidObject(2).addValidObjectWithStringResult(Calendar.getInstance(), MOMENTS_AGO)
-                .addValidObject(LocalDate.now()).addValidObject(ZonedDateTime.now())
-                .addValidObjectWithStringResult(LocalDateTime.now().minusSeconds(10), MOMENTS_AGO);
-    }
+	@Override
+	public void populate(final TestItems<Object> testItems) {
+		testItems.addValidObjectWithStringResult(new Date(System.currentTimeMillis() - 10000), MOMENTS_AGO)
+				.addInvalidObject(2).addValidObjectWithStringResult(Calendar.getInstance(), MOMENTS_AGO)
+				.addValidObject(LocalDate.now()).addValidObject(ZonedDateTime.now())
+				.addValidObjectWithStringResult(LocalDateTime.now().minusSeconds(10), MOMENTS_AGO);
+	}
 
 }

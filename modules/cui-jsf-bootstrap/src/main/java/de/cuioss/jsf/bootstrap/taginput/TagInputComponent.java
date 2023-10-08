@@ -36,7 +36,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
-import de.cuioss.jsf.api.application.locale.LocaleProducerAccessor;
+import de.cuioss.jsf.api.application.locale.LocaleAccessor;
 import de.cuioss.jsf.api.components.base.BaseCuiHtmlInputComponent;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.css.StyleClassResolver;
@@ -93,283 +93,281 @@ import lombok.experimental.Delegate;
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
 public class TagInputComponent extends BaseCuiHtmlInputComponent implements StyleClassResolver {
 
-    private static final CuiLogger log = new CuiLogger(TagInputComponent.class);
+	private static final CuiLogger log = new CuiLogger(TagInputComponent.class);
 
-    private static final Integer DEFAULT_MAX_ITEMS = 10;
+	private static final Integer DEFAULT_MAX_ITEMS = 10;
 
-    /** Partial elements. */
-    @Delegate
-    private final DisabledComponentProvider disabledProvider;
+	/** Partial elements. */
+	@Delegate
+	private final DisabledComponentProvider disabledProvider;
 
-    /** Component specific Keys. */
-    private static final String SOURCE_SET_KEY = "sourceSet";
-    private static final String CLIENT_CREATED_KEY = "clientCreated";
-    private static final String USER_CREATE_TAGS_KEY = "letUserCreateTags";
-    private static final String MAX_ITEMS_KEY = "maxItems";
-    private static final String DELIMITER_KEY = "delimiter";
-    private static final String ITEM_CONVERTER_ID_KEY = "itemConverterId";
-    private static final String REMOVE_BUTTON_KEY = "displayRemoveButton";
+	/** Component specific Keys. */
+	private static final String SOURCE_SET_KEY = "sourceSet";
+	private static final String CLIENT_CREATED_KEY = "clientCreated";
+	private static final String USER_CREATE_TAGS_KEY = "letUserCreateTags";
+	private static final String MAX_ITEMS_KEY = "maxItems";
+	private static final String DELIMITER_KEY = "delimiter";
+	private static final String ITEM_CONVERTER_ID_KEY = "itemConverterId";
+	private static final String REMOVE_BUTTON_KEY = "displayRemoveButton";
 
-    /**
-     * Style class for the Selectize wrapper to indicate that it is allowed to
-     * create new tags
-     */
-    static final String CSS_CLASS_CAN_CREATE = "selectize-cancreate";
+	/**
+	 * Style class for the Selectize wrapper to indicate that it is allowed to
+	 * create new tags
+	 */
+	static final String CSS_CLASS_CAN_CREATE = "selectize-cancreate";
 
-    /**
-     * Style class for the Selectize wrapper to indicate that it is not allowed to
-     * create new tags
-     */
-    static final String CSS_CLASS_CANNOT_CREATE = "selectize-cannotcreate";
+	/**
+	 * Style class for the Selectize wrapper to indicate that it is not allowed to
+	 * create new tags
+	 */
+	static final String CSS_CLASS_CANNOT_CREATE = "selectize-cannotcreate";
 
-    private final LocaleProducerAccessor localeProducerAccessor = new LocaleProducerAccessor();
+	private final LocaleAccessor localeAccessor = new LocaleAccessor();
 
-    private final CuiState state;
+	private final CuiState state;
 
-    /**
-     *
-     */
-    public TagInputComponent() {
-        disabledProvider = new DisabledComponentProvider(this);
-        setRendererType(BootstrapFamily.TAG_INPUT_COMPONENT_RENDERER);
-        super.setConverter(new ConceptKeyStringConverter());
-        state = new CuiState(getStateHelper());
-    }
+	/**
+	 *
+	 */
+	public TagInputComponent() {
+		disabledProvider = new DisabledComponentProvider(this);
+		setRendererType(BootstrapFamily.TAG_INPUT_COMPONENT_RENDERER);
+		super.setConverter(new ConceptKeyStringConverter());
+		state = new CuiState(getStateHelper());
+	}
 
-    @Override
-    public String getFamily() {
-        return BootstrapFamily.COMPONENT_FAMILY;
-    }
+	@Override
+	public String getFamily() {
+		return BootstrapFamily.COMPONENT_FAMILY;
+	}
 
-    /**
-     * @return the sourceList
-     */
-    public Set<ConceptKeyType> getSourceSet() {
-        return state.get(SOURCE_SET_KEY, Collections.<ConceptKeyType>emptySet());
-    }
+	/**
+	 * @return the sourceList
+	 */
+	public Set<ConceptKeyType> getSourceSet() {
+		return state.get(SOURCE_SET_KEY, Collections.<ConceptKeyType>emptySet());
+	}
 
-    /**
-     * @param sourceList the sourceList to set
-     */
-    public void setSourceSet(final Set<ConceptKeyType> sourceList) {
-        state.put(SOURCE_SET_KEY, sourceList);
-    }
+	/**
+	 * @param sourceList the sourceList to set
+	 */
+	public void setSourceSet(final Set<ConceptKeyType> sourceList) {
+		state.put(SOURCE_SET_KEY, sourceList);
+	}
 
-    /**
-     * @return the clientCreated
-     */
-    public Set<ConceptKeyType> getClientCreated() {
-        return state.get(CLIENT_CREATED_KEY, Collections.<ConceptKeyType>emptySet());
-    }
+	/**
+	 * @return the clientCreated
+	 */
+	public Set<ConceptKeyType> getClientCreated() {
+		return state.get(CLIENT_CREATED_KEY, Collections.<ConceptKeyType>emptySet());
+	}
 
-    /**
-     * @param displayRemoveButton the list of client created tags to set
-     */
-    public void setDisplayRemoveButton(final boolean displayRemoveButton) {
-        state.put(REMOVE_BUTTON_KEY, displayRemoveButton);
-    }
+	/**
+	 * @param displayRemoveButton the list of client created tags to set
+	 */
+	public void setDisplayRemoveButton(final boolean displayRemoveButton) {
+		state.put(REMOVE_BUTTON_KEY, displayRemoveButton);
+	}
 
-    /**
-     * @return true, if the remove button should be displayed on each tag
-     */
-    public boolean isDisplayRemoveButton() {
-        return state.getBoolean(REMOVE_BUTTON_KEY, true);
-    }
+	/**
+	 * @return true, if the remove button should be displayed on each tag
+	 */
+	public boolean isDisplayRemoveButton() {
+		return state.getBoolean(REMOVE_BUTTON_KEY, true);
+	}
 
-    /**
-     * @param clientCreated the list of client created tags to set
-     */
-    public void setClientCreated(final Set<ConceptKeyType> clientCreated) {
-        state.put(CLIENT_CREATED_KEY, clientCreated);
-    }
+	/**
+	 * @param clientCreated the list of client created tags to set
+	 */
+	public void setClientCreated(final Set<ConceptKeyType> clientCreated) {
+		state.put(CLIENT_CREATED_KEY, clientCreated);
+	}
 
-    /**
-     * @return the letUserCreateTags
-     */
-    public boolean isLetUserCreateTags() {
-        return state.getBoolean(USER_CREATE_TAGS_KEY, true);
-    }
+	/**
+	 * @return the letUserCreateTags
+	 */
+	public boolean isLetUserCreateTags() {
+		return state.getBoolean(USER_CREATE_TAGS_KEY, true);
+	}
 
-    /**
-     * @param letUserCreateTags the letUserCreateTags to set
-     */
-    public void setLetUserCreateTags(final boolean letUserCreateTags) {
-        state.put(USER_CREATE_TAGS_KEY, letUserCreateTags);
-    }
+	/**
+	 * @param letUserCreateTags the letUserCreateTags to set
+	 */
+	public void setLetUserCreateTags(final boolean letUserCreateTags) {
+		state.put(USER_CREATE_TAGS_KEY, letUserCreateTags);
+	}
 
-    /**
-     * @return the maxItems
-     */
-    public int getMaxItems() {
-        return state.getInt(MAX_ITEMS_KEY, DEFAULT_MAX_ITEMS);
-    }
+	/**
+	 * @return the maxItems
+	 */
+	public int getMaxItems() {
+		return state.getInt(MAX_ITEMS_KEY, DEFAULT_MAX_ITEMS);
+	}
 
-    /**
-     * @param maxItems the maxItems to set
-     */
-    public void setMaxItems(final int maxItems) {
-        state.put(MAX_ITEMS_KEY, maxItems);
-    }
+	/**
+	 * @param maxItems the maxItems to set
+	 */
+	public void setMaxItems(final int maxItems) {
+		state.put(MAX_ITEMS_KEY, maxItems);
+	}
 
-    /**
-     * @return the delimiter
-     */
-    public String getDelimiter() {
-        return state.get(DELIMITER_KEY, JavaScriptOptions.OPTION_VALUE_DELIMITER);
-    }
+	/**
+	 * @return the delimiter
+	 */
+	public String getDelimiter() {
+		return state.get(DELIMITER_KEY, JavaScriptOptions.OPTION_VALUE_DELIMITER);
+	}
 
-    /**
-     * @param delimiter the delimiter to set
-     */
-    public void setDelimiter(final String delimiter) {
-        state.put(DELIMITER_KEY, delimiter);
-    }
+	/**
+	 * @param delimiter the delimiter to set
+	 */
+	public void setDelimiter(final String delimiter) {
+		state.put(DELIMITER_KEY, delimiter);
+	}
 
-    @Override
-    public void setConverter(final Converter converter) {
-        throw new UnsupportedOperationException("Component converter already set.");
-    }
+	@Override
+	public void setConverter(final Converter converter) {
+		throw new UnsupportedOperationException("Component converter already set.");
+	}
 
-    /**
-     * @param converterId
-     */
-    public void setItemConverterId(final String converterId) {
-        state.put(ITEM_CONVERTER_ID_KEY, converterId);
-    }
+	/**
+	 * @param converterId
+	 */
+	public void setItemConverterId(final String converterId) {
+		state.put(ITEM_CONVERTER_ID_KEY, converterId);
+	}
 
-    /**
-     * @return converterId
-     */
-    public String getItemConverterId() {
-        return state.get(ITEM_CONVERTER_ID_KEY);
-    }
+	/**
+	 * @return converterId
+	 */
+	public String getItemConverterId() {
+		return state.get(ITEM_CONVERTER_ID_KEY);
+	}
 
-    /**
-     * @return the resolved itemConverter
-     */
-    public Optional<Converter> getItemConverter() {
-        final var converterId = getItemConverterId();
-        if (!MoreStrings.isEmpty(converterId)) {
-            log.debug("Creating item converter with id: {}", converterId);
-            return Optional.ofNullable(facesContext().getApplication().createConverter(converterId));
-        }
-        return Optional.empty();
-    }
+	/**
+	 * @return the resolved itemConverter
+	 */
+	public Optional<Converter> getItemConverter() {
+		final var converterId = getItemConverterId();
+		if (!MoreStrings.isEmpty(converterId)) {
+			log.debug("Creating item converter with id: {}", converterId);
+			return Optional.ofNullable(facesContext().getApplication().createConverter(converterId));
+		}
+		return Optional.empty();
+	}
 
-    /**
-     * @return the {@link Set} of ConceptKeyType of
-     *         {@link TagHelper#getValueAsSet(Object...)} marked as undefined and
-     *         not part of {@link #getSourceSet()}.
-     */
-    Set<ConceptKeyType> getUndefinedValues() {
-        if (null == getValue()) {
-            return Collections.emptySet();
-        }
-        return getValue().stream().filter(AugmentationKeyConstans::isUndefinedValue).collect(Collectors.toSet());
-    }
+	/**
+	 * @return the {@link Set} of ConceptKeyType of
+	 *         {@link TagHelper#getValueAsSet(Object...)} marked as undefined and
+	 *         not part of {@link #getSourceSet()}.
+	 */
+	Set<ConceptKeyType> getUndefinedValues() {
+		if (null == getValue())
+			return Collections.emptySet();
+		return getValue().stream().filter(AugmentationKeyConstans::isUndefinedValue).collect(Collectors.toSet());
+	}
 
-    /**
-     * @return {@link java.util.SortedSet} of {@link ConceptKeyType}
-     */
-    @Override
-    public SortedSet<ConceptKeyType> getValue() {
-        return null != super.getValue() ? mutableSortedSet((Iterable) super.getValue()) : null;
-    }
+	/**
+	 * @return {@link java.util.SortedSet} of {@link ConceptKeyType}
+	 */
+	@Override
+	public SortedSet<ConceptKeyType> getValue() {
+		return null != super.getValue() ? mutableSortedSet((Iterable) super.getValue()) : null;
+	}
 
-    /**
-     * @param value {@link java.util.Set} of {@link ConceptKeyType}
-     * @throws IllegalArgumentException if value is not a {@link java.util.Set} of
-     *                                  {@link ConceptKeyType}
-     */
-    @Override
-    public void setValue(final Object value) {
-        checkValue(value);
-        super.setValue(value);
-    }
+	/**
+	 * @param value {@link java.util.Set} of {@link ConceptKeyType}
+	 * @throws IllegalArgumentException if value is not a {@link java.util.Set} of
+	 *                                  {@link ConceptKeyType}
+	 */
+	@Override
+	public void setValue(final Object value) {
+		checkValue(value);
+		super.setValue(value);
+	}
 
-    /**
-     * Ensure that <code>value</code> is a {@link java.util.Set} of
-     * {@link ConceptKeyType}.
-     *
-     * @param value to be checked
-     * @throws IllegalArgumentException if value is not a {@link java.util.Set} of
-     *                                  {@link ConceptKeyType}
-     */
-    private void checkValue(final Object value) {
-        if (null == value) {
-            return;
-        }
+	/**
+	 * Ensure that <code>value</code> is a {@link java.util.Set} of
+	 * {@link ConceptKeyType}.
+	 *
+	 * @param value to be checked
+	 * @throws IllegalArgumentException if value is not a {@link java.util.Set} of
+	 *                                  {@link ConceptKeyType}
+	 */
+	private void checkValue(final Object value) {
+		if (null == value)
+			return;
 
-        final var errorMessage = "value must be a java.util.Set of ConceptKeyType, but is: "
-                + value.getClass().getName();
+		final var errorMessage = "value must be a java.util.Set of ConceptKeyType, but is: "
+				+ value.getClass().getName();
 
-        checkArgument(value instanceof Set, errorMessage);
+		checkArgument(value instanceof Set, errorMessage);
 
-        final Set<?> collection = (Set<?>) value;
-        for (Object o : collection) {
-            checkArgument(o instanceof ConceptKeyType, errorMessage);
-        }
-    }
+		final Set<?> collection = (Set<?>) value;
+		for (Object o : collection) {
+			checkArgument(o instanceof ConceptKeyType, errorMessage);
+		}
+	}
 
-    @Override
-    protected Object getConvertedValue(final FacesContext context, final Object submittedValue)
-            throws ConverterException {
-        return new ConceptKeyStringConverter().getAsObject(context, this, (String) submittedValue);
-    }
+	@Override
+	protected Object getConvertedValue(final FacesContext context, final Object submittedValue)
+			throws ConverterException {
+		return new ConceptKeyStringConverter().getAsObject(context, this, (String) submittedValue);
+	}
 
-    @Override
-    public StyleClassBuilder resolveStyleClass() {
-        return getStyleClassBuilder().append(isLetUserCreateTags() ? CSS_CLASS_CAN_CREATE : CSS_CLASS_CANNOT_CREATE);
-    }
+	@Override
+	public StyleClassBuilder resolveStyleClass() {
+		return getStyleClassBuilder().append(isLetUserCreateTags() ? CSS_CLASS_CAN_CREATE : CSS_CLASS_CANNOT_CREATE);
+	}
 
-    @Override
-    public Map<String, Object> getPassThroughAttributes() {
-        final var attributes = super.getPassThroughAttributes(true);
-        attributes.put(PassthroughAttributes.SELECTIZE, !isDisabled()); // trigger for JS
-        attributes.put(PassthroughAttributes.CAN_CREATE, isLetUserCreateTags());
-        attributes.put(PassthroughAttributes.MAX_ITEMS, getMaxItems());
-        attributes.put(PassthroughAttributes.DELIMITER, getDelimiter());
-        attributes.put(PassthroughAttributes.WRAPPER_CLASS,
-                resolveStyleClass().append(OPTION_VALUE_DEFAULT_WRAPPER).getStyleClass());
-        attributes.put(PassthroughAttributes.REMOVE_BUTTON, isDisplayRemoveButton());
-        attributes.put(PassthroughAttributes.PERSIST, Boolean.FALSE);
-        attributes.put(PassthroughAttributes.OPTIONS, getOptions());
-        return attributes;
-    }
+	@Override
+	public Map<String, Object> getPassThroughAttributes() {
+		final var attributes = super.getPassThroughAttributes(true);
+		attributes.put(PassthroughAttributes.SELECTIZE, !isDisabled()); // trigger for JS
+		attributes.put(PassthroughAttributes.CAN_CREATE, isLetUserCreateTags());
+		attributes.put(PassthroughAttributes.MAX_ITEMS, getMaxItems());
+		attributes.put(PassthroughAttributes.DELIMITER, getDelimiter());
+		attributes.put(PassthroughAttributes.WRAPPER_CLASS,
+				resolveStyleClass().append(OPTION_VALUE_DEFAULT_WRAPPER).getStyleClass());
+		attributes.put(PassthroughAttributes.REMOVE_BUTTON, isDisplayRemoveButton());
+		attributes.put(PassthroughAttributes.PERSIST, Boolean.FALSE);
+		attributes.put(PassthroughAttributes.OPTIONS, getOptions());
+		return attributes;
+	}
 
-    private String getOptions() {
-        final SortedSet<ConceptKeyType> source = mutableSortedSet(getSourceSet());
-        source.addAll(getClientCreated());
-        source.addAll(getUndefinedValues());
-        final var options = buildOptionElements(source);
-        return (JavaScriptOptions.SQUARE_BRACKETS_WRAPPER).formatted(options);
-    }
+	private String getOptions() {
+		final SortedSet<ConceptKeyType> source = mutableSortedSet(getSourceSet());
+		source.addAll(getClientCreated());
+		source.addAll(getUndefinedValues());
+		final var options = buildOptionElements(source);
+		return JavaScriptOptions.SQUARE_BRACKETS_WRAPPER.formatted(options);
+	}
 
-    @Override
-    public Map<String, Object> getPassThroughAttributes(final boolean create) {
-        return getPassThroughAttributes();
-    }
+	@Override
+	public Map<String, Object> getPassThroughAttributes(final boolean create) {
+		return getPassThroughAttributes();
+	}
 
-    private String buildOptionElements(final SortedSet<ConceptKeyType> codeTypes) {
-        final List<String> optionElements = new ArrayList<>();
-        final var locale = localeProducerAccessor.getValue().getLocale();
-        for (final ConceptKeyType codeType : codeTypes) {
-            final String label;
-            if (getItemConverter().isPresent()) {
-                // getItemConverter().get().getAsString(facesContext(), this, codeType);
-                label = codeType.getResolved(locale);
-            } else {
-                label = CuiSanitizer.PLAIN_TEXT.apply(codeType.getResolved(locale));
-            }
-            final var identifier = Hex.encodeHexString(codeType.getIdentifier().getBytes());
-            optionElements.add(buildOptionElement(label, identifier));
-        }
-        return Joiner.on(JavaScriptOptions.OPTION_VALUE_DELIMITER).join(optionElements);
-    }
+	private String buildOptionElements(final SortedSet<ConceptKeyType> codeTypes) {
+		final List<String> optionElements = new ArrayList<>();
+		final var locale = localeAccessor.getValue();
+		for (final ConceptKeyType codeType : codeTypes) {
+			final String label;
+			if (getItemConverter().isPresent()) {
+				// getItemConverter().get().getAsString(facesContext(), this, codeType);
+				label = codeType.getResolved(locale);
+			} else {
+				label = CuiSanitizer.PLAIN_TEXT.apply(codeType.getResolved(locale));
+			}
+			final var identifier = Hex.encodeHexString(codeType.getIdentifier().getBytes());
+			optionElements.add(buildOptionElement(label, identifier));
+		}
+		return Joiner.on(JavaScriptOptions.OPTION_VALUE_DELIMITER).join(optionElements);
+	}
 
-    private static String buildOptionElement(final String label, final String identifier) {
-        return new StringBuilder().append("{\"").append(OPTION_VALUE_LABEL_KEY).append("\":\"").append(label)
-                .append("\",\"").append(OPTION_VALUE_VALUE_KEY).append("\":\"").append(identifier).append("\"}")
-                .toString();
-    }
+	private static String buildOptionElement(final String label, final String identifier) {
+		return new StringBuilder().append("{\"").append(OPTION_VALUE_LABEL_KEY).append("\":\"").append(label)
+				.append("\",\"").append(OPTION_VALUE_VALUE_KEY).append("\":\"").append(identifier).append("\"}")
+				.toString();
+	}
 }
