@@ -234,7 +234,7 @@ public class InputGuardComponent extends BaseCuiHtmlHiddenInputComponent impleme
 
         if (areAllTrue(newValueBoolean, getResetInputValue())) {
             var forComponent = getParentContainer(this).findRelatedComponentModifier();
-            if ((null != forComponent) && forComponent.isSupportsResetValue()) {
+            if (null != forComponent && forComponent.isSupportsResetValue()) {
                 forComponent.resetValue();
             }
         }

@@ -22,9 +22,9 @@ import de.cuioss.uimodel.model.code.CodeTypeImpl;
 
 class CodeTypeDisplayConverterTest extends AbstractConverterTest<CodeTypeDisplayConverter, CodeType> {
 
-	@Override
-	public void populate(final TestItems<CodeType> testItems) {
-		testItems.addValidObjectWithStringResult(new CodeTypeImpl("1"), "1");
-	}
+    @Override
+    public void populate(final TestItems<CodeType> testItems) {
+        testItems.addValidObjectWithStringResult(new CodeTypeImpl("1"), "1");
+    }
 
 }

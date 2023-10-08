@@ -65,31 +65,31 @@ import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.TAG_LIST_COMPONENT_RENDERER)
 public class TagListRenderer extends BaseDecoratorRenderer<TagListComponent> {
 
-	/**
-	 *
-	 */
-	public TagListRenderer() {
-		super(true);
-	}
+    /**
+     *
+     */
+    public TagListRenderer() {
+        super(true);
+    }
 
-	@Override
-	protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<TagListComponent> writer,
-			final TagListComponent component) throws IOException {
-		TagHelper.writeDisabled(context, writer, createTagChildren(component), component.getStyle(),
-				component.getStyleClass());
-	}
+    @Override
+    protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<TagListComponent> writer,
+            final TagListComponent component) throws IOException {
+        TagHelper.writeDisabled(context, writer, createTagChildren(component), component.getStyle(),
+                component.getStyleClass());
+    }
 
-	/**
-	 * @param component
-	 * @return
-	 */
-	private static List<TagComponent> createTagChildren(final TagListComponent component) {
-		final var contextSize = component.getSize();
-		final var contextState = component.getState();
-		final var locale = new LocaleAccessor().getValue();
-		final var contentEscape = component.getContentEscape();
+    /**
+     * @param component
+     * @return
+     */
+    private static List<TagComponent> createTagChildren(final TagListComponent component) {
+        final var contextSize = component.getSize();
+        final var contextState = component.getState();
+        final var locale = new LocaleAccessor().getValue();
+        final var contentEscape = component.getContentEscape();
 
-		return TagHelper.createFromConceptKeys(TagHelper.getValueAsSet(component.getValue()), locale, contentEscape,
-				contextSize, contextState);
-	}
+        return TagHelper.createFromConceptKeys(TagHelper.getValueAsSet(component.getValue()), locale, contentEscape,
+                contextSize, contextState);
+    }
 }

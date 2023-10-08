@@ -91,7 +91,7 @@ class SourceCodeComponentRendererTest extends AbstractComponentRendererTest<Sour
         expected.withNode(Node.BUTTON).withAttributeNameAndId(COPY_BUTTON_ID)
                 .withStyleClass(SourceCodeComponentRenderer.COPY_BTN_CLASS)
                 .withAttribute(AttributeName.JS_ON_CLICK,
-                        (SourceCodeComponentRenderer.COPY_ON_CLICK_HANDLER).formatted(TEXT_AREA_ID, COPY_BUTTON_ID))
+                        SourceCodeComponentRenderer.COPY_ON_CLICK_HANDLER.formatted(TEXT_AREA_ID, COPY_BUTTON_ID))
                 .withAttribute(AttributeName.TITLE, SourceCodeComponentRenderer.COPY_BUTTON_TITLE)
                 .withAttribute(AttributeName.DATA_TOGGLE, AttributeValue.TOOLTIP);
         // Text-Content of copy-button

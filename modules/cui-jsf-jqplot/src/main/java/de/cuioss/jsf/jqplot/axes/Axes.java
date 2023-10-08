@@ -87,11 +87,9 @@ public class Axes extends JsObject implements IPluginConsumer {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof Axes)) {
+        if (!(obj instanceof Axes other)) {
             return false;
         }
-        var other = (Axes) obj;
-
         return hashCode() == other.hashCode();
     }
 

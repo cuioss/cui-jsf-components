@@ -54,56 +54,57 @@ import de.cuioss.jsf.api.converter.AbstractConverter;
 @FacesConverter(value = "de.cuioss.cui.converter.PrettyTimeConverter")
 public class PrettyTimeConverter extends AbstractConverter<Object> {
 
-	// See
-	// https://github.com/ocpsoft/prettytime/blob/master/jsf/src/main/java/org/ocpsoft/prettytime/jsf/PrettyTimeConverter.java
-	private static final int CACHE_SIZE = 20;
-	private static final Map<Locale, PrettyTime> PRETTY_TIME_MAP = new LinkedHashMap<>(CACHE_SIZE + 1, 1.1F, true) {
+    // See
+    // https://github.com/ocpsoft/prettytime/blob/master/jsf/src/main/java/org/ocpsoft/prettytime/jsf/PrettyTimeConverter.java
+    private static final int CACHE_SIZE = 20;
+    private static final Map<Locale, PrettyTime> PRETTY_TIME_MAP = new LinkedHashMap<>(CACHE_SIZE + 1, 1.1F, true) {
 
-		private static final long serialVersionUID = -8941794067746423324L;
+        private static final long serialVersionUID = -8941794067746423324L;
 
-		@Override
-		protected boolean removeEldestEntry(final Map.Entry<Locale, PrettyTime> eldest) {
-			return size() > CACHE_SIZE;
-		}
-	};
+        @Override
+        protected boolean removeEldestEntry(final Map.Entry<Locale, PrettyTime> eldest) {
+            return size() > CACHE_SIZE;
+        }
+    };
 
-	private final LocaleAccessor localeProducerAccessor = new LocaleAccessor();
+    private final LocaleAccessor localeProducerAccessor = new LocaleAccessor();
 
-	/**
-	 * @return the instance of {@link PrettyTime} for the current {@link Locale}
-	 */
-	private PrettyTime getPrettyTime() {
-		var current = localeProducerAccessor.getValue();
-		PrettyTime prettyTime;
-		synchronized (PRETTY_TIME_MAP) {
-			prettyTime = PRETTY_TIME_MAP.computeIfAbsent(current, PrettyTime::new);
-		}
-		return prettyTime;
-	}
+    /**
+     * @return the instance of {@link PrettyTime} for the current {@link Locale}
+     */
+    private PrettyTime getPrettyTime() {
+        var current = localeProducerAccessor.getValue();
+        PrettyTime prettyTime;
+        synchronized (PRETTY_TIME_MAP) {
+            prettyTime = PRETTY_TIME_MAP.computeIfAbsent(current, PrettyTime::new);
+        }
+        return prettyTime;
+    }
 
-	@Override
-	protected String convertToString(final FacesContext context, final UIComponent component, final Object value)
-			throws ConverterException {
-		Date toBeConverted = null;
-		if (value instanceof Date date) {
-			toBeConverted = date;
-		} else if (value instanceof Calendar calendar) {
-			toBeConverted = calendar.getTime();
-		} else if (value instanceof ZonedDateTime zDate) {
-			var instant = zDate.toInstant();
-			toBeConverted = Date.from(instant);
-		} else if (value instanceof LocalDateTime lDate) {
-			var instant = lDate.atZone(ZoneId.systemDefault()).toInstant();
-			toBeConverted = Date.from(instant);
-		} else if (value instanceof LocalDate lDate) {
-			var instant = lDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
-			toBeConverted = Date.from(instant);
-		}
+    @Override
+    protected String convertToString(final FacesContext context, final UIComponent component, final Object value)
+            throws ConverterException {
+        Date toBeConverted = null;
+        if (value instanceof Date date) {
+            toBeConverted = date;
+        } else if (value instanceof Calendar calendar) {
+            toBeConverted = calendar.getTime();
+        } else if (value instanceof ZonedDateTime zDate) {
+            var instant = zDate.toInstant();
+            toBeConverted = Date.from(instant);
+        } else if (value instanceof LocalDateTime lDate) {
+            var instant = lDate.atZone(ZoneId.systemDefault()).toInstant();
+            toBeConverted = Date.from(instant);
+        } else if (value instanceof LocalDate lDate) {
+            var instant = lDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+            toBeConverted = Date.from(instant);
+        }
 
-		if (null == toBeConverted)
-			throw new ConverterException(
-					"Invalid Type given: Expected one of 'java.util.Date', 'java.util.Calendar', 'java.time.LocalDateTime' or 'java.time.LocalDate' but found "
-							+ value.getClass());
-		return getPrettyTime().format(toBeConverted);
-	}
+        if (null == toBeConverted) {
+            throw new ConverterException(
+                    "Invalid Type given: Expected one of 'java.util.Date', 'java.util.Calendar', 'java.time.LocalDateTime' or 'java.time.LocalDate' but found "
+                            + value.getClass());
+        }
+        return getPrettyTime().format(toBeConverted);
+    }
 }

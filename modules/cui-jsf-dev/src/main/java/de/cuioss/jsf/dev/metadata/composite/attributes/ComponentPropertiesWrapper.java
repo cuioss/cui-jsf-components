@@ -127,7 +127,7 @@ public class ComponentPropertiesWrapper implements Serializable {
     public void addChildComponentDescriptor(final FeatureDescriptor descriptor) {
         final var extraValues = descriptor.attributeNames();
         String curName;
-        while (extraValues.hasMoreElements()) {
+        if (extraValues.hasMoreElements()) {
             // Caution: the PropertyDescriptor is used in two ways: it either contains a
             // single
             // attribute or a list of facets / attached Objects.
@@ -139,7 +139,6 @@ public class ComponentPropertiesWrapper implements Serializable {
                 throw new IllegalArgumentException("Facets should not be found here");
             }
             attributes.add(new AttributePropertyWrapper(descriptor));
-            break;
         }
     }
 

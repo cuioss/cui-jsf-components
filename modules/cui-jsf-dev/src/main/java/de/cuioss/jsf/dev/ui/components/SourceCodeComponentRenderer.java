@@ -93,8 +93,7 @@ public class SourceCodeComponentRenderer extends BaseDecoratorRenderer<SourceCod
         result = result.replace("\"", "&quot;");
         result = result.replace("\\", "&#39;");
         result = result.replace("<", "&lt;");
-        result = result.replace(">", "&gt;");
-        return result;
+        return result.replace(">", "&gt;");
     }
 
     static String limitLineSize(final String resolvedSource, final int rowLength) {
