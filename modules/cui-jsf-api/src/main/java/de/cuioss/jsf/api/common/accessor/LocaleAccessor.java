@@ -27,17 +27,17 @@ import javax.faces.context.FacesContext;
  */
 public class LocaleAccessor implements ManagedAccessor<Locale> {
 
-	private static final long serialVersionUID = -7372535413254248257L;
+    private static final long serialVersionUID = -7372535413254248257L;
 
-	private Locale locale;
+    private Locale locale;
 
-	@Override
-	public Locale getValue() {
-		if (null == locale) {
-			var context = FacesContext.getCurrentInstance();
-			locale = context.getApplication().getViewHandler().calculateLocale(context);
-		}
-		return locale;
-	}
+    @Override
+    public Locale getValue() {
+        if (null == locale) {
+            var context = FacesContext.getCurrentInstance();
+            locale = context.getApplication().getViewHandler().calculateLocale(context);
+        }
+        return locale;
+    }
 
 }

@@ -13,29 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.cuioss.jsf.api.application.projectstage;
+package de.cuioss.jsf.api.common.accessor;
 
-import de.cuioss.jsf.api.common.accessor.ManagedBeanAccessor;
 import de.cuioss.uimodel.application.CuiProjectStage;
+import lombok.Getter;
 
 /**
  * Accesses instances of {@link CuiProjectStage}
  *
  * @author Oliver Wolff
  */
-public class CuiProjectStageAccessor extends ManagedBeanAccessor<CuiProjectStage> {
-
-    /**
-     * Bean name for looking up instances.
-     */
-    public static final String BEAN_NAME = "cuiProjectStage";
+public class CuiProjectStageAccessor implements ManagedAccessor<CuiProjectStage> {
 
     private static final long serialVersionUID = 706263142443297439L;
 
-    /**
-     * Constructor.
-     */
-    public CuiProjectStageAccessor() {
-        super(BEAN_NAME, CuiProjectStage.class, false);
+    @Getter(lazy = true)
+    private final CuiProjectStage value = initProjectStage();
+
+    private CuiProjectStage initProjectStage() {
+        var impl = new CuiProjectStageImpl();
+        impl.initBean();
+        return impl;
     }
 }

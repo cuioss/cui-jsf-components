@@ -36,24 +36,25 @@ import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
 @FacesConverter(forClass = I18nDisplayNameProvider.class)
 public class I18nDisplayNameProviderConverter extends AbstractConverter<I18nDisplayNameProvider> {
 
-	private final LocaleAccessor localeProducerAccessor = new LocaleAccessor();
+    private final LocaleAccessor localeProducerAccessor = new LocaleAccessor();
 
-	@Override
-	protected String convertToString(final FacesContext context, final UIComponent component,
-			final I18nDisplayNameProvider value) throws ConverterException {
+    @Override
+    protected String convertToString(final FacesContext context, final UIComponent component,
+            final I18nDisplayNameProvider value) throws ConverterException {
 
-		final var locale = localeProducerAccessor.getValue();
+        final var locale = localeProducerAccessor.getValue();
 
-		var text = value.lookupTextFor(locale);
+        var text = value.lookupTextFor(locale);
 
-		if (isEmpty(text)) {
-			text = value.lookupTextWithFallbackFirstFittingLanguageOnly(locale);
-		}
+        if (isEmpty(text)) {
+            text = value.lookupTextWithFallbackFirstFittingLanguageOnly(locale);
+        }
 
-		if (!isEmpty(text))
-			return CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(text);
+        if (!isEmpty(text)) {
+            return CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(text);
+        }
 
-		return "";
-	}
+        return "";
+    }
 
 }

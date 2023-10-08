@@ -22,7 +22,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
-import de.cuioss.jsf.api.application.projectstage.CuiProjectStageAccessor;
+import de.cuioss.jsf.api.common.accessor.CuiProjectStageAccessor;
 import de.cuioss.jsf.api.security.CuiSanitizer;
 import de.cuioss.tools.logging.CuiLogger;
 
