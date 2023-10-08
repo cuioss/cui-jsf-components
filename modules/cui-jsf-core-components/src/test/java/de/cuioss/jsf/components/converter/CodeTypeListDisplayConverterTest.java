@@ -26,8 +26,8 @@ import de.cuioss.uimodel.model.code.CodeTypeImpl;
 
 class CodeTypeListDisplayConverterTest extends AbstractConverterTest<CodeTypeListDisplayConverter, List<CodeType>> {
 
-	@Override
-	public void populate(final TestItems<List<CodeType>> testItems) {
-		testItems.addValidObjectWithStringResult(mutableList(new CodeTypeImpl("a"), new CodeTypeImpl("b")), "a;b");
-	}
+    @Override
+    public void populate(final TestItems<List<CodeType>> testItems) {
+        testItems.addValidObjectWithStringResult(mutableList(new CodeTypeImpl("a"), new CodeTypeImpl("b")), "a;b");
+    }
 }

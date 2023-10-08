@@ -64,8 +64,7 @@ public class AttachedObjectPropertyWrapper extends AbstractPropertyWrapper {
      * @return the extracted target attribute
      */
     private static String getTarget(final AttachedObjectTarget attachedObjectTarget) {
-        final var type = "FIXME: to be implemented";
-        return type;
+        return "FIXME: to be implemented";
     }
 
     @Override

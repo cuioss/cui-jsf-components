@@ -82,11 +82,9 @@ public class PropertyProvider implements IPropertyProvider, Serializable {
         var result = true;
         if (property instanceof JsProperty jsProp) {
             for (final JavaScriptSupport item : properties) {
-                if (item instanceof JsProperty prop) {
-                    if (prop.getPropertyName().equals(jsProp.getPropertyName())) {
-                        properties.remove(item);
-                        break;
-                    }
+                if ((item instanceof JsProperty prop) && prop.getPropertyName().equals(jsProp.getPropertyName())) {
+                    properties.remove(item);
+                    break;
                 }
             }
         }

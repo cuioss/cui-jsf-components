@@ -37,15 +37,15 @@ import de.cuioss.uimodel.model.code.CodeType;
 @FacesConverter(CodeTypeDisplayConverter.CONVERTER_ID)
 public class CodeTypeDisplayConverter extends AbstractConverter<CodeType> {
 
-	/** "de.cuioss.jsf.components.converter.CodeTypeDisplayConverter" */
-	public static final String CONVERTER_ID = "de.cuioss.jsf.components.converter.CodeTypeDisplayConverter";
+    /** "de.cuioss.jsf.components.converter.CodeTypeDisplayConverter" */
+    public static final String CONVERTER_ID = "de.cuioss.jsf.components.converter.CodeTypeDisplayConverter";
 
-	private final LocaleAccessor localeAccessor = new LocaleAccessor();
+    private final LocaleAccessor localeAccessor = new LocaleAccessor();
 
-	@Override
-	protected String convertToString(FacesContext context, UIComponent component, CodeType value)
-			throws ConverterException {
-		return value.getResolved(localeAccessor.getValue());
-	}
+    @Override
+    protected String convertToString(FacesContext context, UIComponent component, CodeType value)
+            throws ConverterException {
+        return value.getResolved(localeAccessor.getValue());
+    }
 
 }
