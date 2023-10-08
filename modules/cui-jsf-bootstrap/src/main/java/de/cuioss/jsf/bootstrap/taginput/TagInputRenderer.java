@@ -27,7 +27,7 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.context.FacesContext;
 import javax.faces.render.FacesRenderer;
 
-import de.cuioss.jsf.api.application.locale.LocaleProducerAccessor;
+import de.cuioss.jsf.api.application.locale.LocaleAccessor;
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.jsf.api.components.css.ContextSize;
 import de.cuioss.jsf.api.components.css.ContextState;
@@ -92,62 +92,60 @@ import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.TAG_INPUT_COMPONENT_RENDERER)
 public class TagInputRenderer extends BaseDecoratorRenderer<TagInputComponent> {
 
-    private final LocaleProducerAccessor localeProducerAccessor = new LocaleProducerAccessor();
+	private final LocaleAccessor localeAccessor = new LocaleAccessor();
 
-    /***/
-    public TagInputRenderer() {
-        super(false);
-    }
+	/***/
+	public TagInputRenderer() {
+		super(false);
+	}
 
-    /**
-     * Extracts submitted value from request parameters and use
-     * javax.faces.convert.Converter to convert the value from String to a
-     * ConceptKeyType collection. Sets the submitted value to TagInputComponent.
-     *
-     * @param context          FacesContext for the request we are processing
-     * @param componentWrapper type-safe component
-     */
-    @Override
-    protected void doDecode(final FacesContext context, final ComponentWrapper<TagInputComponent> componentWrapper) {
-        final var value = context.getExternalContext().getRequestParameterMap().get(componentWrapper.getClientId());
-        final var tagInput = componentWrapper.getWrapped();
+	/**
+	 * Extracts submitted value from request parameters and use
+	 * javax.faces.convert.Converter to convert the value from String to a
+	 * ConceptKeyType collection. Sets the submitted value to TagInputComponent.
+	 *
+	 * @param context          FacesContext for the request we are processing
+	 * @param componentWrapper type-safe component
+	 */
+	@Override
+	protected void doDecode(final FacesContext context, final ComponentWrapper<TagInputComponent> componentWrapper) {
+		final var value = context.getExternalContext().getRequestParameterMap().get(componentWrapper.getClientId());
+		final var tagInput = componentWrapper.getWrapped();
 
-        if (tagInput.isDisabled()) {
-            return;
-        }
-        if (MoreStrings.isEmpty(value)) {
-            tagInput.setSubmittedValue("");
-            return;
-        }
+		if (tagInput.isDisabled())
+			return;
+		if (MoreStrings.isEmpty(value)) {
+			tagInput.setSubmittedValue("");
+			return;
+		}
 
-        tagInput.setSubmittedValue(value);
-    }
+		tagInput.setSubmittedValue(value);
+	}
 
-    @Override
-    protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<TagInputComponent> writer,
-            final TagInputComponent component) throws IOException {
+	@Override
+	protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<TagInputComponent> writer,
+			final TagInputComponent component) throws IOException {
 
-        if (component.isDisabled()) {
-            encodeDisabled(context, writer, component);
-        } else {
-            encodeEnabled(context, component);
-        }
-    }
+		if (component.isDisabled()) {
+			encodeDisabled(context, writer, component);
+		} else {
+			encodeEnabled(context, component);
+		}
+	}
 
-    private void encodeEnabled(final FacesContext context, final TagInputComponent component) throws IOException {
-        JsfHtmlComponent.HTMLINPUT.renderer(context).encodeBegin(context, component);
-        JsfHtmlComponent.HTMLINPUT.renderer(context).encodeEnd(context, component);
-    }
+	private void encodeEnabled(final FacesContext context, final TagInputComponent component) throws IOException {
+		JsfHtmlComponent.HTMLINPUT.renderer(context).encodeBegin(context, component);
+		JsfHtmlComponent.HTMLINPUT.renderer(context).encodeEnd(context, component);
+	}
 
-    private void encodeDisabled(final FacesContext context, final DecoratingResponseWriter<TagInputComponent> writer,
-            final TagInputComponent component) throws IOException {
-        TagHelper.writeDisabled(context, writer, createTags(component.getValue()), component.getStyle(),
-                component.getStyleClass());
-    }
+	private void encodeDisabled(final FacesContext context, final DecoratingResponseWriter<TagInputComponent> writer,
+			final TagInputComponent component) throws IOException {
+		TagHelper.writeDisabled(context, writer, createTags(component.getValue()), component.getStyle(),
+				component.getStyleClass());
+	}
 
-    private List<TagComponent> createTags(final Collection<ConceptKeyType> values) {
-        return TagHelper.createFromConceptKeys(null != values ? new TreeSet<>(values) : Collections.emptySortedSet(),
-                localeProducerAccessor.getValue().getLocale(), true, ContextSize.LG.name(),
-                ContextState.DEFAULT.name());
-    }
+	private List<TagComponent> createTags(final Collection<ConceptKeyType> values) {
+		return TagHelper.createFromConceptKeys(null != values ? new TreeSet<>(values) : Collections.emptySortedSet(),
+				localeAccessor.getValue(), true, ContextSize.LG.name(), ContextState.DEFAULT.name());
+	}
 }

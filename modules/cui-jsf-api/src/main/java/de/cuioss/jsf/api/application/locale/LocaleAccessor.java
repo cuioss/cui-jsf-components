@@ -17,17 +17,29 @@ package de.cuioss.jsf.api.application.locale;
 
 import java.util.Locale;
 
-/**
- * Provide application specific calculation / resolving of current locale.<br>
- * Managed bean name should be {@link LocaleProducerImpl#BEAN_NAME}
- *
- * @author Eugen Fischer
- */
-public interface LocaleProducer {
+import javax.faces.application.ViewHandler;
+import javax.faces.context.FacesContext;
 
-    /**
-     * @return the actual locale for this context / view.
-     */
-    Locale getLocale();
+import de.cuioss.jsf.api.common.accessor.ManagedAccessor;
+
+/**
+ * Determines the current active user-locale. It uses the {@link ViewHandler}
+ * therefore. <em>Caution: </em>In case of type in the portal context, use
+ * PortalLocale instead
+ */
+public class LocaleAccessor implements ManagedAccessor<Locale> {
+
+	private static final long serialVersionUID = -7372535413254248257L;
+
+	private Locale locale;
+
+	@Override
+	public Locale getValue() {
+		if (null == locale) {
+			var context = FacesContext.getCurrentInstance();
+			locale = context.getApplication().getViewHandler().calculateLocale(context);
+		}
+		return locale;
+	}
 
 }
