@@ -20,24 +20,32 @@ import java.util.Locale;
 import javax.faces.application.ViewHandler;
 import javax.faces.context.FacesContext;
 
+import lombok.Getter;
+
 /**
+ * <p>
  * Determines the current active user-locale. It uses the {@link ViewHandler}
- * therefore. <em>Caution: </em>In case of type in the portal context, use
- * PortalLocale instead
+ * therefore.
+ * </p>
+ * <em>Caution:</em>
+ * <ul>
+ * <li>The {@link LocaleAccessor} must never be referenced longer than a
+ * request:</li>
+ * <li>In case of type in the portal context, use PortalLocale instead</li>
+ * </ul>
+ *
+ *
  */
 public class LocaleAccessor implements ManagedAccessor<Locale> {
 
     private static final long serialVersionUID = -7372535413254248257L;
 
-    private Locale locale;
+    @Getter(lazy = true)
+    private final Locale value = resolveValue();
 
-    @Override
-    public Locale getValue() {
-        if (null == locale) {
-            var context = FacesContext.getCurrentInstance();
-            locale = context.getApplication().getViewHandler().calculateLocale(context);
-        }
-        return locale;
+    private Locale resolveValue() {
+        var context = FacesContext.getCurrentInstance();
+        return context.getApplication().getViewHandler().calculateLocale(context);
     }
 
 }
