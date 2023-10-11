@@ -65,8 +65,8 @@ public class ReflectionBasedEditableDataListModel<T extends Serializable> extend
     @Override
     public T createEmptyItem() {
         try {
-            return modelClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException | RuntimeException e) {
+            return modelClass.getDeclaredConstructor().newInstance();
+        } catch (InstantiationException | IllegalAccessException | RuntimeException | InvocationTargetException | NoSuchMethodException e) {
             throw new IllegalStateException(
                     "Unable to create an Instances using the default constructor, offending class: " + modelClass, e);
         }
