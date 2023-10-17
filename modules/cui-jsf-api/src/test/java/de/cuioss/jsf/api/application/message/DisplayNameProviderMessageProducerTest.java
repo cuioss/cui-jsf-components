@@ -16,41 +16,50 @@
 package de.cuioss.jsf.api.application.message;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.jupiter.api.BeforeEach;
+import javax.inject.Inject;
+
+import org.jboss.weld.junit5.auto.AddBeanClasses;
 import org.junit.jupiter.api.Test;
 
 import de.cuioss.jsf.api.CoreJsfTestConfiguration;
+import de.cuioss.jsf.api.EnableJSFCDIEnvironment;
+import de.cuioss.jsf.api.EnableResourceBundleSupport;
 import de.cuioss.jsf.api.converter.nameprovider.LabeledKeyConverter;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
-import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
-import de.cuioss.test.valueobjects.contract.EqualsAndHashcodeContractImpl;
-import de.cuioss.test.valueobjects.contract.ReflectionUtil;
+import de.cuioss.test.jsf.util.JsfEnvironmentConsumer;
+import de.cuioss.test.jsf.util.JsfEnvironmentHolder;
+import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
 import de.cuioss.uimodel.nameprovider.LabeledKey;
 import de.cuioss.uimodel.result.ResultDetail;
 import de.cuioss.uimodel.result.ResultObject;
 import de.cuioss.uimodel.result.ResultState;
+import lombok.Getter;
+import lombok.Setter;
 
+@EnableJSFCDIEnvironment
+@EnableResourceBundleSupport
+@AddBeanClasses(MessageProducerMock.class)
 @JsfTestConfiguration({ CoreJsfTestConfiguration.class })
-class DisplayNameProviderMessageProducerTest extends JsfEnabledTestEnvironment {
+class DisplayNameProviderMessageProducerTest
+        implements ShouldHandleObjectContracts<DisplayNameProviderMessageProducer>, JsfEnvironmentConsumer {
 
-    private static final String STRING_RESULT = "test";
+    private static final String STRING_RESULT = "invalid e-Mail Address syntax";
 
-    private static final String MESSAGE_KEY = "bundle1.property1";
+    private static final String MESSAGE_KEY = "de.cuioss.common.email.invalid";
 
     private static final LabeledKey DETAIL = new LabeledKey(MESSAGE_KEY);
 
+    @Setter
+    @Getter
+    private JsfEnvironmentHolder environmentHolder;
+
+    @Inject
     private MessageProducerMock messageProducerMock;
 
+    @Inject
+    @Getter
     private DisplayNameProviderMessageProducer underTest;
-
-    @BeforeEach
-    void before() {
-        messageProducerMock = new MessageProducerMock();
-        underTest = new DisplayNameProviderMessageProducer(messageProducerMock);
-    }
 
     @Test
     void testShowAsGlobalMessageAndLogWithError() {
@@ -58,7 +67,7 @@ class DisplayNameProviderMessageProducerTest extends JsfEnabledTestEnvironment {
         var result = new ResultObject<>(STRING_RESULT, ResultState.ERROR, new ResultDetail(DETAIL));
         underTest.showAsGlobalMessageAndLog(result);
         assertEquals(1, messageProducerMock.getGlobalMessages().size());
-        messageProducerMock.assertSingleGlobalMessageWithKeyPresent(MESSAGE_KEY);
+        messageProducerMock.assertSingleGlobalMessageWithKeyPresent(STRING_RESULT);
     }
 
     @Test
@@ -67,7 +76,7 @@ class DisplayNameProviderMessageProducerTest extends JsfEnabledTestEnvironment {
         var result = new ResultObject<>(STRING_RESULT, ResultState.WARNING, new ResultDetail(DETAIL));
         underTest.showAsGlobalMessageAndLog(result);
         assertEquals(1, messageProducerMock.getGlobalMessages().size());
-        messageProducerMock.assertSingleGlobalMessageWithKeyPresent(MESSAGE_KEY);
+        messageProducerMock.assertSingleGlobalMessageWithKeyPresent(STRING_RESULT);
     }
 
     @Test
@@ -76,7 +85,7 @@ class DisplayNameProviderMessageProducerTest extends JsfEnabledTestEnvironment {
         var result = new ResultObject<>(STRING_RESULT, ResultState.INFO, new ResultDetail(DETAIL));
         underTest.showAsGlobalMessageAndLog(result);
         assertEquals(1, messageProducerMock.getGlobalMessages().size());
-        messageProducerMock.assertSingleGlobalMessageWithKeyPresent(MESSAGE_KEY);
+        messageProducerMock.assertSingleGlobalMessageWithKeyPresent(STRING_RESULT);
     }
 
     @Test
@@ -84,18 +93,5 @@ class DisplayNameProviderMessageProducerTest extends JsfEnabledTestEnvironment {
         var result = new ResultObject<>(STRING_RESULT, ResultState.VALID, null);
         underTest.showAsGlobalMessageAndLog(result);
         assertEquals(0, messageProducerMock.getGlobalMessages().size());
-    }
-
-    @Test
-    void shouldFailOnNullConstructor() {
-        assertThrows(NullPointerException.class, () -> new DisplayNameProviderMessageProducer(null));
-    }
-
-    @Test
-    void shouldHandleObjectContract() {
-        ReflectionUtil.assertToStringMethodIsOverriden(DisplayNameProviderMessageProducer.class);
-        assertNotNull(underTest.toString());
-        EqualsAndHashcodeContractImpl.assertBasicContractOnEquals(underTest);
-        EqualsAndHashcodeContractImpl.assertBasicContractOnHashCode(underTest);
     }
 }

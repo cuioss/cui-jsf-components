@@ -51,7 +51,7 @@ class TitleProviderImplTest extends AbstractPartialComponentTest {
     void shouldResolveTitleKey() {
         final var any = anyComponent();
         any.setTitleKey(MESSAGE_KEY);
-        assertEquals(MESSAGE_KEY, any.resolveTitle());
+        assertEquals(MESSAGE_VALUE, any.resolveTitle());
     }
 
     @Test

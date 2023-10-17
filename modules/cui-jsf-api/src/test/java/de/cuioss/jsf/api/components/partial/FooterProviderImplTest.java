@@ -51,7 +51,7 @@ class FooterProviderImplTest extends AbstractPartialComponentTest {
     void shouldresolveFooterKey() {
         final var any = anyComponent();
         any.setFooterKey(MESSAGE_KEY);
-        assertEquals(MESSAGE_KEY, any.resolveFooter());
+        assertEquals(MESSAGE_VALUE, any.resolveFooter());
     }
 
     @Test

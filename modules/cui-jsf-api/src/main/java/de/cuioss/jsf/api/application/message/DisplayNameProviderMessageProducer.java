@@ -19,9 +19,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.Serializable;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 
 import de.cuioss.jsf.api.common.accessor.ConverterAccessor;
 import de.cuioss.jsf.api.components.support.DummyComponent;
@@ -29,8 +31,6 @@ import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
 import de.cuioss.uimodel.result.ResultObject;
 import lombok.EqualsAndHashCode;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
@@ -39,7 +39,7 @@ import lombok.ToString;
  *
  * @author Matthias Walliczek
  */
-@RequiredArgsConstructor
+@RequestScoped
 @EqualsAndHashCode(exclude = { "messageProducer" })
 @ToString(exclude = { "messageProducer" })
 public class DisplayNameProviderMessageProducer implements Serializable {
@@ -54,8 +54,8 @@ public class DisplayNameProviderMessageProducer implements Serializable {
 
     private static final String NO_FITTING_CONVERTER_REGISTERED = "No fitting converter for [%s] class registered.";
 
-    @NonNull
-    private final MessageProducer messageProducer;
+    @Inject
+    MessageProducer messageProducer;
 
     /**
      * Create and add a global faces message, use resolved text from detail

@@ -30,10 +30,14 @@ import de.cuioss.jsf.api.components.partial.IconProvider;
 import de.cuioss.jsf.bootstrap.icon.support.IconSize;
 import de.cuioss.jsf.bootstrap.icon.support.IconState;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
+import de.cuioss.jsf.test.EnableJSFCDIEnvironment;
+import de.cuioss.jsf.test.EnableResourceBundleSupport;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
+@EnableJSFCDIEnvironment
+@EnableResourceBundleSupport
 class IconRendererTest extends AbstractComponentRendererTest<IconRenderer> {
 
     private static final String ICON = "cui-icon-alarm";

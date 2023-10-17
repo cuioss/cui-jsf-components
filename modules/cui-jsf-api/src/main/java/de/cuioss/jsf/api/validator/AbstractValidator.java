@@ -23,7 +23,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
-import de.cuioss.jsf.api.application.message.MessageProducerAccessor;
+import de.cuioss.jsf.api.application.message.MessageProducer;
+import de.cuioss.portal.common.cdi.PortalBeanManager;
 
 /**
  * Abstract validator implements the interface {@linkplain Validator}.<br>
@@ -74,7 +75,7 @@ public abstract class AbstractValidator<T> implements Validator<Object> {
     protected abstract void validateTypeSave(FacesContext context, UIComponent component, T value);
 
     public static FacesMessage createErrorMessage(final String msgKey, final Object... parameter) {
-        return new MessageProducerAccessor().getValue().getErrorMessageFor(msgKey, parameter);
+        return PortalBeanManager.resolveRequiredBean(MessageProducer.class).getErrorMessageFor(msgKey, parameter);
     }
 
     /**

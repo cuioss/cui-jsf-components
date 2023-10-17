@@ -50,7 +50,7 @@ class ContentProviderImplTest extends AbstractPartialComponentTest {
     void shouldResolveContentKey() {
         var any = anyComponent();
         any.setContentKey(MESSAGE_KEY);
-        assertEquals(MESSAGE_KEY, any.resolveContent());
+        assertEquals(MESSAGE_VALUE, any.resolveContent());
     }
 
     @Test

@@ -20,8 +20,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
-import de.cuioss.jsf.api.application.bundle.CuiResourceBundleAccessor;
 import de.cuioss.jsf.api.converter.AbstractConverter;
+import de.cuioss.portal.common.bundle.PortalResourceBundleBean;
+import de.cuioss.portal.common.cdi.PortalBeanManager;
 import de.cuioss.uimodel.nameprovider.DisplayMessageProvider;
 
 /**
@@ -32,12 +33,10 @@ import de.cuioss.uimodel.nameprovider.DisplayMessageProvider;
 @FacesConverter(forClass = DisplayMessageProvider.class)
 public class DisplayMessageProviderConverter extends AbstractConverter<DisplayMessageProvider> {
 
-    private final CuiResourceBundleAccessor bundleAccessor = new CuiResourceBundleAccessor();
-
     @Override
     protected String convertToString(final FacesContext context, final UIComponent component,
             final DisplayMessageProvider value) throws ConverterException {
 
-        return value.getMessageFormated(bundleAccessor.getValue());
+        return value.getMessageFormated(PortalBeanManager.resolveRequiredBean(PortalResourceBundleBean.class));
     }
 }

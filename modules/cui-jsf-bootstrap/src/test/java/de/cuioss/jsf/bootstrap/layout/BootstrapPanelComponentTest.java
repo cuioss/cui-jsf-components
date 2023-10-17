@@ -25,6 +25,8 @@ import org.junit.jupiter.api.Test;
 
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
+import de.cuioss.jsf.test.EnableJSFCDIEnvironment;
+import de.cuioss.jsf.test.EnableResourceBundleSupport;
 import de.cuioss.test.jsf.component.AbstractUiComponentTest;
 import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
@@ -39,6 +41,8 @@ import de.cuioss.test.juli.junit5.EnableTestLogger;
         "deferred", "childrenLoaded" })
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @EnableTestLogger
+@EnableJSFCDIEnvironment
+@EnableResourceBundleSupport
 class BootstrapPanelComponentTest extends AbstractUiComponentTest<BootstrapPanelComponent>
         implements ComponentConfigurator {
 

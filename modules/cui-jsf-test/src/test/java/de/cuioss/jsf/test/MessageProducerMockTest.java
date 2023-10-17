@@ -13,29 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.cuioss.jsf.test.mock.application;
+package de.cuioss.jsf.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.faces.application.FacesMessage;
+import javax.inject.Inject;
 
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.api.application.message.MessageProducer;
-import de.cuioss.jsf.api.application.message.MessageProducerImpl;
-import de.cuioss.test.jsf.config.decorator.BeanConfigDecorator;
 import de.cuioss.test.jsf.junit5.AbstractBeanTest;
 import de.cuioss.test.valueobjects.api.property.PropertyReflectionConfig;
+import lombok.Getter;
 
 @PropertyReflectionConfig(skip = true)
+@EnableJSFCDIEnvironment
+@EnableResourceBundleSupport
 class MessageProducerMockTest extends AbstractBeanTest<MessageProducerMock> {
 
     private static final String SOME_KEY = "some.key";
     private static final String COMPONENT_ID = "componentId";
+
+    @Inject
+    @Getter
+    MessageProducerMock underTest;
 
     @Test
     void shouldDetectMissingMessage() {
@@ -70,15 +74,6 @@ class MessageProducerMockTest extends AbstractBeanTest<MessageProducerMock> {
         var underTest = new MessageProducerMock();
         underTest.addGlobalMessage(SOME_KEY, FacesMessage.SEVERITY_ERROR);
         underTest.assertSingleGlobalMessageWithKeyPresent(SOME_KEY);
-    }
-
-    @Test
-    void shouldRegisterAsBean() {
-        assertNull(
-                BeanConfigDecorator.getBean(MessageProducerImpl.BEAN_NAME, getFacesContext(), MessageProducer.class));
-        new MessageProducerMock().configureBeans(getBeanConfigDecorator());
-        assertNotNull(
-                BeanConfigDecorator.getBean(MessageProducerImpl.BEAN_NAME, getFacesContext(), MessageProducer.class));
     }
 
     @Test

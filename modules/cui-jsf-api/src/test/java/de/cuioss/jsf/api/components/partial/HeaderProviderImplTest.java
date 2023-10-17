@@ -51,7 +51,7 @@ class HeaderProviderImplTest extends AbstractPartialComponentTest {
     void shouldResolveHeaderKey() {
         final var any = anyComponent();
         any.setHeaderKey(MESSAGE_KEY);
-        assertEquals(MESSAGE_KEY, any.resolveHeader());
+        assertEquals(MESSAGE_VALUE, any.resolveHeader());
     }
 
     @Test

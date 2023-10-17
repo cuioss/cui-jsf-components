@@ -42,6 +42,8 @@ import de.cuioss.jsf.bootstrap.layout.input.support.ResetGuardButtonAttributes;
 import de.cuioss.jsf.bootstrap.layout.messages.CuiMessageComponent;
 import de.cuioss.jsf.bootstrap.layout.messages.CuiMessageRenderer;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
+import de.cuioss.jsf.test.EnableJSFCDIEnvironment;
+import de.cuioss.jsf.test.EnableResourceBundleSupport;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
@@ -54,6 +56,8 @@ import de.cuioss.test.jsf.mocks.CuiMockSearchExpressionHandler;
         "resetInputValue", "resetGuardButtonTitleValue", "resetGuardButtonTitleConverter", "update", "process",
         "resetGuardButtonTitleEscape", "renderButtons" })
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
+@EnableJSFCDIEnvironment
+@EnableResourceBundleSupport
 class InputGuardComponentTest extends AbstractComponentTest<InputGuardComponent> implements ComponentConfigurator {
 
     static final String DEFAULT_UPDATE_KEY = AjaxProvider.DATA_CUI_AJAX + AjaxProvider.UPDATE_KEY;

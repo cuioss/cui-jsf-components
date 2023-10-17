@@ -27,6 +27,8 @@ import org.junit.jupiter.api.Test;
 
 import de.cuioss.jsf.components.CuiFamily;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
+import de.cuioss.jsf.test.EnableJSFCDIEnvironment;
+import de.cuioss.jsf.test.EnableResourceBundleSupport;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
@@ -34,6 +36,8 @@ import de.cuioss.test.jsf.mocks.ReverseConverter;
 
 @VerifyComponentProperties(of = { "disabled", "legendKey", "legendValue", "legendConverter", "legendEscape" })
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
+@EnableJSFCDIEnvironment
+@EnableResourceBundleSupport
 class FieldsetComponentTest extends AbstractComponentTest<FieldsetComponent> {
 
     protected static final String MESSAGE_KEY = "some.key";

@@ -22,7 +22,7 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PreRenderComponentEvent;
 
-import de.cuioss.jsf.api.application.message.MessageProducerAccessor;
+import de.cuioss.jsf.api.application.message.MessageProducer;
 import de.cuioss.jsf.api.components.partial.CollapseSwitchProvider;
 import de.cuioss.jsf.api.components.partial.ContextStateProvider;
 import de.cuioss.jsf.api.components.partial.DeferredProvider;
@@ -31,6 +31,7 @@ import de.cuioss.jsf.api.components.partial.HeaderProvider;
 import de.cuioss.jsf.api.components.util.ComponentUtility;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
+import de.cuioss.portal.common.cdi.PortalBeanManager;
 import de.cuioss.tools.logging.CuiLogger;
 import lombok.experimental.Delegate;
 
@@ -88,8 +89,8 @@ public class BootstrapPanelComponent extends BasicBootstrapPanelComponent {
     public void processEvent(final ComponentSystemEvent event) {
         if (event instanceof PreRenderComponentEvent && mustAddForm()) {
             log.error("The UI component '{}' needs to have a form tag in its ancestry.", getClientId());
-            new MessageProducerAccessor().getValue().setFacesMessage("message.error.component.noform",
-                    FacesMessage.SEVERITY_ERROR, getClientId(), getClientId());
+            PortalBeanManager.resolveRequiredBean(MessageProducer.class)
+                    .setFacesMessage("message.error.component.noform", FacesMessage.SEVERITY_ERROR, getClientId());
         }
     }
 
