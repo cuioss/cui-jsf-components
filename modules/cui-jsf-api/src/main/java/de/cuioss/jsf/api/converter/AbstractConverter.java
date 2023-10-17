@@ -22,7 +22,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
-import de.cuioss.jsf.api.application.message.MessageProducerAccessor;
+import de.cuioss.jsf.api.application.message.MessageProducer;
+import de.cuioss.portal.common.cdi.PortalBeanManager;
 
 /**
  * Base abstract converter class which handles null and empty checks as
@@ -150,7 +151,7 @@ public abstract class AbstractConverter<T> implements Converter<T> {
             throws ConverterException {
 
         throw new ConverterException(
-                new MessageProducerAccessor().getValue().getErrorMessageFor(messageKey, parameter));
+                PortalBeanManager.resolveRequiredBean(MessageProducer.class).getErrorMessageFor(messageKey, parameter));
     }
 
     /**

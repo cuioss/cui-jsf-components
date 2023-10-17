@@ -16,11 +16,15 @@
 package de.cuioss.jsf.components.validator;
 
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
+import de.cuioss.jsf.test.EnableJSFCDIEnvironment;
+import de.cuioss.jsf.test.EnableResourceBundleSupport;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.validator.AbstractValidatorTest;
 import de.cuioss.test.jsf.validator.TestItems;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
+@EnableJSFCDIEnvironment
+@EnableResourceBundleSupport
 class EmailValidatorTest extends AbstractValidatorTest<EmailValidator, String> {
 
     @Override

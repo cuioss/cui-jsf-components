@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.cuioss.jsf.test.mock.application;
+package de.cuioss.jsf.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -23,14 +23,12 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 
 import de.cuioss.jsf.api.application.message.MessageProducer;
-import de.cuioss.jsf.api.application.message.MessageProducerImpl;
-import de.cuioss.test.jsf.config.BeanConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
-import de.cuioss.test.jsf.config.decorator.BeanConfigDecorator;
 import de.cuioss.tools.base.Preconditions;
 import de.cuioss.tools.collect.MoreCollections;
 import de.cuioss.tools.logging.CuiLogger;
@@ -49,9 +47,10 @@ import lombok.ToString;
  *
  * @author Matthias Walliczek
  */
+@RequestScoped
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = false)
-public class MessageProducerMock extends MessageProducerImpl implements BeanConfigurator {
+public class MessageProducerMock implements MessageProducer {
 
     private static final CuiLogger log = new CuiLogger(MessageProducerMock.class);
 
@@ -174,16 +173,6 @@ public class MessageProducerMock extends MessageProducerImpl implements BeanConf
     }
 
     @Override
-    public FacesMessage getMessageFor(final String messageKey, final Severity severity, final Object... parameter) {
-        return new FacesMessage(severity, messageKey, messageKey);
-    }
-
-    @Override
-    public void addGlobalMessage(final String messageKey, final Severity severity, final Object... parameter) {
-        globalMessages.add(getMessageFor(messageKey, severity, parameter));
-    }
-
-    @Override
     public void setFacesMessage(final String messageKey, final FacesMessage.Severity severity, final String componentId,
             final Object... parameter) {
         if (MoreStrings.isEmpty(componentId)) {
@@ -194,11 +183,6 @@ public class MessageProducerMock extends MessageProducerImpl implements BeanConf
     }
 
     @Override
-    public void configureBeans(final BeanConfigDecorator decorator) {
-        decorator.register(this, MessageProducerImpl.BEAN_NAME);
-    }
-
-    @Override
     public void addMessage(final String message, final Severity severity, final String componentId,
             final Object... parameter) {
         if (MoreStrings.isEmpty(componentId)) {
@@ -206,6 +190,11 @@ public class MessageProducerMock extends MessageProducerImpl implements BeanConf
         } else {
             componentMessages.add(getMessageFor(message, severity, parameter));
         }
-        super.addMessage(message, severity, componentId, parameter);
     }
+
+    @Override
+    public FacesMessage getMessageFor(final String messageKey, final Severity severity, final Object... parameter) {
+        return new FacesMessage(severity, messageKey, messageKey);
+    }
+
 }

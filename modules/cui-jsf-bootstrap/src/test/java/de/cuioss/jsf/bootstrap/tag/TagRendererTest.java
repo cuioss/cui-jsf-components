@@ -44,6 +44,8 @@ import de.cuioss.jsf.bootstrap.button.CloseCommandButtonRenderer;
 import de.cuioss.jsf.bootstrap.tag.support.TagSize;
 import de.cuioss.jsf.bootstrap.tag.support.TagState;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
+import de.cuioss.jsf.test.EnableJSFCDIEnvironment;
+import de.cuioss.jsf.test.EnableResourceBundleSupport;
 import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
@@ -51,6 +53,8 @@ import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 import de.cuioss.tools.string.Joiner;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
+@EnableJSFCDIEnvironment
+@EnableResourceBundleSupport
 class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> implements ComponentConfigurator {
 
     private static final String SOME_CONTENT_VALUE = "some.content.value";

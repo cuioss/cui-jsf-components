@@ -16,21 +16,27 @@
 package de.cuioss.jsf.api.converter.nameprovider;
 
 import de.cuioss.jsf.api.CoreJsfTestConfiguration;
+import de.cuioss.jsf.api.EnableJSFCDIEnvironment;
+import de.cuioss.jsf.api.EnableResourceBundleSupport;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
 import de.cuioss.uimodel.nameprovider.DisplayMessageProvider;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
+@EnableJSFCDIEnvironment
+@EnableResourceBundleSupport
 class DisplayMessageProviderConverterTest
         extends AbstractConverterTest<DisplayMessageProviderConverter, DisplayMessageProvider> {
 
-    private static final String MESSAGE_KEY = "cc.document.file.upload.invalid.size.message";
+    protected static final String MESSAGE_KEY = "de.cuioss.common.email.invalid";
+
+    protected static final String MESSAGE_VALUE = "invalid e-Mail Address syntax";
 
     @Override
     public void populate(final TestItems<DisplayMessageProvider> testItems) {
         testItems.addValidObjectWithStringResult(
-                new DisplayMessageProvider.Builder().messageKey(MESSAGE_KEY).add(10).build(), MESSAGE_KEY);
+                new DisplayMessageProvider.Builder().messageKey(MESSAGE_KEY).add(10).build(), MESSAGE_VALUE);
 
     }
 

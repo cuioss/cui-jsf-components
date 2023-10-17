@@ -13,26 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.cuioss.jsf.api.application.bundle;
+package de.cuioss.jsf.test;
 
-import java.util.ResourceBundle;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import de.cuioss.jsf.api.common.accessor.ManagedBeanAccessor;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import org.jboss.weld.junit5.auto.AddBeanClasses;
 
 /**
- * Accesses instances of {@link CuiResourceBundle}.
+ * It adds the {@link LocaleProducerMock}, {@link MirrorCuiRessourcBundle} and
+ * {@link MessageProducerMock}.
+ *
  *
  * @author Oliver Wolff
  */
-public class CuiResourceBundleAccessor extends ManagedBeanAccessor<ResourceBundle> {
-
-    private static final long serialVersionUID = -2944602525380062391L;
-
-    /**
-     * Constructor.
-     */
-    public CuiResourceBundleAccessor() {
-        super(CuiResourceBundle.BEAN_NAME, ResourceBundle.class, true);
-    }
-
+@Documented
+@Retention(RUNTIME)
+@Target(TYPE)
+@AddBeanClasses({ MirrorCuiRessourcBundle.class, LocaleProducerMock.class, MessageProducerMock.class })
+public @interface EnableResourceBundleSupport {
 }

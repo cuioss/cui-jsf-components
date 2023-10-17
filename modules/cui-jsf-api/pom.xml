@@ -20,6 +20,10 @@
             <artifactId>cui-javascript</artifactId>
         </dependency>
         <dependency>
+            <groupId>de.cuioss.portal.core</groupId>
+            <artifactId>portal-common-cdi</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
             <artifactId>owasp-java-html-sanitizer</artifactId>
         </dependency>

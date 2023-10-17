@@ -17,19 +17,26 @@ package de.cuioss.jsf.api.application.message;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Provider;
 
+import de.cuioss.tools.collect.MoreCollections;
 import lombok.Getter;
 
 /**
  * @author Matthias Walliczek
  *
  */
-public class MessageProducerMock extends MessageProducerImpl {
+@RequestScoped
+public class MessageProducerMock implements MessageProducer {
 
     /** */
     private static final long serialVersionUID = -7244733672736029893L;
@@ -39,6 +46,9 @@ public class MessageProducerMock extends MessageProducerImpl {
 
     @Getter
     private final List<FacesMessage> componentMessages = new ArrayList<>();
+
+    @Inject
+    private Provider<FacesContext> facesContextProvider;
 
     /**
      * @param expectedKey to be checked against
@@ -54,11 +64,6 @@ public class MessageProducerMock extends MessageProducerImpl {
     }
 
     @Override
-    public void addGlobalMessage(String message, Severity severity, Object... parameter) {
-        globalMessages.add(getMessageFor(message, severity, parameter));
-    }
-
-    @Override
     public void setFacesMessage(String messagekey, FacesMessage.Severity severity, String componentId,
             Object... parameter) {
         if (null == componentId || componentId.isEmpty()) {
@@ -67,4 +72,20 @@ public class MessageProducerMock extends MessageProducerImpl {
             componentMessages.add(getMessageFor(messagekey, severity, parameter));
         }
     }
+
+    @Override
+    public void addMessage(String message, Severity severity, String componentId, Object... parameter) {
+        var resultingMessage = message;
+        if (!MoreCollections.isEmpty(parameter)) {
+            resultingMessage = MessageFormat.format(resultingMessage, parameter);
+        }
+        var facesMessage = new FacesMessage(severity, resultingMessage, resultingMessage);
+        if (null == componentId || componentId.isEmpty()) {
+            globalMessages.add(facesMessage);
+        } else {
+            componentMessages.add(facesMessage);
+        }
+        facesContextProvider.get().addMessage(componentId, facesMessage);
+    }
+
 }

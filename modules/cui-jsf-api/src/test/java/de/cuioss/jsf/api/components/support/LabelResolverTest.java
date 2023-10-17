@@ -26,13 +26,21 @@ import javax.faces.convert.NumberConverter;
 import org.junit.jupiter.api.Test;
 
 import de.cuioss.jsf.api.CoreJsfTestConfiguration;
+import de.cuioss.jsf.api.EnableJSFCDIEnvironment;
+import de.cuioss.jsf.api.EnableResourceBundleSupport;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
 import de.cuioss.test.jsf.mocks.ReverseConverter;
 
+@EnableJSFCDIEnvironment
+@EnableResourceBundleSupport
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class LabelResolverTest extends JsfEnabledTestEnvironment {
+
+    protected static final String MESSAGE_KEY = "de.cuioss.common.email.invalid";
+
+    protected static final String MESSAGE_VALUE = "invalid e-Mail Address syntax";
 
     private final TypedGenerator<String> someStrings = nonEmptyStrings();
 
@@ -76,8 +84,8 @@ class LabelResolverTest extends JsfEnabledTestEnvironment {
 
     @Test
     void shouldResolveMessageKey() {
-        final var resolver = LabelResolver.builder().withLabelKey("some.key").build();
-        assertEquals("some.key", resolver.resolve(getFacesContext()));
+        final var resolver = LabelResolver.builder().withLabelKey(MESSAGE_KEY).build();
+        assertEquals(MESSAGE_VALUE, resolver.resolve(getFacesContext()));
     }
 
     @Test
@@ -96,7 +104,7 @@ class LabelResolverTest extends JsfEnabledTestEnvironment {
     @Test
     void shouldResolveValueOverKey() {
         final var test = someStrings.next();
-        final var resolver = LabelResolver.builder().withLabelValue(test).withLabelKey("some.key").build();
+        final var resolver = LabelResolver.builder().withLabelValue(test).withLabelKey(MESSAGE_KEY).build();
         assertEquals(test, resolver.resolve(getFacesContext()));
     }
 }

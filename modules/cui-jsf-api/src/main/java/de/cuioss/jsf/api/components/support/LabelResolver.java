@@ -21,9 +21,9 @@ import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-import de.cuioss.jsf.api.application.bundle.CuiResourceBundle;
-import de.cuioss.jsf.api.application.bundle.CuiResourceBundleAccessor;
 import de.cuioss.jsf.api.common.accessor.ConverterAccessor;
+import de.cuioss.portal.common.bundle.ResourceBundleWrapper;
+import de.cuioss.portal.common.cdi.PortalBeanManager;
 import de.cuioss.tools.string.MoreStrings;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -33,7 +33,7 @@ import lombok.RequiredArgsConstructor;
  * <p>
  * Helper class encapsulating the dynamic resolving of labels, depending on the
  * existence of the attribute labelKey and labelValue. It uses the
- * {@link CuiResourceBundle} for looking up the labelKey.
+ * {@link ResourceBundleWrapper} for looking up the labelKey.
  * </p>
  * <h3>Algorithm</h3>
  * <ul>
@@ -41,7 +41,7 @@ import lombok.RequiredArgsConstructor;
  * whether either a converter is available or the corresponding converterId
  * Attribute</li>
  * <li>If a value for the attribute "labelKey" exists: look it up in the
- * {@link CuiResourceBundle}</li>
+ * {@link ResourceBundleWrapper}</li>
  * <li>If none of the above takes place, throw {@link IllegalStateException}
  * depending whether strictMode is set to <code>true</code>. strictMode is set
  * to <code>false</code> it will return null on that case.</li>
@@ -94,7 +94,7 @@ public class LabelResolver {
             return resolvedConverter.getAsString(context, DUMMY, labelValue);
         }
         if (!MoreStrings.isEmpty(labelKey)) {
-            return new CuiResourceBundleAccessor().getValue().getString(labelKey);
+            return PortalBeanManager.resolveRequiredBean(ResourceBundleWrapper.class).getString(labelKey);
         }
 
         return null;

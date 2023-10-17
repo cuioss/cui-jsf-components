@@ -26,11 +26,15 @@ import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
+import de.cuioss.jsf.test.EnableJSFCDIEnvironment;
+import de.cuioss.jsf.test.EnableResourceBundleSupport;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 import de.cuioss.uimodel.model.Gender;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
+@EnableJSFCDIEnvironment
+@EnableResourceBundleSupport
 class GenderIconRendererTest extends AbstractComponentRendererTest<IconRenderer> {
 
     private static final String ICON_PREFIX = "cui-icon ";

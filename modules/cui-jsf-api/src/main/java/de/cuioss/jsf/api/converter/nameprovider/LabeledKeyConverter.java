@@ -21,9 +21,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.FacesConverter;
 
-import de.cuioss.jsf.api.application.bundle.CuiResourceBundleAccessor;
 import de.cuioss.jsf.api.converter.AbstractConverter;
 import de.cuioss.jsf.api.security.CuiSanitizer;
+import de.cuioss.portal.common.bundle.ResourceBundleWrapper;
+import de.cuioss.portal.common.cdi.PortalBeanManager;
 import de.cuioss.uimodel.nameprovider.LabeledKey;
 
 /**
@@ -34,15 +35,14 @@ import de.cuioss.uimodel.nameprovider.LabeledKey;
 @FacesConverter(forClass = LabeledKey.class)
 public class LabeledKeyConverter extends AbstractConverter<LabeledKey> {
 
-    private final CuiResourceBundleAccessor bundleAccessor = new CuiResourceBundleAccessor();
-
     @Override
     protected String convertToString(final FacesContext context, final UIComponent component, final LabeledKey value) {
         String result;
+        var bundle = PortalBeanManager.resolveRequiredBean(ResourceBundleWrapper.class);
         if (value.getParameter().isEmpty()) {
-            result = bundleAccessor.getValue().getString(value.getContent());
+            result = bundle.getString(value.getContent());
         } else {
-            result = MessageFormat.format(bundleAccessor.getValue().getString(value.getContent()),
+            result = MessageFormat.format(bundle.getString(value.getContent()),
                     value.getParameter().toArray(new Object[value.getParameter().size()]));
         }
         return CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(result);

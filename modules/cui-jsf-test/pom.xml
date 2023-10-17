@@ -21,6 +21,10 @@
             <artifactId>cui-jsf-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>de.cuioss.portal.core</groupId>
+            <artifactId>portal-common-cdi</artifactId>
+        </dependency>
+        <dependency>
             <groupId>de.cuioss.test</groupId>
             <artifactId>cui-jsf-test-basic</artifactId>
             <scope>compile</scope>
@@ -28,6 +32,11 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.weld</groupId>
+            <artifactId>weld-junit5</artifactId>
             <scope>compile</scope>
         </dependency>
     </dependencies>

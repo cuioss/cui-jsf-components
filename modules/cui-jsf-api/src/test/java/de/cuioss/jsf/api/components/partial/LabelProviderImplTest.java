@@ -50,7 +50,7 @@ class LabelProviderImplTest extends AbstractPartialComponentTest {
     void shouldResolveLabelKey() {
         var any = anyComponent();
         any.setLabelKey(MESSAGE_KEY);
-        assertEquals(MESSAGE_KEY, any.resolveLabel());
+        assertEquals(MESSAGE_VALUE, any.resolveLabel());
     }
 
     @Test

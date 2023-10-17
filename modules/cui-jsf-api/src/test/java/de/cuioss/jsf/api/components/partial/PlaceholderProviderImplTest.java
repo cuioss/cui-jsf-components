@@ -51,7 +51,7 @@ class PlaceholderProviderImplTest extends AbstractPartialComponentTest {
     void shouldResolveTitleKey() {
         var any = anyComponent();
         any.setPlaceholderKey(MESSAGE_KEY);
-        assertEquals(MESSAGE_KEY, any.resolvePlaceholder());
+        assertEquals(MESSAGE_VALUE, any.resolvePlaceholder());
     }
 
     @Test

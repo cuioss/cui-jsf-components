@@ -16,6 +16,8 @@
 package de.cuioss.jsf.api.components.partial;
 
 import de.cuioss.jsf.api.CoreJsfTestConfiguration;
+import de.cuioss.jsf.api.EnableJSFCDIEnvironment;
+import de.cuioss.jsf.api.EnableResourceBundleSupport;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 
@@ -25,9 +27,11 @@ import de.cuioss.test.jsf.config.JsfTestConfiguration;
  * @author Oliver Wolff
  */
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
+@EnableJSFCDIEnvironment
+@EnableResourceBundleSupport
 public abstract class AbstractPartialComponentTest extends AbstractComponentTest<MockPartialComponent> {
 
-    protected static final String MESSAGE_KEY = "some.key";
+    protected static final String MESSAGE_KEY = "de.cuioss.common.email.invalid";
 
-    protected static final String MESSAGE_VALUE = "some.value";
+    protected static final String MESSAGE_VALUE = "invalid e-Mail Address syntax";
 }

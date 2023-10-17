@@ -44,28 +44,6 @@ public interface MessageProducer extends Serializable {
     /**
      * Convenience Method for
      * {@link #getMessageFor(String, javax.faces.application.FacesMessage.Severity, Object...)}
-     * with {@link FacesMessage#SEVERITY_ERROR}
-     *
-     * @param messageKey must no be null FacesMessage.Severity severity
-     * @param parameter  Ellipses of Object Parameter for MessageFormat
-     * @return the created facesMessage
-     */
-    FacesMessage getErrorMessageFor(String messageKey, Object... parameter);
-
-    /**
-     * Convenience Method for
-     * {@link #getMessageFor(String, javax.faces.application.FacesMessage.Severity, Object...)}
-     * with {@link FacesMessage#SEVERITY_INFO}
-     *
-     * @param messageKey must no be null FacesMessage.Severity severity
-     * @param parameter  Ellipses of Object Parameter for MessageFormat
-     * @return the created facesMessage
-     */
-    FacesMessage getInfoMessageFor(String messageKey, Object... parameter);
-
-    /**
-     * Convenience Method for
-     * {@link #getMessageFor(String, javax.faces.application.FacesMessage.Severity, Object...)}
      * that sets in addition the Messages into the {@link FacesContext}
      *
      * @param messagekey  must no be null FacesMessage.Severity severity
@@ -88,13 +66,41 @@ public interface MessageProducer extends Serializable {
             final String componentId, final Object... parameter);
 
     /**
+     * Convenience Method for
+     * {@link #getMessageFor(String, javax.faces.application.FacesMessage.Severity, Object...)}
+     * with {@link FacesMessage#SEVERITY_ERROR}
+     *
+     * @param messageKey must no be null FacesMessage.Severity severity
+     * @param parameter  Ellipses of Object Parameter for MessageFormat
+     * @return the created facesMessage
+     */
+    default FacesMessage getErrorMessageFor(String messageKey, Object... parameter) {
+        return getMessageFor(messageKey, FacesMessage.SEVERITY_ERROR, parameter);
+    }
+
+    /**
+     * Convenience Method for
+     * {@link #getMessageFor(String, javax.faces.application.FacesMessage.Severity, Object...)}
+     * with {@link FacesMessage#SEVERITY_INFO}
+     *
+     * @param messageKey must no be null FacesMessage.Severity severity
+     * @param parameter  Ellipses of Object Parameter for MessageFormat
+     * @return the created facesMessage
+     */
+    default FacesMessage getInfoMessageFor(String messageKey, Object... parameter) {
+        return getErrorMessageFor(messageKey, FacesMessage.SEVERITY_INFO, parameter);
+    }
+
+    /**
      * Convenience Method for setting global Faces messages
      *
      * @param messagekey must no be null FacesMessage.Severity severity
      * @param severity   The Severity level of the Message, must not be null.
      * @param parameter  Ellipses of Object Parameter for MessageFormat
      */
-    void setGlobalMessage(String messagekey, FacesMessage.Severity severity, Object... parameter);
+    default void setGlobalMessage(String messagekey, FacesMessage.Severity severity, Object... parameter) {
+        setFacesMessage(messagekey, severity, null, parameter);
+    }
 
     /**
      * Convenience Method for setting global Faces messages without resource bundle
@@ -104,7 +110,9 @@ public interface MessageProducer extends Serializable {
      * @param severity  must no be null FacesMessage.Severity severity
      * @param parameter optional Ellipses of Object Parameter for MessageFormat
      */
-    void addGlobalMessage(String message, FacesMessage.Severity severity, Object... parameter);
+    default void addGlobalMessage(String message, FacesMessage.Severity severity, Object... parameter) {
+        addMessage(message, severity, null, parameter);
+    }
 
     /**
      * Convenience Method for setting global info Faces messages
@@ -112,7 +120,9 @@ public interface MessageProducer extends Serializable {
      * @param messagekey must no be null
      * @param parameter  Ellipses of Object Parameter for MessageFormat
      */
-    void setGlobalInfoMessage(String messagekey, Object... parameter);
+    default void setGlobalInfoMessage(String messagekey, Object... parameter) {
+        setGlobalMessage(messagekey, FacesMessage.SEVERITY_INFO, parameter);
+    }
 
     /**
      * Convenience Method for setting global error Faces messages
@@ -120,7 +130,9 @@ public interface MessageProducer extends Serializable {
      * @param messagekey must no be null
      * @param parameter  Ellipses of Object Parameter for MessageFormat
      */
-    void setGlobalErrorMessage(String messagekey, Object... parameter);
+    default void setGlobalErrorMessage(String messagekey, Object... parameter) {
+        setGlobalMessage(messagekey, FacesMessage.SEVERITY_ERROR, parameter);
+    }
 
     /**
      * Convenience Method for setting global warning Faces messages
@@ -128,6 +140,8 @@ public interface MessageProducer extends Serializable {
      * @param messagekey must no be null
      * @param parameter  Ellipses of Object Parameter for MessageFormat
      */
-    void setGlobalWarningMessage(String messagekey, Object... parameter);
+    default void setGlobalWarningMessage(String messagekey, Object... parameter) {
+        setGlobalMessage(messagekey, FacesMessage.SEVERITY_WARN, parameter);
+    }
 
 }

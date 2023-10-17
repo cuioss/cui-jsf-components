@@ -39,6 +39,8 @@ import de.cuioss.jsf.bootstrap.common.partial.ColumnCssResolver;
 import de.cuioss.jsf.bootstrap.layout.messages.CuiMessageComponent;
 import de.cuioss.jsf.bootstrap.layout.messages.CuiMessageRenderer;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
+import de.cuioss.jsf.test.EnableJSFCDIEnvironment;
+import de.cuioss.jsf.test.EnableResourceBundleSupport;
 import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
@@ -61,7 +63,8 @@ import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
  *
  * @author Eugen Fischer
  */
-
+@EnableJSFCDIEnvironment
+@EnableResourceBundleSupport
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class InputGuardRendererTest extends AbstractComponentRendererTest<LabeledContainerRenderer>
         implements ComponentConfigurator {

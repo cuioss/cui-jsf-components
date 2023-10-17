@@ -51,7 +51,7 @@ class CloseButtonTitleProviderImplTest extends AbstractPartialComponentTest {
     void shouldresolveCloseButtonTitleKey() {
         final var any = anyComponent();
         any.setCloseButtonTitleKey(MESSAGE_KEY);
-        assertEquals(MESSAGE_KEY, any.resolveCloseButtonTitle());
+        assertEquals(MESSAGE_VALUE, any.resolveCloseButtonTitle());
     }
 
     @Test
