@@ -22,7 +22,7 @@ import java.util.Optional;
 
 import javax.faces.application.FacesMessage;
 
-import de.cuioss.jsf.api.application.message.DisplayNameProviderMessageProducer;
+import de.cuioss.jsf.api.application.message.DisplayNameMessageProducer;
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.portal.common.cdi.PortalBeanManager;
 import de.cuioss.tools.logging.CuiLogger;
@@ -126,7 +126,7 @@ public class ResultContent implements ErrorController, Serializable {
     @Override
     public void addGlobalFacesMessage(IDisplayNameProvider<?> value, FacesMessage.Severity severity) {
 
-        PortalBeanManager.resolveRequiredBean(DisplayNameProviderMessageProducer.class).showAsGlobalMessage(value,
+        PortalBeanManager.resolveRequiredBean(DisplayNameMessageProducer.class).showAsGlobalMessage(value,
                 severity);
     }
 

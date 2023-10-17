@@ -42,9 +42,9 @@ import lombok.ToString;
 @RequestScoped
 @EqualsAndHashCode(exclude = { "messageProducer" })
 @ToString(exclude = { "messageProducer" })
-public class DisplayNameProviderMessageProducer implements Serializable {
+public class DisplayNameMessageProducer implements Serializable {
 
-    private static final CuiLogger log = new CuiLogger(DisplayNameProviderMessageProducer.class);
+    private static final CuiLogger log = new CuiLogger(DisplayNameMessageProducer.class);
 
     private static final String SILENT_ERROR_LOG = "Error occured but was handeled silent.";
 
