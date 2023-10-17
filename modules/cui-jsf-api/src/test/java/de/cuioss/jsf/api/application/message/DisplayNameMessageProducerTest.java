@@ -41,8 +41,8 @@ import lombok.Setter;
 @EnableResourceBundleSupport
 @AddBeanClasses(MessageProducerMock.class)
 @JsfTestConfiguration({ CoreJsfTestConfiguration.class })
-class DisplayNameProviderMessageProducerTest
-        implements ShouldHandleObjectContracts<DisplayNameProviderMessageProducer>, JsfEnvironmentConsumer {
+class DisplayNameMessageProducerTest
+        implements ShouldHandleObjectContracts<DisplayNameMessageProducer>, JsfEnvironmentConsumer {
 
     private static final String STRING_RESULT = "invalid e-Mail Address syntax";
 
@@ -59,7 +59,7 @@ class DisplayNameProviderMessageProducerTest
 
     @Inject
     @Getter
-    private DisplayNameProviderMessageProducer underTest;
+    private DisplayNameMessageProducer underTest;
 
     @Test
     void testShowAsGlobalMessageAndLogWithError() {
