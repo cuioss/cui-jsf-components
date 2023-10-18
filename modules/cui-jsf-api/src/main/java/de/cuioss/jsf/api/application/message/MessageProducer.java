@@ -17,16 +17,21 @@ package de.cuioss.jsf.api.application.message;
 
 import java.io.Serializable;
 
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Provider;
 
 import lombok.NonNull;
 
 /**
  * Helper class simplifying the production of {@link FacesMessage}s.
  * <p>
- * It needs to be session or none scoped in order to be injected into viewScoped
- * / Session Scoped beans.
+ * The concrete implementation {@link MessageProducerBean} is
+ * {@link RequestScoped}, therefore for injecting it into {@link ViewScoped} or
+ * {@link SessionScoped} beans you must use a {@link Provider}.
  * </p>
  */
 public interface MessageProducer extends Serializable {

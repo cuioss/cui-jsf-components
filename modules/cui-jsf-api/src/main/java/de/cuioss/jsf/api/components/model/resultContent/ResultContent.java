@@ -126,8 +126,7 @@ public class ResultContent implements ErrorController, Serializable {
     @Override
     public void addGlobalFacesMessage(IDisplayNameProvider<?> value, FacesMessage.Severity severity) {
 
-        PortalBeanManager.resolveRequiredBean(DisplayNameMessageProducer.class).showAsGlobalMessage(value,
-                severity);
+        PortalBeanManager.resolveRequiredBean(DisplayNameMessageProducer.class).showAsGlobalMessage(value, severity);
     }
 
     @Override
