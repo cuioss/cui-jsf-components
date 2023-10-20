@@ -15,9 +15,7 @@
  */
 package de.cuioss.jsf.api.application.bundle;
 
-import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
-
-import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Priority;
 import javax.enterprise.context.ApplicationScoped;
@@ -25,14 +23,11 @@ import javax.enterprise.context.ApplicationScoped;
 import de.cuioss.portal.common.bundle.ResourceBundleLocator;
 import de.cuioss.portal.common.priority.PortalPriorities;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.ToString;
 
 /**
- * Defines the base bundles to be defined within a portal application, that are
- * "de.cuioss.portal.ui.i18n.portal-messages",
- * "de.cuioss.jsf.api.core.l18n.messages" with the Priority
- * {@link PortalPriorities#PORTAL_CORE_LEVEL}
+ * Defines the base bundles "de.cuioss.jsf.api.core.l18n.messages" with the
+ * Priority {@link PortalPriorities#PORTAL_CORE_LEVEL}
  *
  * @author Matthias Walliczek
  */
@@ -44,6 +39,11 @@ public class CuiJSfResourceBundleLocator implements ResourceBundleLocator {
 
     private static final long serialVersionUID = -8478481710191113463L;
 
-    @Getter
-    private final List<String> configuredResourceBundles = immutableList("de.cuioss.jsf.api.core.l18n.messages");
+    private static final String PATH = "de.cuioss.jsf.api.core.l18n.messages";
+
+    @Override
+    public Optional<String> getBundlePath() {
+        return Optional.of(PATH);
+    }
+
 }
