@@ -26,8 +26,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Defines the base bundles "de.cuioss.jsf.api.core.l18n.messages" with the
- * Priority {@link PortalPriorities#PORTAL_CORE_LEVEL}
+ * Defines the base bundles "de.cuioss.jsf.api.l18n.messages" with the Priority
+ * {@link PortalPriorities#PORTAL_CORE_LEVEL}
  *
  * @author Matthias Walliczek
  */
@@ -39,7 +39,7 @@ public class CuiJSfResourceBundleLocator implements ResourceBundleLocator {
 
     private static final long serialVersionUID = -8478481710191113463L;
 
-    private static final String PATH = "de.cuioss.jsf.api.core.l18n.messages";
+    private static final String PATH = "de.cuioss.jsf.api.l18n.messages";
 
     @Override
     public Optional<String> getBundlePath() {
