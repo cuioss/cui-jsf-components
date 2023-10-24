@@ -421,8 +421,8 @@
         </description>
         <tag-name>commandButton</tag-name>
         <component>
-            <component-type>de.cuioss.bootstrap..commandbutton</component-type>
-            <renderer-type>de.cuioss.bootstrap..commandbutton_renderer</renderer-type>
+            <component-type>de.cuioss.bootstrap.commandbutton</component-type>
+            <renderer-type>de.cuioss.bootstrap.commandbutton_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be unique
@@ -854,8 +854,8 @@
         </description>
         <tag-name>switch</tag-name>
         <component>
-            <component-type>de.cuioss.bootstrap..switch</component-type>
-            <renderer-type>de.cuioss.bootstrap..switch_renderer</renderer-type>
+            <component-type>de.cuioss.bootstrap.switch</component-type>
+            <renderer-type>de.cuioss.bootstrap.switch_renderer</renderer-type>
         </component>
         <attribute>
             <description>
@@ -996,8 +996,8 @@
         </description>
         <tag-name>button</tag-name>
         <component>
-            <component-type>de.cuioss.bootstrap..button</component-type>
-            <renderer-type>de.cuioss.bootstrap..button_renderer</renderer-type>
+            <component-type>de.cuioss.bootstrap.button</component-type>
+            <renderer-type>de.cuioss.bootstrap.button_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be unique
@@ -4761,8 +4761,8 @@
             </description>
         <tag-name>outputLinkButton</tag-name>
         <component>
-            <component-type>de.cuioss.bootstrap..outputLinkButton</component-type>
-            <renderer-type>de.cuioss.bootstrap..outputLinkButton_renderer</renderer-type>
+            <component-type>de.cuioss.bootstrap.outputLinkButton</component-type>
+            <renderer-type>de.cuioss.bootstrap.outputLinkButton_renderer</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be unique
