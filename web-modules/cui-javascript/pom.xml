@@ -14,9 +14,24 @@
         <maven.jar.plugin.automatic.module.name>de.cuioss.jsf.javascript</maven.jar.plugin.automatic.module.name>
         <plugin.resources.cuijs.target>
             ${project.build.directory}/classes/META-INF/resources/de.cuioss.javascript</plugin.resources.cuijs.target>
+        <thirdparty.js.target>
+            ${project.build.directory}/classes/META-INF/resources/thirdparty.js</thirdparty.js.target>
+
+        <build.dependency.unpack>
+            ${project.build.directory}/unpack</build.dependency.unpack>
         <!-- Output from grunt-uglify task-->
         <plugin.resources.cuijs.src>${project.build.directory}/uglify</plugin.resources.cuijs.src>
+        <version.webjar.jquery>3.7.1</version.webjar.jquery>
     </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>jquery</artifactId>
+                <version>${version.webjar.jquery}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <build>
         <plugins>
             <plugin>
@@ -54,6 +69,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <configuration>
+
                     <outputDirectory>${plugin.resources.cuijs.target}</outputDirectory>
                     <resources>
                         <resource>
@@ -63,6 +79,57 @@
                         </resource>
                     </resources>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-thirdparty</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifact>
+                                    <groupId>org.webjars</groupId>
+                                    <artifactId>jquery</artifactId>
+                                    <version>${version.webjar.jquery}</version>
+                                    <type>jar</type>
+                                    <outputDirectory>${build.dependency.unpack}</outputDirectory>
+                                    <includes>**/webjars/jquery/**/*</includes>
+                                </artifact>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-files</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${thirdparty.js.target}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>
+                                        ${build.dependency.unpack}/META-INF/resources/webjars/jquery/${version.webjar.jquery}/</directory>
+                                    <includes>
+                                        <include>**/jquery*</include>
+                                    </includes>
+                                    <filtering>false</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
