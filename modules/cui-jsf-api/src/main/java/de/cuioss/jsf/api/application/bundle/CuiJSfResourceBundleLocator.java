@@ -23,7 +23,6 @@ import javax.enterprise.context.ApplicationScoped;
 import de.cuioss.portal.common.bundle.ResourceBundleLocator;
 import de.cuioss.portal.common.priority.PortalPriorities;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * Defines the base bundles "de.cuioss.jsf.api.l18n.messages" with the Priority
@@ -34,7 +33,6 @@ import lombok.ToString;
 @Priority(PortalPriorities.PORTAL_CORE_LEVEL)
 @ApplicationScoped
 @EqualsAndHashCode
-@ToString
 public class CuiJSfResourceBundleLocator implements ResourceBundleLocator {
 
     private static final long serialVersionUID = -8478481710191113463L;
@@ -46,4 +44,8 @@ public class CuiJSfResourceBundleLocator implements ResourceBundleLocator {
         return Optional.of(PATH);
     }
 
+    @Override
+    public String toString() {
+        return "%s: Path='%s'".formatted(getClass().getName(), PATH);
+    }
 }
