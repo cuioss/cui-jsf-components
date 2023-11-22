@@ -22,6 +22,8 @@ import java.io.Writer;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
+import java.util.Optional;
+import java.util.Set;
 
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
@@ -46,6 +48,7 @@ import org.xml.sax.InputSource;
 
 import de.cuioss.jsf.api.application.navigation.NavigationUtils;
 import de.cuioss.jsf.api.components.base.BaseCuiNamingContainer;
+import de.cuioss.tools.collect.CollectionBuilder;
 import de.cuioss.tools.io.FileLoaderUtility;
 import de.cuioss.tools.io.FileTypePrefix;
 import de.cuioss.tools.io.IOStreams;
@@ -201,12 +204,12 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
 
     private String resolveFromSourcePath(final String sourcePath) {
         final var resolved = resolvePath(sourcePath);
-        if (null == resolved) {
-            return "Unable lo load path '%s', because the file can not be found or is not readable"
+        if (resolved.isEmpty()) {
+            return "Unable lo load path from any of '%s', because the file can not be found or is not readable"
                     .formatted(determineViewRelativePath(sourcePath));
         }
         try {
-            return IOStreams.toString(resolved.openStream(), StandardCharsets.UTF_8);
+            return IOStreams.toString(resolved.get().openStream(), StandardCharsets.UTF_8);
         } catch (final IOException e) {
             return "Unable lo load path '%s', due to '%s'".formatted(resolved, e.getMessage());
         }
@@ -221,17 +224,34 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
      *
      * @return
      */
-    private URL resolvePath(final String path) {
+    private Optional<URL> resolvePath(final String path) {
         if (!path.startsWith("/")) {
-            return getClass().getResource(determineViewRelativePath(path));
+            for (var candidate : determineViewRelativePath(path)) {
+                log.debug("Checking Candidates '%s'", candidate);
+                var found = getClass().getResource(candidate);
+                if (found != null) {
+                    log.debug("Found candidate '%s'", candidate);
+                    return Optional.of(found);
+                }
+            }
+            log.warn("No relative path found for '%s'", path);
+            return Optional.empty();
         }
-        return getClass().getResource(path);
+        log.debug("Assuming absolute path for '%s'", path);
+        return Optional.ofNullable(getClass().getResource(path));
     }
 
-    private String determineViewRelativePath(final String path) {
+    private Set<String> determineViewRelativePath(final String path) {
         final var requestPath = NavigationUtils.getCurrentView(getFacesContext()).getViewId();
         final var currentFolder = requestPath.substring(0, requestPath.lastIndexOf('/') + 1);
-        return new StringBuilder().append("/META-INF").append(currentFolder).append(path).toString();
+        var candidates = new CollectionBuilder<String>();
+        log.debug("META-INF candidate (portal-default) for '%s'", path);
+        candidates.add("/META-INF%s%s".formatted(currentFolder, path));
+        log.debug("META-INF candidate (myfaces/quarkus) for '%s'", path);
+        candidates.add("/META-INF/resources%s%s".formatted(currentFolder, path));
+        log.debug("direct candidate (not within META-INF) for '%s'", path);
+        candidates.add("%s%s".formatted(currentFolder, path));
+        return candidates.toImmutableSet();
     }
 
     private String resolveFromContainerId(final String sourceContainerId) {

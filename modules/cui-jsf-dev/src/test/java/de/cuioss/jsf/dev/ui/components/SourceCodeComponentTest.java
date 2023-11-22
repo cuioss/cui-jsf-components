@@ -57,7 +57,25 @@ class SourceCodeComponentTest extends AbstractComponentTest<SourceCodeComponent>
         var component = new SourceCodeComponent();
         component.setSourcePath("test.properties");
         var resolved = component.resolveSource();
-        assertTrue(resolved.contains("hello=world"));
+        assertEquals("hello=world", resolved);
+    }
+
+    @Test
+    void shouldReadRelativeToResourcesSourceFile() {
+        getRequestConfigDecorator().setViewId(VIEW_ID);
+        var component = new SourceCodeComponent();
+        component.setSourcePath("relativeResources.properties");
+        var resolved = component.resolveSource();
+        assertEquals("hello=relative", resolved);
+    }
+
+    @Test
+    void shouldReadRelativeAsAbsoluteSourceFile() {
+        getRequestConfigDecorator().setViewId(VIEW_ID);
+        var component = new SourceCodeComponent();
+        component.setSourcePath("absoluteResources.properties");
+        var resolved = component.resolveSource();
+        assertEquals("hello=absolute", resolved);
     }
 
     @Test
@@ -66,7 +84,7 @@ class SourceCodeComponentTest extends AbstractComponentTest<SourceCodeComponent>
         var component = new SourceCodeComponent();
         component.setSourcePath("/META-INF" + BASE + "absolut.properties");
         var resolved = component.resolveSource();
-        assertTrue(resolved.contains("hello=world2"));
+        assertEquals("hello=world2", resolved);
     }
 
     @Test
@@ -75,7 +93,7 @@ class SourceCodeComponentTest extends AbstractComponentTest<SourceCodeComponent>
         var component = new SourceCodeComponent();
         component.setSourcePath("/META-INF" + BASE + "notthere.properties");
         var resolved = component.resolveSource();
-        assertTrue(resolved.startsWith("Unable lo load "));
+        assertTrue(resolved.startsWith("Unable lo load "), resolved);
     }
 
     @Test
@@ -84,6 +102,6 @@ class SourceCodeComponentTest extends AbstractComponentTest<SourceCodeComponent>
         var component = new SourceCodeComponent();
         component.setSourcePath("not.there");
         var resolved = component.resolveSource();
-        assertTrue(resolved.startsWith("Unable lo load "));
+        assertTrue(resolved.startsWith("Unable lo load "), resolved);
     }
 }
