@@ -227,13 +227,14 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
     private Optional<URL> resolvePath(final String path) {
         if (!path.startsWith("/")) {
             for (var candidate : determineViewRelativePath(path)) {
-                log.debug("Checking Candidates '%s'", candidate);
+                log.debug("Checking candidate '%s'", candidate);
                 var found = getClass().getResource(candidate);
                 if (found != null) {
                     log.debug("Found candidate '%s'", candidate);
                     return Optional.of(found);
                 }
             }
+            log.warn("%s", getClass().getResource(path));
             log.warn("No relative path found for '%s'", path);
             return Optional.empty();
         }
@@ -247,7 +248,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         var candidates = new CollectionBuilder<String>();
         log.debug("META-INF candidate (portal-default) for '%s'", path);
         candidates.add("/META-INF%s%s".formatted(currentFolder, path));
-        log.debug("META-INF candidate (myfaces/quarkus) for '%s'", path);
+        log.debug("META-INF/resources candidate (myfaces/quarkus) for '%s'", path);
         candidates.add("/META-INF/resources%s%s".formatted(currentFolder, path));
         log.debug("direct candidate (not within META-INF) for '%s'", path);
         candidates.add("%s%s".formatted(currentFolder, path));
