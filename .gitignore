@@ -2,6 +2,7 @@
 **/target
 **/bin
 **/.idea
+**/.grunt
 **/.vscode
 **/src/main/gen
 *.iml
