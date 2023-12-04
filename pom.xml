@@ -6,7 +6,7 @@
     <parent>
         <groupId>de.cuioss</groupId>
         <artifactId>cui-java-parent</artifactId>
-        <version>0.4.3</version>
+        <version>0.4.5</version>
         <relativePath />
     </parent>
     <groupId>de.cuioss.jsf</groupId>
@@ -29,7 +29,7 @@
         <system>GitHub Issues</system>
     </issueManagement>
     <properties>
-        <version.cui.parent>0.4.3</version.cui.parent>
+        <version.cui.parent>0.4.5</version.cui.parent>
         <version.primefaces>13.0.3</version.primefaces>
         <!-- Neede for js / css -->
         <version.nodejs>v18.16.0</version.nodejs>
