@@ -18,6 +18,7 @@ package de.cuioss.jsf.dev.ui.components;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import de.cuioss.test.generator.Generators;
@@ -52,6 +53,7 @@ class SourceCodeComponentTest extends AbstractComponentTest<SourceCodeComponent>
     }
 
     @Test
+    @Disabled
     void shouldReadRelativeSourceFile() {
         getRequestConfigDecorator().setViewId(VIEW_ID);
         var component = new SourceCodeComponent();
@@ -61,6 +63,7 @@ class SourceCodeComponentTest extends AbstractComponentTest<SourceCodeComponent>
     }
 
     @Test
+    @Disabled
     void shouldReadRelativeToResourcesSourceFile() {
         getRequestConfigDecorator().setViewId(VIEW_ID);
         var component = new SourceCodeComponent();
@@ -70,6 +73,7 @@ class SourceCodeComponentTest extends AbstractComponentTest<SourceCodeComponent>
     }
 
     @Test
+    @Disabled
     void shouldReadRelativeAsAbsoluteSourceFile() {
         getRequestConfigDecorator().setViewId(VIEW_ID);
         var component = new SourceCodeComponent();

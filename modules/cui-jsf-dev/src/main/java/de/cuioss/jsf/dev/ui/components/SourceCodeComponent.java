@@ -228,7 +228,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         if (!path.startsWith("/")) {
             for (var candidate : determineViewRelativePath(path)) {
                 log.debug("Checking candidate '%s'", candidate);
-                var found = getClass().getResource(candidate);
+                var found = Thread.currentThread().getContextClassLoader().getResource(candidate);
                 if (found != null) {
                     log.debug("Found candidate '%s'", candidate);
                     return Optional.of(found);

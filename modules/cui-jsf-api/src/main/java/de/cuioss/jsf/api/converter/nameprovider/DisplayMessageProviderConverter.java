@@ -22,7 +22,6 @@ import javax.faces.convert.FacesConverter;
 
 import de.cuioss.jsf.api.converter.AbstractConverter;
 import de.cuioss.portal.common.bundle.PortalResourceBundleBean;
-import de.cuioss.portal.common.cdi.PortalBeanManager;
 import de.cuioss.uimodel.nameprovider.DisplayMessageProvider;
 
 /**
@@ -37,6 +36,6 @@ public class DisplayMessageProviderConverter extends AbstractConverter<DisplayMe
     protected String convertToString(final FacesContext context, final UIComponent component,
             final DisplayMessageProvider value) throws ConverterException {
 
-        return value.getMessageFormated(PortalBeanManager.resolveRequiredBean(PortalResourceBundleBean.class));
+        return value.getMessageFormated(PortalResourceBundleBean.resolveFromCDIContext());
     }
 }
