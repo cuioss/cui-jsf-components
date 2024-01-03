@@ -18,8 +18,9 @@ package de.cuioss.jsf.dev.ui.components;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
@@ -52,34 +53,15 @@ class SourceCodeComponentTest extends AbstractComponentTest<SourceCodeComponent>
         assertTrue(resolved.contains("Extract Sample Source"));
     }
 
-    @Test
-    @Disabled
-    void shouldReadRelativeSourceFile() {
+    @ParameterizedTest
+    @CsvSource({ "test.properties,hello=world", "relativeResources.properties,hello=relative",
+            "absoluteResources.properties,hello=absolute" })
+    void shouldReadRelativeSourceFile(String path, String result) {
         getRequestConfigDecorator().setViewId(VIEW_ID);
         var component = new SourceCodeComponent();
-        component.setSourcePath("test.properties");
+        component.setSourcePath(path);
         var resolved = component.resolveSource();
-        assertEquals("hello=world", resolved);
-    }
-
-    @Test
-    @Disabled
-    void shouldReadRelativeToResourcesSourceFile() {
-        getRequestConfigDecorator().setViewId(VIEW_ID);
-        var component = new SourceCodeComponent();
-        component.setSourcePath("relativeResources.properties");
-        var resolved = component.resolveSource();
-        assertEquals("hello=relative", resolved);
-    }
-
-    @Test
-    @Disabled
-    void shouldReadRelativeAsAbsoluteSourceFile() {
-        getRequestConfigDecorator().setViewId(VIEW_ID);
-        var component = new SourceCodeComponent();
-        component.setSourcePath("absoluteResources.properties");
-        var resolved = component.resolveSource();
-        assertEquals("hello=absolute", resolved);
+        assertEquals(result, resolved);
     }
 
     @Test

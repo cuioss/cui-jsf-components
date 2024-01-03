@@ -35,7 +35,7 @@ import de.cuioss.jsf.dev.metadata.model.ConverterMetadata;
 import de.cuioss.jsf.dev.metadata.model.TagStorage;
 import de.cuioss.jsf.dev.metadata.model.UIComponentMetadata;
 import de.cuioss.jsf.dev.metadata.model.ValidatorMetadata;
-import de.cuioss.tools.base.Preconditions;
+import de.cuioss.portal.common.util.PortalResourceLoader;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -93,16 +93,15 @@ public class TagLib implements Serializable {
 
         tagPath = tagLibPath;
 
-        final var resource = TagLib.class.getResource(tagPath);
-
-        Preconditions.checkState(null != resource, "Unable to load path %d", tagPath);
+        final var resource = PortalResourceLoader.getRessource(tagLibPath, getClass());
 
         componentMetadata = new TagStorage<>();
         converterMetadata = new TagStorage<>();
         validatorMetadata = new TagStorage<>();
         behaviorMetadata = new TagStorage<>();
 
-        parseTagLib(resource);
+        parseTagLib(
+                resource.orElseThrow(() -> new IllegalStateException("Unable to load TagLib from path: " + tagPath)));
 
         componentMetadata.sortCollected();
         converterMetadata.sortCollected();

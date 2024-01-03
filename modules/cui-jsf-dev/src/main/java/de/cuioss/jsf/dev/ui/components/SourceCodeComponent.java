@@ -48,6 +48,7 @@ import org.xml.sax.InputSource;
 
 import de.cuioss.jsf.api.application.navigation.NavigationUtils;
 import de.cuioss.jsf.api.components.base.BaseCuiNamingContainer;
+import de.cuioss.portal.common.util.PortalResourceLoader;
 import de.cuioss.tools.collect.CollectionBuilder;
 import de.cuioss.tools.io.FileLoaderUtility;
 import de.cuioss.tools.io.FileTypePrefix;
@@ -228,10 +229,10 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         if (!path.startsWith("/")) {
             for (var candidate : determineViewRelativePath(path)) {
                 log.debug("Checking candidate '%s'", candidate);
-                var found = Thread.currentThread().getContextClassLoader().getResource(candidate);
-                if (found != null) {
+                var found = PortalResourceLoader.getRessource(candidate, getClass());
+                if (found.isPresent()) {
                     log.debug("Found candidate '%s'", candidate);
-                    return Optional.of(found);
+                    return found;
                 }
             }
             log.warn("%s", getClass().getResource(path));
