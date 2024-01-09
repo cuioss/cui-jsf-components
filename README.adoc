@@ -30,4 +30,3 @@ Provides a number of JavaServer Faces modules
     <scope>import</scope>
 </dependency>
 ----
-
