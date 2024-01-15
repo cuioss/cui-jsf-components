@@ -45,7 +45,7 @@
             <description><![CDATA[Defines the strategy for sanitizing. One of "PLAIN_TEXT", "SIMPLE_HTML",
                 "COMPLEX_HTML" expected (Case insensitive). If you want to disable the sanitizing
                 for this converter you can use "PASSTHROUGH" but the implementor must ensure
-                document that the sanitizing is done in an other way, like on the model. To preserve
+                document that the sanitizing is done in another way, like on the model. To preserve
                 html-entities use "PLAIN_TEXT_PRESERVE_ENTITIES" or
                 "COMPLEX_HTML_PRESERVE_ENTITIES". See de.cuioss.jsf.api.security.CuiSanitizer
                 for details for the corresponding sanitizer. It defaults to
@@ -79,7 +79,7 @@
             <converter-id>de.cuioss.jsf.components.converter.TextSplittingConverter</converter-id>
         </converter>
         <attribute>
-            <description><![CDATA[Count of characters when a text break will forced, defaults to
+            <description><![CDATA[Count of characters when a text break will be forced, defaults to
                 15]]></description>
             <name>forceLengthBreakCount</name>
             <required>false</required>
@@ -116,8 +116,8 @@
         </attribute>
     </tag>
     <tag>
-        <description><![CDATA[Validates the content of a input text as email. Is configurable.
-                It defaults to "^[^@]+@[^@]+$" ...what means email must start with something other than "@" followed by "@" end end with something other than "@".]]></description>
+        <description><![CDATA[Validates the content of an input text as email. Is configurable.
+                It defaults to "^[^@]+@[^@]+$" ...what means email must start with something other than "@" followed by "@" end with something other than "@".]]></description>
         <tag-name>emailValidator</tag-name>
         <validator>
             <validator-id>emailValidator</validator-id>
@@ -155,7 +155,7 @@
             <type>boolean</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered (during
+            <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
             </description>
@@ -304,7 +304,7 @@
         </attribute>
         <attribute>
             <description>
-                <![CDATA[Depending on the usecase for this converter there are different target
+                <![CDATA[Depending on the use case for this converter there are different target
                 types that should be supported: List and SortedSet. This attribute controls the
                 behavior. In case it is "sorted_set" the resulting collection will be a SortedSet
                 ina all other cases it will be List]]>
@@ -349,7 +349,7 @@
     </tag>
 
     <tag>
-        <description><![CDATA[<h2>Wrappes a primefaces scheduler.</p>
+        <description><![CDATA[<h2>Wraps a primefaces scheduler.</p>
    ]]></description>
         <tag-name>scheduler</tag-name>
         <component>

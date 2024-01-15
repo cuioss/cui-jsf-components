@@ -32,7 +32,7 @@
             <type>boolean</type>
         </attribute>
         <attribute>
-            <description><![CDATA[The number of milliseconds to wait after the the last key press before
+            <description><![CDATA[The number of milliseconds to wait after the last key press before
                 firing the callback. Defaults to 750ms.]]></description>
             <name>wait</name>
             <required>false</required>
