@@ -3,7 +3,7 @@
     xmlns="http://xmlns.jcp.org/xml/ns/javaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd">
-    <namespace>"https://cuioss.de/jsf/core"</namespace>
+    <namespace>https://cuioss.de/jsf/core</namespace>
     <short-name>cui</short-name>
     <tag>
         <description><![CDATA[Formatting converter for creating / resolving the label of a given CodeType. It
