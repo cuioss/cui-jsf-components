@@ -45,7 +45,7 @@
         </attribute>
         <attribute>
             <description>
-                <![CDATA[ Flag indicating whether or not this component should be rendered
+                <![CDATA[ Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit. The default value for this property is true.]]>
             </description>
@@ -144,7 +144,7 @@
         <description>
             <![CDATA[
            <p>
-            Renders a bootstrap style badge. In essence it is an h:outputText with additional configuration
+            Renders a bootstrap style badge. In essence, it is a h:outputText with additional configuration
                The title is resolved using the cui standard label-resolving mechanism.</p>
             <p>A list of all available icons can be found at the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/miscellaneous.jsf">Reference Documentation</a> </p>
             <h3>Usage</h3>
@@ -175,7 +175,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered
+            <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit. The default value for this property is true.]]>
             </description>
@@ -290,7 +290,7 @@
             </p>
             <p>
             The layout relies completely on the grid-system of twitter-bootstrap,
-            see <a href="http://getbootstrap.com/css/#grid">Bootstrap Documentation</a>
+            see <a href="https://getbootstrap.com/css/#grid">Bootstrap Documentation</a>
             </p>
             <ul>
 				<li>Form-Groups are similar to rows but within a form-context</li>
@@ -322,7 +322,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered
+            <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit.  The default value for this property is true.]]>
             </description>
@@ -358,7 +358,7 @@
             </p>
             <p>
             The layout relies completely on the grid-system of twitter-bootstrap,
-            see <a href="http://getbootstrap.com/css/#grid">Bootstrap Documentation</a>
+            see <a href="https://getbootstrap.com/css/#grid">Bootstrap Documentation</a>
             </p>
             <p>
                More information and
@@ -386,7 +386,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered
+            <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit.  The default value for this property is true.]]>
             </description>
@@ -434,7 +434,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered (during
+            <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true. ]]></description>
             <name>rendered</name>
@@ -610,7 +610,7 @@
             <description>
                 <![CDATA[Direction indication for text that does not inherit directionality.
                 Valid values are "LTR" (left-to-right) and "RTL" (right-to-left).
-                These attributes are case sensitive when rendering to XHTML, so
+                These attributes are case-sensitive when rendering to XHTML, so
                 care must be taken to have the correct case.]]>
             </description>
             <name>dir</name>
@@ -691,7 +691,7 @@
         <attribute>
             <description>
                 <![CDATA[Javascript code executed when a pointer button is
-                double clicked over this element.]]>
+                double-clicked over this element.]]>
             </description>
             <name>ondblclick</name>
             <required>false</required>
@@ -1009,7 +1009,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered (during
+            <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
             </description>
@@ -1260,7 +1260,7 @@
         <attribute>
             <description>
                 <![CDATA[Javascript code executed when a pointer button is
-                double clicked over this element.]]>
+                double-clicked over this element.]]>
             </description>
             <name>ondblclick</name>
             <required>false</required>
@@ -1422,7 +1422,7 @@
         <description>
             <![CDATA[
            <p>
-            Renders an Gender Icon regarding to the cui-icon contract. The icon is rendered within a span with the according classes.</p>
+            Renders a Gender Icon regarding the cui-icon contract. The icon is rendered within a span with the according classes.</p>
             <h3>Usage</h3>
                 <table>
                     <tr>
@@ -1458,7 +1458,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered (during
+            <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
             </description>
@@ -1533,7 +1533,7 @@
         </attribute>
     </tag>
     <tag>
-        <description><![CDATA[Renders a toolbar component that can be pinned to top or bottom. Therefore the
+        <description><![CDATA[Renders a toolbar component that can be pinned to top or bottom. Therefore, the
             bootstrap affix plugin is used.
             <h3>Styling</h3>
             The sass module is defined within cui-styling, the name is 'de.cuioss.cui/_toolbar.scss
@@ -1559,7 +1559,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered (during
+            <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
             </description>
@@ -1662,7 +1662,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered (during
+            <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
             </description>
@@ -1764,7 +1764,7 @@
             <description>
                 <![CDATA[Defines The alignment of the icon within a given component. In case it is
                 not set or does not match one of "left" or "right" the resolveIconAlign() will
-                return AlignHolder.DEFAULT, other wise it will return the according value. The
+                return AlignHolder.DEFAULT, otherwise it will return the according value. The
                 default icon alignment is usually 'left']]>
             </description>
             <name>iconAlign</name>
@@ -1777,7 +1777,7 @@
             <![CDATA[
              <p>
                 Enables a parent element like boot:button to control a ModalDialogComponent to show or hide.
-                It acts as an AbstractParentDecorator saying it solely write Html-5 attributes to the parent components,
+                It acts as an AbstractParentDecorator saying it solely writes Html-5 attributes to the parent components,
                 the actual heavy-lifting is done by the javascript 'javascript.enabler/enabler.modal.js'
                  <boot:button labelValue="Open">
                    <cui:modalControl for="dialogId"/>
@@ -1792,7 +1792,7 @@
             <component-type>de.cuioss.bootstrap.modal_dialog_control</component-type>
         </component>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered (during
+            <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
             </description>
@@ -1828,7 +1828,7 @@
     </tag>
     <tag>
         <description><![CDATA[
-        <p>Renders a <a href="http://getbootstrap.com/javascript/#modals-examples&quot;">Bootstrap Modal Dialog</a>.</p>
+        <p>Renders a <a href="https://getbootstrap.com/javascript/#modals-examples&quot;">Bootstrap Modal Dialog</a>.</p>
         <p>Supported facets are header, and footer. In case of the header you can use headerKey / headerValue.
         The same for footerKey /footerValue as text content for footer.
         There are different general styles available (state): one of 'primary', 'success', 'info', 'warning', 'danger'.
@@ -1865,7 +1865,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered (during
+            <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
             </description>
@@ -1971,7 +1971,7 @@
         <description>
             <![CDATA[
              <p>
-                Renders a <a href="http://getbootstrap.com/components/#alerts">bootstrap alert</a>.  More information and
+                Renders a <a href="https://getbootstrap.com/components/#alerts">bootstrap alert</a>.  More information and
                examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/miscellaneous.jsf" >Reference Documentation</a></p>
        ]]>
         </description>
@@ -1990,7 +1990,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered (during
+            <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
             </description>
@@ -2116,7 +2116,7 @@
     <p>The component will be rendered into a bootstrap defined div with class='control-group'.
     The input component is to be a child for this component and having the id 'input'
     As an alternative to 'input' you can change the attribute 'forIdentifier'
-    In special cases you can provides a space separated list for the forIdentifier attribute
+    In special cases you can provide a space separated list for the forIdentifier attribute
     resulting in n message elements being appended.</p>
     <p>The component itself will apply the (needed) styleClass "form-control" to the
     given input if the corresponding component does not have a styleClass set already. If it has a styleClass
@@ -2139,7 +2139,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered (during
+            <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
             </description>
@@ -2148,7 +2148,7 @@
             <type>boolean</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should disable the
+            <description><![CDATA[Flag indicating whether this component should disable the
             contained input component. The default value for this property is false.]]>
             </description>
             <name>disabled</name>
@@ -2250,7 +2250,7 @@
         <attribute>
             <description>
                 <![CDATA[The id of the child input component. Defaults to 'input'. Usually to be
-                kept the same. In special cases you can provides a space separated list for the
+                kept the same. In special cases you can provide a space separated list for the
                 forIdentifier attribute resulting in n message elements being appended.]]>
             </description>
             <name>forIdentifier</name>
@@ -2401,7 +2401,7 @@
         <attribute>
             <description>
                 <![CDATA[Indicates whether the content should be rendered inside a div with style class "input-group".
-                Necessary when "input-group-addon" elements will be used, that can not be put as an prepend or append facet.
+                Necessary when "input-group-addon" elements will be used, that can not be put as a 'prepend' or 'append' facet.
                 Default is false.]]>
             </description>
             <name>renderInputGroup</name>
@@ -2419,7 +2419,7 @@
             <renderer-type>javax.faces.Hidden</renderer-type>
         </component>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered (during
+            <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
             </description>
@@ -2513,7 +2513,7 @@
             <renderer-type>javax.faces.Hidden</renderer-type>
         </component>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered (during
+            <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
                 </description>
@@ -2705,7 +2705,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered (during
+            <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
                 </description>
@@ -2732,7 +2732,7 @@
         </attribute>
         <attribute>
             <description>
-                <![CDATA[If true, accordion items can be toggle independently from each other, i.e.
+                <![CDATA[If true, accordion items can be toggled independently of each other, i.e.
                 more than one can be open at the same time.]]>
                 </description>
             <name>multiselectable</name>
@@ -2778,7 +2778,7 @@
         </attribute>
         <attribute>
             <description>
-                <![CDATA[Flag indicating whether or not this component should be rendered (during
+                <![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
                 </description>
@@ -2849,7 +2849,7 @@
         </attribute>
         <attribute>
             <description>
-                <![CDATA[The String displayed in the. This is a replacement for #footerKey. If both
+                <![CDATA[The String displayed in the footer. This is a replacement for #footerKey. If both
                 are present footerValue takes precedence. If the type is not java.lang.String the
                 developer must ensure that an according converter exists. If a footer facet is
                 available the facet takes precedence.]]>
@@ -2924,7 +2924,7 @@
              <p>
 			 Renders a bootstrap based tooltip component for an existing parent-component. It acts as a decorator, saying
 			 itself it renders no output but changes the attributes of the parent element accordingly.
-			 The actual rendering of the tooltip is done by the javascript "component.enabler.tooltip.js", see  <a href="http://getbootstrap.com/javascript/#tooltips">bootstrap tooltip</a>
+			 The actual rendering of the tooltip is done by the javascript "component.enabler.tooltip.js", see  <a href="https://getbootstrap.com/javascript/#tooltips">bootstrap tooltip</a>
 			   More information and examples can be found in the
 			   <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/miscellaneous.jsf" >Reference Documentation</a></p>
        ]]></description>
@@ -2933,7 +2933,7 @@
             <component-type>de.cuioss.bootstrap.tooltip</component-type>
         </component>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered (during
+            <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
                 </description>
@@ -3019,7 +3019,7 @@
             </p>
             <p>
                 The layout relies completely on the grid-system of twitter-bootstrap,
-                see <a href="http://getbootstrap.com/css/#grid">Bootstrap Documentation</a>
+                see <a href="https://getbootstrap.com/css/#grid">Bootstrap Documentation</a>
             </p>
             <ul>
                 <li>Columns must always reside within a row as a direct child.</li>
@@ -3070,7 +3070,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered
+            <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit.  The default value for this property is true.]]>
                 </description>
@@ -3118,7 +3118,7 @@
             </p>
             <p>
             The layout relies completely on the grid-system of twitter-bootstrap,
-            see <a href="http://getbootstrap.com/css/#grid">Bootstrap Documentation</a>
+            see <a href="https://getbootstrap.com/css/#grid">Bootstrap Documentation</a>
             </p>
             <ul>
                 <li>controlGoups must be within container with 'form-horizontal'.</li>
@@ -3158,7 +3158,7 @@
         </attribute>
         <attribute>
             <description>
-                <![CDATA[Flag indicating whether or not this component should be rendered
+                <![CDATA[Flag indicating whether this component should be rendered
                     (during Render Response Phase), or processed on any subsequent
                     form submit.  The default value for this property is true.]]>
                 </description>
@@ -3238,7 +3238,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered
+            <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit. The default value for this property is true.]]>
                 </description>
@@ -3330,7 +3330,7 @@
         <attribute>
             <description>
                 <![CDATA[The id of the child input component. Defaults to 'input'. Usually to be kept the same.
-               In special cases you can provides a space separated list for the forIdentifier attribute
+               In special cases you can provide a space separated list for the forIdentifier attribute
                 resulting in n message elements being appended.]]>
                 </description>
             <name>forIdentifier</name>
@@ -3349,7 +3349,7 @@
         </attribute>
         <attribute>
             <description>
-                <![CDATA[Flag indicating whether or not this component should be rendered
+                <![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit.  The default value for this property is true.]]>
                 </description>
@@ -3389,7 +3389,7 @@
         <description>
             <![CDATA[
              <p>
-                Renders an MimeTypeIcon regarding to the cui-icon contract.</p>
+                Renders an MimeTypeIcon regarding the cui-icon contract.</p>
              <p>A list of all available mimeTypeIcons can be found at the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/icons/mime_types.jsf">Reference Documentation</a> </p>
 
             <h3>Usage</h3>
@@ -3425,7 +3425,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered
+            <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit. The default value for this property is true.]]>
                 </description>
@@ -3524,7 +3524,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered
+            <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit.  The default value for this property is true.]]>
                 </description>
@@ -3568,7 +3568,7 @@
         <description>
             <![CDATA[
            <p>
-            Renders an Label for input elements.
+            Renders a Label for input elements.
                The label and title are resolved using the cui standard label-resolving mechanism.</p>
             <p>Sample can be found at the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/layout.jsf">Reference Documentation</a> </p>]]>
             </description>
@@ -3587,7 +3587,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered
+            <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit.  The default value for this property is true.]]>
                 </description>
@@ -3684,7 +3684,7 @@
             </p>
             <p>
             The layout relies completely on the grid-system of twitter-bootstrap,
-            see <a href="http://getbootstrap.com/css/#grid">Bootstrap Documentation</a>
+            see <a href="https://getbootstrap.com/css/#grid">Bootstrap Documentation</a>
             </p>
             <ul>
                 <li>Rows must be placed within a .container (fixed-width) or
@@ -3719,7 +3719,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered
+            <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit.  The default value for this property is true.]]>
                 </description>
@@ -3775,7 +3775,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered
+            <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit. The default value for this property is true.]]>
                 </description>
@@ -3818,7 +3818,7 @@
              </p>
              <h3>Rendering</h3>
              <ul>
-             <li>Creates an &lt;input type="text" /&gt; with the clientId</li>
+             <li>Creates a &lt;input type="text" /&gt; with the clientId</li>
              <li>For each value found it writes de.cuioss.uimodel.model.conceptkey.ConceptKeyType#getIdentifier()
              as a colon separated list into the value attribute. The matching to labels is
              done by the Selectize JavaScript</li>
@@ -3836,7 +3836,7 @@
              <h3>Conversion</h3>
              Decoding the submitted string and encoding the list on ConceptKeyType is done by
              <code>de.cuioss.jsf.bootstrap.taginput.ConceptKeyStringConverter</code>, which is set as the
-             components converter.
+             component's converter.
              <ul>
              <li>If no value is set for the clientId it calls
              de.cuioss.jsf.bootstrap.taginput.TagInputComponent#setSubmittedValue(Object) with <code>null</code>
@@ -3884,7 +3884,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered
+            <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit. The default value for this property is true.]]>
                 </description>
@@ -3986,7 +3986,7 @@
             </method-signature>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered
+            <description><![CDATA[Flag indicating whether this component should be rendered
                 as read only component or as editable input component. Defaults to false, which
                 means editable input component.]]>
                 </description>
@@ -4022,7 +4022,7 @@
         <description>
             <![CDATA[
              <p>
-                Renders an Tag similar to a JIRA Tag. The tag is rendered within a span with the according classes.
+                Renders a Tag similar to a JIRA Tag. The tag is rendered within a span with the according classes.
                The content and title are resolved using the cui standard label-resolving mechanism. More information and
                examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/tag.jsf" >Reference Documentation</a></p>
             <h3>Usage</h3>
@@ -4060,7 +4060,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered
+            <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit. The default value for this property is true.]]>
                 </description>
@@ -4159,7 +4159,7 @@
         </attribute>
         <attribute>
             <description>
-                <![CDATA[The model to be be attached to the component. This can be anything, if is
+                <![CDATA[The model to be attached to the component. This can be anything, if is
                 at lease Serializable. It is needed in context of #disposable. This will be the
                 value that will set as payload of the TagDisposeEvent. In case it is not set the
                 component will fallback to #contentValue.]]>
@@ -4201,7 +4201,7 @@
         <description>
             <![CDATA[
              <p>
-               Renders a number of <cui:tag /> as a a list. The tags are created from the the given Collection of ConceptKeyType or String, see attributes #value. If you need fine grained control use <cui:tag /> directly. The attributes #state, #size and #contentEscape will be passed through to the used TagComponent.
+               Renders a number of <cui:tag /> as a list. The tags are created from the given Collection of ConceptKeyType or String, see attributes #value. If you need fine-grained control use <cui:tag /> directly. The attributes #state, #size and #contentEscape will be passed through to the used TagComponent.
                More information and examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/tag.jsf" >Reference Documentation</a></p>
             <h3>Usage</h3>
                 <pre>&lt;tagList value="#{bean.tags}" /&gt;</pre>
@@ -4227,7 +4227,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered (during
+            <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true. ]]></description>
             <name>rendered</name>
@@ -4352,7 +4352,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered
+            <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit. The default value for this property is true.]]>
                 </description>
@@ -4496,7 +4496,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered (during
+            <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
                 </description>
@@ -4774,7 +4774,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Flag indicating whether or not this component should be rendered (during
+            <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
                 </description>
