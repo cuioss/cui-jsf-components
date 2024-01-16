@@ -17,11 +17,9 @@ package de.cuioss.jsf.dev.metadata.model;
 
 import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
 
+import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -36,6 +34,7 @@ import lombok.ToString;
 @ToString
 public class TagStorage<T extends Tag> implements Serializable, Iterable<T> {
 
+    @Serial
     private static final long serialVersionUID = 5602475160645336869L;
 
     @Getter
@@ -61,7 +60,7 @@ public class TagStorage<T extends Tag> implements Serializable, Iterable<T> {
     }
 
     /**
-     * @param tagElement
+     * @param tagElement to be added
      */
     public void add(final T tagElement) {
         data.add(tagElement);
@@ -76,11 +75,11 @@ public class TagStorage<T extends Tag> implements Serializable, Iterable<T> {
 
     /**
      * @param name the name of the component to be returned
-     * @return the found component or null
+     * @return the found component or empty {@link Optional}
      */
-    public T getByName(final String name) {
+    public Optional<T> getByName(final String name) {
         var safeName = nullToEmpty(name);
-        return getData().stream().filter(tag -> safeName.equalsIgnoreCase(tag.getName())).findFirst().orElse(null);
+        return getData().stream().filter(tag -> safeName.equalsIgnoreCase(tag.getName())).findFirst();
     }
 
     @Override
