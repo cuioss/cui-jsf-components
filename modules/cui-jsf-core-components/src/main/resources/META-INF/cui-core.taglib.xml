@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <facelet-taglib version="2.2"
-    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd">
+                xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd">
     <namespace>https://cuioss.de/jsf/core</namespace>
     <short-name>cui</short-name>
     <tag>
@@ -33,6 +33,23 @@
             <required>true</required>
             <type>java.util.Map</type>
         </attribute>
+    </tag>
+    <tag>
+        <description>
+            <![CDATA[
+                 <p>
+                   Blocks an (optional ajax based) element after clicking by adding a spinner and the "disabled" property to the element.
+                   To unblock the element it can be updated via ajax.
+                 </p>
+                 <p>
+                   More information and examples can be found in the
+                   <a href="/cui-reference-documentation/faces/pages/documentation/cui_components/demo/miscellaneous.jsf" >Reference Documentation</a>
+                 </p>
+           ]]></description>
+        <tag-name>blockElement</tag-name>
+        <component>
+            <component-type>de.cuioss.jsf.components.blockelement</component-type>
+        </component>
     </tag>
     <tag>
         <description><![CDATA[Utilized for sanitizing String inputs in order to prevent script injection or
