@@ -15,21 +15,17 @@
  */
 package de.cuioss.jsf.dev.ui.components;
 
-import static de.cuioss.tools.string.MoreStrings.isEmpty;
-
-import java.io.IOException;
-import java.io.Writer;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.Set;
-
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.FacesComponent;
-import javax.faces.component.StateHelper;
-import javax.xml.XMLConstants;
-
+import de.cuioss.jsf.api.application.navigation.NavigationUtils;
+import de.cuioss.jsf.api.components.base.BaseCuiNamingContainer;
+import de.cuioss.portal.common.util.PortalResourceLoader;
+import de.cuioss.tools.base.Preconditions;
+import de.cuioss.tools.collect.CollectionBuilder;
+import de.cuioss.tools.collect.CollectionLiterals;
+import de.cuioss.tools.io.IOStreams;
+import de.cuioss.tools.logging.CuiLogger;
+import de.cuioss.tools.string.Joiner;
+import de.cuioss.tools.string.Splitter;
+import lombok.Getter;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -46,17 +42,20 @@ import org.jdom2.xpath.XPathFactory;
 import org.omnifaces.util.State;
 import org.xml.sax.InputSource;
 
-import de.cuioss.jsf.api.application.navigation.NavigationUtils;
-import de.cuioss.jsf.api.components.base.BaseCuiNamingContainer;
-import de.cuioss.portal.common.util.PortalResourceLoader;
-import de.cuioss.tools.collect.CollectionBuilder;
-import de.cuioss.tools.io.FileLoaderUtility;
-import de.cuioss.tools.io.FileTypePrefix;
-import de.cuioss.tools.io.IOStreams;
-import de.cuioss.tools.logging.CuiLogger;
-import de.cuioss.tools.string.Joiner;
-import de.cuioss.tools.string.Splitter;
-import lombok.Getter;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.FacesComponent;
+import javax.faces.component.StateHelper;
+import javax.xml.XMLConstants;
+import java.io.IOException;
+import java.io.Writer;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
+import java.util.Set;
+
+import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
 /**
  * <h2>Summary</h2>
@@ -132,18 +131,26 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         }
     }
 
-    /** The component Id. */
+    /**
+     * The component Id.
+     */
     public static final String COMPONENT_ID = "de.cuioss.jsf.dev.ui.components.SourceCode";
 
-    /** Renderer type. */
+    /**
+     * Renderer type.
+     */
     public static final String RENDERER_TYPE = "de.cuioss.jsf.dev.ui.renderer.SourceCodeComponentRenderer";
 
-    /** The component family. */
+    /**
+     * The component family.
+     */
     public static final String COMPONENT_FAMILY_FIELD = "de.cuioss.jsf.dev.ui";
 
-    private static final String META_INF_PREFIX = FileTypePrefix.CLASSPATH + "META-INF/";
+    private static final String META_INF_PREFIX = "META-INF/";
 
-    /** The key for the {@link StateHelper} used by {@link #getSource()} */
+    /**
+     * The key for the {@link StateHelper} used by {@link #getSource()}
+     */
     private static final String SOURCE_ATTRIBUTE_KEY = "source";
 
     /**
@@ -151,19 +158,29 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
      */
     private static final String SOURCE_CONTAINER_ID_ATTRIBUTE_KEY = "sourceContainerId";
 
-    /** The key for the {@link StateHelper} used by {@link #getSourcePath()} */
+    /**
+     * The key for the {@link StateHelper} used by {@link #getSourcePath()}
+     */
     private static final String SOURCE_PATH_ATTRIBUTE_KEY = "sourcePath";
 
-    /** The key for the {@link StateHelper} used by {@link #isEnableClipboard()} */
+    /**
+     * The key for the {@link StateHelper} used by {@link #isEnableClipboard()}
+     */
     private static final String ENABLE_CLIPBOARD_ATTRIBUTE_KEY = "enableClipboard";
 
-    /** The key for the {@link StateHelper} used by {@link #getDescription()} */
+    /**
+     * The key for the {@link StateHelper} used by {@link #getDescription()}
+     */
     private static final String DESCRIPTION_ATTRIBUTE_KEY = "description";
 
-    /** The key for the {@link StateHelper} used by {@link #getType()} */
+    /**
+     * The key for the {@link StateHelper} used by {@link #getType()}
+     */
     private static final String TYPE_ATTRIBUTE_KEY = "type";
 
-    /** The key for the {@link StateHelper} used by {@link #getMaxLineLength()} */
+    /**
+     * The key for the {@link StateHelper} used by {@link #getMaxLineLength()}
+     */
     private static final String MAX_LINE_LENGTH_ATTRIBUTE_KEY = "maxLineLength";
 
     private static final Integer LINE_LENGTH_DEFAULT = 96;
@@ -207,7 +224,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         final var resolved = resolvePath(sourcePath);
         if (resolved.isEmpty()) {
             return "Unable lo load path from any of '%s', because the file can not be found or is not readable"
-                    .formatted(determineViewRelativePath(sourcePath));
+                .formatted(determineViewRelativePath(sourcePath));
         }
         try {
             return IOStreams.toString(resolved.get().openStream(), StandardCharsets.UTF_8);
@@ -222,7 +239,6 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
      * /META-INF
      *
      * @param path
-     *
      * @return
      */
     private Optional<URL> resolvePath(final String path) {
@@ -258,9 +274,10 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
 
     private String resolveFromContainerId(final String sourceContainerId) {
         final var viewId = getFacesContext().getViewRoot().getViewId();
-        final var loader = FileLoaderUtility.getLoaderForPath(META_INF_PREFIX + viewId);
-        Document document = null;
-        try (final var inputStream = loader.inputStream()) {
+        final var loader = determineViewUrlResource();
+        Preconditions.checkState(loader.isPresent(), "Unable to load '%s'", viewId);
+        Document document;
+        try (final var inputStream = loader.get().openStream()) {
             final var saxBuilder = new SAXBuilder();
             saxBuilder.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
             saxBuilder.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
@@ -268,7 +285,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
             saxBuilder.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
             document = saxBuilder.build(new InputSource(inputStream));
         } catch (final JDOMException | IOException e) {
-            throw new IllegalStateException("Unable to parse file " + loader.getFileName().getOriginalName(), e);
+            throw new IllegalStateException("Unable to parse file " + viewId, e);
         }
         final var root = document.getRootElement();
         final var query = "//*[@id='%s']".formatted(sourceContainerId);
@@ -280,7 +297,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         }
         if (filteredElements.size() > 1) {
             log.warn("More than one element found on view='{}' with id='{}' found, choosing the first one",
-                    loader.getFileName().getOriginalName(), sourceContainerId);
+                viewId, sourceContainerId);
         }
 
         final var outputter = new XMLOutputter();
@@ -288,9 +305,25 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         outputter.setFormat(Format.getPrettyFormat());
         if (filteredElements.iterator().next().getChildren().isEmpty()) {
             return Joiner.on(System.lineSeparator())
-                    .join(Splitter.on('\n').splitToList(filteredElements.iterator().next().getText()));
+                .join(Splitter.on('\n').splitToList(filteredElements.iterator().next().getText()));
         }
         return outputter.outputString(filteredElements.iterator().next().getChildren());
+    }
+
+    private Optional<URL> determineViewUrlResource() {
+        var viewId = getFacesContext().getViewRoot().getViewId();
+        if (viewId.startsWith(("/"))) {
+            viewId = viewId.substring(1);
+        }
+        List<String> candidates = CollectionLiterals.mutableList(META_INF_PREFIX + "resources/" + viewId, META_INF_PREFIX + viewId, viewId);
+        for (var candidate : candidates) {
+            var found = PortalResourceLoader.getRessource(candidate, getClass());
+            if (found.isPresent()) {
+                return found;
+            }
+        }
+        log.warn("No view found, candidates='{}", candidates);
+        return Optional.empty();
     }
 
     /**
@@ -350,7 +383,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
     }
 
     /**
-     * @param description
+     * @param description to be set
      */
     public void setDescription(final String description) {
         state.put(DESCRIPTION_ATTRIBUTE_KEY, description);
@@ -364,14 +397,14 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
     }
 
     /**
-     * @param maxLineLength
+     * @param maxLineLength to be set
      */
     public void setMaxLineLength(final Integer maxLineLength) {
         state.put(MAX_LINE_LENGTH_ATTRIBUTE_KEY, maxLineLength);
     }
 
     /**
-     * @return maxLineLength
+     * @return maxLineLength to nre retrieved
      */
     public Integer getMaxLineLength() {
         final var actual = state.<Integer>get(MAX_LINE_LENGTH_ATTRIBUTE_KEY, LINE_LENGTH_DEFAULT);
@@ -379,14 +412,14 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
     }
 
     /**
-     * @param type
+     * @param type to be set
      */
     public void setType(final String type) {
         state.put(TYPE_ATTRIBUTE_KEY, type);
     }
 
     /**
-     * @return type
+     * @return type being revoled depending on the file-extension
      */
     public String getType() {
         final var defaultValue = LangStyle.LANG_HTML.getStyle();
@@ -398,13 +431,13 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
             final var path = getSourcePath().toLowerCase(Locale.ENGLISH);
             final var extension = path.substring(0, path.lastIndexOf(".") + 1);
             return switch (extension) {
-            case "properties" -> LangStyle.LANG_PROPERTIES.getStyle();
-            case "yaml", "yml" -> LangStyle.LANG_YAML.getStyle();
-            case "java" -> LangStyle.LANG_JAVA.getStyle();
-            case "sql" -> LangStyle.LANG_SQL.getStyle();
-            case "js" -> LangStyle.LANG_JS.getStyle();
-            case "css" -> LangStyle.LANG_CSS.getStyle();
-            default -> defaultValue;
+                case "properties" -> LangStyle.LANG_PROPERTIES.getStyle();
+                case "yaml", "yml" -> LangStyle.LANG_YAML.getStyle();
+                case "java" -> LangStyle.LANG_JAVA.getStyle();
+                case "sql" -> LangStyle.LANG_SQL.getStyle();
+                case "js" -> LangStyle.LANG_JS.getStyle();
+                case "css" -> LangStyle.LANG_CSS.getStyle();
+                default -> defaultValue;
             };
         }
         return type;
