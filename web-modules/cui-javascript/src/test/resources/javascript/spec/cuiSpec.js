@@ -21,7 +21,7 @@ describe("Component enabler", function() {
 	class CallBack {
 		called = 0;
 		callback() {
-			this.called++;	
+			this.called++;
 		}
 	}
 	it("Should register component enabler and call callback", function () {
@@ -107,16 +107,12 @@ describe("Condition with boolean parser", function() {
 	});
 	it("exactly false shouldn't go into true condition", function() {
 		let i = 0;
-		if (false) {
-			i = 1;
-		}
+
 		expect(i).toEqual(0);
 	});
 	it("exactly true should go into true condition", function() {
 		let i = 0;
-		if (true) {
-			i = 1;
-		}
+        i = 1;
 		expect(i).toEqual(1);
 	});
 	it("and w/o equal shouldn't go into true condition", function() {
@@ -137,21 +133,22 @@ describe("Condition with boolean parser", function() {
 	});
 });
 
-// describe("Session", function() {
-//     it("should start", function() {
-// 		Cui.Session.startLogoutTimeout();
-// 		expect(true).toEqual(true);
-// 	});
-// 	/*
-// 	* Remove the following two methods to test refresh.
-// 	*/
-// 	it("should reset", function() {
-// 		Cui.Session.resetLogoutTimeout();
-// 		expect(true).toEqual(true);
-// 	});
-// 	it("should stop", function() {
-// 		Cui.Session.stopLogoutTimeout();
-// 		expect(true).toEqual(true);
-// 	});
-// });
+describe("Session", function() {
+    it("should start", function() {
+		Cui.Session.startLogoutTimeout();
+		expect(true).toEqual(true);
+	});
+	/*
+	* Remove the following two methods to test refresh.
+	*/
+	it("should reset", function() {
+		Cui.Session.resetLogoutTimeout();
+		expect(true).toEqual(true);
+	});
+	it("should stop", function() {
+		Cui.Session.stopLogoutTimeout();
+		expect(true).toEqual(true);
+	});
+});
+
 
