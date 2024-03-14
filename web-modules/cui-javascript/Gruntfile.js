@@ -59,8 +59,6 @@ module.exports = function(grunt) {
 
 
     // Default task(s).
-    grunt.registerTask('default', ['clean', 'ts', 'jshint', 'uglify']);
-    // TODO owo:Aus irgendeinem Grund wird das chromium plugin nicht mehr geladen, daher auskommentiert
-    // grunt.registerTask('default', ['clean', 'ts', 'jshint', 'uglify', 'jasmine']);
+    grunt.registerTask('default', ['clean', 'ts', 'jshint', 'uglify', 'jasmine']);
 
 };
