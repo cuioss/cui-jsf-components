@@ -26,24 +26,39 @@ import lombok.Getter;
 
 /**
  * @author Oliver Wolff
- *
  */
+@Getter
 public enum ButtonState implements StyleClassProvider {
 
-    /** The default-state. */
+    /**
+     * The default-state.
+     */
     DEFAULT("default"),
-    /** Primary. */
+    /**
+     * Primary.
+     */
     PRIMARY("primary"),
-    /** Success. */
+    /**
+     * Success.
+     */
     SUCCESS("success"),
-    /** Info. */
+    /**
+     * Info.
+     */
     INFO("info"),
-    /** Warning. */
+    /**
+     * Warning.
+     */
     WARNING("warning"),
-    /** error. */
+    /**
+     * error.
+     */
     DANGER("danger"),
-    /** Light. */
-    LINK("link"),;
+    /**
+     * Light.
+     */
+    LINK("link"),
+    ;
 
     ButtonState(final String suffix) {
         if (MoreStrings.isEmpty(suffix)) {
@@ -55,7 +70,6 @@ public enum ButtonState implements StyleClassProvider {
 
     private static final String PREFIX = "btn-";
 
-    @Getter
     private final String styleClass;
 
     @Override
@@ -68,8 +82,8 @@ public enum ButtonState implements StyleClassProvider {
      *              {"default","primary", "success", "info", "warning", "danger",
      *              "link"}
      * @return the corresponding {@link ButtonState} derived by the given
-     *         {@link ContextState}. In case of <code>contextSize==null</code> it
-     *         will return {@link ButtonState#DEFAULT}.
+     * {@link ContextState}. In case of <code>contextSize==null</code> it
+     * will return {@link ButtonState#DEFAULT}.
      */
     public static ButtonState getForContextState(final String state) {
         if (isEmpty(state)) {
