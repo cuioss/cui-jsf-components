@@ -49,7 +49,7 @@ public enum ButtonState implements StyleClassProvider {
         if (MoreStrings.isEmpty(suffix)) {
             styleClass = "";
         } else {
-            styleClass = new StringBuilder().append(PREFIX).append(suffix).toString();
+            styleClass = PREFIX + suffix;
         }
     }
 
@@ -71,7 +71,7 @@ public enum ButtonState implements StyleClassProvider {
      *         {@link ContextState}. In case of <code>contextSize==null</code> it
      *         will return {@link ButtonState#DEFAULT}.
      */
-    public static final ButtonState getForContextState(final String state) {
+    public static ButtonState getForContextState(final String state) {
         if (isEmpty(state)) {
             return ButtonState.DEFAULT;
         }
