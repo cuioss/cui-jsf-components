@@ -48,7 +48,6 @@ import lombok.experimental.Delegate;
  * </p>
  *
  * @author Oliver Wolff
- *
  */
 public abstract class BaseCuiOutputText extends HtmlOutputText implements ComponentBridge {
 
@@ -91,12 +90,13 @@ public abstract class BaseCuiOutputText extends HtmlOutputText implements Compon
     }
 
     /**
-     * @return the component specific style-classes. Must no be null.The parent
-     *         component (BaseCuiOutputText) takes care on the configured styleClass
-     *         attribute and implements the actual method
-     *         {@link HtmlOutputText#getStyleClass()} by calling this method and
-     *         appending the styleClass configured by the developer / concrete
-     *         usage.
+     * @return the component specific style-classes.
+     * Must not be null.
+     * The parent component (BaseCuiOutputText) takes care on the configured styleClass
+     * attribute and implements the actual method
+     * {@link HtmlOutputText#getStyleClass()} by calling this method and
+     * appending the styleClass configured by the developer / concrete
+     * usage.
      */
     public abstract StyleClassBuilder getComponentSpecificStyleClasses();
 
