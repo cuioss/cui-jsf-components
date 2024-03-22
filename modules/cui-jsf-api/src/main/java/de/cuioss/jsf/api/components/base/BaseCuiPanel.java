@@ -28,8 +28,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Base class for creating custom panel based components. Therefore it extends
- * {@link HtmlPanelGroup} and acts as {@link ComponentBridge}
+ * Base class for creating custom panel-based components.
+ * Therefore, it extends {@link HtmlPanelGroup} and acts as {@link ComponentBridge}
  *
  * @author Oliver Wolff
  */
@@ -71,16 +71,20 @@ public class BaseCuiPanel extends HtmlPanelGroup implements ComponentBridge {
      *
      * @author Oliver Wolff
      */
+    @Getter
     @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
     public enum PanelType {
 
-        /** Div block. */
+        /**
+         * Div block.
+         */
         DIV("block"),
 
-        /** Span block. */
+        /**
+         * Span block.
+         */
         SPAN("span");
 
-        @Getter
         private final String identifier;
     }
 }

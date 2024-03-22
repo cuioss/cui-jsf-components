@@ -29,14 +29,14 @@ import lombok.experimental.Delegate;
 
 /**
  * Minimal super-set for cui-based components that are at least {@link UIInput}.
- * Therefore it provides the handling of the styleClass and style attribute and
- * the implicit attributes provided by {@link UIInput}. In addition it acts as a
- * {@link ComponentBridge}
+ * Therefore, it provides the handling of the styleClass and style attribute and
+ * the implicit attributes provided by {@link UIInput}.
+ * In addition, it acts as a {@link ComponentBridge}
  *
  * @author Oliver Wolff
  */
 public class BaseCuiInputComponent extends UIInput
-        implements ComponentBridge, ComponentStyleClassProvider, StyleAttributeProvider {
+    implements ComponentBridge, ComponentStyleClassProvider, StyleAttributeProvider {
 
     @Delegate
     private final ComponentStyleClassProvider styleClassProvider;

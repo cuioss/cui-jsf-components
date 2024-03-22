@@ -29,15 +29,17 @@ import lombok.experimental.Delegate;
 
 /**
  * Minimal super-set for cui-based components that are at least
- * {@link HtmlInputText}. Therefore it provides the handling of the styleClass
+ * {@link HtmlInputText}.
+ * Therefore, it provides the handling of the styleClass
  * and style attribute and the implicit attributes provided by
- * {@link HtmlInputText}. In addition it acts as a {@link ComponentBridge}
+ * {@link HtmlInputText}.
+ * In addition, it acts as a {@link ComponentBridge}
  *
  * @author Sven Haag
  */
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
 public class BaseCuiHtmlInputComponent extends HtmlInputText
-        implements ComponentBridge, ComponentStyleClassProvider, StyleAttributeProvider {
+    implements ComponentBridge, ComponentStyleClassProvider, StyleAttributeProvider {
 
     @Delegate
     private final ComponentStyleClassProvider styleClassProvider;

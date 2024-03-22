@@ -31,7 +31,9 @@ import de.cuioss.jsf.api.components.partial.ComponentBridge;
  */
 public class CuiComponentBase extends UIComponentBase implements ComponentBridge {
 
-    /** "de.cuioss.jsf.api.html.family" */
+    /**
+     * "de.cuioss.jsf.api.html.family"
+     */
     public static final String COMPONENT_FAMILY = "de.cuioss.jsf.api.html.family";
 
     @Override

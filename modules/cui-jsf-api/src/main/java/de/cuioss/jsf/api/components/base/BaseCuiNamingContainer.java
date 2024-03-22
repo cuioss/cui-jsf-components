@@ -29,15 +29,16 @@ import lombok.experimental.Delegate;
 
 /**
  * Minimal super-set for cui-based components that are at least
- * {@link UINamingContainer}. Therefore it provides the handling of the
+ * {@link UINamingContainer}.
+ * Therefore, it provides the handling of the
  * styleClass and style attribute and the implicit attributes provided by
- * {@link UINamingContainer}. In addition it acts as a {@link ComponentBridge}
+ * {@link UINamingContainer}.
+ * In addition, it acts as a {@link ComponentBridge}
  *
  * @author Oliver Wolff
- *
  */
 public class BaseCuiNamingContainer extends UINamingContainer
-        implements ComponentBridge, ComponentStyleClassProvider, StyleAttributeProvider {
+    implements ComponentBridge, ComponentStyleClassProvider, StyleAttributeProvider {
 
     @Delegate
     private final ComponentStyleClassProvider styleClassProvider;

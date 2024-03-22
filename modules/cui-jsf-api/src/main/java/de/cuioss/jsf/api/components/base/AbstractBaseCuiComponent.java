@@ -29,10 +29,10 @@ import de.cuioss.jsf.api.components.partial.StyleAttributeProviderImpl;
 import lombok.experimental.Delegate;
 
 /**
- * Minimal super-set for cui-based components that are no
- * {@link UINamingContainer}. Therefore it provides the handling of the
+ * Minimal superset for cui-based components that are no
+ * {@link UINamingContainer}. Therefore, it provides the handling of the
  * styleClass and style attribute and the implicit attributes provided by
- * {@link UIComponentBase}. In addition it acts as a {@link ComponentBridge}
+ * {@link UIComponentBase}. In addition, it acts as a {@link ComponentBridge}
  *
  * @author Oliver Wolff
  */
