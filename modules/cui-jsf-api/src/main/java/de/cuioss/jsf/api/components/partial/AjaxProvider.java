@@ -165,7 +165,7 @@ public class AjaxProvider {
             addAllAttributes(UPDATE_KEY, update, searchContext, handler, result);
         }
 
-        log.trace("Created passthrough-map {}", result);
+        log.trace("Created pass through-map {}", result);
         return result;
     }
 

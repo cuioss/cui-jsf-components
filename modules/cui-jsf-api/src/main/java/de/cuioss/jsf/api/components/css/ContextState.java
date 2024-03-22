@@ -26,41 +26,56 @@ import de.cuioss.tools.string.MoreStrings;
  */
 public enum ContextState implements StyleClassProvider {
 
-    /** The default state. Will usually ignored. */
+    /**
+     * The default state. Will usually ignored.
+     */
     DEFAULT,
-    /** Primary. */
+    /**
+     * Primary.
+     */
     PRIMARY,
-    /** Success. */
+    /**
+     * Success.
+     */
     SUCCESS,
-    /** Info. */
+    /**
+     * Info.
+     */
     INFO,
-    /** warning. */
+    /**
+     * warning.
+     */
     WARNING,
-    /** A more visual state. */
+    /**
+     * A more visual state.
+     */
     LIGHT,
-    /** Danger. */
+    /**
+     * Danger.
+     */
     DANGER;
 
     /**
      * Factory method for computing an {@link ContextState} out of a given
      * {@link String}
      *
-     * @param state String representation of the state. It is interpreted case
-     *              insensitive. It can be either null or empty or must be one of
+     * @param state String representation of the state.
+     *              It is interpreted case-insensitive.
+     *              It can be either null or empty or must be one of
      *              {"DEFAULT","PRIMARY", "SUCCESS", "INFO", "WARNING", "DANGER",
-     *              "LIGHT"} (case insensitive). The Input will implicitly be
+     *              "LIGHT"} (case-insensitive).
+     *              The Input will implicitly be
      *              trimmed.
      * @return The {@link ContextState} representation computed of the given String.
-     *         If it is null or empty {@link ContextState#DEFAULT} will be returned.
-     *         If the given String does not match to the constants a
-     *         {@link IllegalArgumentException} will be thrown.
+     * If it is null or empty {@link ContextState#DEFAULT} will be returned.
+     * If the given String does not match to the constants a
+     * {@link IllegalArgumentException} will be thrown.
      */
-    public static final ContextState getFromString(final String state) {
-        var result = DEFAULT;
+    public static ContextState getFromString(final String state) {
         if (!MoreStrings.isBlank(state)) {
-            result = valueOf(state.trim().toUpperCase());
+            return valueOf(state.trim().toUpperCase());
         }
-        return result;
+        return DEFAULT;
     }
 
     /**
@@ -73,7 +88,7 @@ public enum ContextState implements StyleClassProvider {
         if (MoreStrings.isEmpty(prefix)) {
             return getStyleClass();
         }
-        return new StringBuilder().append(prefix).append('-').append(name().toLowerCase()).toString();
+        return prefix + '-' + name().toLowerCase();
     }
 
     /**
@@ -96,7 +111,7 @@ public enum ContextState implements StyleClassProvider {
 
     /**
      * @return StyleClassBuilder with the current ContextState in lower case as base
-     *         class.
+     * class.
      */
     @Override
     public StyleClassBuilder getStyleClassBuilder() {

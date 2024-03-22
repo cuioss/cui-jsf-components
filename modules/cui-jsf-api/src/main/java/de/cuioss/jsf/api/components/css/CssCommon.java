@@ -27,6 +27,7 @@ import lombok.RequiredArgsConstructor;
  * @author Oliver Wolff
  *
  */
+@Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum CssCommon implements StyleClassProvider {
 
@@ -37,7 +38,6 @@ public enum CssCommon implements StyleClassProvider {
     /** Shorthand for Bootstrap-style float:left. */
     PULL_LEFT("pull-left");
 
-    @Getter
     private final String styleClass;
 
     @Override

@@ -21,7 +21,7 @@ import de.cuioss.jsf.api.components.css.impl.StyleClassBuilderImpl;
 public class MockBaseCuiOutputText extends BaseCuiOutputText {
 
     @Override
-    public StyleClassBuilder getComponentSpecificStyleClasses() {
+    public StyleClassBuilder resolveComponentSpecificStyleClasses() {
         return new StyleClassBuilderImpl("mock");
     }
 

@@ -48,7 +48,9 @@ public class ActiveIndexManagerProvider {
 
     private static final String MANAGER_EVALUATION_ERROR_MSG = "Portal-114: Could not evaluate accordions active indexes from ActiveIndexManager. Returning list with entry {0}.";
 
-    /** The key for the {@link StateHelper} */
+    /**
+     * The key for the {@link StateHelper}
+     */
     private static final String ACTIVE_INDEX_MANAGER = "activeIndexManager";
 
     private final CuiState state;
@@ -68,7 +70,7 @@ public class ActiveIndexManagerProvider {
     }
 
     /**
-     * @param activeIndexManager
+     * @param activeIndexManager to be set
      */
     public void setActiveIndexManager(ActiveIndexManager activeIndexManager) {
         state.put(ACTIVE_INDEX_MANAGER, activeIndexManager);
@@ -76,8 +78,8 @@ public class ActiveIndexManagerProvider {
 
     /**
      * @return {@link List} {@link Integer} of active indexes or a list with the
-     *         element '0' if there is not {@linkplain ActiveIndexManager} set. This
-     *         is a replacement for the previous return {@code null}
+     * element '0' if there is not {@linkplain ActiveIndexManager} set. This
+     * is a replacement for the previous return {@code null}
      */
     public List<Integer> resolveActiveIndexes() {
         try {

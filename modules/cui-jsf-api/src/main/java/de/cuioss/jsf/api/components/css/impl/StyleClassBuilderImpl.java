@@ -15,18 +15,18 @@
  */
 package de.cuioss.jsf.api.components.css.impl;
 
-import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.css.StyleClassProvider;
 import de.cuioss.tools.string.Joiner;
+import de.cuioss.tools.string.MoreStrings;
 import de.cuioss.tools.string.Splitter;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Basic implementation of {@link StyleClassBuilder}.
@@ -38,6 +38,7 @@ import lombok.ToString;
 public class StyleClassBuilderImpl implements StyleClassBuilder, Serializable {
 
     private static final char SEPARATOR = ' ';
+    @Serial
     private static final long serialVersionUID = 8303808310618200785L;
     private final List<String> classes;
 
@@ -58,10 +59,10 @@ public class StyleClassBuilderImpl implements StyleClassBuilder, Serializable {
     }
 
     /**
-     * @param styleClass
+     * @param styleClass to be added
      */
     private void safelyAddStyleClass(final String styleClass) {
-        if (!isTrimmedNullOrEmpty(styleClass)) {
+        if (!MoreStrings.isBlank(styleClass)) {
             for (String splittedClass : Splitter.on(SEPARATOR).splitToList(styleClass.trim())) {
                 var trimmedClass = splittedClass.trim();
                 if (!classes.contains(trimmedClass)) {
@@ -72,10 +73,10 @@ public class StyleClassBuilderImpl implements StyleClassBuilder, Serializable {
     }
 
     /**
-     * @param styleClass
+     * @param styleClass to be removed
      */
     private void safelyRemoveStyleClass(final String styleClass) {
-        if (!isTrimmedNullOrEmpty(styleClass)) {
+        if (!MoreStrings.isBlank(styleClass)) {
             for (String splittedClass : Splitter.on(SEPARATOR).splitToList(styleClass.trim())) {
                 var trimmedClass = splittedClass.trim();
                 classes.remove(trimmedClass);
@@ -84,10 +85,10 @@ public class StyleClassBuilderImpl implements StyleClassBuilder, Serializable {
     }
 
     /**
-     * @param styleClass
+     * @param styleClass to be toggled
      */
     private void safelyToggleStyleClass(final String styleClass) {
-        if (!isTrimmedNullOrEmpty(styleClass)) {
+        if (!MoreStrings.isBlank(styleClass)) {
             for (String splittedClass : Splitter.on(SEPARATOR).splitToList(styleClass.trim())) {
                 var trimmedClass = splittedClass.trim();
                 if (classes.contains(trimmedClass)) {
@@ -187,7 +188,4 @@ public class StyleClassBuilderImpl implements StyleClassBuilder, Serializable {
         return this;
     }
 
-    private static boolean isTrimmedNullOrEmpty(final String toBeCheckd) {
-        return nullToEmpty(toBeCheckd).trim().isEmpty();
-    }
 }
