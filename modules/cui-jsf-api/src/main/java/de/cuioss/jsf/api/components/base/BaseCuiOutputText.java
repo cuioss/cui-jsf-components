@@ -44,7 +44,7 @@ import lombok.experimental.Delegate;
  * </ul>
  * <p>
  * The only thing the child-component needs to care is implementing
- * {@link #getComponentSpecificStyleClasses()} according to its needs.
+ * {@link #resolveComponentSpecificStyleClasses()} according to its needs.
  * </p>
  *
  * @author Oliver Wolff
@@ -81,7 +81,7 @@ public abstract class BaseCuiOutputText extends HtmlOutputText implements Compon
 
     @Override
     public String getStyleClass() {
-        return getComponentSpecificStyleClasses().append(styleClassProvider.getStyleClassBuilder()).getStyleClass();
+        return resolveComponentSpecificStyleClasses().append(styleClassProvider.getStyleClassBuilder()).getStyleClass();
     }
 
     @Override
@@ -98,7 +98,7 @@ public abstract class BaseCuiOutputText extends HtmlOutputText implements Compon
      * appending the styleClass configured by the developer / concrete
      * usage.
      */
-    public abstract StyleClassBuilder getComponentSpecificStyleClasses();
+    public abstract StyleClassBuilder resolveComponentSpecificStyleClasses();
 
     @Override
     public String getTitle() {

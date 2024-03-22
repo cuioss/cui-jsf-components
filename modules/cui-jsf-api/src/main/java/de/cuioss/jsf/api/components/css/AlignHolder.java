@@ -26,21 +26,26 @@ import lombok.RequiredArgsConstructor;
  * Defines the relative float-alignments.
  *
  * @author Oliver Wolff
- *
  */
+@Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum AlignHolder implements StyleClassProvider {
 
-    /** Left-align */
+    /**
+     * Left-align
+     */
     LEFT(CssCommon.PULL_LEFT.getStyleClass()),
 
-    /** Right-align */
+    /**
+     * Right-align
+     */
     RIGHT(CssCommon.PULL_RIGHT.getStyleClass()),
 
-    /** Not defined. */
+    /**
+     * Not defined.
+     */
     DEFAULT("");
 
-    @Getter
     private final String styleClass;
 
     @Override
@@ -51,27 +56,25 @@ public enum AlignHolder implements StyleClassProvider {
     /**
      * Create an instance of {@link AlignHolder} according to the given String.
      *
-     * @param align String identifier, may be null. The call is case insensitive.
-     *              "right" will result in {@link AlignHolder#LEFT}, "right" in
-     *              {@link AlignHolder#RIGHT}. In all other cases it will return
-     *              {@link AlignHolder#DEFAULT}
+     * @param align String identifier may be null.
+     *              The call is case-insensitive.
+     *              "right" will result in {@link AlignHolder#RIGHT}, "left" in
+     *              {@link AlignHolder#LEFT}.
+     *              In all other cases it will return {@link AlignHolder#DEFAULT}
      * @return the corresponding {@link AlignHolder}
      */
-    public static final AlignHolder getFromString(String align) {
-        var result = AlignHolder.DEFAULT;
+    public static AlignHolder getFromString(String align) {
         if (!isEmpty(align)) {
             var upperCase = align.toUpperCase();
             switch (upperCase) {
-            case "LEFT":
-                result = LEFT;
-                break;
-            case "RIGHT":
-                result = RIGHT;
-                break;
-            default:
-                break;
+                case "LEFT":
+                    return LEFT;
+                case "RIGHT":
+                    return RIGHT;
+                default:
+                    break;
             }
         }
-        return result;
+        return AlignHolder.DEFAULT;
     }
 }

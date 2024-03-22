@@ -22,20 +22,23 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Models the supported IconLibraries. This is necessary, because icons are
- * usually referenced as two classes, e.g. "cui-icon cui-icon-warning". This
- * separation is because css performance, but complicates the usage.
+ * Models the supported IconLibraries.
+ * This is necessary because icons are
+ * usually referenced as two classes, e.g. "cui-icon cui-icon-warning".
+ * This separation is because of css performance, but complicates the usage.
  * <p>
  * In order to work this class returns the corresponding base class, e.g if the
  * provided class is "cui-icon-warning" it returns "cui-icon".
  * </p>
  * <p>
- * In order to prevent improper usage the matching is restricted to the
- * prefixes: "cui-icon, cui-mime-type, ui-icon-". If none of them is matched the
+ * In order to prevent improper usage, the matching is restricted to the
+ * prefixes: "cui-icon, cui-mime-type, ui-icon-".
+ * If none of them is matched the
  * access throws an {@link IllegalArgumentException}.
  *
  * @author Oliver Wolff (Oliver Wolff)
  */
+@Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum IconLibrary {
 
@@ -54,7 +57,6 @@ public enum IconLibrary {
      */
     JQUERY_UI("ui-icon");
 
-    @Getter
     private final String libraryPrefix;
 
     /**
@@ -62,11 +64,11 @@ public enum IconLibrary {
      *
      * @param iconClass must not be null
      * @return the resolved library, if there is a match, otherwise it throws an
-     *         {@link IllegalArgumentException}
+     * {@link IllegalArgumentException}
      * @throws IllegalArgumentException if iconClass is {@code null} or
      *                                  {@code empty}.
      */
-    public static final String resolveLibraryFromIconClass(String iconClass) {
+    public static String resolveLibraryFromIconClass(String iconClass) {
 
         final var checked = requireNotEmpty(iconClass, "iconClass");
 
@@ -80,14 +82,14 @@ public enum IconLibrary {
 
     /**
      * Strip the corresponding library class and creates the combined css String,
-     * e.g. "pxs-icon pxs-icon-warning" for for iconClass=pxs-icon-warning.
+     * e.g. "pxs-icon pxs-icon-warning" for iconClass=pxs-icon-warning.
      *
      * @param iconClass must not be null
      * @return the computed css String.
      */
-    public static final String resolveCssString(String iconClass) {
+    public static String resolveCssString(String iconClass) {
         var libraryName = resolveLibraryFromIconClass(iconClass);
-        return new StringBuilder(libraryName).append(' ').append(iconClass).toString();
+        return libraryName + ' ' + iconClass;
     }
 
     /**
@@ -96,7 +98,7 @@ public enum IconLibrary {
      * @param iconName target which should be verified. Must not be {@code null} or
      *                 {@code empty}.
      * @return {@code true} if icon name belongs to known namespaces, {@code false}
-     *         otherwise
+     * otherwise
      * @throws IllegalArgumentException if iconName is {@code null} or
      *                                  {@code empty}.
      */

@@ -26,10 +26,10 @@ public interface StyleClassResolver {
 
     /**
      * In contrast to {@link ComponentStyleClassProvider#getStyleClass()} that
-     * returns the previously set / configured styleClasss-attribute this method
+     * returns the previously set / configured styleClass-attribute this method
      * computes a style-class from different sources.
      *
-     * @return the resolved (combined) styleclass for a component.
+     * @return the resolved (combined) styleClass for a component.
      */
     StyleClassBuilder resolveStyleClass();
 }

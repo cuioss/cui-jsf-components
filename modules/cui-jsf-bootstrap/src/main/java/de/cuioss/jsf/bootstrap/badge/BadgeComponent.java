@@ -34,7 +34,7 @@ import de.cuioss.jsf.bootstrap.CssBootstrap;
 public class BadgeComponent extends BaseCuiOutputText {
 
     @Override
-    public StyleClassBuilder getComponentSpecificStyleClasses() {
+    public StyleClassBuilder resolveComponentSpecificStyleClasses() {
         return CssBootstrap.BADGE.getStyleClassBuilder();
     }
 }
