@@ -1,17 +1,17 @@
 @font-face {
 	font-family: 'cui-icon-font';
-	src: url("com.icw.cui.fonts/cui-icon.eot")
-		format("embedded-opentype"), url("com.icw.cui.fonts/cui-icon.woff")
-		format("woff"), url("com.icw.cui.fonts/cui-icon.ttf")
-		format("truetype"), url("com.icw.cui.fonts/cui-icon.svg")
+	src: url("de.cuioss.fonts/cui-icon.eot")
+		format("embedded-opentype"), url("de.cuioss.fonts/cui-icon.woff")
+		format("woff"), url("de.cuioss.fonts/cui-icon.ttf")
+		format("truetype"), url("de.cuioss.fonts/cui-icon.svg")
 		format("svg");
 }
 
 @font-face {
 	font-family: 'cui-mime-type-font';
-	src: url("com.icw.cui.fonts/cui-mime-type-font.eot")
+	src: url("de.cuioss.fonts/cui-mime-type-font.eot")
 		format("embedded-opentype"),
-		url("com.icw.cui.fonts/cui-mime-type-font.woff") format('woff'),
-		url("com.icw.cui.fonts/cui-mime-type-font.ttf") format('truetype'),
-		url("com.icw.cui.fonts/cui-mime-type-font.svg") format('svg');
+		url("de.cuioss.fonts/cui-mime-type-font.woff") format('woff'),
+		url("de.cuioss.fonts/cui-mime-type-font.ttf") format('truetype'),
+		url("de.cuioss.fonts/cui-mime-type-font.svg") format('svg');
 }
