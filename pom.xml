@@ -29,7 +29,7 @@
         <system>GitHub Issues</system>
     </issueManagement>
     <properties>
-        <version.cui.parent>0.4.8</version.cui.parent>
+        <version.cui.parent>0.4.9</version.cui.parent>
         <version.primefaces>13.0.7</version.primefaces>
         <!-- Needed for js / css -->
         <version.nodejs>v20.11.1</version.nodejs>
