@@ -15,18 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.taginput;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-import java.util.TreeSet;
-
-import javax.faces.application.ResourceDependency;
-import javax.faces.context.FacesContext;
-import javax.faces.render.FacesRenderer;
-
 import de.cuioss.jsf.api.common.accessor.LocaleAccessor;
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.jsf.api.components.css.ContextSize;
@@ -42,6 +30,12 @@ import de.cuioss.jsf.bootstrap.tag.support.TagHelper;
 import de.cuioss.tools.string.MoreStrings;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
+
+import javax.faces.application.ResourceDependency;
+import javax.faces.context.FacesContext;
+import javax.faces.render.FacesRenderer;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Render and decodes a selectize.js based TagInput.
@@ -125,7 +119,7 @@ public class TagInputRenderer extends BaseDecoratorRenderer<TagInputComponent> {
 
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<TagInputComponent> writer,
-            final TagInputComponent component) throws IOException {
+                               final TagInputComponent component) throws IOException {
 
         if (component.isDisabled()) {
             encodeDisabled(context, writer, component);
@@ -135,18 +129,18 @@ public class TagInputRenderer extends BaseDecoratorRenderer<TagInputComponent> {
     }
 
     private void encodeEnabled(final FacesContext context, final TagInputComponent component) throws IOException {
-        JsfHtmlComponent.HTMLINPUT.renderer(context).encodeBegin(context, component);
-        JsfHtmlComponent.HTMLINPUT.renderer(context).encodeEnd(context, component);
+        JsfHtmlComponent.HTML_INPUT.renderer(context).encodeBegin(context, component);
+        JsfHtmlComponent.HTML_INPUT.renderer(context).encodeEnd(context, component);
     }
 
     private void encodeDisabled(final FacesContext context, final DecoratingResponseWriter<TagInputComponent> writer,
-            final TagInputComponent component) throws IOException {
+                                final TagInputComponent component) throws IOException {
         TagHelper.writeDisabled(context, writer, createTags(component.getValue()), component.getStyle(),
-                component.getStyleClass());
+            component.getStyleClass());
     }
 
     private List<TagComponent> createTags(final Collection<ConceptKeyType> values) {
         return TagHelper.createFromConceptKeys(null != values ? new TreeSet<>(values) : Collections.emptySortedSet(),
-                localeAccessor.getValue(), true, ContextSize.LG.name(), ContextState.DEFAULT.name());
+            localeAccessor.getValue(), true, ContextSize.LG.name(), ContextState.DEFAULT.name());
     }
 }

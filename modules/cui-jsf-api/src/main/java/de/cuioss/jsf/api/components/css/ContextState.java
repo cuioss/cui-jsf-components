@@ -109,12 +109,4 @@ public enum ContextState implements StyleClassProvider {
         return name().toLowerCase();
     }
 
-    /**
-     * @return StyleClassBuilder with the current ContextState in lower case as base
-     * class.
-     */
-    @Override
-    public StyleClassBuilder getStyleClassBuilder() {
-        return new StyleClassBuilderImpl(getStyleClass());
-    }
 }

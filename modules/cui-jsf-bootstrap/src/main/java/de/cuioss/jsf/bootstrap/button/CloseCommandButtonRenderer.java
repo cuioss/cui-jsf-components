@@ -41,9 +41,6 @@ import de.cuioss.jsf.bootstrap.CssBootstrap;
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.CLOSE_COMMAND_BUTTON_RENDERER)
 public class CloseCommandButtonRenderer extends BaseDecoratorRenderer<CloseCommandButton> {
 
-    /**
-     *
-     */
     public CloseCommandButtonRenderer() {
         super(false);
     }
@@ -54,6 +51,9 @@ public class CloseCommandButtonRenderer extends BaseDecoratorRenderer<CloseComma
 
         var wrapped = ElementReplacingResponseWriter.createWrappedReplacingResonseWriter(context, "input", "button",
                 true);
+        // Prepare for Myfaces-rendering
+        component.resolveAndStoreTitle();
+        component.computeAndStoreFinalStyleClass(CssBootstrap.BUTTON_CLOSE.getStyleClassBuilder());
 
         JsfHtmlComponent.COMMAND_BUTTON.renderer(context).encodeBegin(wrapped, component);
 

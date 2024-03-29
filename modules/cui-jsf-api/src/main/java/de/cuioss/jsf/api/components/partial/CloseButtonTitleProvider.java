@@ -70,7 +70,7 @@ public class CloseButtonTitleProvider {
     private final ComponentBridge componentBridge;
 
     /**
-     * @param componentBridge
+     * @param componentBridge must not be null
      */
     public CloseButtonTitleProvider(@NonNull ComponentBridge componentBridge) {
         this.componentBridge = componentBridge;
@@ -92,28 +92,28 @@ public class CloseButtonTitleProvider {
     }
 
     /**
-     * @param closeButtonTitelValue to be set.
+     * @param closeButtonTitleValue to be set.
      */
-    public void setCloseButtonTitleValue(final Serializable closeButtonTitelValue) {
-        state.put(CLOSE_BUTTON_TITLE_VALUE_KEY, closeButtonTitelValue);
+    public void setCloseButtonTitleValue(final Serializable closeButtonTitleValue) {
+        state.put(CLOSE_BUTTON_TITLE_VALUE_KEY, closeButtonTitleValue);
     }
 
     /**
-     * @return the closeButtonTitelValue.
+     * @return the closeButtonTitleValue.
      */
     public Serializable getCloseButtonTitleValue() {
         return state.get(CLOSE_BUTTON_TITLE_VALUE_KEY);
     }
 
     /**
-     * @return the closeButtonTitelConverter
+     * @return the closeButtonTitleValue
      */
     public Object getCloseButtonTitleConverter() {
         return state.get(CLOSE_BUTTON_TITLE_CONVERTER_KEY);
     }
 
     /**
-     * @param closeButtonTitleConverter the closeButtonTitelConverter to set
+     * @param closeButtonTitleConverter the closeButtonTitleValue to set
      */
     public void setCloseButtonTitleConverter(final Object closeButtonTitleConverter) {
         state.put(CLOSE_BUTTON_TITLE_CONVERTER_KEY, closeButtonTitleConverter);

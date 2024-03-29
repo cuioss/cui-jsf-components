@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.api.components.css;
 
+import de.cuioss.jsf.api.components.css.impl.StyleClassBuilderImpl;
+
 /**
  * Implementer of this interface can provide styleClasses and
  * {@link StyleClassBuilder}
@@ -31,5 +33,7 @@ public interface StyleClassProvider {
     /**
      * @return newly created {@link StyleClassBuilder} with the current style-class set
      */
-    StyleClassBuilder getStyleClassBuilder();
+    default StyleClassBuilder getStyleClassBuilder() {
+        return new StyleClassBuilderImpl(getStyleClass());
+    }
 }

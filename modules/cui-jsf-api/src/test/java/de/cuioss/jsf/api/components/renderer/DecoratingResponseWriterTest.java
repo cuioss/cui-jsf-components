@@ -80,9 +80,9 @@ class DecoratingResponseWriterTest extends JsfEnabledTestEnvironment implements 
     private static final String INPUT_HIDDEN_WITH_EXTENSION = "<input type=\"hidden\" id=\"" + INPUT_HIDDEN_CLIENT_ID
             + "\" name=\"" + INPUT_HIDDEN_CLIENT_ID + "\" value=\"value\" />";
 
-    public static final String PASSTHROUGH_NAME = "passThroughName";
+    public static final String PASS_THROUGH_NAME = "passThroughName";
 
-    public static final String PASSTHROUGH_VALUE = "passThroughValue";
+    public static final String PASS_THROUGH_VALUE = "passThroughValue";
 
     private StringWriter sink;
 
@@ -236,7 +236,7 @@ class DecoratingResponseWriterTest extends JsfEnabledTestEnvironment implements 
 
     @Test
     void shouldWritePassThroughAttributes() throws IOException {
-        component.getPassThroughAttributes().put(PASSTHROUGH_NAME, PASSTHROUGH_VALUE);
+        component.getPassThroughAttributes().put(PASS_THROUGH_NAME, PASS_THROUGH_VALUE);
         responseWriter.withStartElement(Node.DIV);
         responseWriter.withPassThroughAttributes();
         responseWriter.withEndElement(Node.DIV);
@@ -247,7 +247,7 @@ class DecoratingResponseWriterTest extends JsfEnabledTestEnvironment implements 
     void shouldWritePassThroughAttributesWithEl() throws IOException {
         var mockValueExpression = new MockValueExpression("#{test.expression}", Integer.class);
         mockValueExpression.setValue(getFacesContext().getELContext(), 1);
-        component.getPassThroughAttributes().put(PASSTHROUGH_NAME, mockValueExpression);
+        component.getPassThroughAttributes().put(PASS_THROUGH_NAME, mockValueExpression);
         responseWriter.withStartElement(Node.DIV);
         responseWriter.withPassThroughAttributes();
         responseWriter.withEndElement(Node.DIV);
@@ -271,7 +271,7 @@ class DecoratingResponseWriterTest extends JsfEnabledTestEnvironment implements 
     @Test
     void shouldNotWriteTitleIfEmpty() throws IOException {
         responseWriter.withStartElement(Node.DIV);
-        responseWriter.withAttributeTitle(null);
+        responseWriter.withAttributeTitle((String)null);
         responseWriter.withEndElement(Node.DIV);
         assertWritten(SIMPLE_DIV);
     }
@@ -279,7 +279,7 @@ class DecoratingResponseWriterTest extends JsfEnabledTestEnvironment implements 
     @Test
     void shouldNotWriteStyleIfEmpty() throws IOException {
         responseWriter.withStartElement(Node.DIV);
-        responseWriter.withAttributeStyle(null);
+        responseWriter.withAttributeStyle((String) null);
         responseWriter.withEndElement(Node.DIV);
         assertWritten(SIMPLE_DIV);
     }
@@ -301,8 +301,8 @@ class DecoratingResponseWriterTest extends JsfEnabledTestEnvironment implements 
 
     private void assertWritten(final String expected) {
         var builderExpected = new HtmlTreeBuilder(expected);
-        var builderActutal = new HtmlTreeBuilder(sink.toString());
-        HtmlTreeAsserts.assertHtmlTreeEquals(builderExpected.getDocument(), builderActutal.getDocument());
+        var builderActual = new HtmlTreeBuilder(sink.toString());
+        HtmlTreeAsserts.assertHtmlTreeEquals(builderExpected.getDocument(), builderActual.getDocument());
     }
 
     @Override

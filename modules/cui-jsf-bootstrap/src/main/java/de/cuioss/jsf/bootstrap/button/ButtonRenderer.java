@@ -29,6 +29,8 @@ import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.api.components.renderer.ElementReplacingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
+import de.cuioss.jsf.bootstrap.button.support.ButtonSize;
+import de.cuioss.jsf.bootstrap.button.support.ButtonState;
 import de.cuioss.jsf.bootstrap.icon.IconComponent;
 
 /**
@@ -53,9 +55,6 @@ import de.cuioss.jsf.bootstrap.icon.IconComponent;
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.BUTTON_RENDERER)
 public class ButtonRenderer extends BaseDecoratorRenderer<Button> {
 
-    /**
-     *
-     */
     public ButtonRenderer() {
         super(false);
     }
@@ -65,6 +64,12 @@ public class ButtonRenderer extends BaseDecoratorRenderer<Button> {
             final Button component) throws IOException {
         var wrapped = ElementReplacingResponseWriter.createWrappedReplacingResonseWriter(context, "input", "button",
                 true);
+        // Prepare for Myfaces-rendering
+        component.resolveAndStoreTitle();
+        component.computeAndStoreFinalStyleClass(CssBootstrap.BUTTON.getStyleClassBuilder()
+            .append(ButtonState.getForContextState(component.getState()))
+            .append(ButtonSize.getForContextSize(component.resolveContextSize())));
+
         JsfHtmlComponent.BUTTON.renderer(context).encodeBegin(wrapped, component);
         if (component.isDisplayIconLeft()) {
             var icon = IconComponent.createComponent(context);

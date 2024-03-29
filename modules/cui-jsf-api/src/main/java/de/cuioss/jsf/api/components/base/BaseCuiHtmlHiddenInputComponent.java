@@ -15,12 +15,12 @@
  */
 package de.cuioss.jsf.api.components.base;
 
+import de.cuioss.jsf.api.components.partial.ComponentBridge;
+
 import javax.faces.component.StateHelper;
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlInputHidden;
 import javax.faces.context.FacesContext;
-
-import de.cuioss.jsf.api.components.partial.ComponentBridge;
 
 /**
  * Minimal super-set for cui-based components that are at least

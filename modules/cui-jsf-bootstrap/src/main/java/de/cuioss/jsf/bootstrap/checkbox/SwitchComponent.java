@@ -15,21 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.checkbox;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.component.FacesComponent;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.PreRenderComponentEvent;
-
-import org.omnifaces.util.State;
-
 import de.cuioss.jsf.api.components.base.BaseCuiHtmlSelectBooleanCheckboxComponent;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.css.impl.StyleClassBuilderImpl;
@@ -40,6 +25,15 @@ import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.common.partial.ColumnProvider;
 import de.cuioss.tools.collect.MapBuilder;
 import lombok.experimental.Delegate;
+import org.omnifaces.util.State;
+
+import javax.faces.component.FacesComponent;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ListenerFor;
+import javax.faces.event.PreRenderComponentEvent;
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * @author Oliver Wolff
@@ -89,7 +83,7 @@ public class SwitchComponent extends BaseCuiHtmlSelectBooleanCheckboxComponent {
     }
 
     /**
-     * @param offTextKey
+     * @param offTextKey to be set
      */
     public void setOffTextKey(final String offTextKey) {
         state.put(OFF_TEXT_KEY, offTextKey);
@@ -103,7 +97,7 @@ public class SwitchComponent extends BaseCuiHtmlSelectBooleanCheckboxComponent {
     }
 
     /**
-     * @param offTextValue
+     * @param offTextValue to be set
      */
     public void setOffTextValue(final Serializable offTextValue) {
         state.put(OFF_TEXT_VALUE, offTextValue);
@@ -125,11 +119,11 @@ public class SwitchComponent extends BaseCuiHtmlSelectBooleanCheckboxComponent {
 
     /**
      * @return the String for the offText, resolved by using
-     *         {@link #getOffTextKey()} and {@link #getOffTextValue()}
+     * {@link #getOffTextKey()} and {@link #getOffTextValue()}
      */
     public String resolveOffText() {
         return LabelResolver.builder().withLabelKey(getOffTextKey()).withLabelValue(getOffTextValue())
-                .withConverter(getOffTextConverter()).build().resolve(getFacesContext());
+            .withConverter(getOffTextConverter()).withStrictMode(false).build().resolve(getFacesContext());
     }
 
     /**
@@ -140,7 +134,7 @@ public class SwitchComponent extends BaseCuiHtmlSelectBooleanCheckboxComponent {
     }
 
     /**
-     * @param onTextKey
+     * @param onTextKey to be set
      */
     public void setOnTextKey(final String onTextKey) {
         state.put(ON_TEXT_KEY, onTextKey);
@@ -154,7 +148,7 @@ public class SwitchComponent extends BaseCuiHtmlSelectBooleanCheckboxComponent {
     }
 
     /**
-     * @param onTextValue
+     * @param onTextValue to be set
      */
     public void setOnTextValue(final Serializable onTextValue) {
         state.put(ON_TEXT_VALUE, onTextValue);
@@ -162,15 +156,15 @@ public class SwitchComponent extends BaseCuiHtmlSelectBooleanCheckboxComponent {
 
     /**
      * @return the String for the onText, resolved by using {@link #getOnTextKey()}
-     *         and {@link #getOnTextValue()}
+     * and {@link #getOnTextValue()}
      */
     public String resolveOnText() {
         return LabelResolver.builder().withLabelKey(getOnTextKey()).withLabelValue(getOnTextValue())
-                .withConverter(getOnTextConverter()).build().resolve(getFacesContext());
+            .withConverter(getOnTextConverter()).build().resolve(getFacesContext());
     }
 
     /**
-     * @return labelConverter converter for onTextValu
+     * @return labelConverter converter for onTextValue
      */
     public Object getOnTextConverter() {
         return state.get(ON_TEXT_CONVERTER);
@@ -185,7 +179,7 @@ public class SwitchComponent extends BaseCuiHtmlSelectBooleanCheckboxComponent {
 
     /**
      * @return <code>null</code> because no style should be set on the actual
-     *         checkbox
+     * checkbox
      */
     @Override
     public String getStyle() {
@@ -201,7 +195,7 @@ public class SwitchComponent extends BaseCuiHtmlSelectBooleanCheckboxComponent {
 
     /**
      * @return <code>null</code> because no styleClass should be set on the actual
-     *         checkbox
+     * checkbox
      */
     @Override
     public String getStyleClass() {

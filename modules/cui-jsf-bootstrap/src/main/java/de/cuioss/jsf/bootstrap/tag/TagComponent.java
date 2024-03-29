@@ -15,11 +15,16 @@
  */
 package de.cuioss.jsf.bootstrap.tag;
 
-import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import de.cuioss.jsf.api.components.JsfHtmlComponent;
+import de.cuioss.jsf.api.components.base.BaseCuiInputComponent;
+import de.cuioss.jsf.api.components.events.ModelPayloadEvent;
+import de.cuioss.jsf.api.components.partial.*;
+import de.cuioss.jsf.api.components.util.CuiState;
+import de.cuioss.jsf.bootstrap.BootstrapFamily;
+import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
+import de.cuioss.jsf.bootstrap.button.CloseCommandButton;
+import de.cuioss.tools.logging.CuiLogger;
+import lombok.experimental.Delegate;
 
 import javax.el.MethodExpression;
 import javax.faces.application.ResourceDependency;
@@ -28,31 +33,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.PostAddToViewEvent;
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.event.ValueChangeListener;
+import javax.faces.event.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
-import de.cuioss.jsf.api.components.JsfHtmlComponent;
-import de.cuioss.jsf.api.components.base.BaseCuiInputComponent;
-import de.cuioss.jsf.api.components.events.ModelPayloadEvent;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
-import de.cuioss.jsf.api.components.partial.ContentProvider;
-import de.cuioss.jsf.api.components.partial.ContextSizeProvider;
-import de.cuioss.jsf.api.components.partial.ContextStateProvider;
-import de.cuioss.jsf.api.components.partial.ModelProvider;
-import de.cuioss.jsf.api.components.partial.StyleAttributeProvider;
-import de.cuioss.jsf.api.components.partial.TitleProvider;
-import de.cuioss.jsf.api.components.partial.TitleProviderImpl;
-import de.cuioss.jsf.api.components.util.CuiState;
-import de.cuioss.jsf.bootstrap.BootstrapFamily;
-import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
-import de.cuioss.jsf.bootstrap.button.CloseCommandButton;
-import de.cuioss.tools.logging.CuiLogger;
-import lombok.experimental.Delegate;
+import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
 /**
  * <p>
@@ -89,7 +75,7 @@ import lombok.experimental.Delegate;
 @ResourceDependency(library = "javascript.enabler", name = "enabler.tagdispose.js", target = "head")
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
 public class TagComponent extends BaseCuiInputComponent
-        implements TitleProvider, ClientBehaviorHolder, ValueChangeListener {
+    implements TitleProvider, ClientBehaviorHolder, ValueChangeListener {
 
     private static final CuiLogger log = new CuiLogger(TagComponent.class);
 
@@ -181,7 +167,7 @@ public class TagComponent extends BaseCuiInputComponent
         }
 
         final var found = getChildren().stream().filter(component -> component instanceof CloseCommandButton)
-                .findFirst();
+            .findFirst();
 
         if (found.isPresent()) {
             return Optional.of((CloseCommandButton) found.get());
@@ -203,8 +189,8 @@ public class TagComponent extends BaseCuiInputComponent
             button.get().addClientBehavior(eventName, behavior);
         } else {
             log.warn(
-                    "Invalid configuration: In order to use a client-behavior you need to set disposable=true, clientid='{}'",
-                    getClientId());
+                "Invalid configuration: In order to use a client-behavior you need to set disposable=true, clientid='{}'",
+                getClientId());
         }
     }
 
@@ -224,7 +210,7 @@ public class TagComponent extends BaseCuiInputComponent
 
     /**
      * @return boolean indicating whether the component has been disposed. Defaults
-     *         to <code>false</code>
+     * to <code>false</code>
      */
     private boolean isDisposed() {
         final var inputOption = accessDisposeValueHolder();
@@ -275,7 +261,7 @@ public class TagComponent extends BaseCuiInputComponent
         super.broadcast(event);
         final var disposeMethod = getDisposeListener();
         if (event instanceof ModelPayloadEvent && disposeMethod != null) {
-            disposeMethod.invoke(getFacesContext().getELContext(), new Object[] { event });
+            disposeMethod.invoke(getFacesContext().getELContext(), new Object[]{event});
         }
     }
 

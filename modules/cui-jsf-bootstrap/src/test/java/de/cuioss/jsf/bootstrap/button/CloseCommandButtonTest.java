@@ -34,11 +34,6 @@ import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 class CloseCommandButtonTest extends AbstractComponentTest<CloseCommandButton> {
 
     @Test
-    void shouldProvideDefaultStyleClass() {
-        assertEquals(CssBootstrap.BUTTON_CLOSE.getStyleClass(), anyComponent().getStyleClass());
-    }
-
-    @Test
     void shouldProvidePassThroughAttributes() {
         var map = anyComponent().getPassThroughAttributes();
         assertTrue(map.containsKey(AttributeName.ARIA_LABEL.getContent()));

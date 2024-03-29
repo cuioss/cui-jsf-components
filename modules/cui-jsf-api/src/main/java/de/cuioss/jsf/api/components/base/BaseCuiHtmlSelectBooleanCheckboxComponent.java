@@ -15,17 +15,13 @@
  */
 package de.cuioss.jsf.api.components.base;
 
+import de.cuioss.jsf.api.components.partial.*;
+import lombok.experimental.Delegate;
+
 import javax.faces.component.StateHelper;
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlSelectBooleanCheckbox;
 import javax.faces.context.FacesContext;
-
-import de.cuioss.jsf.api.components.partial.ComponentBridge;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProviderImpl;
-import de.cuioss.jsf.api.components.partial.StyleAttributeProvider;
-import de.cuioss.jsf.api.components.partial.StyleAttributeProviderImpl;
-import lombok.experimental.Delegate;
 
 /**
  * Minimal super-set for cui-based components that are at least
@@ -39,13 +35,13 @@ import lombok.experimental.Delegate;
  */
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
 public class BaseCuiHtmlSelectBooleanCheckboxComponent extends HtmlSelectBooleanCheckbox
-        implements ComponentBridge, ComponentStyleClassProvider, StyleAttributeProvider {
+    implements ComponentBridge, ComponentStyleClassProvider, StyleAttributeProvider {
 
     @Delegate
-    protected final ComponentStyleClassProvider styleClassProvider;
+    private final ComponentStyleClassProvider styleClassProvider;
 
     @Delegate
-    protected final StyleAttributeProvider styleAttributeProvider;
+    private final StyleAttributeProvider styleAttributeProvider;
 
     /***/
     public BaseCuiHtmlSelectBooleanCheckboxComponent() {

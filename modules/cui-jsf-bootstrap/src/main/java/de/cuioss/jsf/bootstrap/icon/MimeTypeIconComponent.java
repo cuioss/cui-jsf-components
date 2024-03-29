@@ -15,18 +15,17 @@
  */
 package de.cuioss.jsf.bootstrap.icon;
 
-import javax.faces.component.FacesComponent;
-
 import de.cuioss.jsf.api.components.base.AbstractBaseCuiComponent;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
-import de.cuioss.jsf.api.components.partial.ContextSizeProvider;
-import de.cuioss.jsf.api.components.partial.StyleAttributeProvider;
-import de.cuioss.jsf.api.components.partial.TitleProvider;
-import de.cuioss.jsf.api.components.partial.TitleProviderImpl;
+import de.cuioss.jsf.api.components.css.StyleClassBuilder;
+import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.icon.support.CssMimeTypeIcon;
+import de.cuioss.jsf.bootstrap.icon.support.IconSize;
 import de.cuioss.tools.string.MoreStrings;
 import lombok.experimental.Delegate;
+
+import javax.faces.component.FacesComponent;
+import javax.faces.event.PreRenderComponentEvent;
 
 /**
  * <p>
@@ -113,7 +112,7 @@ public class MimeTypeIconComponent extends AbstractBaseCuiComponent implements T
 
     /**
      * @return the resolved {@link MimeTypeIcon}. In case #mimeTypeIcon and
-     *         #mimeTypeString is set #mimeTypeIcon take precedence.
+     * #mimeTypeString is set #mimeTypeIcon take precedence.
      */
     public MimeTypeIcon resolveMimeTypeIcon() {
         var icon = getMimeTypeIcon();
@@ -129,15 +128,15 @@ public class MimeTypeIconComponent extends AbstractBaseCuiComponent implements T
     }
 
     /**
-     * In case of this class being present an additional layer will be rendered with
+     * In case of this class being present, an additional layer will be rendered with
      * the decoratorStyleClass being applied.
      *
      * @return the decoratorClass. If none is set it returns
-     *         {@link CssMimeTypeIcon#CUI_STACKED_ICON_NO_DECORATOR}
+     * {@link CssMimeTypeIcon#CUI_STACKED_ICON_NO_DECORATOR}
      */
     public String getDecoratorClass() {
         return (String) getStateHelper().eval(DECORATOR_CLASS_KEY,
-                CssMimeTypeIcon.CUI_STACKED_ICON_NO_DECORATOR.getStyleClass());
+            CssMimeTypeIcon.CUI_STACKED_ICON_NO_DECORATOR.getStyleClass());
     }
 
     /**
@@ -151,4 +150,5 @@ public class MimeTypeIconComponent extends AbstractBaseCuiComponent implements T
     public String getFamily() {
         return BootstrapFamily.COMPONENT_FAMILY;
     }
+
 }

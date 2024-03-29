@@ -15,12 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.notification;
 
-import java.io.IOException;
-
-import javax.faces.context.FacesContext;
-import javax.faces.render.FacesRenderer;
-import javax.faces.render.Renderer;
-
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.jsf.api.components.events.ModelPayloadEvent;
 import de.cuioss.jsf.api.components.html.AttributeName;
@@ -31,6 +25,11 @@ import de.cuioss.jsf.api.components.util.ComponentUtility;
 import de.cuioss.jsf.api.components.util.ComponentWrapper;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
+
+import javax.faces.context.FacesContext;
+import javax.faces.render.FacesRenderer;
+import javax.faces.render.Renderer;
+import java.io.IOException;
 
 /**
  * <p>
@@ -51,18 +50,18 @@ public class NotificationBoxRenderer extends BaseDecoratorRenderer<NotificationB
 
     private static String getAlertClassForState(final ContextState state) {
         return switch (state) {
-        case SUCCESS -> "alert-success";
-        case DANGER -> "alert-danger";
-        case INFO -> "alert-info";
-        case WARNING -> "alert-warning";
-        default -> "";
+            case SUCCESS -> "alert-success";
+            case DANGER -> "alert-danger";
+            case INFO -> "alert-info";
+            case WARNING -> "alert-warning";
+            default -> "";
         };
     }
 
     @Override
     protected void doEncodeBegin(final FacesContext context,
-            final DecoratingResponseWriter<NotificationBoxComponent> writer, final NotificationBoxComponent component)
-            throws IOException {
+                                 final DecoratingResponseWriter<NotificationBoxComponent> writer, final NotificationBoxComponent component)
+        throws IOException {
         writer.withStartElement(Node.DIV);
         if (component.isDismissible() && null != component.getDismissListener()) {
             writer.withClientId();
@@ -70,12 +69,12 @@ public class NotificationBoxRenderer extends BaseDecoratorRenderer<NotificationB
             writer.withClientIdIfNecessary();
         }
         var styleClassBuilder = CssBootstrap.ALERT.getStyleClassBuilder().append(component)
-                .append(getAlertClassForState(component.resolveContextState()));
+            .append(getAlertClassForState(component.resolveContextState()));
         if (component.isDismissible()) {
             styleClassBuilder.append(CssBootstrap.ALERT_DISMISSIBLE);
         }
         writer.withStyleClass(styleClassBuilder);
-        writer.withAttributeStyle(component.getStyle());
+        writer.withAttributeStyle(component);
         writer.withAttribute(AttributeName.ROLE, "alert");
         writer.withPassThroughAttributes();
         if (component.isDismissible()) {
@@ -102,15 +101,15 @@ public class NotificationBoxRenderer extends BaseDecoratorRenderer<NotificationB
 
     @Override
     protected void doEncodeEnd(final FacesContext context,
-            final DecoratingResponseWriter<NotificationBoxComponent> writer, final NotificationBoxComponent component)
-            throws IOException {
+                               final DecoratingResponseWriter<NotificationBoxComponent> writer, final NotificationBoxComponent component)
+        throws IOException {
 
         writer.withEndElement(Node.DIV);
     }
 
     @Override
     protected void doDecode(final FacesContext context,
-            final ComponentWrapper<NotificationBoxComponent> componentWrapper) {
+                            final ComponentWrapper<NotificationBoxComponent> componentWrapper) {
         if (!componentWrapper.getWrapped().isDismissible()) {
             return;
         }

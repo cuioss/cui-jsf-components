@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
+import javax.faces.component.UIComponent;
 import java.io.Serializable;
 
 /**
@@ -43,6 +44,16 @@ import java.io.Serializable;
  * The optional converterId to be used in case of titleValue is set and needs
  * conversion.
  * </p>
+ * <h2>Update to the state-management</h2>
+ * In previous versions targeted at mojarra, the logic of modifying the final title was in the method
+ * {@link #resolveTitle()}}.
+ * With myfaces on the other hand the default Renderer use {@link UIComponent#getAttributes()} for looking up the
+ * title.
+ * <p>
+ * The Solution: {@link #resolveAndStoreTitle()} must be called prior rendering.
+ * This must be done prior Rendering, usually by the concrete {@link javax.faces.render.Renderer}
+ * <em>This workaround is only necessary for cases, where the rendering is done by the concrete implementation.</em>
+ * </p>
  *
  * @author Oliver Wolff
  */
@@ -59,29 +70,40 @@ public interface TitleProvider {
     String getTitleKey();
 
     /**
-     * @param titelValue to be set.
+     * @param titleValue to be set.
      */
-    void setTitleValue(Serializable titelValue);
+    void setTitleValue(Serializable titleValue);
 
     /**
-     * @return the titelValue.
+     * @return the titleValue.
      */
     Serializable getTitleValue();
 
     /**
-     * @return the titelConverter
+     * @return the titleConverter
      */
     Object getTitleConverter();
 
     /**
-     * @param titelConverter the titelConverter to set
+     * @param titleConverter the titleConverter to set
      */
-    void setTitleConverter(Object titelConverter);
+    void setTitleConverter(Object titleConverter);
 
     /**
      * @return the resolved title is available, otherwise it will return null.
      */
     String resolveTitle();
+
+    /**
+     * Resolves and stores the final title in the {@link javax.faces.component.StateHelper}, see class-documentation
+     * for details.
+     */
+    void resolveAndStoreTitle();
+
+    /**
+     * @return the resolved title is available, otherwise it will return null.
+     */
+    String getTitle();
 
     /**
      * @return boolean indicating whether a title is there (set)

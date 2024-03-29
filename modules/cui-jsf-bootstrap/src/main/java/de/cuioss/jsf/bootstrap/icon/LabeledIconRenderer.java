@@ -15,17 +15,16 @@
  */
 package de.cuioss.jsf.bootstrap.icon;
 
-import java.io.IOException;
-
-import javax.faces.context.FacesContext;
-import javax.faces.render.FacesRenderer;
-
 import de.cuioss.jsf.api.components.css.AlignHolder;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
+
+import javax.faces.context.FacesContext;
+import javax.faces.render.FacesRenderer;
+import java.io.IOException;
 
 /**
  * <h2>Styling</h2>
@@ -39,22 +38,19 @@ import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.LABELED_ICON_COMPONENT_RENDERER)
 public class LabeledIconRenderer extends BaseDecoratorRenderer<LabeledIconComponent> {
 
-    /**
-     *
-     */
     public LabeledIconRenderer() {
         super(true);
     }
 
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<LabeledIconComponent> writer,
-            final LabeledIconComponent component) throws IOException {
+                               final LabeledIconComponent component) throws IOException {
         // Write wrapper span
         writer.withStartElement(Node.SPAN);
         writer.withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER.getStyleClassBuilder().append(component));
-        writer.withAttributeStyle(component.getStyle());
+        writer.withAttributeStyle(component);
         writer.withClientIdIfNecessary();
-        writer.withAttributeTitle(component.resolveTitle());
+        writer.withAttributeTitle(component);
         writer.withPassThroughAttributes();
 
         if (AlignHolder.RIGHT.equals(component.resolveIconAlign())) {
@@ -69,29 +65,19 @@ public class LabeledIconRenderer extends BaseDecoratorRenderer<LabeledIconCompon
         writer.withEndElement(Node.SPAN);
     }
 
-    /**
-     * @param writer
-     * @param component
-     * @throws IOException
-     */
     private static void writeIcon(final DecoratingResponseWriter<LabeledIconComponent> writer,
-            final LabeledIconComponent component) throws IOException {
+                                  final LabeledIconComponent component) throws IOException {
         writer.withStartElement(Node.SPAN);
         writer.withStyleClass(component.resolveIconCss());
         writer.withEndElement(Node.SPAN);
     }
 
-    /**
-     * @param writer
-     * @param component
-     * @throws IOException
-     */
+
     private static void writeLabel(final DecoratingResponseWriter<LabeledIconComponent> writer,
-            final LabeledIconComponent component) throws IOException {
+                                   final LabeledIconComponent component) throws IOException {
         writer.withStartElement(Node.SPAN);
         writer.withStyleClass(CssCuiBootstrap.LABELED_ICON_TEXT);
         writer.withTextContent(component.resolveLabel(), component.isLabelEscape());
         writer.withEndElement(Node.SPAN);
-
     }
 }

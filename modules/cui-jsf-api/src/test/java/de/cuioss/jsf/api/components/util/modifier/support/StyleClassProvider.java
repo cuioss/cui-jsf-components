@@ -29,13 +29,12 @@ public class StyleClassProvider extends UIComponentBase implements ComponentStyl
     private String styleClass;
 
     @Override
-    public StyleClassBuilder getStyleClassBuilder() {
-        return null;
-    }
-
-    @Override
     public String getFamily() {
         return "StyleClassProvider";
     }
 
+    @Override
+    public void computeAndStoreFinalStyleClass(StyleClassBuilder componentSpecificStyleClass) {
+
+    }
 }

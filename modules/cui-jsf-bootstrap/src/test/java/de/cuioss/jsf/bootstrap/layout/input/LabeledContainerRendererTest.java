@@ -202,7 +202,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
     @Test
     void shouldRenderTitle() {
         final var component = new LabeledContainerComponent();
-        final var titleValue = "titelValue";
+        final var titleValue = "titleValue";
         component.setTitleValue(titleValue);
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));

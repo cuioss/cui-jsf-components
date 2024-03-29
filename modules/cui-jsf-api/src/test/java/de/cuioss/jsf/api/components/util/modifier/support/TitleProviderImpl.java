@@ -47,8 +47,8 @@ public class TitleProviderImpl extends UIComponentBase implements TitleProvider 
     }
 
     @Override
-    public void setTitleValue(final Serializable titelValue) {
-        titleValue = (String) titelValue;
+    public void setTitleValue(final Serializable titleValue) {
+        this.titleValue = (String) titleValue;
     }
 
     @Override
@@ -57,12 +57,17 @@ public class TitleProviderImpl extends UIComponentBase implements TitleProvider 
     }
 
     @Override
-    public void setTitleConverter(final Object titelConverter) {
+    public void setTitleConverter(final Object titleConverter) {
     }
 
     @Override
     public String resolveTitle() {
         return titleValue;
+    }
+
+    @Override
+    public void resolveAndStoreTitle() {
+
     }
 
     @Override

@@ -15,7 +15,10 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
+import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.css.StyleClassProvider;
+
+import javax.faces.component.UIComponent;
 
 /**
  * <h2>Summary</h2>
@@ -29,13 +32,39 @@ import de.cuioss.jsf.api.components.css.StyleClassProvider;
  * Space-separated list of CSS style class(es) to be applied additionally when
  * this element is rendered.
  * </p>
+ * <p>
+ *
+ * <h2>Update to the state-management</h2>
+ * In previous versions targeted at mojarra, the logic of modifying the final style-class was in the method
+ * {@link #getStyleClass()}.
+ * With myfaces on the other hand the default Renderer use {@link UIComponent#getAttributes()} for looking up the
+ * styleClass, bypassing the corresponding get-method.
+ * The Solution:
+ * <ul>
+ *      <li>The configured class, {@link #setStyleClass(String)} will be stored under the keys
+ *      {@value ComponentStyleClassProviderImpl#KEY} and {@value ComponentStyleClassProviderImpl#LOCAL_STYLE_CLASS_KEY}</li>
+ *     <li>Component-specific additions are to be provided via {@link #computeAndStoreFinalStyleClass(StyleClassBuilder)}.
+ *     This must be done prior Rendering, usually by the concrete {@link javax.faces.render.Renderer}</li>
+ * </ul>
+ * <em>This workaround is only necessary for cases, where the rendering is done by the concrete implementation.</em>
  *
  * @author Oliver Wolff
  */
 public interface ComponentStyleClassProvider extends StyleClassProvider {
 
     /**
-     * @param styleClass the styleClass to set
+     * @param styleClass the styleClass to set.
+     *                   See Type-Documentation for details.
      */
     void setStyleClass(String styleClass);
+
+    /**
+     * Computes the final / effective styleClass and exposes it as 'styleClass'
+     * in the {@link javax.faces.component.StateHelper}
+     * See Class-Documentation for details.
+     *
+     * @param componentSpecificStyleClass The style-classes created by the corresponding renderer,
+     *                                    excluding the user-defined style-class,
+     */
+    void computeAndStoreFinalStyleClass(StyleClassBuilder componentSpecificStyleClass);
 }

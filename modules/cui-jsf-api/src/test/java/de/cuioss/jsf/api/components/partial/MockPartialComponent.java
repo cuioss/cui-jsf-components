@@ -15,13 +15,13 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
+import de.cuioss.jsf.api.components.html.Node;
+import lombok.experimental.Delegate;
+
 import javax.faces.component.StateHelper;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
-
-import de.cuioss.jsf.api.components.html.Node;
-import lombok.experimental.Delegate;
 
 /**
  * Uses all available provider
@@ -93,6 +93,9 @@ public class MockPartialComponent extends UIComponentBase implements ComponentBr
     @Delegate
     private final AjaxProvider ajaxProvider;
 
+    @Delegate
+    private final KeyBindingProvider keyBindingProvider;
+
     public MockPartialComponent() {
         titleProvider = new TitleProviderImpl(this);
         closeButtonTitleProvider = new CloseButtonTitleProvider(this);
@@ -115,6 +118,7 @@ public class MockPartialComponent extends UIComponentBase implements ComponentBr
         deferredProvider = new DeferredProvider(this);
         htmlElementProvider = new HtmlElementProvider(this, Node.DIV);
         ajaxProvider = new AjaxProvider(this);
+        keyBindingProvider = new KeyBindingProvider(this);
     }
 
     @Override

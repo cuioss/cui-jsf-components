@@ -92,6 +92,7 @@ public abstract class BaseCuiOutputText extends HtmlOutputText implements Compon
     /**
      * @return the component specific style-classes.
      * Must not be null.
+     * But may be empty
      * The parent component (BaseCuiOutputText) takes care on the configured styleClass
      * attribute and implements the actual method
      * {@link HtmlOutputText#getStyleClass()} by calling this method and

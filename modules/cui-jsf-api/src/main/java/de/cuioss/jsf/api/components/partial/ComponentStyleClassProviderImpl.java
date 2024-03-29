@@ -15,30 +15,49 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
-import javax.faces.component.StateHelper;
-
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.css.impl.StyleClassBuilderImpl;
 import de.cuioss.jsf.api.components.util.CuiState;
 import lombok.NonNull;
 
+import javax.faces.component.StateHelper;
+
 /**
  * Default implementation for {@link ComponentStyleClassProvider}
+ * <p>
  *
  * @author Oliver Wolff
  */
 public class ComponentStyleClassProviderImpl implements ComponentStyleClassProvider {
 
-    /** The key for the {@link StateHelper} */
+    /**
+     * The key for the {@link StateHelper}
+     */
     public static final String KEY = "styleClass";
+
+    /**
+     * The key for the {@link StateHelper}
+     */
+    public static final String LOCAL_STYLE_CLASS_KEY = "localStyleClass";
 
     private final CuiState state;
 
     /**
-     * @param bridge
+     * @param bridge to be used
      */
     public ComponentStyleClassProviderImpl(@NonNull ComponentBridge bridge) {
         state = new CuiState(bridge.stateHelper());
+    }
+
+    @Override
+    public void setStyleClass(String styleClass) {
+        state.put(KEY, styleClass);
+        state.put(LOCAL_STYLE_CLASS_KEY, styleClass);
+    }
+
+    @Override
+    public void computeAndStoreFinalStyleClass(StyleClassBuilder componentSpecificStyleClass) {
+        state.put(KEY, componentSpecificStyleClass.append(getLocalStyleClassBuilder()).getStyleClass());
     }
 
     @Override
@@ -46,14 +65,8 @@ public class ComponentStyleClassProviderImpl implements ComponentStyleClassProvi
         return state.get(KEY);
     }
 
-    @Override
-    public StyleClassBuilder getStyleClassBuilder() {
-        return new StyleClassBuilderImpl(getStyleClass());
-    }
-
-    @Override
-    public void setStyleClass(String styleClass) {
-        state.put(KEY, styleClass);
+    private StyleClassBuilder getLocalStyleClassBuilder() {
+        return new StyleClassBuilderImpl(state.get(LOCAL_STYLE_CLASS_KEY)) ;
     }
 
 }

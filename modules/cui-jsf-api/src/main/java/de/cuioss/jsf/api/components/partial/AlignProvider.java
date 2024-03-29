@@ -15,11 +15,11 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
-import javax.faces.component.StateHelper;
-
 import de.cuioss.jsf.api.components.css.AlignHolder;
 import de.cuioss.jsf.api.components.util.CuiState;
 import lombok.NonNull;
+
+import javax.faces.component.StateHelper;
 
 /**
  * <h2>Summary</h2>
@@ -39,20 +39,22 @@ import lombok.NonNull;
  */
 public class AlignProvider {
 
-    /** The key for the {@link StateHelper} */
+    /**
+     * The key for the {@link StateHelper}
+     */
     private static final String KEY = "align";
 
     private final CuiState state;
 
     /**
-     * @param componentBridge
+     * @param componentBridge must not be null
      */
     public AlignProvider(@NonNull ComponentBridge componentBridge) {
         state = new CuiState(componentBridge.stateHelper());
     }
 
     /**
-     * @return the align
+     * @return the 'align' attribute, to be set
      */
     public String getAlign() {
         return state.get(KEY);
@@ -67,7 +69,7 @@ public class AlignProvider {
 
     /**
      * @return the resolved {@link AlignHolder} if available, otherwise it will
-     *         return {@link AlignHolder#DEFAULT}.
+     * return {@link AlignHolder#DEFAULT}.
      */
     public AlignHolder resolveAlign() {
         return AlignHolder.getFromString(getAlign());

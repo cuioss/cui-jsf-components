@@ -52,7 +52,7 @@ class BaseDecoratorRendererTest extends AbstractRendererTestBase<MockDecoratorRe
     }
 
     @Test
-    void shouldIgnoreIfRenderedIsfalse() throws IOException {
+    void shouldIgnoreIfRenderedIsFalse() throws IOException {
         final var component = getComponent();
         component.setRendered(false);
         final var actual = renderToTreeBuilder(component, new MockDecoratorRenderer(false));
@@ -64,10 +64,10 @@ class BaseDecoratorRendererTest extends AbstractRendererTestBase<MockDecoratorRe
      * Renders the given component / renderer into a {@link HtmlTreeBuilder}
      * representation
      *
-     * @param component
-     * @param renderer
-     * @return
-     * @throws IOException
+     * @param component must not be null
+     * @param renderer must not be null
+     * @return the resulting {@link HtmlTreeBuilder}
+     * @throws IOException from underlying {@link javax.faces.context.ResponseWriter}
      */
     protected HtmlTreeBuilder renderToTreeBuilder(final UIComponent component, final MockDecoratorRenderer renderer)
             throws IOException {

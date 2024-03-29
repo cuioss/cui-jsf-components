@@ -92,7 +92,7 @@ public class NotificationBoxComponent extends AbstractBaseCuiComponent {
     /**
      * Store flag for dismissible
      *
-     * @param dismissible
+     * @param dismissible flag to be set
      */
     public void setDismissible(final boolean dismissible) {
         getStateHelper().put(DISMISSIBLE_KEY, dismissible);

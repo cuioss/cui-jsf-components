@@ -42,16 +42,6 @@ class CommandButtonTest extends AbstractComponentTest<CommandButton> {
     private static final String KEY_BINDING = AttributeValue.CUI_CLICK_BINDING.getContent();
 
     @Test
-    void shouldHandleStyleClass() {
-        var component = anyComponent();
-        var expected = BUTTON.getStyleClass() + " btn-default";
-        assertEquals(expected, component.getStyleClass());
-        var custom = "custom";
-        component.setStyleClass(custom);
-        assertEquals(expected + " " + custom, component.getStyleClass());
-    }
-
-    @Test
     void shouldProvideCorrectMetadata() {
         assertEquals(BootstrapFamily.COMMAND_BUTTON_RENDERER, anyComponent().getRendererType());
         assertEquals(BootstrapFamily.COMPONENT_FAMILY, anyComponent().getFamily());

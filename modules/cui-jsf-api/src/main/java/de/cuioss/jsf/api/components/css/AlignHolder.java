@@ -48,11 +48,6 @@ public enum AlignHolder implements StyleClassProvider {
 
     private final String styleClass;
 
-    @Override
-    public StyleClassBuilder getStyleClassBuilder() {
-        return new StyleClassBuilderImpl(styleClass);
-    }
-
     /**
      * Create an instance of {@link AlignHolder} according to the given String.
      *

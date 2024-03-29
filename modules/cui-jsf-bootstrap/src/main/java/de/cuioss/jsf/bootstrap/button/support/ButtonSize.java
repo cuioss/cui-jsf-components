@@ -16,9 +16,7 @@
 package de.cuioss.jsf.bootstrap.button.support;
 
 import de.cuioss.jsf.api.components.css.ContextSize;
-import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.css.StyleClassProvider;
-import de.cuioss.jsf.api.components.css.impl.StyleClassBuilderImpl;
 import de.cuioss.tools.string.MoreStrings;
 import lombok.Getter;
 
@@ -53,13 +51,8 @@ public enum ButtonSize implements StyleClassProvider {
 
     private final String styleClass;
 
-    @Override
-    public StyleClassBuilder getStyleClassBuilder() {
-        return new StyleClassBuilderImpl(styleClass);
-    }
-
     /**
-     * @param contextSize May be null, otherwise must be one of
+     * @param contextSize Maybe null, otherwise must be one of
      *                    {@link ContextSize#LG}, {@link ContextSize#DEFAULT} or
      *                    {@link ContextSize#SM}
      * @return the corresponding {@link ButtonSize} derived by the given
