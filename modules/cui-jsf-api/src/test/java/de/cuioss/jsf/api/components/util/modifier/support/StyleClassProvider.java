@@ -15,12 +15,12 @@
  */
 package de.cuioss.jsf.api.components.util.modifier.support;
 
-import javax.faces.component.UIComponentBase;
-
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.faces.component.UIComponentBase;
 
 public class StyleClassProvider extends UIComponentBase implements ComponentStyleClassProvider {
 
@@ -34,7 +34,7 @@ public class StyleClassProvider extends UIComponentBase implements ComponentStyl
     }
 
     @Override
-    public void computeAndStoreFinalStyleClass(StyleClassBuilder componentSpecificStyleClass) {
-
+    public String computeFinalStyleClass(StyleClassBuilder componentSpecificStyleClass) {
+        return "";
     }
 }

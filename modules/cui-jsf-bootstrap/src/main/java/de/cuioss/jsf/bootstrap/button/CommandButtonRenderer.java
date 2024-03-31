@@ -27,10 +27,12 @@ import de.cuioss.jsf.bootstrap.button.support.ButtonState;
 import de.cuioss.jsf.bootstrap.icon.IconComponent;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.context.FacesContext;
 import javax.faces.render.FacesRenderer;
 import javax.faces.render.Renderer;
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * <h2>Rendering</h2>
@@ -66,12 +68,16 @@ public class CommandButtonRenderer extends BaseDecoratorRenderer<CommandButton> 
                                  final CommandButton component) throws IOException {
         var wrapped = ElementReplacingResponseWriter.createWrappedReplacingResonseWriter(context, "input", "button",
             true);
-        // Prepare for Myfaces-rendering
+
         component.resolveAndStoreTitle();
-        component.computeAndStoreFinalStyleClass(CssBootstrap.BUTTON.getStyleClassBuilder()
+        var finalStyleClass = component.computeFinalStyleClass(CssBootstrap.BUTTON.getStyleClassBuilder()
             .append(ButtonState.getForContextState(component.getState()))
             .append(ButtonSize.getForContextSize(component.resolveContextSize())));
-        JsfHtmlComponent.COMMAND_BUTTON.renderer(context).encodeBegin(wrapped, component);
+
+        var delegate = createButtonAndCopyAttributes(context, component);
+        delegate.setStyleClass(finalStyleClass);
+
+        JsfHtmlComponent.COMMAND_BUTTON.renderer(context).encodeBegin(wrapped, delegate);
 
         if (component.isDisplayIconLeft()) {
             var icon = IconComponent.createComponent(context);
@@ -102,5 +108,19 @@ public class CommandButtonRenderer extends BaseDecoratorRenderer<CommandButton> 
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<CommandButton> writer,
                                final CommandButton component) throws IOException {
         writer.withEndElement(Node.BUTTON);
+    }
+
+    static HtmlCommandButton createButtonAndCopyAttributes(FacesContext facesContext, HtmlCommandButton source) {
+        var delegate = JsfHtmlComponent.COMMAND_BUTTON.component(facesContext);
+        Optional.ofNullable(source.getId()).ifPresent(delegate::setId);
+        Optional.ofNullable(source.getStyle()).ifPresent(delegate::setStyle);
+        Optional.ofNullable(source.getTitle()).ifPresent(delegate::setTitle);
+        Optional.ofNullable(source.getAlt()).ifPresent(delegate::setAlt);
+        Optional.ofNullable(source.getDir()).ifPresent(delegate::setDir);
+        Optional.of(source.isDisabled()).ifPresent(delegate::setDisabled);
+        Optional.ofNullable(source.getAccesskey()).ifPresent(delegate::setAccesskey);
+        Optional.ofNullable(source.getImage()).ifPresent(delegate::setImage);
+        delegate.getPassThroughAttributes(true).putAll(source.getPassThroughAttributes(true));
+        return delegate;
     }
 }

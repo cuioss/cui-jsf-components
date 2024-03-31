@@ -35,11 +35,6 @@ public class ComponentStyleClassProviderImpl implements ComponentStyleClassProvi
      */
     public static final String KEY = "styleClass";
 
-    /**
-     * The key for the {@link StateHelper}
-     */
-    public static final String LOCAL_STYLE_CLASS_KEY = "localStyleClass";
-
     private final CuiState state;
 
     /**
@@ -52,12 +47,11 @@ public class ComponentStyleClassProviderImpl implements ComponentStyleClassProvi
     @Override
     public void setStyleClass(String styleClass) {
         state.put(KEY, styleClass);
-        state.put(LOCAL_STYLE_CLASS_KEY, styleClass);
     }
 
     @Override
-    public void computeAndStoreFinalStyleClass(StyleClassBuilder componentSpecificStyleClass) {
-        state.put(KEY, componentSpecificStyleClass.append(getLocalStyleClassBuilder()).getStyleClass());
+    public String computeFinalStyleClass(StyleClassBuilder componentSpecificStyleClass) {
+        return componentSpecificStyleClass.append(getStyleClassBuilder()).getStyleClass();
     }
 
     @Override
@@ -65,8 +59,5 @@ public class ComponentStyleClassProviderImpl implements ComponentStyleClassProvi
         return state.get(KEY);
     }
 
-    private StyleClassBuilder getLocalStyleClassBuilder() {
-        return new StyleClassBuilderImpl(state.get(LOCAL_STYLE_CLASS_KEY)) ;
-    }
 
 }

@@ -16,8 +16,11 @@
 package de.cuioss.jsf.bootstrap.button;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.html.HtmlCommandButton;
+import javax.faces.component.html.HtmlOutcomeTargetButton;
 import javax.faces.context.FacesContext;
 import javax.faces.render.FacesRenderer;
 import javax.faces.render.Renderer;
@@ -64,13 +67,16 @@ public class ButtonRenderer extends BaseDecoratorRenderer<Button> {
             final Button component) throws IOException {
         var wrapped = ElementReplacingResponseWriter.createWrappedReplacingResonseWriter(context, "input", "button",
                 true);
-        // Prepare for Myfaces-rendering
+
         component.resolveAndStoreTitle();
-        component.computeAndStoreFinalStyleClass(CssBootstrap.BUTTON.getStyleClassBuilder()
+        var finalStyleClass = component.computeFinalStyleClass(CssBootstrap.BUTTON.getStyleClassBuilder()
             .append(ButtonState.getForContextState(component.getState()))
             .append(ButtonSize.getForContextSize(component.resolveContextSize())));
+        var delegate = createButtonAndCopyAttributes(context, component);
+        delegate.setStyleClass(finalStyleClass);
 
-        JsfHtmlComponent.BUTTON.renderer(context).encodeBegin(wrapped, component);
+        JsfHtmlComponent.BUTTON.renderer(context).encodeBegin(wrapped, delegate);
+
         if (component.isDisplayIconLeft()) {
             var icon = IconComponent.createComponent(context);
             icon.setIcon(component.getIcon());
@@ -102,4 +108,18 @@ public class ButtonRenderer extends BaseDecoratorRenderer<Button> {
         writer.withEndElement(Node.BUTTON);
     }
 
+    static HtmlOutcomeTargetButton createButtonAndCopyAttributes(FacesContext facesContext, HtmlOutcomeTargetButton source) {
+        var delegate = JsfHtmlComponent.BUTTON.component(facesContext);
+        Optional.ofNullable(source.getId()).ifPresent(delegate::setId);
+        Optional.ofNullable(source.getStyle()).ifPresent(delegate::setStyle);
+        Optional.ofNullable(source.getTitle()).ifPresent(delegate::setTitle);
+        Optional.ofNullable(source.getValue()).ifPresent(delegate::setValue);
+        Optional.ofNullable(source.getAlt()).ifPresent(delegate::setAlt);
+        Optional.ofNullable(source.getDir()).ifPresent(delegate::setDir);
+        Optional.of(source.isDisabled()).ifPresent(delegate::setDisabled);
+        Optional.ofNullable(source.getAccesskey()).ifPresent(delegate::setAccesskey);
+        Optional.ofNullable(source.getImage()).ifPresent(delegate::setImage);
+        delegate.getPassThroughAttributes(true).putAll(source.getPassThroughAttributes(true));
+        return delegate;
+    }
 }
