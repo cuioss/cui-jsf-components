@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:cui-boot="https://cuioss.de/jsf/bootstrap">
+      xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:boot="https://cuioss.de/jsf/bootstrap">
 
 <!-- INTERFACE -->
 <composite:interface
     shortDescription="Renders a content or a notification box if the content could not be retrieved. See taglib for more details.">
     <composite:attribute name="notificationBoxStyleClass"
-        type="java.lang.String" required="false"
-        shortDescription="Additional css-classes to be applied to the list for the notification box." />
+                         type="java.lang.String" required="false"
+                         shortDescription="Additional css-classes to be applied to the list for the notification box."/>
     <composite:attribute name="notificationBoxStyle"
-        type="java.lang.String" required="false"
-        shortDescription="Additional style-attribute to be applied to the list for the notification box." />
+                         type="java.lang.String" required="false"
+                         shortDescription="Additional style-attribute to be applied to the list for the notification box."/>
     <composite:attribute name="renderAsRow" type="boolean"
-        shortDescription="Render the notification box as a row" />
+                         shortDescription="Render the notification box as a row"/>
     <composite:attribute name="model"
-        type="de.cuioss.jsf.api.components.model.resultContent.ResultContent"
-        shortDescription="Model to be displayed" required="true" />
+                         type="de.cuioss.jsf.api.components.model.resultContent.ResultContent"
+                         shortDescription="Model to be displayed" required="true"/>
 
 </composite:interface>
 
@@ -25,32 +25,32 @@
 <composite:implementation>
     <ui:fragment
         rendered="#{cc.attrs.renderAsRow and not empty cc.attrs.model.notificationBoxMessages}">
-        <cui-boot:row>
-            <cui-boot:column size="12">
+        <boot:row>
+            <boot:column size="12">
                 <ui:repeat
                     value="#{cc.attrs.model.notificationBoxMessages}"
                     var="message">
-                    <cui-boot:notificationBox
+                    <boot:notificationBox
                         state="#{message.notificationBoxState}"
                         contentValue="#{message.notificationBoxValue}"
                         style="#{cc.attrs.notificationBoxStyle}"
-                        styleClass="#{cc.attrs.notificationBoxStyleClass}" />
+                        styleClass="#{cc.attrs.notificationBoxStyleClass}"/>
                 </ui:repeat>
-            </cui-boot:column>
-        </cui-boot:row>
+            </boot:column>
+        </boot:row>
     </ui:fragment>
     <ui:fragment
         rendered="#{!cc.attrs.renderAsRow and not empty cc.attrs.model.notificationBoxMessages}">
         <ui:repeat value="#{cc.attrs.model.notificationBoxMessages}"
-            var="message">
-            <cui-boot:notificationBox state="#{message.notificationBoxState}"
-                contentValue="#{message.notificationBoxValue}"
-                style="#{cc.attrs.notificationBoxStyle}"
-                styleClass="#{cc.attrs.notificationBoxStyleClass}" />
+                   var="message">
+            <boot:notificationBox state="#{message.notificationBoxState}"
+                                  contentValue="#{message.notificationBoxValue}"
+                                  style="#{cc.attrs.notificationBoxStyle}"
+                                  styleClass="#{cc.attrs.notificationBoxStyleClass}"/>
         </ui:repeat>
     </ui:fragment>
     <ui:fragment rendered="#{cc.attrs.model.renderContent}">
-        <composite:insertChildren />
+        <composite:insertChildren/>
     </ui:fragment>
 </composite:implementation>
 </html>

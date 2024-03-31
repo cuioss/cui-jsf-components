@@ -1,54 +1,54 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-    xmlns:cui-boot="https://cuioss.de/jsf/bootstrap">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+      xmlns:boot="https://cuioss.de/jsf/bootstrap">
 
 <composite:interface
     shortDescription="Display a widget. Supports deferred loading of the content and displaying an optional error message">
     <composite:attribute name="model"
-        type="de.cuioss.jsf.api.components.model.widget.WidgetModel"
-        shortDescription="Model to be displayed in this widget"
-        required="true" />
+                         type="de.cuioss.jsf.api.components.model.widget.WidgetModel"
+                         shortDescription="Model to be displayed in this widget"
+                         required="true"/>
     <composite:attribute name="styleClass" type="java.lang.String"
-        default="widget" />
-    <composite:attribute name="async" type="boolean" default="false" />
+                         default="widget"/>
+    <composite:attribute name="async" type="boolean" default="false"/>
 </composite:interface>
 
 <composite:implementation>
     <article class="#{cc.attrs.styleClass}">
         <h1>
             <h:link id="coreActionLink"
-                outcome="#{cc.attrs.model.coreAction}"
-                disabled="#{cc.attrs.model.disableCoreAction}">
-                <cui-boot:icon icon="#{cc.attrs.model.titleIcon}"
-                    rendered="#{null ne cc.attrs.model.titleIcon}" />
+                    outcome="#{cc.attrs.model.coreAction}"
+                    disabled="#{cc.attrs.model.disableCoreAction}">
+                <boot:icon icon="#{cc.attrs.model.titleIcon}"
+                           rendered="#{null ne cc.attrs.model.titleIcon}"/>
                 <h:outputText
                     rendered="#{null eq cc.attrs.model.titleValue}"
-                    value="#{cc.attrs.model.title}" />
+                    value="#{cc.attrs.model.title}"/>
                 <h:outputText
                     rendered="#{null ne cc.attrs.model.titleValue}"
-                    value="#{cc.attrs.model.titleValue}" />
+                    value="#{cc.attrs.model.titleValue}"/>
             </h:link>
             <h:link id="primaryActionLink"
-                outcome="#{cc.attrs.model.primaryAction}"
-                rendered="#{cc.attrs.model.renderPrimaryAction}"
-                disabled="#{cc.attrs.model.disablePrimaryAction}"
-                styleClass="primary-action">
+                    outcome="#{cc.attrs.model.primaryAction}"
+                    rendered="#{cc.attrs.model.renderPrimaryAction}"
+                    disabled="#{cc.attrs.model.disablePrimaryAction}"
+                    styleClass="primary-action">
                 <h:outputText
-                    value="#{cc.attrs.model.primaryActionTitle}" />
+                    value="#{cc.attrs.model.primaryActionTitle}"/>
             </h:link>
         </h1>
-        <cui-boot:lazyLoading viewModel="#{cc.attrs.model}"
-            id="deferredContent"
-            startInitialize="#{cc.attrs.model.startInitialize()}"
-            async="#{cc.attrs.async}">
-            <composite:insertChildren />
+        <boot:lazyLoading viewModel="#{cc.attrs.model}"
+                          id="deferredContent"
+                          startInitialize="#{cc.attrs.model.startInitialize()}"
+                          async="#{cc.attrs.async}">
+            <composite:insertChildren/>
             <!-- h:form id="remoteCommandForm">
                 <p:remoteCommand autoRun="true" id="fixLinks"
                     update="#{cc.clientId}:coreActionLink,#{cc.clientId}:primaryActionLink" />
             </h:form -->
-        </cui-boot:lazyLoading>
+        </boot:lazyLoading>
     </article>
 </composite:implementation>
 

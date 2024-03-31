@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:cui-bootstrap-composite="http://xmlns.jcp.org/jsf/composite/cui-bootstrap-composite"
-    xmlns:composite="http://xmlns.jcp.org/jsf/composite">
+      xmlns:boot-composite="http://xmlns.jcp.org/jsf/composite/cui-bootstrap-composite"
+      xmlns:composite="http://xmlns.jcp.org/jsf/composite">
 
 <!-- INTERFACE -->
 <composite:interface shortDescription="Renders a ResultObject"
-    componentType="de.cuioss.jsf.api.components.model.resultContent.ResultObjectBackingBean">
+                     componentType="de.cuioss.jsf.api.components.model.resultContent.ResultObjectBackingBean">
     <composite:attribute name="model"
-        type="de.cuioss.uimodel.result.ResultObject" required="true"
-        shortDescription="The result object" />
+                         type="de.cuioss.uimodel.result.ResultObject" required="true"
+                         shortDescription="The result object"/>
 </composite:interface>
 
 <!-- IMPLEMENTATION -->
 <composite:implementation>
-    <cui-bootstrap-composite:requestResultContent model="#{cc.resultContent}">
-        <composite:insertChildren />
-    </cui-bootstrap-composite:requestResultContent>
+    <boot-composite:requestResultContent model="#{cc.resultContent}">
+        <composite:insertChildren/>
+    </boot-composite:requestResultContent>
 </composite:implementation>
 </html>

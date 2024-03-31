@@ -4334,6 +4334,7 @@
         <tag-name>editableDataList</tag-name>
         <component>
             <resource-id>cui-bootstrap-composite/editableDataList.xhtml</resource-id>
+            <component-type>de.cuioss.cui.bootstrap.editableDataList</component-type>
         </component>
         <attribute>
             <description><![CDATA[The model for interacting with the data list.
