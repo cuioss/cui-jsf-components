@@ -16,11 +16,10 @@
 package de.cuioss.jsf.bootstrap.button;
 
 import de.cuioss.jsf.api.components.css.AlignHolder;
+import de.cuioss.jsf.api.components.myfaces.MyFacesDelegateStyleClassAdapter;
+import de.cuioss.jsf.api.components.myfaces.MyFacesDelegateTitleAdapter;
 import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
-import de.cuioss.jsf.bootstrap.CssBootstrap;
-import de.cuioss.jsf.bootstrap.button.support.ButtonSize;
-import de.cuioss.jsf.bootstrap.button.support.ButtonState;
 import lombok.experimental.Delegate;
 
 import javax.faces.component.FacesComponent;
@@ -56,7 +55,7 @@ import javax.faces.event.PreRenderComponentEvent;
 @FacesComponent(BootstrapFamily.BUTTON_COMPONENT)
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
-public class Button extends HtmlOutcomeTargetButton implements ComponentBridge, TitleProvider {
+public class Button extends HtmlOutcomeTargetButton implements ComponentBridge, TitleProvider, MyFacesDelegateStyleClassAdapter, MyFacesDelegateTitleAdapter {
 
 
     @Delegate
@@ -100,24 +99,11 @@ public class Button extends HtmlOutcomeTargetButton implements ComponentBridge, 
     }
 
     @Override
-    public String getStyleClass() {
-        return CssBootstrap.BUTTON.getStyleClassBuilder()
-            .append(ButtonState.getForContextState(contextStateProvider.getState()))
-            .append(ButtonSize.getForContextSize(contextSizeProvider.resolveContextSize()))
-            .append(styleClassProvider).getStyleClass();
-    }
-
-    @Override
     public void processEvent(final ComponentSystemEvent event) {
         if (event instanceof PreRenderComponentEvent) {
             keyBindingProvider.writeBindingToPassThroughAttributes(this);
         }
         super.processEvent(event);
-    }
-
-    @Override
-    public void setStyleClass(final String styleClass) {
-        styleClassProvider.setStyleClass(styleClass);
     }
 
     @Override
@@ -180,5 +166,15 @@ public class Button extends HtmlOutcomeTargetButton implements ComponentBridge, 
      */
     public static Button create(final FacesContext facesContext) {
         return (Button) facesContext.getApplication().createComponent(BootstrapFamily.BUTTON_COMPONENT);
+    }
+
+    @Override
+    public void writeStyleClassToParent() {
+        super.setStyleClass(styleClassProvider.getStyleClass());
+    }
+
+    @Override
+    public void writeTitleToParent() {
+        super.setTitle(titleProvider.getTitle());
     }
 }

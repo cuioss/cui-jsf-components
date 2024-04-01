@@ -50,11 +50,14 @@ public class CloseCommandButtonRenderer extends BaseDecoratorRenderer<CloseComma
 
         var wrapped = ElementReplacingResponseWriter.createWrappedReplacingResonseWriter(context, "input", "button",
             true);
+
         component.resolveAndStoreTitle();
-        var finalStyleClass = component.computeFinalStyleClass(CssBootstrap.BUTTON_CLOSE.getStyleClassBuilder());
-        var delegate = CommandButtonRenderer.createButtonAndCopyAttributes(context, component);
-        delegate.setStyleClass(finalStyleClass);
-        JsfHtmlComponent.COMMAND_BUTTON.renderer(context).encodeBegin(wrapped, delegate);
+        component.writeTitleToParent();
+
+        component.computeAndStoreFinalStyleClass(CssBootstrap.BUTTON_CLOSE.getStyleClassBuilder());
+        component.writeStyleClassToParent();
+
+        JsfHtmlComponent.COMMAND_BUTTON.renderer(context).encodeBegin(wrapped, component);
 
         var output = JsfHtmlComponent.SPAN.component(context);
 

@@ -34,7 +34,7 @@ public class StyleClassProvider extends UIComponentBase implements ComponentStyl
     }
 
     @Override
-    public String computeFinalStyleClass(StyleClassBuilder componentSpecificStyleClass) {
+    public String computeAndStoreFinalStyleClass(StyleClassBuilder componentSpecificStyleClass) {
         return "";
     }
 }

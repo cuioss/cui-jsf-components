@@ -130,7 +130,7 @@ class HelpTextRendererTest extends AbstractComponentRendererTest<LabeledContaine
                 .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.DIV)
                 .withStyleClass(CssBootstrap.INPUT_GROUP).withNode(Node.DIV)
                 .withStyleClass(CssBootstrap.INPUT_GROUP_ADDON).withNode("Button")
-                .withStyleClass("btn btn-default input-help-text-action")
+                .withStyleClass("input-help-text-action")
                 .withAttribute(HelpTextComponent.DATA_HELP_BUTTON, HelpTextComponent.DATA_HELP_BUTTON)
                 .withAttribute(AttributeName.TITLE, "title").currentHierarchyUp().currentHierarchyUp()
                 .withNode(HTML_INPUT_TEXT).withAttribute(AttributeName.ID, CLIENT_ID + COLON_INPUT)

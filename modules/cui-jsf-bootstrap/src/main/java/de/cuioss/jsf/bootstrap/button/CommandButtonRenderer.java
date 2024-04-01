@@ -27,6 +27,9 @@ import de.cuioss.jsf.bootstrap.button.support.ButtonState;
 import de.cuioss.jsf.bootstrap.icon.IconComponent;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIComponentBase;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.context.FacesContext;
 import javax.faces.render.FacesRenderer;
@@ -70,14 +73,15 @@ public class CommandButtonRenderer extends BaseDecoratorRenderer<CommandButton> 
             true);
 
         component.resolveAndStoreTitle();
-        var finalStyleClass = component.computeFinalStyleClass(CssBootstrap.BUTTON.getStyleClassBuilder()
+        component.writeTitleToParent();
+
+        component.computeAndStoreFinalStyleClass(CssBootstrap.BUTTON.getStyleClassBuilder()
             .append(ButtonState.getForContextState(component.getState()))
             .append(ButtonSize.getForContextSize(component.resolveContextSize())));
 
-        var delegate = createButtonAndCopyAttributes(context, component);
-        delegate.setStyleClass(finalStyleClass);
+        component.writeStyleClassToParent();
 
-        JsfHtmlComponent.COMMAND_BUTTON.renderer(context).encodeBegin(wrapped, delegate);
+        JsfHtmlComponent.COMMAND_BUTTON.renderer(context).encodeBegin(wrapped, component);
 
         if (component.isDisplayIconLeft()) {
             var icon = IconComponent.createComponent(context);
@@ -108,19 +112,5 @@ public class CommandButtonRenderer extends BaseDecoratorRenderer<CommandButton> 
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<CommandButton> writer,
                                final CommandButton component) throws IOException {
         writer.withEndElement(Node.BUTTON);
-    }
-
-    static HtmlCommandButton createButtonAndCopyAttributes(FacesContext facesContext, HtmlCommandButton source) {
-        var delegate = JsfHtmlComponent.COMMAND_BUTTON.component(facesContext);
-        Optional.ofNullable(source.getId()).ifPresent(delegate::setId);
-        Optional.ofNullable(source.getStyle()).ifPresent(delegate::setStyle);
-        Optional.ofNullable(source.getTitle()).ifPresent(delegate::setTitle);
-        Optional.ofNullable(source.getAlt()).ifPresent(delegate::setAlt);
-        Optional.ofNullable(source.getDir()).ifPresent(delegate::setDir);
-        Optional.of(source.isDisabled()).ifPresent(delegate::setDisabled);
-        Optional.ofNullable(source.getAccesskey()).ifPresent(delegate::setAccesskey);
-        Optional.ofNullable(source.getImage()).ifPresent(delegate::setImage);
-        delegate.getPassThroughAttributes(true).putAll(source.getPassThroughAttributes(true));
-        return delegate;
     }
 }

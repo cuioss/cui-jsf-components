@@ -49,5 +49,5 @@ public interface ComponentStyleClassProvider extends StyleClassProvider {
      * @param componentSpecificStyleClass The style-classes created by the corresponding renderer,
      *                                    excluding the user-defined style-class,
      */
-    String computeFinalStyleClass(StyleClassBuilder componentSpecificStyleClass);
+    String computeAndStoreFinalStyleClass(StyleClassBuilder componentSpecificStyleClass);
 }

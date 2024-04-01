@@ -15,16 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.button;
 
-import java.io.IOException;
-import java.util.Optional;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlCommandButton;
-import javax.faces.component.html.HtmlOutcomeTargetButton;
-import javax.faces.context.FacesContext;
-import javax.faces.render.FacesRenderer;
-import javax.faces.render.Renderer;
-
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;
@@ -35,6 +25,12 @@ import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.button.support.ButtonSize;
 import de.cuioss.jsf.bootstrap.button.support.ButtonState;
 import de.cuioss.jsf.bootstrap.icon.IconComponent;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.render.FacesRenderer;
+import javax.faces.render.Renderer;
+import java.io.IOException;
 
 /**
  * <h2>Rendering</h2>
@@ -64,18 +60,19 @@ public class ButtonRenderer extends BaseDecoratorRenderer<Button> {
 
     @Override
     protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<Button> writer,
-            final Button component) throws IOException {
+                                 final Button component) throws IOException {
         var wrapped = ElementReplacingResponseWriter.createWrappedReplacingResonseWriter(context, "input", "button",
-                true);
+            true);
 
         component.resolveAndStoreTitle();
-        var finalStyleClass = component.computeFinalStyleClass(CssBootstrap.BUTTON.getStyleClassBuilder()
+
+
+        component.computeAndStoreFinalStyleClass(CssBootstrap.BUTTON.getStyleClassBuilder()
             .append(ButtonState.getForContextState(component.getState()))
             .append(ButtonSize.getForContextSize(component.resolveContextSize())));
-        var delegate = createButtonAndCopyAttributes(context, component);
-        delegate.setStyleClass(finalStyleClass);
+        component.writeStyleClassToParent();
 
-        JsfHtmlComponent.BUTTON.renderer(context).encodeBegin(wrapped, delegate);
+        JsfHtmlComponent.BUTTON.renderer(context).encodeBegin(wrapped, component);
 
         if (component.isDisplayIconLeft()) {
             var icon = IconComponent.createComponent(context);
@@ -104,22 +101,8 @@ public class ButtonRenderer extends BaseDecoratorRenderer<Button> {
 
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<Button> writer,
-            final Button component) throws IOException {
+                               final Button component) throws IOException {
         writer.withEndElement(Node.BUTTON);
     }
 
-    static HtmlOutcomeTargetButton createButtonAndCopyAttributes(FacesContext facesContext, HtmlOutcomeTargetButton source) {
-        var delegate = JsfHtmlComponent.BUTTON.component(facesContext);
-        Optional.ofNullable(source.getId()).ifPresent(delegate::setId);
-        Optional.ofNullable(source.getStyle()).ifPresent(delegate::setStyle);
-        Optional.ofNullable(source.getTitle()).ifPresent(delegate::setTitle);
-        Optional.ofNullable(source.getValue()).ifPresent(delegate::setValue);
-        Optional.ofNullable(source.getAlt()).ifPresent(delegate::setAlt);
-        Optional.ofNullable(source.getDir()).ifPresent(delegate::setDir);
-        Optional.of(source.isDisabled()).ifPresent(delegate::setDisabled);
-        Optional.ofNullable(source.getAccesskey()).ifPresent(delegate::setAccesskey);
-        Optional.ofNullable(source.getImage()).ifPresent(delegate::setImage);
-        delegate.getPassThroughAttributes(true).putAll(source.getPassThroughAttributes(true));
-        return delegate;
-    }
 }

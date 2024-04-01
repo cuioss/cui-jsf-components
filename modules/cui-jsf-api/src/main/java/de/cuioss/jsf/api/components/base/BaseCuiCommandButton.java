@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.api.components.base;
 
+import de.cuioss.jsf.api.components.myfaces.MyFacesDelegateStyleClassAdapter;
+import de.cuioss.jsf.api.components.myfaces.MyFacesDelegateTitleAdapter;
 import de.cuioss.jsf.api.components.partial.*;
 import lombok.experimental.Delegate;
 
@@ -29,7 +31,7 @@ import javax.faces.context.FacesContext;
  *
  * @author Oliver Wolff
  */
-public class BaseCuiCommandButton extends HtmlCommandButton implements ComponentBridge, TitleProvider {
+public class BaseCuiCommandButton extends HtmlCommandButton implements ComponentBridge, TitleProvider, MyFacesDelegateStyleClassAdapter, MyFacesDelegateTitleAdapter {
 
     @Delegate
     private final TitleProvider titleProvider;
@@ -62,4 +64,13 @@ public class BaseCuiCommandButton extends HtmlCommandButton implements Component
         return titleProvider.resolveTitle();
     }
 
+    @Override
+    public void writeStyleClassToParent() {
+        super.setStyleClass(styleClassProvider.getStyleClass());
+    }
+
+    @Override
+    public void writeTitleToParent() {
+        super.setTitle(titleProvider.getTitle());
+    }
 }
