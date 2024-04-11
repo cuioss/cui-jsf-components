@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <facelet-taglib version="2.2"
-    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd">
+                xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd">
     <namespace>https://cuioss.de/jsf/bootstrap</namespace>
     <short-name>boot</short-name>
     <tag>
@@ -575,7 +575,8 @@
             <name>actionListener</name>
             <required>false</required>
             <method-signature>void
-                actionListener(javax.faces.event.ActionEvent)</method-signature>
+                actionListener(javax.faces.event.ActionEvent)
+            </method-signature>
         </attribute>
         <attribute>
             <description>
@@ -984,7 +985,8 @@
             <name>valueChangeListener</name>
             <required>false</required>
             <method-signature>void
-                valueChange(javax.faces.event.ValueChangeEvent)</method-signature>
+                valueChange(javax.faces.event.ValueChangeEvent)
+            </method-signature>
         </attribute>
     </tag>
     <tag>
@@ -2502,11 +2504,11 @@
         </attribute>
     </tag>
     <tag>
-        <description><![CDATA[Helper / Decorator component used for guarding input-elements within LabeledContainerComponent. This is a replacement for the cui:unlockableField
-        Renders an unlock button beside its input component. The input component will be disabled / guarded per default. It can be unlocked upon demand. A warning message is shown right beside if it is unlocked
+        <description><![CDATA[Helper / Decorator component used for guarding input-elements within LabeledContainerComponent.
+        Renders an unlock button beside its input component. The input component will be disabled / guarded per default. It can be unlocked upon demand.
         There are two logical states defined: 'guarded' and 'resetGuard': the guarded-state is represented by the 'guardButton', the resetGuard-state is represented by the 'resetGuardButton'
         ]]>
-            </description>
+        </description>
         <tag-name>inputGuard</tag-name>
         <component>
             <component-type>de.cuioss.bootstrap.guarded_input</component-type>
@@ -2516,7 +2518,7 @@
             <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
-                </description>
+            </description>
             <name>rendered</name>
             <required>false</required>
             <type>boolean</type>
@@ -2527,7 +2529,7 @@
                 It is a space separated list of search expressions to components that will participate in the "render" portion of the Request Processing Lifecycle.
                 Defines which components to be updated. It behaves like the 'render' attribute on f:ajax regarding resolution of the component ids.
                 Defaults to '@namingcontainer' resulting in the LabeledContainer to be updated ]]>
-                </description>
+            </description>
             <name>update</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -2538,7 +2540,7 @@
                 It is a space separated list of search expressions to components that will participate in the "execute" portion of the Request Processing Lifecycle.
                 Defines which components to be executed. It behaves like the 'execute' attribute on f:ajax regarding resolution of the component ids.
                 Defaults to '@this' ]]>
-                </description>
+            </description>
             <name>process</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -2546,7 +2548,7 @@
         <attribute>
             <description>
                 <![CDATA[The alignment of the button relative to the wrapped input, defaults to 'append'. Allowed values are 'append' and 'prepend']]>
-                </description>
+            </description>
             <name>buttonAlign</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -2554,7 +2556,7 @@
         <attribute>
             <description>
                 <![CDATA[If set to true, default, the guard/resetGuard buttons are rendered, if set to false they are not rendered.]]>
-                </description>
+            </description>
             <name>renderButtons</name>
             <required>false</required>
             <type>boolean</type>
@@ -2562,7 +2564,7 @@
         <attribute>
             <description>
                 <![CDATA[The icon to be displayed on the button removing the guard and making it editable, defaults to 'cui-icon-unlock' ]]>
-                </description>
+            </description>
             <name>guardIcon</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -2573,7 +2575,7 @@
                 Although this attribute is not required the developer must provide either this or #guardButtonTitleValue
                 if you want a title to be displayed.
                 Defaults to 'input_guard.unlock.default.title', resulting in 'Unlock field for editing' ]]>
-                </description>
+            </description>
             <name>guardButtonTitleKey</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -2581,7 +2583,7 @@
         <attribute>
             <description>
                 <![CDATA[The Object representing the title to be displayed. This is a replacement for #guardButtonTitleKey. If both are present guardButtonTitleValue takes precedence. ]]>
-                </description>
+            </description>
             <name>guardButtonTitleValue</name>
             <required>false</required>
             <type>java.io.Serializable</type>
@@ -2589,7 +2591,7 @@
         <attribute>
             <description>
                 <![CDATA[The optional converterId to be used in case of guardButtonTitleValue is set and needs conversion.]]>
-                </description>
+            </description>
             <name>guardButtonTitleConverter</name>
             <required>false</required>
             <type>javax.faces.convert.Converter</type>
@@ -2597,7 +2599,7 @@
         <attribute>
             <description>
                 <![CDATA[Indicates whether the title is to be escaped on output or not. Default is true.]]>
-                </description>
+            </description>
             <name>guardButtonTitleEscape</name>
             <required>false</required>
             <type>boolean</type>
@@ -2606,7 +2608,7 @@
             <description>
                 <![CDATA[The icon to be displayed on the button resetting the guard and making it editable,
                 defaults to 'cui-icon-restart'.]]>
-                </description>
+            </description>
             <name>resetGuardIcon</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -2617,7 +2619,7 @@
                 Although this attribute is not required the developer must provide either this or
                 #resetResetGuardButtonTitleValue if you want a title to be displayed.
                 Defaults to 'input_guard.lock.default.title', resulting in 'Revert changes']]>
-                </description>
+            </description>
             <name>resetGuardButtonTitleKey</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -2625,7 +2627,7 @@
         <attribute>
             <description>
                 <![CDATA[The Object representing the title to be displayed. This is a replacement for #resetResetGuardButtonTitleKey. If both are present resetResetGuardButtonTitleValue takes precedence.]]>
-                </description>
+            </description>
             <name>resetGuardButtonTitleValue</name>
             <required>false</required>
             <type>java.io.Serializable</type>
@@ -2633,7 +2635,7 @@
         <attribute>
             <description>
                 <![CDATA[The optional converterId to be used in case of resetResetGuardButtonTitleValue is set and needs conversion.]]>
-                </description>
+            </description>
             <name>resetGuardButtonTitleConverter</name>
             <required>false</required>
             <type>javax.faces.convert.Converter</type>
@@ -2641,7 +2643,7 @@
         <attribute>
             <description>
                 <![CDATA[Indicates whether the title is to be escaped on output or not. Default is true.]]>
-                </description>
+            </description>
             <name>resetGuardButtonTitleEscape</name>
             <required>false</required>
             <type>boolean</type>
@@ -2650,7 +2652,7 @@
             <description>
                 <![CDATA[ If set to true, default, the clicking of the resetGuardButton will result in a
                 EditableValueHolder#resetValue() on the guarded component. Default value is 'true']]>
-                </description>
+            </description>
             <name>resetInputValue</name>
             <required>false</required>
             <type>boolean</type>
@@ -2658,7 +2660,7 @@
         <attribute>
             <description>
                 <![CDATA[The current value of this component. If it is not set it default to 'true' meaning guarded / locked.]]>
-                </description>
+            </description>
             <name>value</name>
             <required>false</required>
             <type>java.lang.Boolean</type>
@@ -2676,7 +2678,7 @@
                     knowing what the new value is, but this can be useful in cases
                     where a notification is needed that "this value
                     changed".</p>]]>
-                </description>
+            </description>
             <name>valueChangeListener</name>
             <required>false</required>
             <method-signature>void
@@ -2689,7 +2691,7 @@
         Renders a bootstrap conform accordion.
         More information and examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/panel.jsf" >Reference Documentation</a></p>
         ]]>
-            </description>
+        </description>
         <tag-name>accordion</tag-name>
         <component>
             <component-type>de.cuioss.bootstrap.accordion</component-type>
@@ -2699,7 +2701,7 @@
             <description><![CDATA[The component identifier for this component. This value must be unique
                 within the closest parent component that is a naming container. Caution: The
                 component itself is not a naming container]]>
-                </description>
+            </description>
             <name>id</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -2708,7 +2710,7 @@
             <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
-                </description>
+            </description>
             <name>rendered</name>
             <required>false</required>
             <type>boolean</type>
@@ -2717,7 +2719,7 @@
             <description>
                 <![CDATA[Space-separated list of CSS style class(es) to be applied additionally
                 when this element is rendered.]]>
-                </description>
+            </description>
             <name>styleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -2725,7 +2727,7 @@
         <attribute>
             <description><![CDATA[CSS style(s) to be applied when this component is rendered. Caution: The
                 styleClass attribute is always to be preferred.]]>
-                </description>
+            </description>
             <name>style</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -2734,7 +2736,7 @@
             <description>
                 <![CDATA[If true, accordion items can be toggled independently of each other, i.e.
                 more than one can be open at the same time.]]>
-                </description>
+            </description>
             <name>multiselectable</name>
             <required>false</required>
             <type>boolean</type>
@@ -2761,7 +2763,7 @@
             More information and examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/panel.jsf" >Reference Documentation</a></p>
           </p>
             ]]>
-            </description>
+        </description>
         <tag-name>panel</tag-name>
         <component>
             <component-type>de.cuioss.bootstrap.panel</component-type>
@@ -2771,7 +2773,7 @@
             <description>
                 <![CDATA[The component identifier for this component. This value must be unique
                 within the closest parent component that is a naming container.]]>
-                </description>
+            </description>
             <name>id</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -2781,7 +2783,7 @@
                 <![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
-                </description>
+            </description>
             <name>rendered</name>
             <required>false</required>
             <type>boolean</type>
@@ -2797,7 +2799,7 @@
         <attribute>
             <description><![CDATA[CSS style(s) to be applied when this component is rendered. Caution: The
                 styleClass attribute is always to be preferred.]]>
-                </description>
+            </description>
             <name>style</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -2806,7 +2808,7 @@
             <description>
                 <![CDATA[Space-separated list of CSS style class(es) to be applied additionally
                 when this element is rendered.]]>
-                </description>
+            </description>
             <name>styleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -2815,7 +2817,7 @@
         <attribute>
             <description>
                 <![CDATA[The key for looking up the text display as the header.]]>
-                </description>
+            </description>
             <name>headerKey</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -2833,7 +2835,7 @@
         <attribute>
             <description>
                 <![CDATA[Defines the HTML tag to be used for the header title. Defaults to 'h4'.]]>
-                </description>
+            </description>
             <name>headerTag</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -2842,7 +2844,7 @@
         <attribute>
             <description>
                 <![CDATA[The key for looking up the text to display in the footer.]]>
-                </description>
+            </description>
             <name>footerKey</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -2853,7 +2855,7 @@
                 are present footerValue takes precedence. If the type is not java.lang.String the
                 developer must ensure that an according converter exists. If a footer facet is
                 available the facet takes precedence.]]>
-                </description>
+            </description>
             <name>footerValue</name>
             <required>false</required>
             <type>java.io.Serializable</type>
@@ -2877,7 +2879,7 @@
             <description>
                 <![CDATA[The collapsed state as modifiable object. If it is set it takes precedence
                 over collapsed. Caution: Only used if collapsible=true]]>
-                </description>
+            </description>
             <name>collapseSwitch</name>
             <required>false</required>
             <type>de.cuioss.jsf.api.ui.model.ToggleSwitch</type>
@@ -2887,7 +2889,7 @@
                 <![CDATA[If true, the panels content will be loaded for the first time when it is
                 going to be opened. If enabled the component must be in a form tag. Defaults to
                 false.]]>
-                </description>
+            </description>
             <name>deferred</name>
             <required>false</required>
             <type>boolean</type>
@@ -2902,7 +2904,7 @@
                 content and display a waiting indicator at this time.</p>
                 <p>Will be set to true by the component to trigger loading of the children.</p>
                 <p>If not set the component be store the state internal during view scope.]]>
-                </description>
+            </description>
             <name>childrenLoaded</name>
             <required>false</required>
             <type>boolean</type>
@@ -2912,7 +2914,7 @@
                 <![CDATA[Flag indicating whether the component should automatically update its
                 server-side model upon expand/collapse event instead of waiting for a form submit.
                 If enabled the component must be in a form tag. Defaults to false.]]>
-                </description>
+            </description>
             <name>asyncUpdate</name>
             <required>false</required>
             <type>boolean</type>
@@ -2936,7 +2938,7 @@
             <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
-                </description>
+            </description>
             <name>rendered</name>
             <required>false</required>
             <type>boolean</type>
@@ -2945,7 +2947,7 @@
             <description>
                 <![CDATA[The key for looking up the text to be rendered. If neither contentKey nor
                 contentValue is set they title of the parent component will be implicitly used.]]>
-                </description>
+            </description>
             <name>contentKey</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -2956,7 +2958,7 @@
                 #contentKey. If both are present contentValue takes precedence. If neither
                 contentKey nor contentValue is set they title of the parent component will be
                 implicitly used.]]>
-                </description>
+            </description>
             <name>contentValue</name>
             <required>false</required>
             <type>java.io.Serializable</type>
@@ -2965,7 +2967,7 @@
             <description>
                 <![CDATA[The optional converter to be used in case of contentValue is set and needs
                 conversion]]>
-                </description>
+            </description>
             <name>contentConverter</name>
             <required>false</required>
             <type>javax.faces.convert.Converter</type>
@@ -2974,7 +2976,7 @@
             <description>
                 <![CDATA[Indicates whether the content is to be escaped on output or not. Default
                 is true.]]>
-                </description>
+            </description>
             <name>contentEscape</name>
             <required>false</required>
             <type>boolean</type>
@@ -2985,7 +2987,7 @@
                 'top', 'bottom', 'right' expected, defaults to "auto right" For example, if
                 placement is "auto left", the tooltip will display to the left when possible,
                 otherwise it will display right.]]>
-                </description>
+            </description>
             <name>placement</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -2995,7 +2997,7 @@
                 <![CDATA[String identifying the dom-event when to trigger the display of the
                 tooltip. One of 'click', 'hover', 'focus', 'manual' expected, defaults to "hover
                 focus".]]>
-                </description>
+            </description>
             <name>trigger</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3004,7 +3006,7 @@
             <description>
                 <![CDATA[Allow to define different delay of showing and hiding the tooltip (ms).
                 Default value is 500 (ms)]]>
-                </description>
+            </description>
             <name>delay</name>
             <required>false</required>
             <type>java.lang.Integer</type>
@@ -3054,7 +3056,7 @@
                      <li>The offset css class is 'col-sm-offset-' + offsetSize attribute</li>
                  </ul>
        ]]>
-            </description>
+        </description>
         <tag-name>column</tag-name>
         <component>
             <component-type>de.cuioss.bootstrap.column</component-type>
@@ -3064,7 +3066,7 @@
             <description><![CDATA[The component identifier for this component.  This value must be
                 unique within the closest parent component that is a naming
                 container. Caution: The component itself is not a naming container]]>
-                </description>
+            </description>
             <name>id</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3073,7 +3075,7 @@
             <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit.  The default value for this property is true.]]>
-                </description>
+            </description>
             <name>rendered</name>
             <required>false</required>
             <type>boolean</type>
@@ -3082,7 +3084,7 @@
             <description>
                 <![CDATA[Space-separated list of CSS style class(es) to be applied additionally when
                 this element is rendered.]]>
-                </description>
+            </description>
             <name>styleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3103,7 +3105,7 @@
             <description>
                 <![CDATA[CSS style(s) to be applied when this component is rendered.
                Caution: The styleClass attribute is always to be preferred.]]>
-                </description>
+            </description>
             <name>style</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3140,7 +3142,7 @@
                 <li>The offset css class is 'col-md-offset-' + offsetSize attribute</li>
              </ul>
              ]]>
-            </description>
+        </description>
         <tag-name>controlGroup</tag-name>
         <component>
             <component-type>de.cuioss.bootstrap.controlgroup</component-type>
@@ -3151,7 +3153,7 @@
                 <![CDATA[The component identifier for this component.  This value must be
                     unique within the closest parent component that is a naming
                     container. Caution: The component itself is not a naming container]]>
-                </description>
+            </description>
             <name>id</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3161,7 +3163,7 @@
                 <![CDATA[Flag indicating whether this component should be rendered
                     (during Render Response Phase), or processed on any subsequent
                     form submit.  The default value for this property is true.]]>
-                </description>
+            </description>
             <name>rendered</name>
             <required>false</required>
             <type>boolean</type>
@@ -3170,7 +3172,7 @@
             <description>
                 <![CDATA[Space-separated list of CSS style class(es) to be applied additionally to the surrounding form-group when
                     this element is rendered.]]>
-                </description>
+            </description>
             <name>styleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3179,7 +3181,7 @@
             <description>
                 <![CDATA[CSS style(s) to be applied when this component is rendered.
                    Caution: The styleClass attribute is always to be preferred.]]>
-                </description>
+            </description>
             <name>style</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3222,7 +3224,7 @@
                      <li>State: cui-icon-state-info, cui-icon-state-error,..</li>
                  </ul>
        ]]>
-            </description>
+        </description>
         <tag-name>icon</tag-name>
         <component>
             <component-type>de.cuioss.bootstrap.icon</component-type>
@@ -3232,7 +3234,7 @@
             <description><![CDATA[The component identifier for this component. This value must be
                 unique within the closest parent component that is a naming
                 container.]]>
-                </description>
+            </description>
             <name>id</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3241,7 +3243,7 @@
             <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit. The default value for this property is true.]]>
-                </description>
+            </description>
             <name>rendered</name>
             <required>false</required>
             <type>boolean</type>
@@ -3250,7 +3252,7 @@
             <description>
                 <![CDATA[Space-separated list of CSS style class(es) to be applied additionally when
                 this element is rendered.]]>
-                </description>
+            </description>
             <name>styleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3259,7 +3261,7 @@
             <description>
                 <![CDATA[ CSS style(s) to be applied when this component is rendered.
                Caution: The styleClass attribute is always to be preferred.]]>
-                </description>
+            </description>
             <name>style</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3270,7 +3272,7 @@
                In order to prevent improper usage the matching is restricted to the
                 prefixes: "cui-icon, cui-mime-type, ui-icon-". If none of them is matched it
                 will default to "cui-icon-circle_question_mark".]]>
-                </description>
+            </description>
             <name>icon</name>
             <required>true</required>
             <type>java.lang.String</type>
@@ -3279,7 +3281,7 @@
             <description>
                 <![CDATA[Different general styles available (state): one of 'primary', 'success', 'info', 'warning', 'danger'.
                     If none of those is set it uses 'default'.]]>
-                </description>
+            </description>
             <name>state</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3288,7 +3290,7 @@
             <description>
                 <![CDATA[Adapts the size of the component. Supported values are 'lg', 'xl', 'xxl', 'xxxl' based on bootstrap context-sizes.
                    Default: no size is set.]]>
-                </description>
+            </description>
             <name>size</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3297,7 +3299,7 @@
             <description>
                 <![CDATA[The key for looking up the text to be rendered as title-attribute
                 Although this attribute is not required you must provide either this or #titleValue if you want a title to be rendered.]]>
-                </description>
+            </description>
             <name>titleKey</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3306,7 +3308,7 @@
             <description>
                 <![CDATA[The object to be rendered as title-attribute. This is a replacement for #titleKey.
              If both are present titleValue takes precedence.]]>
-                </description>
+            </description>
             <name>titleValue</name>
             <required>false</required>
             <type>java.io.Serializable</type>
@@ -3332,7 +3334,7 @@
                 <![CDATA[The id of the child input component. Defaults to 'input'. Usually to be kept the same.
                In special cases you can provide a space separated list for the forIdentifier attribute
                 resulting in n message elements being appended.]]>
-                </description>
+            </description>
             <name>forIdentifier</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3342,7 +3344,7 @@
                 <![CDATA[The component identifier for this component.  This value must be
                 unique within the closest parent component that is a naming
                 container.]]>
-                </description>
+            </description>
             <name>id</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3352,7 +3354,7 @@
                 <![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit.  The default value for this property is true.]]>
-                </description>
+            </description>
             <name>rendered</name>
             <required>false</required>
             <type>boolean</type>
@@ -3361,7 +3363,7 @@
             <description>
                 <![CDATA[Flag indicating whether the summary portion of displayed messages
                 should be included. Default value is "true".]]>
-                </description>
+            </description>
             <name>showSummary</name>
             <required>false</required>
             <type>boolean</type>
@@ -3370,7 +3372,7 @@
             <description>
                 <![CDATA[Flag indicating whether the detail portion of displayed messages
                 should be included. Default value is "false". If false, the detail is displayed as tooltip.]]>
-                </description>
+            </description>
             <name>showDetail</name>
             <required>false</required>
             <type>boolean</type>
@@ -3379,7 +3381,7 @@
             <description><![CDATA[Flag indicating that characters that are sensitive
                 in HTML and XML markup must be escaped.  If omitted, this
                 flag is assumed to be "true".]]>
-                </description>
+            </description>
             <name>escape</name>
             <required>false</required>
             <type>boolean</type>
@@ -3410,7 +3412,7 @@
                     <li>Sizing: cui-icon-xl, cui-icon-lg,..</li>
                  </ul>
        ]]>
-            </description>
+        </description>
         <tag-name>mimeTypeIcon</tag-name>
         <component>
             <component-type>de.cuioss.bootstrap.icon.mime_type</component-type>
@@ -3419,7 +3421,7 @@
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be
                 unique within the closest parent component that is a naming container.]]>
-                </description>
+            </description>
             <name>id</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3428,7 +3430,7 @@
             <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit. The default value for this property is true.]]>
-                </description>
+            </description>
             <name>rendered</name>
             <required>false</required>
             <type>boolean</type>
@@ -3437,7 +3439,7 @@
             <description>
                 <![CDATA[Space-separated list of CSS style class(es) to be applied additionally when
                 this element is rendered.]]>
-                </description>
+            </description>
             <name>styleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3446,7 +3448,7 @@
             <description>
                 <![CDATA[CSS style(s) to be applied when this component is rendered.
                Caution: The styleClass attribute is always to be preferred. ]]>
-                </description>
+            </description>
             <name>style</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3454,7 +3456,7 @@
         <attribute>
             <description>
                 <![CDATA[Additional class for the decorating layer. Defaults to "cui-mime-type-no-decorator"]]>
-                </description>
+            </description>
             <name>decoratorClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3463,7 +3465,7 @@
             <description>
                 <![CDATA[Adapts the size of the component. Supported values are 'lg', 'xl', 'xxl', 'xxxl' based on bootstrap context-sizes.
                    Default: no size is set.]]>
-                </description>
+            </description>
             <name>size</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3472,7 +3474,7 @@
             <description>
                 <![CDATA[The MimeTypeIcon to be displayed. In case #mimeTypeIcon and
                 #mimeTypeString is set #mimeTypeIcon take precedence.]]>
-                </description>
+            </description>
             <name>mimeTypeIcon</name>
             <required>false</required>
             <type>de.cuioss.uimodel.model.MimeTypeIcon</type>
@@ -3481,7 +3483,7 @@
             <description>
                 <![CDATA[The string representation of a concrete mime-type. In case #mimeTypeIcon and
                 #mimeTypeString is set #mimeTypeIcon take precedence.]]>
-                </description>
+            </description>
             <name>mimeTypeString</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3490,7 +3492,7 @@
             <description>
                 <![CDATA[The key for looking up the text to be rendered as title-attribute
                 Although this attribute is not required you must provide either this or #titleValue if you want a title to be rendered.]]>
-                </description>
+            </description>
             <name>titleKey</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3499,7 +3501,7 @@
             <description>
                 <![CDATA[The object to be rendered as title-attribute. This is a replacement for #titleKey.
              If both are present titleValue takes precedence.]]>
-                </description>
+            </description>
             <name>titleValue</name>
             <required>false</required>
             <type>java.io.Serializable</type>
@@ -3508,7 +3510,7 @@
     <tag>
         <description>
             <![CDATA[Creates a bootstrap conform navigation structure. In case the menuModel has children, it creates a subcomponent for each of the children.]]>
-            </description>
+        </description>
         <tag-name>navigationMenu</tag-name>
         <component>
             <component-type>de.cuioss.bootstrap.navigationmenu</component-type>
@@ -3518,7 +3520,7 @@
             <description><![CDATA[The component identifier for this component.  This value must be
                 unique within the closest parent component that is a naming
                 container. Caution: The component itself is not a naming container]]>
-                </description>
+            </description>
             <name>id</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3527,7 +3529,7 @@
             <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit.  The default value for this property is true.]]>
-                </description>
+            </description>
             <name>rendered</name>
             <required>false</required>
             <type>boolean</type>
@@ -3536,7 +3538,7 @@
             <description>
                 <![CDATA[Space-separated list of CSS style class(es) to be applied additionally when
                 this element is rendered.]]>
-                </description>
+            </description>
             <name>styleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3545,7 +3547,7 @@
             <description>
                 <![CDATA[CSS style(s) to be applied when this component is rendered.
                Caution: The styleClass attribute is always to be preferred.]]>
-                </description>
+            </description>
             <name>style</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3571,7 +3573,7 @@
             Renders a Label for input elements.
                The label and title are resolved using the cui standard label-resolving mechanism.</p>
             <p>Sample can be found at the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/layout.jsf">Reference Documentation</a> </p>]]>
-            </description>
+        </description>
         <tag-name>outputLabel</tag-name>
         <component>
             <component-type>de.cuioss.bootstrap.outputlabel</component-type>
@@ -3581,7 +3583,7 @@
             <description><![CDATA[The component identifier for this component. This value must be
                 unique within the closest parent component that is a naming
                 container.]]>
-                </description>
+            </description>
             <name>id</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3590,7 +3592,7 @@
             <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit.  The default value for this property is true.]]>
-                </description>
+            </description>
             <name>rendered</name>
             <required>false</required>
             <type>boolean</type>
@@ -3599,7 +3601,7 @@
             <description>
                 <![CDATA[Client identifier of the component for which this element
                 is a label.]]>
-                </description>
+            </description>
             <name>for</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3608,7 +3610,7 @@
             <description>
                 <![CDATA[Space-separated list of CSS style class(es) to be applied additionally when
                 this element is rendered.]]>
-                </description>
+            </description>
             <name>styleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3617,7 +3619,7 @@
             <description>
                 <![CDATA[The key for looking up the text display as the label.
                 Although this attribute is not required the developer must provide either this or #labelValue if you want a label to be displayed]]>
-                </description>
+            </description>
             <name>labelKey</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3627,7 +3629,7 @@
                 <![CDATA[The String displayed for the label. This is a replacement for #labelKey.
              If both are present labelValue takes precedence. If the type is not java.lang.String the
              developer must ensure that an according converter for the exists.]]>
-                </description>
+            </description>
             <name>labelValue</name>
             <required>false</required>
             <type>java.io.Serializable</type>
@@ -3644,7 +3646,7 @@
             <description>
                 <![CDATA[The key for looking up the text display as the title.
                 Although this attribute is not required the developer must provide either this or #titleValue if you want a title to be displayed]]>
-                </description>
+            </description>
             <name>titleKey</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3653,7 +3655,7 @@
             <description>
                 <![CDATA[The String displayed for the title. This is a replacement for #titleKey.
              If both are present titleValue takes precedence.]]>
-                </description>
+            </description>
             <name>titleValue</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3661,7 +3663,7 @@
         <attribute>
             <description>
                 <![CDATA[The optional converter to be used in case of titleValue is set and needs conversion.]]>
-                </description>
+            </description>
             <name>titleConverter</name>
             <required>false</required>
             <type>javax.faces.convert.Converter</type>
@@ -3670,7 +3672,7 @@
             <description><![CDATA[Flag indicating that characters that are sensitive
                 in HTML and XML markup must be escaped.  If omitted, this
                 flag is assumed to be "true".]]>
-                </description>
+            </description>
             <name>escape</name>
             <required>false</required>
             <type>boolean</type>
@@ -3703,7 +3705,7 @@
                  <li>The marker css class is row</li>
              </ul>
        ]]>
-            </description>
+        </description>
         <tag-name>row</tag-name>
         <component>
             <component-type>de.cuioss.bootstrap.row</component-type>
@@ -3713,7 +3715,7 @@
             <description><![CDATA[The component identifier for this component.  This value must be
                 unique within the closest parent component that is a naming
                 container. Caution: The component itself is not a naming container]]>
-                </description>
+            </description>
             <name>id</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3722,7 +3724,7 @@
             <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit.  The default value for this property is true.]]>
-                </description>
+            </description>
             <name>rendered</name>
             <required>false</required>
             <type>boolean</type>
@@ -3731,7 +3733,7 @@
             <description>
                 <![CDATA[Space-separated list of CSS style class(es) to be applied additionally when
                 this element is rendered.]]>
-                </description>
+            </description>
             <name>styleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3740,7 +3742,7 @@
             <description>
                 <![CDATA[CSS style(s) to be applied when this component is rendered.
                Caution: The styleClass attribute is always to be preferred.]]>
-                </description>
+            </description>
             <name>style</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3759,7 +3761,7 @@
             <description><![CDATA[The component identifier for this component. This value must be
                 unique within the closest parent component that is a naming
                 container. Caution: The component itself is not a naming container]]>
-                </description>
+            </description>
             <name>id</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3769,7 +3771,7 @@
                Defines the optional float alignment of the component. Supported values are 'left' or 'right',
                resulting in the additional corresponding css classes quick-control-group-right or
                quick-control-group-left being rendered. Defaults to right]]>
-                </description>
+            </description>
             <name>align</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3778,7 +3780,7 @@
             <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit. The default value for this property is true.]]>
-                </description>
+            </description>
             <name>rendered</name>
             <required>false</required>
             <type>boolean</type>
@@ -3787,7 +3789,7 @@
             <description><![CDATA[
                Space-separated list of CSS style class(es) to be applied additionally when
                 this element is rendered.]]>
-                </description>
+            </description>
             <name>styleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3796,7 +3798,7 @@
             <description><![CDATA[
                CSS style(s) to be applied when this component is rendered.
                Caution: The styleClass attribute is always to be preferred.]]>
-                </description>
+            </description>
             <name>style</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3868,7 +3870,7 @@
              <h3>Styling</h3>
              <p>The styling is defined by the selecitze.js plugin, see <a href="https://selectize.github.io/selectize.js/">Selectize</a> for details</p>.
                 ]]>
-            </description>
+        </description>
         <tag-name>tagInput</tag-name>
         <component>
             <component-type>de.cuioss.bootstrap.taginput</component-type>
@@ -3878,7 +3880,7 @@
             <description><![CDATA[The component identifier for this component. This value must be
                 unique within the closest parent component that is a naming
                 container.]]>
-                </description>
+            </description>
             <name>id</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3887,7 +3889,7 @@
             <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit. The default value for this property is true.]]>
-                </description>
+            </description>
             <name>rendered</name>
             <required>false</required>
             <type>boolean</type>
@@ -3896,7 +3898,7 @@
             <description>
                 <![CDATA[Space-separated list of CSS style class(es) to be applied additionally when
                 this element is rendered.]]>
-                </description>
+            </description>
             <name>styleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -3905,7 +3907,7 @@
             <description>
                 <![CDATA[The current value of this component. The value is expected to be a <code>java.util.Set</code>
                 of <code>de.cuioss.uimodel.model.conceptkey.ConceptKeyType</code>.]]>
-                </description>
+            </description>
             <name>value</name>
             <required>false</required>
             <type>java.util.Set</type>
@@ -3914,7 +3916,7 @@
             <description>
                 <![CDATA[The initially available tags. The value is expected to be a <code>java.util.Set</code> of
                 <code>de.cuioss.uimodel.model.conceptkey.ConceptKeyType</code>. Elements get ordered by display name]]>
-                </description>
+            </description>
             <name>sourceSet</name>
             <required>false</required>
             <type>java.util.Set</type>
@@ -3934,7 +3936,7 @@
                 where a notification is needed that "this value
                 changed".</span>
                 </p>]]>
-                </description>
+            </description>
             <name>valueChangeListener</name>
             <required>false</required>
             <method-signature>void
@@ -3944,7 +3946,7 @@
         <attribute>
             <description>
                 <![CDATA[Defines whether the related input is required. Defaults to false.]]>
-                </description>
+            </description>
             <name>required</name>
             <required>false</required>
             <type>boolean</type>
@@ -3956,7 +3958,7 @@
                 with the ConceptKeyType#getResolved(java.util.Locale) resulting in 'MyTag', ConceptKeyType#getIdentifier()
                 resulting in '_client_created_MyTag'. The prefix '_client_created_' is useful to differentiate between
                 the original tags and the ones create on the fly. Default value is true.]]>
-                </description>
+            </description>
             <name>letUserCreateTags</name>
             <required>false</required>
             <type>boolean</type>
@@ -3964,7 +3966,7 @@
         <attribute>
             <description>
                 <![CDATA[Defines the maximum number of items to be selected, defaults to 10.]]>
-                </description>
+            </description>
             <name>maxItems</name>
             <required>false</required>
             <type>int</type>
@@ -3976,7 +3978,7 @@
                 value of this component.  The expression must evaluate to a public
                 method that takes FacesContext, UIComponent, and Object parameters,
                 with a return type of void.]]>
-                </description>
+            </description>
             <name>validator</name>
             <required>false</required>
             <method-signature>void
@@ -3989,14 +3991,14 @@
             <description><![CDATA[Flag indicating whether this component should be rendered
                 as read only component or as editable input component. Defaults to false, which
                 means editable input component.]]>
-                </description>
+            </description>
             <name>disabled</name>
             <required>false</required>
             <type>boolean</type>
         </attribute>
         <attribute>
             <description><![CDATA[String used to separate the items in the generated Selectize JavaScript.]]>
-                </description>
+            </description>
             <name>delimiter</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4004,7 +4006,7 @@
         <attribute>
             <description>
                 <![CDATA[Converter ID to be used to convert new items.]]>
-                </description>
+            </description>
             <name>itemConverterId</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4012,7 +4014,7 @@
         <attribute>
             <description>
                 <![CDATA[If true, a remove button (cross) is displayed on each tag.]]>
-                </description>
+            </description>
             <name>displayRemoveButton</name>
             <required>false</required>
             <type>java.lang.Boolean</type>
@@ -4043,7 +4045,7 @@
                      <li>State:cui-tag-info, cui-tag-danger,..</li>
                  </ul>
        ]]>
-            </description>
+        </description>
         <tag-name>tag</tag-name>
         <component>
             <component-type>de.cuioss.bootstrap.tag</component-type>
@@ -4054,7 +4056,7 @@
             <description><![CDATA[The component identifier for this component. This value must be
                 unique within the closest parent component that is a naming
                 container.]]>
-                </description>
+            </description>
             <name>id</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4063,7 +4065,7 @@
             <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit. The default value for this property is true.]]>
-                </description>
+            </description>
             <name>rendered</name>
             <required>false</required>
             <type>boolean</type>
@@ -4072,7 +4074,7 @@
             <description>
                 <![CDATA[Space-separated list of CSS style class(es) to be applied additionally when
                 this element is rendered.]]>
-                </description>
+            </description>
             <name>styleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4081,7 +4083,7 @@
             <description>
                 <![CDATA[CSS style(s) to be applied when this component is rendered.
                Caution: The styleClass attribute is always to be preferred. ]]>
-                </description>
+            </description>
             <name>style</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4089,7 +4091,7 @@
         <attribute>
             <description><![CDATA[Different general styles available (state): one of 'primary', 'success',
                 'info', 'warning', 'danger'. If none of those is set it uses 'default'.]]>
-                </description>
+            </description>
             <name>state</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4098,7 +4100,7 @@
             <description>
                 <![CDATA[Adapts the size of the component. Supported values are 'lg', 'xl', 'sm'
                 based on bootstrap context-sizes. Default: no size is set.]]>
-                </description>
+            </description>
             <name>size</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4108,7 +4110,7 @@
                 <![CDATA[The key for looking up the text to be rendered. Although this attribute is
                 not required you must provide either this or #contentValue if you want the text
                 content to be displayed.]]>
-                </description>
+            </description>
             <name>contentKey</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4117,7 +4119,7 @@
             <description>
                 <![CDATA[The object to be rendered as text-content. This is a replacement for
                 #contentKey. If both are present contentValue takes precedence.]]>
-                </description>
+            </description>
             <name>contentValue</name>
             <required>false</required>
             <type>java.io.Serializable</type>
@@ -4126,7 +4128,7 @@
             <description>
                 <![CDATA[The optional converter to be used in case of contentValue is set and needs
                 conversion]]>
-                </description>
+            </description>
             <name>contentConverter</name>
             <required>false</required>
             <type>javax.faces.convert.Converter</type>
@@ -4135,7 +4137,7 @@
             <description>
                 <![CDATA[Indicates whether the content is to be escaped on output or not. Default
                 is true]]>.
-                </description>
+            </description>
             <name>contentEscape</name>
             <required>false</required>
             <type>boolean</type>
@@ -4143,7 +4145,7 @@
         <attribute>
             <description><![CDATA[Indicates whether the tag can be disposed. In case you set it to true you
                 must provide the according model. If not it falls back to #contentValue]]>
-                </description>
+            </description>
             <name>disposable</name>
             <required>false</required>
             <type>boolean</type>
@@ -4152,7 +4154,7 @@
             <description><![CDATA[Method expression to listen to dispose events.
                        The listener must be in the form of
                        <pre>public void methodName(de.cuioss.jsf.api.components.events.ModelPayloadEvent disposeEvent)</pre>]]>
-                </description>
+            </description>
             <name>disposeListener</name>
             <required>false</required>
             <type>javax.el.MethodExpression</type>
@@ -4163,7 +4165,7 @@
                 at lease Serializable. It is needed in context of #disposable. This will be the
                 value that will set as payload of the TagDisposeEvent. In case it is not set the
                 component will fallback to #contentValue.]]>
-                </description>
+            </description>
             <name>model</name>
             <required>false</required>
             <type>java.io.Serializable</type>
@@ -4173,7 +4175,7 @@
                 <![CDATA[The key for looking up the text to be rendered as title-attribute Although
                 this attribute is not required you must provide either this or #titleValue if you
                 want a title to be rendered.]]>
-                </description>
+            </description>
             <name>titleKey</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4182,7 +4184,7 @@
             <description>
                 <![CDATA[The object to be rendered as title-attribute. This is a replacement for
                 #titleKey. If both are present titleValue takes precedence.]]>
-                </description>
+            </description>
             <name>titleValue</name>
             <required>false</required>
             <type>java.io.Serializable</type>
@@ -4191,7 +4193,7 @@
             <description>
                 <![CDATA[The optional converter to be used in case of titleValue is set and needs
                 conversion.]]>
-                </description>
+            </description>
             <name>titleConverter</name>
             <required>false</required>
             <type>javax.faces.convert.Converter</type>
@@ -4212,7 +4214,7 @@
                      <li>State: Will be passed through to <cui:tag /></li>
                  </ul>
        ]]>
-            </description>
+        </description>
         <tag-name>tagList</tag-name>
         <component>
             <component-type>de.cuioss.bootstrap.taglist</component-type>
@@ -4221,7 +4223,7 @@
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be unique
                 within the closest parent component that is a naming container.]]>
-                </description>
+            </description>
             <name>id</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4239,7 +4241,7 @@
                 <![CDATA[The current value of this component. The value is expected to be either a
                 single de.cuioss.uimodel.model.conceptkey.ConceptKeyType / String or a
                 java.util.Collection of ConceptKeyTypes / Strings.]]>
-                </description>
+            </description>
             <name>value</name>
             <required>true</required>
             <type>java.lang.Object</type>
@@ -4248,7 +4250,7 @@
             <description>
                 <![CDATA[Space-separated list of CSS style class(es) to be applied additionally
                 when this element is rendered.]]>
-                </description>
+            </description>
             <name>styleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4257,7 +4259,7 @@
             <description>
                 <![CDATA[CSS style(s) to be applied when this component is rendered. Caution: The
                 styleClass attribute is always to be preferred.]]>
-                </description>
+            </description>
             <name>style</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4266,7 +4268,7 @@
             <description>
                 <![CDATA[Different general styles available (state): one of 'primary', 'success',
                 'info', 'warning', 'danger'. If none of those is set it uses 'default'.]]>
-                </description>
+            </description>
             <name>state</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4275,7 +4277,7 @@
             <description>
                 <![CDATA[Adapts the size of the component. Supported values are 'lg', 'xl', 'sm'
                 based on bootstrap context-sizes. Default: no size is set.]]>
-                </description>
+            </description>
             <name>size</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4284,7 +4286,7 @@
             <description>
                 <![CDATA[Indicates whether the content is to be escaped on output or not. Default
                 is true.]]>
-                </description>
+            </description>
             <name>contentEscape</name>
             <required>false</required>
             <type>boolean</type>
@@ -4347,7 +4349,7 @@
             <description><![CDATA[The component identifier for this component. This value must be
                 unique within the closest parent component that is a naming
                 container. Caution: The component itself is not a naming container]]>
-                </description>
+            </description>
             <name>id</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4356,7 +4358,7 @@
             <description><![CDATA[Flag indicating whether this component should be rendered
                 (during Render Response Phase), or processed on any subsequent
                 form submit. The default value for this property is true.]]>
-                </description>
+            </description>
             <name>rendered</name>
             <required>false</required>
             <type>boolean</type>
@@ -4364,7 +4366,7 @@
         <attribute>
             <description>
                 <![CDATA[If true, at least one entry is required in the result list, otherwise a validation error is triggered.]]>
-                </description>
+            </description>
             <name>required</name>
             <required>false</required>
             <type>boolean</type>
@@ -4372,7 +4374,7 @@
         <attribute>
             <description>
                 <![CDATA[Message key to be resolved and displayed if a validation error occurs. Defaults to 'common.validator.required.message'.]]>
-                </description>
+            </description>
             <name>requiredMessageKey</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4380,7 +4382,7 @@
         <attribute>
             <description>
                 <![CDATA[Resolved message to be displayed if a validation error occurs.]]>
-                </description>
+            </description>
             <name>requiredMessageValue</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4388,7 +4390,7 @@
         <attribute>
             <description>
                 <![CDATA[Space separated strings of validator IDs. The validator receiving the model as value.]]>
-                </description>
+            </description>
             <name>modelValidator</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4397,7 +4399,7 @@
             <description>
                 <![CDATA[Space-separated list of CSS style class(es) to be applied additionally when
                 this element is rendered.]]>
-                </description>
+            </description>
             <name>styleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4406,35 +4408,35 @@
             <description>
                 <![CDATA[CSS style(s) to be applied when this component is rendered.
                Caution: The styleClass attribute is always to be preferred.]]>
-                </description>
+            </description>
             <name>style</name>
             <required>false</required>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description><![CDATA[Enables the edited by double-clicking the corresponding line, defaults to true.]]>
-                </description>
+            </description>
             <name>enableDoubleClickEdit</name>
             <required>false</required>
             <type>boolean</type>
         </attribute>
         <attribute>
             <description><![CDATA[Sets the rendered attribute of the 'edit' button. Defaults to true.]]>
-                </description>
+            </description>
             <name>enableEdit</name>
             <required>false</required>
             <type>boolean</type>
         </attribute>
         <attribute>
             <description><![CDATA[Sets the rendered attribute of the 'addNew' button. Defaults to true.]]>
-                </description>
+            </description>
             <name>enableNew</name>
             <required>false</required>
             <type>boolean</type>
         </attribute>
         <attribute>
             <description><![CDATA[Sets the rendered attribute of the 'delete' button. Defaults to true.]]>
-                </description>
+            </description>
             <name>enableDelete</name>
             <required>false</required>
             <type>boolean</type>
@@ -4442,7 +4444,7 @@
         <attribute>
             <description>
                 <![CDATA[If set to 'false', the input field/s are displayed in one column, one row per field. Defaults to true.]]>
-                </description>
+            </description>
             <name>inlineEditMode</name>
             <required>false</required>
             <type>boolean</type>
@@ -4450,7 +4452,7 @@
         <attribute>
             <description>
                 <![CDATA[If set to 'false', the Add and Cancel buttons, displayed when adding an item, are not rendered. Defaults to 'true'. The rendering of the 'edit-addon' facet is not affected.]]>
-                </description>
+            </description>
             <name>renderAddonButtonsInAddMode</name>
             <required>false</required>
             <type>boolean</type>
@@ -4458,7 +4460,7 @@
         <attribute>
             <description>
                 <![CDATA[If set to 'false', the Save and Cancel buttons, displayed when editing an item, are not rendered. Defaults to 'true'. The rendering of the 'edit-addon' facet is not affected.]]>
-                </description>
+            </description>
             <name>renderAddonButtonsInEditMode</name>
             <required>false</required>
             <type>boolean</type>
@@ -4466,7 +4468,7 @@
         <attribute>
             <description>
                 <![CDATA[Message key to be resolved and displayed when there is no data available.]]>
-                </description>
+            </description>
             <name>emptyMessageKey</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4474,7 +4476,7 @@
         <attribute>
             <description>
                 <![CDATA[Resolved message to be displayed when there is no data available.]]>
-                </description>
+            </description>
             <name>emptyMessageValue</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4491,7 +4493,7 @@
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be unique
                 within the closest parent component that is a naming container.]]>
-                </description>
+            </description>
             <name>id</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4500,7 +4502,7 @@
             <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
-                </description>
+            </description>
             <name>rendered</name>
             <required>false</required>
             <type>boolean</type>
@@ -4509,7 +4511,7 @@
             <description>
                 <![CDATA[Sets the size for the element, must be one of the appropriate
                 bootstrap size-prefixes, currently supported are 'xs', 'sm', 'md', 'ld.'. Default is 'md']]>
-                </description>
+            </description>
             <name>size</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4518,7 +4520,7 @@
             <description>
                 <![CDATA[Space-separated list of CSS style class(es) to be applied additionally
                 when this element is rendered.]]>
-                </description>
+            </description>
             <name>styleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4527,7 +4529,7 @@
             <description>
                 <![CDATA[CSS style(s) to be applied when this component is rendered. Caution: The
                 styleClass attribute is always to be preferred.]]>
-                </description>
+            </description>
             <name>style</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4550,21 +4552,21 @@
         </attribute>
         <attribute>
             <description><![CDATA[ActionListener method to be invoked on click of reset filter.]]>
-                </description>
+            </description>
             <name>clearFilter</name>
             <required>false</required>
             <method-signature>void clearFilter()</method-signature>
         </attribute>
         <attribute>
             <description><![CDATA[To store the filter text.]]>
-                </description>
+            </description>
             <name>filterInput</name>
             <required>true</required>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description><![CDATA[The id of the waiting indicator.]]>
-                </description>
+            </description>
             <name>waitingIndicatorId</name>
             <required>true</required>
             <type>java.lang.String</type>
@@ -4572,7 +4574,7 @@
         <attribute>
             <description>
                 <![CDATA[The id of the content. Please use the "real" id and no "@form" shortcut.]]>
-                </description>
+            </description>
             <name>contentId</name>
             <required>true</required>
             <type>java.lang.String</type>
@@ -4580,7 +4582,7 @@
         <attribute>
             <description>
                 <![CDATA[The id to update after change.]]>
-                </description>
+            </description>
             <name>updateIds</name>
             <required>true</required>
             <type>java.lang.String</type>
@@ -4588,7 +4590,7 @@
         <attribute>
             <description>
                 <![CDATA[If true, trigger an initial lazy loading after page loading.]]>
-                </description>
+            </description>
             <name>triggerInitialLoading</name>
             <required>false</required>
             <type>boolean</type>
@@ -4596,7 +4598,7 @@
         <attribute>
             <description>
                 <![CDATA[The key of the filter input label.]]>
-                </description>
+            </description>
             <name>filterLabelKey</name>
             <required>true</required>
             <type>java.lang.String</type>
@@ -4604,7 +4606,7 @@
         <attribute>
             <description>
                 <![CDATA[The default mode for the labeledContainer.]]>
-                </description>
+            </description>
             <name>layoutMode</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4623,7 +4625,7 @@
             <description>
                 <![CDATA[Space-separated list of CSS style class(es) to be applied additionally
                 when this element is rendered.]]>
-                </description>
+            </description>
             <name>styleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4632,7 +4634,7 @@
             <description>
                 <![CDATA[CSS style(s) to be applied when this component is rendered. Caution: The
                 styleClass attribute is always to be preferred.]]>
-                </description>
+            </description>
             <name>style</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4645,14 +4647,14 @@
         </attribute>
         <attribute>
             <description><![CDATA[ActionListener method to be invoked on click of reset filter.]]>
-                </description>
+            </description>
             <name>clearFilterAction</name>
             <required>false</required>
             <method-signature>void clearFilter()</method-signature>
         </attribute>
         <attribute>
             <description><![CDATA[To store the filter text.]]>
-                </description>
+            </description>
             <name>value</name>
             <required>true</required>
             <type>java.lang.String</type>
@@ -4660,7 +4662,7 @@
         <attribute>
             <description>
                 <![CDATA[The ids to update after change. Should include the LazyLoadingComponent.]]>
-                </description>
+            </description>
             <name>update</name>
             <required>true</required>
             <type>java.lang.String</type>
@@ -4668,7 +4670,7 @@
         <attribute>
             <description>
                 <![CDATA[The key of the input label.]]>
-                </description>
+            </description>
             <name>labelKey</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4676,7 +4678,7 @@
         <attribute>
             <description>
                 <![CDATA[The value of the input label.]]>
-                </description>
+            </description>
             <name>labelValue</name>
             <required>false</required>
             <type>java.io.Serializable</type>
@@ -4684,7 +4686,7 @@
         <attribute>
             <description>
                 <![CDATA[The key of the input placeholder.]]>
-                </description>
+            </description>
             <name>placeholderKey</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4692,7 +4694,7 @@
         <attribute>
             <description>
                 <![CDATA[The value of the input placeholder.]]>
-                </description>
+            </description>
             <name>placeholderValue</name>
             <required>false</required>
             <type>java.io.Serializable</type>
@@ -4706,7 +4708,7 @@
                 it only for screen readers but will hide it for standard browsers. Mode 'plain'
                 ignore columns size settings. Allowed are 'plain', 'formgroup', 'label_sr_only' and
                 'column'. Default is currently 'column']]>
-                </description>
+            </description>
             <name>layoutMode</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4717,11 +4719,11 @@
         <p>Each widget model should contain the name of the composite component to be rendered and to display its content.</p>
    ]]></description>
         <tag-name>dashboard</tag-name>
-            <handler-class>de.cuioss.jsf.bootstrap.dashboard.DashboardTagHandler</handler-class>
+        <handler-class>de.cuioss.jsf.bootstrap.dashboard.DashboardTagHandler</handler-class>
         <attribute>
             <description>
                 <![CDATA[A list of de.cuioss.jsf.api.components.model.widget.DashboardWidgetModel]]>
-                </description>
+            </description>
             <name>widgets</name>
             <required>true</required>
             <type>java.util.List</type>
@@ -4730,7 +4732,7 @@
             <description>
                 <![CDATA[Space-separated list of CSS style class(es) to be applied when
                 this element is rendered. Defaults to "dashboard-wrapper".]]>
-                </description>
+            </description>
             <name>styleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4738,7 +4740,7 @@
         <attribute>
             <description>
                 <![CDATA[Space-separated list of CSS style class(es) to be applied to the widgets. Defaults to "col-md-6".]]>
-                </description>
+            </description>
             <name>widgetStyleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4747,10 +4749,43 @@
             <description>
                 <![CDATA[CSS style(s) to be applied when this component is rendered.
                Caution: The styleClass attribute is always to be preferred.]]>
-                </description>
+            </description>
             <name>style</name>
             <required>false</required>
             <type>java.lang.String</type>
+        </attribute>
+    </tag>
+    <tag>
+        <description>
+            <![CDATA[Displays a widget. Supports deferred loading of the content and displaying an optional error message]]></description>
+        <tag-name>widget</tag-name>
+        <component>
+            <resource-id>cui-bootstrap-composite/widget.xhtml</resource-id>
+        </component>
+        <attribute>
+            <description>
+                <![CDATA[When set to true, ajax requests will be made asynchronous. Attention: There is a maximum in the number of connections a browser allows.]]>
+            </description>
+            <name>async</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Space-separated list of CSS style class(es) to be applied additionally
+                when this element is rendered.]]>
+            </description>
+            <name>styleClass</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[Model to be displayed in this widget.]]>
+            </description>
+            <name>model</name>
+            <required>true</required>
+            <type>de.cuioss.jsf.api.components.model.widget.WidgetModel</type>
         </attribute>
     </tag>
     <tag>
@@ -4759,7 +4794,7 @@
             be rendered. Caution: do not use the content but the corresponding labelKey /
             labelValue. The same goes for the title element: use titleKey or titleValue. It will
             always be rendered as a button (visually) unless you set the state 'link']]>
-            </description>
+        </description>
         <tag-name>outputLinkButton</tag-name>
         <component>
             <component-type>de.cuioss.bootstrap.outputLinkButton</component-type>
@@ -4769,7 +4804,7 @@
             <description><![CDATA[The component identifier for this component. This value must be unique
                 within the closest parent component that is a naming container. Caution: The
                 component itself is not a naming container]]>
-                </description>
+            </description>
             <name>id</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4778,7 +4813,7 @@
             <description><![CDATA[Flag indicating whether this component should be rendered (during
                 Render Response Phase), or processed on any subsequent form submit. The default
                 value for this property is true.]]>
-                </description>
+            </description>
             <name>rendered</name>
             <required>false</required>
             <type>boolean</type>
@@ -4787,7 +4822,7 @@
             <description>
                 <![CDATA[Space-separated list of CSS style class(es) to be applied additionally
                 when this element is rendered.]]>
-                </description>
+            </description>
             <name>styleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4796,7 +4831,7 @@
             <description>
                 <![CDATA[CSS style(s) to be applied when this component is rendered. Caution: The
                 styleClass attribute is always to be preferred.]]>
-                </description>
+            </description>
             <name>style</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4805,7 +4840,7 @@
             <description>
                 <![CDATA[Different general styles available (state): one of 'primary', 'success',
                 'info', 'warning', 'danger', 'link'. If none of those is set it uses 'default'.]]>
-                </description>
+            </description>
             <name>state</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4814,7 +4849,7 @@
             <description>
                 <![CDATA[Sets the size for the button element, must be one of the appropriate
                 bootstrap size prefixes, currently supported is 'default', 'sm' and 'lg']]>
-                </description>
+            </description>
             <name>size</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4824,7 +4859,7 @@
                 <![CDATA[The key for looking up the text display as the label. Although this
                 attribute is not required the developer must provide either this or #labelValue if
                 you want a label to be displayed]]>
-                </description>
+            </description>
             <name>labelKey</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4834,7 +4869,7 @@
                 <![CDATA[The String displayed for the label. This is a replacement for #labelKey.
                 If both are present labelValue takes precedence. If the type is not java.lang.String
                 the developer must ensure that an according converter for the exists.]]>
-                </description>
+            </description>
             <name>labelValue</name>
             <required>false</required>
             <type>java.io.Serializable</type>
@@ -4844,7 +4879,7 @@
                 <![CDATA[The key for looking up the text display as the title. Although this
                 attribute is not required the developer must provide either this or #titleValue if
                 you want a title to be displayed]]>
-                </description>
+            </description>
             <name>titleKey</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4853,18 +4888,18 @@
             <description>
                 <![CDATA[The String displayed for the title. This is a replacement for
                 #titleKey. If both are present titleValue takes precedence.]]>
-                </description>
+            </description>
             <name>titleValue</name>
             <required>false</required>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description>
-                <![CDATA[A defined icon class, defined within stylesheet, e.g. cui-icon-warning. In
-                order to prevent improper usage the matching is restricted to the prefixes:
+                <![CDATA[A defined icon class, defined within stylesheet, e.g., cui-icon-warning.
+                To prevent improper usage, the matching is restricted to the prefixes:
                 "cui-icon, cui-mime-type, ui-icon-". If none of them is matched the access throws an
                 IllegalArgumentException.]]>
-                </description>
+            </description>
             <name>icon</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4873,7 +4908,7 @@
             <description>
                 <![CDATA[Defines the optional float alignment of the component. Supported values
                 are 'left' or 'right']]>
-                </description>
+            </description>
             <name>iconAlign</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4883,7 +4918,7 @@
                 <![CDATA[Flag indicating that this element must never
                 receive focus or be included in a subsequent
                 submit.]]>
-                </description>
+            </description>
             <name>disabled</name>
             <required>false</required>
             <type>boolean</type>
@@ -4893,7 +4928,7 @@
                 <![CDATA[Position of this element in the tabbing order
                 for the current document.  This value must be
                 an integer between 0 and 32767.]]>
-                </description>
+            </description>
             <name>tabindex</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4903,7 +4938,7 @@
                 <![CDATA[Name of a frame where the resource
                 retrieved via this hyperlink is to
                 be displayed.]]>
-                </description>
+            </description>
             <name>target</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4911,7 +4946,7 @@
         <attribute>
             <description>
                 <![CDATA[The ValueExpression linking this component to a property in a backing bean]]>
-                </description>
+            </description>
             <name>binding</name>
             <required>false</required>
             <type>javax.faces.component.UIComponent</type>
@@ -4923,7 +4958,7 @@
  <p>The initial page will display the waiting indicator and trigger an ajax update of the content.
  This update will first call an ActionListener (if defined) during Invoke Application phase,
  and then switch the waiting indicator to be hidden and render the content.</p>]]>
-            </description>
+        </description>
         <tag-name>lazyLoading</tag-name>
         <component>
             <component-type>de.cuioss.bootstrap.lazyLoading</component-type>
@@ -4933,7 +4968,7 @@
             <description><![CDATA[The component identifier for this component. This value must be unique
                 within the closest parent component that is a naming container. Caution: The
                 component itself is not a naming container]]>
-                </description>
+            </description>
             <name>id</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4942,7 +4977,7 @@
             <description>
                 <![CDATA[Space-separated list of CSS style class(es) to be applied additionally
                 when this element is rendered. The component will always render its own styleClass: 'cui-lazy-loading']]>
-                </description>
+            </description>
             <name>styleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4951,7 +4986,7 @@
             <description>
                 <![CDATA[ CSS style(s) to be applied when this component is rendered.
                Caution: The styleClass attribute is always to be preferred.]]>
-                </description>
+            </description>
             <name>style</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -4960,7 +4995,7 @@
             <description><![CDATA[Method expression to listen to ajax update events.
                        The listener must be in the form of
                        <pre>public void methodName(ActionEvent event)</pre>]]>
-                </description>
+            </description>
             <name>actionListener</name>
             <required>false</required>
             <type>javax.faces.event.ActionListener</type>
@@ -4968,7 +5003,7 @@
         <attribute>
             <description>
                 <![CDATA[Flag indicating if this component is already initialized or need to be loaded lazy.]]>
-                </description>
+            </description>
             <name>initialized</name>
             <required>false</required>
             <type>boolean</type>
@@ -4976,35 +5011,35 @@
         <attribute>
             <description>
                 <![CDATA[Flag indicating if the content of this component should be rendered.]]>
-                </description>
+            </description>
             <name>renderContent</name>
             <required>false</required>
             <type>boolean</type>
         </attribute>
         <attribute>
             <description><![CDATA[A IDisplayNameProvider to be displayed as notification box.]]>
-                </description>
+            </description>
             <name>notificationBoxValue</name>
             <required>false</required>
             <type>de.cuioss.uimodel.nameprovider.IDisplayNameProvider</type>
         </attribute>
         <attribute>
             <description><![CDATA[The state for the notification box.]]>
-                </description>
+            </description>
             <name>notificationBoxState</name>
             <required>false</required>
             <type>de.cuioss.jsf.api.components.css.ContextState</type>
         </attribute>
         <attribute>
             <description><![CDATA[A view model.]]>
-                </description>
+            </description>
             <name>viewModel</name>
             <required>false</required>
             <type>de.cuioss.jsf.api.components.model.lazyloading.LazyLoadingModel</type>
         </attribute>
         <attribute>
             <description><![CDATA[Start the initialization. Will be called at the first PostAddToView.]]>
-                </description>
+            </description>
             <name>startInitialize</name>
             <required>false</required>
             <method-signature>void startInitialize()</method-signature>
@@ -5013,14 +5048,14 @@
             <description>
                 <![CDATA[Space-separated list of CSS style class(es) to be applied additionally
                 to the waiting indicator component.]]>
-                </description>
+            </description>
             <name>waitingIndicatorStyleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description><![CDATA[When set to true, <p:autoUpdate/> elements will not be updated.]]>
-                </description>
+            </description>
             <name>ignoreAutoUpdate</name>
             <required>false</required>
             <type>boolean</type>
@@ -5028,7 +5063,7 @@
         <attribute>
             <description>
                 <![CDATA[When set to true, ajax requests will be made asynchronous. Attention: There is a maximum in the number of connections a browser allows.]]>
-                </description>
+            </description>
             <name>async</name>
             <required>false</required>
             <type>boolean</type>
