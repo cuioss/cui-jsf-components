@@ -15,7 +15,9 @@
  */
 package de.cuioss.jsf.api.components.decorator;
 
-import static java.util.Objects.requireNonNull;
+import de.cuioss.jsf.api.components.partial.ComponentBridge;
+import de.cuioss.jsf.api.components.util.ComponentModifier;
+import de.cuioss.jsf.api.components.util.modifier.ComponentModifierFactory;
 
 import javax.faces.component.StateHelper;
 import javax.faces.component.UIComponent;
@@ -25,14 +27,12 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 
-import de.cuioss.jsf.api.components.partial.ComponentBridge;
-import de.cuioss.jsf.api.components.util.ComponentModifier;
-import de.cuioss.jsf.api.components.util.modifier.ComponentModifierFactory;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Base class for decorating the parent of the given component. This component
  * ensures that {@link #decorate(ComponentModifier)} method is always called
- * before a component is to be rendered, In addition it implements the contract
+ * before a component is to be rendered, In addition, it implements the contract
  * of {@link ComponentBridge}
  *
  * @author Oliver Wolff
@@ -53,7 +53,7 @@ public abstract class AbstractParentDecorator extends UIComponentBase implements
 
     /**
      * Actual decorates the given parent. The component ensures that this method
-     * will be called at {@link PostAddToViewEvent} and only if the the component is
+     * will be called at {@link PostAddToViewEvent} and only if the component is
      * set to {@code rendered=true}
      *
      * @param parent to be decorated, wrapped into an corresponding
