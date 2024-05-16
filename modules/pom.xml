@@ -41,7 +41,7 @@
                 <version>${version.primefaces}</version>
                 <classifier>jakarta</classifier>
                 <!-- Currently we reference only components from within our
-                composites, therefore runtime is sufficient -->
+                composites; therefore, runtime is enough -->
                 <scope>runtime</scope>
             </dependency>
             <dependency>

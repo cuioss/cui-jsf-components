@@ -30,14 +30,5 @@
             <groupId>de.cuioss.jsf</groupId>
             <artifactId>cui-jsf-test</artifactId>
         </dependency>
-        <dependency>
-            <groupId>jakarta.el</groupId>
-            <artifactId>jakarta.el-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 </project>
