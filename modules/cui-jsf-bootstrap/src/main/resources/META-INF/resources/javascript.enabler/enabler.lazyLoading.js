@@ -25,7 +25,7 @@ jQuery(document).ready(function() {
 
     function handleEvent(options, status) {
         if (!options || !options.data) {
-            // if no options or no data is present, we can not do anything
+            // if no options or no data is present, we cannot do anything
             // that should not happen in normal development
             return;
         }
@@ -37,9 +37,9 @@ jQuery(document).ready(function() {
                 dataMap[keyValue[0]] = decodeURIComponent(keyValue[1]);
             }
         }
-        if (dataMap["javax.faces.partial.render"]) {
-            let updateString = dataMap["javax.faces.partial.render"];
-            if (updateString == "@none") {
+        if (dataMap["jakarta.faces.partial.render"]) {
+            let updateString = dataMap["jakarta.faces.partial.render"];
+            if (updateString === "@none") {
                 return;
             }
             // split by "+" (urlencoded space)
@@ -68,10 +68,10 @@ jQuery(document).ready(function() {
             return;
         }
 
-        if (container && container.length == 1 && container.data("lazyloading-waiting-indicator-id")) {
+        if (container && container.length === 1 && container.data("lazyloading-waiting-indicator-id")) {
             let waitingIndicator = jQuery(Cui.Utilities.escapeClientId(container.data("lazyloading-waiting-indicator-id")));
             if (waitingIndicator) {
-                if (status == "begin") {
+                if (status === "begin") {
                     waitingIndicator.show();
                 } else {
                     waitingIndicator.hide();
@@ -80,12 +80,12 @@ jQuery(document).ready(function() {
         }
         // special treatment of primefaces datatable: when changing the filter, only the body should be exchanged
         // with the waiting indicator
-        if (isUiDataTable(id) && dataMap["javax.faces.behavior.event"] == "filter") {
+        if (isUiDataTable(id) && dataMap["jakarta.faces.behavior.event"] === "filter") {
             element = jQuery(".ui-datatable-data.ui-widget-content", jQuery(id)).add("[data-lazyloading-content] .alert", container);
         } else if (isUiTreeTable(id)) {
             element = jQuery(".ui-treetable-data.ui-widget-content", jQuery(id)).add("[data-lazyloading-content] .alert", container);
         }
-        if (status == "begin") {
+        if (status === "begin") {
             element.hide();
         } else {
             element.show();
@@ -95,7 +95,7 @@ jQuery(document).ready(function() {
 
     function handleUpdateIds(id, status, dataMap, options) {
         let element = jQuery(id);
-        if (!element || element.length == 0) {
+        if (!element || element.length === 0) {
             return;
         }
         let container;
@@ -105,9 +105,9 @@ jQuery(document).ready(function() {
             if (!element.data("lazyloading-content")) {
                 element = element.parents("[data-lazyloading-content]").first();
             }
-            if (!element || element.length == 0) {
+            if (!element || element.length === 0) {
                 element = jQuery(".cui-lazy-loading", jQuery(id));
-                if (!element || element.length == 0) {
+                if (!element || element.length === 0) {
                     return;
                 }
                 element.each(function() {

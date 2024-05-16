@@ -15,32 +15,24 @@
  */
 package de.cuioss.jsf.api.components.util;
 
-import static de.cuioss.tools.collect.CollectionLiterals.immutableMap;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.HashMap;
-import java.util.Map;
-
+import de.cuioss.test.jsf.config.ComponentConfigurator;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
+import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.html.HtmlForm;
 import jakarta.faces.component.html.HtmlInputText;
 import jakarta.faces.component.html.HtmlPanelGroup;
-
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.test.jsf.config.ComponentConfigurator;
-import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
-import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
+import java.util.HashMap;
+import java.util.Map;
+
+import static de.cuioss.tools.collect.CollectionLiterals.immutableMap;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ComponentUtilityTest extends JsfEnabledTestEnvironment implements ComponentConfigurator {
 
-    private static final String FORM_COMPONENT = "javax.faces.HtmlForm";
+    private static final String FORM_COMPONENT = "jakarta.faces.HtmlForm";
 
     private static final String COMPONENT_ID = "that_is_me";
 
@@ -119,19 +111,19 @@ class ComponentUtilityTest extends JsfEnabledTestEnvironment implements Componen
 
     @Test
     void shouldCreateRenderer() {
-        getComponentConfigDecorator().registerMockRenderer("family", "javax.faces.Form");
-        final var renderer = ComponentUtility.createRenderer(getFacesContext(), "family", "javax.faces.Form");
+        getComponentConfigDecorator().registerMockRenderer("family", "jakarta.faces.Form");
+        final var renderer = ComponentUtility.createRenderer(getFacesContext(), "family", "jakarta.faces.Form");
         assertNotNull(renderer);
     }
 
     @Test
-    void testResetEditiableValueHolder() {
+    void testResetEditableValueHolder() {
         final var form = createFormWithEditableValueHolder();
         assertDoesNotThrow(() -> ComponentUtility.resetEditableValueHolder(form, getFacesContext()));
     }
 
     @Test
-    void testSetEditiableValueHoldersValid() {
+    void testSetEditableValueHoldersValid() {
         final var form = createFormWithEditableValueHolder();
         assertDoesNotThrow(() -> ComponentUtility.resetEditableValueHolder(form, getFacesContext()));
     }

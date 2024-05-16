@@ -95,7 +95,7 @@ public class TagInputRenderer extends BaseDecoratorRenderer<TagInputComponent> {
 
     /**
      * Extracts submitted value from request parameters and use
-     * javax.faces.convert.Converter to convert the value from String to a
+     * jakarta.faces.convert.Converter to convert the value from String to a
      * ConceptKeyType collection. Sets the submitted value to TagInputComponent.
      *
      * @param context          FacesContext for the request we are processing

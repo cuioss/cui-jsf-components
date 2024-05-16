@@ -30,8 +30,6 @@ import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIOutput;
-import jakarta.faces.component.UISelectBoolean;
 import jakarta.faces.component.html.*;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.PostAddToViewEvent;
@@ -51,7 +49,7 @@ import static de.cuioss.jsf.bootstrap.layout.input.LabeledContainerComponent.DAT
  * <li>(<b>ignore</b>
  * {@linkplain ViewDeclarationLanguage#buildView(FacesContext, jakarta.faces.component.UIViewRoot)})
  * </li>
- * <li>Publish the javax.faces.event.PreRenderViewEvent</li>
+ * <li>Publish the jakarta.faces.event.PreRenderViewEvent</li>
  * <li>renderer.encodeBegin(facesContext, component)</li>
  * <li>renderer.encodeChildren(facesContext, component)</li>
  * <li>renderer.encodeEnd(facesContext, component)</li>
@@ -212,7 +210,6 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
     void shouldRenderMinimalWithCheckbox() {
         final var component = new LabeledContainerComponent();
         final var htmlInputText = new HtmlSelectBooleanCheckbox();
-        getComponentConfigDecorator().registerMockRenderer(UISelectBoolean.COMPONENT_FAMILY, "javax.faces.Checkbox");
         htmlInputText.setId(INPUT);
         component.getChildren().add(htmlInputText);
         component.processEvent(new PostAddToViewEvent(component));
@@ -299,7 +296,6 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
         label.setId(labelId);
         final var labelClientId = LABELED_CONTAINER_ID + ":" + labelId;
         getComponentConfigDecorator().registerMockRendererForHtmlOutputText();
-        getComponentConfigDecorator().registerMockRenderer(UIOutput.COMPONENT_FAMILY, "javax.faces.Link");
         component.getFacets().put("label", label);
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
@@ -317,6 +313,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
             .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_INPUT)
             .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_INPUT).withAttribute(AttributeName.TYPE, "text")
             .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().currentHierarchyUp();
+
         assertRenderResult(component, expected.getDocument());
     }
 

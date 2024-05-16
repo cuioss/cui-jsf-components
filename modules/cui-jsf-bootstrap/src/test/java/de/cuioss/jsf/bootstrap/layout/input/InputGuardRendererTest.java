@@ -53,7 +53,7 @@ import static de.cuioss.tools.collect.CollectionLiterals.mutableList;
  * <li>(<b>ignore</b>
  * {@linkplain ViewDeclarationLanguage#buildView(FacesContext, jakarta.faces.component.UIViewRoot)})
  * </li>
- * <li>Publish the javax.faces.event.PreRenderViewEvent</li>
+ * <li>Publish the jakarta.faces.event.PreRenderViewEvent</li>
  * <li>renderer.encodeBegin(facesContext, component)</li>
  * <li>renderer.encodeChildren(facesContext, component)</li>
  * <li>renderer.encodeEnd(facesContext, component)</li>
