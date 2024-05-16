@@ -24,8 +24,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.http.Cookie;
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.http.Cookie;
 
 /**
  * General purpose Cookie Utility for JSF.

@@ -20,7 +20,7 @@ import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
 import java.util.List;
 import java.util.Optional;
 
-import javax.faces.component.StateHelper;
+import jakarta.faces.component.StateHelper;
 
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.tools.string.Splitter;

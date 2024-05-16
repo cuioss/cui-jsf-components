@@ -15,10 +15,10 @@
  */
 package de.cuioss.jsf.bootstrap.notification;
 
-import javax.el.MethodExpression;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.FacesComponent;
-import javax.faces.event.FacesEvent;
+import jakarta.el.MethodExpression;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.event.FacesEvent;
 
 import de.cuioss.jsf.api.components.base.AbstractBaseCuiComponent;
 import de.cuioss.jsf.api.components.events.ModelPayloadEvent;

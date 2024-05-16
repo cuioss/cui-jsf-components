@@ -28,7 +28,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import javax.faces.convert.ConverterException;
+import jakarta.faces.convert.ConverterException;
 
 import org.junit.jupiter.api.Test;
 

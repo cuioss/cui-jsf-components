@@ -18,8 +18,8 @@ package de.cuioss.jsf.api.ui.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.faces.event.ActionEvent;
-import javax.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.ComponentSystemEvent;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

@@ -18,10 +18,10 @@ package de.cuioss.jsf.api.components.partial;
 import de.cuioss.jsf.api.components.html.Node;
 import lombok.experimental.Delegate;
 
-import javax.faces.component.StateHelper;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.context.FacesContext;
 
 /**
  * Uses all available provider

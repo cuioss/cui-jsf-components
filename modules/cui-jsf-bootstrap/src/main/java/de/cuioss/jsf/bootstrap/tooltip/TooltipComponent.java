@@ -18,8 +18,8 @@ package de.cuioss.jsf.bootstrap.tooltip;
 import static de.cuioss.jsf.bootstrap.BootstrapFamily.COMPONENT_FAMILY;
 import static java.util.Objects.requireNonNull;
 
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.FacesComponent;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
 
 import de.cuioss.jsf.api.components.decorator.AbstractParentDecorator;
 import de.cuioss.jsf.api.components.html.AttributeName;

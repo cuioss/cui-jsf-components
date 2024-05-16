@@ -18,8 +18,8 @@ package de.cuioss.jsf.components.inlineconfirm;
 import static de.cuioss.jsf.components.CuiFamily.INLINE_CONFIRM_COMPONENT;
 import static de.cuioss.jsf.components.CuiFamily.INLINE_CONFIRM_RENDERER;
 
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.FacesComponent;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
 
 import de.cuioss.jsf.api.components.base.BaseCuiPanel;
 import de.cuioss.jsf.api.components.util.ComponentModifier;

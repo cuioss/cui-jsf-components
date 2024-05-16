@@ -17,9 +17,9 @@ package de.cuioss.jsf.bootstrap.layout.input;
 
 import java.util.Optional;
 
-import javax.faces.component.UIComponent;
-import javax.faces.event.PostAddToViewEvent;
-import javax.faces.event.PreRenderComponentEvent;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.event.PreRenderComponentEvent;
 
 /**
  * A container plugin is used for extending the functionality of

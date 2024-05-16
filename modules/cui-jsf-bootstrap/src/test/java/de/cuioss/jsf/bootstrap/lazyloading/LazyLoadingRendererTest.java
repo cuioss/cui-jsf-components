@@ -17,9 +17,9 @@ package de.cuioss.jsf.bootstrap.lazyloading;
 
 import static de.cuioss.jsf.bootstrap.CssCuiBootstrap.CUI_LAZY_LOADING;
 
-import javax.faces.component.html.HtmlOutputText;
-import javax.faces.event.PostAddToViewEvent;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.faces.component.html.HtmlOutputText;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.junit.jupiter.api.Test;
 

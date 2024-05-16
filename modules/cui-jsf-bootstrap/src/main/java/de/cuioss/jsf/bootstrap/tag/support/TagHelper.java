@@ -26,7 +26,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.SortedSet;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;

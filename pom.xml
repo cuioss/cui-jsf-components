@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>de.cuioss</groupId>
         <artifactId>cui-java-parent</artifactId>
         <version>0.6.0</version>
-        <relativePath />
+        <relativePath/>
     </parent>
     <groupId>de.cuioss.jsf</groupId>
     <artifactId>cui-jsf-components</artifactId>
@@ -21,7 +21,8 @@
         <url>https://github.com/cuioss/cui-jsf-components/</url>
         <connection>scm:git:https://github.com/cuioss/cui-jsf-components.git</connection>
         <developerConnection>
-            scm:git:https://github.com/cuioss/cui-jsf-components/</developerConnection>
+            scm:git:https://github.com/cuioss/cui-jsf-components/
+        </developerConnection>
         <tag>HEAD</tag>
     </scm>
     <issueManagement>
@@ -29,7 +30,7 @@
         <system>GitHub Issues</system>
     </issueManagement>
     <properties>
-        <version.cui.parent>0.6.0</version.cui.parent>
+        <version.cui.parent>0.6-SNAPSHOT</version.cui.parent>
         <version.primefaces>13.0.7</version.primefaces>
         <!-- Needed for js / css -->
         <version.nodejs>v20.11.1</version.nodejs>
@@ -87,4 +88,24 @@
             </reporting>
         </profile>
     </profiles>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.openrewrite.maven</groupId>
+                <artifactId>rewrite-maven-plugin</artifactId>
+                <configuration>
+                    <activeRecipes>
+                        <recipe>org.openrewrite.java.migrate.jakarta.JakartaEE10</recipe>
+                    </activeRecipes>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.openrewrite.recipe</groupId>
+                        <artifactId>rewrite-migrate-java</artifactId>
+                        <version>2.11.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
 </project>

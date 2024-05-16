@@ -15,8 +15,8 @@
  */
 package de.cuioss.jsf.bootstrap.layout.messages;
 
-import javax.faces.component.FacesComponent;
-import javax.faces.component.html.HtmlMessages;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.html.HtmlMessages;
 
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;

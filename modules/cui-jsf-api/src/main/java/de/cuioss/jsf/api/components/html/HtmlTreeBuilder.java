@@ -17,7 +17,7 @@ package de.cuioss.jsf.api.components.html;
 
 import java.io.IOException;
 
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.context.ResponseWriter;
 import javax.xml.XMLConstants;
 
 import org.jdom2.Attribute;

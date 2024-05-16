@@ -17,10 +17,10 @@ package de.cuioss.jsf.components.validator;
 
 import java.util.regex.Pattern;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.FacesValidator;
-import javax.faces.validator.ValidatorException;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.FacesValidator;
+import jakarta.faces.validator.ValidatorException;
 
 import de.cuioss.jsf.api.validator.AbstractValidator;
 import lombok.Getter;

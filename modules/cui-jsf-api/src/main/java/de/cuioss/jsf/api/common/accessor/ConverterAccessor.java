@@ -15,8 +15,8 @@
  */
 package de.cuioss.jsf.api.common.accessor;
 
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
 
 import de.cuioss.jsf.api.converter.ObjectToStringConverter;
 import de.cuioss.jsf.api.converter.StringIdentConverter;

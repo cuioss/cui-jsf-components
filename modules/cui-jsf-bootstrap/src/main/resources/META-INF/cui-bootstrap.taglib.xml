@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<facelet-taglib version="2.2"
-                xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+<facelet-taglib version="4.0"
+                xmlns="https://jakarta.ee/xml/ns/jakartaee"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd">
+                xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facelettaglibrary_4_0.xsd">
     <namespace>https://cuioss.de/jsf/bootstrap</namespace>
     <short-name>boot</short-name>
     <tag>
@@ -11,7 +11,7 @@
         <tag-name>messages</tag-name>
         <component>
             <component-type>de.cuioss.bootstrap.cuimessages</component-type>
-            <renderer-type>javax.faces.Messages</renderer-type>
+            <renderer-type>jakarta.faces.Messages</renderer-type>
         </component>
         <attribute>
             <description>
@@ -119,7 +119,7 @@
             </description>
             <name>binding</name>
             <required>false</required>
-            <type>javax.faces.component.UIComponent</type>
+            <type>jakarta.faces.component.UIComponent</type>
         </attribute>
         <attribute>
             <description>
@@ -163,7 +163,7 @@
         <tag-name>badge</tag-name>
         <component>
             <component-type>de.cuioss.bootstrap.badge</component-type>
-            <renderer-type>javax.faces.Text</renderer-type>
+            <renderer-type>jakarta.faces.Text</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be
@@ -215,7 +215,7 @@
             </description>
             <name>binding</name>
             <required>false</required>
-            <type>javax.faces.component.UIComponent</type>
+            <type>jakarta.faces.component.UIComponent</type>
         </attribute>
         <attribute>
             <description>
@@ -223,7 +223,7 @@
             </description>
             <name>converter</name>
             <required>false</required>
-            <type>javax.faces.convert.Converter</type>
+            <type>jakarta.faces.convert.Converter</type>
         </attribute>
         <attribute>
             <description>
@@ -575,7 +575,7 @@
             <name>actionListener</name>
             <required>false</required>
             <method-signature>void
-                actionListener(javax.faces.event.ActionEvent)
+                actionListener(jakarta.faces.event.ActionEvent)
             </method-signature>
         </attribute>
         <attribute>
@@ -844,7 +844,7 @@
             </description>
             <name>binding</name>
             <required>false</required>
-            <type>javax.faces.component.UIComponent</type>
+            <type>jakarta.faces.component.UIComponent</type>
         </attribute>
     </tag>
     <tag>
@@ -985,7 +985,7 @@
             <name>valueChangeListener</name>
             <required>false</required>
             <method-signature>void
-                valueChange(javax.faces.event.ValueChangeEvent)
+                valueChange(jakarta.faces.event.ValueChangeEvent)
             </method-signature>
         </attribute>
     </tag>
@@ -1417,7 +1417,7 @@
             </description>
             <name>binding</name>
             <required>false</required>
-            <type>javax.faces.component.UIComponent</type>
+            <type>jakarta.faces.component.UIComponent</type>
         </attribute>
     </tag>
     <tag>
@@ -1697,7 +1697,7 @@
             </description>
             <name>labelConverter</name>
             <required>false</required>
-            <type>javax.faces.convert.Converter</type>
+            <type>jakarta.faces.convert.Converter</type>
         </attribute>
         <attribute>
             <description>
@@ -1749,7 +1749,7 @@
             </description>
             <name>titleConverter</name>
             <required>false</required>
-            <type>javax.faces.convert.Converter</type>
+            <type>jakarta.faces.convert.Converter</type>
         </attribute>
         <attribute>
             <description>
@@ -2053,7 +2053,7 @@
             </description>
             <name>contentConverter</name>
             <required>false</required>
-            <type>javax.faces.convert.Converter</type>
+            <type>jakarta.faces.convert.Converter</type>
         </attribute>
         <attribute>
             <description>
@@ -2078,7 +2078,7 @@
             </description>
             <name>dismissListener</name>
             <required>false</required>
-            <type>javax.el.MethodExpression</type>
+            <type>jakarta.el.MethodExpression</type>
         </attribute>
         <attribute>
             <description>
@@ -2108,7 +2108,7 @@
             </description>
             <name>closeButtonTitleConverter</name>
             <required>false</required>
-            <type>javax.faces.convert.Converter</type>
+            <type>jakarta.faces.convert.Converter</type>
         </attribute>
     </tag>
     <tag>
@@ -2211,7 +2211,7 @@
             </description>
             <name>labelConverter</name>
             <required>false</required>
-            <type>javax.faces.convert.Converter</type>
+            <type>jakarta.faces.convert.Converter</type>
         </attribute>
         <attribute>
             <description>
@@ -2285,7 +2285,7 @@
                 element defined in your Faces configuration file.]]></description>
             <name>placeholderConverter</name>
             <required>false</required>
-            <type>javax.faces.convert.Converter</type>
+            <type>jakarta.faces.convert.Converter</type>
         </attribute>
         <attribute>
             <description><![CDATA[Defines how the layout will be rendered. Layout mode 'column' renders
@@ -2352,7 +2352,7 @@
             </description>
             <name>titleConverter</name>
             <required>false</required>
-            <type>javax.faces.convert.Converter</type>
+            <type>jakarta.faces.convert.Converter</type>
         </attribute>
         <attribute>
             <description>
@@ -2380,7 +2380,7 @@
             </description>
             <name>contentConverter</name>
             <required>false</required>
-            <type>javax.faces.convert.Converter</type>
+            <type>jakarta.faces.convert.Converter</type>
         </attribute>
         <attribute>
             <description>
@@ -2418,7 +2418,7 @@
         <tag-name>helpText</tag-name>
         <component>
             <component-type>de.cuioss.bootstrap.helptext</component-type>
-            <renderer-type>javax.faces.Hidden</renderer-type>
+            <renderer-type>jakarta.faces.Hidden</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[Flag indicating whether this component should be rendered (during
@@ -2475,7 +2475,7 @@
             </description>
             <name>contentConverter</name>
             <required>false</required>
-            <type>javax.faces.convert.Converter</type>
+            <type>jakarta.faces.convert.Converter</type>
         </attribute>
         <attribute>
             <description>
@@ -2512,7 +2512,7 @@
         <tag-name>inputGuard</tag-name>
         <component>
             <component-type>de.cuioss.bootstrap.guarded_input</component-type>
-            <renderer-type>javax.faces.Hidden</renderer-type>
+            <renderer-type>jakarta.faces.Hidden</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[Flag indicating whether this component should be rendered (during
@@ -2594,7 +2594,7 @@
             </description>
             <name>guardButtonTitleConverter</name>
             <required>false</required>
-            <type>javax.faces.convert.Converter</type>
+            <type>jakarta.faces.convert.Converter</type>
         </attribute>
         <attribute>
             <description>
@@ -2638,7 +2638,7 @@
             </description>
             <name>resetGuardButtonTitleConverter</name>
             <required>false</required>
-            <type>javax.faces.convert.Converter</type>
+            <type>jakarta.faces.convert.Converter</type>
         </attribute>
         <attribute>
             <description>
@@ -2682,7 +2682,7 @@
             <name>valueChangeListener</name>
             <required>false</required>
             <method-signature>void
-                valueChange(javax.faces.event.ValueChangeEvent)
+                valueChange(jakarta.faces.event.ValueChangeEvent)
             </method-signature>
         </attribute>
     </tag>
@@ -2970,7 +2970,7 @@
             </description>
             <name>contentConverter</name>
             <required>false</required>
-            <type>javax.faces.convert.Converter</type>
+            <type>jakarta.faces.convert.Converter</type>
         </attribute>
         <attribute>
             <description>
@@ -3577,7 +3577,7 @@
         <tag-name>outputLabel</tag-name>
         <component>
             <component-type>de.cuioss.bootstrap.outputlabel</component-type>
-            <renderer-type>javax.faces.Label</renderer-type>
+            <renderer-type>jakarta.faces.Label</renderer-type>
         </component>
         <attribute>
             <description><![CDATA[The component identifier for this component. This value must be
@@ -3640,7 +3640,7 @@
                 It must match the converter-id value of a converter element defined in your Faces configuration file. ]]></description>
             <name>labelConverter</name>
             <required>false</required>
-            <type>javax.faces.convert.Converter</type>
+            <type>jakarta.faces.convert.Converter</type>
         </attribute>
         <attribute>
             <description>
@@ -3666,7 +3666,7 @@
             </description>
             <name>titleConverter</name>
             <required>false</required>
-            <type>javax.faces.convert.Converter</type>
+            <type>jakarta.faces.convert.Converter</type>
         </attribute>
         <attribute>
             <description><![CDATA[Flag indicating that characters that are sensitive
@@ -3940,7 +3940,7 @@
             <name>valueChangeListener</name>
             <required>false</required>
             <method-signature>void
-                valueChange(javax.faces.event.ValueChangeEvent)
+                valueChange(jakarta.faces.event.ValueChangeEvent)
             </method-signature>
         </attribute>
         <attribute>
@@ -3982,8 +3982,8 @@
             <name>validator</name>
             <required>false</required>
             <method-signature>void
-                validate(javax.faces.context.FacesContext,
-                javax.faces.component.UIComponent,
+                validate(jakarta.faces.context.FacesContext,
+                jakarta.faces.component.UIComponent,
                 java.lang.Object)
             </method-signature>
         </attribute>
@@ -4131,7 +4131,7 @@
             </description>
             <name>contentConverter</name>
             <required>false</required>
-            <type>javax.faces.convert.Converter</type>
+            <type>jakarta.faces.convert.Converter</type>
         </attribute>
         <attribute>
             <description>
@@ -4157,7 +4157,7 @@
             </description>
             <name>disposeListener</name>
             <required>false</required>
-            <type>javax.el.MethodExpression</type>
+            <type>jakarta.el.MethodExpression</type>
         </attribute>
         <attribute>
             <description>
@@ -4196,7 +4196,7 @@
             </description>
             <name>titleConverter</name>
             <required>false</required>
-            <type>javax.faces.convert.Converter</type>
+            <type>jakarta.faces.convert.Converter</type>
         </attribute>
     </tag>
     <tag>
@@ -4949,7 +4949,7 @@
             </description>
             <name>binding</name>
             <required>false</required>
-            <type>javax.faces.component.UIComponent</type>
+            <type>jakarta.faces.component.UIComponent</type>
         </attribute>
     </tag>
     <tag>
@@ -4998,7 +4998,7 @@
             </description>
             <name>actionListener</name>
             <required>false</required>
-            <type>javax.faces.event.ActionListener</type>
+            <type>jakarta.faces.event.ActionListener</type>
         </attribute>
         <attribute>
             <description>

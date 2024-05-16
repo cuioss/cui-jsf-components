@@ -15,10 +15,10 @@
  */
 package de.cuioss.jsf.bootstrap.layout;
 
-import javax.faces.component.FacesComponent;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.PreRenderComponentEvent;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PreRenderComponentEvent;
 
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.partial.ContextSizeProvider;

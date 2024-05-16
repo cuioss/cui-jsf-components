@@ -15,25 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.layout.input;
 
-import static de.cuioss.jsf.bootstrap.common.partial.ColumnCssResolver.COL_OFFSET_PREFIX;
-import static de.cuioss.jsf.bootstrap.layout.input.HelpTextComponent.DATA_HELP_BLOCK;
-import static de.cuioss.jsf.bootstrap.layout.input.LabeledContainerComponent.DATA_LABELED_CONTAINER;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.component.UISelectBoolean;
-import javax.faces.component.html.HtmlInputHidden;
-import javax.faces.component.html.HtmlInputText;
-import javax.faces.component.html.HtmlOutputLink;
-import javax.faces.component.html.HtmlOutputText;
-import javax.faces.component.html.HtmlSelectBooleanCheckbox;
-import javax.faces.context.FacesContext;
-import javax.faces.event.PostAddToViewEvent;
-import javax.faces.event.PreRenderComponentEvent;
-import javax.faces.view.ViewDeclarationLanguage;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.css.impl.StyleClassBuilderImpl;
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
@@ -48,6 +29,19 @@ import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.component.UISelectBoolean;
+import jakarta.faces.component.html.*;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.event.PreRenderComponentEvent;
+import jakarta.faces.view.ViewDeclarationLanguage;
+import org.junit.jupiter.api.Test;
+
+import static de.cuioss.jsf.bootstrap.common.partial.ColumnCssResolver.COL_OFFSET_PREFIX;
+import static de.cuioss.jsf.bootstrap.layout.input.HelpTextComponent.DATA_HELP_BLOCK;
+import static de.cuioss.jsf.bootstrap.layout.input.LabeledContainerComponent.DATA_LABELED_CONTAINER;
 
 /**
  * Expectation for renderer cycle :
@@ -55,7 +49,7 @@ import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
  * <li>case the response to be rendered to the client (<b>ignore</b> case :
  * state of the response to be saved for processing on subsequent requests)</li>
  * <li>(<b>ignore</b>
- * {@linkplain ViewDeclarationLanguage#buildView(FacesContext, javax.faces.component.UIViewRoot)})
+ * {@linkplain ViewDeclarationLanguage#buildView(FacesContext, jakarta.faces.component.UIViewRoot)})
  * </li>
  * <li>Publish the javax.faces.event.PreRenderViewEvent</li>
  * <li>renderer.encodeBegin(facesContext, component)</li>
@@ -68,15 +62,13 @@ import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class LabeledContainerRendererTest extends AbstractComponentRendererTest<LabeledContainerRenderer>
-        implements ComponentConfigurator {
+    implements ComponentConfigurator {
 
     private static final String INPUT = "input";
 
     private static final String COLON_INPUT = ":input";
 
     private static final String NEED_SOME_HELP = "Need some Help";
-
-    private static final String HTML_INPUT_TEXT = "HtmlInputText";
 
     private static final String CLIENT_ID = "j_id__v_0";
 
@@ -100,11 +92,11 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.FORM_GROUP)
-                .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER).withNode(Node.LABEL)
-                .withAttribute(AttributeName.ID, CLIENT_ID_LABEL).withAttribute(AttributeName.NAME, CLIENT_ID_LABEL)
-                .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
-                .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.P)
-                .withStyleClass(CssBootstrap.FORM_CONTROL_STATIC).currentHierarchyUp().currentHierarchyUp();
+            .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER).withNode(Node.LABEL)
+            .withAttribute(AttributeName.ID, CLIENT_ID_LABEL).withAttribute(AttributeName.NAME, CLIENT_ID_LABEL)
+            .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
+            .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.P)
+            .withStyleClass(CssBootstrap.FORM_CONTROL_STATIC).currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -117,14 +109,14 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.FORM_GROUP)
-                .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER).withNode(Node.LABEL)
-                .withAttribute(AttributeName.ID, CLIENT_ID_LABEL).withAttribute(AttributeName.NAME, CLIENT_ID_LABEL)
-                .withAttribute(AttributeName.FOR, CLIENT_ID + COLON_INPUT)
-                .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
-                .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(HTML_INPUT_TEXT)
-                .withAttribute(AttributeName.ID, CLIENT_ID + COLON_INPUT)
-                .withAttribute(AttributeName.NAME, CLIENT_ID + COLON_INPUT).withAttribute(AttributeName.TYPE, "text")
-                .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().currentHierarchyUp();
+            .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER).withNode(Node.LABEL)
+            .withAttribute(AttributeName.ID, CLIENT_ID_LABEL).withAttribute(AttributeName.NAME, CLIENT_ID_LABEL)
+            .withAttribute(AttributeName.FOR, CLIENT_ID + COLON_INPUT)
+            .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
+            .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.INPUT)
+            .withAttribute(AttributeName.ID, CLIENT_ID + COLON_INPUT)
+            .withAttribute(AttributeName.NAME, CLIENT_ID + COLON_INPUT).withAttribute(AttributeName.TYPE, "text")
+            .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -138,11 +130,11 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.FORM_GROUP)
-                .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER).withNode(Node.LABEL)
-                .withAttribute(AttributeName.ID, CLIENT_ID_LABEL).withAttribute(AttributeName.NAME, CLIENT_ID_LABEL)
-                .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
-                .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.P)
-                .withStyleClass(CssBootstrap.FORM_CONTROL_STATIC).currentHierarchyUp().currentHierarchyUp();
+            .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER).withNode(Node.LABEL)
+            .withAttribute(AttributeName.ID, CLIENT_ID_LABEL).withAttribute(AttributeName.NAME, CLIENT_ID_LABEL)
+            .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
+            .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.P)
+            .withStyleClass(CssBootstrap.FORM_CONTROL_STATIC).currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -155,13 +147,13 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.FORM_GROUP)
-                .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER).withNode(Node.LABEL)
-                .withAttribute(AttributeName.ID, CLIENT_ID_LABEL).withAttribute(AttributeName.NAME, CLIENT_ID_LABEL)
-                .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
-                .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.P)
-                .withStyleClass(CssBootstrap.FORM_CONTROL_STATIC).withNode(Node.INPUT)
-                .withAttribute(AttributeName.ID, CLIENT_ID + COLON_INPUT)
-                .withAttribute(AttributeName.NAME, CLIENT_ID + COLON_INPUT).currentHierarchyUp().currentHierarchyUp();
+            .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER).withNode(Node.LABEL)
+            .withAttribute(AttributeName.ID, CLIENT_ID_LABEL).withAttribute(AttributeName.NAME, CLIENT_ID_LABEL)
+            .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
+            .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.P)
+            .withStyleClass(CssBootstrap.FORM_CONTROL_STATIC).withNode(Node.INPUT)
+            .withAttribute(AttributeName.ID, CLIENT_ID + COLON_INPUT)
+            .withAttribute(AttributeName.NAME, CLIENT_ID + COLON_INPUT).currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -175,15 +167,15 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.FORM_GROUP)
-                .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER).withNode(Node.LABEL)
-                .withAttribute(AttributeName.ID, CLIENT_ID_LABEL).withAttribute(AttributeName.NAME, CLIENT_ID_LABEL)
-                .withAttribute(AttributeName.FOR, CLIENT_ID + COLON_INPUT)
-                .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
-                .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(HTML_INPUT_TEXT)
-                .withAttribute(AttributeName.ID, CLIENT_ID + COLON_INPUT)
-                .withAttribute(AttributeName.DISABLED, "disabled")
-                .withAttribute(AttributeName.NAME, CLIENT_ID + COLON_INPUT).withAttribute(AttributeName.TYPE, "text")
-                .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().currentHierarchyUp();
+            .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER).withNode(Node.LABEL)
+            .withAttribute(AttributeName.ID, CLIENT_ID_LABEL).withAttribute(AttributeName.NAME, CLIENT_ID_LABEL)
+            .withAttribute(AttributeName.FOR, CLIENT_ID + COLON_INPUT)
+            .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
+            .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.INPUT)
+            .withAttribute(AttributeName.ID, CLIENT_ID + COLON_INPUT)
+            .withAttribute(AttributeName.DISABLED, "disabled")
+            .withAttribute(AttributeName.NAME, CLIENT_ID + COLON_INPUT).withAttribute(AttributeName.TYPE, "text")
+            .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -207,12 +199,12 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withAttribute(AttributeName.TITLE, titleValue)
-                .withStyleClass(CssBootstrap.FORM_GROUP).withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
-                .withNode(Node.LABEL).withAttribute(AttributeName.ID, CLIENT_ID_LABEL)
-                .withAttribute(AttributeName.NAME, CLIENT_ID_LABEL)
-                .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
-                .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.P)
-                .withStyleClass(CssBootstrap.FORM_CONTROL_STATIC).currentHierarchyUp().currentHierarchyUp();
+            .withStyleClass(CssBootstrap.FORM_GROUP).withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
+            .withNode(Node.LABEL).withAttribute(AttributeName.ID, CLIENT_ID_LABEL)
+            .withAttribute(AttributeName.NAME, CLIENT_ID_LABEL)
+            .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
+            .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.P)
+            .withStyleClass(CssBootstrap.FORM_CONTROL_STATIC).currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -226,13 +218,13 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.FORM_GROUP)
-                .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER).withNode(Node.DIV)
-                .withStyleClass(new StyleClassBuilderImpl(COL_8).append(COL_OFFSET_4).getStyleClass())
-                .withNode(Node.DIV).withStyleClass(CssBootstrap.CHECKBOX).withNode(Node.LABEL)
-                .withAttribute(AttributeName.ID, CLIENT_ID_LABEL).withAttribute(AttributeName.NAME, CLIENT_ID_LABEL)
-                .withNode("HtmlSelectBooleanCheckbox").withAttribute(AttributeName.ID, CLIENT_ID + COLON_INPUT)
-                .withAttribute(AttributeName.NAME, CLIENT_ID + COLON_INPUT).currentHierarchyUp().currentHierarchyUp()
-                .currentHierarchyUp();
+            .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER).withNode(Node.DIV)
+            .withStyleClass(new StyleClassBuilderImpl(COL_8).append(COL_OFFSET_4).getStyleClass())
+            .withNode(Node.DIV).withStyleClass(CssBootstrap.CHECKBOX).withNode(Node.LABEL)
+            .withAttribute(AttributeName.ID, CLIENT_ID_LABEL).withAttribute(AttributeName.NAME, CLIENT_ID_LABEL)
+            .withNode(Node.INPUT).withAttribute(AttributeName.ID, CLIENT_ID + COLON_INPUT)
+            .withAttribute(AttributeName.NAME, CLIENT_ID + COLON_INPUT).currentHierarchyUp().currentHierarchyUp()
+            .currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -246,17 +238,17 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV)
-                .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
-                .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID).withStyleClass(CssBootstrap.FORM_GROUP)
-                .withNode(Node.LABEL).withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_LABEL)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_LABEL)
-                .withAttribute(AttributeName.FOR, LABELED_CONTAINER_ID_INPUT)
-                .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
-                .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(HTML_INPUT_TEXT)
-                .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_INPUT)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_INPUT).withAttribute(AttributeName.TYPE, "text")
-                .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().currentHierarchyUp();
+            .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
+            .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID).withStyleClass(CssBootstrap.FORM_GROUP)
+            .withNode(Node.LABEL).withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_LABEL)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_LABEL)
+            .withAttribute(AttributeName.FOR, LABELED_CONTAINER_ID_INPUT)
+            .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
+            .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.INPUT)
+            .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_INPUT)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_INPUT).withAttribute(AttributeName.TYPE, "text")
+            .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -276,22 +268,22 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV)
-                .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
-                .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID).withStyleClass(CssBootstrap.FORM_GROUP)
-                .withNode(Node.LABEL).withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_LABEL)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_LABEL)
-                .withAttribute(AttributeName.FOR, LABELED_CONTAINER_ID_INPUT)
-                .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
-                .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.DIV)
-                .withStyleClass(CssBootstrap.INPUT_GROUP).withNode(Node.DIV)
-                .withStyleClass(CssBootstrap.INPUT_GROUP_ADDON).withNode("HtmlOutputText")
-                .withAttribute(AttributeName.ID, prependClientId).withAttribute(AttributeName.NAME, prependClientId)
-                .currentHierarchyUp().currentHierarchyUp().withNode(HTML_INPUT_TEXT)
-                .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_INPUT)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_INPUT).withAttribute(AttributeName.TYPE, "text")
-                .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().currentHierarchyUp()
-                .currentHierarchyUp();
+            .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
+            .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID).withStyleClass(CssBootstrap.FORM_GROUP)
+            .withNode(Node.LABEL).withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_LABEL)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_LABEL)
+            .withAttribute(AttributeName.FOR, LABELED_CONTAINER_ID_INPUT)
+            .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
+            .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.DIV)
+            .withStyleClass(CssBootstrap.INPUT_GROUP).withNode(Node.DIV)
+            .withStyleClass(CssBootstrap.INPUT_GROUP_ADDON).withNode(Node.SPAN)
+            .withAttribute(AttributeName.ID, prependClientId).withAttribute(AttributeName.NAME, prependClientId)
+            .currentHierarchyUp().currentHierarchyUp().withNode(Node.INPUT)
+            .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_INPUT)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_INPUT).withAttribute(AttributeName.TYPE, "text")
+            .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().currentHierarchyUp()
+            .currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -312,19 +304,19 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV)
-                .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
-                .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID).withStyleClass(CssBootstrap.FORM_GROUP)
-                .withNode(Node.LABEL).withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_LABEL)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_LABEL)
-                .withAttribute(AttributeName.FOR, LABELED_CONTAINER_ID_INPUT)
-                .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
-                .withNode("HtmlOutputLink").withAttribute(AttributeName.ID, labelClientId)
-                .withAttribute(AttributeName.NAME, labelClientId).currentHierarchyUp().currentHierarchyUp()
-                .withNode(Node.DIV).withStyleClass(COL_8).withNode(HTML_INPUT_TEXT)
-                .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_INPUT)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_INPUT).withAttribute(AttributeName.TYPE, "text")
-                .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().currentHierarchyUp();
+            .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
+            .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID).withStyleClass(CssBootstrap.FORM_GROUP)
+            .withNode(Node.LABEL).withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_LABEL)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_LABEL)
+            .withAttribute(AttributeName.FOR, LABELED_CONTAINER_ID_INPUT)
+            .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
+            .withNode(Node.A).withAttribute(AttributeName.ID, labelClientId)
+            .withAttribute(AttributeName.NAME, labelClientId).currentHierarchyUp().currentHierarchyUp()
+            .withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.INPUT)
+            .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_INPUT)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_INPUT).withAttribute(AttributeName.TYPE, "text")
+            .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -339,18 +331,18 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV)
-                .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
-                .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID)
-                .withStyleClass(CssBootstrap.FORM_GROUP.getStyleClassBuilder().append(CssBootstrap.HAS_ERROR))
-                .withNode(Node.LABEL).withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_LABEL)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_LABEL)
-                .withAttribute(AttributeName.FOR, LABELED_CONTAINER_ID_INPUT)
-                .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
-                .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(HTML_INPUT_TEXT)
-                .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_INPUT)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_INPUT).withAttribute(AttributeName.TYPE, "text")
-                .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().currentHierarchyUp();
+            .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
+            .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID)
+            .withStyleClass(CssBootstrap.FORM_GROUP.getStyleClassBuilder().append(CssBootstrap.HAS_ERROR))
+            .withNode(Node.LABEL).withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_LABEL)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_LABEL)
+            .withAttribute(AttributeName.FOR, LABELED_CONTAINER_ID_INPUT)
+            .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
+            .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.INPUT)
+            .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_INPUT)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_INPUT).withAttribute(AttributeName.TYPE, "text")
+            .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -362,13 +354,13 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV)
-                .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
-                .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID).withNode(Node.LABEL)
-                .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_LABEL)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_LABEL)
-                .withStyleClass(CssBootstrap.CONTROL_LABEL).currentHierarchyUp().withNode(Node.P)
-                .withStyleClass(CssBootstrap.FORM_CONTROL_STATIC).currentHierarchyUp().currentHierarchyUp();
+            .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
+            .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID).withNode(Node.LABEL)
+            .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_LABEL)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_LABEL)
+            .withStyleClass(CssBootstrap.CONTROL_LABEL).currentHierarchyUp().withNode(Node.P)
+            .withStyleClass(CssBootstrap.FORM_CONTROL_STATIC).currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -383,16 +375,16 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV)
-                .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
-                .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID).withNode(Node.LABEL)
-                .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_LABEL)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_LABEL)
-                .withAttribute(AttributeName.FOR, LABELED_CONTAINER_ID_INPUT).withStyleClass(CssBootstrap.CONTROL_LABEL)
-                .currentHierarchyUp().withNode(HTML_INPUT_TEXT)
-                .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_INPUT)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_INPUT).withAttribute(AttributeName.TYPE, "text")
-                .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().currentHierarchyUp();
+            .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
+            .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID).withNode(Node.LABEL)
+            .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_LABEL)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_LABEL)
+            .withAttribute(AttributeName.FOR, LABELED_CONTAINER_ID_INPUT).withStyleClass(CssBootstrap.CONTROL_LABEL)
+            .currentHierarchyUp().withNode(Node.INPUT)
+            .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_INPUT)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_INPUT).withAttribute(AttributeName.TYPE, "text")
+            .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -404,15 +396,15 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV)
-                .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
-                .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID).withStyleClass(CssBootstrap.FORM_GROUP)
-                .withNode(Node.LABEL).withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_LABEL)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_LABEL)
-                .withStyleClass(CssBootstrap.CONTROL_LABEL.getStyleClassBuilder()
-                        .append(CssBootstrap.SR_ONLY.getStyleClass()).getStyleClass())
-                .currentHierarchyUp().withNode(Node.P).withStyleClass(CssBootstrap.FORM_CONTROL_STATIC)
-                .currentHierarchyUp().currentHierarchyUp();
+            .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
+            .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID).withStyleClass(CssBootstrap.FORM_GROUP)
+            .withNode(Node.LABEL).withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_LABEL)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_LABEL)
+            .withStyleClass(CssBootstrap.CONTROL_LABEL.getStyleClassBuilder()
+                .append(CssBootstrap.SR_ONLY.getStyleClass()).getStyleClass())
+            .currentHierarchyUp().withNode(Node.P).withStyleClass(CssBootstrap.FORM_CONTROL_STATIC)
+            .currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -427,18 +419,18 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV)
-                .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
-                .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID).withStyleClass(CssBootstrap.FORM_GROUP)
-                .withNode(Node.LABEL).withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_LABEL)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_LABEL)
-                .withAttribute(AttributeName.FOR, LABELED_CONTAINER_ID_INPUT)
-                .withStyleClass(CssBootstrap.CONTROL_LABEL.getStyleClassBuilder()
-                        .append(CssBootstrap.SR_ONLY.getStyleClass()).getStyleClass())
-                .currentHierarchyUp().withNode(HTML_INPUT_TEXT)
-                .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_INPUT)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_INPUT).withAttribute(AttributeName.TYPE, "text")
-                .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().currentHierarchyUp();
+            .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
+            .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID).withStyleClass(CssBootstrap.FORM_GROUP)
+            .withNode(Node.LABEL).withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_LABEL)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_LABEL)
+            .withAttribute(AttributeName.FOR, LABELED_CONTAINER_ID_INPUT)
+            .withStyleClass(CssBootstrap.CONTROL_LABEL.getStyleClassBuilder()
+                .append(CssBootstrap.SR_ONLY.getStyleClass()).getStyleClass())
+            .currentHierarchyUp().withNode(Node.INPUT)
+            .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_INPUT)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_INPUT).withAttribute(AttributeName.TYPE, "text")
+            .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -454,18 +446,18 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV)
-                .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER).withStyleClass(CssBootstrap.FORM_GROUP)
-                .withNode(Node.LABEL).withAttribute(AttributeName.ID, CLIENT_ID_LABEL)
-                .withAttribute(AttributeName.NAME, CLIENT_ID_LABEL)
-                .withAttribute(AttributeName.FOR, CLIENT_ID + COLON_INPUT)
-                .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
-                .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(HTML_INPUT_TEXT)
-                .withAttribute(AttributeName.ID, CLIENT_ID + COLON_INPUT)
-                .withAttribute(AttributeName.NAME, CLIENT_ID + COLON_INPUT).withAttribute(AttributeName.TYPE, "text")
-                .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().withNode(Node.DIV)
-                .withStyleClass(CssBootstrap.CUI_ADDITIONAL_MESSAGE.getStyleClass())
-                .withAttribute(DATA_HELP_BLOCK, DATA_HELP_BLOCK).withNode(Node.SPAN).withTextContent(NEED_SOME_HELP)
-                .currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
+            .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER).withStyleClass(CssBootstrap.FORM_GROUP)
+            .withNode(Node.LABEL).withAttribute(AttributeName.ID, CLIENT_ID_LABEL)
+            .withAttribute(AttributeName.NAME, CLIENT_ID_LABEL)
+            .withAttribute(AttributeName.FOR, CLIENT_ID + COLON_INPUT)
+            .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
+            .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.INPUT)
+            .withAttribute(AttributeName.ID, CLIENT_ID + COLON_INPUT)
+            .withAttribute(AttributeName.NAME, CLIENT_ID + COLON_INPUT).withAttribute(AttributeName.TYPE, "text")
+            .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().withNode(Node.DIV)
+            .withStyleClass(CssBootstrap.CUI_ADDITIONAL_MESSAGE.getStyleClass())
+            .withAttribute(DATA_HELP_BLOCK, DATA_HELP_BLOCK).withNode(Node.SPAN).withTextContent(NEED_SOME_HELP)
+            .currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -477,13 +469,13 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV)
-                .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
-                .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID).withStyleClass(CssBootstrap.FORM_GROUP)
-                .withNode(Node.LABEL).withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_LABEL)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_LABEL)
-                .withStyleClass(CssBootstrap.CONTROL_LABEL).currentHierarchyUp().withNode(Node.P)
-                .withStyleClass(CssBootstrap.FORM_CONTROL_STATIC).currentHierarchyUp().currentHierarchyUp();
+            .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
+            .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID).withStyleClass(CssBootstrap.FORM_GROUP)
+            .withNode(Node.LABEL).withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_LABEL)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_LABEL)
+            .withStyleClass(CssBootstrap.CONTROL_LABEL).currentHierarchyUp().withNode(Node.P)
+            .withStyleClass(CssBootstrap.FORM_CONTROL_STATIC).currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -498,16 +490,16 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV)
-                .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
-                .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID).withStyleClass(CssBootstrap.FORM_GROUP)
-                .withNode(Node.LABEL).withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_LABEL)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_LABEL)
-                .withAttribute(AttributeName.FOR, LABELED_CONTAINER_ID_INPUT).withStyleClass(CssBootstrap.CONTROL_LABEL)
-                .currentHierarchyUp().withNode(HTML_INPUT_TEXT)
-                .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_INPUT)
-                .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_INPUT).withAttribute(AttributeName.TYPE, "text")
-                .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().currentHierarchyUp();
+            .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER)
+            .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID).withStyleClass(CssBootstrap.FORM_GROUP)
+            .withNode(Node.LABEL).withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_LABEL)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_LABEL)
+            .withAttribute(AttributeName.FOR, LABELED_CONTAINER_ID_INPUT).withStyleClass(CssBootstrap.CONTROL_LABEL)
+            .currentHierarchyUp().withNode(Node.INPUT)
+            .withAttribute(AttributeName.ID, LABELED_CONTAINER_ID_INPUT)
+            .withAttribute(AttributeName.NAME, LABELED_CONTAINER_ID_INPUT).withAttribute(AttributeName.TYPE, "text")
+            .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -519,6 +511,6 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
     @Override
     public void configureComponents(final ComponentConfigDecorator decorator) {
         decorator.registerUIComponent(CuiMessageComponent.class).registerRenderer(CuiMessageRenderer.class)
-                .registerMockRendererForHtmlInputText();
+            .registerMockRendererForHtmlInputText();
     }
 }

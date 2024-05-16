@@ -20,7 +20,7 @@ import de.cuioss.jsf.api.components.css.impl.StyleClassBuilderImpl;
 import de.cuioss.jsf.api.components.util.CuiState;
 import lombok.NonNull;
 
-import javax.faces.component.StateHelper;
+import jakarta.faces.component.StateHelper;
 
 /**
  * Default implementation for {@link ComponentStyleClassProvider}

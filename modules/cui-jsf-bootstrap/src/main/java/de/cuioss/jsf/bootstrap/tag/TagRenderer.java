@@ -25,11 +25,11 @@ import de.cuioss.jsf.bootstrap.tag.support.TagSize;
 import de.cuioss.jsf.bootstrap.tag.support.TagState;
 import de.cuioss.tools.string.MoreStrings;
 
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.faces.render.FacesRenderer;
-import javax.faces.render.Renderer;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
+import jakarta.faces.render.Renderer;
 import java.io.IOException;
 
 /**

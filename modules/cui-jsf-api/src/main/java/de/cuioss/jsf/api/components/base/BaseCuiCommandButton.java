@@ -20,10 +20,10 @@ import de.cuioss.jsf.api.components.myfaces.MyFacesDelegateTitleAdapter;
 import de.cuioss.jsf.api.components.partial.*;
 import lombok.experimental.Delegate;
 
-import javax.faces.component.StateHelper;
-import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlCommandButton;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlCommandButton;
+import jakarta.faces.context.FacesContext;
 
 /**
  * Base class for creating cui variants of {@link HtmlCommandButton}

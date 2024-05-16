@@ -18,7 +18,7 @@ package de.cuioss.jsf.api.components.model.menu;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import de.cuioss.jsf.api.components.support.LabelResolver;
 import lombok.EqualsAndHashCode;

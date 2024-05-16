@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage;
 
 import de.cuioss.jsf.api.application.message.DisplayNameMessageProducer;
 import de.cuioss.jsf.api.components.css.ContextState;

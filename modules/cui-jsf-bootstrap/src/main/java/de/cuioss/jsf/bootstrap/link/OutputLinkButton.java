@@ -15,11 +15,11 @@
  */
 package de.cuioss.jsf.bootstrap.link;
 
-import javax.faces.component.FacesComponent;
-import javax.faces.component.StateHelper;
-import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlOutputLink;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlOutputLink;
+import jakarta.faces.context.FacesContext;
 
 import de.cuioss.jsf.api.components.css.AlignHolder;
 import de.cuioss.jsf.api.components.partial.ComponentBridge;

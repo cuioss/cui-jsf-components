@@ -18,7 +18,7 @@ package de.cuioss.jsf.api.components.model.menu;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import de.cuioss.jsf.api.application.navigation.NavigationUtils;
 import de.cuioss.jsf.api.components.support.LabelResolver;

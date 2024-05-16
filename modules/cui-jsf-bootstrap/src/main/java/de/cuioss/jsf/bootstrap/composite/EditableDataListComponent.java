@@ -17,11 +17,11 @@ package de.cuioss.jsf.bootstrap.composite;
 
 import static de.cuioss.jsf.api.components.model.datalist.AddStatus.CREATED;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.FacesComponent;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.ValidatorException;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.ValidatorException;
 
 import de.cuioss.jsf.api.components.base.BaseCuiNamingContainer;
 import de.cuioss.jsf.api.components.model.datalist.EditableDataListModel;

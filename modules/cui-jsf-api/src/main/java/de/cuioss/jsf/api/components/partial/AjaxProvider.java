@@ -20,14 +20,14 @@ import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.tools.string.Joiner;
 import lombok.NonNull;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.search.SearchExpressionContext;
-import javax.faces.component.search.SearchExpressionHandler;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.search.SearchExpressionContext;
+import jakarta.faces.component.search.SearchExpressionHandler;
 import java.util.HashMap;
 import java.util.Map;
 
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
-import static javax.faces.component.search.SearchExpressionContext.createSearchExpressionContext;
+import static jakarta.faces.component.search.SearchExpressionContext.createSearchExpressionContext;
 
 /**
  * <h2>Summary</h2>

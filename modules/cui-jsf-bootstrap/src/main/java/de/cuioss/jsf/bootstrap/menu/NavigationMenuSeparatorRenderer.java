@@ -17,7 +17,7 @@ package de.cuioss.jsf.bootstrap.menu;
 
 import java.io.IOException;
 
-import javax.faces.render.Renderer;
+import jakarta.faces.render.Renderer;
 
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSeparator;

@@ -17,8 +17,8 @@ package de.cuioss.jsf.api.components;
 
 import static java.util.Objects.requireNonNull;
 
-import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.context.FacesContext;
 
 import lombok.experimental.UtilityClass;
 

@@ -18,8 +18,8 @@ package de.cuioss.jsf.bootstrap.layout;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javax.faces.component.UIForm;
-import javax.faces.event.PreRenderComponentEvent;
+import jakarta.faces.component.UIForm;
+import jakarta.faces.event.PreRenderComponentEvent;
 
 import org.junit.jupiter.api.Test;
 

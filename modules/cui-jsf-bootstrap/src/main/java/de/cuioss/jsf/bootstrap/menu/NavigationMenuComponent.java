@@ -24,7 +24,7 @@ import de.cuioss.jsf.api.components.partial.ModelProvider;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 
-import javax.faces.component.FacesComponent;
+import jakarta.faces.component.FacesComponent;
 import java.io.Serializable;
 import java.util.List;
 

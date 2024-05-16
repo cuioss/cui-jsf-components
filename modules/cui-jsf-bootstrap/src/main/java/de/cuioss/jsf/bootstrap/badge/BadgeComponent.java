@@ -15,7 +15,7 @@
  */
 package de.cuioss.jsf.bootstrap.badge;
 
-import javax.faces.component.FacesComponent;
+import jakarta.faces.component.FacesComponent;
 
 import de.cuioss.jsf.api.components.base.BaseCuiOutputText;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;

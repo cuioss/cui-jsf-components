@@ -20,8 +20,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.Locale;
 import java.util.Set;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 
 import de.cuioss.tools.string.MoreStrings;
 import de.cuioss.uimodel.model.conceptkey.AugmentationKeyConstans;

@@ -15,7 +15,7 @@
  */
 package de.cuioss.jsf.api.components.model.widget;
 
-import javax.faces.event.PostAddToViewEvent;
+import jakarta.faces.event.PostAddToViewEvent;
 
 import de.cuioss.jsf.api.components.model.lazyloading.LazyLoadingModel;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;

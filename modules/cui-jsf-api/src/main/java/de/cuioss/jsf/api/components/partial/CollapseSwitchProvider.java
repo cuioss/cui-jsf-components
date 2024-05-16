@@ -19,7 +19,7 @@ import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.api.ui.model.ToggleSwitch;
 import lombok.NonNull;
 
-import javax.faces.component.StateHelper;
+import jakarta.faces.component.StateHelper;
 
 /**
  * <h2>Summary</h2>

@@ -20,10 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javax.faces.component.html.HtmlInputText;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.PostAddToViewEvent;
-import javax.faces.event.PostValidateEvent;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.event.PostValidateEvent;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

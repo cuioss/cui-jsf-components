@@ -17,8 +17,8 @@ package de.cuioss.jsf.api.application;
 
 import de.cuioss.tools.logging.CuiLogger;
 
-import javax.faces.event.SystemEvent;
-import javax.faces.event.SystemEventListener;
+import jakarta.faces.event.SystemEvent;
+import jakarta.faces.event.SystemEventListener;
 
 /**
  * CuiVersionLoggerEventListener run once at jsf application start<br>

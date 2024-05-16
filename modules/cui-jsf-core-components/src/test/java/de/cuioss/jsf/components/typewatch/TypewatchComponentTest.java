@@ -17,10 +17,10 @@ package de.cuioss.jsf.components.typewatch;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import javax.faces.component.html.HtmlInputText;
-import javax.faces.component.html.HtmlPanelGroup;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.PostAddToViewEvent;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.component.html.HtmlPanelGroup;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.PostAddToViewEvent;
 
 import org.junit.jupiter.api.Test;
 

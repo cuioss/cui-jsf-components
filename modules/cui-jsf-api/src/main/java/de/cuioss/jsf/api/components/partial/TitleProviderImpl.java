@@ -20,7 +20,7 @@ import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.tools.string.MoreStrings;
 import lombok.NonNull;
 
-import javax.faces.component.StateHelper;
+import jakarta.faces.component.StateHelper;
 import java.io.Serializable;
 
 /**

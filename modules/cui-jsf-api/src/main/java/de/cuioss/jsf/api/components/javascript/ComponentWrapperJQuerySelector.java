@@ -15,7 +15,7 @@
  */
 package de.cuioss.jsf.api.components.javascript;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 import de.cuioss.jsf.api.components.util.ComponentWrapper;
 import lombok.AccessLevel;

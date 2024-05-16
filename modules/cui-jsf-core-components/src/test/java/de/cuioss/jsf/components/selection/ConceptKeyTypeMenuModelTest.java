@@ -24,8 +24,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Locale;
 
-import javax.faces.component.html.HtmlInputText;
-import javax.faces.event.ValueChangeEvent;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.event.ValueChangeEvent;
 
 import org.apache.myfaces.test.mock.MockFacesContext;
 import org.junit.jupiter.api.Test;

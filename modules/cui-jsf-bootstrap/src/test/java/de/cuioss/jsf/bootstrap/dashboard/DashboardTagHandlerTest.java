@@ -19,13 +19,13 @@ import static de.cuioss.tools.collect.CollectionLiterals.mutableList;
 
 import java.io.IOException;
 
-import javax.faces.view.facelets.ComponentConfig;
-import javax.faces.view.facelets.CompositeFaceletHandler;
-import javax.faces.view.facelets.FaceletContext;
-import javax.faces.view.facelets.FaceletHandler;
-import javax.faces.view.facelets.Tag;
-import javax.faces.view.facelets.TagAttribute;
-import javax.faces.view.facelets.TagAttributes;
+import jakarta.faces.view.facelets.ComponentConfig;
+import jakarta.faces.view.facelets.CompositeFaceletHandler;
+import jakarta.faces.view.facelets.FaceletContext;
+import jakarta.faces.view.facelets.FaceletHandler;
+import jakarta.faces.view.facelets.Tag;
+import jakarta.faces.view.facelets.TagAttribute;
+import jakarta.faces.view.facelets.TagAttributes;
 
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;

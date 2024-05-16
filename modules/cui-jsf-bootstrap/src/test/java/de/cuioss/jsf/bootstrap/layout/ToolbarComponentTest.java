@@ -18,7 +18,7 @@ package de.cuioss.jsf.bootstrap.layout;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javax.faces.event.PreRenderComponentEvent;
+import jakarta.faces.event.PreRenderComponentEvent;
 
 import org.junit.jupiter.api.Test;
 

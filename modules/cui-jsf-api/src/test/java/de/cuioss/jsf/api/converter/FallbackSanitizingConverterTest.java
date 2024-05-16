@@ -17,9 +17,9 @@ package de.cuioss.jsf.api.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import javax.faces.application.ProjectStage;
-import javax.faces.component.html.HtmlInputText;
-import javax.faces.component.html.HtmlOutputText;
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.component.html.HtmlOutputText;
 
 import org.junit.jupiter.api.Test;
 

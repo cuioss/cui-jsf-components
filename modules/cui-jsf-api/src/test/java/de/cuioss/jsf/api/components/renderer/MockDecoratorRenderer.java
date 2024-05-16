@@ -17,8 +17,8 @@ package de.cuioss.jsf.api.components.renderer;
 
 import java.io.IOException;
 
-import javax.faces.component.html.HtmlInputText;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.context.FacesContext;
 
 import de.cuioss.jsf.api.components.html.Node;
 

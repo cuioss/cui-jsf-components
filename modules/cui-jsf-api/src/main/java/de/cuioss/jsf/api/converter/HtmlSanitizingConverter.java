@@ -17,10 +17,10 @@ package de.cuioss.jsf.api.converter;
 
 import static de.cuioss.tools.string.MoreStrings.isNotBlank;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.ConverterException;
-import javax.faces.convert.FacesConverter;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.ConverterException;
+import jakarta.faces.convert.FacesConverter;
 
 import de.cuioss.jsf.api.security.CuiSanitizer;
 import de.cuioss.tools.logging.CuiLogger;

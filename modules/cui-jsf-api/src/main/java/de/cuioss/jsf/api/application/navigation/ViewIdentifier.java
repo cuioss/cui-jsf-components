@@ -18,8 +18,8 @@ package de.cuioss.jsf.api.application.navigation;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.application.NavigationCase;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.NavigationCase;
+import jakarta.faces.context.FacesContext;
 
 import de.cuioss.jsf.api.common.view.ViewDescriptor;
 import de.cuioss.tools.collect.CollectionLiterals;

@@ -17,9 +17,9 @@ package de.cuioss.jsf.api.components.events;
 
 import java.io.Serializable;
 
-import javax.faces.component.UIComponent;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.FacesListener;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.event.FacesEvent;
+import jakarta.faces.event.FacesListener;
 
 import lombok.Getter;
 

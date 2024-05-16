@@ -31,8 +31,8 @@ import static de.cuioss.jsf.bootstrap.CssBootstrap.MODAL_DIALOG_TITLE;
 
 import java.io.IOException;
 
-import javax.faces.context.FacesContext;
-import javax.faces.render.FacesRenderer;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
 
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;

@@ -34,14 +34,13 @@ import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.mocks.CuiMockSearchExpressionHandler;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.event.PreRenderComponentEvent;
+import jakarta.faces.view.ViewDeclarationLanguage;
 import org.junit.jupiter.api.Test;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlInputText;
-import javax.faces.context.FacesContext;
-import javax.faces.event.PostAddToViewEvent;
-import javax.faces.event.PreRenderComponentEvent;
-import javax.faces.view.ViewDeclarationLanguage;
 
 import static de.cuioss.jsf.bootstrap.layout.input.LabeledContainerComponent.DATA_LABELED_CONTAINER;
 import static de.cuioss.tools.collect.CollectionLiterals.mutableList;
@@ -52,7 +51,7 @@ import static de.cuioss.tools.collect.CollectionLiterals.mutableList;
  * <li>case the response to be rendered to the client (<b>ignore</b> case :
  * state of the response to be saved for processing on subsequent requests)</li>
  * <li>(<b>ignore</b>
- * {@linkplain ViewDeclarationLanguage#buildView(FacesContext, javax.faces.component.UIViewRoot)})
+ * {@linkplain ViewDeclarationLanguage#buildView(FacesContext, jakarta.faces.component.UIViewRoot)})
  * </li>
  * <li>Publish the javax.faces.event.PreRenderViewEvent</li>
  * <li>renderer.encodeBegin(facesContext, component)</li>
@@ -73,8 +72,6 @@ class InputGuardRendererTest extends AbstractComponentRendererTest<LabeledContai
     private static final String CLIENT_ID_LABEL = CLIENT_ID + "_label";
 
     private static final String COLON_INPUT = ":input";
-
-    private static final String HTML_INPUT_TEXT = "HtmlInputText";
 
     private static final String COL_8 = ColumnCssResolver.COL_PREFIX + "8";
 
@@ -100,7 +97,7 @@ class InputGuardRendererTest extends AbstractComponentRendererTest<LabeledContai
             .withAttribute(AttributeName.FOR, CLIENT_ID + COLON_INPUT)
             .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
             .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.DIV)
-            .withStyleClass(CssBootstrap.INPUT_GROUP).withNode(HTML_INPUT_TEXT)
+            .withStyleClass(CssBootstrap.INPUT_GROUP).withNode(Node.INPUT)
             .withAttribute(AttributeName.ID, CLIENT_ID + COLON_INPUT)
             .withAttribute(AttributeName.NAME, CLIENT_ID + COLON_INPUT)
             .withAttribute(AttributeName.DISABLED, AttributeName.DISABLED.getContent())

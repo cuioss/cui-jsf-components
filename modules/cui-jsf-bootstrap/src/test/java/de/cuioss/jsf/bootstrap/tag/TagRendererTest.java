@@ -38,11 +38,11 @@ import de.cuioss.tools.string.Joiner;
 import org.jdom2.Element;
 import org.junit.jupiter.api.Test;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.event.PostAddToViewEvent;
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.event.ValueChangeListener;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.event.ValueChangeEvent;
+import jakarta.faces.event.ValueChangeListener;
 import java.util.Arrays;
 import java.util.List;
 

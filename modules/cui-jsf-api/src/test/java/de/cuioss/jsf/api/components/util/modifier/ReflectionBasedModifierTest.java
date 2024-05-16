@@ -15,16 +15,17 @@
  */
 package de.cuioss.jsf.api.components.util.modifier;
 
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.component.html.HtmlInputText;
+import org.junit.jupiter.api.Test;
+
 import static de.cuioss.jsf.api.components.util.modifier.ComponentModifierAssert.assertContracts;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-import javax.faces.component.html.HtmlInputText;
-
-import org.junit.jupiter.api.Test;
-
+@EnableJsfEnvironment
 class ReflectionBasedModifierTest {
 
     @Test
@@ -36,30 +37,30 @@ class ReflectionBasedModifierTest {
                 return null;
             }
         };
-        var modifer = new ReflectionBasedModifier(component);
-        assertContracts(modifer, component);
-        assertFalse(modifer.isSupportsDisabled());
-        assertFalse(modifer.isSupportsLabel());
-        assertFalse(modifer.isSupportsRole());
-        assertFalse(modifer.isSupportsStyle());
-        assertFalse(modifer.isSupportsStyleClass());
-        assertFalse(modifer.isSupportsTitle());
-        assertFalse(modifer.isEditableValueHolder());
-        assertFalse(modifer.isSupportsResetValue());
+        var modifier = new ReflectionBasedModifier(component);
+        assertContracts(modifier, component);
+        assertFalse(modifier.isSupportsDisabled());
+        assertFalse(modifier.isSupportsLabel());
+        assertFalse(modifier.isSupportsRole());
+        assertFalse(modifier.isSupportsStyle());
+        assertFalse(modifier.isSupportsStyleClass());
+        assertFalse(modifier.isSupportsTitle());
+        assertFalse(modifier.isEditableValueHolder());
+        assertFalse(modifier.isSupportsResetValue());
     }
 
     @Test
     void shouldHandleHtmlInput() {
         UIComponent component = new HtmlInputText();
-        var modifer = new ReflectionBasedModifier(component);
-        assertContracts(modifer, component);
-        assertTrue(modifer.isSupportsDisabled());
-        assertTrue(modifer.isSupportsLabel());
-        assertTrue(modifer.isSupportsRole());
-        assertTrue(modifer.isSupportsStyle());
-        assertTrue(modifer.isSupportsStyleClass());
-        assertTrue(modifer.isSupportsTitle());
-        assertTrue(modifer.isEditableValueHolder());
-        assertTrue(modifer.isSupportsResetValue());
+        var modifier = new ReflectionBasedModifier(component);
+        assertContracts(modifier, component);
+        assertTrue(modifier.isSupportsDisabled());
+        assertTrue(modifier.isSupportsLabel());
+        assertTrue(modifier.isSupportsRole());
+        assertTrue(modifier.isSupportsStyle());
+        assertTrue(modifier.isSupportsStyleClass());
+        assertTrue(modifier.isSupportsTitle());
+        assertTrue(modifier.isEditableValueHolder());
+        assertTrue(modifier.isSupportsResetValue());
     }
 }

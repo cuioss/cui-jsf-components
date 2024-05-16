@@ -18,8 +18,8 @@ package de.cuioss.jsf.api.ui.model;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javax.faces.event.ActionEvent;
-import javax.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.ComponentSystemEvent;
 
 import org.junit.jupiter.api.Test;
 

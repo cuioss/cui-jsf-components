@@ -19,11 +19,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 
 import de.cuioss.jsf.api.common.accessor.ConverterAccessor;
 import de.cuioss.jsf.api.components.support.DummyComponent;

@@ -17,9 +17,9 @@ package de.cuioss.jsf.bootstrap.button;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutcomeTarget;
-import javax.faces.event.PreRenderComponentEvent;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIOutcomeTarget;
+import jakarta.faces.event.PreRenderComponentEvent;
 
 import org.junit.jupiter.api.Test;
 

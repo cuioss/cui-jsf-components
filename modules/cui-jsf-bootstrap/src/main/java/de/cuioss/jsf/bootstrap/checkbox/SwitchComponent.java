@@ -27,11 +27,11 @@ import de.cuioss.tools.collect.MapBuilder;
 import lombok.experimental.Delegate;
 import org.omnifaces.util.State;
 
-import javax.faces.component.FacesComponent;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.PreRenderComponentEvent;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PreRenderComponentEvent;
 import java.io.Serializable;
 import java.util.*;
 
@@ -226,7 +226,7 @@ public class SwitchComponent extends BaseCuiHtmlSelectBooleanCheckboxComponent {
 
     private void replaceClientBehaviorIds() {
         for (final List<ClientBehavior> clientBehavior : getClientBehaviors().values()) {
-            if (clientBehavior instanceof javax.faces.component.behavior.AjaxBehavior ajaxBehavior) {
+            if (clientBehavior instanceof jakarta.faces.component.behavior.AjaxBehavior ajaxBehavior) {
                 ajaxBehavior.setRender(replaceIds(ajaxBehavior.getRender()));
             }
         }

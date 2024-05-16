@@ -18,11 +18,11 @@ package de.cuioss.jsf.api.application.bundle;
 import java.io.Serial;
 import java.util.Optional;
 
-import javax.annotation.Priority;
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import de.cuioss.portal.common.bundle.ResourceBundleLocator;
 import de.cuioss.portal.common.priority.PortalPriorities;
+import jakarta.annotation.Priority;
 import lombok.EqualsAndHashCode;
 
 /**

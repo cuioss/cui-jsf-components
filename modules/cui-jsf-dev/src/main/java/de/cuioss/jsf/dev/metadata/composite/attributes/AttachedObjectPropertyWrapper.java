@@ -19,7 +19,7 @@ import java.beans.FeatureDescriptor;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.view.AttachedObjectTarget;
+import jakarta.faces.view.AttachedObjectTarget;
 
 import de.cuioss.jsf.dev.metadata.composite.util.LabelValueDisplay;
 

@@ -23,8 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.faces.component.UIComponent;
-import javax.faces.view.AttachedObjectTarget;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.view.AttachedObjectTarget;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

@@ -18,7 +18,7 @@ package de.cuioss.jsf.bootstrap.selectize;
 import java.io.Serializable;
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 import de.cuioss.jsf.api.components.javascript.ComponentWrapperJQuerySelector;
 import de.cuioss.jsf.api.components.javascript.ComponentWrapperJQuerySelector.ComponentWrapperJQuerySelectorBuilder;

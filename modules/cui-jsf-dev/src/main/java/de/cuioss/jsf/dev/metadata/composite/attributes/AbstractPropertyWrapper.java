@@ -20,8 +20,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
 
 import de.cuioss.jsf.dev.metadata.composite.util.LabelValueDisplay;
 import lombok.EqualsAndHashCode;

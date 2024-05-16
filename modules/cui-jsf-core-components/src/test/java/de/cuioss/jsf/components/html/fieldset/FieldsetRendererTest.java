@@ -15,8 +15,8 @@
  */
 package de.cuioss.jsf.components.html.fieldset;
 
-import javax.faces.component.UIComponent;
-import javax.faces.event.PreRenderComponentEvent;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.event.PreRenderComponentEvent;
 
 import org.junit.jupiter.api.Test;
 

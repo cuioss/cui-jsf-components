@@ -20,8 +20,8 @@ import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 import java.io.IOException;
 import java.io.StringWriter;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlInputText;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlInputText;
 
 import org.apache.myfaces.test.mock.MockResponseWriter;
 import org.junit.jupiter.api.BeforeEach;

@@ -17,12 +17,12 @@ package de.cuioss.jsf.api.application.message;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
-import javax.inject.Provider;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Provider;
 
 import lombok.NonNull;
 
@@ -48,7 +48,7 @@ public interface MessageProducer extends Serializable {
 
     /**
      * Convenience Method for
-     * {@link #getMessageFor(String, javax.faces.application.FacesMessage.Severity, Object...)}
+     * {@link #getMessageFor(String, jakarta.faces.application.FacesMessage.Severity, Object...)}
      * that sets in addition the Messages into the {@link FacesContext}
      *
      * @param messagekey  must no be null FacesMessage.Severity severity
@@ -72,7 +72,7 @@ public interface MessageProducer extends Serializable {
 
     /**
      * Convenience Method for
-     * {@link #getMessageFor(String, javax.faces.application.FacesMessage.Severity, Object...)}
+     * {@link #getMessageFor(String, jakarta.faces.application.FacesMessage.Severity, Object...)}
      * with {@link FacesMessage#SEVERITY_ERROR}
      *
      * @param messageKey must no be null FacesMessage.Severity severity
@@ -85,7 +85,7 @@ public interface MessageProducer extends Serializable {
 
     /**
      * Convenience Method for
-     * {@link #getMessageFor(String, javax.faces.application.FacesMessage.Severity, Object...)}
+     * {@link #getMessageFor(String, jakarta.faces.application.FacesMessage.Severity, Object...)}
      * with {@link FacesMessage#SEVERITY_INFO}
      *
      * @param messageKey must no be null FacesMessage.Severity severity

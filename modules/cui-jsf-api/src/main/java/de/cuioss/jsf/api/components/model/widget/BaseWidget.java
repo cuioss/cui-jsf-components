@@ -15,7 +15,7 @@
  */
 package de.cuioss.jsf.api.components.model.widget;
 
-import javax.faces.event.ActionEvent;
+import jakarta.faces.event.ActionEvent;
 
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.tools.string.MoreStrings;

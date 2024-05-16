@@ -15,7 +15,7 @@
  */
 package de.cuioss.jsf.bootstrap.layout;
 
-import javax.faces.component.FacesComponent;
+import jakarta.faces.component.FacesComponent;
 
 import de.cuioss.jsf.api.components.css.AlignHolder;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;

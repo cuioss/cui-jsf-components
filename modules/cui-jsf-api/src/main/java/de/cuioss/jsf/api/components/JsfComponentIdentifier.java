@@ -21,32 +21,47 @@ import lombok.experimental.UtilityClass;
  * Defines Constants identifying standard JSF-Identifier
  *
  * @author Oliver Wolff
- *
  */
 @UtilityClass
 public class JsfComponentIdentifier {
 
-    /** "javax.faces.Button" */
-    public static final String BUTTON_RENDERER_TYPE = "javax.faces.Button";
+    /**
+     * "jakarta.faces.Button"
+     */
+    public static final String BUTTON_RENDERER_TYPE = "jakarta.faces.Button";
 
-    /** "javax.faces.Text" */
-    public static final String TEXT_RENDERER_TYPE = "javax.faces.Text";
+    /**
+     * "jakarta.faces.Text"
+     */
+    public static final String TEXT_RENDERER_TYPE = "jakarta.faces.Text";
 
-    /** "javax.faces.Hidden" */
-    public static final String HIDDEN_RENDERER_TYPE = "javax.faces.Hidden";
+    /**
+     * "jakarta.faces.Hidden"
+     */
+    public static final String HIDDEN_RENDERER_TYPE = "jakarta.faces.Hidden";
 
-    /** "javax.faces.Form" */
-    public static final String FORM_RENDERER_TYPE = "javax.faces.Form";
+    /**
+     * "jakarta.faces.Form"
+     */
+    public static final String FORM_RENDERER_TYPE = "jakarta.faces.Form";
 
-    /** "javax.faces.Group" */
-    public static final String GROUP_RENDERER_TYPE = "javax.faces.Group";
+    /**
+     * "jakarta.faces.Group"
+     */
+    public static final String GROUP_RENDERER_TYPE = "jakarta.faces.Group";
 
-    /** "javax.faces.Link" */
-    public static final String LINK_RENDERER_TYPE = "javax.faces.Link";
+    /**
+     * "jakarta.faces.Link"
+     */
+    public static final String LINK_RENDERER_TYPE = "jakarta.faces.Link";
 
-    /** "javax.faces.Checkbox". */
-    public static final String CHECKBOX_RENDERER_TYPE = "javax.faces.Checkbox";
+    /**
+     * "jakarta.faces.Checkbox".
+     */
+    public static final String CHECKBOX_RENDERER_TYPE = "jakarta.faces.Checkbox";
 
-    /** "javax.faces.Input". */
-    public static final String INPUT_FAMILY = "javax.faces.Input";
+    /**
+     * "jakarta.faces.Input".
+     */
+    public static final String INPUT_FAMILY = "jakarta.faces.Input";
 }

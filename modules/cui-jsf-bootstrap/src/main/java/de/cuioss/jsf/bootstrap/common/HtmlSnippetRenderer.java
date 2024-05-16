@@ -17,7 +17,7 @@ package de.cuioss.jsf.bootstrap.common;
 
 import java.io.IOException;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;

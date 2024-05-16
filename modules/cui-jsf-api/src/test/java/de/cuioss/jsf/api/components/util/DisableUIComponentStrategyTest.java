@@ -15,16 +15,15 @@
  */
 package de.cuioss.jsf.api.components.util;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import javax.faces.component.html.HtmlForm;
-import javax.faces.component.html.HtmlInputText;
-import javax.faces.component.html.HtmlSelectOneMenu;
-
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
+import jakarta.faces.component.html.HtmlForm;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.component.html.HtmlSelectOneMenu;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+@EnableJsfEnvironment
 class DisableUIComponentStrategyTest {
 
     @Test

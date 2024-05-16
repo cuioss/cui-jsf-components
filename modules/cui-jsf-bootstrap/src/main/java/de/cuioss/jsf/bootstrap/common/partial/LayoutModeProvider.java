@@ -15,7 +15,7 @@
  */
 package de.cuioss.jsf.bootstrap.common.partial;
 
-import javax.faces.component.StateHelper;
+import jakarta.faces.component.StateHelper;
 
 import de.cuioss.jsf.api.components.partial.ComponentBridge;
 import de.cuioss.jsf.api.components.util.CuiState;

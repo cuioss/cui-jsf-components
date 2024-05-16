@@ -16,7 +16,7 @@
             <!-- Incoming-->
             <dependency>
                 <groupId>de.cuioss</groupId>
-                <artifactId>java-ee-8-bom</artifactId>
+                <artifactId>java-ee-10-bom</artifactId>
                 <version>${version.cui.parent}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -39,6 +39,7 @@
                 <groupId>org.primefaces</groupId>
                 <artifactId>primefaces</artifactId>
                 <version>${version.primefaces}</version>
+                <classifier>jakarta</classifier>
                 <!-- Currently we reference only components from within our
                 composites, therefore runtime is sufficient -->
                 <scope>runtime</scope>

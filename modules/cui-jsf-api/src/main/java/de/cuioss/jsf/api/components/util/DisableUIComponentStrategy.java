@@ -15,41 +15,46 @@
  */
 package de.cuioss.jsf.api.components.util;
 
-import static java.util.Objects.requireNonNull;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.component.html.HtmlSelectOneMenu;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlInputText;
-import javax.faces.component.html.HtmlSelectOneMenu;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Include strategies to access disable attribute of UIComponent and set this
- * true. UIInput doesn't provide the disable attribute and because not each
- * component store the attribute value in AttributeMap but use StateHolder there
+ * true.
+ * UIInput doesn't provide the attribute 'disables' and because not each
+ * component stores the attribute value in AttributeMap but uses StateHolder, there
  * is no common easy way to set component disabled.
  *
  * @author Eugen Fischer
  */
 public enum DisableUIComponentStrategy {
 
-    /** Strategy solve disable HtmlInputText descendants */
+    /**
+     * Strategy solve disable HtmlInputText descendants
+     */
     INPUT_TEXT(HtmlInputText.class) {
-
         @Override
         protected void disable(final UIComponent component) {
             ((HtmlInputText) component).setDisabled(true);
         }
     },
 
-    /** Strategy solve disable HtmlSelectOneMenu descendants */
+    /**
+     * Strategy solve disable HtmlSelectOneMenu descendants
+     */
     SELECT_MENU(HtmlSelectOneMenu.class) {
-
         @Override
         protected void disable(final UIComponent component) {
             ((HtmlSelectOneMenu) component).setDisabled(true);
         }
     };
 
-    /** indicate supported component */
+    /**
+     * indicate supported component
+     */
     private final Class<? extends UIComponent> clazz;
 
     DisableUIComponentStrategy(final Class<? extends UIComponent> klass) {
@@ -69,7 +74,7 @@ public enum DisableUIComponentStrategy {
      * @throws IllegalArgumentException if no fitting strategy to disable the
      *                                  component exists
      */
-    public static final void disableComponent(final UIComponent component) {
+    public static void disableComponent(final UIComponent component) {
         requireNonNull(component, "UIComponent must not be null");
         for (final DisableUIComponentStrategy strategy : DisableUIComponentStrategy.values()) {
             if (strategy.clazz.isAssignableFrom(component.getClass())) {
@@ -78,7 +83,7 @@ public enum DisableUIComponentStrategy {
             }
         }
         throw new IllegalArgumentException(
-                "[%s] has no coresponding disable strategy".formatted(component.getClass().getSimpleName()));
+            "[%s] has no corresponding disable strategy".formatted(component.getClass().getSimpleName()));
     }
 
 }

@@ -17,7 +17,7 @@ package de.cuioss.jsf.api.components.util.modifier;
 
 import java.util.Optional;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 import de.cuioss.jsf.api.components.css.StyleClassProvider;
 import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;

@@ -17,7 +17,7 @@ package de.cuioss.jsf.dev.metadata.composite.attributes;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import javax.faces.view.AttachedObjectTarget;
+import jakarta.faces.view.AttachedObjectTarget;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

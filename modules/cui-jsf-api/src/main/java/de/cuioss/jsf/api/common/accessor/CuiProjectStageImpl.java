@@ -15,8 +15,8 @@
  */
 package de.cuioss.jsf.api.common.accessor;
 
-import javax.faces.application.ProjectStage;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.context.FacesContext;
 
 import de.cuioss.uimodel.application.CuiProjectStage;
 import lombok.EqualsAndHashCode;

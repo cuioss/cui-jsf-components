@@ -16,6 +16,7 @@
 package de.cuioss.jsf.dev.metadata;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
@@ -47,12 +48,18 @@ import lombok.ToString;
 @ToString
 public class TagLib implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -8670139665218311536L;
 
     /**
      * Name space for JSF 2.2 schema
      */
     public static final String JSF_2_2_FACELET_TAGLIB_NAMESPACE = "http://xmlns.jcp.org/xml/ns/javaee";
+
+    /**
+     * Name space for JSF 4.0 schema
+     */
+    public static final String JSF_4_0_FACELET_TAGLIB_NAMESPACE = "https://jakarta.ee/xml/ns/jakartaee";
 
     /**
      * Name space for JSF 2.0 schema

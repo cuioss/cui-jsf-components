@@ -15,7 +15,7 @@
  */
 package de.cuioss.jsf.bootstrap.layout.input.support;
 
-import javax.faces.component.html.HtmlInputText;
+import jakarta.faces.component.html.HtmlInputText;
 
 import lombok.Getter;
 import lombok.Setter;

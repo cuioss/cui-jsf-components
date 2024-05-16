@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:component xmlns:h="http://xmlns.jcp.org/jsf/html"
+<ui:component xmlns:h="jakarta.faces.html"
     xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:development="http://xmlns.jcp.org/jsf/composite/dev-composite"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:development="jakarta.faces.composite/dev-composite"
+    xmlns:ui="jakarta.faces.facelets"
     xmlns:p="http://primefaces.org/ui"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:composite="http://xmlns.jcp.org/jsf/composite">
+    xmlns:f="jakarta.faces.core"
+    xmlns:composite="jakarta.faces.composite">
 
    <!-- Interface -->
    <composite:interface componentType="de.cuioss.cui.dev.compositeComponentTag"
@@ -22,7 +22,7 @@
          shortDescription="Defined whether to show more advanced attribute like Expert, Hidden and Preferred." />
       <composite:attribute name="baseUrl" required="false"
          type="java.lang.String"
-         default="http://xmlns.jcp.org/jsf/composite"
+         default="jakarta.faces.composite"
          shortDescription="Defines the base url for the component. It is used constructing the namespace to be displayed
          as an example." />
       <composite:facet name="sample" required="false"
@@ -30,8 +30,8 @@
       <composite:facet name="sampleSource" required="false"
          shortDescription="The code to be displayed. Take care of proper escaping of special characters.
 			If not defined then the component does search in xhtml source for the 'f:facet name='sample'' string and takes the content from it automaticaly.
-			Please, be aware of harcoded namespaces 'development' for 'http://xmlns.jcp.org/jsf/composite/development' and 'f' for
-			'http://xmlns.jcp.org/jsf/core'." />
+			Please, be aware of harcoded namespaces 'development' for 'jakarta.faces.composite/development' and 'f' for
+			'jakarta.faces.core'." />
    </composite:interface>
 
    <!-- Implementation -->

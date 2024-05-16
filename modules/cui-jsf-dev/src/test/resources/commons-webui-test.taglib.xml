@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<facelet-taglib version="2.2"
-	xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd">
+<facelet-taglib version="4.0"
+	xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facelettaglibrary_4_0.xsd">
 	<namespace>https://cuioss.de/commons-webui-test</namespace>
 	<tag>
 		<description>Converter utilized for dropdown elements.
@@ -269,7 +269,7 @@
 		<tag-name>row</tag-name>
 		<component>
 			<component-type>de.cuioss.jsf.components.ui.layout.Row</component-type>
-			<renderer-type>javax.faces.Group</renderer-type>
+			<renderer-type>jakarta.faces.Group</renderer-type>
 		</component>
         <attribute>
             <description>The component identifier for this component.  This value must be
@@ -304,7 +304,7 @@
 		<tag-name>messages</tag-name>
 		<component>
 			<component-type>de.cuioss.jsf.components.ui.basic.CuiMessages</component-type>
-			<renderer-type>javax.faces.Messages</renderer-type>
+			<renderer-type>jakarta.faces.Messages</renderer-type>
 		</component>
 	</tag>
 	<tag>
@@ -453,7 +453,7 @@
 		<tag-name>formGroup</tag-name>
 		<component>
 			<component-type>de.cuioss.jsf.components.ui.layout.FormGroup</component-type>
-			<renderer-type>javax.faces.Group</renderer-type>
+			<renderer-type>jakarta.faces.Group</renderer-type>
 		</component>
         <attribute>
             <description>The component identifier for this component.  This value must be
@@ -489,7 +489,7 @@
 		<tag-name>inputGroup</tag-name>
 		<component>
 			<component-type>de.cuioss.jsf.components.ui.layout.InputGroup</component-type>
-			<renderer-type>javax.faces.Group</renderer-type>
+			<renderer-type>jakarta.faces.Group</renderer-type>
 		</component>
         <attribute>
             <description>The component identifier for this component.  This value must be
@@ -526,7 +526,7 @@
 		<tag-name>quickControlGroup</tag-name>
 		<component>
 			<component-type>de.cuioss.jsf.components.ui.layout.QuickControlGroup</component-type>
-			<renderer-type>javax.faces.Group</renderer-type>
+			<renderer-type>jakarta.faces.Group</renderer-type>
 		</component>
         <attribute>
             <description>The component identifier for this component.  This value must be
@@ -576,7 +576,7 @@
 		<tag-name>column</tag-name>
 		<component>
 			<component-type>de.cuioss.jsf.components.ui.layout.Column</component-type>
-			<renderer-type>javax.faces.Group</renderer-type>
+			<renderer-type>jakarta.faces.Group</renderer-type>
 		</component>
         <attribute>
             <description>The component identifier for this component.  This value must be
@@ -641,7 +641,7 @@
 		<tag-name>commandButton</tag-name>
 		<component>
 			<component-type>de.cuioss.jsf.components.ui.basic.CuiCommandButton</component-type>
-			<renderer-type>javax.faces.Link</renderer-type>
+			<renderer-type>jakarta.faces.Link</renderer-type>
 		</component>
         <attribute>
             <description>The component identifier for this component.  This value must be
@@ -800,7 +800,7 @@
                 false
             </required>
                 <method-signature>
-                    void actionListener(javax.faces.event.ActionEvent)
+                    void actionListener(jakarta.faces.event.ActionEvent)
                 </method-signature>
         </attribute>
         <attribute>
@@ -1269,7 +1269,7 @@
             </required>
 
                 <type>
-                    javax.faces.component.UIComponent
+                    jakarta.faces.component.UIComponent
                 </type>
 
         </attribute>
@@ -1284,7 +1284,7 @@
 		<tag-name>button</tag-name>
 		<component>
 			<component-type>de.cuioss.jsf.components.ui.basic.CuiButton</component-type>
-			<renderer-type>javax.faces.Link</renderer-type>
+			<renderer-type>jakarta.faces.Link</renderer-type>
 		</component>
         <attribute>
             <description>The component identifier for this component.  This value must be
@@ -1871,7 +1871,7 @@
                 false
             </required>
             <type>
-                javax.faces.component.UIComponent
+                jakarta.faces.component.UIComponent
             </type>
         </attribute>
 	</tag>
@@ -1983,7 +1983,7 @@
 	<tag-name>genderIcon</tag-name>
 	<component>
 		<component-type>de.cuioss.jsf.components.ui.icon.GenderIcon</component-type>
-		<renderer-type>javax.faces.Text</renderer-type>
+		<renderer-type>jakarta.faces.Text</renderer-type>
 	</component>
 		<attribute>
             <description>The component identifier for this component.  This value must be
@@ -2070,7 +2070,7 @@
 		<tag-name>toolbar</tag-name>
 		<component>
 			<component-type>de.cuioss.jsf.components.ui.layout.Toolbar</component-type>
-			<renderer-type>javax.faces.Group</renderer-type>
+			<renderer-type>jakarta.faces.Group</renderer-type>
 		</component>
         <attribute>
             <description>The component identifier for this component.  This value must be
@@ -2146,7 +2146,7 @@
 	<tag-name>labeledIcon</tag-name>
 	<component>
 		<component-type>de.cuioss.jsf.components.ui.LabeledIcon</component-type>
-		<renderer-type>javax.faces.Group</renderer-type>
+		<renderer-type>jakarta.faces.Group</renderer-type>
 	</component>
 	  <attribute>
             <description>The component identifier for this component.  This value must be
@@ -2747,7 +2747,7 @@
 			<tag-name>controlGroup</tag-name>
 			<component>
 				<component-type>de.cuioss.jsf.components.ui.layout.ControlGroup</component-type>
-				<renderer-type>javax.faces.Group</renderer-type>
+				<renderer-type>jakarta.faces.Group</renderer-type>
 			</component>
 			<attribute>
 				<description>The component identifier for this component.  This value must be
@@ -2812,7 +2812,7 @@
 		<tag-name>dateOfBirth</tag-name>
 		<component>
 			<component-type>de.cuioss.jsf.components.ui.basic.DateOfBirthInput</component-type>
-			<renderer-type>javax.faces.Group</renderer-type>
+			<renderer-type>jakarta.faces.Group</renderer-type>
 		</component>
         <attribute>
             <description>The component identifier for this component.  This value must be
@@ -2899,12 +2899,12 @@
 		 <description>
 		 Deprecated: This component introduces more problems than it solves, Therefore deprecated in cui 4.2.0
 		Use standard h:selectOneMenu instead
-		 An Extension to javax.faces.component.html.HtmlSelectOneMenu introducing our own
+		 An Extension to jakarta.faces.component.html.HtmlSelectOneMenu introducing our own
 		 de.cuioss.jsf.components.selection.SelectMenuModel and providing some convinience methods. </description>
 		 <tag-name>selectOneMenu</tag-name>
 		 <component>
 		 	<component-type>de.cuioss.jsf.components.ui.basic.SelectOneMenu</component-type>
-		 	<renderer-type>javax.faces.Menu</renderer-type>
+		 	<renderer-type>jakarta.faces.Menu</renderer-type>
 		 </component>
 		<attribute>
             <description>
@@ -3035,7 +3035,7 @@
             </required>
 
                 <method-signature>
-                    void validate(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)
+                    void validate(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent, java.lang.Object)
                 </method-signature>
 
         </attribute>
@@ -3098,7 +3098,7 @@
             </required>
 
                 <method-signature>
-                    void valueChange(javax.faces.event.ValueChangeEvent)
+                    void valueChange(jakarta.faces.event.ValueChangeEvent)
                 </method-signature>
 
         </attribute>
@@ -3574,7 +3574,7 @@
             </required>
 
                 <type>
-                    javax.faces.component.UIComponent
+                    jakarta.faces.component.UIComponent
                 </type>
 
         </attribute>

@@ -20,8 +20,8 @@ import static de.cuioss.test.jsf.renderer.util.HtmlTreeAsserts.assertHtmlTreeEqu
 import java.io.IOException;
 import java.io.StringWriter;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlInputText;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlInputText;
 
 import org.apache.myfaces.test.mock.MockResponseWriter;
 import org.junit.jupiter.api.Test;
@@ -67,7 +67,7 @@ class BaseDecoratorRendererTest extends AbstractRendererTestBase<MockDecoratorRe
      * @param component must not be null
      * @param renderer must not be null
      * @return the resulting {@link HtmlTreeBuilder}
-     * @throws IOException from underlying {@link javax.faces.context.ResponseWriter}
+     * @throws IOException from underlying {@link jakarta.faces.context.ResponseWriter}
      */
     protected HtmlTreeBuilder renderToTreeBuilder(final UIComponent component, final MockDecoratorRenderer renderer)
             throws IOException {

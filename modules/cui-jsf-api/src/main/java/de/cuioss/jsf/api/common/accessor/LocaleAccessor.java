@@ -17,8 +17,8 @@ package de.cuioss.jsf.api.common.accessor;
 
 import java.util.Locale;
 
-import javax.faces.application.ViewHandler;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.context.FacesContext;
 
 import lombok.Getter;
 

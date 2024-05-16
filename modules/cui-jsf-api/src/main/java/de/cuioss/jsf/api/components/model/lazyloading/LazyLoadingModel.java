@@ -17,8 +17,8 @@ package de.cuioss.jsf.api.components.model.lazyloading;
 
 import java.io.Serializable;
 
-import javax.faces.event.ActionEvent;
-import javax.faces.event.ActionListener;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.ActionListener;
 
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;

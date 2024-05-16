@@ -26,20 +26,20 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-import javax.faces.component.UIInput;
-import javax.faces.component.html.HtmlCommandButton;
-import javax.faces.component.html.HtmlForm;
-import javax.faces.component.html.HtmlInputHidden;
-import javax.faces.component.html.HtmlInputText;
-import javax.faces.component.html.HtmlOutcomeTargetButton;
-import javax.faces.component.html.HtmlOutputLink;
-import javax.faces.component.html.HtmlOutputText;
-import javax.faces.component.html.HtmlPanelGroup;
-import javax.faces.component.html.HtmlSelectBooleanCheckbox;
-import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.component.html.HtmlCommandButton;
+import jakarta.faces.component.html.HtmlForm;
+import jakarta.faces.component.html.HtmlInputHidden;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.component.html.HtmlOutcomeTargetButton;
+import jakarta.faces.component.html.HtmlOutputLink;
+import jakarta.faces.component.html.HtmlOutputText;
+import jakarta.faces.component.html.HtmlPanelGroup;
+import jakarta.faces.component.html.HtmlSelectBooleanCheckbox;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.Renderer;
 
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.util.ComponentUtility;

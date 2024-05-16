@@ -18,7 +18,7 @@ package de.cuioss.jsf.test;
 import java.util.Collections;
 import java.util.Set;
 
-import javax.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.RequestScoped;
 
 import de.cuioss.portal.common.bundle.ResourceBundleWrapper;
 import lombok.EqualsAndHashCode;

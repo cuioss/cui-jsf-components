@@ -17,7 +17,7 @@ package de.cuioss.jsf.api.ui.model;
 
 import java.io.Serializable;
 
-import javax.faces.model.SelectItem;
+import jakarta.faces.model.SelectItem;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

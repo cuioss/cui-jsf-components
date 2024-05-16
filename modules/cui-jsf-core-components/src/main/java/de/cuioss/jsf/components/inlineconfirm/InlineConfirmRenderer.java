@@ -21,8 +21,8 @@ import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
 
 import java.io.IOException;
 
-import javax.faces.context.FacesContext;
-import javax.faces.render.FacesRenderer;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
 
 import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;

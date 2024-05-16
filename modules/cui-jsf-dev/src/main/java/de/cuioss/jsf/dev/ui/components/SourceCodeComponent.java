@@ -42,9 +42,9 @@ import org.jdom2.xpath.XPathFactory;
 import org.omnifaces.util.State;
 import org.xml.sax.InputSource;
 
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.FacesComponent;
-import javax.faces.component.StateHelper;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.StateHelper;
 import javax.xml.XMLConstants;
 import java.io.IOException;
 import java.io.Writer;

@@ -24,8 +24,8 @@ import de.cuioss.jsf.bootstrap.icon.support.IconSize;
 import de.cuioss.tools.string.MoreStrings;
 import lombok.experimental.Delegate;
 
-import javax.faces.component.FacesComponent;
-import javax.faces.event.PreRenderComponentEvent;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.event.PreRenderComponentEvent;
 
 /**
  * <p>

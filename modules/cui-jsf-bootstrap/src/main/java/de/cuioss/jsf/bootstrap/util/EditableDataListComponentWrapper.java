@@ -15,8 +15,8 @@
  */
 package de.cuioss.jsf.bootstrap.util;
 
-import javax.faces.context.FacesContext;
-import javax.faces.validator.ValidatorException;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.ValidatorException;
 
 import de.cuioss.jsf.api.components.util.ComponentModifier;
 import de.cuioss.jsf.api.components.util.modifier.CuiInterfaceBasedModifier;
