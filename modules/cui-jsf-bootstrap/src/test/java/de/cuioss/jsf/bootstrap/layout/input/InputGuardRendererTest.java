@@ -15,7 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.layout.input;
 
-import de.cuioss.jsf.api.components.JsfComponentIdentifier;
 import de.cuioss.jsf.api.components.css.impl.StyleClassBuilderImpl;
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
@@ -102,7 +101,7 @@ class InputGuardRendererTest extends AbstractComponentRendererTest<LabeledContai
             .withAttribute(AttributeName.NAME, CLIENT_ID + COLON_INPUT)
             .withAttribute(AttributeName.DISABLED, AttributeName.DISABLED.getContent())
             .withAttribute(AttributeName.TYPE, "text").withStyleClass(CssBootstrap.FORM_CONTROL)
-            .currentHierarchyUp().withNode("InputGuardComponent")
+            .currentHierarchyUp().withNode(Node.INPUT)
             .withAttribute(AttributeName.ID, CLIENT_ID + ":guarded_value")
             .withAttribute(AttributeName.NAME, CLIENT_ID + ":guarded_value")
             .withAttribute(AttributeName.VALUE, Boolean.TRUE.toString())
@@ -130,8 +129,6 @@ class InputGuardRendererTest extends AbstractComponentRendererTest<LabeledContai
     public void configureComponents(final ComponentConfigDecorator decorator) {
         decorator.registerUIComponent(CuiMessageComponent.class).registerRenderer(CuiMessageRenderer.class)
             .registerUIComponent(CommandButton.class)
-            .registerMockRenderer(BootstrapFamily.COMPONENT_FAMILY, BootstrapFamily.COMMAND_BUTTON_RENDERER)
-            .registerMockRenderer(JsfComponentIdentifier.INPUT_FAMILY, JsfComponentIdentifier.HIDDEN_RENDERER_TYPE)
-            .registerMockRendererForHtmlInputText();
+            .registerMockRenderer(BootstrapFamily.COMPONENT_FAMILY, BootstrapFamily.COMMAND_BUTTON_RENDERER);
     }
 }

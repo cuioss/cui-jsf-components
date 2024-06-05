@@ -39,7 +39,6 @@ class LayoutComponentRendererTest extends AbstractComponentRendererTest<LayoutCo
     void shouldRenderWithChildren() {
         var component = new RowComponent();
         component.getChildren().add(new HtmlOutputText());
-        getComponentConfigDecorator().registerMockRendererForHtmlOutputText();
         var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.ROW)
             .withNode(Node.SPAN);
         assertRenderResult(component, expected.getDocument());

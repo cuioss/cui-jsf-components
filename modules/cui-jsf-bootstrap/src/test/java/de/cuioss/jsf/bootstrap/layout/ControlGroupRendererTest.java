@@ -43,7 +43,6 @@ class ControlGroupRendererTest extends AbstractComponentRendererTest<ControlGrou
     void shouldRenderWithChildren() {
         final var component = new ControlGroupComponent();
         component.getChildren().add(new HtmlOutputText());
-        getComponentConfigDecorator().registerMockRendererForHtmlOutputText();
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.FORM_GROUP)
             .withNode(Node.DIV).withStyleClass(MINIMAL_COLUMN_CSS).withNode(Node.SPAN);
         assertRenderResult(component, expected.getDocument());

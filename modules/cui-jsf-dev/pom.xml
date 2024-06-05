@@ -36,5 +36,16 @@
             <groupId>jaxen</groupId>
             <artifactId>jaxen</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-impl</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <classifier>jakarta</classifier>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

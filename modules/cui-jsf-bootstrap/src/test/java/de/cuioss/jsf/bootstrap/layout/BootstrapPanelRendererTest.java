@@ -89,12 +89,12 @@ class BootstrapPanelRendererTest extends AbstractComponentRendererTest<Bootstrap
         component.decode(getFacesContext());
         params.isCollapsed = false;
         params.renderSpinner = false;
-        // --> render childs
+        // --> render children
         component.setCollapsed(params.isCollapsed);
         expected = getHtmlTree(params);
         assertRenderResult(component, expected.getDocument());
         params.isCollapsed = true;
-        // --> render childs also!
+        // --> render children also!
         component.setCollapsed(params.isCollapsed);
         expected = getHtmlTree(params);
         assertRenderResult(component, expected.getDocument());
@@ -175,8 +175,7 @@ class BootstrapPanelRendererTest extends AbstractComponentRendererTest<Bootstrap
     void shouldRenderWithChildren() {
         final var component = new BootstrapPanelComponent();
         component.getChildren().add(new HtmlOutputText());
-        getComponentConfigDecorator().registerMockRendererForHtmlOutputText().registerBehavior(AjaxBehavior.BEHAVIOR_ID,
-            AjaxBehavior.class);
+        getComponentConfigDecorator().registerBehavior(AjaxBehavior.BEHAVIOR_ID, AjaxBehavior.class);
         final var params = new PanelParams();
         params.renderHeader = false;
         params.isCollapsed = false;

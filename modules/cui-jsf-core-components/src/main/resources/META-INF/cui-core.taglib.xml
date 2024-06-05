@@ -14,7 +14,7 @@
         </converter>
     </tag>
     <tag>
-        <description><![CDATA[Converter utilized for drop-down elements. The instanceMap is utilized for the
+        <description><![CDATA[Converter used for drop-down elements. The instanceMap is utilized for the
             mapping between the serializable keys and the corresponding model classes. The keys must
             be Serializable because they are sent to the client. The corresponding toString() method
             must return a String representation that can be used for key lookup within the map. The

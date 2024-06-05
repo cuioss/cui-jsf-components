@@ -260,7 +260,6 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
         final var prependId = "prependId";
         prepend.setId(prependId);
         final var prependClientId = LABELED_CONTAINER_ID + ":" + prependId;
-        getComponentConfigDecorator().registerMockRendererForHtmlOutputText();
         component.getFacets().put("prepend", prepend);
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
@@ -507,7 +506,6 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
 
     @Override
     public void configureComponents(final ComponentConfigDecorator decorator) {
-        decorator.registerUIComponent(CuiMessageComponent.class).registerRenderer(CuiMessageRenderer.class)
-            .registerMockRendererForHtmlInputText();
+        decorator.registerUIComponent(CuiMessageComponent.class).registerRenderer(CuiMessageRenderer.class);
     }
 }

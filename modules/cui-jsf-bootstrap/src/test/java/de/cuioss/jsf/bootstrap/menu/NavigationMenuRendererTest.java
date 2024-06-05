@@ -417,8 +417,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
             .registerMockRenderer(UIOutcomeTarget.COMPONENT_FAMILY, "jakarta.faces.Link");
         decorator.registerUIComponent(HtmlOutputLink.COMPONENT_TYPE, HtmlOutputLink.class)
             .registerMockRenderer(UIOutput.COMPONENT_FAMILY, "jakarta.faces.Link");
-        decorator.registerUIComponent(HtmlOutputText.COMPONENT_TYPE, HtmlOutputText.class)
-            .registerMockRendererForHtmlOutputText();
+        decorator.registerUIComponent(HtmlOutputText.COMPONENT_TYPE, HtmlOutputText.class);
         decorator.registerUIComponent(NavigationMenuComponent.class).registerRenderer(NavigationMenuRenderer.class);
         decorator.registerUIComponent(IconComponent.class).registerRenderer(IconRenderer.class);
     }

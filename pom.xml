@@ -40,7 +40,6 @@
         <module>modules</module>
         <module>web-modules</module>
     </modules>
-
     <profiles>
         <profile>
             <id>javadoc-mm-reporting</id>
