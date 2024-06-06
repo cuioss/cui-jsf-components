@@ -1,6 +1,6 @@
 /**
  * Used for initializing all panel components with asynchronous update support.
- * The implementations assumes JQuery and jsf.js being present.
+ * The implementation assumes JQuery and faces.js being present.
  */
 
 /**

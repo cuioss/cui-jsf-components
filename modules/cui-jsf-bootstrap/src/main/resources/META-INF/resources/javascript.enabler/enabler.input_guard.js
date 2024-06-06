@@ -1,6 +1,6 @@
 /**
  * Used for initializing GuardedInput components.
- * The implementations assumes JQuery, jsf.js and cui.jsf being present.
+ * The implementation assumes JQuery, faces.js and cui.jsf being present.
  */
 let intitializeInputGuards = function () {
     jQuery('[data-input-guard-button]').each(function () {
@@ -12,7 +12,7 @@ let intitializeInputGuards = function () {
             let guardInput = guardButton.closest('.input-group').find('[data-input-guard-value]');
 
             guardInput.val(targetValue);
-            
+
             let updateTarget = guardInput.data('cui-ajax-update');
             let processTarget = guardInput.data('cui-ajax-process');
             jsf.ajax.request(guardInput.attr('id'), null, {

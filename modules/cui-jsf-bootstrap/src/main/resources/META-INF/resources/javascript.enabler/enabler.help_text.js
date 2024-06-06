@@ -1,6 +1,6 @@
 /**
  * Used for initializing GuardedInput components.
- * The implementation assumes JQuery, jsf.js and cui.jsf being present.
+ * The implementation assumes JQuery, faces.js and cui.jsf being present.
  */
 let intitializeHelpTexts = function () {
     jQuery('[data-help-input-button]').each(function () {
