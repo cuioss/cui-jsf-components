@@ -21,8 +21,7 @@ namespace Cui {
                         const hasJSClickEvents: boolean = jQuery(keyBound).is("[onclick]");
                         if (hasJQClickEvents || hasJSClickEvents) {
                             jQuery(keyBound).trigger("click");
-                        }
-                        else {
+                        } else {
                             window.location.href = jQuery(keyBound).attr("href");
                         }
                     }
@@ -36,7 +35,10 @@ namespace Cui {
                  * NAME: Bootstrap 3 Triple Nested Sub-Menus
                  * This script will active Triple level multi drop-down menus in Bootstrap 3.*
                  */
-                jQuery('ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event: { preventDefault: () => void; stopPropagation: () => void; }) {
+                jQuery('ul.dropdown-menu [data-toggle=dropdown]').on('click', function (event: {
+                    preventDefault: () => void;
+                    stopPropagation: () => void;
+                }) {
                     // Avoid following the href location when clicking
                     event.preventDefault();
                     // Avoid having the menu to close when clicking
@@ -105,7 +107,7 @@ namespace Cui {
                 icon.toggleClass("cui-icon-triangle_s", collapsed);
                 if (Cui.Utilities.parseBoolean(asyncUpdate)) {
 
-                    jsf.ajax.request(jQuery(parent).attr('id'), null, { execute: '@this' });
+                    faces.ajax.request(jQuery(parent).attr('id'), null, {execute: '@this'});
                 }
                 if (callback) {
                     callback();

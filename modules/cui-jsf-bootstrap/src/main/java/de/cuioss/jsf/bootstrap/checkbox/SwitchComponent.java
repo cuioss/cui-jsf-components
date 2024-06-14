@@ -24,14 +24,14 @@ import de.cuioss.jsf.api.components.support.LabelResolver;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.common.partial.ColumnProvider;
 import de.cuioss.tools.collect.MapBuilder;
-import lombok.experimental.Delegate;
-import org.omnifaces.util.State;
-
 import jakarta.faces.component.FacesComponent;
 import jakarta.faces.component.behavior.ClientBehavior;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.ListenerFor;
 import jakarta.faces.event.PreRenderComponentEvent;
+import lombok.experimental.Delegate;
+import org.omnifaces.util.State;
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -215,7 +215,7 @@ public class SwitchComponent extends BaseCuiHtmlSelectBooleanCheckboxComponent {
      */
     public Map<String, Object> resolvePassThroughAttributes() {
         return new MapBuilder<String, Object>().putAll(getPassThroughAttributes())
-                .put(DATA_SWITCH_DISABLED, String.valueOf(isDisabled())).toImmutableMap();
+            .put(DATA_SWITCH_DISABLED, String.valueOf(isDisabled())).toImmutableMap();
     }
 
     @Override

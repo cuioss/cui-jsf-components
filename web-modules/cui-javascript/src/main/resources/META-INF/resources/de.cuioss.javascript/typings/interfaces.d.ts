@@ -9,4 +9,4 @@ interface JsfStatic {
 	ajax:JsfAjax;
 }
 
-declare var jsf: JsfStatic;
+declare var faces: JsfStatic;

@@ -16,7 +16,7 @@ let cuiUpdateCollapsiblePanelServerState = function (panelId, isExpanded, event)
     options["render"] = panelId; //re-render component
     options[panelId + "_isexpanded"] = isExpanded;
 
-    jsf.ajax.request(panelId, null, options);
+    faces.ajax.request(panelId, null, options);
     if (event) {
         event.stopPropagation();
     }
@@ -43,7 +43,7 @@ let cuiUpdateCollapsiblePanelState = function (panelId, isExpanded, event) {
 /**
  * This is called for each AJAX request/response and after page load.
  * Adding bootstrap collapse/expand listeners to all panel components.
- * After a click the collapse state is updated immediately.
+ * After a click, the collapse state is updated immediately.
  * If the component has asynUpdate=true the server state is updated after full expand/collapse.
  */
 let intitializeCuiPanelUpdate = function () {

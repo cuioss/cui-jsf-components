@@ -15,7 +15,7 @@ let intitializeInputGuards = function () {
 
             let updateTarget = guardInput.data('cui-ajax-update');
             let processTarget = guardInput.data('cui-ajax-process');
-            jsf.ajax.request(guardInput.attr('id'), null, {
+            faces.ajax.request(guardInput.attr('id'), null, {
                 execute: processTarget,
                 target: guardInput.attr('id'),
                 render: updateTarget,
