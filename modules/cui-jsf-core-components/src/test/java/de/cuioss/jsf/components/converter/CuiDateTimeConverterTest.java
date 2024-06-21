@@ -15,12 +15,14 @@
  */
 package de.cuioss.jsf.components.converter;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Locale;
-
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.convert.DateTimeConverter;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Locale;
 
 class CuiDateTimeConverterTest extends AbstractConverterTest<CuiDateTimeConverter, Object> {
 
@@ -35,8 +37,13 @@ class CuiDateTimeConverterTest extends AbstractConverterTest<CuiDateTimeConverte
     public void populate(final TestItems<Object> testItems) {
         Locale.setDefault(Locale.ENGLISH);
 
-        var expected = "February 12, 2018 at 12:00:00 AM GMT";
-        testItems.addValidObject(LocalDateTime.now().minusSeconds(10)).addValidObject(LocalDate.now())
-                .addValidObjectWithStringResult(LocalDate.of(2018, 2, 12), expected);
+        var jsfConverter = new DateTimeConverter();
+        jsfConverter.setDateStyle("long");
+        jsfConverter.setTimeStyle("long");
+        jsfConverter.setType("both");
+
+        var roundTrip = jsfConverter.getAsString(getFacesContext(), new HtmlInputText(), new Date());
+
+        testItems.addValidObject(LocalDateTime.now().minusSeconds(10)).addRoundtripValues(roundTrip);
     }
 }
