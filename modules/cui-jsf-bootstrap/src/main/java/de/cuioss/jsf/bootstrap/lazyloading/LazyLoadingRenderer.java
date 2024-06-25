@@ -15,17 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.lazyloading;
 
-import static de.cuioss.jsf.bootstrap.lazyloading.LazyLoadingComponent.DATA_RESULT_NOTIFICATION_BOX;
-import static de.cuioss.jsf.bootstrap.lazyloading.LazyLoadingComponent.ID_SUFFIX_ISLOADED;
-import static de.cuioss.jsf.bootstrap.lazyloading.LazyLoadingComponent.WAITING_INDICATOR_ID;
-
-import java.io.IOException;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.ActionEvent;
-import jakarta.faces.render.FacesRenderer;
-
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;
@@ -34,6 +23,14 @@ import de.cuioss.jsf.api.components.util.ComponentWrapper;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.jsf.bootstrap.notification.NotificationBoxComponent;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.render.FacesRenderer;
+
+import java.io.IOException;
+
+import static de.cuioss.jsf.bootstrap.lazyloading.LazyLoadingComponent.*;
 
 /**
  * Renderer for {@linkplain LazyLoadingComponent}.
@@ -41,7 +38,7 @@ import de.cuioss.jsf.bootstrap.notification.NotificationBoxComponent;
 @FacesRenderer(rendererType = BootstrapFamily.LAZYLOADING_RENDERER, componentFamily = BootstrapFamily.COMPONENT_FAMILY)
 public class LazyLoadingRenderer extends BaseDecoratorRenderer<LazyLoadingComponent> {
 
-    private static final String DATA_LAZY_LOADING_CONTENT = "data-lazyloading-content";
+    static final String DATA_LAZY_LOADING_CONTENT = "data-lazy_loading-content";
 
     private static final String LAZY_LOADING_CONTENT_ID = "content";
 
@@ -49,7 +46,7 @@ public class LazyLoadingRenderer extends BaseDecoratorRenderer<LazyLoadingCompon
 
     private static final String DATA_ASYNC = "data-async";
 
-    private static final String DATA_WAITING_INDICATOR_ID = "data-lazyloading-waiting-indicator-id";
+    static final String DATA_WAITING_INDICATOR_ID = "data-lazy_loading-waiting-indicator-id";
 
     public LazyLoadingRenderer() {
         super(true);
@@ -57,8 +54,8 @@ public class LazyLoadingRenderer extends BaseDecoratorRenderer<LazyLoadingCompon
 
     @Override
     protected void doEncodeBegin(final FacesContext context,
-            final DecoratingResponseWriter<LazyLoadingComponent> writer, final LazyLoadingComponent component)
-            throws IOException {
+                                 final DecoratingResponseWriter<LazyLoadingComponent> writer, final LazyLoadingComponent component)
+        throws IOException {
         writer.withStartElement(Node.DIV);
         writer.withClientId();
         if (!component.shouldRenderWaitingIndicator(context)) {
@@ -71,23 +68,23 @@ public class LazyLoadingRenderer extends BaseDecoratorRenderer<LazyLoadingCompon
             throw new IllegalStateException("Waiting indicator not found!");
         }
         writer.writeAttribute(DATA_WAITING_INDICATOR_ID, waitingIndicatorComponentResult.get().getClientId(),
-                DATA_WAITING_INDICATOR_ID);
+            DATA_WAITING_INDICATOR_ID);
         writer.withStyleClass(CssCuiBootstrap.CUI_LAZY_LOADING.getStyleClassBuilder().append(component.getStyleClass())
-                .append(CssCuiBootstrap.UI_HIDDEN_CONTAINER));
+            .append(CssCuiBootstrap.UI_HIDDEN_CONTAINER));
         writer.withAttributeStyle(component.getStyle());
         writer.withPassThroughAttributes();
     }
 
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<LazyLoadingComponent> writer,
-            final LazyLoadingComponent component) throws IOException {
+                               final LazyLoadingComponent component) throws IOException {
         writer.withEndElement(Node.DIV);
     }
 
     @Override
     protected void doEncodeChildren(final FacesContext context,
-            final DecoratingResponseWriter<LazyLoadingComponent> writer, final LazyLoadingComponent component)
-            throws IOException {
+                                    final DecoratingResponseWriter<LazyLoadingComponent> writer, final LazyLoadingComponent component)
+        throws IOException {
 
         var waitingIndicatorComponentResult = component.retrieveWaitingIndicator();
         if (waitingIndicatorComponentResult.isEmpty()) {
@@ -95,7 +92,7 @@ public class LazyLoadingRenderer extends BaseDecoratorRenderer<LazyLoadingCompon
         }
         var waitingIndicatorComponent = waitingIndicatorComponentResult.get();
         waitingIndicatorComponent.getAttributes().put("style",
-                "display: " + (component.shouldRenderWaitingIndicator(context) ? "block;" : "none;"));
+            "display: " + (component.shouldRenderWaitingIndicator(context) ? "block;" : "none;"));
 
         if (!component.shouldRenderWaitingIndicator(context)) { // render all children including
             // waiting indicator
@@ -104,7 +101,7 @@ public class LazyLoadingRenderer extends BaseDecoratorRenderer<LazyLoadingCompon
             writer.withClientId(LAZY_LOADING_CONTENT_ID);
             writer.writeAttribute(DATA_LAZY_LOADING_CONTENT, DATA_LAZY_LOADING_CONTENT, DATA_LAZY_LOADING_CONTENT);
             var resultNotificationBoxComponent = (NotificationBoxComponent) component.retrieveNotificationBox()
-                    .orElseThrow(IllegalStateException::new);
+                .orElseThrow(IllegalStateException::new);
             if (null != component.evaluateNotificationBoxValue()) {
                 resultNotificationBoxComponent.setState(component.evaluateNotificationBoxState().name());
                 resultNotificationBoxComponent.setContentValue(component.evaluateNotificationBoxValue());
@@ -117,8 +114,8 @@ public class LazyLoadingRenderer extends BaseDecoratorRenderer<LazyLoadingCompon
             if (component.evaluateRenderContent()) {
                 for (final UIComponent child : component.getChildren()) {
                     if (child.isRendered()
-                            && !child.getPassThroughAttributes().containsKey(DATA_RESULT_NOTIFICATION_BOX)
-                            && !WAITING_INDICATOR_ID.equals(child.getId())) {
+                        && !child.getPassThroughAttributes().containsKey(DATA_RESULT_NOTIFICATION_BOX)
+                        && !WAITING_INDICATOR_ID.equals(child.getId())) {
                         child.encodeAll(context);
                     }
                 }
@@ -136,7 +133,7 @@ public class LazyLoadingRenderer extends BaseDecoratorRenderer<LazyLoadingCompon
         final var component = componentWrapper.getWrapped();
         final var map = context.getExternalContext().getRequestParameterMap();
 
-        final var isLoadedValue = map.get(componentWrapper.getSuffixedClientId(ID_SUFFIX_ISLOADED));
+        final var isLoadedValue = map.get(componentWrapper.getSuffixedClientId(ID_SUFFIX_IS_LOADED));
         if (isLoadedValue != null) {
             var loadedValue = Boolean.parseBoolean(isLoadedValue);
             if (loadedValue && !component.getChildrenLoaded()) {

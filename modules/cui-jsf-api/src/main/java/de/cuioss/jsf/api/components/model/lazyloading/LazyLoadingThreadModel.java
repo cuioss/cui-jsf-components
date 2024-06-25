@@ -20,7 +20,7 @@ import de.cuioss.uimodel.result.ResultObject;
 
 /**
  * Enrich a {@link LazyLoadingModel} with a type and a request id to be handled
- * in a asynchronous thread.
+ * in an asynchronous thread.
  */
 public interface LazyLoadingThreadModel<T> extends LazyLoadingModel {
 

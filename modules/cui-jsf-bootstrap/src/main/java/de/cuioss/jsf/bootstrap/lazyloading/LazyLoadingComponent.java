@@ -15,21 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.lazyloading;
 
-import java.util.Optional;
-
-import jakarta.el.MethodExpression;
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.component.NamingContainer;
-import jakarta.faces.component.StateHelper;
-import jakarta.faces.component.UICommand;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.ComponentSystemEvent;
-import jakarta.faces.event.ListenerFor;
-import jakarta.faces.event.PostAddToViewEvent;
-import jakarta.faces.event.PreRenderViewEvent;
-
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.jsf.api.components.model.lazyloading.LazyLoadingModel;
 import de.cuioss.jsf.api.components.partial.ComponentBridge;
@@ -44,7 +29,17 @@ import de.cuioss.jsf.bootstrap.notification.NotificationBoxComponent;
 import de.cuioss.jsf.bootstrap.waitingindicator.WaitingIndicatorComponent;
 import de.cuioss.tools.string.MoreStrings;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
+import jakarta.el.MethodExpression;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.*;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.event.PreRenderViewEvent;
 import lombok.experimental.Delegate;
+
+import java.util.Optional;
 
 /**
  * Displays a content that should be loaded lazy after initial page rendering.
@@ -78,7 +73,7 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
 
     private static final String WAITING_INDICATOR_STYLE_CLASS_KEY = "waitingIndicatorStyleClass";
 
-    static final String ID_SUFFIX_ISLOADED = "isloaded";
+    static final String ID_SUFFIX_IS_LOADED = "is_loaded";
 
     static final String DATA_RESULT_NOTIFICATION_BOX = "data-resultNotificationBox";
 
@@ -115,7 +110,7 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
             if (!oneTimeCheck.readAndSetChecked()) {
                 var startInitialize = getStartInitialize();
                 if (null != startInitialize) {
-                    startInitialize.invoke(getFacesContext().getELContext(), new Object[] {});
+                    startInitialize.invoke(getFacesContext().getELContext(), new Object[]{});
                 }
                 if (!evaluateInitialized() && null != getViewModel()) {
                     super.addActionListener(getViewModel());
@@ -153,7 +148,7 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
      * method!
      *
      * @return the startInitialize, a function to be called one time at
-     *         PreRenderViewEvent
+     * PreRenderViewEvent
      */
     public MethodExpression getStartInitialize() {
         return (MethodExpression) getStateHelper().eval(START_INITIALIZE_KEY);
@@ -287,7 +282,7 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
 
     /**
      * @return boolean indicating whether the children are rendered or should be
-     *         rendered
+     * rendered
      */
     public boolean getChildrenLoaded() {
         return state.getBoolean(CHILDREN_LOADED_KEY);
@@ -345,12 +340,12 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
      *
      * @param context the FacesContext
      * @return true if the current request was triggered by the ajax request to
-     *         reload the lazy loading content
+     * reload the lazy loading content
      */
     public boolean isContentLoadRequest(FacesContext context) {
         var componentWrapper = new ComponentWrapper<>(this);
         return context.getExternalContext().getRequestParameterMap()
-                .containsKey(componentWrapper.getSuffixedClientId(ID_SUFFIX_ISLOADED));
+            .containsKey(componentWrapper.getSuffixedClientId(ID_SUFFIX_IS_LOADED));
     }
 
     /**
@@ -384,7 +379,7 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
         if (result.isEmpty()) {
             var notificationBoxComponent = new NotificationBoxComponent();
             notificationBoxComponent.getPassThroughAttributes().put(DATA_RESULT_NOTIFICATION_BOX,
-                    DATA_RESULT_NOTIFICATION_BOX);
+                DATA_RESULT_NOTIFICATION_BOX);
             getChildren().add(0, notificationBoxComponent);
             return notificationBoxComponent;
         }
@@ -398,7 +393,7 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
 
     public Optional<UIComponent> retrieveNotificationBox() {
         return getChildren().stream()
-                .filter(child -> child.getPassThroughAttributes().containsKey(DATA_RESULT_NOTIFICATION_BOX))
-                .findFirst();
+            .filter(child -> child.getPassThroughAttributes().containsKey(DATA_RESULT_NOTIFICATION_BOX))
+            .findFirst();
     }
 }
