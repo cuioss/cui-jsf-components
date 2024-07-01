@@ -26,6 +26,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Delegate;
 
+import java.io.Serial;
+
 /**
  * Options that will be passed to the tickRenderer, see
  * $.jqplot.AxisTickRenderer options.
@@ -37,6 +39,7 @@ import lombok.experimental.Delegate;
 public class TickOptions extends JsObject implements ILabelDecorator<TickOptions> {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 7838981710103651028L;
 
     @Delegate

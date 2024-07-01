@@ -16,6 +16,7 @@
 package de.cuioss.jsf.dev.metadata.composite.attributes;
 
 import java.beans.FeatureDescriptor;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,7 @@ import de.cuioss.jsf.dev.metadata.composite.util.LabelValueDisplay;
  */
 public class AttachedObjectPropertyWrapper extends AbstractPropertyWrapper {
 
+    @Serial
     private static final long serialVersionUID = 5441115240469249001L;
 
     /**

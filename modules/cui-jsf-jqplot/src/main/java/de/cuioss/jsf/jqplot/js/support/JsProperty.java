@@ -20,6 +20,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * @author Oliver Wolff
  * @param <T> at least {@link JsValue}
@@ -32,6 +34,7 @@ public class JsProperty<T extends JsValue> implements JavaScriptSupport {
     private static final String JSON_FORMAT = "%s:%s";
 
     /** serial version UID */
+    @Serial
     private static final long serialVersionUID = 8197592435718895633L;
 
     @Getter

@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.test;
 
+import java.io.Serial;
 import java.util.Collections;
 import java.util.Set;
 
@@ -35,6 +36,7 @@ import lombok.ToString;
 @ToString(callSuper = false)
 public class MirrorCuiRessourcBundle implements ResourceBundleWrapper {
 
+    @Serial
     private static final long serialVersionUID = 7035144185855294606L;
 
     @Override

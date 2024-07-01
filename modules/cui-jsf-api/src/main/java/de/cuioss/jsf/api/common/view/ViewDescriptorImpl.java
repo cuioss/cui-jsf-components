@@ -17,6 +17,7 @@ package de.cuioss.jsf.api.common.view;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
+import java.io.Serial;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -35,6 +36,7 @@ import lombok.ToString;
 @ToString
 public class ViewDescriptorImpl implements ViewDescriptor {
 
+    @Serial
     private static final long serialVersionUID = -7389597518902482078L;
 
     private static final Pattern NON_LATIN = Pattern.compile("[^A-Za-z ]");

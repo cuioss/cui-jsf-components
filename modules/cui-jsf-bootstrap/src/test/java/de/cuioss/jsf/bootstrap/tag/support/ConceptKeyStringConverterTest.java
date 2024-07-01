@@ -19,10 +19,7 @@ import static de.cuioss.jsf.bootstrap.selectize.Selectize.CLIENT_CREATED_SUFFIX;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableSet;
 import static de.cuioss.tools.collect.CollectionLiterals.mutableList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Collection;
 import java.util.List;
@@ -155,7 +152,7 @@ class ConceptKeyStringConverterTest
         final Set<ConceptKeyType> result = getConverter().getAsObject(getFacesContext(), component,
                 "5f636c69656e745f637265617465645f7465737431");
         assertNotNull(result, "TestConceptKey expected instead of null when using item converter");
-        assertTrue(result.iterator().next() instanceof TestConceptKey);
+        assertInstanceOf(TestConceptKey.class, result.iterator().next());
         assertEquals(1, component.getClientCreated().size());
     }
 }

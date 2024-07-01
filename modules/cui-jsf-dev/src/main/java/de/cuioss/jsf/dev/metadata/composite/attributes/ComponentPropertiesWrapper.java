@@ -17,6 +17,7 @@ package de.cuioss.jsf.dev.metadata.composite.attributes;
 
 import java.beans.FeatureDescriptor;
 import java.beans.PropertyDescriptor;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +63,7 @@ public class ComponentPropertiesWrapper implements Serializable {
     public static final String COMOPOSITE_URL_KEY = "compositeUrlKey";
 
     /** Serial version UID */
+    @Serial
     private static final long serialVersionUID = 8036185753548211952L;
 
     /** The List of attached objects. */

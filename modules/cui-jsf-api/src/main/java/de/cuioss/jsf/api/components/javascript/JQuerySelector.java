@@ -52,7 +52,7 @@ public abstract class JQuerySelector implements ScriptProvider {
      * @param idString
      * @return the escaped String
      */
-    public static final String escapeClientId(final String idString) {
+    public static String escapeClientId(final String idString) {
         final Iterable<String> splitted = Splitter.on(':').splitToList(nullToEmpty(idString));
         return Joiner.on("\\\\:").join(splitted);
     }

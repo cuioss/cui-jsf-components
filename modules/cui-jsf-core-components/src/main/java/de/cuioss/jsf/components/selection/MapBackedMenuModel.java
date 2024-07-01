@@ -17,6 +17,7 @@ package de.cuioss.jsf.components.selection;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,7 @@ import lombok.Setter;
 public class MapBackedMenuModel<T extends Serializable> extends MapInstanceConverter<String, T>
         implements SelectMenuModel<T> {
 
+    @Serial
     private static final long serialVersionUID = -5165456473976568944L;
 
     @Getter

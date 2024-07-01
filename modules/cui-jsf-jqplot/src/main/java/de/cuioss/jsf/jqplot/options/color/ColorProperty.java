@@ -24,6 +24,8 @@ import de.cuioss.jsf.jqplot.js.support.JsValue;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * Color property combine {@linkplain Color} as {@linkplain JsValue} and
  * {@linkplain JsProperty} to be able to provide simple way to add any color
@@ -35,6 +37,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class ColorProperty implements JavaScriptSupport {
 
+    @Serial
     private static final long serialVersionUID = 7155841535779637990L;
 
     private final String colorPropertyName;

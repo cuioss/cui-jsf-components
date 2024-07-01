@@ -47,7 +47,7 @@ public class ComponentModifierAssert {
         if (componentModifier.isCompositeInput()) {
             componentModifier.getForIndentifiers();
         } else {
-            assertThrows(UnsupportedOperationException.class, () -> componentModifier.getForIndentifiers());
+            assertThrows(UnsupportedOperationException.class, componentModifier::getForIndentifiers);
         }
     }
 
@@ -56,8 +56,8 @@ public class ComponentModifierAssert {
             // FIXME owolff componentModifier.isDisabled();
             componentModifier.isRequired();
         } else {
-            assertThrows(UnsupportedOperationException.class, () -> componentModifier.isRequired());
-            assertThrows(UnsupportedOperationException.class, () -> componentModifier.isValid());
+            assertThrows(UnsupportedOperationException.class, componentModifier::isRequired);
+            assertThrows(UnsupportedOperationException.class, componentModifier::isValid);
         }
     }
 
@@ -67,7 +67,7 @@ public class ComponentModifierAssert {
             componentModifier.getRole();
         } else {
             assertThrows(UnsupportedOperationException.class, () -> componentModifier.setRole("role"));
-            assertThrows(UnsupportedOperationException.class, () -> componentModifier.getRole());
+            assertThrows(UnsupportedOperationException.class, componentModifier::getRole);
         }
     }
 
@@ -75,7 +75,7 @@ public class ComponentModifierAssert {
         if (componentModifier.isSupportsResetValue()) {
             componentModifier.resetValue();
         } else {
-            assertThrows(UnsupportedOperationException.class, () -> componentModifier.resetValue());
+            assertThrows(UnsupportedOperationException.class, componentModifier::resetValue);
         }
     }
 
@@ -85,7 +85,7 @@ public class ComponentModifierAssert {
             componentModifier.getTitle();
         } else {
             assertThrows(UnsupportedOperationException.class, () -> componentModifier.setTitle("title"));
-            assertThrows(UnsupportedOperationException.class, () -> componentModifier.getTitle());
+            assertThrows(UnsupportedOperationException.class, componentModifier::getTitle);
         }
     }
 
@@ -95,7 +95,7 @@ public class ComponentModifierAssert {
             componentModifier.getStyleClass();
         } else {
             assertThrows(UnsupportedOperationException.class, () -> componentModifier.setStyleClass("styleClass"));
-            assertThrows(UnsupportedOperationException.class, () -> componentModifier.getStyleClass());
+            assertThrows(UnsupportedOperationException.class, componentModifier::getStyleClass);
         }
     }
 
@@ -105,7 +105,7 @@ public class ComponentModifierAssert {
             componentModifier.getStyle();
         } else {
             assertThrows(UnsupportedOperationException.class, () -> componentModifier.setStyle("styleClass"));
-            assertThrows(UnsupportedOperationException.class, () -> componentModifier.getStyle());
+            assertThrows(UnsupportedOperationException.class, componentModifier::getStyle);
         }
     }
 
@@ -115,7 +115,7 @@ public class ComponentModifierAssert {
             componentModifier.isDisabled();
         } else {
             assertThrows(UnsupportedOperationException.class, () -> componentModifier.setDisabled(false));
-            assertThrows(UnsupportedOperationException.class, () -> componentModifier.isDisabled());
+            assertThrows(UnsupportedOperationException.class, componentModifier::isDisabled);
         }
     }
 

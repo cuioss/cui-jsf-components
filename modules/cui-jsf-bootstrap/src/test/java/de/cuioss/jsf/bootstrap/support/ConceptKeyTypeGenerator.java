@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.bootstrap.support;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -31,6 +32,7 @@ public class ConceptKeyTypeGenerator implements TypedGenerator<ConceptKeyType> {
 
     public static final ConceptCategory TestConceptCategory = new BaseConceptCategory() {
 
+        @Serial
         private static final long serialVersionUID = -1983692596664938641L;
 
     };

@@ -20,6 +20,8 @@ import de.cuioss.jsf.jqplot.js.types.JsString;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * Example implementation
  *
@@ -30,6 +32,7 @@ import lombok.ToString;
 public class TestObject2 extends JsObject {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = -2458207725778585937L;
 
     public TestObject2() {

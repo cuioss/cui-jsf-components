@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.api.composite.accessor;
 
+import java.io.Serial;
 import java.util.Map;
 
 import de.cuioss.jsf.api.composite.AttributeAccessorImpl;
@@ -31,6 +32,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class StringAttributeAccessor extends AttributeAccessorImpl<String> {
 
+    @Serial
     private static final long serialVersionUID = 490377061753452475L;
 
     private final boolean considerEmptyStringAsNull;

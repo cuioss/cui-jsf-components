@@ -15,19 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.tag.support;
 
-import static de.cuioss.tools.collect.CollectionLiterals.mutableSortedSet;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.Set;
-import java.util.SortedSet;
-
-import jakarta.faces.context.FacesContext;
-
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
@@ -36,7 +23,13 @@ import de.cuioss.jsf.bootstrap.taglist.TagComponentComparator;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
+import jakarta.faces.context.FacesContext;
 import lombok.experimental.UtilityClass;
+
+import java.io.IOException;
+import java.util.*;
+
+import static de.cuioss.tools.collect.CollectionLiterals.mutableSortedSet;
 
 /**
  * @author Sven Haag
@@ -44,8 +37,10 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class TagHelper {
 
-    /** Default exception message for an invalid value. */
-    public static final String INVALID_VALUE_EXCEPTION = "Neither java.util.Collection, ConceptKeyType, nor String found for the value-attribute: %";
+    /**
+     * Default exception message for an invalid value.
+     */
+    public static final String INVALID_VALUE_EXCEPTION = "Neither java.util.Collection, ConceptKeyType, nor String found for the value-attribute: %s";
 
     /**
      * @param types
@@ -53,12 +48,11 @@ public class TagHelper {
      * @param contentEscape
      * @param contextSize
      * @param contextState
-     *
      * @return a {@link List} of {@link TagComponent}s representing the given
-     *         ConceptKeys
+     * ConceptKeys
      */
     public static List<TagComponent> createFromConceptKeys(final SortedSet<ConceptKeyType> types, final Locale locale,
-            final boolean contentEscape, final String contextSize, final String contextState) {
+                                                           final boolean contentEscape, final String contextSize, final String contextState) {
         final List<TagComponent> result = new ArrayList<>();
         for (final ConceptKeyType type : types) {
             result.add(createFromConceptKey(type, locale, contentEscape, contextSize, contextState));
@@ -72,11 +66,10 @@ public class TagHelper {
      * @param contentEscape
      * @param contextSize
      * @param contextState
-     *
      * @return an {@link TagComponent} instance representing the given ConceptKey
      */
     public static TagComponent createFromConceptKey(final ConceptKeyType type, final Locale locale,
-            final boolean contentEscape, final String contextSize, final String contextState) {
+                                                    final boolean contentEscape, final String contextSize, final String contextState) {
         final var tagComponent = new TagComponent();
         tagComponent.setContentEscape(contentEscape);
         final var resolved = type.getResolved(locale);
@@ -93,10 +86,9 @@ public class TagHelper {
      * Creates an {@link ConceptKeyType} representation of a given {@link Object}.
      *
      * @param value to be used for creating a {@link ConceptKeyType} from.
-     *
      * @return {@link Optional} with created {@link ConceptKeyType} if the the given
-     *         element is a {@link String} or {@link ConceptKeyType} otherwise it
-     *         will return {@link Optional#empty()}
+     * element is a {@link String} or {@link ConceptKeyType} otherwise it
+     * will return {@link Optional#empty()}
      */
     public static Optional<ConceptKeyType> resolveFrom(final Object value) {
         if (value instanceof ConceptKeyType type) {
@@ -107,15 +99,14 @@ public class TagHelper {
                 return Optional.empty();
             }
             return Optional.of(ConceptKeyTypeImpl.builder().identifier(elementAsString)
-                    .labelResolver(new I18nDisplayNameProvider(elementAsString))
-                    .category(new MissingTagConceptKeyCategory()).build());
+                .labelResolver(new I18nDisplayNameProvider(elementAsString))
+                .category(new MissingTagConceptKeyCategory()).build());
         }
         return Optional.empty();
     }
 
     /**
      * @param input submittedValue and/or value. First non-null input value is used.
-     *
      * @return the {@link Set} of ConceptKeyType representing the actual value
      */
     public static SortedSet<ConceptKeyType> getValueAsSet(Object... input) {
@@ -133,12 +124,12 @@ public class TagHelper {
             if (finalValue instanceof Collection<?> set) {
                 for (final Object element : set) {
                     values.add(resolveFrom(element).orElseThrow(
-                            () -> new IllegalArgumentException(INVALID_VALUE_EXCEPTION.formatted(element))));
+                        () -> new IllegalArgumentException(INVALID_VALUE_EXCEPTION.formatted(element))));
                 }
 
             } else {
                 values.add(resolveFrom(finalValue).orElseThrow(
-                        () -> new IllegalArgumentException(INVALID_VALUE_EXCEPTION.formatted(finalValue))));
+                    () -> new IllegalArgumentException(INVALID_VALUE_EXCEPTION.formatted(finalValue))));
             }
         }
 
@@ -152,11 +143,10 @@ public class TagHelper {
      * @param tagsToDisplay
      * @param style
      * @param styleClass
-     *
      * @throws IOException
      */
     public static void writeDisabled(final FacesContext context, final DecoratingResponseWriter<?> writer,
-            final List<TagComponent> tagsToDisplay, final String style, final String styleClass) throws IOException {
+                                     final List<TagComponent> tagsToDisplay, final String style, final String styleClass) throws IOException {
         writer.withStartElement(Node.UL);
         writer.withClientIdIfNecessary();
         writer.withPassThroughAttributes();

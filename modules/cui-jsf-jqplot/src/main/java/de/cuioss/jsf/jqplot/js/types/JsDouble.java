@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.js.types;
 
+import java.io.Serial;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 
@@ -30,6 +31,7 @@ import lombok.Data;
 public class JsDouble implements JsValue {
 
     /** serial VersionUID */
+    @Serial
     private static final long serialVersionUID = 369333694678385312L;
 
     private static final DecimalFormat decimalFormat = initFormatter();

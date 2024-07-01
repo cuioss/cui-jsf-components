@@ -17,6 +17,7 @@ package de.cuioss.jsf.components.selection;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -57,6 +58,7 @@ import lombok.ToString;
 public class MapInstanceConverter<K extends Serializable, T extends Serializable> extends AbstractConverter<T>
         implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 2920782351086654176L;
 
     private static final String ERROR_MESSAGE_CANNOTMAP = "message.error.converter.mapinstance.cannotmap";

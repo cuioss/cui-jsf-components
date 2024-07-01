@@ -23,6 +23,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * Basic Implementation of a {@link NavigationMenuItem}
  *
@@ -33,6 +35,7 @@ import lombok.ToString;
 public class NavigationMenuItemExternalSingleImpl extends NavigationMenuItemImpl
         implements NavigationMenuItemExternalSingle {
 
+    @Serial
     private static final long serialVersionUID = -4292374413272966456L;
 
     @Getter

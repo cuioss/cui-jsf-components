@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.plugin.cursor;
 
+import java.io.Serial;
 import java.util.List;
 
 import de.cuioss.jsf.jqplot.js.support.JsObject;
@@ -36,6 +37,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 public class Cursor extends JsObject implements IPluginConsumer {
 
+    @Serial
     private static final long serialVersionUID = -1652272763548113051L;
 
     private final PluginSupport pSupport = new PluginSupport();

@@ -18,6 +18,8 @@ package de.cuioss.jsf.jqplot.hook;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * To be able to override JqPlot intern function this class could be used
  *
@@ -27,6 +29,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 public class JqPlotFunctionHook extends PlotHookFunctionProviderImpl {
 
+    @Serial
     private static final long serialVersionUID = -6023019028614377353L;
 
     /**

@@ -297,15 +297,15 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
                             log.debug("LabeledContainer '{}' does not contain any children and no content.");
                         } else if (isApplicationInProductionStage()) {
                             log.debug("""
-                                    LabeledContainer '{}' does not contain an input component with id '{}'.\s\
-                                    Please check if you want to render an input element and did not\s\
-                                    adapt the id of this element. If you want to use it for output\s\
-                                    text, you can ignore this message""", getClientId(), forId.get());
+                                LabeledContainer '{}' does not contain an input component with id '{}'. \
+                                Please check if you want to render an input element and did not \
+                                adapt the id of this element. If you want to use it for output \
+                                text, you can ignore this message""", getClientId(), forId.get());
                         } else if (!shouldRenderComplexOutput()) {
                             log.info("""
-                                    LabeledContainer '{}' does not contain an input component with id '{}' and is\s\
-                                    not configured for complex output. Please check if you want to\s\
-                                    render an input element and did not adapt the id of this element.\s\
+                                    LabeledContainer '{}' does not contain an input component with id '{}' and is \
+                                    not configured for complex output. Please check if you want to \
+                                    render an input element and did not adapt the id of this element. \
                                     If you want to use it for output text, you can ignore this message""",
                                     getClientId(), forId.get());
                         }

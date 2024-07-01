@@ -16,8 +16,7 @@
 package de.cuioss.jsf.components.converter;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import java.util.SortedSet;
@@ -57,9 +56,9 @@ class StringToListConverterTest extends AbstractConverterTest<StringToListConver
         var converter = new StringToListConverter();
         // Default
         assertEquals(StringToListConverter.TARGET_TYPE_LIST, converter.getTargetType());
-        assertTrue(converter.getAsObject(getFacesContext(), getComponent(), "a;b") instanceof List);
+        assertInstanceOf(List.class, converter.getAsObject(getFacesContext(), getComponent(), "a;b"));
         converter.setTargetType(StringToListConverter.TARGET_TYPE_SORTED_SET);
-        assertTrue(converter.getAsObject(getFacesContext(), getComponent(), "a;b") instanceof SortedSet);
+        assertInstanceOf(SortedSet.class, converter.getAsObject(getFacesContext(), getComponent(), "a;b"));
     }
 
     @Test

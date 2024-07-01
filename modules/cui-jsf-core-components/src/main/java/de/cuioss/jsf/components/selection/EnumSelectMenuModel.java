@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.components.selection;
 
+import java.io.Serial;
 import java.util.List;
 
 import jakarta.faces.component.UIComponent;
@@ -32,6 +33,7 @@ import jakarta.faces.model.SelectItem;
  */
 public class EnumSelectMenuModel<T extends Enum<T>> extends AbstractSelectMenuModel<T> {
 
+    @Serial
     private static final long serialVersionUID = -2712127262852018082L;
 
     private final Class<T> targetClass;

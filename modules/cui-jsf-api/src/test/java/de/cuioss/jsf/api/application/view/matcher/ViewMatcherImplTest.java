@@ -38,18 +38,18 @@ class ViewMatcherImplTest {
 
     private static final String LOGIN_VIEW_PATH = FACES_GUEST + "login.jsf";
 
-    private static ViewDescriptor LOGIN_VIEW = ViewDescriptorImpl.builder().withViewId(LOGIN_VIEW_PATH)
+    private static final ViewDescriptor LOGIN_VIEW = ViewDescriptorImpl.builder().withViewId(LOGIN_VIEW_PATH)
             .withUrlParameter(immutableList(new UrlParameter("somePara", "someValue")))
             .withLogicalViewId(LOGIN_VIEW_PATH).build();
 
     private static final String LOGOUT_VIEW_PATH = FACES_GUEST + "logout.jsf";
 
-    private static ViewDescriptor LOGOUT_VIEW = ViewDescriptorImpl.builder().withViewId(LOGOUT_VIEW_PATH)
+    private static final ViewDescriptor LOGOUT_VIEW = ViewDescriptorImpl.builder().withViewId(LOGOUT_VIEW_PATH)
             .withUrlParameter(Collections.emptyList()).withLogicalViewId(LOGOUT_VIEW_PATH).build();
 
     private static final String CONTENT_VIEW_PATH = FACES_CONTENT + "content.jsf";
 
-    private static ViewDescriptor CONTENT_VIEW = ViewDescriptorImpl.builder().withViewId(CONTENT_VIEW_PATH)
+    private static final ViewDescriptor CONTENT_VIEW = ViewDescriptorImpl.builder().withViewId(CONTENT_VIEW_PATH)
             .withUrlParameter(Collections.emptyList()).withLogicalViewId(CONTENT_VIEW_PATH).build();
 
     @Test

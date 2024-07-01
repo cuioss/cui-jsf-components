@@ -16,6 +16,7 @@
 package de.cuioss.jsf.dev.metadata.composite.attributes;
 
 import java.beans.FeatureDescriptor;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,7 @@ import de.cuioss.jsf.dev.metadata.composite.util.LabelValueDisplay;
 public class FacetPropertyWrapper extends AbstractPropertyWrapper {
 
     /** serialVersionUID. */
+    @Serial
     private static final long serialVersionUID = 674844732715688425L;
 
     /**

@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.api.components.model.widget;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import jakarta.faces.event.ActionEvent;
@@ -37,6 +38,7 @@ import lombok.ToString;
 public abstract class BaseDeferredLoadingWidget<T extends Serializable> extends BaseWidget
         implements DashboardWidgetModel {
 
+    @Serial
     private static final long serialVersionUID = -8914809364978152106L;
 
     @Getter

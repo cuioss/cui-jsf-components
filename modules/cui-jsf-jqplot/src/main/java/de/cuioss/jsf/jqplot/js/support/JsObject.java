@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.js.support;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,7 @@ import lombok.ToString;
 @RequiredArgsConstructor
 public abstract class JsObject implements JavaScriptSupport {
 
+    @Serial
     private static final long serialVersionUID = 9148909574306233473L;
 
     private final String objectName;
@@ -92,10 +94,10 @@ public abstract class JsObject implements JavaScriptSupport {
             return null;
         }
 
-        final var builder = new StringBuilder().append(objectName).append(": {").append(stringRepresentation)
-                .append("}");
+        String builder = objectName + ": {" + stringRepresentation +
+            "}";
 
-        return builder.toString();
+        return builder;
     }
 
     protected String createAsJSONObjectWithoutName() {
@@ -105,8 +107,6 @@ public abstract class JsObject implements JavaScriptSupport {
             return null;
         }
 
-        final var builder = new StringBuilder().append("{").append(stringRepresentation).append("}");
-
-        return builder.toString();
+        return "{" + stringRepresentation + "}";
     }
 }

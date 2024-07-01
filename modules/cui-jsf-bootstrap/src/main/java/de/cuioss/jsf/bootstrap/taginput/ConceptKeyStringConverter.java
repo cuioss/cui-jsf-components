@@ -186,9 +186,7 @@ public class ConceptKeyStringConverter extends AbstractConverter<Collection<Conc
                 throw new ConverterException(msg);
             }
 
-            return itemConverter
-                    .map(converter -> Optional.of((ConceptKeyType) converter.getAsObject(context, component, name)))
-                    .orElseGet(() -> Optional.of(createMissingTagConceptKey(value, name)));
+            return itemConverter.map(converter -> (ConceptKeyType) converter.getAsObject(context, component, name)).or(() -> Optional.of(createMissingTagConceptKey(value, name)));
         }
         return Optional.empty();
     }

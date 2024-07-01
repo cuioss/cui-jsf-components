@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.api.components.model.datalist.impl;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import lombok.Data;
@@ -24,6 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SomeModel implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 5670597921615648898L;
     private String name;
     private Integer age;

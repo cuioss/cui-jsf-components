@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.api.ui.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -35,6 +36,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class ToggleSwitch implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -2220680284073352864L;
 
     @Setter

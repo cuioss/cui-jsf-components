@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.layout.shadow;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -40,6 +41,7 @@ import lombok.ToString;
 public class Shadow<T extends Serializable> implements Serializable, IShadowDecoration<T>, IPropertyProvider {
 
     /** serialVersionUID */
+    @Serial
     private static final long serialVersionUID = 569815887703832188L;
 
     private final PropertyProvider propProvider = new PropertyProvider();

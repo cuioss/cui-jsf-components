@@ -58,7 +58,7 @@ public enum ContainerFacets {
      * @return the found {@link ContainerFacets}. In case it can not be found it
      *         returns an {@link Optional#empty()}
      */
-    public static final Optional<ContainerFacets> parse(String name) {
+    public static Optional<ContainerFacets> parse(String name) {
         if (isEmpty(name)) {
             return Optional.empty();
         }
@@ -78,7 +78,7 @@ public enum ContainerFacets {
      * @return the resolved facet, throw an {@link IllegalArgumentException} if it
      *         can not be resolved
      */
-    public static final ContainerFacets parseButtonAlign(String name, String attributeName) {
+    public static ContainerFacets parseButtonAlign(String name, String attributeName) {
         var resolved = parse(name);
         if (resolved.isEmpty() || !INPUT_DECORATOR.contains(resolved.get())) {
             throw new IllegalArgumentException(

@@ -20,6 +20,8 @@ import de.cuioss.jsf.jqplot.js.support.JsValue;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * A single seria item which composed of two elements [x,y]. Only if both are
  * available the item has a valid value.
@@ -33,6 +35,7 @@ import lombok.ToString;
 public class SeriaTupelItem<X extends JsValue, Y extends JsValue> implements JsValue {
 
     /** serial ersion UID */
+    @Serial
     private static final long serialVersionUID = -688482351626904626L;
 
     private final JsArray<JsValue> array;

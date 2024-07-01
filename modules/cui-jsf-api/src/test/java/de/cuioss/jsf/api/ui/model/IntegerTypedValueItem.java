@@ -15,8 +15,11 @@
  */
 package de.cuioss.jsf.api.ui.model;
 
+import java.io.Serial;
+
 public class IntegerTypedValueItem extends TypedSelectItem<Integer> {
 
+    @Serial
     private static final long serialVersionUID = -1407890244114211617L;
 
     public IntegerTypedValueItem() {

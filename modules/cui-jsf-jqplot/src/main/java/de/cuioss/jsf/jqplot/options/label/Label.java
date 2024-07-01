@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.options.label;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -38,6 +39,7 @@ import lombok.ToString;
 public class Label<T extends Serializable> implements ILabelDecorator<T>, Serializable, IPropertyProvider {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = -5383303038095005652L;
 
     private final PropertyProvider propProvider = new PropertyProvider();

@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.components.selection;
 
+import java.io.Serial;
 import java.util.List;
 
 import jakarta.faces.component.UIComponent;
@@ -29,6 +30,7 @@ public class StringBasedSelectMenuUnit extends AbstractSelectMenuModel<String> {
     /**
      * Serial version UID.
      */
+    @Serial
     private static final long serialVersionUID = -6200177576322860329L;
 
     /**

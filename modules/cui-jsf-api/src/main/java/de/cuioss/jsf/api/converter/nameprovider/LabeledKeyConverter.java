@@ -43,7 +43,7 @@ public class LabeledKeyConverter extends AbstractConverter<LabeledKey> {
             result = bundle.getString(value.getContent());
         } else {
             result = MessageFormat.format(bundle.getString(value.getContent()),
-                    value.getParameter().toArray(new Object[value.getParameter().size()]));
+                    value.getParameter().toArray(new Object[0]));
         }
         return CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(result);
     }

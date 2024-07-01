@@ -23,6 +23,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * Helper class utilized for accessing Project Stage information in a convenient
  * way. It needs to be registered as an Application Scoped bean, because the
@@ -35,6 +37,7 @@ import lombok.ToString;
 @ToString
 class CuiProjectStageImpl implements CuiProjectStage {
 
+    @Serial
     private static final long serialVersionUID = -2464134252511225231L;
 
     @Getter

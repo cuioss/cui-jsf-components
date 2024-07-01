@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.components.selection;
 
+import java.io.Serial;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -49,6 +50,7 @@ import lombok.ToString;
 @EqualsAndHashCode(doNotUseGetters = true, exclude = "selectableValues")
 public class LabeledEnumSelectMenuModel<T extends Enum<T> & LabelKeyProvider> implements SelectMenuModel<T> {
 
+    @Serial
     private static final long serialVersionUID = -4856620883173044422L;
 
     @Getter
@@ -78,7 +80,7 @@ public class LabeledEnumSelectMenuModel<T extends Enum<T> & LabelKeyProvider> im
         targetClass = enumClass;
 
         // Returns the elements of this enum class
-        final List<T> elements = Arrays.asList(enumClass.getEnumConstants());
+        final T[] elements = enumClass.getEnumConstants();
 
         final var builder = new CollectionBuilder<SelectItem>();
 

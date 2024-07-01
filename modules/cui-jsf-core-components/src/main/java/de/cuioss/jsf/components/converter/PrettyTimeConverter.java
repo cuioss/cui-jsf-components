@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.components.converter;
 
+import java.io.Serial;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -59,6 +60,7 @@ public class PrettyTimeConverter extends AbstractConverter<Object> {
     private static final int CACHE_SIZE = 20;
     private static final Map<Locale, PrettyTime> PRETTY_TIME_MAP = new LinkedHashMap<>(CACHE_SIZE + 1, 1.1F, true) {
 
+        @Serial
         private static final long serialVersionUID = -8941794067746423324L;
 
         @Override

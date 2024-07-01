@@ -17,6 +17,7 @@ package de.cuioss.jsf.api;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
@@ -44,6 +45,7 @@ import lombok.ToString;
 @ToString
 public class LocaleProducerMock implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 901932913924354093L;
 
     @Getter

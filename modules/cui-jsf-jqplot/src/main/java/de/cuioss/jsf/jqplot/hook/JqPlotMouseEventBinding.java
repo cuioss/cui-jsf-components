@@ -18,6 +18,8 @@ package de.cuioss.jsf.jqplot.hook;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * JqPlot mouse event hook
  *
@@ -27,6 +29,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 public class JqPlotMouseEventBinding extends PlotHookFunctionProviderImpl {
 
+    @Serial
     private static final long serialVersionUID = -7011701148617850704L;
 
     /**

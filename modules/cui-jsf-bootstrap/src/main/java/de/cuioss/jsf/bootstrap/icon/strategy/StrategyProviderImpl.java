@@ -18,6 +18,7 @@ package de.cuioss.jsf.bootstrap.icon.strategy;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableMap;
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +43,7 @@ import lombok.ToString;
 public class StrategyProviderImpl<K extends Serializable, V extends Serializable> implements IStrategyProvider<K, V> {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 8396786922039611120L;
 
     private final Map<K, V> rules;

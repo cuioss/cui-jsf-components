@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.api.composite.accessor;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Map;
 
@@ -36,6 +37,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class DefaultAwareAttributeAccessorImpl<T extends Serializable> extends AttributeAccessorImpl<T> {
 
+    @Serial
     private static final long serialVersionUID = -3779458673451938363L;
 
     @Getter(value = AccessLevel.PROTECTED)

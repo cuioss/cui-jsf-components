@@ -17,6 +17,7 @@ package de.cuioss.jsf.jqplot.js.support;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ import lombok.ToString;
 public class PropertyProvider implements IPropertyProvider, Serializable {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 9198858377353412920L;
 
     private final List<JavaScriptSupport> properties = new ArrayList<>();

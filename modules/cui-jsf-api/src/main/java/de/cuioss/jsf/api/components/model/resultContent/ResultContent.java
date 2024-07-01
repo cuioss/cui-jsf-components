@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.api.components.model.resultContent;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class ResultContent implements ErrorController, Serializable {
 
+    @Serial
     private static final long serialVersionUID = -602764736457587401L;
 
     @Getter
@@ -76,10 +78,8 @@ public class ResultContent implements ErrorController, Serializable {
      */
     public ResultContent(ResultObject<?> resultObject, ResultErrorHandler errorHandler, CuiLogger log) {
         var resultDetail = resultObject.getResultDetail();
-        if (resultDetail.isPresent()) {
-            errorHandler.handleResultDetail(resultObject.getState(), resultDetail.get(),
-                    resultObject.getErrorCode().orElse(null), this, log);
-        }
+        resultDetail.ifPresent(detail -> errorHandler.handleResultDetail(resultObject.getState(), detail,
+            resultObject.getErrorCode().orElse(null), this, log));
     }
 
     /**
@@ -108,10 +108,8 @@ public class ResultContent implements ErrorController, Serializable {
      */
     public void handleAdditionalResult(ResultObject<?> resultObject, ResultErrorHandler errorHandler, CuiLogger log) {
         var resultDetail = resultObject.getResultDetail();
-        if (resultDetail.isPresent()) {
-            errorHandler.handleResultDetail(resultObject.getState(), resultDetail.get(),
-                    resultObject.getErrorCode().orElse(null), this, log);
-        }
+        resultDetail.ifPresent(detail -> errorHandler.handleResultDetail(resultObject.getState(), detail,
+            resultObject.getErrorCode().orElse(null), this, log));
     }
 
     @Override

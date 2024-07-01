@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.renderer;
 
+import java.io.Serial;
 import java.util.List;
 
 import de.cuioss.jsf.jqplot.js.support.JsObject;
@@ -34,6 +35,7 @@ import lombok.EqualsAndHashCode;
 public abstract class RendererOptions extends JsObject implements IPluginConsumer {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 250675011421695060L;
 
     private final PluginSupport pSupport = new PluginSupport();

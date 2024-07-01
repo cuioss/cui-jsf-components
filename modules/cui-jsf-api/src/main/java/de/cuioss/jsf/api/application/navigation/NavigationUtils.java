@@ -23,6 +23,7 @@ import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.Collections;
@@ -59,6 +60,7 @@ public final class NavigationUtils implements Serializable {
 
     private static final String XHTML = ".xhtml";
 
+    @Serial
     private static final long serialVersionUID = -3658719779910485458L;
 
     private static final String UNSUPPORTED_CONFIGURATION = "Unsupported configuration for fallback navigation detected. Expected NavigationHandler is ConfigurableNavigationHandler, but was ['%s']";
@@ -181,9 +183,8 @@ public final class NavigationUtils implements Serializable {
         final var response = getResponse(facesContext);
         if (!response.isCommitted()) {
 
-            final var fullUrl = new StringBuilder()
-                    .append(response.encodeRedirectURL(getRequest(facesContext).getContextPath()))
-                    .append(handleViewIdSuffix(url)).append(createParameterString(encode, parameters)).toString();
+            final var fullUrl = response.encodeRedirectURL(getRequest(facesContext).getContextPath()) +
+                handleViewIdSuffix(url) + createParameterString(encode, parameters);
 
             redirect(facesContext, fullUrl);
         } else if (log.isWarnEnabled()) {
@@ -215,7 +216,7 @@ public final class NavigationUtils implements Serializable {
     public static void sendRedirectParameterList(final FacesContext facesContext, final String url,
             final List<UrlParameter> parameterList) {
         if (parameterList != null && !parameterList.isEmpty()) {
-            final var parameters = parameterList.toArray(new UrlParameter[parameterList.size()]);
+            final var parameters = parameterList.toArray(new UrlParameter[0]);
             sendRedirect(facesContext, url, true, parameters);
         } else {
             sendRedirect(facesContext, url, false);

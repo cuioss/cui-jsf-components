@@ -17,6 +17,7 @@ package de.cuioss.jsf.jqplot.options.legend;
 
 import static java.lang.Boolean.TRUE;
 
+import java.io.Serial;
 import java.util.List;
 
 import de.cuioss.jsf.jqplot.js.support.JsArray;
@@ -40,6 +41,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 public class Legend extends JsObject implements IPluginConsumer {
 
+    @Serial
     private static final long serialVersionUID = -8754508301630460493L;
 
     /**

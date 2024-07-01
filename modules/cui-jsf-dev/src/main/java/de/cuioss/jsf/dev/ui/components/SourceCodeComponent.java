@@ -25,6 +25,9 @@ import de.cuioss.tools.io.IOStreams;
 import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.tools.string.Joiner;
 import de.cuioss.tools.string.Splitter;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.StateHelper;
 import lombok.Getter;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -42,9 +45,6 @@ import org.jdom2.xpath.XPathFactory;
 import org.omnifaces.util.State;
 import org.xml.sax.InputSource;
 
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.component.StateHelper;
 import javax.xml.XMLConstants;
 import java.io.IOException;
 import java.io.Writer;
@@ -379,7 +379,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
      * @return enableClipboard
      */
     public boolean isEnableClipboard() {
-        return (Boolean) state.get(ENABLE_CLIPBOARD_ATTRIBUTE_KEY, Boolean.TRUE);
+        return state.get(ENABLE_CLIPBOARD_ATTRIBUTE_KEY, Boolean.TRUE);
     }
 
     /**
@@ -419,7 +419,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
     }
 
     /**
-     * @return type being revoled depending on the file-extension
+     * @return type being resolved depending on the file-extension
      */
     public String getType() {
         final var defaultValue = LangStyle.LANG_HTML.getStyle();

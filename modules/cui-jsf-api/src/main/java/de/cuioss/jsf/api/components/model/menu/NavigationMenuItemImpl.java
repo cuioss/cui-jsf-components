@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.api.components.model.menu;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,7 @@ import lombok.ToString;
 @RequiredArgsConstructor
 public abstract class NavigationMenuItemImpl implements NavigationMenuItem {
 
+    @Serial
     private static final long serialVersionUID = 7357376149469833501L;
 
     @Getter

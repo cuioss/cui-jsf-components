@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.options;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import de.cuioss.jsf.jqplot.options.color.Color;
@@ -28,6 +29,7 @@ import lombok.Data;
 public class FillOptions implements Serializable {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = -4743127216847493275L;
 
     /** first index (0 based) of series in fill */

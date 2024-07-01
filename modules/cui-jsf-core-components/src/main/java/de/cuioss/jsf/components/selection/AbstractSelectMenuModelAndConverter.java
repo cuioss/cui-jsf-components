@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.components.selection;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -60,6 +61,7 @@ import lombok.ToString;
 @EqualsAndHashCode(doNotUseGetters = true, exclude = { "converter", "selectableValues" })
 public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable> implements SelectMenuModel<T> {
 
+    @Serial
     private static final long serialVersionUID = 5538442599313391823L;
 
     private ArrayList<SelectItem> selectableValues;

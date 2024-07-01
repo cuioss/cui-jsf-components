@@ -46,7 +46,7 @@ class BootstrapPanelRendererTest extends AbstractComponentRendererTest<Bootstrap
 
     private static final String CLIENT_ID_BODY = CLIENT_ID + "_body";
 
-    private static final String CLIENT_ID_ISEXPANDED = CLIENT_ID + "_isexpanded";
+    private static final String CLIENT_ID_IS_EXPANDED = CLIENT_ID + "_isexpanded";
 
     private static final String CLIENT_ID_TOGGLER = CLIENT_ID + "_toggler";
 
@@ -116,8 +116,8 @@ class BootstrapPanelRendererTest extends AbstractComponentRendererTest<Bootstrap
         }
         expected.withAttribute(AttributeName.DATA_NOT_COLLAPSED, String.valueOf(!params.isCollapsed));
         // state holder
-        expected.withNode(Node.INPUT).withAttribute(AttributeName.ID, CLIENT_ID_ISEXPANDED)
-            .withAttribute(AttributeName.NAME, CLIENT_ID_ISEXPANDED).withAttribute(AttributeName.TYPE, "hidden")
+        expected.withNode(Node.INPUT).withAttribute(AttributeName.ID, CLIENT_ID_IS_EXPANDED)
+            .withAttribute(AttributeName.NAME, CLIENT_ID_IS_EXPANDED).withAttribute(AttributeName.TYPE, "hidden")
             .withAttribute(AttributeName.VALUE, String.valueOf(!params.isCollapsed)).currentHierarchyUp();
         if (params.renderHeader) {
             // header

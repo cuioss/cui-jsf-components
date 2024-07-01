@@ -50,15 +50,11 @@ public class ResultErrorHandler {
             errorController.setRenderContent(false);
             break;
         case WARNING:
-            if (cause.isPresent()) {
-                log.warn(MSG, cause.get());
-            }
+            cause.ifPresent(throwable -> log.warn(MSG, throwable));
             contextState = ContextState.WARNING;
             break;
         case INFO:
-            if (cause.isPresent()) {
-                log.info(MSG, cause.get());
-            }
+            cause.ifPresent(throwable -> log.info(MSG, throwable));
             contextState = ContextState.INFO;
             break;
         case VALID:

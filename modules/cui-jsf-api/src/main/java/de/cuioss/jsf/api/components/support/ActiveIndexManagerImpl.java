@@ -18,6 +18,7 @@ package de.cuioss.jsf.api.components.support;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,7 @@ import lombok.ToString;
 @ToString
 public class ActiveIndexManagerImpl implements ActiveIndexManager {
 
+    @Serial
     private static final long serialVersionUID = 6174751256305289837L;
     private static final String INDEX_SEPARATOR = " ";
 

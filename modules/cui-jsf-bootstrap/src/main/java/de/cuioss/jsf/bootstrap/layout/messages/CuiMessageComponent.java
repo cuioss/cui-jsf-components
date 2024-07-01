@@ -162,7 +162,7 @@ public class CuiMessageComponent extends BasicBootstrapPanelComponent {
      * @param facesContext must not be null
      * @return concrete instance of {@link CuiMessageComponent}
      */
-    public static final CuiMessageComponent create(final FacesContext facesContext) {
+    public static CuiMessageComponent create(final FacesContext facesContext) {
         var result = (CuiMessageComponent) facesContext.getApplication()
                 .createComponent(BootstrapFamily.CUI_MESSAGE_COMPONENT);
         result.setTransient(true);

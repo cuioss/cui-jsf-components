@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.dev.metadata.model;
 
+import java.io.Serial;
 import java.util.List;
 
 import lombok.EqualsAndHashCode;
@@ -31,6 +32,7 @@ import lombok.ToString;
 @ToString
 public class UIComponentMetadata extends Tag {
 
+    @Serial
     private static final long serialVersionUID = 8405697485171286343L;
 
     @Getter

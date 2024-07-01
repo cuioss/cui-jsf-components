@@ -16,16 +16,13 @@
 package de.cuioss.jsf.bootstrap.icon;
 
 import de.cuioss.jsf.api.components.base.AbstractBaseCuiComponent;
-import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.icon.support.CssMimeTypeIcon;
-import de.cuioss.jsf.bootstrap.icon.support.IconSize;
 import de.cuioss.tools.string.MoreStrings;
 import lombok.experimental.Delegate;
 
 import jakarta.faces.component.FacesComponent;
-import jakarta.faces.event.PreRenderComponentEvent;
 
 /**
  * <p>

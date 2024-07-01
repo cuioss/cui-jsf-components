@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.api.components.model.resultContent;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import de.cuioss.jsf.api.components.css.ContextState;
@@ -24,6 +25,7 @@ import lombok.Value;
 @Value
 public class NotificationBoxMessage implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 170134856997455422L;
 
     private IDisplayNameProvider notificationBoxValue;

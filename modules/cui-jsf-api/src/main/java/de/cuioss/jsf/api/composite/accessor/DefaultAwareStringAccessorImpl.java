@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.api.composite.accessor;
 
+import java.io.Serial;
 import java.util.Map;
 
 import de.cuioss.tools.string.MoreStrings;
@@ -34,6 +35,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class DefaultAwareStringAccessorImpl extends StringAttributeAccessor {
 
+    @Serial
     private static final long serialVersionUID = -3779458673451938363L;
 
     @Getter(value = AccessLevel.PROTECTED)

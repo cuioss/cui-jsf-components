@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.api.components.model.widget;
 
+import java.io.Serial;
 import java.time.LocalDate;
 
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
@@ -26,6 +27,7 @@ import lombok.Data;
 @Data
 public class BaseListItem implements ListItem {
 
+    @Serial
     private static final long serialVersionUID = -3847701857160268822L;
 
     private IDisplayNameProvider<?> title;

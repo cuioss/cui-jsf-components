@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.axes;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,7 @@ import lombok.ToString;
 public class Axes extends JsObject implements IPluginConsumer {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 8583863109420728880L;
 
     private static final String JS_OBJECT_NAME = "axes";

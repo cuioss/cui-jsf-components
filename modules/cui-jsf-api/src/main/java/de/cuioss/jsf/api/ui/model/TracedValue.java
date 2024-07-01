@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.api.ui.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -35,6 +36,7 @@ import lombok.ToString;
 public class TracedValue<T extends Serializable> implements ITracedValue<T> {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 4544062606064899863L;
 
     private final T defaultValue;

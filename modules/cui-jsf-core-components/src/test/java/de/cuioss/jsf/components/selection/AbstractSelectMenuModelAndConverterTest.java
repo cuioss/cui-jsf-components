@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -44,6 +45,7 @@ class AbstractSelectMenuModelAndConverterTest {
     @AllArgsConstructor
     public static class MockValue implements Serializable, Comparable<MockValue> {
 
+        @Serial
         private static final long serialVersionUID = -5208555634855366343L;
 
         private String identifier;
@@ -62,6 +64,7 @@ class AbstractSelectMenuModelAndConverterTest {
 
     public static class MockAbstractSelectMenuModelAndConverter extends AbstractSelectMenuModelAndConverter<MockValue> {
 
+        @Serial
         private static final long serialVersionUID = 4088103713423702562L;
 
         public MockAbstractSelectMenuModelAndConverter(final Set<MockValue> sourceData) {

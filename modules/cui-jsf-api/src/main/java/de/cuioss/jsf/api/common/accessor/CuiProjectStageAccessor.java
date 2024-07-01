@@ -18,6 +18,8 @@ package de.cuioss.jsf.api.common.accessor;
 import de.cuioss.uimodel.application.CuiProjectStage;
 import lombok.Getter;
 
+import java.io.Serial;
+
 /**
  * Accesses instances of {@link CuiProjectStage}
  *
@@ -25,6 +27,7 @@ import lombok.Getter;
  */
 public class CuiProjectStageAccessor implements ManagedAccessor<CuiProjectStage> {
 
+    @Serial
     private static final long serialVersionUID = 706263142443297439L;
 
     @Getter(lazy = true)

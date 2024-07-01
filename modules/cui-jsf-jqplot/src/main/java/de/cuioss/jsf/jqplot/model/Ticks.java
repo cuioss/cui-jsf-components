@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import lombok.Data;
@@ -26,6 +27,7 @@ import lombok.Data;
 @Data
 public class Ticks implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 4491243983168940143L;
 
 }

@@ -25,6 +25,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * Resolves a converter regarding the current context.
  * <ul>
@@ -47,6 +49,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class ConverterAccessor<T> implements ManagedAccessor<Converter<T>> {
 
+    @Serial
     private static final long serialVersionUID = -4619233196555638241L;
 
     @Getter

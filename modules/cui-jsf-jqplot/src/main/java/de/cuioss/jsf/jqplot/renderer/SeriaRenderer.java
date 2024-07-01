@@ -20,6 +20,8 @@ import de.cuioss.jsf.jqplot.renderer.series.LineRendererOptions;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * @author Eugen Fischer
  * @param <R> at least {@link RendererOptions}
@@ -29,6 +31,7 @@ import lombok.ToString;
 public class SeriaRenderer<R extends RendererOptions> extends Renderer {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = -3845495653825273506L;
 
     private static final SeriaRenderer<BarRendererOptions> BAR_RENDERER = new SeriaRenderer<>("$.jqplot.BarRenderer",

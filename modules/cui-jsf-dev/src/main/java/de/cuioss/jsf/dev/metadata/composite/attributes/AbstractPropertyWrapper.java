@@ -16,6 +16,7 @@
 package de.cuioss.jsf.dev.metadata.composite.attributes;
 
 import java.beans.FeatureDescriptor;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +76,7 @@ public abstract class AbstractPropertyWrapper implements Serializable {
     public static final String QA_REQUIRED_NOT_DEFINED = "QA Issue: Attribute 'required' not defined.";
 
     /** serialVersionUID. */
+    @Serial
     private static final long serialVersionUID = -1868957537088500011L;
 
     /** The data to be displayed. */

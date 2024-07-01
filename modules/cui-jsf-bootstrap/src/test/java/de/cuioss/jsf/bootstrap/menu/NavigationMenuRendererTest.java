@@ -74,9 +74,8 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     @Test
     void shouldRenderMinimalWithActiveState() {
         final var menuModelItem = new NavigationMenuItemSingleImpl(10);
-        final var resovledLabel = RESOLVED_LABEL;
         menuModelItem.setOutcome(OUTCOME_HOME);
-        menuModelItem.setLabelValue(resovledLabel);
+        menuModelItem.setLabelValue(RESOLVED_LABEL);
         menuModelItem.getActiveForAdditionalViewId().add("/viewId");
         final var component = new NavigationMenuComponent();
         component.setModel(menuModelItem);
@@ -92,9 +91,8 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     @Test
     void shouldRenderMinimalWithExternalHref() {
         final var menuModelItem = new NavigationMenuItemExternalSingleImpl(10);
-        final var resovledLabel = RESOLVED_LABEL;
         menuModelItem.setHRef("http://www.google.de");
-        menuModelItem.setLabelValue(resovledLabel);
+        menuModelItem.setLabelValue(RESOLVED_LABEL);
         menuModelItem.setTarget("_blank");
         final var component = new NavigationMenuComponent();
         component.setModel(menuModelItem);
@@ -110,9 +108,8 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     @Test
     void shouldRenderMinimalWithTarget() {
         final var menuModelItem = new NavigationMenuItemSingleImpl(10);
-        final var resovledLabel = RESOLVED_LABEL;
         menuModelItem.setOutcome(OUTCOME_HOME);
-        menuModelItem.setLabelValue(resovledLabel);
+        menuModelItem.setLabelValue(RESOLVED_LABEL);
         menuModelItem.setTarget("_blank");
         final var component = new NavigationMenuComponent();
         component.setModel(menuModelItem);
@@ -127,9 +124,8 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     @Test
     void shouldRenderMinimalWithCommandAndIcon() {
         final var menuModelItem = new NavigationMenuItemSingleImpl(10);
-        final var resovledLabel = RESOLVED_LABEL;
         menuModelItem.setOutcome(OUTCOME_HOME);
-        menuModelItem.setLabelValue(resovledLabel);
+        menuModelItem.setLabelValue(RESOLVED_LABEL);
         menuModelItem.setIconStyleClass(CUI_ICON_ICON);
         final var component = new NavigationMenuComponent();
         component.setModel(menuModelItem);

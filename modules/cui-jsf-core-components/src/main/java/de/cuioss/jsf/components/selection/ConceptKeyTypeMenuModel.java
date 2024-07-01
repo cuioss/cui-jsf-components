@@ -17,6 +17,7 @@ package de.cuioss.jsf.components.selection;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.util.Locale;
 import java.util.Set;
 
@@ -41,6 +42,7 @@ import lombok.ToString;
 public class ConceptKeyTypeMenuModel extends AbstractSelectMenuModelAndConverter<ConceptKeyType>
         implements ConceptKeyTypeSelection {
 
+    @Serial
     private static final long serialVersionUID = -3462000271711193227L;
 
     private final Locale locale;
@@ -79,7 +81,7 @@ public class ConceptKeyTypeMenuModel extends AbstractSelectMenuModelAndConverter
     @Override
     public void setSelectedValue(final ConceptKeyType selectedValue) {
         if (null == selectedValue) {
-            super.setSelectedValue(selectedValue);
+            super.setSelectedValue(null);
             return;
         }
         if (selectedValue.containsKey(AugmentationKeyConstans.UNDEFINED_VALUE)) {

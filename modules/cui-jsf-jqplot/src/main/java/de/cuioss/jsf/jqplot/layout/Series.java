@@ -19,6 +19,7 @@ import static de.cuioss.jsf.jqplot.axes.AxisType.X_AXES;
 import static de.cuioss.jsf.jqplot.axes.AxisType.Y_AXES;
 import static de.cuioss.tools.base.Preconditions.checkArgument;
 
+import java.io.Serial;
 import java.util.List;
 
 import de.cuioss.jsf.jqplot.axes.AxisType;
@@ -57,6 +58,7 @@ import lombok.experimental.Delegate;
 public class Series extends JsObject implements IPluginConsumer, JsValue, IShadowDecoration<Series> {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = -7480172463037356837L;
 
     private boolean hasObjectName;
@@ -78,7 +80,7 @@ public class Series extends JsObject implements IPluginConsumer, JsValue, IShado
      *
      * @return {@link Series}
      */
-    public static final Series createAsSeriesDefaults() {
+    public static Series createAsSeriesDefaults() {
         return new Series(true);
     }
 
@@ -87,7 +89,7 @@ public class Series extends JsObject implements IPluginConsumer, JsValue, IShado
      *
      * @return {@link Series}
      */
-    public static final Series createAsListElement() {
+    public static Series createAsListElement() {
         return new Series(false);
     }
 

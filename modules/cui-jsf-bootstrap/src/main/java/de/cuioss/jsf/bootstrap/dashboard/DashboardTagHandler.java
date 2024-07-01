@@ -18,6 +18,7 @@ package de.cuioss.jsf.bootstrap.dashboard;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,7 +86,7 @@ public class DashboardTagHandler extends TagHandler {
         final var widgetList = (List<DashboardWidgetModel>) widgetsAttr.getObject(ctx);
         final var f = new File(System.getProperty("java.io.tmpdir"), "dashboard" + widgetList.hashCode() + ".xhtml");
         if (!f.exists()) {
-            final var writer = new PrintWriter(f, "UTF-8");
+            final var writer = new PrintWriter(f, StandardCharsets.UTF_8);
             final List<String> taglibRegistry = new ArrayList<>();
             writer.println(
                     "<ui:component xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:ui=\"http://xmlns.jcp.org/jsf/facelets\"");

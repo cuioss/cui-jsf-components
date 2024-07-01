@@ -20,6 +20,8 @@ import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * Base implementation of {@linkplain PlotHookFunctionProvider}
  *
@@ -29,6 +31,7 @@ import lombok.ToString;
 @EqualsAndHashCode(of = "hookIdentifier")
 public class PlotHookFunctionProviderImpl implements PlotHookFunctionProvider {
 
+    @Serial
     private static final long serialVersionUID = 8333990834669994111L;
 
     private final String hookIdentifier;

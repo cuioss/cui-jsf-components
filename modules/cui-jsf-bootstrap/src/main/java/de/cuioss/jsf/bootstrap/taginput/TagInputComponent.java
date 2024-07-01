@@ -368,8 +368,7 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent implements Styl
     }
 
     private static String buildOptionElement(final String label, final String identifier) {
-        return new StringBuilder().append("{\"").append(OPTION_VALUE_LABEL_KEY).append("\":\"").append(label)
-                .append("\",\"").append(OPTION_VALUE_VALUE_KEY).append("\":\"").append(identifier).append("\"}")
-                .toString();
+        return "{\"" + OPTION_VALUE_LABEL_KEY + "\":\"" + label +
+            "\",\"" + OPTION_VALUE_VALUE_KEY + "\":\"" + identifier + "\"}";
     }
 }

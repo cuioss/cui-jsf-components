@@ -15,7 +15,6 @@
  */
 package de.cuioss.jsf.api.components.css;
 
-import de.cuioss.jsf.api.components.css.impl.StyleClassBuilderImpl;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.api.components.model.datalist.impl.support;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import lombok.Getter;
@@ -26,6 +27,7 @@ public class MissingCopyConstructor implements Serializable {
     /**
      *
      */
+    @Serial
     private static final long serialVersionUID = 1L;
     @Getter
     private final String name;

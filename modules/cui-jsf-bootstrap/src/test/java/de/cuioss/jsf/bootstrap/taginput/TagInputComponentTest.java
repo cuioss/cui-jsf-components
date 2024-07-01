@@ -16,10 +16,7 @@
 package de.cuioss.jsf.bootstrap.taginput;
 
 import static de.cuioss.tools.collect.CollectionLiterals.mutableSet;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Collections;
 import java.util.Set;
@@ -55,7 +52,7 @@ class TagInputComponentTest extends AbstractUiComponentTest<TagInputComponent> {
     void shouldProvideCorrectMetadata() {
         assertEquals(BootstrapFamily.TAG_INPUT_COMPONENT_RENDERER, anyComponent().getRendererType());
         assertNotNull(anyComponent().getConverter());
-        assertTrue(anyComponent().getConverter() instanceof ConceptKeyStringConverter);
+        assertInstanceOf(ConceptKeyStringConverter.class, anyComponent().getConverter());
     }
 
     @Test

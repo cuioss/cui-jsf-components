@@ -19,12 +19,7 @@ import static de.cuioss.jsf.api.components.util.ComponentUtility.JAVAX_FACES_SOU
 import static de.cuioss.jsf.bootstrap.layout.input.InputGuardComponent.FIXED_ID;
 import static de.cuioss.test.generator.Generators.letterStrings;
 import static de.cuioss.tools.collect.CollectionLiterals.mutableList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.event.PostAddToViewEvent;
@@ -129,7 +124,7 @@ class InputGuardComponentTest extends AbstractComponentTest<InputGuardComponent>
         component.setGuardButtonTitleValue(title);
         component.prerender((LabeledContainerComponent) component.getParent());
         var added = parent.getAppendFacet();
-        assertTrue(added instanceof CommandButton);
+        assertInstanceOf(CommandButton.class, added);
         var button = (CommandButton) added;
         assertEquals(GuardButtonAttributes.ICON_DEFAULT, button.getIcon());
         assertEquals(title, button.getTitleValue());
@@ -194,7 +189,7 @@ class InputGuardComponentTest extends AbstractComponentTest<InputGuardComponent>
         component.setValue(Boolean.FALSE);
         component.prerender((LabeledContainerComponent) component.getParent());
         var added = parent.getAppendFacet();
-        assertTrue(added instanceof CommandButton);
+        assertInstanceOf(CommandButton.class, added);
         var button = (CommandButton) added;
         assertEquals(ResetGuardButtonAttributes.ICON_DEFAULT, button.getIcon());
         assertEquals(title, button.getTitleValue());

@@ -15,9 +15,6 @@
  */
 package de.cuioss.jsf.api.components.base;
 
-import de.cuioss.jsf.api.components.css.StyleClassBuilder;
-import de.cuioss.jsf.api.components.css.impl.StyleClassBuilderImpl;
-
 public class MockCuiComponent extends AbstractBaseCuiComponent {
 
     @Override

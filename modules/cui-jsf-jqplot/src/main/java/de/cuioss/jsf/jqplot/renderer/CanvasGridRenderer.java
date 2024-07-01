@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.renderer;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import lombok.Data;
@@ -26,6 +27,7 @@ import lombok.Data;
 public class CanvasGridRenderer implements Serializable {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 4322117109555915603L;
 
 }

@@ -33,40 +33,40 @@ class CuiInterfaceBasedModifierTest {
     @Test
     void shouldHandleTitleProvider() {
         UIComponent component = new TitleProviderImpl();
-        var modifer = CuiInterfaceBasedModifier.wrap(component).get();
-        assertContracts(modifer, component);
-        assertFalse(modifer.isSupportsDisabled());
-        assertFalse(modifer.isSupportsLabel());
-        assertFalse(modifer.isSupportsRole());
-        assertFalse(modifer.isSupportsStyle());
-        assertFalse(modifer.isSupportsStyleClass());
-        assertTrue(modifer.isSupportsTitle());
+        var modifier = CuiInterfaceBasedModifier.wrap(component).get();
+        assertContracts(modifier, component);
+        assertFalse(modifier.isSupportsDisabled());
+        assertFalse(modifier.isSupportsLabel());
+        assertFalse(modifier.isSupportsRole());
+        assertFalse(modifier.isSupportsStyle());
+        assertFalse(modifier.isSupportsStyleClass());
+        assertTrue(modifier.isSupportsTitle());
     }
 
     @Test
     void shouldHandleStyleProvider() {
         UIComponent component = new StyleProvider();
-        var modifer = CuiInterfaceBasedModifier.wrap(component).get();
-        assertContracts(modifer, component);
-        assertFalse(modifer.isSupportsDisabled());
-        assertFalse(modifer.isSupportsLabel());
-        assertFalse(modifer.isSupportsRole());
-        assertTrue(modifer.isSupportsStyle());
-        assertFalse(modifer.isSupportsStyleClass());
-        assertFalse(modifer.isSupportsTitle());
+        var modifier = CuiInterfaceBasedModifier.wrap(component).get();
+        assertContracts(modifier, component);
+        assertFalse(modifier.isSupportsDisabled());
+        assertFalse(modifier.isSupportsLabel());
+        assertFalse(modifier.isSupportsRole());
+        assertTrue(modifier.isSupportsStyle());
+        assertFalse(modifier.isSupportsStyleClass());
+        assertFalse(modifier.isSupportsTitle());
     }
 
     @Test
     void shouldHandleStyleClassProvider() {
         UIComponent component = new StyleClassProvider();
-        var modifer = CuiInterfaceBasedModifier.wrap(component).get();
-        assertContracts(modifer, component);
-        assertFalse(modifer.isSupportsDisabled());
-        assertFalse(modifer.isSupportsLabel());
-        assertFalse(modifer.isSupportsRole());
-        assertFalse(modifer.isSupportsStyle());
-        assertTrue(modifer.isSupportsStyleClass());
-        assertFalse(modifer.isSupportsTitle());
+        var modifier = CuiInterfaceBasedModifier.wrap(component).get();
+        assertContracts(modifier, component);
+        assertFalse(modifier.isSupportsDisabled());
+        assertFalse(modifier.isSupportsLabel());
+        assertFalse(modifier.isSupportsRole());
+        assertFalse(modifier.isSupportsStyle());
+        assertTrue(modifier.isSupportsStyleClass());
+        assertFalse(modifier.isSupportsTitle());
     }
 
     @Test

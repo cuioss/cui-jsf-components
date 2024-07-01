@@ -18,6 +18,8 @@ package de.cuioss.jsf.api.components.model.menu;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * Basic Implementation of a {@link NavigationMenuItem}
  *
@@ -27,6 +29,7 @@ import lombok.ToString;
 @ToString
 public class NavigationMenuItemSeparatorImpl extends NavigationMenuItemImpl implements NavigationMenuItemSeparator {
 
+    @Serial
     private static final long serialVersionUID = 2808000723947735968L;
 
     /**

@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.api.components.events;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import jakarta.faces.component.UIComponent;
@@ -32,6 +33,7 @@ import lombok.Getter;
  */
 public class ModelPayloadEvent extends FacesEvent {
 
+    @Serial
     private static final long serialVersionUID = 7452809204723547999L;
 
     @Getter

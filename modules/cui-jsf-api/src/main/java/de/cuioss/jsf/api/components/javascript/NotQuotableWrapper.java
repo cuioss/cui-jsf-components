@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.api.components.javascript;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import lombok.Getter;
@@ -34,6 +35,7 @@ import lombok.ToString;
 @ToString
 public class NotQuotableWrapper implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -6239824476027054699L;
 
     @Getter

@@ -18,8 +18,11 @@ package de.cuioss.jsf.api.components.model.widget;
 import de.cuioss.uimodel.nameprovider.DisplayName;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
 
+import java.io.Serial;
+
 public class DeferredLoadingWidgetMock extends BaseDeferredLoadingWidget<String> {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Override

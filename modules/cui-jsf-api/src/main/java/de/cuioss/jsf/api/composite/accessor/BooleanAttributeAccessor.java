@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.api.composite.accessor;
 
+import java.io.Serial;
 import java.util.Map;
 
 import de.cuioss.jsf.api.composite.AttributeAccessor;
@@ -32,6 +33,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class BooleanAttributeAccessor extends AttributeAccessorImpl<Boolean> {
 
+    @Serial
     private static final long serialVersionUID = 5261144187854006347L;
 
     private final boolean invert;

@@ -18,6 +18,7 @@ package de.cuioss.jsf.api.components.model.datalist.impl;
 import static de.cuioss.tools.base.Preconditions.checkState;
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import de.cuioss.jsf.api.components.model.datalist.AddStatus;
@@ -39,6 +40,7 @@ import lombok.ToString;
 @ToString(of = { "wrapped", "editStatus" })
 public class ItemWrapperImpl<T extends Serializable> implements ItemWrapper<T> {
 
+    @Serial
     private static final long serialVersionUID = 7020783590024372831L;
 
     @Getter

@@ -173,12 +173,11 @@ public class DateFormatConverter {
         if (indexOf < 0) {
             return false;
         }
-        // calculate up to 1 characters before
+        // calculate up to 1 character before
         final var beginIndex = Math.max(indexOf - 1, 0);
-        final var endIndex = indexOf;
 
-        // if prefix include "%" or "#" than no it is already replaced
-        final var prefix = value.substring(beginIndex, endIndex);
+        // if the prefix includes "%" or "#" than no it is already replaced
+        final var prefix = value.substring(beginIndex, indexOf);
         return prefix.startsWith("%") || prefix.startsWith("#");
     }
 }

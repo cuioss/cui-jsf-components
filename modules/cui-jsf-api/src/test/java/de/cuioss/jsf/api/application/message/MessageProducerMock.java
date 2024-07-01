@@ -17,6 +17,7 @@ package de.cuioss.jsf.api.application.message;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.Serial;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ import lombok.Getter;
 public class MessageProducerMock implements MessageProducer {
 
     /** */
+    @Serial
     private static final long serialVersionUID = -7244733672736029893L;
 
     @Getter

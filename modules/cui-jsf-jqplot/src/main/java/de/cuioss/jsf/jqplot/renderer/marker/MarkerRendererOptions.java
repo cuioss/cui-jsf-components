@@ -25,6 +25,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Delegate;
 
+import java.io.Serial;
+
 /**
  * The default jqPlot marker renderer, rendering the points on the line.
  *
@@ -37,6 +39,7 @@ import lombok.experimental.Delegate;
 public class MarkerRendererOptions extends RendererOptions implements IShadowDecoration<MarkerRendererOptions> {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 2131890465908857384L;
 
     @Delegate

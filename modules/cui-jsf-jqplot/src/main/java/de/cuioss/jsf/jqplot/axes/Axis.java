@@ -18,6 +18,7 @@ package de.cuioss.jsf.jqplot.axes;
 import static de.cuioss.tools.string.MoreStrings.emptyToNull;
 
 import java.awt.Color;
+import java.io.Serial;
 import java.util.List;
 
 import de.cuioss.jsf.jqplot.js.support.JsObject;
@@ -52,6 +53,7 @@ import lombok.ToString;
 public class Axis extends JsObject implements IPluginConsumer {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 4870320461004802288L;
 
     private final PluginSupport plugins = new PluginSupport();

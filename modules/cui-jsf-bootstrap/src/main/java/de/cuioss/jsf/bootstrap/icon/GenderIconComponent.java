@@ -143,8 +143,4 @@ public class GenderIconComponent extends IconComponent {
         return gender;
     }
 
-    @Override
-    public String getFamily() {
-        return BootstrapFamily.COMPONENT_FAMILY;
-    }
 }

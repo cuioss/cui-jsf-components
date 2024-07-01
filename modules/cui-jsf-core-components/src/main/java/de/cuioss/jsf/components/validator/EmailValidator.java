@@ -54,8 +54,7 @@ public class EmailValidator extends AbstractValidator<String> {
     @Override
     protected void validateTypeSave(final FacesContext context, final UIComponent component, final String value) {
         if (null != value) {
-            final CharSequence inputStr = value;
-            var matcher = getCompiledPattern().matcher(inputStr);
+            var matcher = getCompiledPattern().matcher(value);
             if (!matcher.matches()) {
                 throw new ValidatorException(createErrorMessage("de.cuioss.common.email.invalid"));
             }

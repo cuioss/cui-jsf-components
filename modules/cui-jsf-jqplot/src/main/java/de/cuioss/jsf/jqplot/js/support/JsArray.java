@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.js.support;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -38,6 +39,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class JsArray<T extends JsValue> implements JavaScriptSupport, JsValue, Iterable<T> {
 
+    @Serial
     private static final long serialVersionUID = 4745761442808870666L;
 
     private final ArrayList<T> items = new ArrayList<>();
@@ -91,9 +93,9 @@ public class JsArray<T extends JsValue> implements JavaScriptSupport, JsValue, I
             return "[]";
         }
 
-        final var builder = new StringBuilder().append("[").append(transformedArray()).append("]");
+        String builder = "[" + transformedArray() + "]";
 
-        return builder.toString();
+        return builder;
     }
 
     @Override

@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.components.converter;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,6 +38,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class JQueryDateTimePatternConverter implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -3403131960195316545L;
 
     private static final List<String> IGNORE = Arrays.asList("(", ")", "Z", "S", "z");

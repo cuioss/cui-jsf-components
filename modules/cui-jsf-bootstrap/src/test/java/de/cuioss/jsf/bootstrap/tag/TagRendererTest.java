@@ -183,7 +183,7 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> impleme
         final var hiddenInput = getHiddenInput(component);
         hiddenInput.setSubmittedValue("true");
         hiddenInput.setValue("true");
-        final List<ValueChangeListener> valueChangeListeners = Arrays.asList(hiddenInput.getValueChangeListeners());
+        final ValueChangeListener[] valueChangeListeners = hiddenInput.getValueChangeListeners();
         for (final ValueChangeListener listener : valueChangeListeners) {
             listener.processValueChange(new ValueChangeEvent(hiddenInput, "false", "true"));
         }

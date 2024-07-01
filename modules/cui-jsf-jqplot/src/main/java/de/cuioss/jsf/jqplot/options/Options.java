@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.options;
 
+import java.io.Serial;
 import java.util.List;
 
 import de.cuioss.jsf.jqplot.axes.Axes;
@@ -45,6 +46,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
 public class Options extends JsObject implements IPluginConsumer, PlotHookFunctionProvider {
 
+    @Serial
     private static final long serialVersionUID = 6181479150360964626L;
 
     private static final String HOOK_NAME = "options_hook";

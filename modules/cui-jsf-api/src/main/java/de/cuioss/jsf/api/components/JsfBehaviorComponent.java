@@ -35,7 +35,7 @@ public class JsfBehaviorComponent {
      * @param context must not be {@code null}
      * @return a newly instantiated AjaxBehavior
      */
-    public static final AjaxBehavior ajaxBehavior(FacesContext context) {
+    public static AjaxBehavior ajaxBehavior(FacesContext context) {
         requireNonNull(context);
         return (AjaxBehavior) context.getApplication().createBehavior(AjaxBehavior.BEHAVIOR_ID);
     }

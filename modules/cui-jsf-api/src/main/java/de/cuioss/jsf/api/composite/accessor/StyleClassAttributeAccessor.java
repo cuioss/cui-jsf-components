@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.api.composite.accessor;
 
+import java.io.Serial;
+
 /**
  * Shorthand for creating a {@link StringAttributeAccessor} for the attribute
  * 'styleClass'
@@ -23,6 +25,7 @@ package de.cuioss.jsf.api.composite.accessor;
  */
 public class StyleClassAttributeAccessor extends StringAttributeAccessor {
 
+    @Serial
     private static final long serialVersionUID = 4957486497287214005L;
 
     /** "styleClass". */

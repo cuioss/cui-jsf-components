@@ -17,6 +17,7 @@ package de.cuioss.jsf.jqplot.plugin;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ import lombok.ToString;
 public class PluginSupport implements Serializable, IPluginConsumer {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 4769562352878456691L;
 
     private final List<String> pluginList = new ArrayList<>();

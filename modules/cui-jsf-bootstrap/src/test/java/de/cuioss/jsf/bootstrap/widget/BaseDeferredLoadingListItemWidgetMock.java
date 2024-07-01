@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.bootstrap.widget;
 
+import java.io.Serial;
 import java.util.ArrayList;
 
 import de.cuioss.jsf.api.components.model.widget.BaseListItem;
@@ -24,6 +25,7 @@ import de.cuioss.uimodel.nameprovider.LabeledKey;
 
 public class BaseDeferredLoadingListItemWidgetMock extends BaseDeferredLoadingListItemWidget {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Override

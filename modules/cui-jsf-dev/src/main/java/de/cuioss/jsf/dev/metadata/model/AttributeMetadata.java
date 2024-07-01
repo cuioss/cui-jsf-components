@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.dev.metadata.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import lombok.Data;
@@ -28,6 +29,7 @@ import lombok.Data;
 @Data
 public class AttributeMetadata implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 7576492765093982094L;
 
     private final String name;

@@ -19,6 +19,8 @@ import de.cuioss.jsf.jqplot.js.support.JsValue;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * JsNumber consolidates {@link JsValue} with {@link Number} type content
  *
@@ -30,6 +32,7 @@ import lombok.ToString;
 public class JsNumber<T extends Number> implements JsValue {
 
     /** serial version UID */
+    @Serial
     private static final long serialVersionUID = -7553523540489073132L;
 
     private final JsValue target;

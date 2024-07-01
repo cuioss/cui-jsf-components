@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.renderer;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -22,6 +23,7 @@ import java.io.Serializable;
  */
 public class LabelRenderer implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -8726937375368616050L;
 
 }

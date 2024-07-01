@@ -167,7 +167,7 @@ public enum MimeTypeIcon {
      *                           will be directly used, identifier will be ignored
      * @return the found identifier, always defaulting to {@link #UNDEFINED}
      */
-    public static final MimeTypeIcon valueOfIdentifier(final String mimeTypeIdentifier, final String formatCode) {
+    public static MimeTypeIcon valueOfIdentifier(final String mimeTypeIdentifier, final String formatCode) {
 
         final var uppFormatCode = saveToUpperCase(formatCode);
         var result = HL7_TYPES.actOnCondition(uppFormatCode);
@@ -185,7 +185,7 @@ public enum MimeTypeIcon {
      *         empty or does not map to {@link MimeTypeIcon}, the found
      *         {@link MimeTypeIcon} otherwise.
      */
-    public static final MimeTypeIcon determineForFilenameSuffix(String fileName) {
+    public static MimeTypeIcon determineForFilenameSuffix(String fileName) {
         if (isEmpty(fileName)) {
             return UNDEFINED;
         }
@@ -225,8 +225,8 @@ public enum MimeTypeIcon {
             fileSuffixes = immutableList(fileSuffix);
         }
         final var lowerCaseName = name().toLowerCase();
-        iconClass = new StringBuilder(PREFIX).append(lowerCaseName).toString();
-        placeholder = new StringBuilder(PREFIX).append(lowerCaseName).append(PLACEHOLDER_SUFFIX).toString();
+        iconClass = PREFIX + lowerCaseName;
+        placeholder = PREFIX + lowerCaseName + PLACEHOLDER_SUFFIX;
         rule = Rule.create(htmlIdentifier, this);
     }
 

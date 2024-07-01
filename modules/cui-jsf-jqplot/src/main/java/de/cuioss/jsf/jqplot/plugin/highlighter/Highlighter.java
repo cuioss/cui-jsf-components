@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.plugin.highlighter;
 
+import java.io.Serial;
 import java.util.List;
 
 import de.cuioss.jsf.jqplot.hook.PlotHookFunctionProvider;
@@ -42,6 +43,7 @@ import lombok.ToString;
 public class Highlighter extends JsObject implements IPluginConsumer, PlotHookFunctionProvider {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 341264181606528516L;
 
     private static final String HOOK_NAME = "highlighter_hook";

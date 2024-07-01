@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.renderer;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import lombok.Data;
@@ -27,6 +28,7 @@ import lombok.Data;
 public class DataRenderer implements Serializable {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = -2969373960425897013L;
 
 }

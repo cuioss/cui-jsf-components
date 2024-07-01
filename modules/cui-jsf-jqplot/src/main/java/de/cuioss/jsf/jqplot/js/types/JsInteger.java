@@ -18,6 +18,8 @@ package de.cuioss.jsf.jqplot.js.types;
 import de.cuioss.jsf.jqplot.js.support.JsValue;
 import lombok.Data;
 
+import java.io.Serial;
+
 /**
  * Provide safe way to act with Integer as JSON property
  *
@@ -27,6 +29,7 @@ import lombok.Data;
 public class JsInteger implements JsValue {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = -6330792157273601368L;
 
     private final Integer value;

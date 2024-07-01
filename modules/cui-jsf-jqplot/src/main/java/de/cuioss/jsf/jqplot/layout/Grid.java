@@ -28,6 +28,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Delegate;
 
+import java.io.Serial;
+
 /**
  * <pre>
  * grid: {
@@ -58,6 +60,7 @@ import lombok.experimental.Delegate;
 @ToString(callSuper = false)
 public class Grid extends JsObject implements IShadowDecoration<Grid> {
 
+    @Serial
     private static final long serialVersionUID = 6537562133677782480L;
 
     private static final Color DEFAULT_GRID_LINE_COLOR = Color.createFrom("#cccccc");

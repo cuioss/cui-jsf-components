@@ -21,6 +21,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * tooltipContentEditorFunction used to edit/augment/replace the formatted
  * tooltip contents. Called as str = tooltipContentEditor(str, seriesIndex,
@@ -38,6 +40,7 @@ import lombok.ToString;
 public class TooltipContentEditor implements JsValue, PlotHookFunctionProvider {
 
     /** serialVersionUID */
+    @Serial
     private static final long serialVersionUID = 1088814245596596535L;
 
     private static final String HOOK_NAME = "tooltip_hook";

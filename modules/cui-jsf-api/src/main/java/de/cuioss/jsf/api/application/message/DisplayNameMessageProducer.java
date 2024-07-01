@@ -17,6 +17,7 @@ package de.cuioss.jsf.api.application.message;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import jakarta.enterprise.context.RequestScoped;
@@ -50,6 +51,7 @@ public class DisplayNameMessageProducer implements Serializable {
 
     private static final UIComponent DUMMY = new DummyComponent();
 
+    @Serial
     private static final long serialVersionUID = 3367432860164772689L;
 
     private static final String NO_FITTING_CONVERTER_REGISTERED = "No fitting converter for [%s] class registered.";

@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.Serial;
 import java.util.List;
 import java.util.Objects;
 
@@ -267,6 +268,7 @@ class AbstractEditableDataListModelTest extends ValueObjectTest<SomeModelEditabl
 
     static class TestModel extends AbstractEditableDataListModel<String> {
 
+        @Serial
         private static final long serialVersionUID = 7357592096129340809L;
 
         @Override

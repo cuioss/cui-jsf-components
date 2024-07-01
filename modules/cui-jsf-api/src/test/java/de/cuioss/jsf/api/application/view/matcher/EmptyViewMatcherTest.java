@@ -29,7 +29,7 @@ import de.cuioss.test.generator.TypedGenerator;
 
 class EmptyViewMatcherTest {
 
-    TypedGenerator<String> viewGenerator = Generators.letterStrings(2, 10);
+    final TypedGenerator<String> viewGenerator = Generators.letterStrings(2, 10);
 
     @Test
     void testMatch() {
