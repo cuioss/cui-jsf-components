@@ -15,29 +15,23 @@
  */
 package de.cuioss.jsf.api.application.navigation;
 
-import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Collections;
-import java.util.List;
-
-import org.apache.myfaces.test.mock.MockHttpServletResponse;
-import org.apache.myfaces.test.mock.MockNavigationHandler;
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.test.jsf.config.ApplicationConfigurator;
 import de.cuioss.test.jsf.config.RequestConfigurator;
 import de.cuioss.test.jsf.config.decorator.ApplicationConfigDecorator;
 import de.cuioss.test.jsf.config.decorator.RequestConfigDecorator;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
 import de.cuioss.tools.net.UrlParameter;
+import org.apache.myfaces.test.mock.MockHttpServletResponse;
+import org.apache.myfaces.test.mock.MockNavigationHandler;
+import org.junit.jupiter.api.Test;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Collections;
+import java.util.List;
+
+import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
+import static org.junit.jupiter.api.Assertions.*;
 
 class NavigationUtilsTest extends JsfEnabledTestEnvironment implements ApplicationConfigurator, RequestConfigurator {
 
@@ -58,7 +52,7 @@ class NavigationUtilsTest extends JsfEnabledTestEnvironment implements Applicati
     @Test
     void testErrorHandlingOnMissingUrl() {
         assertThrows(IllegalArgumentException.class,
-                () -> NavigationUtils.sendRedirect(getFacesContext(), null, false));
+            () -> NavigationUtils.sendRedirect(getFacesContext(), null, false));
     }
 
     @Test
@@ -73,8 +67,8 @@ class NavigationUtilsTest extends JsfEnabledTestEnvironment implements Applicati
 
     private void verifyRedirect(final String expected) {
         assertEquals(expected,
-                ((MockHttpServletResponse) getFacesContext().getExternalContext().getResponse()).getMessage(),
-                "RedirectedUrl is wrong. ");
+            ((MockHttpServletResponse) getFacesContext().getExternalContext().getResponse()).getMessage(),
+            "RedirectedUrl is wrong. ");
     }
 
     @Test
@@ -107,7 +101,7 @@ class NavigationUtilsTest extends JsfEnabledTestEnvironment implements Applicati
         NavigationUtils.sendRedirectParameterList(getFacesContext(), SOMEWHERE_JSF, Collections.emptyList());
         verifyRedirect(CONTEXT_PATH + SOMEWHERE_JSF);
         assertTrue(getFacesContext().getResponseComplete(),
-                "After redirect a Signal to FacesContext must be set, that request processing lifecycle should be terminated.");
+            "After redirect a Signal to FacesContext must be set, that request processing lifecycle should be terminated.");
     }
 
     @Test
@@ -123,11 +117,6 @@ class NavigationUtilsTest extends JsfEnabledTestEnvironment implements Applicati
         final var urlTwo = "/somewhereelse";
         NavigationUtils.sendRedirect(getFacesContext(), urlOne, false);
         verifyRedirect(CONTEXT_PATH + urlOne);
-        // make sure no redirect
-        // final MockHttpServletResponse mochResp = (MockHttpServletResponse)
-        // getFacesContext()
-        // .getExternalContext().getResponse();
-        // mochResp.com(true);
         NavigationUtils.sendRedirect(getFacesContext(), urlTwo, false);
         verifyRedirect(CONTEXT_PATH + urlOne);
     }
@@ -143,7 +132,7 @@ class NavigationUtilsTest extends JsfEnabledTestEnvironment implements Applicati
         getFacesContext().getViewRoot().setViewId(SOMEWHERE_XHTML);
         getFacesContext().getViewRoot().setTransient(true);
         getRequestConfigDecorator()
-                .setQueryString(UrlParameter.createParameterString(new UrlParameter(PARAM_NAME, PARAM_VALUE)));
+            .setQueryString(UrlParameter.createParameterString(new UrlParameter(PARAM_NAME, PARAM_VALUE)));
         descriptor = NavigationUtils.getCurrentView(getFacesContext());
         assertEquals(SOMEWHERE_XHTML, descriptor.getViewId());
         assertEquals(SOMEWHERE_JSF, descriptor.getLogicalViewId());
@@ -163,9 +152,9 @@ class NavigationUtilsTest extends JsfEnabledTestEnvironment implements Applicati
         getFacesContext().getViewRoot().setViewId(SOMEWHERE_XHTML);
         getFacesContext().getViewRoot().setTransient(true);
         getRequestConfigDecorator().setQueryString(UrlParameter.createParameterString(
-                new UrlParameter(PARAM_NAME, PARAM_VALUE), new UrlParameter("param-name1", ""),
-                new UrlParameter("param-name2", null),
-                new UrlParameter("param-name-%C3%A4%C3%B6%C3%BC", "value%20%C3%A4%C3%B6%C3%BC-*%2F%3F%2F%3D", false)));
+            new UrlParameter(PARAM_NAME, PARAM_VALUE), new UrlParameter("param-name1", ""),
+            new UrlParameter("param-name2", null),
+            new UrlParameter("param-name-%C3%A4%C3%B6%C3%BC", "value%20%C3%A4%C3%B6%C3%BC-*%2F%3F%2F%3D", false)));
         descriptor = NavigationUtils.getCurrentView(getFacesContext());
         assertEquals(SOMEWHERE_XHTML, descriptor.getViewId());
         assertEquals(SOMEWHERE_JSF, descriptor.getLogicalViewId());
@@ -188,7 +177,7 @@ class NavigationUtilsTest extends JsfEnabledTestEnvironment implements Applicati
     @Test
     void shouldFailToLookupToViewId() {
         assertThrows(IllegalStateException.class,
-                () -> NavigationUtils.lookUpToViewIdBy(getFacesContext(), CONTEXT_PATH));
+            () -> NavigationUtils.lookUpToViewIdBy(getFacesContext(), CONTEXT_PATH));
     }
 
     /**
@@ -199,7 +188,7 @@ class NavigationUtilsTest extends JsfEnabledTestEnvironment implements Applicati
     void shouldFailToLookupToViewIdWrongHandler() {
         getApplication().setNavigationHandler(new MockNavigationHandler());
         assertThrows(IllegalStateException.class,
-                () -> NavigationUtils.lookUpToViewIdBy(getFacesContext(), OUTCOME_HOME));
+            () -> NavigationUtils.lookUpToViewIdBy(getFacesContext(), OUTCOME_HOME));
     }
 
     @Test
@@ -224,7 +213,7 @@ class NavigationUtilsTest extends JsfEnabledTestEnvironment implements Applicati
     @Override
     public void configureApplication(final ApplicationConfigDecorator decorator) {
         decorator.registerNavigationCase(OUTCOME_HOME, VIEW_HOME)
-                .registerNavigationCase(OUTCOME_NAVIGATED, VIEW_NAVIGATED).setContextPath(CONTEXT_PATH);
+            .registerNavigationCase(OUTCOME_NAVIGATED, VIEW_NAVIGATED).setContextPath(CONTEXT_PATH);
     }
 
     @Override

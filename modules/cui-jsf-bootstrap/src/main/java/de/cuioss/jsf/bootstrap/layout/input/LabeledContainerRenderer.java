@@ -114,7 +114,7 @@ public class LabeledContainerRenderer extends BaseDecoratorRenderer<LabeledConta
     private static void doEncodeInputBegin(final FacesContext context,
             final DecoratingResponseWriter<LabeledContainerComponent> writer, final LabeledContainerComponent component)
             throws IOException {
-        if (!component.containsUIInput() && !component.shouldRenderComplexOutput()) {
+        if (!component.containsUIInput() && component.shouldNotRenderComplexOutput()) {
             writer.withStartElement(Node.P);
             writer.withStyleClass(CssBootstrap.FORM_CONTROL_STATIC);
             writer.withTextContent(component.resolveContent(), component.getContentEscape());
@@ -168,7 +168,7 @@ public class LabeledContainerRenderer extends BaseDecoratorRenderer<LabeledConta
         if (component.containsCheckbox()) {
             handleEncodeEndCheckbox(context, writer, component);
         } else {
-            if (!component.containsUIInput() && !component.shouldRenderComplexOutput()) {
+            if (!component.containsUIInput() && component.shouldNotRenderComplexOutput()) {
                 writer.withEndElement(Node.P);
             } else if (component.shouldRenderInputGroup()) {
                 if (component.isAppendFacetRendered()) {

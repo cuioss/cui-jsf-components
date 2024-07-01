@@ -16,7 +16,6 @@
 package de.cuioss.jsf.components.selection;
 
 import java.io.Serial;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 

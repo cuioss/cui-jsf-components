@@ -15,23 +15,21 @@
  */
 package de.cuioss.jsf.api.components.renderer.partial;
 
-import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
-
-import java.io.IOException;
-import java.io.StringWriter;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.html.HtmlInputText;
-
-import org.apache.myfaces.test.mock.MockResponseWriter;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
 import de.cuioss.test.jsf.renderer.util.HtmlTreeAsserts;
 import de.cuioss.uimodel.model.code.CodeTypeImpl;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlInputText;
+import org.apache.myfaces.test.mock.MockResponseWriter;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.io.StringWriter;
+
+import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
 class CodeTypeOptionRendererTest extends JsfEnabledTestEnvironment {
 
@@ -45,14 +43,12 @@ class CodeTypeOptionRendererTest extends JsfEnabledTestEnvironment {
 
     private StringWriter output;
 
-    private UIComponent component;
-
     private DecoratingResponseWriter<UIComponent> responseWriter;
 
     @BeforeEach
     void before() {
         output = new StringWriter();
-        component = new HtmlInputText();
+        UIComponent component = new HtmlInputText();
         component.setId("id");
         getFacesContext().setResponseWriter(new MockResponseWriter(output));
         responseWriter = new DecoratingResponseWriter<>(getFacesContext(), component);
@@ -77,7 +73,7 @@ class CodeTypeOptionRendererTest extends JsfEnabledTestEnvironment {
 
     private void assertWritten(final String expected) {
         var builderExpected = new HtmlTreeBuilder(expected);
-        var builderActutal = new HtmlTreeBuilder(output.toString());
-        HtmlTreeAsserts.assertHtmlTreeEquals(builderExpected.getDocument(), builderActutal.getDocument());
+        var builderActual = new HtmlTreeBuilder(output.toString());
+        HtmlTreeAsserts.assertHtmlTreeEquals(builderExpected.getDocument(), builderActual.getDocument());
     }
 }

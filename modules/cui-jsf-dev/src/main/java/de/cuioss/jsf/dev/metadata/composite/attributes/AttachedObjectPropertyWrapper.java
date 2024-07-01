@@ -15,14 +15,13 @@
  */
 package de.cuioss.jsf.dev.metadata.composite.attributes;
 
+import de.cuioss.jsf.dev.metadata.composite.util.LabelValueDisplay;
+import jakarta.faces.view.AttachedObjectTarget;
+
 import java.beans.FeatureDescriptor;
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
-
-import jakarta.faces.view.AttachedObjectTarget;
-
-import de.cuioss.jsf.dev.metadata.composite.util.LabelValueDisplay;
 
 /**
  * Implementation for an attached object.
@@ -41,14 +40,13 @@ public class AttachedObjectPropertyWrapper extends AbstractPropertyWrapper {
      * @param attachedObjectTarget attached object target
      */
     public AttachedObjectPropertyWrapper(final FeatureDescriptor featureDescriptor,
-            final AttachedObjectTarget attachedObjectTarget) {
+                                         final AttachedObjectTarget attachedObjectTarget) {
         super(featureDescriptor, createDisplayValues(attachedObjectTarget));
     }
 
     /**
      * Creates the data to be displayed.
      *
-     * @param featureDescriptor
      * @param attachedObjectTarget
      * @return the list of display data
      */

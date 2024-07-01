@@ -43,8 +43,6 @@ import jakarta.faces.component.UIInput;
 import jakarta.faces.event.PostAddToViewEvent;
 import jakarta.faces.event.ValueChangeEvent;
 import jakarta.faces.event.ValueChangeListener;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

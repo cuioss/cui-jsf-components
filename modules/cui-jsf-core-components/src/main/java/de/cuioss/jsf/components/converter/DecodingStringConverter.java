@@ -15,7 +15,6 @@
  */
 package de.cuioss.jsf.components.converter;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;

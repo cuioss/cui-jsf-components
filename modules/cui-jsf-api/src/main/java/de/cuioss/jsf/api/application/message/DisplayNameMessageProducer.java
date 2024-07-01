@@ -15,24 +15,23 @@
  */
 package de.cuioss.jsf.api.application.message;
 
-import static java.util.Objects.requireNonNull;
-
-import java.io.Serial;
-import java.io.Serializable;
-
-import jakarta.enterprise.context.RequestScoped;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.inject.Inject;
-
 import de.cuioss.jsf.api.common.accessor.ConverterAccessor;
 import de.cuioss.jsf.api.components.support.DummyComponent;
 import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
 import de.cuioss.uimodel.result.ResultObject;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Decorator for {@link MessageProducer} to log and display
@@ -41,13 +40,13 @@ import lombok.ToString;
  * @author Matthias Walliczek
  */
 @RequestScoped
-@EqualsAndHashCode(exclude = { "messageProducer" })
-@ToString(exclude = { "messageProducer" })
+@EqualsAndHashCode(exclude = {"messageProducer"})
+@ToString(exclude = {"messageProducer"})
 public class DisplayNameMessageProducer implements Serializable {
 
     private static final CuiLogger log = new CuiLogger(DisplayNameMessageProducer.class);
 
-    private static final String SILENT_ERROR_LOG = "Error occured but was handeled silent.";
+    private static final String SILENT_ERROR_LOG = "Error occurred but was handled silent.";
 
     private static final UIComponent DUMMY = new DummyComponent();
 
@@ -67,34 +66,30 @@ public class DisplayNameMessageProducer implements Serializable {
      */
     @SuppressWarnings("squid:S3655")
     public void showAsGlobalMessageAndLog(final ResultObject<?> requestResultObject) {
-        FacesMessage.Severity severity;
-
-        switch (requestResultObject.getState()) {
-        case ERROR:
-            if (requestResultObject.getResultDetail().get().getCause().isPresent()) {
-                log.error(SILENT_ERROR_LOG, requestResultObject.getResultDetail().get().getCause().get());
+        FacesMessage.Severity severity = switch (requestResultObject.getState()) {
+            case ERROR -> {
+                if (requestResultObject.getResultDetail().get().getCause().isPresent()) {
+                    log.error(SILENT_ERROR_LOG, requestResultObject.getResultDetail().get().getCause().get());
+                }
+                yield FacesMessage.SEVERITY_ERROR;
             }
-            severity = FacesMessage.SEVERITY_ERROR;
-            break;
-        case WARNING:
-            if (requestResultObject.getResultDetail().get().getCause().isPresent()) {
-                log.warn(SILENT_ERROR_LOG, requestResultObject.getResultDetail().get().getCause().get());
+            case WARNING -> {
+                if (requestResultObject.getResultDetail().get().getCause().isPresent()) {
+                    log.warn(SILENT_ERROR_LOG, requestResultObject.getResultDetail().get().getCause().get());
+                }
+                yield FacesMessage.SEVERITY_WARN;
             }
-            severity = FacesMessage.SEVERITY_WARN;
-            break;
-        case INFO:
-            if (requestResultObject.getResultDetail().get().getCause().isPresent()) {
-                log.info(SILENT_ERROR_LOG, requestResultObject.getResultDetail().get().getCause().get());
+            case INFO -> {
+                if (requestResultObject.getResultDetail().get().getCause().isPresent()) {
+                    log.info(SILENT_ERROR_LOG, requestResultObject.getResultDetail().get().getCause().get());
+                }
+                yield FacesMessage.SEVERITY_INFO;
             }
-            severity = FacesMessage.SEVERITY_INFO;
-            break;
-        case VALID:
-            severity = FacesMessage.SEVERITY_INFO;
-            break;
-        default:
-            throw new UnsupportedOperationException("No resolving defined for -> " + requestResultObject.getState(),
+            case VALID -> FacesMessage.SEVERITY_INFO;
+            default ->
+                throw new UnsupportedOperationException("No resolving defined for -> " + requestResultObject.getState(),
                     requestResultObject.getResultDetail().get().getCause().orElse(null));
-        }
+        };
 
         if (requestResultObject.getResultDetail().isPresent()) {
             showAsGlobalMessage(requestResultObject.getResultDetail().get().getDetail(), severity);
@@ -117,7 +112,7 @@ public class DisplayNameMessageProducer implements Serializable {
     /**
      * Resolve a {@linkplain IDisplayNameProvider} via matching converter.
      *
-     * @param content
+     * @param content to be resolved
      * @return the message string
      */
     public static String resolve(final IDisplayNameProvider<?> content) {

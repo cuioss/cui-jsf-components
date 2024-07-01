@@ -15,10 +15,9 @@
  */
 package de.cuioss.jsf.api.components.model.widget;
 
-import jakarta.faces.event.PostAddToViewEvent;
-
 import de.cuioss.jsf.api.components.model.lazyloading.LazyLoadingModel;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
+import jakarta.faces.event.PostAddToViewEvent;
 
 /**
  * Data model for the widget component to be used at patient overview.
@@ -38,8 +37,8 @@ public interface WidgetModel extends LazyLoadingModel {
     String getTitleIcon();
 
     /**
-     * @return the title of the widget. {@linkplain #getTitleValue()} takes
-     *         precedence over {@linkplain #getTitle()}.
+     * @return the title of the widget.
+     * Takes precedence over {@linkplain #getTitle()}.
      */
     String getTitleValue();
 
@@ -84,8 +83,7 @@ public interface WidgetModel extends LazyLoadingModel {
     boolean isRendered();
 
     /**
-     * Start the initialization during {@link PostAddToViewEvent}. Should return
-     * immediate.
+     * Start the initialization during {@link PostAddToViewEvent}. Should return immediately.
      */
     void startInitialize();
 }
