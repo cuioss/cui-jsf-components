@@ -27,6 +27,7 @@ import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.notification.NotificationBoxComponent;
 import de.cuioss.jsf.bootstrap.waitingindicator.WaitingIndicatorComponent;
+import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.tools.string.MoreStrings;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
 import jakarta.el.MethodExpression;
@@ -55,6 +56,7 @@ import java.util.Optional;
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public class LazyLoadingComponent extends UICommand implements ComponentBridge, NamingContainer {
 
+    private static final CuiLogger LOGGER = new CuiLogger(LazyLoadingComponent.class);
     private static final String INITIALIZED_KEY = "initialized";
 
     private static final String CHILDREN_LOADED_KEY = "childrenLoaded";
@@ -108,15 +110,19 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
     public void processEvent(final ComponentSystemEvent event) {
         if (event instanceof PreRenderViewEvent) {
             if (!oneTimeCheck.readAndSetChecked()) {
+                LOGGER.debug("Handling PreRenderViewEvent %s after OneTimeCheck", event);
                 var startInitialize = getStartInitialize();
                 if (null != startInitialize) {
+                    LOGGER.debug("Invoking startInitialize");
                     startInitialize.invoke(getFacesContext().getELContext(), new Object[]{});
                 }
-                if (!evaluateInitialized() && null != getViewModel()) {
+                if (evaluateNotInitialized() && null != getViewModel()) {
+                    LOGGER.debug("Adding actionListener");
                     super.addActionListener(getViewModel());
                 }
             }
         } else if (event instanceof PostAddToViewEvent) {
+            LOGGER.debug("Handling PostAddToViewEvent %s", event);
             createWaitingIndicator();
             createNotificationBox();
         }
@@ -238,11 +244,11 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
         return state.getBoolean(INITIALIZED_KEY, false);
     }
 
-    public boolean evaluateInitialized() {
+    public boolean evaluateNotInitialized() {
         if (null != getViewModel()) {
-            return isInitialized() || getViewModel().isInitialized();
+            return !isInitialized() && !getViewModel().isInitialized();
         }
-        return isInitialized();
+        return !isInitialized();
     }
 
     /**
@@ -289,7 +295,7 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
     }
 
     /**
-     * Remember that childs were already rendered or trigger loading in the next
+     * Remember that children were already rendered or trigger loading in the next
      * request.
      *
      * @param childrenLoaded true when the children should be rendered in the next
@@ -300,7 +306,7 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
     }
 
     public boolean shouldRenderWaitingIndicator(FacesContext facesContext) {
-        return !evaluateInitialized() && !getChildrenLoaded() && !isContentLoadRequest(facesContext);
+        return evaluateNotInitialized() && !getChildrenLoaded() && isNotContentLoadRequest(facesContext);
     }
 
     public boolean evaluateRenderContent() {
@@ -317,7 +323,7 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
      */
     @Override
     public void processValidators(FacesContext context) {
-        if (!isContentLoadRequest(context)) {
+        if (isNotContentLoadRequest(context)) {
             super.processValidators(context);
         }
     }
@@ -329,7 +335,7 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
      */
     @Override
     public void processUpdates(FacesContext context) {
-        if (!isContentLoadRequest(context)) {
+        if (isNotContentLoadRequest(context)) {
             super.processUpdates(context);
         }
     }
@@ -342,48 +348,37 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
      * @return true if the current request was triggered by the ajax request to
      * reload the lazy loading content
      */
-    public boolean isContentLoadRequest(FacesContext context) {
+    public boolean isNotContentLoadRequest(FacesContext context) {
         var componentWrapper = new ComponentWrapper<>(this);
-        return context.getExternalContext().getRequestParameterMap()
+        return !context.getExternalContext().getRequestParameterMap()
             .containsKey(componentWrapper.getSuffixedClientId(ID_SUFFIX_IS_LOADED));
     }
 
     /**
      * Create a waiting indicator based on the composite component if not already
      * existing.
-     *
-     * @return the waiting indicator as {@link UIComponent}.
      */
-    UIComponent createWaitingIndicator() {
-        var result = retrieveWaitingIndicator();
-
-        if (result.isEmpty()) {
-            var waitingIndicator = WaitingIndicatorComponent.createComponent(FacesContext.getCurrentInstance());
+    void createWaitingIndicator() {
+        if (retrieveWaitingIndicator().isEmpty()) {
+            var waitingIndicator = WaitingIndicatorComponent.createComponent(getFacesContext());
             if (!MoreStrings.isEmpty(getWaitingIndicatorStyleClass())) {
                 waitingIndicator.setStyleClass(getWaitingIndicatorStyleClass());
             }
             waitingIndicator.setId(WAITING_INDICATOR_ID);
             getChildren().add(waitingIndicator);
-            return waitingIndicator;
         }
-        return result.get();
     }
 
     /**
      * Create a result notification box if not already existing.
-     *
-     * @return the notification box as {@link UIComponent}.
      */
-    NotificationBoxComponent createNotificationBox() {
-        var result = retrieveNotificationBox();
-        if (result.isEmpty()) {
+    void createNotificationBox() {
+        if (retrieveNotificationBox().isEmpty()) {
             var notificationBoxComponent = new NotificationBoxComponent();
             notificationBoxComponent.getPassThroughAttributes().put(DATA_RESULT_NOTIFICATION_BOX,
                 DATA_RESULT_NOTIFICATION_BOX);
             getChildren().add(0, notificationBoxComponent);
-            return notificationBoxComponent;
         }
-        return (NotificationBoxComponent) result.get();
     }
 
     public Optional<UIComponent> retrieveWaitingIndicator() {

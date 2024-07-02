@@ -23,6 +23,7 @@ import de.cuioss.jsf.api.components.util.ComponentWrapper;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.jsf.bootstrap.notification.NotificationBoxComponent;
+import de.cuioss.tools.logging.CuiLogger;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.ActionEvent;
@@ -38,6 +39,7 @@ import static de.cuioss.jsf.bootstrap.lazyloading.LazyLoadingComponent.*;
 @FacesRenderer(rendererType = BootstrapFamily.LAZYLOADING_RENDERER, componentFamily = BootstrapFamily.COMPONENT_FAMILY)
 public class LazyLoadingRenderer extends BaseDecoratorRenderer<LazyLoadingComponent> {
 
+    private static final CuiLogger LOGGER = new CuiLogger(LazyLoadingRenderer.class);
     static final String DATA_LAZY_LOADING_CONTENT = "data-lazy_loading-content";
 
     private static final String LAZY_LOADING_CONTENT_ID = "content";
@@ -131,13 +133,16 @@ public class LazyLoadingRenderer extends BaseDecoratorRenderer<LazyLoadingCompon
     @Override
     protected void doDecode(final FacesContext context, final ComponentWrapper<LazyLoadingComponent> componentWrapper) {
         final var component = componentWrapper.getWrapped();
-        final var map = context.getExternalContext().getRequestParameterMap();
+        LOGGER.debug("Decoding lazy loading component for %s", component);
 
+        final var map = context.getExternalContext().getRequestParameterMap();
         final var isLoadedValue = map.get(componentWrapper.getSuffixedClientId(ID_SUFFIX_IS_LOADED));
+        LOGGER.debug("isLoadedValue: %s", isLoadedValue);
         if (isLoadedValue != null) {
             var loadedValue = Boolean.parseBoolean(isLoadedValue);
             if (loadedValue && !component.getChildrenLoaded()) {
                 component.setChildrenLoaded(true);
+                LOGGER.debug("Queuing ActionEvent for %s", component);
                 component.queueEvent(new ActionEvent(component));
             }
         }
