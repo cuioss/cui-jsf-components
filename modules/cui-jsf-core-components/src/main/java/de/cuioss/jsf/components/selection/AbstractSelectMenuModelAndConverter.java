@@ -222,7 +222,7 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
      * @param rescrictModeActive
      */
     public void setRescrictModeActive(final boolean rescrictModeActive) {
-        converter.setRescrictModeActive(rescrictModeActive);
+        converter.setRestrictedModeActive(rescrictModeActive);
     }
 
     /**

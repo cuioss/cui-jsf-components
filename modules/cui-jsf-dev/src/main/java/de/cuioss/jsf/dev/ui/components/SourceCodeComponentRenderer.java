@@ -15,16 +15,6 @@
  */
 package de.cuioss.jsf.dev.ui.components;
 
-import static de.cuioss.tools.string.MoreStrings.isEmpty;
-import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.render.FacesRenderer;
-
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.jsf.api.components.html.Node;
@@ -34,6 +24,15 @@ import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.tools.string.Joiner;
 import de.cuioss.tools.string.MoreStrings;
 import de.cuioss.tools.string.Splitter;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static de.cuioss.tools.string.MoreStrings.isEmpty;
+import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
 
 /**
  * @author Oliver Wolff
@@ -71,8 +70,8 @@ public class SourceCodeComponentRenderer extends BaseDecoratorRenderer<SourceCod
             writer.withTextContent(component.getDescription().formatted(), true);
             writer.withEndElement(Node.P);
         }
-        final var resolvedSource = component.resolveSource().replace("%", "%%").formatted().replace("%n",
-                LINE_SEPARATOR);
+        @SuppressWarnings("RedundantStringFormatCall") final var resolvedSource = component.resolveSource().replace("%", "%%").formatted().replace("%n",
+            LINE_SEPARATOR);
         if (component.isEnableClipboard()) {
             renderCopyElements(writer, resolvedSource);
         }
@@ -165,7 +164,7 @@ public class SourceCodeComponentRenderer extends BaseDecoratorRenderer<SourceCod
     /**
      * Renders the copy button and the corresponding (invisible) textarea
      *
-     * @param writer to be written to
+     * @param writer         to be written to
      * @param resolvedSource to be written
      * @throws IOException pass through
      */

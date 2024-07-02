@@ -15,24 +15,22 @@
  */
 package de.cuioss.jsf.jqplot.options;
 
-import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
-import static de.cuioss.tools.collect.CollectionLiterals.immutableSortedSet;
-import static de.cuioss.tools.collect.CollectionLiterals.mutableList;
-import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
-import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
+import de.cuioss.tools.string.MoreStrings;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import lombok.Getter;
-import lombok.ToString;
+import static de.cuioss.tools.collect.CollectionLiterals.*;
+import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
 
 /**
  * Supported java keys :
- * http://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormat.html
+ * <a href="http://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormat.html">...</a>
  * Supported java Script : keys
- * http://sandbox.kendsnyder.com/date/?q=sandbox/date/#src
+ * <a href="http://sandbox.kendsnyder.com/date/?q=sandbox/date/#src">...</a>
  *
  * @author Eugen Fischer
  */
@@ -73,18 +71,18 @@ public class DateFormatConverter {
         @Getter
         private final String jsFormatCode;
 
-        public static final Set<DatePart> HOURS_SIFFIX = immutableSortedSet(HOUR_SUFFIX);
+        public static final Set<DatePart> HOURS_SUFFIX = immutableSortedSet(HOUR_SUFFIX);
 
         public static final Set<DatePart> YEARS = immutableSortedSet(YEAR_FOUR, YEAR_FOUR_BIG, YEAR_TWO, YEAR_TWO_BIG,
-                YEAR_ONE, YEAR_ONE_BIG);
+            YEAR_ONE, YEAR_ONE_BIG);
 
         public static final Set<DatePart> MONTHS = immutableSortedSet(MONTH_FOUR, MONTH_THREE, MONTH_TWO, MONTH_ONE);
 
         public static final Set<DatePart> DAYS = immutableSortedSet(DAY_FOUR, DAY_THREE, DAY_THREE_BIG, DAY_TWO,
-                DAY_TWO_BIG, DAY_ONE, DAY_ONE_BIG, DAY_OF_WEEK, DAY_OF_WEEK_NUMBER, DAY_OF_MONTH);
+            DAY_TWO_BIG, DAY_ONE, DAY_ONE_BIG, DAY_OF_WEEK, DAY_OF_WEEK_NUMBER, DAY_OF_MONTH);
 
         public static final Set<DatePart> HOURS = immutableSortedSet(HOUR_TWO_12, HOUR_ONE_12, HOUR_TWO_24, HOUR_ONE_24,
-                HOUR_CLOCK);
+            HOUR_CLOCK);
 
         public static final Set<DatePart> MINUTES = immutableSortedSet(MINUTE_TWO, MINUTE_ONE);
 
@@ -93,7 +91,7 @@ public class DateFormatConverter {
         public static final Set<DatePart> MILLISECONDS = immutableSortedSet(MILLISECONDS_THREE, MILLISECONDS_ONE);
 
         public static final Set<DatePart> TIMEZONES = immutableSortedSet(TIME_ZONE_HOURS, TIME_ZONE_NAME,
-                TIME_ZONE_IN_MINUTES);
+            TIME_ZONE_IN_MINUTES);
 
         DatePart(final String javaFormat, final String javaScriptFormat) {
             javaFormatCode = requireNotEmpty(javaFormat);
@@ -102,9 +100,9 @@ public class DateFormatConverter {
 
     }
 
-    private static final List<Set<DatePart>> TACTICS = immutableList(DatePart.HOURS_SIFFIX, DatePart.YEARS,
-            DatePart.MONTHS, DatePart.DAYS, DatePart.HOURS, DatePart.MINUTES, DatePart.MILLISECONDS, DatePart.SECONDS,
-            DatePart.TIMEZONES);
+    private static final List<Set<DatePart>> TACTICS = immutableList(DatePart.HOURS_SUFFIX, DatePart.YEARS,
+        DatePart.MONTHS, DatePart.DAYS, DatePart.HOURS, DatePart.MINUTES, DatePart.MILLISECONDS, DatePart.SECONDS,
+        DatePart.TIMEZONES);
 
     /**
      * Convert java / joda date time format to javaScript date time format
@@ -114,7 +112,7 @@ public class DateFormatConverter {
      */
     public static String convertToJavaScriptDateFormat(final String javaDateFormat) {
 
-        final var data = nullToEmpty(javaDateFormat);
+        final var data = MoreStrings.emptyToNull(javaDateFormat);
 
         if (null == data) {
             return javaDateFormat;
@@ -127,7 +125,7 @@ public class DateFormatConverter {
      * Recursive method
      *
      * @param target  string which should be processed
-     * @param tactics list if tactics, each recursion get less
+     * @param tactics list if tactics, each recursion gets less
      * @return replaces
      */
     private static String replaceAll(final String target, final List<Set<DatePart>> tactics) {
@@ -135,9 +133,9 @@ public class DateFormatConverter {
         if (tactics.isEmpty()) {
             return target;
         }
-        // get out first tactic set
+        // get out a first tactic set
         final var tactic = tactics.remove(0);
-        // process the replacement and call recursion with reduced tactics list
+        // process the replacement and call recursion with a reduced tactics list
         return replaceAll(replace(target, tactic), tactics);
     }
 
@@ -168,7 +166,7 @@ public class DateFormatConverter {
      * @return {@code true} if already done, {@code false} otherwise
      */
     private static boolean alreadyReplaced(final String value, final String replaceValue) {
-        // begin of first occurrence. -1 means not found at all
+        // begin the first occurrence. -1 means not found at all
         final var indexOf = value.indexOf(replaceValue);
         if (indexOf < 0) {
             return false;

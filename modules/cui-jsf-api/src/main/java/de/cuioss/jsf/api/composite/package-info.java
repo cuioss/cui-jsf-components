@@ -17,11 +17,8 @@
  * <code>
  *   private final StringAttributeAccessor styleAccessor =
  *        new StringAttributeAccessor("styleClass", true, true);<br>
- *
  *       styleClass = styleAccessor.value(getAttributes());<br>
- *
  *      with styleAccessor.available(getAttributes()) as guard.
- *
  *       </code>
  * </p>
  *

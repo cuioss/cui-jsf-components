@@ -15,14 +15,6 @@
  */
 package de.cuioss.jsf.api.components.model.resultContent;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import jakarta.faces.application.FacesMessage;
-
 import de.cuioss.jsf.api.application.message.DisplayNameMessageProducer;
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.portal.common.cdi.PortalBeanManager;
@@ -30,11 +22,13 @@ import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
 import de.cuioss.uimodel.result.ResultDetail;
 import de.cuioss.uimodel.result.ResultObject;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import jakarta.faces.application.FacesMessage;
+import lombok.*;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Model for requestResultContent.xhtml to display a {@link ResultObject} and
@@ -83,12 +77,12 @@ public class ResultContent implements ErrorController, Serializable {
     }
 
     /**
-     * Handle (and display) a additional {@link ResultDetail} with default
+     * Handle (and display) an additional {@link ResultDetail} with default
      * {@link ResultErrorHandler}.
      *
      * @param resultObject a {@link ResultObject} that may contain a
-     *                     {@link ResultDetail}. If a does not contain a
-     *                     {@link ResultDetail}, nothing will happen.
+     *                     {@link ResultDetail}.
+     *                     If it does not contain a {@link ResultDetail}, nothing will happen.
      * @param log          the logger of the page bean.
      */
     public void handleAdditionalResult(ResultObject<?> resultObject, CuiLogger log) {
@@ -100,8 +94,8 @@ public class ResultContent implements ErrorController, Serializable {
      * {@link ResultErrorHandler}.
      *
      * @param resultObject a {@link ResultObject} that may contain a
-     *                     {@link ResultDetail}. If a does not contain a
-     *                     {@link ResultDetail}, nothing will happen.
+     *                     {@link ResultDetail}.
+     *                     If it does not contain a {@link ResultDetail}, nothing will happen.
      * @param errorHandler a {@link ResultErrorHandler} that will be called when a
      *                     {@link ResultDetail} is present.
      * @param log          the logger of the page bean.
@@ -115,10 +109,6 @@ public class ResultContent implements ErrorController, Serializable {
     @Override
     public void addNotificationBox(IDisplayNameProvider<?> value, ContextState state) {
         notificationBoxMessages.add(new NotificationBoxMessage(value, state));
-    }
-
-    public void addNotificationBox(Optional<ResultDetail> resultDetailOptional, ContextState state) {
-        resultDetailOptional.ifPresent(resultDetail -> addNotificationBox(resultDetail.getDetail(), state));
     }
 
     @Override

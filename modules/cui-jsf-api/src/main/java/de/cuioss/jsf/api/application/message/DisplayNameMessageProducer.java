@@ -86,9 +86,6 @@ public class DisplayNameMessageProducer implements Serializable {
                 yield FacesMessage.SEVERITY_INFO;
             }
             case VALID -> FacesMessage.SEVERITY_INFO;
-            default ->
-                throw new UnsupportedOperationException("No resolving defined for -> " + requestResultObject.getState(),
-                    requestResultObject.getResultDetail().get().getCause().orElse(null));
         };
 
         if (requestResultObject.getResultDetail().isPresent()) {

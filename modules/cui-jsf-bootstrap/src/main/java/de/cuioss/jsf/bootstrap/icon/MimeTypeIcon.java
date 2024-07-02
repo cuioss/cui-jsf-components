@@ -31,7 +31,7 @@ import lombok.Getter;
 
 /**
  * Each constant represent a mime type icon, defined within icons.css.<br>
- * Currently supported mime types see https://jira.x-tention.com/browse/VMR-5009
+ * Currently supported mime types see <a href="https://jira.x-tention.com/browse/VMR-5009">...</a>
  * <br>
  *
  * @author Oliver Wolff
@@ -155,7 +155,7 @@ public enum MimeTypeIcon {
         if (null != value) {
             return value.toUpperCase();
         }
-        return value;
+        return null;
     }
 
     /**

@@ -15,6 +15,14 @@
  */
 package de.cuioss.jsf.dev.metadata.composite;
 
+import de.cuioss.jsf.dev.metadata.composite.attributes.ComponentPropertiesWrapper;
+import de.cuioss.jsf.dev.metadata.composite.util.SampleSourceFinder;
+import de.cuioss.tools.logging.CuiLogger;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.view.ViewDeclarationLanguage;
+
 import java.beans.BeanDescriptor;
 import java.beans.BeanInfo;
 import java.beans.PropertyDescriptor;
@@ -22,20 +30,11 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.component.UINamingContainer;
-import jakarta.faces.event.ComponentSystemEvent;
-import jakarta.faces.view.ViewDeclarationLanguage;
-
-import de.cuioss.jsf.dev.metadata.composite.attributes.ComponentPropertiesWrapper;
-import de.cuioss.jsf.dev.metadata.composite.util.SampleSourceFinder;
-import de.cuioss.tools.logging.CuiLogger;
-
 /**
  * Helper class for accessing Metadata of Composite components.
  * <p>
  * Inspired by
- * http://weblogs.java.net/blog/edburns/archive/2009/09/02/jsf2-composite
+ * <a href="<a">href="http://weblogs.java.net/blog/edburns/archive/2009/09/02/jsf2-</a>composite">...</a>
  * -component-metadata
  * </p>
  *
@@ -44,15 +43,21 @@ import de.cuioss.tools.logging.CuiLogger;
 @FacesComponent("de.cuioss.cui.dev.compositeComponentTag")
 public final class CompositeComponentTag extends UINamingContainer {
 
-    /** Default suffix for xhtml components. */
-    private static final String DEFAULT_COMPONENT_SUFIX = ".xhtml";
+    /**
+     * Default suffix for xhtml components.
+     */
+    private static final String DEFAULT_COMPONENT_SUFFIX = ".xhtml";
 
     private static final CuiLogger log = new CuiLogger(CompositeComponentTag.class);
 
-    /** Storage for the metadata object. not to be serialized. */
+    /**
+     * Storage for the metadata object. Not to be serialized.
+     */
     private BeanInfo metadata;
 
-    /** Storage for the metadata object. not to be serialized. */
+    /**
+     * Storage for the metadata object. not to be serialized.
+     */
     private ComponentPropertiesWrapper componentPropertiesWrapper = new ComponentPropertiesWrapper();
 
     /**
@@ -70,8 +75,8 @@ public final class CompositeComponentTag extends UINamingContainer {
         if (null == composite || composite.isEmpty()) {
             throw new IllegalArgumentException("Composite name must not be empty");
         }
-        if (!composite.endsWith(DEFAULT_COMPONENT_SUFIX)) {
-            composite += DEFAULT_COMPONENT_SUFIX;
+        if (!composite.endsWith(DEFAULT_COMPONENT_SUFFIX)) {
+            composite += DEFAULT_COMPONENT_SUFFIX;
         }
         return composite;
     }
@@ -88,7 +93,7 @@ public final class CompositeComponentTag extends UINamingContainer {
      */
     private ViewDeclarationLanguage getDeclarationLanguage() {
         return getFacesContext().getApplication().getViewHandler().getViewDeclarationLanguage(getFacesContext(),
-                getViewName());
+            getViewName());
     }
 
     /**
@@ -101,12 +106,12 @@ public final class CompositeComponentTag extends UINamingContainer {
                 var compositeComponentResource = resourceHandler.createResource(getCompositeName(), getLibrary());
                 if (null == compositeComponentResource) {
                     throw new IllegalArgumentException(
-                            "No resource found for " + getLibrary() + "/" + getCompositeName());
+                        "No resource found for " + getLibrary() + "/" + getCompositeName());
                 }
                 metadata = getDeclarationLanguage().getComponentMetadata(getFacesContext(), compositeComponentResource);
                 if (log.isTraceEnabled()) {
                     log.trace(
-                            "Lazy loaded metadata for Composite Component " + getLibrary() + "/" + getCompositeName());
+                        "Lazy loaded metadata for Composite Component " + getLibrary() + "/" + getCompositeName());
                 }
             }
         }
@@ -131,7 +136,7 @@ public final class CompositeComponentTag extends UINamingContainer {
         if (!componentPropertiesWrapper.isConfigured()) {
             Map<String, String> additionalInfo = new HashMap<>();
             additionalInfo.put(ComponentPropertiesWrapper.COMOPOSITE_NAME_KEY,
-                    getCompositeName().replace(DEFAULT_COMPONENT_SUFIX, ""));
+                getCompositeName().replace(DEFAULT_COMPONENT_SUFFIX, ""));
             additionalInfo.put(ComponentPropertiesWrapper.COMOPOSITE_LIBRARY_KEY, getLibrary());
             componentPropertiesWrapper = new ComponentPropertiesWrapper();
             componentPropertiesWrapper.addParentComponentDescriptor(getMetadataInfo().getBeanDescriptor());
@@ -165,7 +170,7 @@ public final class CompositeComponentTag extends UINamingContainer {
      * Return whether a facet with name="sampleSource" is defined
      *
      * @return boolean indicating whether a facet with name="sampleSource" is
-     *         defined
+     * defined
      */
     public boolean isSampleSourceFacetAvailable() {
         return null != getFacet("sampleSource");
@@ -179,7 +184,7 @@ public final class CompositeComponentTag extends UINamingContainer {
     public String getSampleFacetSource() {
         final var context = (jakarta.servlet.ServletContext) getFacesContext().getExternalContext().getContext();
         final var sampleSourceFinder = new SampleSourceFinder(
-                new File(context.getRealPath(getFacesContext().getViewRoot().getViewId())), getId());
+            new File(context.getRealPath(getFacesContext().getViewRoot().getViewId())), getId());
         return sampleSourceFinder.getSampleSource();
     }
 }

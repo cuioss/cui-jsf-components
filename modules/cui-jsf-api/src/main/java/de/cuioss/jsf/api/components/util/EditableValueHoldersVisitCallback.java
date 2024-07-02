@@ -30,7 +30,7 @@ import lombok.ToString;
 
 /**
  * Implementation for the visiting pattern of JSF, inspired by
- * http://ovaraksin.blogspot.de/2011/12/efficient-component-tree-traversal-in.html
+ * <a href="http://ovaraksin.blogspot.de/2011/12/efficient-component-tree-traversal-in.html">...</a>
  *
  * @author Oliver Wolff
  */

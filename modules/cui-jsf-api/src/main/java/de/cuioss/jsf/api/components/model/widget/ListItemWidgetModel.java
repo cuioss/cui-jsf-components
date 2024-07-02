@@ -32,7 +32,7 @@ public interface ListItemWidgetModel extends WidgetModel {
     List<? extends ListItem> getItems();
 
     /**
-     * @return the message string to display in case item list is empty.
+     * @return the message string to display in case, the item list is empty.
      */
     LabeledKey getNoItemsMessage();
 

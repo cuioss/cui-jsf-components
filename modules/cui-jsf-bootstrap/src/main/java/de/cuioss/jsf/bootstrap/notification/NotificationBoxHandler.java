@@ -44,7 +44,7 @@ public class NotificationBoxHandler extends ComponentHandler {
     }
 
     @Override
-    protected MetaRuleset createMetaRuleset(@SuppressWarnings("rawtypes") final Class type) { // Rawtype
+    protected MetaRuleset createMetaRuleset(final Class type) { // Rawtype
                                                                                               // due
                                                                                               // to
                                                                                               // API

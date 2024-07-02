@@ -44,7 +44,7 @@ public class TagHandler extends ComponentHandler {
     }
 
     @Override
-    protected MetaRuleset createMetaRuleset(@SuppressWarnings("rawtypes") final Class type) {
+    protected MetaRuleset createMetaRuleset(final Class type) {
         final var metaRuleset = super.createMetaRuleset(type);
 
         metaRuleset.addRule(DISPOSE_METHOD);

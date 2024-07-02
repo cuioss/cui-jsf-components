@@ -15,7 +15,12 @@
  */
 package de.cuioss.jsf.components.selection;
 
-import static java.util.Objects.requireNonNull;
+import de.cuioss.jsf.api.converter.AbstractConverter;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.ConverterException;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -23,16 +28,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.convert.ConverterException;
-
-import de.cuioss.jsf.api.converter.AbstractConverter;
-import lombok.Setter;
-import lombok.ToString;
+import static java.util.Objects.requireNonNull;
 
 /**
- * Converter is based on {@link AbstractConverter} and is utilized in most cased
+ * Converter is based on {@link AbstractConverter} and is used in most cased
  * by drop-down elements.
  * <p>
  * The #instanceMap is utilized for the mapping between the {@link Serializable}
@@ -43,49 +42,48 @@ import lombok.ToString;
  * </p>
  * <p>
  * The lookup is implemented to fail fast, saying for both ways,
- * {@link #getAsObject(FacesContext, UIComponent, String)} and
- * {@link #getAsString(FacesContext, UIComponent, Object)} the references will
+ * {@link jakarta.faces.convert.Converter#getAsObject(FacesContext, UIComponent, String)} and
+ * {@link jakarta.faces.convert.Converter#getAsString(FacesContext, UIComponent, Object)} the references will
  * be checked, whether they are contained within the #instanceMap, throwing a
  * {@link ConverterException} if it doesn't.
  * </p>
  *
- * @author Oliver Wolff
- * @author Eugen Fischer
  * @param <K> key type must be {@link Serializable}
  * @param <T> object type must be {@link Serializable}
+ * @author Oliver Wolff
+ * @author Eugen Fischer
  */
 @ToString
 public class MapInstanceConverter<K extends Serializable, T extends Serializable> extends AbstractConverter<T>
-        implements Serializable {
+    implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 2920782351086654176L;
 
-    private static final String ERROR_MESSAGE_CANNOTMAP = "message.error.converter.mapinstance.cannotmap";
+    private static final String ERROR_MESSAGE_CANNOT_MAP = "message.error.converter.mapinstance.cannotmap";
 
-    /** utilized for the two way mapping. */
+    /**
+     * used for the two-way mapping.
+     */
     private HashMap<K, T> instanceMap;
 
     /**
-     * If rescrictModeActive is active the converter throws
+     * If restrictedModeActive is active the converter throws
      * {@link IllegalStateException} if on converting the value is not known.
      */
     @Setter
-    private boolean rescrictModeActive = true;
+    private boolean restrictedModeActive = true;
 
-    /**
-     * @throws {@link IllegalStateException}
-     */
     @Override
     protected T convertToObject(final FacesContext context, final UIComponent component, final String value) {
 
         final var isInMap = getInstanceMap().containsKey(value);
 
         if (!isInMap) {
-            if (!rescrictModeActive) {
+            if (!restrictedModeActive) {
                 return null;
             }
-            checkState(isInMap, ERROR_MESSAGE_CANNOTMAP, value, instanceMap);
+            throwConverterException(ERROR_MESSAGE_CANNOT_MAP, value, instanceMap);
         }
 
         return instanceMap.get(value);
@@ -97,10 +95,10 @@ public class MapInstanceConverter<K extends Serializable, T extends Serializable
         final var isInMap = getInstanceMap().containsValue(value);
 
         if (!isInMap) {
-            if (!rescrictModeActive) {
+            if (!restrictedModeActive) {
                 return "";
             }
-            checkState(isInMap, ERROR_MESSAGE_CANNOTMAP, value, instanceMap);
+            throwConverterException(ERROR_MESSAGE_CANNOT_MAP, value, instanceMap);
         }
 
         String found = null;

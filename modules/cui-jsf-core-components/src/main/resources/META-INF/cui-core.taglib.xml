@@ -39,7 +39,7 @@
             <![CDATA[
                  <p>
                    Blocks an (optional ajax based) element after clicking by adding a spinner and the "disabled" property to the element.
-                   To unblock the element it can be updated via ajax.
+                   To unblock the element, it can be updated via ajax.
                  </p>
                  <p>
                    More information and examples can be found in the

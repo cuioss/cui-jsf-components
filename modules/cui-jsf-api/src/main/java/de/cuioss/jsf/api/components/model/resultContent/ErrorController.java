@@ -56,7 +56,7 @@ public interface ErrorController {
     /**
      * Set if the content should be rendered.
      *
-     * @param renderContent true if a should be rendered, otherwise false.
+     * @param renderContent true, if it should be rendered, otherwise false.
      */
     void setRenderContent(boolean renderContent);
 
