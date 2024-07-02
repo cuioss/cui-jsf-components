@@ -27,7 +27,7 @@ public interface LazyLoadingThreadModel<T> extends LazyLoadingModel {
     /**
      * @return a unique request id.
      */
-    long getRequestId();
+    String getRequestId();
 
     void resetNotificationBox();
 
