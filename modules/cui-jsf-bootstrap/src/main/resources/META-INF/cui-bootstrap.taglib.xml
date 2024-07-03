@@ -150,7 +150,7 @@
             <h3>Usage</h3>
                 <table>
                     <tr>
-                        <td><pre>&lt;cui-boot:badge value="1" /&gt;</pre></td>
+                        <td><pre>&lt;boot:badge value="1" /&gt;</pre></td>
                         <td><span class="badge">1</span></td>
                     </tr>
                  </table>
@@ -300,7 +300,7 @@
                More information and
                examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
             <h3>Usage</h3>
-                <pre>&lt;cui-boot:formGroup /&gt;</pre>
+                <pre>&lt;boot:formGroup /&gt;</pre>
              <h3>Styling</h3>
              <ul>
                  <li>The marker css class is 'form-group'</li>
@@ -364,7 +364,7 @@
                More information and
                examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
             <h3>Usage</h3>
-                <pre>&lt;cui-boot:inputGroup /&gt;</pre>
+                <pre>&lt;boot:inputGroup /&gt;</pre>
              <h3>Styling</h3>
              <ul>
                  <li>The marker css class is 'input-group'</li>
@@ -1428,7 +1428,7 @@
             <h3>Usage</h3>
                 <table>
                     <tr>
-                        <td><pre>&lt;cui-boot:genderIcon genderString="male" size="xl" state="info"/&gt;</pre></td>
+                        <td><pre>&lt;boot:genderIcon genderString="male" size="xl" state="info"/&gt;</pre></td>
                         <td><span class="cui-icon cui-icon-gender_male cui-icon-xl cui-icon-state-info" title="Gender Male"></span></td>
                     </tr>
                  </table>
@@ -1639,7 +1639,7 @@
             <h3>Usage</h3>
                 <table>
                     <tr>
-                        <td><pre>&lt;cui-boot:labeledIcon icon="cui-icon-alarm" labelValue="Rrrring" titleValue="Some Title" /&gt; </pre></td>
+                        <td><pre>&lt;boot:labeledIcon icon="cui-icon-alarm" labelValue="Rrrring" titleValue="Some Title" /&gt; </pre></td>
                         <td><span title="Some Title" class="cui-labeled-icon"><span class="cui-icon cui-icon-alarm"></span><span class="cui-labeled-icon-text">Rrrring</span></span></td>
                     </tr>
                  </table>
@@ -1839,16 +1839,16 @@
         <h3>Usage</h3>
         <h3>Using cui:modalControl</h3>
          <pre>
-         &lt;cui-boot:button labelValue="Open"&gt;
-           &lt;cui-boot:modalControl for="dialogId"/&gt;
+         &lt;boot:button labelValue="Open"&gt;
+           &lt;boot:modalControl for="dialogId"/&gt;
          &lt;/boot:button&gt;
-         &lt;cui-boot:modalDialog id="dialogId" headerValue="Dialog-Header"&gt;
+         &lt;boot:modalDialog id="dialogId" headerValue="Dialog-Header"&gt;
            Some Dialog Content
          &lt;/boot:modalDialog&gt;
          </pre>
         <h3>Using JavaScript</h3>
         <pre>
-            &lt;cui-boot:button state="primary" labelValue="Show Modal"
+            &lt;boot:button state="primary" labelValue="Show Modal"
                 onclick="$('[data-modal-dialog-id=dialogId]').modal('show');return false;" /&gt;
         </pre>
         ]]>
@@ -3039,14 +3039,14 @@
                examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
             <h3>Usage</h3>
                 <pre>
-&lt;cui-boot:row&gt;
-        &lt;cui-boot:column size="4"&gt;
+&lt;boot:row&gt;
+        &lt;boot:column size="4"&gt;
             &lt;span&gt;Size="4"&lt;/span&gt;
         &lt;/cui:column&gt;
-        &lt;cui-boot:column size="2" &gt;
+        &lt;boot:column size="2" &gt;
             &lt;span&gt;Size="2"&lt;/span&gt;
         &lt;/cui:column&gt;
-        &lt;cui-boot:column size="4" offsetSize="2"&gt;
+        &lt;boot:column size="4" offsetSize="2"&gt;
             &lt;span&gt;Size="3", Offset="4"&lt;/span&gt;
         &lt;/cui:column&gt;
 &lt;/cui:row&gt;</pre>
@@ -3209,11 +3209,11 @@
             <h3>Usage</h3>
                 <table>
                     <tr>
-                        <td><pre>&lt;cui-boot:icon icon="cui-icon-drink" size="xl" /&gt;</pre></td>
+                        <td><pre>&lt;boot:icon icon="cui-icon-drink" size="xl" /&gt;</pre></td>
                         <td><span class="cui-icon cui-icon-drink cui-icon-xl"></span></td>
                     </tr>
                     <tr>
-                        <td><pre>&lt;cui-boot:icon icon="cui-icon-temple_hindu" size="xl" state="info" titleValue="The Title to be displayed"/&gt; </pre></td>
+                        <td><pre>&lt;boot:icon icon="cui-icon-temple_hindu" size="xl" state="info" titleValue="The Title to be displayed"/&gt; </pre></td>
                         <td><span class="cui-icon cui-icon-temple_hindu cui-icon-xl cui-icon-state-info" title="The Title to be displayed"></span></td>
                     </tr>
                  </table>
@@ -3397,7 +3397,7 @@
             <h3>Usage</h3>
                 <table>
                     <tr>
-                        <td><pre>&lt;cui-boot:mimeTypeIcon mimeTypeString="AUDIO_MPEG" titleValue="AUDIO_MPEG" size="xl" /&gt;</pre></td>
+                        <td><pre>&lt;boot:mimeTypeIcon mimeTypeString="AUDIO_MPEG" titleValue="AUDIO_MPEG" size="xl" /&gt;</pre></td>
                         <td><span title="AUDIO_MPEG" class="cui-icon-stack cui-icon-xl">
                             <i class="cui-mime-type cui-icon-stack-1x cui-mime-type-folder"></i>
                             <i class="cui-mime-type cui-icon-stack-1x cui-mime-type-no-decorator"></i>
@@ -3699,7 +3699,7 @@
                More information and
                examples can be found in the <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/layout.jsf" >Reference Documentation</a></p>
             <h3>Usage</h3>
-                <pre>&lt;cui-boot:row /&gt;</pre>
+                <pre>&lt;boot:row /&gt;</pre>
              <h3>Styling</h3>
              <ul>
                  <li>The marker css class is row</li>
@@ -4030,11 +4030,11 @@
             <h3>Usage</h3>
                 <table>
                     <tr>
-                        <td><pre>&lt;cui-boot:tag contentValue="Some Value" /&gt;</pre></td>
+                        <td><pre>&lt;boot:tag contentValue="Some Value" /&gt;</pre></td>
                         <td><span class="label label-default">Some Value</span></td>
                     </tr>
                     <tr>
-                         <td><pre>&lt;cui-boot:tag contentValue="Some Value" size="xl" state="info" /&gt;</pre></td>
+                         <td><pre>&lt;boot:tag contentValue="Some Value" size="xl" state="info" /&gt;</pre></td>
                         <td><span class="label label-info cui-tag-xl">Some Value</span></td>
                     </tr>
                  </table>
@@ -4537,7 +4537,7 @@
     </tag>
     <tag>
         <description><![CDATA[<h2>Renders a text input to be used for filtering the result</h2>
-            <p>Supports lazy initialization after page load, typewatch to minimize the backend calls,
+            <p>Supports lazy initialization after a page load, typewatch to minimize the backend calls,
             and displaying a waiting indicator during refresh.</p>
    ]]></description>
         <tag-name>textFilter</tag-name>
