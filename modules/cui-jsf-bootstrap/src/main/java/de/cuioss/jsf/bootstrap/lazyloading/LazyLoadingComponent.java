@@ -37,7 +37,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.ListenerFor;
 import jakarta.faces.event.PostAddToViewEvent;
-import jakarta.faces.event.PreRenderViewEvent;
+import jakarta.faces.event.PreRenderComponentEvent;
 import lombok.experimental.Delegate;
 
 import java.util.Optional;
@@ -52,7 +52,7 @@ import java.util.Optional;
  */
 @ResourceDependency(library = "javascript.enabler", name = "enabler.lazyLoading.js", target = "head")
 @FacesComponent(BootstrapFamily.LAZYLOADING_COMPONENT)
-@ListenerFor(systemEventClass = PreRenderViewEvent.class)
+@ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public class LazyLoadingComponent extends UICommand implements ComponentBridge, NamingContainer {
 
@@ -108,17 +108,14 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
 
     @Override
     public void processEvent(final ComponentSystemEvent event) {
-        if (event instanceof PreRenderViewEvent) {
+        if (event instanceof PreRenderComponentEvent) {
+            LOGGER.debug("Handling PreRenderComponentEvent %s before OneTimeCheck", event);
             if (!oneTimeCheck.readAndSetChecked()) {
-                LOGGER.debug("Handling PreRenderViewEvent %s after OneTimeCheck", event);
+                LOGGER.debug("Handling PreRenderComponentEvent %s after OneTimeCheck", event);
                 var startInitialize = getStartInitialize();
-                if (null != startInitialize) {
+                if (startInitialize.isPresent()) {
                     LOGGER.debug("Invoking startInitialize");
-                    startInitialize.invoke(getFacesContext().getELContext(), new Object[]{});
-                }
-                if (evaluateNotInitialized() && null != getViewModel()) {
-                    LOGGER.debug("Adding actionListener");
-                    super.addActionListener(getViewModel());
+                    startInitialize.get().invoke(getFacesContext().getELContext(), new Object[]{});
                 }
             }
         } else if (event instanceof PostAddToViewEvent) {
@@ -156,8 +153,8 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
      * @return the startInitialize, a function to be called one time at
      * PreRenderViewEvent
      */
-    public MethodExpression getStartInitialize() {
-        return (MethodExpression) getStateHelper().eval(START_INITIALIZE_KEY);
+    private Optional<MethodExpression> getStartInitialize() {
+        return Optional.ofNullable((MethodExpression) getStateHelper().eval(START_INITIALIZE_KEY));
     }
 
     /**

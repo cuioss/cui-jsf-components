@@ -15,18 +15,20 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
-import jakarta.faces.component.StateHelper;
-
 import de.cuioss.jsf.api.components.util.CuiState;
+import jakarta.faces.component.StateHelper;
 import lombok.NonNull;
 
 /**
  * Sets the ignoreAutoUpdate flag to ajax calls. When set to true,
  * {@code <p:autoUpdate/>} elements will not be updated.
+ * Defaults to {@code false}
  */
 public class IgnoreAutoUpdateProvider {
 
-    /** The key for the {@link StateHelper} */
+    /**
+     * The key for the {@link StateHelper}
+     */
     private static final String KEY = "ignoreAutoUpdate";
 
     private final CuiState state;

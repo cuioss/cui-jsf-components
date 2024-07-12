@@ -4953,7 +4953,7 @@
         </attribute>
     </tag>
     <tag>
-        <description><![CDATA[<h2>Displays a content that should be loaded lazy after initial page rendering.</h2>
+        <description><![CDATA[<h2>Displays content that should be loaded lazy after initial page rendering.</h2>
 
  <p>The initial page will display the waiting indicator and trigger an ajax update of the content.
  This update will first call an ActionListener (if defined) during Invoke Application phase,
@@ -4997,7 +4997,7 @@
                        <pre>public void methodName(ActionEvent event)</pre>]]>
             </description>
             <name>actionListener</name>
-            <required>false</required>
+            <required>true</required>
             <type>jakarta.faces.event.ActionListener</type>
         </attribute>
         <attribute>
@@ -5038,7 +5038,7 @@
             <type>de.cuioss.jsf.api.components.model.lazyloading.LazyLoadingModel</type>
         </attribute>
         <attribute>
-            <description><![CDATA[Start the initialization. Will be called at the first PostAddToView.]]>
+            <description><![CDATA[Start the initialization. Will be called at the first PostAddToView, if present]]>
             </description>
             <name>startInitialize</name>
             <required>false</required>
@@ -5054,7 +5054,7 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description><![CDATA[When set to true, <p:autoUpdate/> elements will not be updated.]]>
+            <description><![CDATA[When set to true, <p:autoUpdate/> elements will not be updated. Defaults to false.]]>
             </description>
             <name>ignoreAutoUpdate</name>
             <required>false</required>
@@ -5062,7 +5062,7 @@
         </attribute>
         <attribute>
             <description>
-                <![CDATA[When set to true, ajax requests will be made asynchronous. Attention: There is a maximum in the number of connections a browser allows.]]>
+                <![CDATA[When set to true, ajax requests will be made asynchronous. Attention: There is a maximum in the number of connections a browser allows. Defaults to false.]]>
             </description>
             <name>async</name>
             <required>false</required>
