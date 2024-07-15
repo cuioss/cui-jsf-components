@@ -106,7 +106,7 @@ public class TagHelper {
     }
 
     /**
-     * @param input submittedValue and/or value. First non-null input value is used.
+     * @param input submittedValue and/or value. The First non-null input value is used.
      * @return the {@link Set} of ConceptKeyType representing the actual value
      */
     public static SortedSet<ConceptKeyType> getValueAsSet(Object... input) {

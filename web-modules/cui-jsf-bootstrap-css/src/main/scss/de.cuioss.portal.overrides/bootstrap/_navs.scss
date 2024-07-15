@@ -1,0 +1,42 @@
+@import "../../de.cuioss.common/bootstrap_mapping";
+// Ensure that the tab look more like our jquery based components.
+.nav-tabs {
+  font-weight: bold;
+  > li > a {
+    padding: 8px 4px;
+    -webkit-border-radius: $border-radius-base $border-radius-base 0 0;
+    -moz-border-radius: $border-radius-base $border-radius-base 0 0;
+    border-radius: $border-radius-base $border-radius-base 0 0;
+    border-bottom-style: none;
+    color: $component-base-color;
+    background-color: $component-default-bg;
+    cursor: pointer;
+  }
+}
+
+.nav-pills {
+  font-weight: $component-default-font-weight;
+  > li > a {
+    background-color: $component-default-bg;
+    color: $component-default-color;
+    border-color: $component-default-border-color;
+
+    &:hover,
+    &:focus {
+      color: $component-hover-color;
+      background-color: $component-hover-bg;
+      border-color: $component-hover-border-color;
+    }
+  }
+  > li.active > a {
+    background-color: $component-active-bg;
+    color: $component-active-color;
+    border-color: $component-active-border-color;
+    &:hover,
+    &:focus {
+      color: $component-active-hover-color;
+      background-color: $component-active-hover-bg;
+      border-color: $component-active-hover-border-color;
+    }
+  }
+}

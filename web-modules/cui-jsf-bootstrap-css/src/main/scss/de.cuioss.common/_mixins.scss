@@ -1,0 +1,13 @@
+//
+// Mixins usage examples:
+//
+// > on cui styling module (depending on the folder hierarchy)
+// @import "../de.cuioss.common/mixins";
+//
+// > on different portal styling module (depending on the folder hierarchy)
+// @import "../../cui-styling/scss/de.cuioss.common/mixins";
+//
+
+@import "icon-mixins";
+@import "mixins/responsive";
+@import "mixins/preview-picture";

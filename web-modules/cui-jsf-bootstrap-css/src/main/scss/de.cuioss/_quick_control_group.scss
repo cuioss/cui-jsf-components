@@ -1,0 +1,13 @@
+.quick-control-group-right {
+  @extend .pull-right;
+  > .btn {
+    margin-left: 5px;
+  }
+}
+
+.quick-control-group-left {
+  @extend .pull-left;
+  > .btn {
+    margin-right: 5px;
+  }
+}

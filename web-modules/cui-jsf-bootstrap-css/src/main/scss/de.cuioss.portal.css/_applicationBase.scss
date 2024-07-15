@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+/*!
+
+ *
+ * Twitter bootstrap source elements are subject to the following licenses:
+ *
+ * Bootstrap v3.4.1 (https://getbootstrap.com/)
+ *  * Copyright 2011-2019 Twitter, Inc.
+ *  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ *
+ * jQuery UI Accordion 1.10.3
+ *  * Copyright 2013 jQuery Foundation and other contributors
+ *  * Released under the MIT license. https://jquery.org/license/
+ *
+ * selectize.bootstrap3.css (v0.12.3) - Bootstrap 3 Theme
+ *  * Copyright (c) 2013–2015 Brian Reavis & contributors
+ *  * Licensed under the Apache License, Version 2.0 (the "License") (https://github.com/herschel666/selectize-scss/blob/master/src/selectize.bootstrap3.scss)
+ */
+
+@import "../de.cuioss.common/themable";
+@import "../thirdparty/bootstrap/mixins";
+@import "../de.cuioss.portal.overrides/jquerui";
+@import "../de.cuioss.icons";
+@import "../de.cuioss.common/bootstrap";
+@import "../de.cuioss.portal.overrides/bootstrap";
+// styling for selectize (is used for cui-tag)
+@import "../thirdparty/selectize/selectize.bootstrap3";
+@import "../de.cuioss.portal.overrides/selectize";
+@import "../de.cuioss.portal.overrides/primefaces";
+@import "../de.cuioss.common/scaffolding";
+@import "../de.cuioss";
+@import "../de.cuioss.portal.pages";

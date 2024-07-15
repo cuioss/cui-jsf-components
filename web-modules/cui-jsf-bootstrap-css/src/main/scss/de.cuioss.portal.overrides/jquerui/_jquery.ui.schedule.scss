@@ -1,0 +1,62 @@
+.ui-widget-content .fc-scroller {
+  height: auto !important;
+}
+
+.cui-calendar {
+  background-color: white;
+  padding: 15px;
+  min-height: calc(50% - 30px);
+  border-radius: 3px;
+}
+
+.cui-calendar .fc thead td, .cui-calendar .fc thead th {
+  border-style: none;
+}
+
+.cui-calendar .fc-day-grid .fc-week {
+  height: 55px !important;
+}
+
+.normal {
+  background-color: $component-active-bg;
+}
+
+.important {
+  background-color: $brand-warning;
+}
+
+.fc-today-button {
+  display: none;
+}
+
+.cui-calendar .fc-view-container .fc-basic-view .fc-day-grid-container {
+  margin-bottom: 1px;
+}
+
+.fc .fc-toolbar .fc-button-group .ui-state-active {
+  border: 1px solid $component-default-color;
+}
+
+.fc .fc-view-container .fc-head {
+  border: 1px solid $component-default-border-color;
+}
+
+.fc-event-container  .fc-event {
+  background-color: $component-primary-bg;
+}
+
+.container-fluid .fc .fc-row, .container .fc .fc-row  {
+  border-style: none;
+}
+
+.ui-widget-content .fc-scroller {
+  overflow-y: auto !important;
+}
+
+.fc-head-container .fc-day-header {
+  background-color: #ddd;
+}
+
+.fc-toolbar .fc-left button[disabled="disabled"] {
+  display: none;
+}

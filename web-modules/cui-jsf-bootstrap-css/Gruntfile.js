@@ -16,8 +16,8 @@ module.exports = function (grunt) {
       },
       dist: {
           files: {
-            'target/sass_target/application-default.css': 'src/main/scss/com.icw.portal.css/application-default.scss',       // 'destination': 'source'
-            'target/sass_target/icons.css': 'src/main/scss/com.icw.portal.css/icons.scss',
+            'target/sass_target/application-default.css': 'src/main/scss/de.cuioss.portal.css/application-default.scss',       // 'destination': 'source'
+            'target/sass_target/icons.css': 'src/main/scss/de.cuioss.portal.css/icons.scss',
           }
       }
     }

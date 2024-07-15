@@ -27,11 +27,10 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Converter provide convert java date time format to jQuery specific one.
+ * Converter provides converting java date time format to jQuery specific one.
  * Currently just remove illegal characters to prevent side effects.
  *
  * @author Eugen Fischer
- * @see <a href="https://jira.x-tention.com/browse/CUI-159"></a>
  * @see <a href="http://api.jqueryui.com/datepicker/#method-option"></a>
  */
 @ToString

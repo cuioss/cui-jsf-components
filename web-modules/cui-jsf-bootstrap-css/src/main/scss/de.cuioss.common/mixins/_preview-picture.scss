@@ -1,0 +1,30 @@
+@mixin preview-picture($size) {
+	vertical-align: top;
+	text-align: center;
+	padding: 0 $grid-gutter-width/4 0 0;
+	overflow: hidden;
+	border-radius: 50%;
+	height: $size;
+	width: $size;
+	position: relative;
+	
+	> img {
+	    max-width: 100%;
+	    margin: auto;
+	    position: absolute;
+	    top: -100%;
+	    right: -100%;
+	    bottom: -100%;
+	    left: -100%; 
+	    background-color: $image-icon-bg;
+	}
+	
+	> .cui-icon {
+	    font-size: ceil(($size / 1.9)) !important;
+	    padding: 6px;
+	    background-color: $image-icon-bg;
+	    border-radius: 50%;
+	    width: $size;
+	    height: $size;
+	}
+}
