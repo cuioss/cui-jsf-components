@@ -24,6 +24,7 @@ import de.cuioss.jsf.api.components.support.LabelResolver;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.common.partial.ColumnProvider;
 import de.cuioss.tools.collect.MapBuilder;
+import de.cuioss.tools.logging.CuiLogger;
 import jakarta.faces.component.FacesComponent;
 import jakarta.faces.component.behavior.ClientBehavior;
 import jakarta.faces.event.ComponentSystemEvent;
@@ -43,6 +44,8 @@ import java.util.*;
 @FacesComponent(BootstrapFamily.SWITCH_COMPONENT)
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
 public class SwitchComponent extends BaseCuiHtmlSelectBooleanCheckboxComponent {
+
+    private static final CuiLogger LOGGER = new CuiLogger(SwitchComponent.class);
 
     private static final String OFF_TEXT_VALUE = "offTextValue";
     private static final String OFF_TEXT_KEY = "offTextKey";
@@ -252,6 +255,31 @@ public class SwitchComponent extends BaseCuiHtmlSelectBooleanCheckboxComponent {
             return containerId;
         }
         return id;
+    }
+
+    /**
+     * For some reason on myfaces this method is necessary. It used to work with mojarra:
+     * Exception:
+     * Portal-112: An unspecified exception has been caught and handled by fallback strategy: java.lang.ClassCastException: class java.lang.String cannot be cast to class java.lang.Boolean (java.lang.String and java.lang.Boolean are in module java.base of loader 'bootstrap')
+     * at jakarta.faces.component.UISelectBoolean.isSelected(UISelectBoolean.java:65)
+     * at de.cuioss.jsf.bootstrap.checkbox.SwitchRenderer.renderText(SwitchRenderer.java:139)
+     * at de.cuioss.jsf.bootstrap.checkbox.SwitchRenderer.doEncodeEnd(SwitchRenderer.java:85)
+     * at de.cuioss.jsf.bootstrap.checkbox.SwitchRenderer.doEncodeEnd(SwitchRenderer.java:52)
+     */
+    @Override
+    public boolean isSelected() {
+        var submittedValue = getSubmittedValue();
+        LOGGER.debug("submittedValue={}", submittedValue);
+        if (null == submittedValue) {
+            LOGGER.debug("Nothing submitted");
+            return false;
+        }
+        if (submittedValue instanceof Boolean selected) {
+            LOGGER.debug("submittedBoolean={}", selected);
+            return selected;
+        }
+        LOGGER.debug("Using Boolean.parseBoolean()");
+        return Boolean.parseBoolean(submittedValue.toString());
     }
 
     @Override
