@@ -21,6 +21,8 @@ import de.cuioss.tools.string.MoreStrings;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * Colors are displayed combining RED, GREEN, and BLUE light.
  *
@@ -32,6 +34,7 @@ import lombok.ToString;
 public class Color implements JsValue {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 9156599356772054784L;
 
     /**
@@ -65,7 +68,7 @@ public class Color implements JsValue {
      * @param colorValue string value for color
      * @return {@linkplain Color}
      */
-    public final static Color createFrom(final String colorValue) {
+    public static Color createFrom(final String colorValue) {
         if (MoreStrings.isEmpty(colorValue)) {
             return TRANSPARENT;
         }

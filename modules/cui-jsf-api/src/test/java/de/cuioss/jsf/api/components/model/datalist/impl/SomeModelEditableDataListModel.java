@@ -18,6 +18,7 @@ package de.cuioss.jsf.api.components.model.datalist.impl;
 import static de.cuioss.test.generator.Generators.integers;
 import static de.cuioss.test.generator.Generators.letterStrings;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,7 @@ import lombok.Getter;
 
 public class SomeModelEditableDataListModel extends AbstractEditableDataListModel<SomeModel> {
 
+    @Serial
     private static final long serialVersionUID = 1781925834449349626L;
 
     @Getter

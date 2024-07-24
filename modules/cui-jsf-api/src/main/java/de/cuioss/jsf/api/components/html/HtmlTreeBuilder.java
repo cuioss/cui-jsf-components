@@ -17,7 +17,7 @@ package de.cuioss.jsf.api.components.html;
 
 import java.io.IOException;
 
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.context.ResponseWriter;
 import javax.xml.XMLConstants;
 
 import org.jdom2.Attribute;
@@ -35,8 +35,9 @@ import de.cuioss.tools.string.MoreStrings;
 import lombok.Getter;
 
 /**
- * Represents a partial html tree. It provides a number of fluent builder in
- * order to simplify the creation. methods in order to interact with
+ * Represents a partial html tree.
+ * It provides a number of fluent builders to simplify the creation.
+ * In addition, it provides methods to interact with
  *
  * @author Oliver Wolff
  */
@@ -200,7 +201,7 @@ public class HtmlTreeBuilder {
     }
 
     /**
-     * Adds the 'name' and 'id' attributes attribute to the current dom-element.
+     * Adds the 'name' and 'id' attributes to the current dom-element.
      *
      * @param attributeValue to be set as 'name' and 'id'
      * @return the {@link HtmlTreeBuilder}

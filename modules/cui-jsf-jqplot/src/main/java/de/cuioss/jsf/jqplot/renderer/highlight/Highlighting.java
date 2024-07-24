@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.renderer.highlight;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -38,6 +39,7 @@ import lombok.ToString;
 public class Highlighting<T extends Serializable> implements Serializable, IHighlightDecoration<T>, IPropertyProvider {
 
     /** serialVersionUID */
+    @Serial
     private static final long serialVersionUID = 3957697520759215314L;
 
     private final PropertyProvider propProvider = new PropertyProvider();

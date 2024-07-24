@@ -18,9 +18,9 @@ package de.cuioss.jsf.api.components.selection;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.convert.Converter;
-import javax.faces.event.ValueChangeListener;
-import javax.faces.model.SelectItem;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.event.ValueChangeListener;
+import jakarta.faces.model.SelectItem;
 
 import de.cuioss.uimodel.model.TypedSelection;
 

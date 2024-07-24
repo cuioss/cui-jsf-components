@@ -22,13 +22,13 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.ConverterException;
-import javax.faces.convert.FacesConverter;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.ConverterException;
+import jakarta.faces.convert.FacesConverter;
 
 /**
- * Extends standard {@link javax.faces.convert.DateTimeConverter} to support
+ * Extends standard {@link jakarta.faces.convert.DateTimeConverter} to support
  * {@link ZonedDateTime}.
  * <p>
  * Accepts {@link Date}, {@link LocalDateTime} and {@link ZonedDateTime} as
@@ -37,7 +37,7 @@ import javax.faces.convert.FacesConverter;
  * @author Matthias Walliczek
  */
 @FacesConverter(value = "de.cuioss.jsf.components.converter.DateTimeConverter")
-public class CuiDateTimeConverter extends javax.faces.convert.DateTimeConverter {
+public class CuiDateTimeConverter extends jakarta.faces.convert.DateTimeConverter {
 
     /**
      * @throws ConverterException   {@inheritDoc}

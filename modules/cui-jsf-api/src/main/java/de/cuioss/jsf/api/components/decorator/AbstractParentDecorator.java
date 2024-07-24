@@ -19,13 +19,13 @@ import de.cuioss.jsf.api.components.partial.ComponentBridge;
 import de.cuioss.jsf.api.components.util.ComponentModifier;
 import de.cuioss.jsf.api.components.util.modifier.ComponentModifierFactory;
 
-import javax.faces.component.StateHelper;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.PostAddToViewEvent;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PostAddToViewEvent;
 
 import static java.util.Objects.requireNonNull;
 
@@ -56,7 +56,7 @@ public abstract class AbstractParentDecorator extends UIComponentBase implements
      * will be called at {@link PostAddToViewEvent} and only if the component is
      * set to {@code rendered=true}
      *
-     * @param parent to be decorated, wrapped into an corresponding
+     * @param parent to be decorated, wrapped into a corresponding
      *               {@link ComponentModifier}, is never null
      */
     public abstract void decorate(final ComponentModifier parent);

@@ -15,35 +15,34 @@
  */
 package de.cuioss.jsf.api.components.renderer;
 
-import static de.cuioss.tools.string.MoreStrings.isEmpty;
-
-import java.io.IOException;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.ValueHolder;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
-import javax.faces.render.Renderer;
-
 import de.cuioss.jsf.api.components.util.ComponentWrapper;
 import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.tools.string.MoreStrings;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.ValueHolder;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.ConverterException;
+import jakarta.faces.render.Renderer;
+
+import java.io.IOException;
+
+import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
 /**
  * Base class for renderer that use {@link DecoratingResponseWriter} in order to
  * simplify usage. The actual implementor must implement at least one of
  * doEncodeBegin or doEncodeEnd
  *
- * @author Oliver Wolff
  * @param <T> identifying the concrete component to be rendered, at least
  *            {@link UIComponent}
+ * @author Oliver Wolff
  */
 public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
 
-    private static final String JAVAX_FACES_SOURCE = "javax.faces.source";
-    private static final String JAVAX_FACES_BEHAVIOR_EVENT = "javax.faces.behavior.event";
+    private static final String JAVAX_FACES_SOURCE = "jakarta.faces.source";
+    private static final String JAVAX_FACES_BEHAVIOR_EVENT = "jakarta.faces.behavior.event";
     private static final CuiLogger log = new CuiLogger(BaseDecoratorRenderer.class);
     private final boolean renderChildren;
 
@@ -56,6 +55,33 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
      */
     public BaseDecoratorRenderer(final boolean renderChildren) {
         this.renderChildren = renderChildren;
+    }
+
+    /**
+     * @param behaviorSourceId  value could be missing
+     * @param componentClientId value which should be checked
+     * @return true, if the ID given in <code>behaviorSourceId</code> is supposed to
+     * come from the component with <code>componentClientId</code>
+     */
+    protected static boolean isFromBehaviorSource(final String behaviorSourceId, final String componentClientId) {
+        return !MoreStrings.isEmpty(behaviorSourceId) && behaviorSourceId.equals(componentClientId);
+    }
+
+    /**
+     * Simple helper method that strips on prefixes from possible dom-event-names
+     *
+     * @param domEventName maybe null or empty
+     * @return in case of the given event starts with "on", e.g. "onclick" it
+     * returns the token after on "on" in the example, this would be "click"
+     */
+    public static String fixDomeEventName(final String domEventName) {
+        if (isEmpty(domEventName)) {
+            return domEventName;
+        }
+        if (domEventName.startsWith("on")) {
+            return domEventName.substring(2);
+        }
+        return domEventName;
     }
 
     /**
@@ -75,8 +101,8 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
             return;
         }
         @SuppressWarnings("unchecked") // owolff Should not be a problem because
-                                       // the cast is safe because of the
-                                       // typing
+        // the cast is safe because of the
+        // typing
         final var typedComponent = (T) component;
         doEncodeBegin(context, new DecoratingResponseWriter<>(context, typedComponent), typedComponent);
     }
@@ -92,8 +118,8 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
             return;
         }
         @SuppressWarnings("unchecked") // owolff Should not be a problem because
-                                       // the cast is safe because of the
-                                       // typing
+        // the cast is safe because of the
+        // typing
         final var typedComponent = (T) component;
         doEncodeChildren(context, new DecoratingResponseWriter<>(context, typedComponent), typedComponent);
     }
@@ -107,16 +133,16 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
             return;
         }
         @SuppressWarnings("unchecked") // owolff Should not be a problem because
-                                       // the cast is safe because of the
-                                       // typing
+        // the cast is safe because of the
+        // typing
         final var typedComponent = (T) component;
         doEncodeEnd(context, new DecoratingResponseWriter<>(context, typedComponent), typedComponent);
     }
 
     @Override
     @SuppressWarnings("unchecked") // owolff Should not be a problem because
-                                   // the cast is safe because of the
-                                   // typing
+    // the cast is safe because of the
+    // typing
     public void decode(final FacesContext context, final UIComponent component) {
         // Checks the contract
         super.decode(context, component);
@@ -131,7 +157,7 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
 
     @Override
     public Object getConvertedValue(final FacesContext context, final UIComponent component,
-            final Object submittedValue) {
+                                    final Object submittedValue) {
         final var valueExpression = component.getValueExpression("value");
         Converter<?> converter = null;
         if (component instanceof ValueHolder holder) {
@@ -140,7 +166,7 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
         if (null == converter && null != valueExpression) {
             final Class<?> converterType = valueExpression.getType(context.getELContext());
             if (null == converterType || Object.class == converterType || converterType == String.class
-                    && null != context.getApplication().createConverter(String.class)) {
+                && null != context.getApplication().createConverter(String.class)) {
                 return submittedValue;
             }
             try {
@@ -191,16 +217,6 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
     }
 
     /**
-     * @param behaviorSourceId  value could be missing
-     * @param componentClientId value which should be checked
-     * @return true, if the ID given in <code>behaviorSourceId</code> is supposed to
-     *         come from the component with <code>componentClientId</code>
-     */
-    protected static boolean isFromBehaviorSource(final String behaviorSourceId, final String componentClientId) {
-        return !MoreStrings.isEmpty(behaviorSourceId) && behaviorSourceId.equals(componentClientId);
-    }
-
-    /**
      * The actual method of the renderer to be implemented as replacement for
      * {@link Renderer#encodeBegin(FacesContext, UIComponent)}. The default
      * implementation is NOOP. The calling method
@@ -214,7 +230,7 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
      * @throws IOException occurs on interrupted I/O operations
      */
     protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<T> writer,
-            final T component) throws IOException {
+                                 final T component) throws IOException {
         // NOOP if not overridden by subclass
     }
 
@@ -232,7 +248,7 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
      * @throws IOException occurs on interrupted I/O operations
      */
     protected void doEncodeChildren(final FacesContext context, final DecoratingResponseWriter<T> writer,
-            final T component) throws IOException {
+                                    final T component) throws IOException {
         for (final UIComponent child : component.getChildren()) {
             if (child.isRendered()) {
                 child.encodeAll(context);
@@ -254,7 +270,7 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
      * @throws IOException occurs on interrupted I/O operations
      */
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<T> writer, final T component)
-            throws IOException {
+        throws IOException {
         // NOOP if not overridden by subclass
     }
 
@@ -271,22 +287,5 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
      */
     protected void doDecode(final FacesContext context, final ComponentWrapper<T> componentWrapper) {
         // NOOP if not overridden by subclass
-    }
-
-    /**
-     * Simple helper method that strips on prefixes from possible dom-event-names
-     *
-     * @param domEventName may be null or empty
-     * @return in case of the given event starts with "on", e.g. "onclick" it
-     *         returns the token after on "on" in the example this would be "click"
-     */
-    public static final String fixDomeEventName(final String domEventName) {
-        if (isEmpty(domEventName)) {
-            return domEventName;
-        }
-        if (domEventName.startsWith("on")) {
-            return domEventName.substring(2);
-        }
-        return domEventName;
     }
 }

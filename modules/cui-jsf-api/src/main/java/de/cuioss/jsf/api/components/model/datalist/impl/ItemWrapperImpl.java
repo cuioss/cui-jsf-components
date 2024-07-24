@@ -15,11 +15,6 @@
  */
 package de.cuioss.jsf.api.components.model.datalist.impl;
 
-import static de.cuioss.tools.base.Preconditions.checkState;
-import static java.util.Objects.requireNonNull;
-
-import java.io.Serializable;
-
 import de.cuioss.jsf.api.components.model.datalist.AddStatus;
 import de.cuioss.jsf.api.components.model.datalist.EditStatus;
 import de.cuioss.jsf.api.components.model.datalist.ItemWrapper;
@@ -28,17 +23,23 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
+import java.io.Serializable;
+
+import static de.cuioss.tools.base.Preconditions.checkState;
+import static java.util.Objects.requireNonNull;
+
 /**
  * @param <T> identifying the type of items to be created. Must be at least
  *            {@link Serializable} and implement {@link Object#hashCode()} and
  *            {@link Object#equals(Object)} correctly.
- *
  * @author Oliver Wolff
  */
-@EqualsAndHashCode(of = { "wrapped", "editStatus" })
-@ToString(of = { "wrapped", "editStatus" })
+@EqualsAndHashCode(of = {"wrapped", "editStatus"})
+@ToString(of = {"wrapped", "editStatus"})
 public class ItemWrapperImpl<T extends Serializable> implements ItemWrapper<T> {
 
+    @Serial
     private static final long serialVersionUID = 7020783590024372831L;
 
     @Getter
@@ -64,7 +65,7 @@ public class ItemWrapperImpl<T extends Serializable> implements ItemWrapper<T> {
     private int listIndex;
 
     /**
-     * @param wrapped    may be null
+     * @param wrapped    maybe null
      * @param editStatus must not be null.
      */
     public ItemWrapperImpl(final T wrapped, final EditStatus editStatus) {
@@ -96,15 +97,15 @@ public class ItemWrapperImpl<T extends Serializable> implements ItemWrapper<T> {
     public void doSave() {
         requireNonNull(wrapped, "Invalid usage: wrapped should not be null");
         switch (initalEditStatus) {
-        case ADDED:
-            editStatus = EditStatus.ADDED;
-            addStatus = AddStatus.ADDED;
-            break;
-        case EDIT:
-            throw new IllegalStateException("Invalid usage: You must not doCancel or doSave prior to doEdit");
-        default:
-            editStatus = wrapped.equals(initialWrapped) ? EditStatus.INITIAL : EditStatus.MODIFIED;
-            break;
+            case ADDED:
+                editStatus = EditStatus.ADDED;
+                addStatus = AddStatus.ADDED;
+                break;
+            case EDIT:
+                throw new IllegalStateException("Invalid usage: You must not doCancel or doSave prior to doEdit");
+            default:
+                editStatus = wrapped.equals(initialWrapped) ? EditStatus.INITIAL : EditStatus.MODIFIED;
+                break;
         }
         initialWrapped = null;
     }

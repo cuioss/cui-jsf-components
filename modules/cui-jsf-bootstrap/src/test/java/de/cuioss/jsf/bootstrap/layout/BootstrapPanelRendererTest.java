@@ -15,14 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.layout;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.component.html.HtmlOutputText;
-import javax.faces.component.html.HtmlSelectBooleanCheckbox;
-import javax.faces.component.html.HtmlSelectOneRadio;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
@@ -37,10 +29,16 @@ import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 import de.cuioss.tools.string.Joiner;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.html.HtmlOutputText;
+import jakarta.faces.component.html.HtmlSelectBooleanCheckbox;
+import jakarta.faces.component.html.HtmlSelectOneRadio;
+import org.junit.jupiter.api.Test;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class BootstrapPanelRendererTest extends AbstractComponentRendererTest<BootstrapPanelRenderer>
-        implements ComponentConfigurator {
+    implements ComponentConfigurator {
 
     private static final String CLIENT_ID = "j_id__v_0";
 
@@ -48,7 +46,7 @@ class BootstrapPanelRendererTest extends AbstractComponentRendererTest<Bootstrap
 
     private static final String CLIENT_ID_BODY = CLIENT_ID + "_body";
 
-    private static final String CLIENT_ID_ISEXPANDED = CLIENT_ID + "_isexpanded";
+    private static final String CLIENT_ID_IS_EXPANDED = CLIENT_ID + "_isexpanded";
 
     private static final String CLIENT_ID_TOGGLER = CLIENT_ID + "_toggler";
 
@@ -87,16 +85,16 @@ class BootstrapPanelRendererTest extends AbstractComponentRendererTest<Bootstrap
         var expected = getHtmlTree(params);
         assertRenderResult(component, expected.getDocument());
         getRequestConfigDecorator().setRequestParameter(Joiner.on('_').join(component.getClientId(), "isexpanded"),
-                "true");
+            "true");
         component.decode(getFacesContext());
         params.isCollapsed = false;
         params.renderSpinner = false;
-        // --> render childs
+        // --> render children
         component.setCollapsed(params.isCollapsed);
         expected = getHtmlTree(params);
         assertRenderResult(component, expected.getDocument());
         params.isCollapsed = true;
-        // --> render childs also!
+        // --> render children also!
         component.setCollapsed(params.isCollapsed);
         expected = getHtmlTree(params);
         assertRenderResult(component, expected.getDocument());
@@ -106,7 +104,7 @@ class BootstrapPanelRendererTest extends AbstractComponentRendererTest<Bootstrap
         final var expected = new HtmlTreeBuilder();
         // panel
         expected.withNode(Node.DIV).withAttribute(AttributeName.ID, CLIENT_ID)
-                .withAttribute(AttributeName.NAME, CLIENT_ID).withStyleClass("panel panel-default cui-panel");
+            .withAttribute(AttributeName.NAME, CLIENT_ID).withStyleClass("panel panel-default cui-panel");
         if (params.asyncUpdate) {
             expected.withAttribute(AttributeName.DATA_ASYNCUPDATE, "true");
         }
@@ -118,30 +116,30 @@ class BootstrapPanelRendererTest extends AbstractComponentRendererTest<Bootstrap
         }
         expected.withAttribute(AttributeName.DATA_NOT_COLLAPSED, String.valueOf(!params.isCollapsed));
         // state holder
-        expected.withNode(Node.INPUT).withAttribute(AttributeName.ID, CLIENT_ID_ISEXPANDED)
-                .withAttribute(AttributeName.NAME, CLIENT_ID_ISEXPANDED).withAttribute(AttributeName.TYPE, "hidden")
-                .withAttribute(AttributeName.VALUE, String.valueOf(!params.isCollapsed)).currentHierarchyUp();
+        expected.withNode(Node.INPUT).withAttribute(AttributeName.ID, CLIENT_ID_IS_EXPANDED)
+            .withAttribute(AttributeName.NAME, CLIENT_ID_IS_EXPANDED).withAttribute(AttributeName.TYPE, "hidden")
+            .withAttribute(AttributeName.VALUE, String.valueOf(!params.isCollapsed)).currentHierarchyUp();
         if (params.renderHeader) {
             // header
             expected.withNode(Node.DIV).withAttribute(AttributeName.ID, CLIENT_ID_TOGGLER)
-                    .withAttribute(AttributeName.NAME, CLIENT_ID_TOGGLER)
-                    .withAttribute(AttributeName.ARIA_EXPANDED, String.valueOf(!params.isCollapsed))
-                    .withStyleClass("panel-heading");
+                .withAttribute(AttributeName.NAME, CLIENT_ID_TOGGLER)
+                .withAttribute(AttributeName.ARIA_EXPANDED, String.valueOf(!params.isCollapsed))
+                .withStyleClass("panel-heading");
             if (params.isCollapsible) {
                 expected.withAttribute(AttributeName.DATA_TOGGLE, "collapse")
-                        .withAttribute(AttributeName.DATA_TARGET, "#" + CLIENT_ID_BODY)
-                        .withAttribute(AttributeName.ARIA_CONTROLS, CLIENT_ID_BODY)
-                        .withAttribute(AttributeName.ROLE, "button").withStyleClass("panel-heading cui-collapsible");
+                    .withAttribute(AttributeName.DATA_TARGET, "#" + CLIENT_ID_BODY)
+                    .withAttribute(AttributeName.ARIA_CONTROLS, CLIENT_ID_BODY)
+                    .withAttribute(AttributeName.ROLE, "button").withStyleClass("panel-heading cui-collapsible");
             }
             // heading
             expected.withNode(params.headerTag).withAttribute(AttributeName.ID, CLIENT_ID_HEADING)
-                    .withAttribute(AttributeName.NAME, CLIENT_ID_HEADING).withStyleClass("panel-title")
-                    .withTextContent(params.headerValue);
+                .withAttribute(AttributeName.NAME, CLIENT_ID_HEADING).withStyleClass("panel-title")
+                .withTextContent(params.headerValue);
             // collapse icon
             if (params.isCollapsible) {
                 expected.withNode(Node.SPAN).withAttribute(AttributeName.ID, CLIENT_ID_ICON)
-                        .withAttribute(AttributeName.NAME, CLIENT_ID_ICON)
-                        .withStyleClass("cui-icon cui-collapsible-icon").currentHierarchyUp();
+                    .withAttribute(AttributeName.NAME, CLIENT_ID_ICON)
+                    .withStyleClass("cui-icon cui-collapsible-icon").currentHierarchyUp();
             }
             // leave heading
             expected.currentHierarchyUp();
@@ -152,10 +150,10 @@ class BootstrapPanelRendererTest extends AbstractComponentRendererTest<Bootstrap
         }
         // body container
         expected.withNode(Node.DIV).withAttribute(AttributeName.ID, CLIENT_ID_BODY)
-                .withAttribute(AttributeName.NAME, CLIENT_ID_BODY)
-                .withAttribute(AttributeName.ARIA_LABELLEDBY, CLIENT_ID_TOGGLER)
-                .withStyleClass("panel-collapse collapse" + (params.isCollapsed ? "" : " in")).withNode(Node.DIV)
-                .withStyleClass("panel-body");
+            .withAttribute(AttributeName.NAME, CLIENT_ID_BODY)
+            .withAttribute(AttributeName.ARIA_LABELLEDBY, CLIENT_ID_TOGGLER)
+            .withStyleClass("panel-collapse collapse" + (params.isCollapsed ? "" : " in")).withNode(Node.DIV)
+            .withStyleClass("panel-body");
         if (params.renderSpinner) {
             // spinner
             expected.withNode("WaitingIndicatorComponent").currentHierarchyUp();
@@ -167,8 +165,8 @@ class BootstrapPanelRendererTest extends AbstractComponentRendererTest<Bootstrap
         // footer
         if (params.renderFooter) {
             expected.withNode(Node.DIV).withAttribute(AttributeName.ID, CLIENT_ID_FOOTER)
-                    .withAttribute(AttributeName.NAME, CLIENT_ID_FOOTER).withStyleClass("panel-footer")
-                    .withTextContent(params.footerValue);
+                .withAttribute(AttributeName.NAME, CLIENT_ID_FOOTER).withStyleClass("panel-footer")
+                .withTextContent(params.footerValue);
         }
         return expected;
     }
@@ -177,12 +175,11 @@ class BootstrapPanelRendererTest extends AbstractComponentRendererTest<Bootstrap
     void shouldRenderWithChildren() {
         final var component = new BootstrapPanelComponent();
         component.getChildren().add(new HtmlOutputText());
-        getComponentConfigDecorator().registerMockRendererForHtmlOutputText().registerBehavior(AjaxBehavior.BEHAVIOR_ID,
-                AjaxBehavior.class);
+        getComponentConfigDecorator().registerBehavior(AjaxBehavior.BEHAVIOR_ID, AjaxBehavior.class);
         final var params = new PanelParams();
         params.renderHeader = false;
         params.isCollapsed = false;
-        params.childContent = "HtmlOutputText";
+        params.childContent = Node.SPAN.getContent();
         final var expected = getHtmlTree(params);
         assertRenderResult(component, expected.getDocument());
     }
@@ -232,11 +229,11 @@ class BootstrapPanelRendererTest extends AbstractComponentRendererTest<Bootstrap
     @Override
     public void shouldHandleRendererAttributeAsserts() {
         new ComponentConfigDecorator(getFacesContext().getApplication(), getFacesContext())
-                .registerUIComponent(HtmlSelectBooleanCheckbox.COMPONENT_TYPE, HtmlSelectBooleanCheckbox.class)
-                .registerMockRendererForHtmlSelectBooleanCheckbox();
+            .registerUIComponent(HtmlSelectBooleanCheckbox.COMPONENT_TYPE, HtmlSelectBooleanCheckbox.class)
+            .registerMockRendererForHtmlSelectBooleanCheckbox();
         new ComponentConfigDecorator(getFacesContext().getApplication(), getFacesContext())
-                .registerUIComponent(HtmlSelectOneRadio.COMPONENT_TYPE, HtmlSelectOneRadio.class)
-                .registerMockRendererForHtmlSelectOneRadio();
+            .registerUIComponent(HtmlSelectOneRadio.COMPONENT_TYPE, HtmlSelectOneRadio.class)
+            .registerMockRendererForHtmlSelectOneRadio();
         super.shouldHandleRendererAttributeAsserts();
     }
 
@@ -275,7 +272,7 @@ class BootstrapPanelRendererTest extends AbstractComponentRendererTest<Bootstrap
     @Override
     public void configureComponents(final ComponentConfigDecorator decorator) {
         decorator.registerUIComponent(CuiMessageComponent.class).registerRenderer(CuiMessageRenderer.class)
-                .registerMockRendererForHtmlForm().registerUIComponent(WaitingIndicatorComponent.class)
-                .registerMockRenderer(BootstrapFamily.COMPONENT_FAMILY, BootstrapFamily.WAITING_INDICATOR_RENDERER);
+            .registerMockRendererForHtmlForm().registerUIComponent(WaitingIndicatorComponent.class)
+            .registerMockRenderer(BootstrapFamily.COMPONENT_FAMILY, BootstrapFamily.WAITING_INDICATOR_RENDERER);
     }
 }

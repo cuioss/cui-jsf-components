@@ -18,6 +18,8 @@ package de.cuioss.jsf.jqplot.js.types;
 import de.cuioss.jsf.jqplot.js.support.JsValue;
 import lombok.Data;
 
+import java.io.Serial;
+
 /**
  * JSON string value.
  *
@@ -29,6 +31,7 @@ public class JsString implements JsValue {
     private static final String FORMAT = "\"%s\"";
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = -619748245871932410L;
 
     private final String value;

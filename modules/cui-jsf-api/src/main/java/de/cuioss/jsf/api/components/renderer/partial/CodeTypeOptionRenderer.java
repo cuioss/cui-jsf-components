@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.Node;

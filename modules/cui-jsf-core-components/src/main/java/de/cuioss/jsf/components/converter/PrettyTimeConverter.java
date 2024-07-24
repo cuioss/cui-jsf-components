@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.components.converter;
 
+import java.io.Serial;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -25,10 +26,10 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.ConverterException;
-import javax.faces.convert.FacesConverter;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.ConverterException;
+import jakarta.faces.convert.FacesConverter;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
@@ -59,6 +60,7 @@ public class PrettyTimeConverter extends AbstractConverter<Object> {
     private static final int CACHE_SIZE = 20;
     private static final Map<Locale, PrettyTime> PRETTY_TIME_MAP = new LinkedHashMap<>(CACHE_SIZE + 1, 1.1F, true) {
 
+        @Serial
         private static final long serialVersionUID = -8941794067746423324L;
 
         @Override

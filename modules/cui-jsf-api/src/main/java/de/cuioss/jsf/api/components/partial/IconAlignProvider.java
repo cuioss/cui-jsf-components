@@ -15,7 +15,7 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
-import javax.faces.component.StateHelper;
+import jakarta.faces.component.StateHelper;
 
 import de.cuioss.jsf.api.components.css.AlignHolder;
 import de.cuioss.jsf.api.components.util.CuiState;

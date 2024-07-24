@@ -17,8 +17,8 @@ package de.cuioss.jsf.bootstrap.notification;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlForm;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlForm;
 
 import org.junit.jupiter.api.Test;
 

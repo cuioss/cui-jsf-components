@@ -15,7 +15,7 @@
  */
 package de.cuioss.jsf.api.converter;
 
-import javax.faces.convert.FacesConverter;
+import jakarta.faces.convert.FacesConverter;
 
 import de.cuioss.jsf.api.security.CuiSanitizer;
 

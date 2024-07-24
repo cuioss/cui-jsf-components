@@ -15,7 +15,7 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 import java.io.Serializable;
 
 /**
@@ -51,7 +51,7 @@ import java.io.Serializable;
  * title.
  * <p>
  * The Solution: {@link #resolveAndStoreTitle()} must be called prior rendering.
- * This must be done prior Rendering, usually by the concrete {@link javax.faces.render.Renderer}
+ * This must be done prior Rendering, usually by the concrete {@link jakarta.faces.render.Renderer}
  * <em>This workaround is only necessary for cases, where the rendering is done by the concrete implementation.</em>
  * </p>
  *
@@ -95,7 +95,7 @@ public interface TitleProvider {
     String resolveTitle();
 
     /**
-     * Resolves and stores the final title in the {@link javax.faces.component.StateHelper}, see class-documentation
+     * Resolves and stores the final title in the {@link jakarta.faces.component.StateHelper}, see class-documentation
      * for details.
      */
     void resolveAndStoreTitle();

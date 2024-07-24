@@ -15,17 +15,17 @@
  */
 package de.cuioss.jsf.components.selection;
 
-import java.util.Arrays;
+import java.io.Serial;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.EnumConverter;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.EnumConverter;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ValueChangeEvent;
+import jakarta.faces.model.SelectItem;
 
 import de.cuioss.jsf.api.components.selection.SelectMenuModel;
 import de.cuioss.tools.collect.CollectionBuilder;
@@ -49,6 +49,7 @@ import lombok.ToString;
 @EqualsAndHashCode(doNotUseGetters = true, exclude = "selectableValues")
 public class LabeledEnumSelectMenuModel<T extends Enum<T> & LabelKeyProvider> implements SelectMenuModel<T> {
 
+    @Serial
     private static final long serialVersionUID = -4856620883173044422L;
 
     @Getter
@@ -78,7 +79,7 @@ public class LabeledEnumSelectMenuModel<T extends Enum<T> & LabelKeyProvider> im
         targetClass = enumClass;
 
         // Returns the elements of this enum class
-        final List<T> elements = Arrays.asList(enumClass.getEnumConstants());
+        final T[] elements = enumClass.getEnumConstants();
 
         final var builder = new CollectionBuilder<SelectItem>();
 

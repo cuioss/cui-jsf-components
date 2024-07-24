@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.js.types;
 
+import java.io.Serial;
 import java.time.temporal.Temporal;
 
 import de.cuioss.jsf.jqplot.js.support.JsValue;
@@ -35,6 +36,7 @@ import lombok.Value;
 @Value
 public class JsDateTime implements JsValue {
 
+    @Serial
     private static final long serialVersionUID = -726077446906162610L;
 
     @SuppressWarnings("squid:S1948") // All known implementations are Serializable

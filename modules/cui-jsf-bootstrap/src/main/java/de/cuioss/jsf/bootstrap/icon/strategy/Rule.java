@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.bootstrap.icon.strategy;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import lombok.AccessLevel;
@@ -42,6 +43,7 @@ import lombok.ToString;
 public class Rule<K extends Serializable, V extends Serializable> implements Serializable {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = -6667079433559908595L;
 
     @Getter

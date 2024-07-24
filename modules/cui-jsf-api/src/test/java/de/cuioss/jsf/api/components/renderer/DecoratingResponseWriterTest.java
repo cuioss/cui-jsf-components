@@ -21,10 +21,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.io.IOException;
 import java.io.StringWriter;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.component.html.HtmlInputText;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.html.HtmlInputText;
 
 import org.apache.myfaces.test.el.MockValueExpression;
 import org.apache.myfaces.test.mock.MockResponseWriter;

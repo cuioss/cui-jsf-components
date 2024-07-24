@@ -19,6 +19,8 @@ import de.cuioss.jsf.jqplot.layout.Title;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * The default title renderer for jqPlot. This class has no options beyond the
  * {@link Title}> class.
@@ -30,6 +32,7 @@ import lombok.ToString;
 public class DivTitleRenderer extends TitleRenderer {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 3803805522578522544L;
 
     /**

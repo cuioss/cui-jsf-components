@@ -20,12 +20,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
 
 import de.cuioss.jsf.api.application.message.MessageProducer;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
@@ -54,6 +55,7 @@ public class MessageProducerMock implements MessageProducer {
 
     private static final CuiLogger log = new CuiLogger(MessageProducerMock.class);
 
+    @Serial
     private static final long serialVersionUID = -7244733672736029893L;
 
     @Getter
@@ -162,9 +164,8 @@ public class MessageProducerMock implements MessageProducer {
 
         var i = 1;
         for (FacesMessage facesMessage : facesMessages) {
-            var messageBuilder = new StringBuilder();
-            messageBuilder.append(i).append(':').append(facesMessage.getSeverity()).append(':')
-                    .append(facesMessage.getSummary());
+            String messageBuilder = String.valueOf(i) + ':' + facesMessage.getSeverity() + ':' +
+                facesMessage.getSummary();
             i++;
             builder.append('\n');
             builder.append(messageBuilder);

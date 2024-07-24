@@ -15,8 +15,8 @@
  */
 package de.cuioss.jsf.components.typewatch;
 
-import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
 
 /**
  * An {@link AjaxBehavior} that does not write a script block into the html page

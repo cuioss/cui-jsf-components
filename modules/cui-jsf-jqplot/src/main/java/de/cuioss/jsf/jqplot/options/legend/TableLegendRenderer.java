@@ -19,6 +19,8 @@ import de.cuioss.jsf.jqplot.renderer.Renderer;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * @author Oliver Wolff
  *
@@ -28,6 +30,7 @@ import lombok.ToString;
 public class TableLegendRenderer extends Renderer {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = -1028698106797046622L;
 
     /**

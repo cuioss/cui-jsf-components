@@ -17,11 +17,11 @@ package de.cuioss.jsf.bootstrap.layout.messages;
 
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.FacesComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.PostAddToViewEvent;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PostAddToViewEvent;
 
 import de.cuioss.jsf.api.components.partial.ForIdentifierProvider;
 import de.cuioss.jsf.api.components.util.CuiState;
@@ -162,7 +162,7 @@ public class CuiMessageComponent extends BasicBootstrapPanelComponent {
      * @param facesContext must not be null
      * @return concrete instance of {@link CuiMessageComponent}
      */
-    public static final CuiMessageComponent create(final FacesContext facesContext) {
+    public static CuiMessageComponent create(final FacesContext facesContext) {
         var result = (CuiMessageComponent) facesContext.getApplication()
                 .createComponent(BootstrapFamily.CUI_MESSAGE_COMPONENT);
         result.setTransient(true);

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>de.cuioss</groupId>
         <artifactId>cui-java-parent</artifactId>
-        <version>0.6.0</version>
-        <relativePath />
+        <version>0.7.3</version>
+        <relativePath/>
     </parent>
     <groupId>de.cuioss.jsf</groupId>
     <artifactId>cui-jsf-components</artifactId>
@@ -21,7 +21,8 @@
         <url>https://github.com/cuioss/cui-jsf-components/</url>
         <connection>scm:git:https://github.com/cuioss/cui-jsf-components.git</connection>
         <developerConnection>
-            scm:git:https://github.com/cuioss/cui-jsf-components/</developerConnection>
+            scm:git:https://github.com/cuioss/cui-jsf-components/
+        </developerConnection>
         <tag>HEAD</tag>
     </scm>
     <issueManagement>
@@ -29,8 +30,7 @@
         <system>GitHub Issues</system>
     </issueManagement>
     <properties>
-        <version.cui.parent>0.6.0</version.cui.parent>
-        <version.primefaces>13.0.7</version.primefaces>
+        <version.cui.parent>0.7.3</version.cui.parent>
         <!-- Needed for js / css -->
         <version.nodejs>v20.11.1</version.nodejs>
         <version.cui.portal.core>1.0.0-SNAPSHOT</version.cui.portal.core>
@@ -40,7 +40,6 @@
         <module>modules</module>
         <module>web-modules</module>
     </modules>
-
     <profiles>
         <profile>
             <id>javadoc-mm-reporting</id>

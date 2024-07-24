@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<facelet-taglib version="2.2"
-                xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+<facelet-taglib version="4.0"
+                xmlns="https://jakarta.ee/xml/ns/jakartaee"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd">
+                xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facelettaglibrary_4_0.xsd">
     <namespace>https://cuioss.de/jsf/core</namespace>
     <short-name>cui</short-name>
     <tag>
@@ -14,7 +14,7 @@
         </converter>
     </tag>
     <tag>
-        <description><![CDATA[Converter utilized for drop-down elements. The instanceMap is utilized for the
+        <description><![CDATA[Converter used for drop-down elements. The instanceMap is utilized for the
             mapping between the serializable keys and the corresponding model classes. The keys must
             be Serializable because they are sent to the client. The corresponding toString() method
             must return a String representation that can be used for key lookup within the map. The
@@ -39,7 +39,7 @@
             <![CDATA[
                  <p>
                    Blocks an (optional ajax based) element after clicking by adding a spinner and the "disabled" property to the element.
-                   To unblock the element it can be updated via ajax.
+                   To unblock the element, it can be updated via ajax.
                  </p>
                  <p>
                    More information and examples can be found in the
@@ -218,7 +218,7 @@
             </description>
             <name>legendConverter</name>
             <required>false</required>
-            <type>javax.faces.convert.Converter</type>
+            <type>jakarta.faces.convert.Converter</type>
         </attribute>
     </tag>
     <tag>

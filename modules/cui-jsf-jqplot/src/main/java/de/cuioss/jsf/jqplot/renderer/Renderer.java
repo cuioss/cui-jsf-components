@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.renderer;
 
+import java.io.Serial;
 import java.util.List;
 
 import de.cuioss.jsf.jqplot.js.support.JsValue;
@@ -30,6 +31,7 @@ import lombok.Data;
 public class Renderer implements JsValue, IPluginConsumer {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 3803583214943960286L;
 
     private final String value;

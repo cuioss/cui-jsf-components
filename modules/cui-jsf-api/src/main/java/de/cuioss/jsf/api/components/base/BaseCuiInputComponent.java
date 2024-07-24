@@ -18,13 +18,13 @@ package de.cuioss.jsf.api.components.base;
 import de.cuioss.jsf.api.components.partial.*;
 import lombok.experimental.Delegate;
 
-import javax.faces.component.StateHelper;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.context.FacesContext;
 
 /**
- * Minimal super-set for cui-based components that are at least {@link UIInput}.
+ * Minimal superset for cui-based components that are at least {@link UIInput}.
  * Therefore, it provides the handling of the styleClass and style attribute and
  * the implicit attributes provided by {@link UIInput}.
  * In addition, it acts as a {@link ComponentBridge}

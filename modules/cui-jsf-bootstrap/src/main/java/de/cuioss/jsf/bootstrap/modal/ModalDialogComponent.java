@@ -18,9 +18,9 @@ package de.cuioss.jsf.bootstrap.modal;
 import static de.cuioss.tools.base.Preconditions.checkArgument;
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.FacesComponent;
-import javax.faces.component.UIComponent;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.UIComponent;
 
 import org.omnifaces.util.State;
 

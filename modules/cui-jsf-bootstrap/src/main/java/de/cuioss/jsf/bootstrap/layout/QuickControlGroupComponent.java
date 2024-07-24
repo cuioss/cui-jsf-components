@@ -15,20 +15,19 @@
  */
 package de.cuioss.jsf.bootstrap.layout;
 
-import javax.faces.component.FacesComponent;
-
 import de.cuioss.jsf.api.components.css.AlignHolder;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.partial.AlignProvider;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
+import jakarta.faces.component.FacesComponent;
 import lombok.experimental.Delegate;
 
 /**
  * Wraps a number of buttons. Quick means solely appending the CSS-class
  * 'quick-control-group' and the styleClass attribute, if set, will be attached
  * to the surrounding DIV. For more complex layouts use controlGroup
- * ({@link ControlGroupComponent}}). Rendered by javax.faces.Group.
+ * ({@link ControlGroupComponent}}). Rendered by jakarta.faces.Group.
  *
  * @author Sven Haag
  */

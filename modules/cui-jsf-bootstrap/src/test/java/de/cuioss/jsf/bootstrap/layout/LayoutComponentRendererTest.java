@@ -15,16 +15,17 @@
  */
 package de.cuioss.jsf.bootstrap.layout;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlOutputText;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
+import de.cuioss.jsf.test.CoreJsfTestConfiguration;
+import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlOutputText;
+import org.junit.jupiter.api.Test;
 
+@JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class LayoutComponentRendererTest extends AbstractComponentRendererTest<LayoutComponentRenderer> {
 
     @Test
@@ -38,9 +39,8 @@ class LayoutComponentRendererTest extends AbstractComponentRendererTest<LayoutCo
     void shouldRenderWithChildren() {
         var component = new RowComponent();
         component.getChildren().add(new HtmlOutputText());
-        getComponentConfigDecorator().registerMockRendererForHtmlOutputText();
         var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.ROW)
-                .withNode("HtmlOutputText");
+            .withNode(Node.SPAN);
         assertRenderResult(component, expected.getDocument());
     }
 

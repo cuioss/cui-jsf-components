@@ -22,7 +22,7 @@ class ObjectToStringConverterTest extends AbstractConverterTest<ObjectToStringCo
 
     @Override
     public void populate(final TestItems<Object> testItems) {
-        testItems.addValidObjectWithStringResult(String.valueOf("1"), "1").addValidObjectWithStringResult(2, "2");
+        testItems.addValidObjectWithStringResult("1", "1").addValidObjectWithStringResult(2, "2");
 
     }
 

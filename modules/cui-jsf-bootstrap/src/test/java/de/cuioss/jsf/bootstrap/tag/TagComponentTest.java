@@ -20,9 +20,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javax.faces.component.UIInput;
-import javax.faces.event.PostAddToViewEvent;
-import javax.faces.event.ValueChangeEvent;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.event.ValueChangeEvent;
 
 import org.junit.jupiter.api.Test;
 

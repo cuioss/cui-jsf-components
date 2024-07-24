@@ -18,18 +18,15 @@ package de.cuioss.jsf.bootstrap.taginput;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableSet;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableSortedSet;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.faces.component.UIComponent;
-import javax.faces.convert.ConverterException;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.convert.ConverterException;
 
 import org.junit.jupiter.api.Test;
 
@@ -354,7 +351,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
     @Test
     void shouldConvertNullValue() {
         final var result = new TagInputComponent().getConvertedValue(getFacesContext(), null);
-        assertTrue(result instanceof Collection);
+        assertInstanceOf(Collection.class, result);
         assertTrue(((Collection<?>) result).isEmpty());
     }
 

@@ -1,6 +1,6 @@
 /**
  * Used for initializing all panel components with asynchronous update support.
- * The implementations assumes JQuery and jsf.js being present.
+ * The implementation assumes JQuery and faces.js being present.
  */
 
 /**
@@ -16,7 +16,7 @@ let cuiUpdateCollapsiblePanelServerState = function (panelId, isExpanded, event)
     options["render"] = panelId; //re-render component
     options[panelId + "_isexpanded"] = isExpanded;
 
-    jsf.ajax.request(panelId, null, options);
+    faces.ajax.request(panelId, null, options);
     if (event) {
         event.stopPropagation();
     }
@@ -26,7 +26,6 @@ let cuiUpdateCollapsiblePanelServerState = function (panelId, isExpanded, event)
  * Update component state
  * @param {string} panelId - panel ID
  * @param {boolean} isExpanded - state after transition
- * @param {boolean} isAsyncUpdate - update server side state
  */
 let cuiUpdateCollapsiblePanelState = function (panelId, isExpanded, event) {
     let panelStateHolder = jQuery(Cui.Utilities.escapeClientId(panelId) + "_isexpanded");
@@ -43,7 +42,7 @@ let cuiUpdateCollapsiblePanelState = function (panelId, isExpanded, event) {
 /**
  * This is called for each AJAX request/response and after page load.
  * Adding bootstrap collapse/expand listeners to all panel components.
- * After a click the collapse state is updated immediately.
+ * After a click, the collapse state is updated immediately.
  * If the component has asynUpdate=true the server state is updated after full expand/collapse.
  */
 let intitializeCuiPanelUpdate = function () {

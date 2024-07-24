@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.dev.metadata.composite.util;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import lombok.EqualsAndHashCode;
@@ -34,6 +35,7 @@ import lombok.ToString;
 public class LabelValueDisplay implements Serializable {
 
     /** serialVersionUID. */
+    @Serial
     private static final long serialVersionUID = -539225580197700564L;
 
     /** the label for the display. */

@@ -15,11 +15,12 @@
  */
 package de.cuioss.jsf.api.application.navigation;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.application.NavigationCase;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.NavigationCase;
+import jakarta.faces.context.FacesContext;
 
 import de.cuioss.jsf.api.common.view.ViewDescriptor;
 import de.cuioss.tools.collect.CollectionLiterals;
@@ -46,6 +47,7 @@ public class ViewIdentifier implements Serializable, Redirector {
     /** The outcome identifying back navigation. */
     public static final String BACK = "back";
 
+    @Serial
     private static final long serialVersionUID = -8246314995093995027L;
 
     @Getter
@@ -64,8 +66,8 @@ public class ViewIdentifier implements Serializable, Redirector {
      * @return The {@link ViewIdentifier} representing the current view incl
      *         {@link UrlParameter}. If a view can not be determined it returns null
      */
-    public static final ViewIdentifier getFromViewDesciptor(final ViewDescriptor viewDescriptor,
-            final ParameterFilter parameterFilter) {
+    public static ViewIdentifier getFromViewDesciptor(final ViewDescriptor viewDescriptor,
+                                                      final ParameterFilter parameterFilter) {
         if (null == viewDescriptor || null == viewDescriptor.getLogicalViewId()) {
             return null;
         }

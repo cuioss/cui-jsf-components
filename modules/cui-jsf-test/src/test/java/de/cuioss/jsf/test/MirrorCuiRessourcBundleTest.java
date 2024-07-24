@@ -19,8 +19,8 @@ import static de.cuioss.test.generator.Generators.letterStrings;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 
 import org.jboss.weld.junit5.auto.ActivateScopes;
 import org.jboss.weld.junit5.auto.EnableAutoWeld;

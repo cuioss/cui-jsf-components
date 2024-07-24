@@ -1,0 +1,3 @@
+This is a temporary workaround:
+Starting with myfaces-4, there are no tld-files delivered.
+Therefore, we fall back to mojarra 4.0.7 until we implement the parsing of the "META-INF/standard-faces-config.xml"

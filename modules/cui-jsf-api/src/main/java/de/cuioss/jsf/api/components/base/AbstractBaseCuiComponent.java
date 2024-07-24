@@ -18,11 +18,11 @@ package de.cuioss.jsf.api.components.base;
 import de.cuioss.jsf.api.components.partial.*;
 import lombok.experimental.Delegate;
 
-import javax.faces.component.StateHelper;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.context.FacesContext;
 
 /**
  * Minimal superset for cui-based components that are no

@@ -15,7 +15,7 @@
  */
 package de.cuioss.jsf.bootstrap.accordion;
 
-import javax.faces.component.FacesComponent;
+import jakarta.faces.component.FacesComponent;
 
 import de.cuioss.jsf.api.components.partial.ActiveIndexManagerProvider;
 import de.cuioss.jsf.api.components.util.CuiState;

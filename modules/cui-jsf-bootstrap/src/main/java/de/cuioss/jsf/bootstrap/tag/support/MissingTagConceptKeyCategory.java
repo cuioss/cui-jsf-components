@@ -17,10 +17,13 @@ package de.cuioss.jsf.bootstrap.tag.support;
 
 import de.cuioss.uimodel.model.conceptkey.impl.BaseConceptCategory;
 
+import java.io.Serial;
+
 /**
  * @author Sven Haag
  */
 public class MissingTagConceptKeyCategory extends BaseConceptCategory {
 
+    @Serial
     private static final long serialVersionUID = -3651465449271115447L;
 }

@@ -18,7 +18,7 @@ package de.cuioss.jsf.bootstrap.widget;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javax.faces.event.ActionEvent;
+import jakarta.faces.event.ActionEvent;
 
 import org.junit.jupiter.api.Test;
 

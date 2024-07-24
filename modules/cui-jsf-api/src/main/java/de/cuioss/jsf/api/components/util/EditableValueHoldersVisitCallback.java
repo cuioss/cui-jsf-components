@@ -18,11 +18,11 @@ package de.cuioss.jsf.api.components.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.UIComponent;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitResult;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -30,7 +30,7 @@ import lombok.ToString;
 
 /**
  * Implementation for the visiting pattern of JSF, inspired by
- * http://ovaraksin.blogspot.de/2011/12/efficient-component-tree-traversal-in.html
+ * <a href="http://ovaraksin.blogspot.de/2011/12/efficient-component-tree-traversal-in.html">...</a>
  *
  * @author Oliver Wolff
  */

@@ -15,17 +15,17 @@
  */
 package de.cuioss.jsf.api.components.support;
 
-import static java.util.Objects.requireNonNull;
-
 import de.cuioss.jsf.api.components.partial.ComponentBridge;
 import de.cuioss.jsf.api.components.util.KeyMappingUtility;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import static java.util.Objects.requireNonNull;
+
 /**
- * Some attribute like disabled and the styleclass needs to be changed once.
- * PostAddToView does not fit, its a called on ajax requests also. This class
- * helps keeping track of said changes.
+ * Some attribute like disabled and the style class needs to be changed once.
+ * PostAddToView does not fit, it's called on ajax requests also.
+ * This class helps keep track of said changes.
  *
  * @author Oliver Wolff
  */
@@ -48,7 +48,7 @@ public class OneTimeCheck {
     }
 
     /**
-     * Constructor. Needed only for cases, if a component uses more than one
+     * Constructor. Needed only for cases if a component uses more than one
      * {@link OneTimeCheck}
      *
      * @param componentBridge must not be null
@@ -61,7 +61,7 @@ public class OneTimeCheck {
 
     /**
      * @return the actual flag whether the check was done. Defaults to
-     *         <code>false</code>
+     * <code>false</code>
      */
     public boolean isChecked() {
         return (Boolean) componentBridge.stateHelper().eval(compoundKey, Boolean.FALSE);

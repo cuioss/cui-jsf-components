@@ -26,10 +26,10 @@ import de.cuioss.jsf.bootstrap.icon.IconComponent;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-import javax.faces.component.html.HtmlOutcomeTargetLink;
-import javax.faces.component.html.HtmlOutputText;
-import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
+import jakarta.faces.component.html.HtmlOutcomeTargetLink;
+import jakarta.faces.component.html.HtmlOutputText;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.Renderer;
 import java.io.IOException;
 
 /**
@@ -69,7 +69,7 @@ public class NavigationMenuContainerRenderer {
      * @param component         must not be null
      * @param parentIsContainer flag
      * @param idExtension       for creating ids
-     * @throws IOException from the underlying {@link javax.faces.context.ResponseWriter}
+     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
      */
     static void renderBegin(final FacesContext context, final DecoratingResponseWriter<NavigationMenuComponent> writer,
                             final NavigationMenuItemContainer model, final NavigationMenuComponent component,
@@ -100,7 +100,7 @@ public class NavigationMenuContainerRenderer {
      *
      * @param writer must not be null
      * @param model  must not be null
-     * @throws IOException from the underlying {@link javax.faces.context.ResponseWriter}
+     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
      */
     static void renderEnd(final DecoratingResponseWriter<NavigationMenuComponent> writer,
                           final NavigationMenuItemContainer model) throws IOException {

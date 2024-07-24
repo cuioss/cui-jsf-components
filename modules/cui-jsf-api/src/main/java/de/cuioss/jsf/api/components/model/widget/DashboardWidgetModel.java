@@ -26,7 +26,7 @@ public interface DashboardWidgetModel extends WidgetModel {
      * Link a {@link WidgetModel} to a composite component that should be used to
      * render the widget.
      *
-     * @return the folder of the composite component inside of the resources
+     * @return the folder of the composite component inside the resources
      *         directory and the name of the composite component file. (e.g.
      *         "cui-composite:listItemWidget" for a component named
      *         "listItemWidget.xhtml" in

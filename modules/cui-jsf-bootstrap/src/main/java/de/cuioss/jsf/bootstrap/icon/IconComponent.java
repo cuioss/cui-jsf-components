@@ -21,8 +21,8 @@ import de.cuioss.jsf.api.components.util.ComponentUtility;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import lombok.experimental.Delegate;
 
-import javax.faces.component.FacesComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.context.FacesContext;
 
 /**
  * <p>

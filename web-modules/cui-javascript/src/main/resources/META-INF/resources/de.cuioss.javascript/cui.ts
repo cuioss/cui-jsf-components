@@ -7,12 +7,12 @@
 ///<reference path='typings/bootstrap.d.ts'/>
 
 namespace Cui.Core {
-    
-	/** 
-	 * Extracts the get (or search) data from a given URL
-	 * @param {string} url a URL that might contain parameterUrl
-	 * @return {Object} get all the get variables as properties
-	**/
+
+    /**
+     * Extracts the get (or search) data from a given URL
+     * @param {string} url a URL that might contain parameterUrl
+     * @return {Object} get all the get variables as properties
+     **/
     export function getData(url: string): any {
         let match: any;
         let search: RegExp = /([^&=]+)=?([^&]*)/g;
@@ -24,7 +24,7 @@ namespace Cui.Core {
         let data: any = {};
         /* jshint ignore:start */
         while (match = (<any>search).exec(query))
-        /* jshint ignore:end */
+            /* jshint ignore:end */
             data[decode(match[1])] = decode(match[2]);
 
         return data;
@@ -38,8 +38,7 @@ namespace Cui.Core {
         let currentValue = this.trim(jQuery(input).val());
         if (currentValue !== undefined && currentValue.length >= maxLength) {
             moreLengthAction();
-        }
-        else {
+        } else {
             lessLengthAction();
         }
     }
@@ -50,7 +49,7 @@ namespace Cui.Core {
 
     /**
      * Display an ajax error message by showing the invisible notification box for 5 seconds
-    **/
+     **/
     function handleAjaxError(): void {
         $('.cui-ajax-error-message').show();
         setTimeout(() => {
@@ -60,13 +59,13 @@ namespace Cui.Core {
 
     /**
      * Register for ajax errors (jsf standard + PrimeFaces)
-    **/
+     **/
     export function addErrorMessage(): void {
-        if (typeof jsf !== "undefined") {
-            jsf.ajax.addOnError((data: any) => {
+        if (typeof faces !== "undefined") {
+            faces.ajax.addOnError((data: any) => {
                 handleAjaxError();
             });
-            $(document).on("pfAjaxError", function(event: any, xhr: { [x: string]: string; }, options: any) {
+            $(document).on("pfAjaxError", function (event: any, xhr: { [x: string]: string; }, options: any) {
                 const statusText = 'statusText';
                 if (xhr[statusText] != 'abort') {
                     handleAjaxError();
@@ -80,14 +79,13 @@ namespace Cui.Core {
             let position: number = $(window).scrollTop();
             if (position >= 200) {
                 $('#scroll-to-top').attr('style', 'bottom:8px;');
-            }
-            else {
+            } else {
                 $('#scroll-to-top').removeAttr('style');
             }
         });
     }
-    
-	/**
+
+    /**
      * Register a component enabler to be called immediate and after each AJAX update.
      * Should be called at document.ready.
      * Warning: Event listeners in the callback can get attached multiple times therefore.
@@ -96,11 +94,11 @@ namespace Cui.Core {
      *
      * @param callback
      **/
-    export function registerComponentEnabler(callback?:() => void):void {
+    export function registerComponentEnabler(callback?: () => void): void {
         callback();
         // Ensure jsf ajax will react properly
-        if (typeof jsf !== "undefined") {
-            jsf.ajax.addOnEvent((data: { status: string; }): void => {
+        if (typeof faces !== "undefined") {
+            faces.ajax.addOnEvent((data: { status: string; }): void => {
                 if (data.status && data.status === 'success') {
                     callback();
                 }
@@ -109,14 +107,14 @@ namespace Cui.Core {
         // Catch all PF ajax events
         jQuery(document).on("pfAjaxComplete", callback);
     }
-    
+
     let onIdle: Array<() => void> = [];
 
-    export function registerOnIdle(callback?:() => void):void {
+    export function registerOnIdle(callback?: () => void): void {
         onIdle.push(callback);
     }
-    
-    export function executeOnIdle():void {
+
+    export function executeOnIdle(): void {
         jQuery('.modal').modal('hide');
         jQuery('[data-modal-dialog-id=confirmDialogTimeout]').modal('show');
         jQuery(document.body).addClass('modal-timeout');
@@ -124,7 +122,7 @@ namespace Cui.Core {
     }
 
     /**
-     * Execute open external application in new window (or tab depend on browser and settings) and set focus on this
+     * Execute open external application in a new window (or tab depend on browser and settings) and set focus on this
      * @param applicationUrl
      */
     export function openExternalApplicationInNewWindow(applicationUrl: string): void {

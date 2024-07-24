@@ -15,9 +15,9 @@
  */
 package de.cuioss.jsf.bootstrap.checkbox;
 
-import javax.faces.component.UIComponent;
-import javax.faces.event.PostAddToViewEvent;
-import javax.faces.event.PreRenderComponentEvent;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.event.PreRenderComponentEvent;
 
 import org.junit.jupiter.api.Test;
 

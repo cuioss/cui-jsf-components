@@ -17,7 +17,7 @@ package de.cuioss.jsf.bootstrap.util;
 
 import java.util.Optional;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 import de.cuioss.jsf.api.components.util.ComponentModifier;
 import de.cuioss.jsf.api.components.util.modifier.ComponentModifierResolver;

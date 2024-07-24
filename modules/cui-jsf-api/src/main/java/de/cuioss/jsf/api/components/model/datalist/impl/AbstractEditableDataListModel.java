@@ -17,6 +17,7 @@ package de.cuioss.jsf.api.components.model.datalist.impl;
 
 import static de.cuioss.jsf.api.components.model.datalist.AddStatus.PERSISTED;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -42,6 +43,7 @@ import lombok.ToString;
 @EqualsAndHashCode(doNotUseGetters = true)
 public abstract class AbstractEditableDataListModel<T extends Serializable> implements EditableDataListModel<T> {
 
+    @Serial
     private static final long serialVersionUID = 2719782028119450821L;
     private List<ItemWrapper<T>> displayItems;
 
@@ -133,7 +135,7 @@ public abstract class AbstractEditableDataListModel<T extends Serializable> impl
     }
 
     /**
-     * This removes new items that were in edit mode and have been canceled.
+     * This removes new items in edit mode and have been canceled.
      */
     private void removeNullItems() {
         getDisplayItems().removeIf(item -> !PERSISTED.equals(item.getAddStatus()) && null == item.getWrapped());

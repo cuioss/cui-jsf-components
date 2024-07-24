@@ -15,14 +15,13 @@
  */
 package de.cuioss.jsf.bootstrap.button;
 
-import static de.cuioss.jsf.bootstrap.CssBootstrap.BUTTON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javax.faces.event.PreRenderComponentEvent;
+import jakarta.faces.event.PreRenderComponentEvent;
 
 import org.junit.jupiter.api.Test;
 

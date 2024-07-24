@@ -15,8 +15,11 @@
  */
 package de.cuioss.jsf.api.ui.model;
 
+import java.io.Serial;
+
 public class StringTraceValue extends TracedValue<String> {
 
+    @Serial
     private static final long serialVersionUID = 2373496524137785007L;
 
     public StringTraceValue(final String defaultValue) {

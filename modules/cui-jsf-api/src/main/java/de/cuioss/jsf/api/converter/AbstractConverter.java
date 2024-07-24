@@ -15,24 +15,22 @@
  */
 package de.cuioss.jsf.api.converter;
 
-import java.util.Objects;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
-
 import de.cuioss.jsf.api.application.message.MessageProducer;
 import de.cuioss.portal.common.cdi.PortalBeanManager;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.ConverterException;
+
+import java.util.Objects;
 
 /**
  * Base abstract converter class which handles null and empty checks as
  * specified in the JSF converter contract. To support i18n conversion
- * exceptions we provide derived classes the message producer. The runtime type
+ * exceptions, we provide derived classes the message producer. The runtime type
  * of the payload is given in the generic argument T.
  *
  * @param <T> bounded type for converter
- *
  * @author Matthias Schmidt
  */
 public abstract class AbstractConverter<T> implements Converter<T> {
@@ -54,7 +52,7 @@ public abstract class AbstractConverter<T> implements Converter<T> {
 
     /**
      * Object to String serialization as specified in the JSF converter contract,
-     * null checks and casting to generic type.
+     * null checks and casting to a generic type.
      */
     @Override
     public String getAsString(final FacesContext context, final UIComponent component, final T value) {
@@ -71,7 +69,7 @@ public abstract class AbstractConverter<T> implements Converter<T> {
 
     /**
      * Typesafe, boilerplate-free method which gets called by
-     * Converter.getAsObject(). If not implemented the implementation assumes an
+     * Converter.getAsObject(). If not implemented, the implementation assumes a
      * Formatting only converter throwing the appropriate exception.
      *
      * @param context   {@link FacesContext} for the request being processed
@@ -79,13 +77,12 @@ public abstract class AbstractConverter<T> implements Converter<T> {
      *                  associated
      * @param value     String value to be converted, can't be <code>null</code> but
      *                  could be empty String
-     *
      * @return converted Object
      * @throws ConverterException
      * @throws UnsupportedOperationException by default implementation
      */
     protected T convertToObject(final FacesContext context, final UIComponent component, final String value)
-            throws ConverterException {
+        throws ConverterException {
         throw new UnsupportedOperationException("Converter is used for formatting only.");
     }
 
@@ -98,12 +95,11 @@ public abstract class AbstractConverter<T> implements Converter<T> {
      *                  associated
      * @param value     Generic type value to be converted, can't be
      *                  <code>null</code>
-     *
      * @return converted String
      * @throws ConverterException
      */
     protected abstract String convertToString(FacesContext context, UIComponent component, T value)
-            throws ConverterException;
+        throws ConverterException;
 
     /**
      * Ensures the truth of an expression involving the state of the calling
@@ -113,7 +109,6 @@ public abstract class AbstractConverter<T> implements Converter<T> {
      * @param messageKey key string to be looked up in messages.properties
      * @param parameter  (optional) varargs parameters to be included in the
      *                   resulting Exception string.
-     *
      * @throws ConverterException if {@code expression} is false
      */
     protected void checkState(final boolean expression, final String messageKey, final Object... parameter) {
@@ -129,7 +124,6 @@ public abstract class AbstractConverter<T> implements Converter<T> {
      * @param messageKey key string to be looked up in messages.properties
      * @param parameter  (optional) varargs parameters to be included in the
      *                   resulting Exception string.
-     *
      * @return verified value
      * @throws ConverterException if {@code expression} is false
      */
@@ -140,7 +134,7 @@ public abstract class AbstractConverter<T> implements Converter<T> {
     }
 
     /**
-     * Convenience method to throw a ConversionException with a i18n message and
+     * Convenience method to throw a ConversionException with an i18n message and
      * optional varargs parameters.
      *
      * @param messageKey key string to be looked up in messages.properties
@@ -148,18 +142,18 @@ public abstract class AbstractConverter<T> implements Converter<T> {
      *                   resulting Exception string.
      */
     public static void throwConverterException(final String messageKey, final Object... parameter)
-            throws ConverterException {
+        throws ConverterException {
 
         throw new ConverterException(
-                PortalBeanManager.resolveRequiredBean(MessageProducer.class).getErrorMessageFor(messageKey, parameter));
+            PortalBeanManager.resolveRequiredBean(MessageProducer.class).getErrorMessageFor(messageKey, parameter));
     }
 
     /**
      * Throws a {@link NullPointerException} if either context is null or component
      * is null.
      *
-     * @param context   the faces context, must not be null
-     * @param component the UI component, must not be null
+     * @param context   must not be null
+     * @param component must not be null
      */
     protected void verifyApiContract(final FacesContext context, final UIComponent component) {
         Objects.requireNonNull(context, "According API, FacesContext must not be null");

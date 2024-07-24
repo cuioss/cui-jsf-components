@@ -23,8 +23,9 @@ import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSingle;
 import de.cuioss.jsf.api.components.partial.ModelProvider;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
 
-import javax.faces.component.FacesComponent;
 import java.io.Serializable;
 import java.util.List;
 
@@ -49,6 +50,7 @@ import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
  * @author Sven Haag
  */
 @FacesComponent(BootstrapFamily.NAVIGATION_MENU_COMPONENT)
+@ResourceDependency(library = "javascript.enabler", name = "enabler.sub_menu.js", target = "head")
 public class NavigationMenuComponent extends AbstractBaseCuiComponent {
 
     private static final String MODEL_ITEMS_KEY = "modelItems";

@@ -17,7 +17,7 @@ package de.cuioss.jsf.bootstrap.tab;
 
 import static de.cuioss.jsf.bootstrap.BootstrapFamily.TAB_PANEL_RENDERER;
 
-import javax.faces.component.FacesComponent;
+import jakarta.faces.component.FacesComponent;
 
 import de.cuioss.jsf.api.components.partial.TitleProvider;
 import de.cuioss.jsf.api.components.partial.TitleProviderImpl;

@@ -17,14 +17,15 @@ package de.cuioss.jsf.dev.metadata.composite.attributes;
 
 import java.beans.FeatureDescriptor;
 import java.beans.PropertyDescriptor;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.faces.component.UIComponent;
-import javax.faces.view.AttachedObjectTarget;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.view.AttachedObjectTarget;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -62,6 +63,7 @@ public class ComponentPropertiesWrapper implements Serializable {
     public static final String COMOPOSITE_URL_KEY = "compositeUrlKey";
 
     /** Serial version UID */
+    @Serial
     private static final long serialVersionUID = 8036185753548211952L;
 
     /** The List of attached objects. */

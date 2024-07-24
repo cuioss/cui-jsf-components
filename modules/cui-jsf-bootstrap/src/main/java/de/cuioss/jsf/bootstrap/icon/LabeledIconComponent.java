@@ -20,7 +20,7 @@ import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import lombok.experimental.Delegate;
 
-import javax.faces.component.FacesComponent;
+import jakarta.faces.component.FacesComponent;
 
 /**
  * <p>

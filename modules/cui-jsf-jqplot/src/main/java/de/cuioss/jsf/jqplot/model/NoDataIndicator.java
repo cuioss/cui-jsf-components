@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import de.cuioss.jsf.jqplot.axes.Axes;
@@ -49,6 +50,7 @@ import lombok.Data;
 public class NoDataIndicator implements Serializable {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = -1690798530650850562L;
 
     private boolean show = false;

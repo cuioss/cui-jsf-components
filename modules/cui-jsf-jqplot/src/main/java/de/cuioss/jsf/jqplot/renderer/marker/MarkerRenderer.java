@@ -19,6 +19,8 @@ import de.cuioss.jsf.jqplot.renderer.Renderer;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * @author Eugen Fischer
  * @see <a href=
@@ -29,6 +31,7 @@ import lombok.ToString;
 public class MarkerRenderer extends Renderer {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 4001151503269081389L;
 
     /**

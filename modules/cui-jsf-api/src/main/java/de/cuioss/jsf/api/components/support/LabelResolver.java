@@ -17,9 +17,9 @@ package de.cuioss.jsf.api.components.support;
 
 import java.io.Serializable;
 
-import javax.faces.component.html.HtmlOutputText;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
+import jakarta.faces.component.html.HtmlOutputText;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
 
 import de.cuioss.jsf.api.common.accessor.ConverterAccessor;
 import de.cuioss.portal.common.bundle.ResourceBundleWrapper;

@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.temporal.Temporal;
 
@@ -38,6 +39,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 public class TimeLineSeria<T extends Number> implements JsArrayContainer, Serializable {
 
+    @Serial
     private static final long serialVersionUID = 4435082055226755388L;
 
     @NonNull

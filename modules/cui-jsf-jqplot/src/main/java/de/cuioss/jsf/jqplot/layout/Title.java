@@ -25,6 +25,8 @@ import de.cuioss.jsf.jqplot.renderer.TitleRenderer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serial;
+
 /**
  * <pre>
  * title: '', // Title for the plot.
@@ -48,6 +50,7 @@ public class Title extends JsObject {
     private static final String JS_OBJECT_NAME = "title";
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 6433109335237410535L;
 
     /**

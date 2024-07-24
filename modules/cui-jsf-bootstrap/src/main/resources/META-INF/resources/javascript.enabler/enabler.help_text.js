@@ -1,8 +1,8 @@
 /**
  * Used for initializing GuardedInput components.
- * The implementation assumes JQuery, jsf.js and cui.jsf being present.
+ * The implementation assumes JQuery, faces.js and cui.jsf being present.
  */
-let intitializeHelpTexts = function () {
+let initializeHelpTexts = function () {
     jQuery('[data-help-input-button]').each(function () {
         let helpButton = jQuery(this);
         helpButton.prop('onclick', null); // Fix for IE 11
@@ -22,5 +22,5 @@ let intitializeHelpTexts = function () {
 
 // Should be loaded at document-ready
 jQuery(document).ready(function () {
-    Cui.Core.registerComponentEnabler(intitializeHelpTexts);
+    Cui.Core.registerComponentEnabler(initializeHelpTexts);
 });

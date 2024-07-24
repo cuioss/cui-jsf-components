@@ -15,14 +15,14 @@
  */
 package de.cuioss.jsf.components.converter;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.ConverterException;
-import javax.faces.convert.FacesConverter;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.ConverterException;
+import jakarta.faces.convert.FacesConverter;
 
 import de.cuioss.jsf.api.converter.AbstractConverter;
 
@@ -57,18 +57,14 @@ public class DecodingStringConverter extends AbstractConverter<String> {
 
     private static String decode(final String value) throws ConverterException {
         try {
-            return URLDecoder.decode(value, "UTF-8");
-        } catch (UnsupportedEncodingException | IllegalArgumentException e) {
+            return URLDecoder.decode(value, StandardCharsets.UTF_8);
+        } catch (IllegalArgumentException e) {
             throw new ConverterException(e);
         }
     }
 
     private static String encode(final String value) throws ConverterException {
-        try {
-            return URLEncoder.encode(value, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new ConverterException(e);
-        }
+        return URLEncoder.encode(value, StandardCharsets.UTF_8);
     }
 
 }

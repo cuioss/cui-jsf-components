@@ -15,23 +15,18 @@
  */
 package de.cuioss.jsf.api.components.base;
 
-import javax.faces.component.StateHelper;
-import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlOutputText;
-import javax.faces.context.FacesContext;
-
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
-import de.cuioss.jsf.api.components.partial.ComponentBridge;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProviderImpl;
-import de.cuioss.jsf.api.components.partial.TitleProvider;
-import de.cuioss.jsf.api.components.partial.TitleProviderImpl;
+import de.cuioss.jsf.api.components.partial.*;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlOutputText;
+import jakarta.faces.context.FacesContext;
 import lombok.experimental.Delegate;
 
 /**
  * <p>
  * Base class for creating CuiComponents that are based on on simple
- * span-element, The default renderer is "javax.faces.Text". It acts as
+ * span-element, The default renderer is "jakarta.faces.Text". It acts as
  * {@link ComponentBridge}.
  * </p>
  * <h2>Attributes</h2>

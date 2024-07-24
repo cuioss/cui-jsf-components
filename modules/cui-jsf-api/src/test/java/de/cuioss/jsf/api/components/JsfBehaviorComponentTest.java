@@ -17,7 +17,7 @@ package de.cuioss.jsf.api.components;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import javax.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.behavior.AjaxBehavior;
 
 import org.junit.jupiter.api.Test;
 

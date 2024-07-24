@@ -1,6 +1,6 @@
 package de.cuioss.jsf.api.components.base;
 
-import javax.faces.event.PreRenderComponentEvent;
+import jakarta.faces.event.PreRenderComponentEvent;
 
 /**
  * Streamlines the usage of {@link PreRenderComponentEvent}s within cui-local types.

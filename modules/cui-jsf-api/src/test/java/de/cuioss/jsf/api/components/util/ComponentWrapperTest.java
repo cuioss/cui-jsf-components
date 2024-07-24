@@ -19,10 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.component.html.HtmlInputText;
-import javax.faces.component.html.HtmlOutputText;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.component.html.HtmlOutputText;
 
 import org.junit.jupiter.api.Test;
 

@@ -15,9 +15,10 @@
  */
 package de.cuioss.jsf.api.ui.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 
-import javax.faces.model.SelectItem;
+import jakarta.faces.model.SelectItem;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -35,6 +36,7 @@ import lombok.ToString;
 @ToString
 public class TypedSelectItem<T extends Serializable> extends SelectItem {
 
+    @Serial
     private static final long serialVersionUID = 909687137381175245L;
 
     @Getter

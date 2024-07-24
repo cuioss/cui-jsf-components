@@ -20,7 +20,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Iterator;
 import java.util.ServiceLoader;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 import de.cuioss.jsf.api.components.util.ComponentModifier;
 import de.cuioss.tools.logging.CuiLogger;

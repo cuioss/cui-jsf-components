@@ -15,29 +15,31 @@
  */
 package de.cuioss.jsf.jqplot.js.support;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import de.cuioss.tools.string.Joiner;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serial;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * An array is an ordered collection of values. An array begins with [ (left
  * bracket)<br>
- * and ends with ] (right bracket). Values are separated by , (comma).<br>
- * An array could be nested. Thats the reason why it's also implements the
+ * and ends with ] (right bracket). Values are separated by, (comma).<br>
+ * An array could be nested. That's the reason why it's also implements the
  * interface {@link JsValue}
  *
- * @see <a href="http://www.json.org/">json.org</a>
+ * @param <T> bounded parameter T must implement the interface {@link JsValue}
  * @author Eugen Fischer
- * @param <T> bounded parameter T must implements the interface {@link JsValue}
+ * @see <a href="http://www.json.org/">json.org</a>
  */
 @ToString
 @EqualsAndHashCode
 public class JsArray<T extends JsValue> implements JavaScriptSupport, JsValue, Iterable<T> {
 
+    @Serial
     private static final long serialVersionUID = 4745761442808870666L;
 
     private final ArrayList<T> items = new ArrayList<>();
@@ -73,7 +75,7 @@ public class JsArray<T extends JsValue> implements JavaScriptSupport, JsValue, I
     }
 
     /**
-     * @return boolean indicating whether element is empty
+     * @return boolean indicating whether the element is empty
      */
     public boolean isEmpty() {
         return items.isEmpty();
@@ -81,8 +83,8 @@ public class JsArray<T extends JsValue> implements JavaScriptSupport, JsValue, I
 
     /**
      * An array is an ordered collection of values. An array begins with [ (left
-     * bracket) and ends with ] (right bracket). Values are separated by , (comma).
-     * If no items exits, <b>empty</b> array representation will be created.
+     * bracket) and ends with ] (right bracket). Values are separated by, (comma).
+     * If no items exist, <b>empty</b> array representation will be created.
      */
     @Override
     public String asJavaScriptObjectNotation() {
@@ -91,9 +93,7 @@ public class JsArray<T extends JsValue> implements JavaScriptSupport, JsValue, I
             return "[]";
         }
 
-        final var builder = new StringBuilder().append("[").append(transformedArray()).append("]");
-
-        return builder.toString();
+        return "[" + transformedArray() + "]";
     }
 
     @Override

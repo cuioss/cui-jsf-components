@@ -17,8 +17,8 @@ package de.cuioss.jsf.api.components.partial;
 
 import java.io.Serializable;
 
-import javax.faces.component.StateHelper;
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.UIComponent;
 
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.support.LabelResolver;

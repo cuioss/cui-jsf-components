@@ -93,6 +93,6 @@ class ForIdentifierProviderImplTest {
         for (var i = 0; i < maxCount; i++) {
             tempIds.add(ids.next());
         }
-        return tempIds.toArray(new String[tempIds.size()]);
+        return tempIds.toArray(new String[0]);
     }
 }

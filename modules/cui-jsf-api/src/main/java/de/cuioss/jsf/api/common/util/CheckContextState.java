@@ -15,7 +15,7 @@
  */
 package de.cuioss.jsf.api.common.util;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import lombok.experimental.UtilityClass;
 

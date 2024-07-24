@@ -17,11 +17,11 @@ package de.cuioss.jsf.components.html.fieldset;
 
 import java.io.Serializable;
 
-import javax.faces.component.FacesComponent;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.PreRenderComponentEvent;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PreRenderComponentEvent;
 
 import de.cuioss.jsf.api.components.base.CuiComponentBase;
 import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;

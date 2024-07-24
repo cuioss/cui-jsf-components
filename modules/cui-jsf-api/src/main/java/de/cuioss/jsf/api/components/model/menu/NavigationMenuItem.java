@@ -26,8 +26,8 @@ public interface NavigationMenuItem extends Serializable, Comparable<NavigationM
 
     /**
      * @return the (technical) ID of the menu item. This may be utilized for
-     *         technical aspects like access rights or dynamically hiding the
-     *         corresponding menu. Mandatory.
+     * technical aspects like access rights or dynamically hiding the
+     * corresponding menu. Mandatory.
      */
     String getId();
 
@@ -51,25 +51,24 @@ public interface NavigationMenuItem extends Serializable, Comparable<NavigationM
      * </ul>
      *
      * @return the number for the ordering for the concrete
-     *         {@link NavigationMenuItem}. The lower the number the higher the
-     *         element is displayed. The default implementations like
-     *         {@link NavigationMenuItemImpl} default to 25. The number is used
-     *         implicitly by {@link Comparable#compareTo(Object)}.
+     * {@link NavigationMenuItem}.
+     * The lower the number, the higher the element is displayed.
+     * The default implementations like {@link NavigationMenuItemImpl} default to 25.
+     * The number is used implicitly by {@link Comparable#compareTo(Object)}.
      */
     Integer getOrder();
 
     /**
      * @return the ID of the parent {@link NavigationMenuItem}. This is needed for
-     *         nesting the Menus dynamically. If it returns 'top' it is assumed to
-     *         be a top-level element.
+     * nesting the Menus dynamically. If it returns 'top,' it is assumed to
+     * be a top-level element.
      */
     String getParentId();
 
     /**
-     * @return the resolved title to display for this menu-item: Optional for non
-     *         separator items but recommended to be used (accessibility).
-     *         <em>Caution:</em> check with {@link #isTitleAvailable()} before
-     *         accessing
+     * @return the resolved title to display for this menu-item: Optional for non-separator items but recommended to be used (accessibility).
+     * <em>Caution:</em> check with {@link #isTitleAvailable()} before
+     * accessing
      */
     String getResolvedTitle();
 
@@ -89,8 +88,8 @@ public interface NavigationMenuItem extends Serializable, Comparable<NavigationM
     boolean isTitleAvailable();
 
     /**
-     * @return The css class to be utilized for displaying a corresponding icon.
-     *         Optional
+     * @return The css class to be used for displaying a corresponding icon.
+     * Optional
      */
     String getIconStyleClass();
 
@@ -101,7 +100,7 @@ public interface NavigationMenuItem extends Serializable, Comparable<NavigationM
 
     /**
      * @return boolean indicating whether the current {@link NavigationMenuItem} is
-     *         active, aka selected.
+     * active, aka selected.
      */
     default boolean isActive() {
         return false;

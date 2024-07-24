@@ -21,9 +21,9 @@ import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.jsf.api.components.util.ComponentUtility;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 
-import javax.faces.component.FacesComponent;
-import javax.faces.component.html.HtmlCommandButton;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.html.HtmlCommandButton;
+import jakarta.faces.context.FacesContext;
 
 /**
  * Variant of {@link HtmlCommandButton} that can be directly used as a 'Close'

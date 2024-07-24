@@ -17,10 +17,10 @@ package de.cuioss.jsf.components.typewatch;
 
 import java.util.Map;
 
-import javax.el.MethodExpression;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.FacesComponent;
-import javax.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.el.MethodExpression;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
 
 import de.cuioss.jsf.api.components.decorator.AbstractParentDecorator;
 import de.cuioss.jsf.api.components.partial.AjaxProvider;

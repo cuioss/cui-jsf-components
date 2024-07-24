@@ -15,7 +15,7 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
-import javax.faces.component.StateHelper;
+import jakarta.faces.component.StateHelper;
 
 import org.omnifaces.util.State;
 

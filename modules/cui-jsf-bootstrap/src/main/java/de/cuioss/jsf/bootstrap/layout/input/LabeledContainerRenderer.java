@@ -17,11 +17,11 @@ package de.cuioss.jsf.bootstrap.layout.input;
 
 import java.io.IOException;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.FacesContext;
-import javax.faces.render.FacesRenderer;
-import javax.faces.render.Renderer;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
+import jakarta.faces.render.Renderer;
 
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.css.StyleClassProvider;
@@ -114,7 +114,7 @@ public class LabeledContainerRenderer extends BaseDecoratorRenderer<LabeledConta
     private static void doEncodeInputBegin(final FacesContext context,
             final DecoratingResponseWriter<LabeledContainerComponent> writer, final LabeledContainerComponent component)
             throws IOException {
-        if (!component.containsUIInput() && !component.shouldRenderComplexOutput()) {
+        if (!component.containsUIInput() && component.shouldNotRenderComplexOutput()) {
             writer.withStartElement(Node.P);
             writer.withStyleClass(CssBootstrap.FORM_CONTROL_STATIC);
             writer.withTextContent(component.resolveContent(), component.getContentEscape());
@@ -168,7 +168,7 @@ public class LabeledContainerRenderer extends BaseDecoratorRenderer<LabeledConta
         if (component.containsCheckbox()) {
             handleEncodeEndCheckbox(context, writer, component);
         } else {
-            if (!component.containsUIInput() && !component.shouldRenderComplexOutput()) {
+            if (!component.containsUIInput() && component.shouldNotRenderComplexOutput()) {
                 writer.withEndElement(Node.P);
             } else if (component.shouldRenderInputGroup()) {
                 if (component.isAppendFacetRendered()) {

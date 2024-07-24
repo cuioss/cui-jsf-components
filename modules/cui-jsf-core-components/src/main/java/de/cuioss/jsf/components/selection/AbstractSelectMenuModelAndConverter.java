@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.components.selection;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,11 +29,11 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ValueChangeEvent;
+import jakarta.faces.model.SelectItem;
 
 import de.cuioss.jsf.api.components.selection.SelectMenuModel;
 import lombok.EqualsAndHashCode;
@@ -60,6 +61,7 @@ import lombok.ToString;
 @EqualsAndHashCode(doNotUseGetters = true, exclude = { "converter", "selectableValues" })
 public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable> implements SelectMenuModel<T> {
 
+    @Serial
     private static final long serialVersionUID = 5538442599313391823L;
 
     private ArrayList<SelectItem> selectableValues;
@@ -220,7 +222,7 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
      * @param rescrictModeActive
      */
     public void setRescrictModeActive(final boolean rescrictModeActive) {
-        converter.setRescrictModeActive(rescrictModeActive);
+        converter.setRestrictedModeActive(rescrictModeActive);
     }
 
     /**

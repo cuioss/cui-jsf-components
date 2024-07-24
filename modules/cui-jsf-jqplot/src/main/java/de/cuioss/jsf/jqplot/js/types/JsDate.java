@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.js.types;
 
+import java.io.Serial;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -30,6 +31,7 @@ import lombok.Data;
 public class JsDate implements JsValue {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = -1956102839103846605L;
 
     /**

@@ -17,10 +17,10 @@ package de.cuioss.jsf.api.components.base;
 
 import static java.util.Objects.requireNonNull;
 
-import javax.faces.component.StateHelper;
-import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlPanelGroup;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlPanelGroup;
+import jakarta.faces.context.FacesContext;
 
 import de.cuioss.jsf.api.components.partial.ComponentBridge;
 import lombok.AccessLevel;

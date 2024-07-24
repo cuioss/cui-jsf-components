@@ -27,7 +27,7 @@ public final class TagTestUtils {
     }
 
     public static void insertTag(final HtmlTreeBuilder expected, final int count) {
-        expected.withNode(Node.LI).withNode("TagComponent").withAttributeNameAndId("j_id__v_" + String.valueOf(count))
+        expected.withNode(Node.LI).withNode("TagComponent").withAttributeNameAndId("j_id__v_" + count)
                 .currentHierarchyUp().currentHierarchyUp();
     }
 }

@@ -20,7 +20,7 @@ import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
 import java.util.List;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 import org.junit.jupiter.api.Test;
 

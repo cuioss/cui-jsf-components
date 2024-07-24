@@ -15,11 +15,12 @@
  */
 package de.cuioss.jsf.api.ui.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.faces.event.ActionEvent;
-import javax.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.ComponentSystemEvent;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -35,6 +36,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class ToggleSwitch implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -2220680284073352864L;
 
     @Setter

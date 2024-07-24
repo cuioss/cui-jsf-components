@@ -39,6 +39,6 @@ class KeyMappingUtilityTest {
     @Test
     void shouldMapWithExtension() {
         assertEquals(STRING_KEY + EXTENSION_SUFFIX, mapKeyWithExtension(STRING_KEY, EXTENSION));
-        assertEquals(INTEGER_KEY.toString() + EXTENSION_SUFFIX, mapKeyWithExtension(INTEGER_KEY, EXTENSION));
+        assertEquals(INTEGER_KEY + EXTENSION_SUFFIX, mapKeyWithExtension(INTEGER_KEY, EXTENSION));
     }
 }

@@ -18,7 +18,7 @@ package de.cuioss.jsf.bootstrap.icon;
 import static de.cuioss.jsf.bootstrap.icon.GenderIconComponentTest.GENDER_MALE_TITLE;
 import static de.cuioss.jsf.bootstrap.icon.GenderIconComponentTest.GENDER_UNKNOWN_TITLE;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 import org.junit.jupiter.api.Test;
 

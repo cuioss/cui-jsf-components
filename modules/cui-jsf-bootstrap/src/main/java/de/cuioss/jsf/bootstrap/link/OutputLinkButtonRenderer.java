@@ -17,8 +17,8 @@ package de.cuioss.jsf.bootstrap.link;
 
 import java.io.IOException;
 
-import javax.faces.context.FacesContext;
-import javax.faces.render.FacesRenderer;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
 
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;

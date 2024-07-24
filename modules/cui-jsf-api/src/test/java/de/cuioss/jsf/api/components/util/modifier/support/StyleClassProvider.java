@@ -20,7 +20,7 @@ import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.faces.component.UIComponentBase;
+import jakarta.faces.component.UIComponentBase;
 
 public class StyleClassProvider extends UIComponentBase implements ComponentStyleClassProvider {
 

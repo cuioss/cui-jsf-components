@@ -18,14 +18,16 @@ package de.cuioss.jsf.api.ui.model;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javax.faces.event.ActionEvent;
-import javax.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.ComponentSystemEvent;
 
 import org.junit.jupiter.api.Test;
 
 import de.cuioss.jsf.api.components.support.DummyComponent;
 import de.cuioss.test.valueobjects.ValueObjectTest;
 import de.cuioss.test.valueobjects.api.contracts.VerifyBeanProperty;
+
+import java.io.Serial;
 
 @VerifyBeanProperty
 class ToggleSwitchTest extends ValueObjectTest<ToggleSwitch> {
@@ -40,6 +42,7 @@ class ToggleSwitchTest extends ValueObjectTest<ToggleSwitch> {
         assertTrue(toggle.isToggled());
         toggle.resetToggle(new ComponentSystemEvent(new DummyComponent()) {
 
+            @Serial
             private static final long serialVersionUID = -7634273629880530157L;
         });
         assertFalse(toggle.isToggled());

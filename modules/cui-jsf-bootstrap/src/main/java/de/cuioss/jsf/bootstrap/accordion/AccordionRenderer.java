@@ -17,9 +17,9 @@ package de.cuioss.jsf.bootstrap.accordion;
 
 import java.io.IOException;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.render.FacesRenderer;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
 
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;

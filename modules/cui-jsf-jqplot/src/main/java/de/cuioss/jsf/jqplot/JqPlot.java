@@ -19,6 +19,7 @@ import static de.cuioss.tools.base.Preconditions.checkState;
 import static de.cuioss.tools.string.MoreStrings.emptyToNull;
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,7 @@ public class JqPlot extends JsObject {
     private static final String OBJECT_NAME = "$.jqplot";
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = -726237452645644137L;
 
     /**
@@ -190,6 +192,7 @@ public class JqPlot extends JsObject {
     public static class Builder implements Serializable {
 
         /** serial version UID */
+        @Serial
         private static final long serialVersionUID = -2769478513025362362L;
 
         private String _targetId;

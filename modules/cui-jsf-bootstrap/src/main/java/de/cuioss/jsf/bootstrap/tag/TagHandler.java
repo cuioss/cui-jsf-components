@@ -15,10 +15,10 @@
  */
 package de.cuioss.jsf.bootstrap.tag;
 
-import javax.faces.view.facelets.ComponentConfig;
-import javax.faces.view.facelets.ComponentHandler;
-import javax.faces.view.facelets.MetaRule;
-import javax.faces.view.facelets.MetaRuleset;
+import jakarta.faces.view.facelets.ComponentConfig;
+import jakarta.faces.view.facelets.ComponentHandler;
+import jakarta.faces.view.facelets.MetaRule;
+import jakarta.faces.view.facelets.MetaRuleset;
 
 import de.cuioss.jsf.api.components.events.ModelPayloadEvent;
 import de.cuioss.jsf.api.components.util.MethodRule;
@@ -44,7 +44,7 @@ public class TagHandler extends ComponentHandler {
     }
 
     @Override
-    protected MetaRuleset createMetaRuleset(@SuppressWarnings("rawtypes") final Class type) {
+    protected MetaRuleset createMetaRuleset(final Class type) {
         final var metaRuleset = super.createMetaRuleset(type);
 
         metaRuleset.addRule(DISPOSE_METHOD);

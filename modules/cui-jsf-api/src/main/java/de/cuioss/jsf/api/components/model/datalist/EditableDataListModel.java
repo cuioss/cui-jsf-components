@@ -21,10 +21,10 @@ import java.util.List;
 /**
  * Helper class used for managing the objects used by EditableDataListComponent
  *
- * @author Matthias Walliczek
  * @param <T> identifying the type of items to be created. Must be at least
  *            {@link Serializable} and implement {@link Object#hashCode()} and
  *            {@link Object#equals(Object)} correctly.
+ * @author Matthias Walliczek
  */
 public interface EditableDataListModel<T extends Serializable> extends Serializable {
 
@@ -44,30 +44,30 @@ public interface EditableDataListModel<T extends Serializable> extends Serializa
     T createCopy(T item);
 
     /**
-     * @return all items that are initially loaded. May be empty, but never
-     *         {@code null}
+     * @return all items that are initially loaded. Maybe empty, but never
+     * {@code null}
      */
     List<T> getLoadedItems();
 
     /**
      * @return all items that are to be displayed in the editable list, saying
-     *         {@link ItemWrapper#getEditStatus()}. May be empty, but never
-     *         {@code null}
+     * {@link ItemWrapper#getEditStatus()}. Maybe empty, but never
+     * {@code null}
      */
     List<ItemWrapper<T>> getDisplayItems();
 
     /**
      * @return all items that are deleted from the editable list, saying
-     *         {@link ItemWrapper#getEditStatus()} is {@link EditStatus#DELETED}.
-     *         May be empty, but never {@code null}
+     * {@link ItemWrapper#getEditStatus()} is {@link EditStatus#DELETED}.
+     * Maybe empty, but never {@code null}
      */
     List<T> getDeletedItems();
 
     /**
      * @return While {@link #getDisplayItems()} returns all items including the ones
-     *         marked as {@link EditStatus#DELETED} this method filters them, saying
-     *         it contains all elements of {@link #getDisplayItems()} minus the one
-     *         derived from {@link #getDeletedItems()}
+     * marked as {@link EditStatus#DELETED} this method filters them, saying
+     * it contains all elements of {@link #getDisplayItems()} minus the one
+     * derived from {@link #getDeletedItems()}
      */
     List<T> getResultItems();
 
@@ -80,7 +80,7 @@ public interface EditableDataListModel<T extends Serializable> extends Serializa
 
     /**
      * Cancels the editing of the given item. If it was added using
-     * {@link #addItem()} it will removed from the {@link #getDisplayItems()} as
+     * {@link #addItem()} it will be removed from the {@link #getDisplayItems()} as
      * well.
      *
      * @param item to be edited
@@ -103,34 +103,34 @@ public interface EditableDataListModel<T extends Serializable> extends Serializa
 
     /**
      * Removes the given item. In case the item was added using {@link #addItem()}
-     * it will simply be removed, in all other cases it will be added to the delete
+     * it will simply be removed, in all other cases it will be added to the deleted
      * list, see {@link #getDeletedItems()}
      *
-     * @param item to be marked for delete
+     * @param item to be marked for deleting
      */
     void markForDelete(ItemWrapper<T> item);
 
     /**
      * Undo a previous {@link #markForDelete(ItemWrapper)} call
      *
-     * @param item to be unmarked for delete
+     * @param item to be unmarked for deleting
      */
     void undoMarkForDelete(ItemWrapper<T> item);
 
     /**
      * @return boolean indicating whether there is at least one item still in
-     *         {@link ItemWrapper#isEditMode()} {@code false}, else {@code true}
+     * {@link ItemWrapper#isEditMode()} {@code false}, else {@code true}
      */
     boolean isEveryItemSavedOrCanceled();
 
     /**
      * @return boolean indicating whether the model has changes compared do its
-     *         initial state
+     * initial state
      */
     boolean hasChanges();
 
     /**
-     * Callback interface for reacting on model changes, In order to detect
+     * Callback interface for reacting on model changes, to detect
      * modification {@link Object#equals(Object)} will be used.
      *
      * @param editEvent identifying what kind of change took place, one of
@@ -138,7 +138,7 @@ public interface EditableDataListModel<T extends Serializable> extends Serializa
      *                  {@link EditEvent#MODIFIED}, {@link EditEvent#UNMARK_DELETE}
      * @param oldValue  the value prior to the modification may be null in cases of
      *                  {@link EditEvent#ADDED}, {@link EditEvent#UNMARK_DELETE}
-     * @param newValue  the value after modification, may be null in case of
+     * @param newValue  the value after modification may be null in case of
      *                  {@link EditEvent#MARK_DELETE}
      */
     default void elementModified(final EditEvent editEvent, final T oldValue, final T newValue) {
@@ -146,18 +146,18 @@ public interface EditableDataListModel<T extends Serializable> extends Serializa
     }
 
     /**
-     * @return {@code true} if new created item should be added as first element.
+     * @return {@code true} if newly created item should be added as the first element.
      */
     default boolean isNewCreatedItemShouldBeAddedAsFirst() {
         return true;
     }
 
     /**
-     * Checks if an element should be handled read only (display no edit or delete
+     * Checks if an element should be handled read-only (display no edit or delete
      * button).
      *
      * @param element the element to check.
-     * @return true if the element should be handled read only.
+     * @return true if the element should be handled read-only.
      */
     default boolean isReadOnly(T element) {
         return false;

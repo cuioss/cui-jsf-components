@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.components.converter;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,17 +27,17 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Converter provide convert java date time format to jQuery specific one.
+ * Converter provides converting java date time format to jQuery specific one.
  * Currently just remove illegal characters to prevent side effects.
  *
  * @author Eugen Fischer
- * @see <a href="https://jira.x-tention.com/browse/CUI-159"></a>
  * @see <a href="http://api.jqueryui.com/datepicker/#method-option"></a>
  */
 @ToString
 @EqualsAndHashCode
 public class JQueryDateTimePatternConverter implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -3403131960195316545L;
 
     private static final List<String> IGNORE = Arrays.asList("(", ")", "Z", "S", "z");

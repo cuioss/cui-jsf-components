@@ -10,7 +10,7 @@
  * components It eases the usage: labelKey="some.label.key" is much simpler than
  * using <code>labelValue="#{msgs['key']}"</code> In order to work the
  * {@link de.cuioss.jsf.api.components.support.LabelResolver} uses the
- * {@link de.cuioss.jsf.api.application.bundle.CuiResourceBundle} approach.
+ * {@link de.cuioss.portal.common.bundle.PortalResourceBundleBean} approach.
  * </p>
  * <h3>Algorithm</h3>
  * <ul>
@@ -18,7 +18,7 @@
  * whether either a converter is available or the corresponding converterId
  * Attribute</li>
  * <li>If a value for the attribute "labelKey" exists: look it up in the
- * {@link de.cuioss.jsf.api.application.bundle.CuiResourceBundle}</li>
+ * {@link de.cuioss.portal.common.bundle.PortalResourceBundleBean}</li>
  * <li>If none of the above takes place, throw
  * {@link java.lang.IllegalStateException} depending whether strictMode is set
  * to <code>true</code>. strictMode is set to <code>false</code> it will return
@@ -28,7 +28,7 @@
  * <p>
  * Fluent-style-api:
  * {@code LabelResolver.builder().withLabelKey(labelKey).withStrictMode(false).withLabelValue(labelValue)
-					.build().resolve(getFacesContext());}
+ * .build().resolve(getFacesContext());}
  * </p>
  *
  * @author Oliver Wolff

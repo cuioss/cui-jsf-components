@@ -15,10 +15,11 @@
  */
 package de.cuioss.jsf.api.components.util.modifier;
 
-import javax.faces.component.html.HtmlInputText;
-
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
+import jakarta.faces.component.html.HtmlInputText;
 import org.junit.jupiter.api.Test;
 
+@EnableJsfEnvironment
 class GenericUiInputComponentWrapperTest {
 
     @Test

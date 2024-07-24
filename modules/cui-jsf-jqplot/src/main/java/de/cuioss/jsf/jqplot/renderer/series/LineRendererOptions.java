@@ -22,6 +22,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Delegate;
 
+import java.io.Serial;
+
 /**
  * @author Eugen Fischer
  * @see <a href=
@@ -32,6 +34,7 @@ import lombok.experimental.Delegate;
 public class LineRendererOptions extends RendererOptions implements IHighlightDecoration<LineRendererOptions> {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = -6109587609259784491L;
 
     @Delegate

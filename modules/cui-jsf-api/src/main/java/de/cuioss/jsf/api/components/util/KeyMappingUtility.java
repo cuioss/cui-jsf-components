@@ -40,7 +40,7 @@ public final class KeyMappingUtility {
         requireNonNull(key);
         var mappedKey = key.toString();
         if (!MoreStrings.isEmpty(extension)) {
-            mappedKey = new StringBuilder(mappedKey).append('_').append(extension).toString();
+            mappedKey = mappedKey + '_' + extension;
         }
         return mappedKey;
     }

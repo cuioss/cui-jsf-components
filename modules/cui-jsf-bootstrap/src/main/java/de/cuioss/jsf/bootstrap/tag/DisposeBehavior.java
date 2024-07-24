@@ -15,8 +15,8 @@
  */
 package de.cuioss.jsf.bootstrap.tag;
 
-import javax.faces.component.behavior.ClientBehaviorBase;
-import javax.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.component.behavior.ClientBehaviorBase;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
 
 /**
  * @author Oliver Wolff

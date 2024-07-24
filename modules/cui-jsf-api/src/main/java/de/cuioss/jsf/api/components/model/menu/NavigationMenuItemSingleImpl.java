@@ -15,10 +15,11 @@
  */
 package de.cuioss.jsf.api.components.model.menu;
 
+import java.io.Serial;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import de.cuioss.jsf.api.components.support.LabelResolver;
 import lombok.EqualsAndHashCode;
@@ -35,6 +36,7 @@ import lombok.ToString;
 @ToString
 public class NavigationMenuItemSingleImpl extends NavigationMenuItemImpl implements NavigationMenuItemSingle {
 
+    @Serial
     private static final long serialVersionUID = -4292374413272966456L;
 
     @Getter

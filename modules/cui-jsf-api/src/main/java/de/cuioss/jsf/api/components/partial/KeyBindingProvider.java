@@ -6,8 +6,8 @@ import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.tools.string.MoreStrings;
 import lombok.NonNull;
 
-import javax.faces.component.StateHelper;
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.UIComponent;
 
 /**
  * The key-binding for a button / control, aka keyboard shortcut. The

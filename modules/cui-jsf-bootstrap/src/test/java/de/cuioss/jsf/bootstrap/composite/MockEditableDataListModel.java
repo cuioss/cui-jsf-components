@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.bootstrap.composite;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ import lombok.Setter;
 
 public class MockEditableDataListModel implements EditableDataListModel<Serializable> {
 
+    @Serial
     private static final long serialVersionUID = -5295825178881746472L;
 
     @Getter

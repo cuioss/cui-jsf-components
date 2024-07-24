@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.portal.theme;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import de.cuioss.jsf.jqplot.js.types.JsBoolean;
@@ -48,6 +49,7 @@ import lombok.ToString;
 @SuppressWarnings("java:S6548") // owolff: Legacy code, will be removed
 public class GridTheme implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -1005187429311999511L;
 
     /**

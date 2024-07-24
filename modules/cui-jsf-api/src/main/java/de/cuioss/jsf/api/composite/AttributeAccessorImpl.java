@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.api.composite;
 
+import java.io.Serial;
 import java.util.Map;
 
 import de.cuioss.tools.reflect.MoreReflection;
@@ -35,6 +36,7 @@ import lombok.ToString;
 @ToString
 public class AttributeAccessorImpl<T> implements AttributeAccessor<T> {
 
+    @Serial
     private static final long serialVersionUID = 7522589696642085203L;
 
     /** The attribute name. */

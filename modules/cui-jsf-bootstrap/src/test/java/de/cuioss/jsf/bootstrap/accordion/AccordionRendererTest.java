@@ -17,7 +17,7 @@ package de.cuioss.jsf.bootstrap.accordion;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 import org.junit.jupiter.api.Test;
 

@@ -18,6 +18,8 @@ package de.cuioss.jsf.jqplot.renderer;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * Date axis renderer
  *
@@ -30,6 +32,7 @@ import lombok.ToString;
 public class DateAxisRenderer extends Renderer {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 9217420263322358353L;
 
     /**

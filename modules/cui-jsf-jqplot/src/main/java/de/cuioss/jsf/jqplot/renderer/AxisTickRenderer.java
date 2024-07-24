@@ -18,6 +18,8 @@ package de.cuioss.jsf.jqplot.renderer;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * @author Oliver Wolff
  *
@@ -27,6 +29,7 @@ import lombok.ToString;
 public class AxisTickRenderer extends Renderer {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 7702530251397724324L;
 
     /**

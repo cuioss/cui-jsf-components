@@ -17,10 +17,10 @@ package de.cuioss.jsf.components.validator;
 
 import java.util.regex.Pattern;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.FacesValidator;
-import javax.faces.validator.ValidatorException;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.FacesValidator;
+import jakarta.faces.validator.ValidatorException;
 
 import de.cuioss.jsf.api.validator.AbstractValidator;
 import lombok.Getter;
@@ -54,8 +54,7 @@ public class EmailValidator extends AbstractValidator<String> {
     @Override
     protected void validateTypeSave(final FacesContext context, final UIComponent component, final String value) {
         if (null != value) {
-            final CharSequence inputStr = value;
-            var matcher = getCompiledPattern().matcher(inputStr);
+            var matcher = getCompiledPattern().matcher(value);
             if (!matcher.matches()) {
                 throw new ValidatorException(createErrorMessage("de.cuioss.common.email.invalid"));
             }

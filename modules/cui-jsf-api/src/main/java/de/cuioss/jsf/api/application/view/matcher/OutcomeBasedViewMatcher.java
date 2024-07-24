@@ -15,7 +15,7 @@
  */
 package de.cuioss.jsf.api.application.view.matcher;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import de.cuioss.jsf.api.application.navigation.NavigationUtils;
 import de.cuioss.jsf.api.common.view.ViewDescriptor;
@@ -23,6 +23,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+
+import java.io.Serial;
 
 /**
  * {@link ViewMatcher} that looks up an outcome for a concrete view.
@@ -35,6 +37,7 @@ import lombok.ToString;
 @ToString
 public class OutcomeBasedViewMatcher implements ViewMatcher {
 
+    @Serial
     private static final long serialVersionUID = -8359315030575513107L;
 
     @NonNull

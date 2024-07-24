@@ -21,30 +21,11 @@ namespace Cui {
                         const hasJSClickEvents: boolean = jQuery(keyBound).is("[onclick]");
                         if (hasJQClickEvents || hasJSClickEvents) {
                             jQuery(keyBound).trigger("click");
-                        }
-                        else {
+                        } else {
                             window.location.href = jQuery(keyBound).attr("href");
                         }
                     }
                 }
-            });
-        }
-
-        public static enableSubMenu(): void {
-            jQuery(() => {
-                /**
-                 * NAME: Bootstrap 3 Triple Nested Sub-Menus
-                 * This script will active Triple level multi drop-down menus in Bootstrap 3.*
-                 */
-                jQuery('ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event: { preventDefault: () => void; stopPropagation: () => void; }) {
-                    // Avoid following the href location when clicking
-                    event.preventDefault();
-                    // Avoid having the menu to close when clicking
-                    event.stopPropagation();
-                    // Re-add .open to parent sub-menu item
-                    jQuery(this).parent().addClass('open');
-                    jQuery(this).parent().find("ul").parent().find("li.dropdown").addClass('open');
-                });
             });
         }
 
@@ -76,7 +57,7 @@ namespace Cui {
             // Access the tag object
             const tag: JQuery = jQuery(Cui.Utilities.escapeClientId(target));
 
-            // Hidden field for dispose state
+            // Hidden field for disposed state
             const disposeInfo: JQuery = jQuery(Cui.Utilities.escapeClientId(target) + "_disposed-info");
             disposeInfo.val("true");
 
@@ -105,7 +86,7 @@ namespace Cui {
                 icon.toggleClass("cui-icon-triangle_s", collapsed);
                 if (Cui.Utilities.parseBoolean(asyncUpdate)) {
 
-                    jsf.ajax.request(jQuery(parent).attr('id'), null, { execute: '@this' });
+                    faces.ajax.request(jQuery(parent).attr('id'), null, {execute: '@this'});
                 }
                 if (callback) {
                     callback();

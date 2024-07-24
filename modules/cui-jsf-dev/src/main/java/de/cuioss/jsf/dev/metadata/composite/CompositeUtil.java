@@ -19,7 +19,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.beans.BeanInfo;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import de.cuioss.tools.logging.CuiLogger;
 import lombok.AccessLevel;

@@ -30,6 +30,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Delegate;
 
+import java.io.Serial;
+
 /**
  * A plugin renderer for jqPlot to draw a bar plot
  *
@@ -44,6 +46,7 @@ public class BarRendererOptions extends RendererOptions
         implements IShadowDecoration<BarRendererOptions>, IHighlightDecoration<BarRendererOptions> {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = -9152687440017064259L;
 
     @Delegate

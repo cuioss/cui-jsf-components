@@ -20,7 +20,7 @@ import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.faces.component.StateHelper;
+import jakarta.faces.component.StateHelper;
 
 import de.cuioss.jsf.api.components.support.ActiveIndexManager;
 import de.cuioss.jsf.api.components.util.CuiState;

@@ -4,16 +4,15 @@ import de.cuioss.portal.common.bundle.ResourceBundleWrapper;
 import de.cuioss.portal.common.priority.PortalPriorities;
 import de.cuioss.tools.collect.MoreCollections;
 import de.cuioss.tools.string.TextSplitter;
+import jakarta.annotation.Priority;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import javax.annotation.Priority;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.inject.Provider;
 import java.io.Serial;
 import java.text.MessageFormat;
 import java.util.MissingResourceException;
@@ -57,7 +56,7 @@ public class MessageProducerBean implements MessageProducer {
     private Provider<FacesContext> facesContextProvider;
 
     @Override
-    public FacesMessage getMessageFor(final String messageKey, final Severity severity, final Object... parameter) {
+    public FacesMessage getMessageFor(final String messageKey, final FacesMessage.Severity severity, final Object... parameter) {
         try {
             var resultingMessage = resourceBundle.getString(messageKey);
             if (parameter.length > 0) {
@@ -73,13 +72,13 @@ public class MessageProducerBean implements MessageProducer {
     }
 
     @Override
-    public void setFacesMessage(final String messageKey, final Severity severity, final String componentId,
+    public void setFacesMessage(final String messageKey, final FacesMessage.Severity severity, final String componentId,
                                 final Object... parameter) {
         facesContextProvider.get().addMessage(componentId, getMessageFor(messageKey, severity, parameter));
     }
 
     @Override
-    public void addMessage(String message, Severity severity, String componentId, Object... parameter) {
+    public void addMessage(String message, FacesMessage.Severity severity, String componentId, Object... parameter) {
         var resultingMessage = message;
         if (!MoreCollections.isEmpty(parameter)) {
             resultingMessage = MessageFormat.format(resultingMessage, parameter);

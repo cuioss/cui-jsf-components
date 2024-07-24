@@ -15,8 +15,8 @@
  */
 package de.cuioss.jsf.api.common.accessor;
 
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
 
 import de.cuioss.jsf.api.converter.ObjectToStringConverter;
 import de.cuioss.jsf.api.converter.StringIdentConverter;
@@ -24,6 +24,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.io.Serial;
 
 /**
  * Resolves a converter regarding the current context.
@@ -47,6 +49,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class ConverterAccessor<T> implements ManagedAccessor<Converter<T>> {
 
+    @Serial
     private static final long serialVersionUID = -4619233196555638241L;
 
     @Getter

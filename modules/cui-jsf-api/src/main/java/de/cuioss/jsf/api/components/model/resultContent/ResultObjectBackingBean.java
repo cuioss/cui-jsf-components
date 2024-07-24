@@ -15,8 +15,8 @@
  */
 package de.cuioss.jsf.api.components.model.resultContent;
 
-import javax.faces.component.FacesComponent;
-import javax.faces.component.UINamingContainer;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.UINamingContainer;
 
 import de.cuioss.jsf.api.composite.AttributeAccessorImpl;
 import de.cuioss.tools.logging.CuiLogger;

@@ -17,7 +17,7 @@ package de.cuioss.jsf.api.components.util;
 
 import java.io.Serializable;
 
-import javax.faces.component.StateHelper;
+import jakarta.faces.component.StateHelper;
 
 import org.omnifaces.util.State;
 
@@ -57,7 +57,7 @@ public class CuiState extends State {
      * @return the evaluated key or the given default value
      */
     public boolean getBoolean(final Serializable key, final boolean defaultValue) {
-        return (Boolean) super.get(key, defaultValue);
+        return super.get(key, defaultValue);
     }
 
     /**
@@ -90,7 +90,7 @@ public class CuiState extends State {
      * @return the evaluated key or the given default value
      */
     public int getInt(final Serializable key, final int defaultValue) {
-        return (Integer) super.get(key, defaultValue);
+        return super.get(key, defaultValue);
     }
 
     /**

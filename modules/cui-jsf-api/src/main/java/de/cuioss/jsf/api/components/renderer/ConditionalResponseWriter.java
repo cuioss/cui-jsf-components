@@ -19,9 +19,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.ResponseWriter;
-import javax.faces.context.ResponseWriterWrapper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.context.ResponseWriterWrapper;
 
 import lombok.Getter;
 

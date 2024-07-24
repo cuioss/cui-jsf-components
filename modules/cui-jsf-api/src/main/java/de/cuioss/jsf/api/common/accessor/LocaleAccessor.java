@@ -15,10 +15,11 @@
  */
 package de.cuioss.jsf.api.common.accessor;
 
+import java.io.Serial;
 import java.util.Locale;
 
-import javax.faces.application.ViewHandler;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.context.FacesContext;
 
 import lombok.Getter;
 
@@ -38,6 +39,7 @@ import lombok.Getter;
  */
 public class LocaleAccessor implements ManagedAccessor<Locale> {
 
+    @Serial
     private static final long serialVersionUID = -7372535413254248257L;
 
     @Getter(lazy = true)

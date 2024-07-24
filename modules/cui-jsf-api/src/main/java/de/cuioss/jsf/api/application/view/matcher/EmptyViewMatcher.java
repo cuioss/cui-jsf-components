@@ -20,6 +20,8 @@ import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * Will always return false / true depending on given attribute match
  *
@@ -30,6 +32,7 @@ import lombok.ToString;
 @RequiredArgsConstructor
 public class EmptyViewMatcher implements ViewMatcher {
 
+    @Serial
     private static final long serialVersionUID = -3249573462984449100L;
 
     private final boolean match;

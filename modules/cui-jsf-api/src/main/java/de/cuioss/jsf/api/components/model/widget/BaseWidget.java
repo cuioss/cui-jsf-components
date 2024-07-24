@@ -15,13 +15,15 @@
  */
 package de.cuioss.jsf.api.components.model.widget;
 
-import javax.faces.event.ActionEvent;
+import jakarta.faces.event.ActionEvent;
 
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.tools.string.MoreStrings;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.io.Serial;
 
 /**
  * Abstract base implementation of {@link WidgetModel}.
@@ -30,6 +32,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 public abstract class BaseWidget implements WidgetModel {
 
+    @Serial
     private static final long serialVersionUID = -3597359970570562302L;
 
     @Override

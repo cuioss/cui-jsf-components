@@ -17,6 +17,7 @@ package de.cuioss.jsf.api.application.view.matcher;
 
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
+import java.io.Serial;
 import java.util.List;
 
 import de.cuioss.jsf.api.common.view.ViewDescriptor;
@@ -37,6 +38,7 @@ import lombok.ToString;
 @ToString
 public class ViewMatcherImpl implements ViewMatcher {
 
+    @Serial
     private static final long serialVersionUID = -1211279289779853076L;
 
     /**

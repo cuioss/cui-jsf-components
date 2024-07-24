@@ -31,9 +31,9 @@ import de.cuioss.tools.string.MoreStrings;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
 
-import javax.faces.application.ResourceDependency;
-import javax.faces.context.FacesContext;
-import javax.faces.render.FacesRenderer;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
 import java.io.IOException;
 import java.util.*;
 
@@ -95,7 +95,7 @@ public class TagInputRenderer extends BaseDecoratorRenderer<TagInputComponent> {
 
     /**
      * Extracts submitted value from request parameters and use
-     * javax.faces.convert.Converter to convert the value from String to a
+     * jakarta.faces.convert.Converter to convert the value from String to a
      * ConceptKeyType collection. Sets the submitted value to TagInputComponent.
      *
      * @param context          FacesContext for the request we are processing

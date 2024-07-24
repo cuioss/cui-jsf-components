@@ -15,10 +15,10 @@
  */
 package de.cuioss.jsf.bootstrap.common.partial;
 
-import javax.faces.component.StateHelper;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.context.FacesContext;
 
 import de.cuioss.jsf.api.components.partial.ComponentBridge;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;

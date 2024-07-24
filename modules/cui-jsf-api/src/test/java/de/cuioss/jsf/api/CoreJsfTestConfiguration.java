@@ -15,8 +15,8 @@
  */
 package de.cuioss.jsf.api;
 
-import javax.faces.convert.NumberConverter;
-import javax.faces.render.Renderer;
+import jakarta.faces.convert.NumberConverter;
+import jakarta.faces.render.Renderer;
 
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.jsf.api.converter.ObjectToStringConverter;

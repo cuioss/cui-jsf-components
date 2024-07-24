@@ -17,10 +17,10 @@ package de.cuioss.jsf.api.components.base;
 
 import de.cuioss.jsf.api.components.partial.ComponentBridge;
 
-import javax.faces.component.StateHelper;
-import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlInputHidden;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlInputHidden;
+import jakarta.faces.context.FacesContext;
 
 /**
  * Minimal super-set for cui-based components that are at least

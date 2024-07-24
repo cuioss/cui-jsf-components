@@ -21,6 +21,8 @@ import de.cuioss.jsf.jqplot.js.types.JsInteger;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * @author Eugen Fischer
  * @see <a href=
@@ -38,6 +40,7 @@ public class RendererOptions extends JsObject {
     }
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = -3817562308392553207L;
 
     private JsInteger numberRows;

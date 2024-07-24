@@ -9,7 +9,7 @@
  *   <span class="switch-text" data-item-active="false">offText</span>
  * </div>
  */
-let initSwitch = function () {
+let initializeSwitch = function () {
     let classHidden = "hidden";
     jQuery(".switch-placing").each(function () {
         let input = jQuery(this).find(".switch input");
@@ -17,11 +17,10 @@ let initSwitch = function () {
         let offText = jQuery(this).find(".switch-text[data-item-active='false']");
 
         jQuery(input).change(function () {
-            if(jQuery(this)[0].checked){
+            if (jQuery(this)[0].checked) {
                 onText.removeClass(classHidden);
                 offText.addClass(classHidden);
-            }
-            else {
+            } else {
                 onText.addClass(classHidden);
                 offText.removeClass(classHidden);
             }
@@ -33,5 +32,5 @@ let initSwitch = function () {
  * Registering this script to all AJAX requests/responses and page load.
  */
 jQuery(document).ready(function () {
-    Cui.Core.registerComponentEnabler(initSwitch);
+    Cui.Core.registerComponentEnabler(initializeSwitch);
 });

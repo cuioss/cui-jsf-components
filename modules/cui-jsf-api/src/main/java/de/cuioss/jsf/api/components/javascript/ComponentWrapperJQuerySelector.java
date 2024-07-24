@@ -15,16 +15,15 @@
  */
 package de.cuioss.jsf.api.components.javascript;
 
-import javax.faces.component.UIComponent;
-
 import de.cuioss.jsf.api.components.util.ComponentWrapper;
+import jakarta.faces.component.UIComponent;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
- * Simple base class for creating JQuery-specific selectors: e.g for a given
+ * Simple base class for creating JQuery-specific selectors: e.g., for a given
  * component providing the id "a:b" it returns "jQuery('#a\\\\:b')" saying it
  * takes care on the proper masking of the clientIds.
  *
@@ -34,7 +33,9 @@ import lombok.ToString;
 @ToString
 public class ComponentWrapperJQuerySelector extends JQuerySelector {
 
-    /** Runtime access on component specific attributes. */
+    /**
+     * Runtime access on component specific attributes.
+     */
     @NonNull
     private final ComponentWrapper<? extends UIComponent> componentWrapper;
 
@@ -65,14 +66,14 @@ public class ComponentWrapperJQuerySelector extends JQuerySelector {
          * @return an instance of {@link ComponentWrapperJQuerySelectorBuilder}
          */
         public ComponentWrapperJQuerySelectorBuilder withComponentWrapper(
-                final ComponentWrapper<? extends UIComponent> componentWrapper) {
+            final ComponentWrapper<? extends UIComponent> componentWrapper) {
             this.componentWrapper = componentWrapper;
             return this;
         }
 
         /**
-         * @param idExtension if not null it will be appended to the derived ClientId.
-         *                    In addition there will be an underscore appended: The
+         * @param idExtension if not null, it will be appended to the derived ClientId.
+         *                    In addition, there will be an underscore appended: The
          *                    result will be component.getClientId() + "_" + idExtension
          * @return an instance of {@link ComponentWrapperJQuerySelectorBuilder}
          */

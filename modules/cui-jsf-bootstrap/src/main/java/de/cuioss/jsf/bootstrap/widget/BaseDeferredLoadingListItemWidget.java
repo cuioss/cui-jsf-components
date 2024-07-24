@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.bootstrap.widget;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,7 @@ import lombok.ToString;
 public abstract class BaseDeferredLoadingListItemWidget extends BaseDeferredLoadingWidget<ArrayList<ListItem>>
         implements ListItemWidgetModel {
 
+    @Serial
     private static final long serialVersionUID = 8583462862065649466L;
 
     @Override

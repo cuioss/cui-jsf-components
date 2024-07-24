@@ -15,38 +15,9 @@
  */
 package de.cuioss.jsf.bootstrap.layout.input;
 
-import static de.cuioss.jsf.api.components.util.ComponentUtility.findNearestNamingContainer;
-import static de.cuioss.jsf.bootstrap.layout.input.ContainerFacets.APPEND;
-import static de.cuioss.jsf.bootstrap.layout.input.ContainerFacets.HELP_TEXT;
-import static de.cuioss.jsf.bootstrap.layout.input.ContainerFacets.LABEL;
-import static de.cuioss.jsf.bootstrap.layout.input.ContainerFacets.PREPEND;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.TreeSet;
-
-import javax.faces.application.ProjectStage;
-import javax.faces.component.FacesComponent;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.component.html.HtmlInputHidden;
-import javax.faces.component.html.HtmlSelectBooleanCheckbox;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.PostAddToViewEvent;
-import javax.faces.event.PreRenderComponentEvent;
-
 import de.cuioss.jsf.api.components.base.BaseCuiNamingContainer;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
-import de.cuioss.jsf.api.components.partial.ContentProvider;
-import de.cuioss.jsf.api.components.partial.DisabledComponentProvider;
-import de.cuioss.jsf.api.components.partial.ForIdentifierProvider;
-import de.cuioss.jsf.api.components.partial.LabelProvider;
-import de.cuioss.jsf.api.components.partial.PlaceholderProvider;
-import de.cuioss.jsf.api.components.partial.TitleProvider;
-import de.cuioss.jsf.api.components.partial.TitleProviderImpl;
+import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.api.components.support.OneTimeCheck;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.api.components.util.styleclass.CombinedComponentModifier;
@@ -60,7 +31,22 @@ import de.cuioss.jsf.bootstrap.common.partial.LayoutModeProvider;
 import de.cuioss.jsf.bootstrap.layout.LayoutMode;
 import de.cuioss.jsf.bootstrap.layout.messages.CuiMessageComponent;
 import de.cuioss.tools.logging.CuiLogger;
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.component.html.HtmlInputHidden;
+import jakarta.faces.component.html.HtmlSelectBooleanCheckbox;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.event.PreRenderComponentEvent;
 import lombok.experimental.Delegate;
+
+import java.util.*;
+
+import static de.cuioss.jsf.api.components.util.ComponentUtility.findNearestNamingContainer;
+import static de.cuioss.jsf.bootstrap.layout.input.ContainerFacets.*;
 
 /**
  * <h2>Overview</h2>
@@ -197,12 +183,12 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
     private void processPostAddToViewEvent() {
         final var forModifier = findRelatedComponentModifier();
         if (null != forModifier) {
-            // Set styleclass form-control
+            // Set style class form-control
             if (!containsCheckbox() && forModifier.isSupportsStyleClass()) {
-                final var exisiting = forModifier.getStyleClass();
-                // Only add styleclass if for-component does not provide any
+                final var existing = forModifier.getStyleClass();
+                // Only add style class if for-component does not provide any
                 // defined styleClass.
-                if (null == exisiting) {
+                if (null == existing) {
                     forModifier.addStyleClass(CssBootstrap.FORM_CONTROL.getStyleClass());
                 }
             }
@@ -282,7 +268,8 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
 
     /**
      * @return the component defined by the for attribute, aka this OutputLabel is
-     *         related to. It returns null if none could be found.
+     * related to.
+     * It returns null if none could be found.
      */
     UIComponent findRelatedComponent() {
         final var forId = forIdentifierProvider.resolveFirstIdentifier();
@@ -297,17 +284,17 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
                             log.debug("LabeledContainer '{}' does not contain any children and no content.");
                         } else if (isApplicationInProductionStage()) {
                             log.debug("""
-                                    LabeledContainer '{}' does not contain an input component with id '{}'.\s\
-                                    Please check if you want to render an input element and did not\s\
-                                    adapt the id of this element. If you want to use it for output\s\
-                                    text, you can ignore this message""", getClientId(), forId.get());
-                        } else if (!shouldRenderComplexOutput()) {
+                                LabeledContainer '{}' does not contain an input component with id '{}'. \
+                                Please check if you want to render an input element and did not \
+                                adapt the id of this element. If you want to use it for output \
+                                text, you can ignore this message""", getClientId(), forId.get());
+                        } else if (shouldNotRenderComplexOutput()) {
                             log.info("""
-                                    LabeledContainer '{}' does not contain an input component with id '{}' and is\s\
-                                    not configured for complex output. Please check if you want to\s\
-                                    render an input element and did not adapt the id of this element.\s\
+                                    LabeledContainer '{}' does not contain an input component with id '{}' and is \
+                                    not configured for complex output. Please check if you want to \
+                                    render an input element and did not adapt the id of this element. \
                                     If you want to use it for output text, you can ignore this message""",
-                                    getClientId(), forId.get());
+                                getClientId(), forId.get());
                         }
                     }
                 } catch (Exception e) {
@@ -322,8 +309,8 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
 
     /**
      * @return A CombinedStyleClassComponentModifier of the component defined by the
-     *         for attribute, aka this OutputLabel is related to. It returns null if
-     *         none could be found.
+     * for attribute, aka this OutputLabel is related to.
+     * It returns null if none could be found.
      */
     public CombinedComponentModifier findRelatedComponentModifier() {
         final var forComponent = findRelatedComponent();
@@ -334,8 +321,8 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
     }
 
     /**
-     * @return true if the component contains a radiobutton or checkbox as input
-     *         element.
+     * @return true if the component contains a radiobutton or checkbox as an input
+     * element.
      */
     public boolean containsCheckbox() {
         return findRelatedComponent() instanceof HtmlSelectBooleanCheckbox;
@@ -356,8 +343,8 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
     /**
      * @return boolean indicating whether to render complex-output
      */
-    public boolean shouldRenderComplexOutput() {
-        return state.getBoolean(RENDER_COMPLEX_OUTPUT_KEY, false);
+    public boolean shouldNotRenderComplexOutput() {
+        return !state.getBoolean(RENDER_COMPLEX_OUTPUT_KEY, false);
     }
 
     /**
@@ -394,14 +381,14 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
     }
 
     /**
-     * @return boolean Indicating whether to render a an input group style class.
+     * @return boolean Indicating whether to render an input group style class.
      */
     public boolean getRenderInputGroup() {
         return state.getBoolean(RENDER_INPUT_GROUP_KEY, false);
     }
 
     /**
-     * @param renderInputGroup Indicating whether to render a an input group style
+     * @param renderInputGroup Indicating whether to render an input group style
      *                         class.
      */
     public void setRenderInputGroup(final boolean renderInputGroup) {
@@ -417,7 +404,7 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
 
     /**
      * @param prependAsButton boolean indicating whether the 'prepend' facet is to
-     *                        be treated as button
+     *                        be treated as a button
      */
     public void setPrependAsButton(final boolean prependAsButton) {
         state.put(PREPEND_AS_BUTTON_NAME, prependAsButton);
@@ -425,7 +412,7 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
 
     /**
      * @return boolean indicating whether the 'prepend' facet is to be treated as
-     *         button, defaults to {@code false}
+     * button, defaults to {@code false}
      */
     public boolean getPrependAsButton() {
         return state.getBoolean(PREPEND_AS_BUTTON_NAME, false);
@@ -433,7 +420,7 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
 
     /**
      * @param appendAsButton boolean indicating whether the 'append' facet is to be
-     *                       treated as button
+     *                       treated as a button
      */
     public void setAppendAsButton(final boolean appendAsButton) {
         state.put(APPEND_AS_BUTTON_NAME, appendAsButton);
@@ -441,7 +428,7 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
 
     /**
      * @return boolean indicating whether the 'append' facet is to be treated as
-     *         button, defaults to {@code false}
+     * button, defaults to {@code false}
      */
     public boolean getAppendAsButton() {
         return state.getBoolean(APPEND_AS_BUTTON_NAME, false);
@@ -462,7 +449,7 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
     }
 
     /**
-     * @return the prepend facet if present, otherwise null
+     * @return the prepend-facet if present, otherwise null
      */
     public UIComponent getPrependFacet() {
         return resolveFacetFromPlugins(PREPEND).orElse(getFacet(PREPEND.getName()));
@@ -470,7 +457,7 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
 
     /**
      * @return an {@link UIComponent} to be displayed as additional help text under
-     *         the input component and validation messages, if present
+     * the input component and validation messages, if present
      */
     public Optional<UIComponent> getAdditionalHelpText() {
         return resolveFacetFromPlugins(HELP_TEXT);
@@ -488,7 +475,7 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
 
     /**
      * @return boolean indicating whether there is a 'prepend' facet available
-     *         <em>and</em> whether this facet is rendered.
+     * <em>and</em> whether this facet is rendered.
      */
     public boolean isPrependFacetRendered() {
         final var facet = getPrependFacet();
@@ -496,15 +483,15 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
     }
 
     /**
-     * @return the append facet if present, otherwise null
+     * @return the append-facet if present, otherwise null
      */
     public UIComponent getAppendFacet() {
         return resolveFacetFromPlugins(APPEND).orElse(getFacet(APPEND.getName()));
     }
 
     /**
-     * @return boolean indicating whether there is a 'append' facet available
-     *         <em>and</em> whether this facet is rendered.
+     * @return boolean indicating whether there is an 'append'-facet available
+     * <em>and</em> whether this facet is rendered.
      */
     public boolean isAppendFacetRendered() {
         final var facet = getAppendFacet();
@@ -520,7 +507,7 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
 
     /**
      * @return boolean indicating whether there is a 'label' facet available
-     *         <em>and</em> whether this facet is rendered.
+     * <em>and</em> whether this facet is rendered.
      */
     public boolean isLabelFacetRendered() {
         final var facet = getLabelFacet();
@@ -528,7 +515,7 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
     }
 
     /**
-     * @return true if a input group should be rendered
+     * @return true if an input group should be rendered
      */
     public boolean shouldRenderInputGroup() {
         return getRenderInputGroup() || isAppendFacetRendered() || isPrependFacetRendered();
@@ -536,7 +523,7 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
 
     /**
      * @return boolean indicating whether to render a 'form-group' element. This is
-     *         only <em>not</em> the case if it is {@link LayoutMode#PLAIN}
+     * only <em>not</em> the case if it is {@link LayoutMode#PLAIN}
      */
     public boolean shouldWriteFormGroup() {
         return !LayoutMode.PLAIN.equals(resolveLayoutMode());
@@ -544,7 +531,7 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
 
     /**
      * @return boolean indicating whether to render as a column. This is only the
-     *         case if it is {@link LayoutMode#COLUMN}
+     * case if it is {@link LayoutMode#COLUMN}
      */
     public boolean shouldRenderAsColumn() {
         return LayoutMode.COLUMN.equals(resolveLayoutMode());
@@ -558,7 +545,7 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
     @Override
     public String toString() {
         return "LabeledContainerComponent [isRendered()=" + isRendered() + ", getFacetsAndChildren()="
-                + getFacetsAndChildren() + ", getId()=" + getId() + ", getParent()=" + getParent() + ", isTransient()="
-                + isTransient() + "]";
+            + getFacetsAndChildren() + ", getId()=" + getId() + ", getParent()=" + getParent() + ", isTransient()="
+            + isTransient() + "]";
     }
 }

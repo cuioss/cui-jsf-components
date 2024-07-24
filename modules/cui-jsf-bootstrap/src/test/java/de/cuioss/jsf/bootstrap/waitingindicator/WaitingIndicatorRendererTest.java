@@ -15,7 +15,7 @@
  */
 package de.cuioss.jsf.bootstrap.waitingindicator;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 import org.junit.jupiter.api.Test;
 

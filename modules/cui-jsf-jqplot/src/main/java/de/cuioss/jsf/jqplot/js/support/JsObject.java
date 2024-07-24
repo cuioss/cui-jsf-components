@@ -15,13 +15,14 @@
  */
 package de.cuioss.jsf.jqplot.js.support;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.cuioss.tools.string.Joiner;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Eugen Fischer
@@ -31,6 +32,7 @@ import lombok.ToString;
 @RequiredArgsConstructor
 public abstract class JsObject implements JavaScriptSupport {
 
+    @Serial
     private static final long serialVersionUID = 9148909574306233473L;
 
     private final String objectName;
@@ -51,7 +53,7 @@ public abstract class JsObject implements JavaScriptSupport {
         return this;
     }
 
-    protected String transformeProperties() {
+    protected String transformProperties() {
         final var properties = propProvider.getProperties();
 
         if (properties.isEmpty()) {
@@ -67,15 +69,15 @@ public abstract class JsObject implements JavaScriptSupport {
 
     /**
      * If no properties denied return {@code null}.<br>
-     * If one property is defined create :
+     * If one property is defined, create :
      *
      * <pre>
      *  objectName : {
      *      propertyName : value
      *  }
      * </pre>
-     *
-     * If more properties are defined create :
+     * <p>
+     * If more properties are defined, create :
      *
      * <pre>
      *  objectName : {
@@ -87,26 +89,22 @@ public abstract class JsObject implements JavaScriptSupport {
      */
     protected String createAsJSON() {
 
-        final var stringRepresentation = transformeProperties();
+        final var stringRepresentation = transformProperties();
         if (stringRepresentation.isEmpty()) {
             return null;
         }
 
-        final var builder = new StringBuilder().append(objectName).append(": {").append(stringRepresentation)
-                .append("}");
-
-        return builder.toString();
+        return objectName + ": {" + stringRepresentation +
+            "}";
     }
 
     protected String createAsJSONObjectWithoutName() {
 
-        final var stringRepresentation = transformeProperties();
+        final var stringRepresentation = transformProperties();
         if (stringRepresentation.isEmpty()) {
             return null;
         }
 
-        final var builder = new StringBuilder().append("{").append(stringRepresentation).append("}");
-
-        return builder.toString();
+        return "{" + stringRepresentation + "}";
     }
 }

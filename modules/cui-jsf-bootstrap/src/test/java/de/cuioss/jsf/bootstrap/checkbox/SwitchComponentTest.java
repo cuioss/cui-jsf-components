@@ -16,9 +16,9 @@
 package de.cuioss.jsf.bootstrap.checkbox;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableMap;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
+import de.cuioss.test.generator.domain.UUIDGenerator;
 import org.junit.jupiter.api.Test;
 
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
@@ -83,5 +83,37 @@ class SwitchComponentTest extends AbstractComponentTest<SwitchComponent> {
         assertEquals(immutableMap("data-switch-disabled", "false"), underTest.resolvePassThroughAttributes());
         underTest.setDisabled(true);
         assertEquals(immutableMap("data-switch-disabled", "true"), underTest.resolvePassThroughAttributes());
+    }
+
+    @Test
+    void shouldResolveSelectedWithEmpty() {
+        var component = anyComponent();
+        component.setSubmittedValue(null);
+        assertFalse(component.isSelected());
+    }
+
+    @Test
+    void shouldResolveSelectedWithBoolean() {
+        var component = anyComponent();
+        component.setSubmittedValue(Boolean.TRUE);
+        assertTrue(component.isSelected());
+        component.setSubmittedValue(Boolean.FALSE);
+        assertFalse(component.isSelected());
+    }
+
+    @Test
+    void shouldResolveSelectedWithString() {
+        var component = anyComponent();
+        component.setSubmittedValue(Boolean.TRUE.toString());
+        assertTrue(component.isSelected());
+        component.setSubmittedValue(Boolean.FALSE.toString());
+        assertFalse(component.isSelected());
+    }
+
+    @Test
+    void shouldResolveSelectedWithOther() {
+        var component = anyComponent();
+        component.setSubmittedValue(Generators.runtimeExceptions().next());
+        assertFalse(component.isSelected());
     }
 }

@@ -24,6 +24,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Delegate;
 
+import java.io.Serial;
+
 /**
  * Options passed to the label renderer.
  *
@@ -34,6 +36,7 @@ import lombok.experimental.Delegate;
 public class LabelOptions extends JsObject implements ILabelDecorator<LabelOptions> {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = -2906679217775661045L;
 
     @Delegate

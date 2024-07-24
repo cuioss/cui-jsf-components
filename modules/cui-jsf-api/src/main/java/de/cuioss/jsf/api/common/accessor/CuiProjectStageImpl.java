@@ -15,13 +15,15 @@
  */
 package de.cuioss.jsf.api.common.accessor;
 
-import javax.faces.application.ProjectStage;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.context.FacesContext;
 
 import de.cuioss.uimodel.application.CuiProjectStage;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.io.Serial;
 
 /**
  * Helper class utilized for accessing Project Stage information in a convenient
@@ -35,6 +37,7 @@ import lombok.ToString;
 @ToString
 class CuiProjectStageImpl implements CuiProjectStage {
 
+    @Serial
     private static final long serialVersionUID = -2464134252511225231L;
 
     @Getter

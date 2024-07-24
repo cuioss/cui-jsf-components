@@ -15,7 +15,7 @@
  */
 package de.cuioss.jsf.bootstrap.icon;
 
-import javax.faces.component.FacesComponent;
+import jakarta.faces.component.FacesComponent;
 
 import de.cuioss.jsf.api.components.css.IconLibrary;
 import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
@@ -143,8 +143,4 @@ public class GenderIconComponent extends IconComponent {
         return gender;
     }
 
-    @Override
-    public String getFamily() {
-        return BootstrapFamily.COMPONENT_FAMILY;
-    }
 }

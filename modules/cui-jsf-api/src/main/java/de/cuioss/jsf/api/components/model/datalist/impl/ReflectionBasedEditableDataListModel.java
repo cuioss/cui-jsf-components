@@ -17,6 +17,7 @@ package de.cuioss.jsf.api.components.model.datalist.impl;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class ReflectionBasedEditableDataListModel<T extends Serializable> extends AbstractEditableDataListModel<T> {
 
+    @Serial
     private static final long serialVersionUID = 6139592941529357681L;
 
     private final Class<T> modelClass;

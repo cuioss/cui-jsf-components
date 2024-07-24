@@ -22,8 +22,8 @@ import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 
-import javax.faces.context.FacesContext;
-import javax.faces.render.FacesRenderer;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
 import java.io.IOException;
 
 /**

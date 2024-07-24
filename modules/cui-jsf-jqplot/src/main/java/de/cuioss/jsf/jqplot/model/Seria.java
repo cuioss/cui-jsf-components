@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.model;
 
+import java.io.Serial;
 import java.util.Iterator;
 
 import de.cuioss.jsf.jqplot.js.support.JavaScriptSupport;
@@ -41,6 +42,7 @@ public class Seria<X extends JsValue, Y extends JsValue>
         implements JavaScriptSupport, JsValue, JsArrayContainer, Iterable<JsValue> {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 2264844925971164192L;
 
     private final JsArray<JsValue> data;

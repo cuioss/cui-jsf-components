@@ -19,7 +19,7 @@ import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
 import java.io.Serializable;
 
-import javax.faces.component.StateHelper;
+import jakarta.faces.component.StateHelper;
 
 import org.omnifaces.util.State;
 

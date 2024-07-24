@@ -17,9 +17,9 @@ package de.cuioss.jsf.api.converter.nameprovider;
 
 import java.text.MessageFormat;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.FacesConverter;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.FacesConverter;
 
 import de.cuioss.jsf.api.converter.AbstractConverter;
 import de.cuioss.jsf.api.security.CuiSanitizer;
@@ -43,7 +43,7 @@ public class LabeledKeyConverter extends AbstractConverter<LabeledKey> {
             result = bundle.getString(value.getContent());
         } else {
             result = MessageFormat.format(bundle.getString(value.getContent()),
-                    value.getParameter().toArray(new Object[value.getParameter().size()]));
+                    value.getParameter().toArray(new Object[0]));
         }
         return CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(result);
     }

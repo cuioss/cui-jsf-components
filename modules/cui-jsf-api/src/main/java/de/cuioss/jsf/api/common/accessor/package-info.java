@@ -1,22 +1,14 @@
 /**
- * @deprecated use CuiBeanManager instead
- *
- *             <h2>Summary</h2>
- *             <p>
- *             The accessors provide a common way to access runtime
- *             {@link javax.faces.bean.ManagedBean} instances in a more
- *             object-oriented way. See
- *             {@link de.cuioss.jsf.api.common.accessor.ManagedAccessor} and
- *             {@link de.cuioss.jsf.api.common.accessor.ManagedBeanAccessor} for
- *             details.
- *             </p>
- *             <p>
- *             The {@link de.cuioss.jsf.api.common.accessor.ConverterAccessor}
- *             is a specialized variant used for accessing concrete
- *             {@link javax.faces.convert.Converter} instances.
- *             </p>
- *
  * @author Oliver Wolff
  *
+ * <h2>Summary</h2>
+ * <p>
+ * {@link de.cuioss.jsf.api.common.accessor.ManagedAccessor}
+ * </p>
+ * <p>
+ * The {@link de.cuioss.jsf.api.common.accessor.ConverterAccessor}
+ * is a specialized variant used for accessing concrete
+ * {@link jakarta.faces.convert.Converter} instances.
+ * </p>
  */
 package de.cuioss.jsf.api.common.accessor;

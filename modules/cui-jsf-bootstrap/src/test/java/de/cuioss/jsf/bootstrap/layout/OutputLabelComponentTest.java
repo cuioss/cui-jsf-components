@@ -15,18 +15,17 @@
  */
 package de.cuioss.jsf.bootstrap.layout;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.test.jsf.component.AbstractUiComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "labelKey", "labelValue", "labelEscape", "titleKey", "titleValue", "for" })
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@VerifyComponentProperties(of = {"labelKey", "labelValue", "labelEscape", "titleKey", "titleValue", "for"})
 class OutputLabelComponentTest extends AbstractUiComponentTest<OutputLabelComponent> {
 
     @Test
     void shouldProvideCorrectMetadata() {
-        assertEquals("javax.faces.Output", anyComponent().getFamily());
+        assertEquals("jakarta.faces.Output", anyComponent().getFamily());
     }
 }

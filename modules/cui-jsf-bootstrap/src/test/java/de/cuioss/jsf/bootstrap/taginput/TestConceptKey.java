@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.bootstrap.taginput;
 
+import java.io.Serial;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
@@ -26,10 +27,12 @@ import de.cuioss.uimodel.model.conceptkey.impl.BaseConceptCategory;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+@SuppressWarnings("ALL")
 @EqualsAndHashCode
 @ToString(callSuper = true)
 public class TestConceptKey implements ConceptKeyType {
 
+    @Serial
     private static final long serialVersionUID = 4612196631296025943L;
 
     @Override

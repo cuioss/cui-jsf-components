@@ -15,15 +15,12 @@
  */
 package de.cuioss.jsf.components.inlineconfirm;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.support.DummyComponent;
 import de.cuioss.jsf.components.CuiFamily;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class InlineConfirmComponentTest extends AbstractComponentTest<InlineConfirmComponent> {
 
@@ -36,13 +33,13 @@ class InlineConfirmComponentTest extends AbstractComponentTest<InlineConfirmComp
     @Test
     void shouldFailWithMissingFacet() {
         var component = anyComponent();
-        assertThrows(IllegalArgumentException.class, () -> component.getInitialFacet());
+        assertThrows(IllegalArgumentException.class, component::getInitialFacet);
     }
 
     @Test
     void shouldFailWithMissingChild() {
         var component = anyComponent();
-        assertThrows(IllegalArgumentException.class, () -> component.getChildAsModifier());
+        assertThrows(IllegalArgumentException.class, component::getChildAsModifier);
     }
 
     @Test

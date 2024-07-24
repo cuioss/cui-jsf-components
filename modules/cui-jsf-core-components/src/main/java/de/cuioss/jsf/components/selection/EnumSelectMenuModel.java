@@ -15,14 +15,15 @@
  */
 package de.cuioss.jsf.components.selection;
 
+import java.io.Serial;
 import java.util.List;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
-import javax.faces.convert.EnumConverter;
-import javax.faces.model.SelectItem;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.ConverterException;
+import jakarta.faces.convert.EnumConverter;
+import jakarta.faces.model.SelectItem;
 
 /**
  * Variant for simplified usage with enum.
@@ -32,6 +33,7 @@ import javax.faces.model.SelectItem;
  */
 public class EnumSelectMenuModel<T extends Enum<T>> extends AbstractSelectMenuModel<T> {
 
+    @Serial
     private static final long serialVersionUID = -2712127262852018082L;
 
     private final Class<T> targetClass;

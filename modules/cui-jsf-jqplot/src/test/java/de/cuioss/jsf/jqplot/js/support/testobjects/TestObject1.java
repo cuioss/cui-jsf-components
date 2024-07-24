@@ -21,6 +21,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * Example implementation
  *
@@ -31,6 +33,7 @@ import lombok.ToString;
 public class TestObject1 extends JsObject {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = -6791338760451480884L;
 
     public TestObject1() {

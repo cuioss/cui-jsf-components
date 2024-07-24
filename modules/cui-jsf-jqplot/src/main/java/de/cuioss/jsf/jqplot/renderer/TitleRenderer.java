@@ -18,6 +18,8 @@ package de.cuioss.jsf.jqplot.renderer;
 import de.cuioss.jsf.jqplot.js.support.JsValue;
 import lombok.Data;
 
+import java.io.Serial;
+
 /**
  * A class for creating a DOM element for the title. Value will be returned
  * plain!
@@ -28,6 +30,7 @@ import lombok.Data;
 public class TitleRenderer implements JsValue {
 
     /** serialVersionUID */
+    @Serial
     private static final long serialVersionUID = -5758045347477455164L;
 
     private final String value;

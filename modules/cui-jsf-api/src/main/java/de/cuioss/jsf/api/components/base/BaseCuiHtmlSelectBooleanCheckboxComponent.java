@@ -16,15 +16,14 @@
 package de.cuioss.jsf.api.components.base;
 
 import de.cuioss.jsf.api.components.partial.*;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlSelectBooleanCheckbox;
+import jakarta.faces.context.FacesContext;
 import lombok.experimental.Delegate;
 
-import javax.faces.component.StateHelper;
-import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlSelectBooleanCheckbox;
-import javax.faces.context.FacesContext;
-
 /**
- * Minimal super-set for cui-based components that are at least
+ * Minimal superset for cui-based components that are at least
  * {@link HtmlSelectBooleanCheckbox}.
  * Therefore, it provides the handling of the
  * styleClass and style attribute and the implicit attributes provided by
@@ -38,10 +37,10 @@ public class BaseCuiHtmlSelectBooleanCheckboxComponent extends HtmlSelectBoolean
     implements ComponentBridge, ComponentStyleClassProvider, StyleAttributeProvider {
 
     @Delegate
-    private final ComponentStyleClassProvider styleClassProvider;
+    protected final ComponentStyleClassProvider styleClassProvider;
 
     @Delegate
-    private final StyleAttributeProvider styleAttributeProvider;
+    protected final StyleAttributeProvider styleAttributeProvider;
 
     /***/
     public BaseCuiHtmlSelectBooleanCheckboxComponent() {

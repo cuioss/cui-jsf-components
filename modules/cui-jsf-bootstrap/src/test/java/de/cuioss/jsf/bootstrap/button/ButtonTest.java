@@ -25,7 +25,7 @@ import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 import org.junit.jupiter.api.Test;
 
-import javax.faces.event.PreRenderComponentEvent;
+import jakarta.faces.event.PreRenderComponentEvent;
 
 import static org.junit.jupiter.api.Assertions.*;
 

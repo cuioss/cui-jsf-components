@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.jqplot.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -42,6 +43,7 @@ import lombok.ToString;
 public class SeriesData implements JavaScriptSupport {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 130324845834722962L;
 
     private final JsArray<JsArray<? super JsValue>> nested = new JsArray<>();
@@ -90,6 +92,7 @@ public class SeriesData implements JavaScriptSupport {
     public static class Builder implements Serializable {
 
         /** serial version UID */
+        @Serial
         private static final long serialVersionUID = 7624014531106478811L;
 
         private final ArrayList<JsArrayContainer> candidates = new ArrayList<>();

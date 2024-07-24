@@ -18,9 +18,9 @@ package de.cuioss.jsf.api.components.javascript;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlForm;
-import javax.faces.component.html.HtmlInputText;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlForm;
+import jakarta.faces.component.html.HtmlInputText;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

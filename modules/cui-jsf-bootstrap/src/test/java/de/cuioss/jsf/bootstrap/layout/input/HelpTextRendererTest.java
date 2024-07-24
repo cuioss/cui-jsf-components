@@ -15,19 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.layout.input;
 
-import static de.cuioss.jsf.bootstrap.layout.input.LabeledContainerComponent.DATA_LABELED_CONTAINER;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlInputText;
-import javax.faces.component.html.HtmlOutputLink;
-import javax.faces.context.FacesContext;
-import javax.faces.event.PostAddToViewEvent;
-import javax.faces.event.PreRenderComponentEvent;
-import javax.faces.view.ViewDeclarationLanguage;
-
-import org.junit.jupiter.api.Test;
-
-import de.cuioss.jsf.api.components.JsfComponentIdentifier;
 import de.cuioss.jsf.api.components.css.impl.StyleClassBuilderImpl;
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
@@ -43,6 +30,16 @@ import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.component.html.HtmlOutputLink;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.event.PreRenderComponentEvent;
+import jakarta.faces.view.ViewDeclarationLanguage;
+import org.junit.jupiter.api.Test;
+
+import static de.cuioss.jsf.bootstrap.layout.input.LabeledContainerComponent.DATA_LABELED_CONTAINER;
 
 /**
  * Expectation for renderer cycle :
@@ -50,9 +47,9 @@ import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
  * <li>case the response to be rendered to the client (<b>ignore</b> case :
  * state of the response to be saved for processing on subsequent requests)</li>
  * <li>(<b>ignore</b>
- * {@linkplain ViewDeclarationLanguage#buildView(FacesContext, javax.faces.component.UIViewRoot)})
+ * {@linkplain ViewDeclarationLanguage#buildView(FacesContext, jakarta.faces.component.UIViewRoot)})
  * </li>
- * <li>Publish the javax.faces.event.PreRenderViewEvent</li>
+ * <li>Publish the jakarta.faces.event.PreRenderViewEvent</li>
  * <li>renderer.encodeBegin(facesContext, component)</li>
  * <li>renderer.encodeChildren(facesContext, component)</li>
  * <li>renderer.encodeEnd(facesContext, component)</li>
@@ -63,15 +60,13 @@ import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class HelpTextRendererTest extends AbstractComponentRendererTest<LabeledContainerRenderer>
-        implements ComponentConfigurator {
+    implements ComponentConfigurator {
 
     private static final String CLIENT_ID = "j_id__v_0";
 
     private static final String CLIENT_ID_LABEL = CLIENT_ID + "_label";
 
     private static final String COLON_INPUT = ":input";
-
-    private static final String HTML_INPUT_TEXT = "HtmlInputText";
 
     private static final String COL_8 = ColumnCssResolver.COL_PREFIX + "8";
 
@@ -91,18 +86,18 @@ class HelpTextRendererTest extends AbstractComponentRendererTest<LabeledContaine
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV)
-                .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER).withStyleClass(CssBootstrap.FORM_GROUP)
-                .withNode(Node.LABEL).withAttribute(AttributeName.ID, CLIENT_ID_LABEL)
-                .withAttribute(AttributeName.NAME, CLIENT_ID_LABEL)
-                .withAttribute(AttributeName.FOR, CLIENT_ID + COLON_INPUT)
-                .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
-                .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(HTML_INPUT_TEXT)
-                .withAttribute(AttributeName.ID, CLIENT_ID + COLON_INPUT)
-                .withAttribute(AttributeName.NAME, CLIENT_ID + COLON_INPUT).withAttribute(AttributeName.TYPE, "text")
-                .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().withNode(Node.DIV)
-                .withStyleClass(CssBootstrap.CUI_ADDITIONAL_MESSAGE.getStyleClass())
-                .withAttribute(HelpTextComponent.DATA_HELP_BLOCK, HelpTextComponent.DATA_HELP_BLOCK).withNode(Node.SPAN)
-                .withTextContent("title").currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
+            .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER).withStyleClass(CssBootstrap.FORM_GROUP)
+            .withNode(Node.LABEL).withAttribute(AttributeName.ID, CLIENT_ID_LABEL)
+            .withAttribute(AttributeName.NAME, CLIENT_ID_LABEL)
+            .withAttribute(AttributeName.FOR, CLIENT_ID + COLON_INPUT)
+            .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
+            .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.INPUT)
+            .withAttribute(AttributeName.ID, CLIENT_ID + COLON_INPUT)
+            .withAttribute(AttributeName.NAME, CLIENT_ID + COLON_INPUT).withAttribute(AttributeName.TYPE, "text")
+            .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().withNode(Node.DIV)
+            .withStyleClass(CssBootstrap.CUI_ADDITIONAL_MESSAGE.getStyleClass())
+            .withAttribute(HelpTextComponent.DATA_HELP_BLOCK, HelpTextComponent.DATA_HELP_BLOCK).withNode(Node.SPAN)
+            .withTextContent("title").currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -122,25 +117,25 @@ class HelpTextRendererTest extends AbstractComponentRendererTest<LabeledContaine
         component.processEvent(new PostAddToViewEvent(component));
         component.processEvent(new PreRenderComponentEvent(component));
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV)
-                .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER).withStyleClass(CssBootstrap.FORM_GROUP)
-                .withNode(Node.LABEL).withAttribute(AttributeName.ID, CLIENT_ID_LABEL)
-                .withAttribute(AttributeName.NAME, CLIENT_ID_LABEL)
-                .withAttribute(AttributeName.FOR, CLIENT_ID + COLON_INPUT)
-                .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
-                .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.DIV)
-                .withStyleClass(CssBootstrap.INPUT_GROUP).withNode(Node.DIV)
-                .withStyleClass(CssBootstrap.INPUT_GROUP_ADDON).withNode("Button")
-                .withStyleClass("input-help-text-action")
-                .withAttribute(HelpTextComponent.DATA_HELP_BUTTON, HelpTextComponent.DATA_HELP_BUTTON)
-                .withAttribute(AttributeName.TITLE, "title").currentHierarchyUp().currentHierarchyUp()
-                .withNode(HTML_INPUT_TEXT).withAttribute(AttributeName.ID, CLIENT_ID + COLON_INPUT)
-                .withAttribute(AttributeName.NAME, CLIENT_ID + COLON_INPUT).withAttribute(AttributeName.TYPE, "text")
-                .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().withNode(Node.A)
-                .withAttribute("target", "https://www.cuioss.de").currentHierarchyUp().currentHierarchyUp()
-                .withNode(Node.DIV).withStyleClass(CssBootstrap.CUI_ADDITIONAL_MESSAGE.getStyleClass())
-                .withAttribute(AttributeName.STYLE, "display: none;")
-                .withAttribute(HelpTextComponent.DATA_HELP_BLOCK, HelpTextComponent.DATA_HELP_BLOCK).withNode(Node.A)
-                .withAttribute("target", "https://www.cuioss.de").currentHierarchyUp().currentHierarchyUp();
+            .withAttribute(DATA_LABELED_CONTAINER, DATA_LABELED_CONTAINER).withStyleClass(CssBootstrap.FORM_GROUP)
+            .withNode(Node.LABEL).withAttribute(AttributeName.ID, CLIENT_ID_LABEL)
+            .withAttribute(AttributeName.NAME, CLIENT_ID_LABEL)
+            .withAttribute(AttributeName.FOR, CLIENT_ID + COLON_INPUT)
+            .withStyleClass(new StyleClassBuilderImpl(COL_4).append(CssBootstrap.CONTROL_LABEL).getStyleClass())
+            .currentHierarchyUp().withNode(Node.DIV).withStyleClass(COL_8).withNode(Node.DIV)
+            .withStyleClass(CssBootstrap.INPUT_GROUP).withNode(Node.DIV)
+            .withStyleClass(CssBootstrap.INPUT_GROUP_ADDON).withNode("Button")
+            .withStyleClass("input-help-text-action")
+            .withAttribute(HelpTextComponent.DATA_HELP_BUTTON, HelpTextComponent.DATA_HELP_BUTTON)
+            .withAttribute(AttributeName.TITLE, "title").currentHierarchyUp().currentHierarchyUp()
+            .withNode(Node.INPUT).withAttribute(AttributeName.ID, CLIENT_ID + COLON_INPUT)
+            .withAttribute(AttributeName.NAME, CLIENT_ID + COLON_INPUT).withAttribute(AttributeName.TYPE, "text")
+            .withStyleClass(CssBootstrap.FORM_CONTROL).currentHierarchyUp().withNode(Node.A)
+            .withAttribute("target", "https://www.cuioss.de").currentHierarchyUp().currentHierarchyUp()
+            .withNode(Node.DIV).withStyleClass(CssBootstrap.CUI_ADDITIONAL_MESSAGE.getStyleClass())
+            .withAttribute(AttributeName.STYLE, "display: none;")
+            .withAttribute(HelpTextComponent.DATA_HELP_BLOCK, HelpTextComponent.DATA_HELP_BLOCK).withNode(Node.A)
+            .withAttribute("target", "https://www.cuioss.de").currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -158,9 +153,7 @@ class HelpTextRendererTest extends AbstractComponentRendererTest<LabeledContaine
     @Override
     public void configureComponents(final ComponentConfigDecorator decorator) {
         decorator.registerUIComponent(CuiMessageComponent.class).registerRenderer(CuiMessageRenderer.class)
-                .registerUIComponent(Button.class)
-                .registerMockRenderer(BootstrapFamily.COMPONENT_FAMILY, BootstrapFamily.BUTTON_RENDERER)
-                .registerMockRenderer(JsfComponentIdentifier.INPUT_FAMILY, JsfComponentIdentifier.HIDDEN_RENDERER_TYPE)
-                .registerMockRendererForHtmlInputText();
+            .registerUIComponent(Button.class)
+            .registerMockRenderer(BootstrapFamily.COMPONENT_FAMILY, BootstrapFamily.BUTTON_RENDERER);
     }
 }

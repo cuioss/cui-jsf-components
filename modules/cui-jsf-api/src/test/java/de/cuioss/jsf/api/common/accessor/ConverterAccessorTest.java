@@ -21,8 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javax.faces.convert.IntegerConverter;
-import javax.faces.convert.NumberConverter;
+import jakarta.faces.convert.IntegerConverter;
+import jakarta.faces.convert.NumberConverter;
 
 import org.junit.jupiter.api.Test;
 

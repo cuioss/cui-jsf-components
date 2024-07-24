@@ -15,13 +15,13 @@
  */
 package de.cuioss.jsf.bootstrap.layout.messages;
 
-import static javax.faces.application.FacesMessage.SEVERITY_WARN;
+import static jakarta.faces.application.FacesMessage.SEVERITY_WARN;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
-import javax.faces.component.html.HtmlInputText;
-import javax.faces.component.html.HtmlPanelGrid;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIPanel;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.component.html.HtmlPanelGrid;
 
 import org.junit.jupiter.api.Test;
 

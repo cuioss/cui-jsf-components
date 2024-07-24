@@ -17,8 +17,8 @@ package de.cuioss.jsf.api.components;
 
 import static java.util.Objects.requireNonNull;
 
-import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.context.FacesContext;
 
 import lombok.experimental.UtilityClass;
 
@@ -35,7 +35,7 @@ public class JsfBehaviorComponent {
      * @param context must not be {@code null}
      * @return a newly instantiated AjaxBehavior
      */
-    public static final AjaxBehavior ajaxBehavior(FacesContext context) {
+    public static AjaxBehavior ajaxBehavior(FacesContext context) {
         requireNonNull(context);
         return (AjaxBehavior) context.getApplication().createBehavior(AjaxBehavior.BEHAVIOR_ID);
     }

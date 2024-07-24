@@ -19,7 +19,7 @@ import de.cuioss.jsf.api.components.css.AlignHolder;
 import de.cuioss.jsf.api.components.util.CuiState;
 import lombok.NonNull;
 
-import javax.faces.component.StateHelper;
+import jakarta.faces.component.StateHelper;
 
 /**
  * <h2>Summary</h2>

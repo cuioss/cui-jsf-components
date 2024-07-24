@@ -17,7 +17,7 @@ package de.cuioss.jsf.bootstrap.taglist;
 
 import java.util.Collection;
 
-import javax.faces.component.FacesComponent;
+import jakarta.faces.component.FacesComponent;
 
 import de.cuioss.jsf.api.components.base.BaseCuiNamingContainer;
 import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;

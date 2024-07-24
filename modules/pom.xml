@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>de.cuioss.jsf</groupId>
@@ -16,7 +16,7 @@
             <!-- Incoming-->
             <dependency>
                 <groupId>de.cuioss</groupId>
-                <artifactId>java-ee-8-bom</artifactId>
+                <artifactId>java-ee-10-bom</artifactId>
                 <version>${version.cui.parent}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -34,14 +34,6 @@
                 <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.primefaces</groupId>
-                <artifactId>primefaces</artifactId>
-                <version>${version.primefaces}</version>
-                <!-- Currently we reference only components from within our
-                composites, therefore runtime is sufficient -->
-                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>de.cuioss.portal.core</groupId>
@@ -103,6 +95,11 @@
         <dependency>
             <groupId>org.omnifaces</groupId>
             <artifactId>omnifaces</artifactId>
+        </dependency>
+        <dependency>
+            <!-- For omnifaces -->
+            <groupId>jakarta.websocket</groupId>
+            <artifactId>jakarta.websocket-api</artifactId>
         </dependency>
         <!-- Test-->
         <dependency>

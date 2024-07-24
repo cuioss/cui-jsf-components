@@ -20,8 +20,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.UIComponent;
 
 import de.cuioss.jsf.api.components.partial.ComponentStyleClassProviderImpl;
 import de.cuioss.jsf.api.components.partial.ForIdentifierProvider;

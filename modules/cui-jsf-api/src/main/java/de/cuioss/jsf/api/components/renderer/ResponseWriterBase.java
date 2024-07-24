@@ -27,11 +27,11 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.context.ResponseWriterWrapper;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.context.ResponseWriterWrapper;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -51,7 +51,7 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
     /**
      * @param node identifying the html-Element
      * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link javax.faces.context.ResponseWriter}
+     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
      */
     public ResponseWriterBase withStartElement(final Node node) throws IOException {
         startElement(node.getContent(), null);
@@ -61,7 +61,7 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
     /**
      * @param node identifying the html-Element
      * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link javax.faces.context.ResponseWriter}
+     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
      */
     public ResponseWriterBase withEndElement(final Node node) throws IOException {
         endElement(node.getContent());
@@ -73,7 +73,7 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
      *
      * @param styleClass to be set
      * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link javax.faces.context.ResponseWriter}
+     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
      */
     public ResponseWriterBase withStyleClass(final String styleClass) throws IOException {
         if (styleClass != null && !styleClass.isEmpty()) {
@@ -87,7 +87,7 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
      *
      * @param styleClass to be set
      * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link javax.faces.context.ResponseWriter}
+     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
      */
     public ResponseWriterBase withStyleClass(final StyleClassProvider styleClass) throws IOException {
         return withStyleClass(styleClass.getStyleClass());
@@ -98,7 +98,7 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
      *
      * @param styleClass to be set
      * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link javax.faces.context.ResponseWriter}
+     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
      */
     public ResponseWriterBase withStyleClass(final StyleClassBuilder styleClass) throws IOException {
         return withStyleClass(styleClass.getStyleClass());
@@ -110,7 +110,7 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
      * @param attributeName  must not be null
      * @param attributeValue to be written
      * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link javax.faces.context.ResponseWriter}
+     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
      */
     public ResponseWriterBase withAttribute(final AttributeName attributeName, final String attributeValue)
         throws IOException {
@@ -124,7 +124,7 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
      * @param attributeName  must not be null
      * @param attributeValue to be written
      * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link javax.faces.context.ResponseWriter}
+     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
      */
     public ResponseWriterBase withAttribute(final AttributeName attributeName, final AttributeValue attributeValue)
         throws IOException {
@@ -136,7 +136,7 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
      *
      * @param title if it is null or empty, not title will be written
      * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link javax.faces.context.ResponseWriter}
+     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
      */
     public ResponseWriterBase withAttributeTitle(final String title) throws IOException {
         if (!MoreStrings.isEmpty(title)) {
@@ -150,7 +150,7 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
      *
      * @param title if it is null or empty, not title will be written
      * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link javax.faces.context.ResponseWriter}
+     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
      */
     public ResponseWriterBase withAttributeTitle(final TitleProvider title) throws IOException {
         return withAttributeTitle(title.resolveTitle());
@@ -161,7 +161,7 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
      *
      * @param style if it is null or empty, not styleProvider-attribute will be written
      * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link javax.faces.context.ResponseWriter}
+     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
      */
     public ResponseWriterBase withAttributeStyle(final String style) throws IOException {
         if (!MoreStrings.isEmpty(style)) {
@@ -175,7 +175,7 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
      *
      * @param styleProvider if it is null or empty, not styleProvider-attribute will be written
      * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link javax.faces.context.ResponseWriter}
+     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
      */
     public ResponseWriterBase withAttributeStyle(final StyleAttributeProvider styleProvider) throws IOException {
         return withAttributeStyle(styleProvider.getStyle());
@@ -188,7 +188,7 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
      * @param facesContext must not be null
      * @param passThroughAttributes the attributes to render
      * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link javax.faces.context.ResponseWriter}
+     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
      */
     public ResponseWriterBase withPassThroughAttributes(final FacesContext facesContext,
                                                         final Map<String, Object> passThroughAttributes) throws IOException {

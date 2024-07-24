@@ -18,6 +18,7 @@ package de.cuioss.jsf.jqplot.portal.theme;
 import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
 import static java.util.stream.Collectors.toList;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
@@ -52,6 +53,7 @@ import lombok.ToString;
 @SuppressWarnings("java:S6548") // owolff: Legacy code, will be removed
 public class SeriesColors implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 7676175049884241143L;
 
     /**

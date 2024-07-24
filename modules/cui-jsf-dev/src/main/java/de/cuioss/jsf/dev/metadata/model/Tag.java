@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.dev.metadata.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -29,6 +30,7 @@ import lombok.Data;
 @Data
 public abstract class Tag implements Serializable, Comparable<Tag> {
 
+    @Serial
     private static final long serialVersionUID = -6465433606569204179L;
 
     private final String name;

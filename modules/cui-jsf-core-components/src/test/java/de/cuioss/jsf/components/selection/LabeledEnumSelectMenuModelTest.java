@@ -23,8 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.TreeSet;
 
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
+import jakarta.faces.event.ValueChangeEvent;
+import jakarta.faces.model.SelectItem;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -15,21 +15,17 @@
  */
 package de.cuioss.jsf.components.selection;
 
-import java.util.List;
-
-import javax.faces.model.SelectItem;
-
-import org.junit.jupiter.api.BeforeEach;
-
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
 import de.cuioss.tools.collect.CollectionBuilder;
+import jakarta.faces.model.SelectItem;
 import lombok.AccessLevel;
 import lombok.Getter;
+import org.junit.jupiter.api.BeforeEach;
+
+import java.util.List;
 
 class EnumSelectMenuModelTest extends AbstractConverterTest<EnumSelectMenuModel<TestEnumeration>, TestEnumeration> {
-
-    private List<SelectItem> values;
 
     @Getter
     private EnumSelectMenuModel<TestEnumeration> converter;
@@ -44,7 +40,7 @@ class EnumSelectMenuModelTest extends AbstractConverterTest<EnumSelectMenuModel<
         for (TestEnumeration enumeration : TestEnumeration.values()) {
             builder.add(new SelectItem(enumeration));
         }
-        values = builder.toMutableList();
+        List<SelectItem> values = builder.toMutableList();
         converter = new EnumSelectMenuModel<>(values, TestEnumeration.class);
         testItems = new TestItems<>();
         populate(testItems);
@@ -53,7 +49,7 @@ class EnumSelectMenuModelTest extends AbstractConverterTest<EnumSelectMenuModel<
     @Override
     public void populate(final TestItems<TestEnumeration> testItems) {
         testItems.addRoundtripValues(TestEnumeration.ONE.toString(), TestEnumeration.TWO.toString(),
-                TestEnumeration.THREE.toString()).addInvalidString("notThere");
+            TestEnumeration.THREE.toString()).addInvalidString("notThere");
     }
 
 }

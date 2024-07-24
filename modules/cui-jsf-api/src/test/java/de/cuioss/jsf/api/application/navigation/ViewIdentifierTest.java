@@ -15,18 +15,12 @@
  */
 package de.cuioss.jsf.api.application.navigation;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.common.view.ViewDescriptor;
 import de.cuioss.jsf.api.common.view.ViewDescriptorImpl;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
-import de.cuioss.test.jsf.mocks.CuiMockConfigurableNavigationHandler;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class ViewIdentifierTest extends JsfEnabledTestEnvironment {
 
@@ -38,23 +32,16 @@ class ViewIdentifierTest extends JsfEnabledTestEnvironment {
 
     private static final String START_URL = "/some/page.jsf";
 
-    private CuiMockConfigurableNavigationHandler mockNavigationHandler;
-
-    @BeforeEach
-    void before() {
-        mockNavigationHandler = getApplicationConfigDecorator().getMockNavigationHandler();
-    }
-
     @Test
     void shouldExtractCorrectViewIdentifier() {
         ViewDescriptor descriptor = ViewDescriptorImpl.builder().withViewId(START_URL).withLogicalViewId(START_URL)
-                .build();
+            .build();
         var identifier = ViewIdentifier.getFromViewDesciptor(descriptor, null);
         assertNotNull(identifier);
         assertEquals(START_URL, identifier.getViewId());
         assertNull(identifier.getOutcome());
         final var navigationCase = identifier.toNavigationCase(FROM_VIEW_ID, FROM_ACTION, FROM_OUTCOME, null, true,
-                false);
+            false);
         assertNotNull(navigationCase);
     }
 

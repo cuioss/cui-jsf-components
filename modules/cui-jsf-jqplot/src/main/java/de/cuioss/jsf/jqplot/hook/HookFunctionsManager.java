@@ -17,6 +17,7 @@ package de.cuioss.jsf.jqplot.hook;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;
 
@@ -33,6 +34,7 @@ import lombok.ToString;
 @EqualsAndHashCode(of = "hooks")
 public class HookFunctionsManager implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 8348653918471855582L;
 
     private final HashSet<PlotHookFunctionProvider> hooks = new HashSet<>();

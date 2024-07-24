@@ -19,6 +19,8 @@ import de.cuioss.jsf.jqplot.js.support.JsValue;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * @author Eugen Fischer
  */
@@ -27,6 +29,7 @@ import lombok.ToString;
 public class JsBoolean implements JsValue {
 
     /** serial Version UID */
+    @Serial
     private static final long serialVersionUID = 6019189107773231238L;
 
     private final Boolean value;
@@ -55,7 +58,7 @@ public class JsBoolean implements JsValue {
      * @param booleanValue
      * @return the {@link JsBoolean}
      */
-    public static final JsBoolean create(final Boolean booleanValue) {
+    public static JsBoolean create(final Boolean booleanValue) {
 
         if (null == booleanValue) {
             return EMPTY;

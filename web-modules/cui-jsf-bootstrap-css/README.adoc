@@ -38,5 +38,4 @@ These files will be copied by maven to the appropriate directory and package to 
 == TODOs
 * use node module for boostrap icons to pack the web fonts into `META-INF/resources/icons`
 * adapt the current sass build to use new boostrap 5.3 sass sources
-* Rename structures / paths from com.icw to de.cuioss
 

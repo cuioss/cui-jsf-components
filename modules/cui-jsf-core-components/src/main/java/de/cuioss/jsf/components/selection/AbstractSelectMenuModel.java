@@ -17,12 +17,13 @@ package de.cuioss.jsf.components.selection;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ValueChangeEvent;
+import jakarta.faces.model.SelectItem;
 
 import de.cuioss.jsf.api.components.selection.SelectMenuModel;
 import de.cuioss.jsf.api.converter.AbstractConverter;
@@ -39,6 +40,7 @@ import lombok.Setter;
 public abstract class AbstractSelectMenuModel<T extends Serializable> extends AbstractConverter<T>
         implements SelectMenuModel<T> {
 
+    @Serial
     private static final long serialVersionUID = 568340728664691248L;
 
     @Getter
