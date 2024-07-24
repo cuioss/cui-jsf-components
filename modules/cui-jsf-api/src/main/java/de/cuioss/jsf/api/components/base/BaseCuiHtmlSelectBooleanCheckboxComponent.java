@@ -37,10 +37,10 @@ public class BaseCuiHtmlSelectBooleanCheckboxComponent extends HtmlSelectBoolean
     implements ComponentBridge, ComponentStyleClassProvider, StyleAttributeProvider {
 
     @Delegate
-    private final ComponentStyleClassProvider styleClassProvider;
+    protected final ComponentStyleClassProvider styleClassProvider;
 
     @Delegate
-    private final StyleAttributeProvider styleAttributeProvider;
+    protected final StyleAttributeProvider styleAttributeProvider;
 
     /***/
     public BaseCuiHtmlSelectBooleanCheckboxComponent() {

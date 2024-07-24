@@ -15,19 +15,14 @@
  */
 package de.cuioss.jsf.api.components.model.menu;
 
+import de.cuioss.jsf.api.application.navigation.NavigationUtils;
+import de.cuioss.jsf.api.components.support.LabelResolver;
+import jakarta.faces.context.FacesContext;
+import lombok.*;
+
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
-
-import jakarta.faces.context.FacesContext;
-
-import de.cuioss.jsf.api.application.navigation.NavigationUtils;
-import de.cuioss.jsf.api.components.support.LabelResolver;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 /**
  * Basic Implementation of a {@link NavigationMenuItem}
@@ -74,7 +69,7 @@ public abstract class NavigationMenuItemImpl implements NavigationMenuItem {
     private String parentId;
 
     /**
-     * Allows to configure a list of view ids that should trigger displaying the
+     * Allows configuring a list of view ids that should trigger displaying the
      * menu item in "active" mode.
      */
     @Getter
@@ -89,7 +84,7 @@ public abstract class NavigationMenuItemImpl implements NavigationMenuItem {
     @Override
     public String getResolvedTitle() {
         return LabelResolver.builder().withLabelKey(titleKey).withLabelValue(titleValue).build()
-                .resolve(FacesContext.getCurrentInstance());
+            .resolve(FacesContext.getCurrentInstance());
     }
 
     @Override
@@ -100,7 +95,7 @@ public abstract class NavigationMenuItemImpl implements NavigationMenuItem {
     @Override
     public boolean isActive() {
         return !getActiveForAdditionalViewId().isEmpty() && getActiveForAdditionalViewId()
-                .contains(NavigationUtils.getCurrentView(FacesContext.getCurrentInstance()).getViewId());
+            .contains(NavigationUtils.getCurrentView(FacesContext.getCurrentInstance()).getViewId());
     }
 
 }

@@ -56,7 +56,7 @@ public abstract class AbstractParentDecorator extends UIComponentBase implements
      * will be called at {@link PostAddToViewEvent} and only if the component is
      * set to {@code rendered=true}
      *
-     * @param parent to be decorated, wrapped into an corresponding
+     * @param parent to be decorated, wrapped into a corresponding
      *               {@link ComponentModifier}, is never null
      */
     public abstract void decorate(final ComponentModifier parent);

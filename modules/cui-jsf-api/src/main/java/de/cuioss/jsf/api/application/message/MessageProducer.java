@@ -51,9 +51,9 @@ public interface MessageProducer extends Serializable {
      * {@link #getMessageFor(String, jakarta.faces.application.FacesMessage.Severity, Object...)}
      * that sets in addition the Messages into the {@link FacesContext}
      *
-     * @param messagekey  must no be null FacesMessage.Severity severity
+     * @param messagekey  must not be null FacesMessage.Severity severity
      * @param severity    The Severity level of the Message, must not be null.
-     * @param componentId identifying the component, may be null.
+     * @param componentId identifying the component may be null.
      * @param parameter   Ellipses of Object Parameter for MessageFormat
      */
     void setFacesMessage(String messagekey, FacesMessage.Severity severity, String componentId, Object... parameter);

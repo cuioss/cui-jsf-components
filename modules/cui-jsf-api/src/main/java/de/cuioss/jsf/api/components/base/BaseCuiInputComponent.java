@@ -24,7 +24,7 @@ import jakarta.faces.component.UIInput;
 import jakarta.faces.context.FacesContext;
 
 /**
- * Minimal super-set for cui-based components that are at least {@link UIInput}.
+ * Minimal superset for cui-based components that are at least {@link UIInput}.
  * Therefore, it provides the handling of the styleClass and style attribute and
  * the implicit attributes provided by {@link UIInput}.
  * In addition, it acts as a {@link ComponentBridge}

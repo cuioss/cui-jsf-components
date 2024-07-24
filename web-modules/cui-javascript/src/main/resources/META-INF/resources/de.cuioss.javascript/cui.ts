@@ -118,13 +118,11 @@ namespace Cui.Core {
         jQuery('.modal').modal('hide');
         jQuery('[data-modal-dialog-id=confirmDialogTimeout]').modal('show');
         jQuery(document.body).addClass('modal-timeout');
-        onIdle.forEach((callback: () => void) => {
-            callback();
-        });
+        onIdle.forEach((callback:() => void) => { callback(); });
     }
 
     /**
-     * Execute open external application in new window (or tab depend on browser and settings) and set focus on this
+     * Execute open external application in a new window (or tab depend on browser and settings) and set focus on this
      * @param applicationUrl
      */
     export function openExternalApplicationInNewWindow(applicationUrl: string): void {

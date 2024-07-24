@@ -135,7 +135,7 @@ public abstract class AbstractEditableDataListModel<T extends Serializable> impl
     }
 
     /**
-     * This removes new items that were in edit mode and have been canceled.
+     * This removes new items in edit mode and have been canceled.
      */
     private void removeNullItems() {
         getDisplayItems().removeIf(item -> !PERSISTED.equals(item.getAddStatus()) && null == item.getWrapped());

@@ -15,10 +15,10 @@
  */
 package de.cuioss.jsf.api.components.javascript;
 
-import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
-
 import de.cuioss.tools.string.Joiner;
 import de.cuioss.tools.string.Splitter;
+
+import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
 
 /**
  * Provides a simple way to create a correctly escaped JQuery-selector
@@ -33,9 +33,9 @@ public abstract class JQuerySelector implements ScriptProvider {
     public static final String SELECTOR_TEMPLATE = "jQuery('#%s')";
 
     /**
-     * @return the corresponding jQuerySelectorString, e.g for a given component
-     *         providing the id "a:b" it returns "jQuery('#a\\\\:b')" saying it
-     *         takes care on the proper masking of the clientIds.
+     * @return the corresponding jQuerySelectorString, e.g., for a given component
+     * providing the id "a:b" it returns "jQuery('#a\\\\:b')" saying it
+     * takes care on the proper masking of the clientIds.
      */
     @Override
     public String script() {
@@ -45,7 +45,7 @@ public abstract class JQuerySelector implements ScriptProvider {
     protected abstract String getIdString();
 
     /**
-     * Escapes a given id String in order to be used within javascript, e.g for a
+     * Escapes a given id String to be used within javascript, e.g., for a
      * given component providing the id "a:b" it returns "'a\\\\:b'" saying it takes
      * care on the proper masking of the clientIds.
      *
