@@ -26,7 +26,6 @@ let cuiUpdateCollapsiblePanelServerState = function (panelId, isExpanded, event)
  * Update component state
  * @param {string} panelId - panel ID
  * @param {boolean} isExpanded - state after transition
- * @param {boolean} isAsyncUpdate - update server side state
  */
 let cuiUpdateCollapsiblePanelState = function (panelId, isExpanded, event) {
     let panelStateHolder = jQuery(Cui.Utilities.escapeClientId(panelId) + "_isexpanded");

@@ -2,7 +2,7 @@
  * Used for initializing GuardedInput components.
  * The implementation assumes JQuery, faces.js and cui.jsf being present.
  */
-let intitializeInputGuards = function () {
+let initializeInputGuards = function () {
     jQuery('[data-input-guard-button]').each(function () {
         let guardButton = jQuery(this);
         guardButton.prop('onclick', null); // Fix for IE 11
@@ -33,5 +33,5 @@ let intitializeInputGuards = function () {
 
 // Should be loaded at document-ready
 jQuery(document).ready(function () {
-    Cui.Core.registerComponentEnabler(intitializeInputGuards);
+    Cui.Core.registerComponentEnabler(initializeInputGuards);
 });

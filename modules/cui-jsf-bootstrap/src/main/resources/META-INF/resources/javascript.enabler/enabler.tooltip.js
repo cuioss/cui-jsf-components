@@ -3,11 +3,11 @@
  * assumes JQuery and faces.js being present
  */
 
-let intitializeTooltips = function () {
+let initializeTooltips = function () {
     jQuery('[data-toggle="tooltip"]').tooltip();
 };
 
 // Should be loaded at document-ready
 jQuery(document).ready(function () {
-    Cui.Core.registerComponentEnabler(intitializeTooltips);
+    Cui.Core.registerComponentEnabler(initializeTooltips);
 });
