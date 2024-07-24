@@ -15,14 +15,13 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
-import java.io.Serializable;
-
-import javax.faces.component.StateHelper;
-
 import de.cuioss.jsf.api.components.support.LabelResolver;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.tools.string.MoreStrings;
 import lombok.NonNull;
+
+import javax.faces.component.StateHelper;
+import java.io.Serializable;
 
 /**
  * <h2>Summary</h2>
@@ -55,14 +54,25 @@ import lombok.NonNull;
  */
 public class TitleProviderImpl implements TitleProvider {
 
-    /** The key for the {@link StateHelper} */
+    /**
+     * The key for the {@link StateHelper}
+     */
     private static final String TITLE_KEY_KEY = "titleKey";
 
-    /** The key for the {@link StateHelper} */
+    /**
+     * The key for the {@link StateHelper}
+     */
     private static final String TITLE_VALUE_KEY = "titleValue";
 
-    /** The key for the {@link StateHelper} */
+    /**
+     * The key for the {@link StateHelper}
+     */
     private static final String TITLE_CONVERTER_KEY = "titleConverter";
+
+    /**
+     * The key for the resolved title.
+     */
+    private static final String TITLE_KEY = "title";
 
     private final ComponentBridge componentBridge;
 
@@ -87,11 +97,11 @@ public class TitleProviderImpl implements TitleProvider {
     }
 
     /**
-     * @param titelValue to be set.
+     * @param titleValue to be set.
      */
     @Override
-    public void setTitleValue(final Serializable titelValue) {
-        state.put(TITLE_VALUE_KEY, titelValue);
+    public void setTitleValue(final Serializable titleValue) {
+        state.put(TITLE_VALUE_KEY, titleValue);
     }
 
     @Override
@@ -105,19 +115,24 @@ public class TitleProviderImpl implements TitleProvider {
     }
 
     @Override
-    public void setTitleConverter(final Object titelConverter) {
-        state.put(TITLE_CONVERTER_KEY, titelConverter);
+    public void setTitleConverter(final Object titleConverter) {
+        state.put(TITLE_CONVERTER_KEY, titleConverter);
     }
 
     @Override
     public String resolveTitle() {
         final var labelValue = getTitleValue();
         final var labelKey = getTitleKey();
-        if (labelValue == null && MoreStrings.isEmpty(labelKey)) {
+        if (!isTitleSet()) {
             return null;
         }
         return LabelResolver.builder().withLabelKey(labelKey).withStrictMode(false).withConverter(getTitleConverter())
-                .withLabelValue(labelValue).build().resolve(componentBridge.facesContext());
+            .withLabelValue(labelValue).build().resolve(componentBridge.facesContext());
+    }
+
+    @Override
+    public String getTitle() {
+        return state.get(TITLE_KEY);
     }
 
     @Override
@@ -128,7 +143,14 @@ public class TitleProviderImpl implements TitleProvider {
     @Override
     public void setTitle(final String title) {
         throw new UnsupportedOperationException(componentBridge.getClass().getCanonicalName()
-                + " wrong usage detected. Use setTitleKey() or setTitleValue(Serializable) instead.");
+            + " wrong usage detected. Use setTitleKey() or setTitleValue(Serializable) instead.");
     }
 
+    @Override
+    public void resolveAndStoreTitle() {
+        // Titles should usually be set once
+        if (isTitleSet() && null == state.get(TITLE_KEY)) {
+            state.put(TITLE_KEY, resolveTitle());
+        }
+    }
 }

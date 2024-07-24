@@ -96,7 +96,7 @@ public class JsfHtmlComponent<T extends UIComponent> {
             HtmlInputHidden.class, Node.INPUT);
 
     /** Component representation for h:inputText */
-    public static final JsfHtmlComponent<HtmlInputText> HTMLINPUT = new JsfHtmlComponent<>(
+    public static final JsfHtmlComponent<HtmlInputText> HTML_INPUT = new JsfHtmlComponent<>(
             HtmlInputText.COMPONENT_FAMILY, HtmlInputText.COMPONENT_TYPE, TEXT_RENDERER_TYPE, HtmlInputText.class,
             Node.INPUT);
 
@@ -111,9 +111,9 @@ public class JsfHtmlComponent<T extends UIComponent> {
             Node.A);
 
     /** Similar toEnum#values(): Provides all elements */
-    @SuppressWarnings("squid:S2386") // owolff: false positive, list is immutable
+    @SuppressWarnings("squid:S2386") // owolff: false positive, the list is immutable
     public static final Collection<JsfHtmlComponent<? extends UIComponentBase>> VALUES = CollectionLiterals
-            .immutableList(BUTTON, COMMAND_BUTTON, FORM, PANEL_GROUP, SPAN, CHECKBOX, INPUT, HIDDEN, HTMLINPUT,
+            .immutableList(BUTTON, COMMAND_BUTTON, FORM, PANEL_GROUP, SPAN, CHECKBOX, INPUT, HIDDEN, HTML_INPUT,
                     HTML_OUTPUT_TEXT, HTML_OUTPUT_LINK);
     @Getter
     private final String family;
@@ -150,7 +150,7 @@ public class JsfHtmlComponent<T extends UIComponent> {
      * Shortcut for creating and casting a component to a given type.
      *
      * @param context   must not be null
-     * @param component to be created, must not be null
+     * @param component to be created must not be null
      * @return the created component.
      */
     public static <T extends UIComponent> T createComponent(final FacesContext context,
@@ -163,7 +163,7 @@ public class JsfHtmlComponent<T extends UIComponent> {
      * Shortcut for creating and casting a renderer to a given type.
      *
      * @param context   must not be null
-     * @param component to be created, must not be null
+     * @param component to be created must not be null
      * @return the created component.
      */
     @SuppressWarnings("unchecked")

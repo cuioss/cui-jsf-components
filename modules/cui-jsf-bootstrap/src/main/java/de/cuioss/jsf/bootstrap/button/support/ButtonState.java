@@ -15,14 +15,12 @@
  */
 package de.cuioss.jsf.bootstrap.button.support;
 
-import static de.cuioss.tools.string.MoreStrings.isEmpty;
-
 import de.cuioss.jsf.api.components.css.ContextState;
-import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.css.StyleClassProvider;
-import de.cuioss.jsf.api.components.css.impl.StyleClassBuilderImpl;
 import de.cuioss.tools.string.MoreStrings;
 import lombok.Getter;
+
+import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
 /**
  * @author Oliver Wolff
@@ -72,13 +70,9 @@ public enum ButtonState implements StyleClassProvider {
 
     private final String styleClass;
 
-    @Override
-    public StyleClassBuilder getStyleClassBuilder() {
-        return new StyleClassBuilderImpl(styleClass);
-    }
 
     /**
-     * @param state May be null or empty, otherwise must be one of
+     * @param state Maybe null or empty, otherwise must be one of
      *              {"default","primary", "success", "info", "warning", "danger",
      *              "link"}
      * @return the corresponding {@link ButtonState} derived by the given

@@ -15,15 +15,14 @@
  */
 package de.cuioss.jsf.bootstrap.waitingindicator;
 
-import java.io.IOException;
-
-import javax.faces.context.FacesContext;
-import javax.faces.render.FacesRenderer;
-
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
+
+import javax.faces.context.FacesContext;
+import javax.faces.render.FacesRenderer;
+import java.io.IOException;
 
 /**
  * Renderer for {@linkplain WaitingIndicatorComponent}.
@@ -40,12 +39,12 @@ public class WaitingIndicatorRenderer extends BaseDecoratorRenderer<WaitingIndic
 
     @Override
     protected void doEncodeEnd(FacesContext context, DecoratingResponseWriter<WaitingIndicatorComponent> writer,
-            WaitingIndicatorComponent component) throws IOException {
+                               WaitingIndicatorComponent component) throws IOException {
 
         // Write element
         writer.withStartElement(Node.DIV);
-        writer.withStyleClass(component.getStyleClass());
-        writer.withAttributeStyle(component.getStyle());
+        writer.withStyleClass(component);
+        writer.withAttributeStyle(component);
         writer.withClientIdIfNecessary();
         writer.withPassThroughAttributes();
 

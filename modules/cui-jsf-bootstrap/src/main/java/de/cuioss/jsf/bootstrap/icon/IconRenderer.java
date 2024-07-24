@@ -15,12 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.icon;
 
-import java.io.IOException;
-
-import javax.faces.context.FacesContext;
-import javax.faces.render.FacesRenderer;
-import javax.faces.render.Renderer;
-
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.css.impl.StyleClassBuilderImpl;
 import de.cuioss.jsf.api.components.html.Node;
@@ -30,6 +24,11 @@ import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.icon.support.IconSize;
 import de.cuioss.jsf.bootstrap.icon.support.IconState;
+
+import javax.faces.context.FacesContext;
+import javax.faces.render.FacesRenderer;
+import javax.faces.render.Renderer;
+import java.io.IOException;
 
 /**
  * <p>
@@ -46,21 +45,17 @@ import de.cuioss.jsf.bootstrap.icon.support.IconState;
  * </ul>
  *
  * @author Oliver Wolff
- *
  */
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.ICON_COMPONENT_RENDERER)
 public class IconRenderer extends BaseDecoratorRenderer<IconComponent> {
 
-    /**
-     *
-     */
     public IconRenderer() {
         super(true);
     }
 
     @Override
     protected void doEncodeEnd(FacesContext context, DecoratingResponseWriter<IconComponent> writer,
-            IconComponent component) throws IOException {
+                               IconComponent component) throws IOException {
 
         // Write element
         writer.withStartElement(Node.SPAN);
@@ -69,10 +64,10 @@ public class IconRenderer extends BaseDecoratorRenderer<IconComponent> {
         writer.withPassThroughAttributes();
 
         // write title if available
-        writer.withAttributeTitle(component.resolveTitle());
+        writer.withAttributeTitle(component);
 
         // write style attribute if available
-        writer.withAttributeStyle(component.getStyle());
+        writer.withAttributeStyle(component);
 
         writer.withEndElement(Node.SPAN);
     }

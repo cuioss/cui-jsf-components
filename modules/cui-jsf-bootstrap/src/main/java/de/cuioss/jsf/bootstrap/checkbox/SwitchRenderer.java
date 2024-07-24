@@ -95,9 +95,7 @@ public class SwitchRenderer extends BaseDecoratorRenderer<SwitchComponent> {
     @Override
     protected void decodeClientBehavior(final FacesContext context,
             final ComponentWrapper<SwitchComponent> componentWrapper) {
-        // decoding must take place only in JsfHtmlComponent.CHECKBOX. Otherwise it
-        // would be
-        // redundant.
+        // Decoding must take place only in JsfHtmlComponent.CHECKBOX. Otherwise, it would be redundant.
     }
 
     private void renderContainerBegin(final FacesContext context,

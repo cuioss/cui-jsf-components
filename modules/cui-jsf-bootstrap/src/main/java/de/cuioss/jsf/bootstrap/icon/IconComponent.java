@@ -15,20 +15,14 @@
  */
 package de.cuioss.jsf.bootstrap.icon;
 
-import javax.faces.component.FacesComponent;
-import javax.faces.context.FacesContext;
-
 import de.cuioss.jsf.api.components.base.AbstractBaseCuiComponent;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
-import de.cuioss.jsf.api.components.partial.ContextSizeProvider;
-import de.cuioss.jsf.api.components.partial.ContextStateProvider;
-import de.cuioss.jsf.api.components.partial.IconProvider;
-import de.cuioss.jsf.api.components.partial.StyleAttributeProvider;
-import de.cuioss.jsf.api.components.partial.TitleProvider;
-import de.cuioss.jsf.api.components.partial.TitleProviderImpl;
+import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.api.components.util.ComponentUtility;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import lombok.experimental.Delegate;
+
+import javax.faces.component.FacesComponent;
+import javax.faces.context.FacesContext;
 
 /**
  * <p>
@@ -73,9 +67,6 @@ public class IconComponent extends AbstractBaseCuiComponent implements TitleProv
     @Delegate
     private final IconProvider iconProvider;
 
-    /**
-    *
-    */
     public IconComponent() {
         super.setRendererType(BootstrapFamily.ICON_COMPONENT_RENDERER);
         titleProvider = new TitleProviderImpl(this);
@@ -83,6 +74,7 @@ public class IconComponent extends AbstractBaseCuiComponent implements TitleProv
         contextStateProvider = new ContextStateProvider(this);
         iconProvider = new IconProvider(this);
     }
+
 
     @Override
     public String getFamily() {
@@ -92,10 +84,11 @@ public class IconComponent extends AbstractBaseCuiComponent implements TitleProv
     /**
      * Shortcut for creating and casting a component of type {@link IconComponent}.
      *
-     * @param facesContext
+     * @param facesContext must not be null
      * @return a newly created {@link IconComponent}
      */
     public static IconComponent createComponent(final FacesContext facesContext) {
         return ComponentUtility.createComponent(facesContext, BootstrapFamily.ICON_COMPONENT);
     }
+
 }

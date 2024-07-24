@@ -15,13 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.menu;
 
-import java.io.IOException;
-
-import javax.faces.component.html.HtmlOutcomeTargetLink;
-import javax.faces.component.html.HtmlOutputText;
-import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
-
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemContainer;
@@ -32,6 +25,12 @@ import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.jsf.bootstrap.icon.IconComponent;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+
+import javax.faces.component.html.HtmlOutcomeTargetLink;
+import javax.faces.component.html.HtmlOutputText;
+import javax.faces.context.FacesContext;
+import javax.faces.render.Renderer;
+import java.io.IOException;
 
 /**
  * {@link Renderer} utility for the {@link NavigationMenuItemContainer} model.
@@ -48,7 +47,7 @@ import lombok.NoArgsConstructor;
  *     &lt;span class="cui-icon cui-icon-triangle_s"/&gt;
  *   &lt;/a&gt;
  *   &lt;ul class="dropdown-menu"&gt;
- *     ...childs...
+ *     ...children...
  *   &lt;/ul&gt;
  * &lt;/li&gt;
  * </pre>
@@ -64,17 +63,17 @@ public class NavigationMenuContainerRenderer {
     /**
      * Write beginning tags.
      *
-     * @param context
-     * @param writer
-     * @param model
-     * @param component
-     * @param parentIsContainer
-     * @param idExtension
-     * @throws IOException
+     * @param context           must not be null
+     * @param writer            must not be null
+     * @param model             must not be null
+     * @param component         must not be null
+     * @param parentIsContainer flag
+     * @param idExtension       for creating ids
+     * @throws IOException from the underlying {@link javax.faces.context.ResponseWriter}
      */
     static void renderBegin(final FacesContext context, final DecoratingResponseWriter<NavigationMenuComponent> writer,
-            final NavigationMenuItemContainer model, final NavigationMenuComponent component,
-            final boolean parentIsContainer, final String idExtension) throws IOException {
+                            final NavigationMenuItemContainer model, final NavigationMenuComponent component,
+                            final boolean parentIsContainer, final String idExtension) throws IOException {
         if (!model.isRendered()) {
             return;
         }
@@ -84,7 +83,7 @@ public class NavigationMenuContainerRenderer {
         writer.withPassThroughAttributes();
         writer.withAttributeStyle(component.getStyle());
         writer.withStyleClass(component.getStyleClassBuilder().append(CssBootstrap.LIST_DROPDOWN)
-                .appendIfTrue(CssBootstrap.LIST_DROP_DOWN_SUBMENU, parentIsContainer));
+            .appendIfTrue(CssBootstrap.LIST_DROP_DOWN_SUBMENU, parentIsContainer));
 
         if (model.isActive()) {
             writer.withAttribute(AttributeName.DATA_ITEM_ACTIVE, Boolean.TRUE.toString());
@@ -99,12 +98,12 @@ public class NavigationMenuContainerRenderer {
     /**
      * Write closing tags.
      *
-     * @param writer
-     * @param model
-     * @throws IOException
+     * @param writer must not be null
+     * @param model  must not be null
+     * @throws IOException from the underlying {@link javax.faces.context.ResponseWriter}
      */
     static void renderEnd(final DecoratingResponseWriter<NavigationMenuComponent> writer,
-            final NavigationMenuItemContainer model) throws IOException {
+                          final NavigationMenuItemContainer model) throws IOException {
         if (!model.isRendered()) {
             return;
         }
@@ -113,12 +112,12 @@ public class NavigationMenuContainerRenderer {
     }
 
     private static void renderCmdLink(final FacesContext context, final NavigationMenuItemContainer model,
-            final boolean parentIsContainer) throws IOException {
+                                      final boolean parentIsContainer) throws IOException {
 
         final var application = context.getApplication();
 
         final var commandLink = (HtmlOutcomeTargetLink) application
-                .createComponent(HtmlOutcomeTargetLink.COMPONENT_TYPE);
+            .createComponent(HtmlOutcomeTargetLink.COMPONENT_TYPE);
         commandLink.setStyleClass(CssBootstrap.LIST_DROP_DOWN_TOGGLE.getStyleClass());
         commandLink.getPassThroughAttributes().put("data-toggle", "dropdown");
 

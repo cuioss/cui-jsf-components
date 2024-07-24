@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
+import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.css.StyleClassProvider;
 
 /**
@@ -29,13 +30,24 @@ import de.cuioss.jsf.api.components.css.StyleClassProvider;
  * Space-separated list of CSS style class(es) to be applied additionally when
  * this element is rendered.
  * </p>
+ * <p>
  *
  * @author Oliver Wolff
  */
 public interface ComponentStyleClassProvider extends StyleClassProvider {
 
     /**
-     * @param styleClass the styleClass to set
+     * @param styleClass the styleClass to set.
+     *                   See Type-Documentation for details.
      */
     void setStyleClass(String styleClass);
+
+    /**
+     * Computes the final / effective styleClass by concatenating the given component-style-class with the one
+     * configured by using {@link #getStyleClass()}
+     *
+     * @param componentSpecificStyleClass The style-classes created by the corresponding renderer,
+     *                                    excluding the user-defined style-class,
+     */
+    String computeAndStoreFinalStyleClass(StyleClassBuilder componentSpecificStyleClass);
 }

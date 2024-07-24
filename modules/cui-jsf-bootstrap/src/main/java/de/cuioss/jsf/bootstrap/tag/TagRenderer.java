@@ -15,14 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.tag;
 
-import java.io.IOException;
-
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.faces.render.FacesRenderer;
-import javax.faces.render.Renderer;
-
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;
@@ -32,6 +24,13 @@ import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.jsf.bootstrap.tag.support.TagSize;
 import de.cuioss.jsf.bootstrap.tag.support.TagState;
 import de.cuioss.tools.string.MoreStrings;
+
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
+import javax.faces.render.FacesRenderer;
+import javax.faces.render.Renderer;
+import java.io.IOException;
 
 /**
  * Default {@link Renderer} for {@link TagComponent}
@@ -58,23 +57,23 @@ public class TagRenderer extends BaseDecoratorRenderer<TagComponent> {
 
     @Override
     protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<TagComponent> writer,
-            final TagComponent component) throws IOException {
+                                 final TagComponent component) throws IOException {
         // Write element
         writer.withStartElement(Node.DIV);
         writer.withStyleClass(computeStyleClass(component));
-        writer.withAttributeStyle(component.getStyle());
+        writer.withAttributeStyle(component);
         writer.withPassThroughAttributes();
         // write title if available
-        writer.withAttributeTitle(component.resolveTitle());
+        writer.withAttributeTitle(component);
 
         if (component.isDisposable()) {
             writer.withClientId();
         } else {
             // Special case here: We only need to render clientId if there are
-            // no additional ClientBehavior defined and no id is set by client
+            // no additional ClientBehavior defined, and no id is set by client
             final var componentId = component.getId();
             if (writer.getComponentWrapper().getClientBehaviors().size() > 1
-                    || !MoreStrings.isEmpty(componentId) && !componentId.startsWith(UIViewRoot.UNIQUE_ID_PREFIX)) {
+                || !MoreStrings.isEmpty(componentId) && !componentId.startsWith(UIViewRoot.UNIQUE_ID_PREFIX)) {
                 writer.withClientId();
             }
         }
@@ -85,16 +84,15 @@ public class TagRenderer extends BaseDecoratorRenderer<TagComponent> {
 
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<TagComponent> writer,
-            final TagComponent component) throws IOException {
-
+                               final TagComponent component) throws IOException {
         writer.withEndElement(Node.DIV);
     }
 
     private static StyleClassBuilder computeStyleClass(final TagComponent component) {
         // Create style-class
         return CssCuiBootstrap.TAG.getStyleClassBuilder().append(component)
-                .append(TagState.getForContextState(component.resolveContextState()))
-                .append(TagSize.getForContextSize(component.resolveContextSize()));
+            .append(TagState.getForContextState(component.resolveContextState()))
+            .append(TagSize.getForContextSize(component.resolveContextSize()));
     }
 
 }

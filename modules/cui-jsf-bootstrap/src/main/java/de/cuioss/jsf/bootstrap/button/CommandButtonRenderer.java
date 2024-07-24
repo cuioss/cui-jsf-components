@@ -15,13 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.button;
 
-import java.io.IOException;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.render.FacesRenderer;
-import javax.faces.render.Renderer;
-
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;
@@ -29,7 +22,15 @@ import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.api.components.renderer.ElementReplacingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
+import de.cuioss.jsf.bootstrap.button.support.ButtonSize;
+import de.cuioss.jsf.bootstrap.button.support.ButtonState;
 import de.cuioss.jsf.bootstrap.icon.IconComponent;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.render.FacesRenderer;
+import javax.faces.render.Renderer;
+import java.io.IOException;
 
 /**
  * <h2>Rendering</h2>
@@ -62,9 +63,19 @@ public class CommandButtonRenderer extends BaseDecoratorRenderer<CommandButton> 
 
     @Override
     protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<CommandButton> writer,
-            final CommandButton component) throws IOException {
+                                 final CommandButton component) throws IOException {
         var wrapped = ElementReplacingResponseWriter.createWrappedReplacingResonseWriter(context, "input", "button",
-                true);
+            true);
+
+        component.resolveAndStoreTitle();
+        component.writeTitleToParent();
+
+        component.computeAndStoreFinalStyleClass(CssBootstrap.BUTTON.getStyleClassBuilder()
+            .append(ButtonState.getForContextState(component.getState()))
+            .append(ButtonSize.getForContextSize(component.resolveContextSize())));
+
+        component.writeStyleClassToParent();
+
         JsfHtmlComponent.COMMAND_BUTTON.renderer(context).encodeBegin(wrapped, component);
 
         if (component.isDisplayIconLeft()) {
@@ -94,7 +105,7 @@ public class CommandButtonRenderer extends BaseDecoratorRenderer<CommandButton> 
 
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<CommandButton> writer,
-            final CommandButton component) throws IOException {
+                               final CommandButton component) throws IOException {
         writer.withEndElement(Node.BUTTON);
     }
 }

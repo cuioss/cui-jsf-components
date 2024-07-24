@@ -15,18 +15,12 @@
  */
 package de.cuioss.jsf.bootstrap.icon;
 
-import javax.faces.component.FacesComponent;
-
 import de.cuioss.jsf.api.components.base.AbstractBaseCuiComponent;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
-import de.cuioss.jsf.api.components.partial.IconAlignProvider;
-import de.cuioss.jsf.api.components.partial.IconProvider;
-import de.cuioss.jsf.api.components.partial.LabelProvider;
-import de.cuioss.jsf.api.components.partial.StyleAttributeProvider;
-import de.cuioss.jsf.api.components.partial.TitleProvider;
-import de.cuioss.jsf.api.components.partial.TitleProviderImpl;
+import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import lombok.experimental.Delegate;
+
+import javax.faces.component.FacesComponent;
 
 /**
  * <p>
@@ -56,7 +50,6 @@ import lombok.experimental.Delegate;
  * </pre>
  *
  * @author Oliver Wolff
- *
  */
 @FacesComponent(BootstrapFamily.LABELED_ICON_COMPONENT)
 public class LabeledIconComponent extends AbstractBaseCuiComponent implements TitleProvider {
@@ -73,9 +66,6 @@ public class LabeledIconComponent extends AbstractBaseCuiComponent implements Ti
     @Delegate
     private final IconAlignProvider iconAlignProvider;
 
-    /**
-     *
-     */
     public LabeledIconComponent() {
         super.setRendererType(BootstrapFamily.LABELED_ICON_COMPONENT_RENDERER);
         titleProvider = new TitleProviderImpl(this);
@@ -88,4 +78,6 @@ public class LabeledIconComponent extends AbstractBaseCuiComponent implements Ti
     public String getFamily() {
         return BootstrapFamily.COMPONENT_FAMILY;
     }
+
+
 }

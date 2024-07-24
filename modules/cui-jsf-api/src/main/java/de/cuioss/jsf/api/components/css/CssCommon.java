@@ -40,8 +40,4 @@ public enum CssCommon implements StyleClassProvider {
 
     private final String styleClass;
 
-    @Override
-    public StyleClassBuilder getStyleClassBuilder() {
-        return new StyleClassBuilderImpl(styleClass);
-    }
 }

@@ -46,8 +46,8 @@ class JsfHtmlComponentTest extends JsfEnabledTestEnvironment {
         assertNotNull(JsfHtmlComponent.createComponent(getFacesContext(), JsfHtmlComponent.FORM));
         registerJsfHtmlComponentWithMockRenderer(JsfHtmlComponent.INPUT);
         assertNotNull(JsfHtmlComponent.createComponent(getFacesContext(), JsfHtmlComponent.INPUT));
-        registerJsfHtmlComponentWithMockRenderer(JsfHtmlComponent.HTMLINPUT);
-        assertNotNull(JsfHtmlComponent.createComponent(getFacesContext(), JsfHtmlComponent.HTMLINPUT));
+        registerJsfHtmlComponentWithMockRenderer(JsfHtmlComponent.HTML_INPUT);
+        assertNotNull(JsfHtmlComponent.createComponent(getFacesContext(), JsfHtmlComponent.HTML_INPUT));
         registerJsfHtmlComponentWithMockRenderer(JsfHtmlComponent.PANEL_GROUP);
         assertNotNull(JsfHtmlComponent.createComponent(getFacesContext(), JsfHtmlComponent.PANEL_GROUP));
         registerJsfHtmlComponentWithMockRenderer(JsfHtmlComponent.SPAN);
@@ -73,8 +73,8 @@ class JsfHtmlComponentTest extends JsfEnabledTestEnvironment {
         assertNotNull(JsfHtmlComponent.createRenderer(getFacesContext(), JsfHtmlComponent.FORM));
         registerJsfHtmlComponentWithMockRenderer(JsfHtmlComponent.INPUT);
         assertNotNull(JsfHtmlComponent.createRenderer(getFacesContext(), JsfHtmlComponent.INPUT));
-        registerJsfHtmlComponentWithMockRenderer(JsfHtmlComponent.HTMLINPUT);
-        assertNotNull(JsfHtmlComponent.createRenderer(getFacesContext(), JsfHtmlComponent.HTMLINPUT));
+        registerJsfHtmlComponentWithMockRenderer(JsfHtmlComponent.HTML_INPUT);
+        assertNotNull(JsfHtmlComponent.createRenderer(getFacesContext(), JsfHtmlComponent.HTML_INPUT));
         registerJsfHtmlComponentWithMockRenderer(JsfHtmlComponent.PANEL_GROUP);
         assertNotNull(JsfHtmlComponent.createRenderer(getFacesContext(), JsfHtmlComponent.PANEL_GROUP));
         registerJsfHtmlComponentWithMockRenderer(JsfHtmlComponent.SPAN);

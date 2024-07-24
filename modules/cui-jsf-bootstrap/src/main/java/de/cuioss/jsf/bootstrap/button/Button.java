@@ -15,7 +15,12 @@
  */
 package de.cuioss.jsf.bootstrap.button;
 
-import static de.cuioss.tools.string.MoreStrings.isEmpty;
+import de.cuioss.jsf.api.components.css.AlignHolder;
+import de.cuioss.jsf.api.components.myfaces.MyFacesDelegateStyleClassAdapter;
+import de.cuioss.jsf.api.components.myfaces.MyFacesDelegateTitleAdapter;
+import de.cuioss.jsf.api.components.partial.*;
+import de.cuioss.jsf.bootstrap.BootstrapFamily;
+import lombok.experimental.Delegate;
 
 import javax.faces.component.FacesComponent;
 import javax.faces.component.StateHelper;
@@ -25,26 +30,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PreRenderComponentEvent;
-
-import org.omnifaces.util.State;
-
-import de.cuioss.jsf.api.components.css.AlignHolder;
-import de.cuioss.jsf.api.components.html.AttributeValue;
-import de.cuioss.jsf.api.components.partial.ComponentBridge;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProviderImpl;
-import de.cuioss.jsf.api.components.partial.ContextSizeProvider;
-import de.cuioss.jsf.api.components.partial.ContextStateProvider;
-import de.cuioss.jsf.api.components.partial.IconAlignProvider;
-import de.cuioss.jsf.api.components.partial.IconProvider;
-import de.cuioss.jsf.api.components.partial.LabelProvider;
-import de.cuioss.jsf.api.components.partial.TitleProvider;
-import de.cuioss.jsf.api.components.partial.TitleProviderImpl;
-import de.cuioss.jsf.bootstrap.BootstrapFamily;
-import de.cuioss.jsf.bootstrap.CssBootstrap;
-import de.cuioss.jsf.bootstrap.button.support.ButtonSize;
-import de.cuioss.jsf.bootstrap.button.support.ButtonState;
-import lombok.experimental.Delegate;
 
 /**
  * <p>
@@ -61,22 +46,17 @@ import lombok.experimental.Delegate;
  * <li>{@link IconProvider}</li>
  * <li>{@link IconAlignProvider}</li>
  * <li>{@link LabelProvider}</li>
+ * <li>{@link KeyBindingProvider}</li>
  * <li>All attributes from {@link HtmlOutcomeTargetButton}</li>
- * <li>keyBinding: The key-binding for this button, aka keyboard shortcut. The
- * key will be bound as onClickHandler. Caution: The implementor must ensure
- * that there is only one button for the same type existent per page, otherwise
- * the behavior is non-deterministic.</li>
  * </ul>
  *
  * @author Oliver Wolff
- *
  */
 @FacesComponent(BootstrapFamily.BUTTON_COMPONENT)
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
-public class Button extends HtmlOutcomeTargetButton implements ComponentBridge, TitleProvider {
+public class Button extends HtmlOutcomeTargetButton implements ComponentBridge, TitleProvider, MyFacesDelegateStyleClassAdapter, MyFacesDelegateTitleAdapter {
 
-    private static final String KEY_BINDING_KEY = "keyBinding";
 
     @Delegate
     private final TitleProvider titleProvider;
@@ -96,9 +76,12 @@ public class Button extends HtmlOutcomeTargetButton implements ComponentBridge, 
     @Delegate
     private final LabelProvider labelProvider;
 
+    @Delegate
+    private final KeyBindingProvider keyBindingProvider;
+
+    @Delegate
     private final ComponentStyleClassProvider styleClassProvider;
 
-    private final State state;
 
     /**
      * Constructor.
@@ -112,28 +95,15 @@ public class Button extends HtmlOutcomeTargetButton implements ComponentBridge, 
         labelProvider = new LabelProvider(this);
         styleClassProvider = new ComponentStyleClassProviderImpl(this);
         iconAlignProvider = new IconAlignProvider(this);
-        state = new State(getStateHelper());
-    }
-
-    @Override
-    public String getStyleClass() {
-        return CssBootstrap.BUTTON.getStyleClassBuilder()
-                .append(ButtonState.getForContextState(contextStateProvider.getState()))
-                .append(ButtonSize.getForContextSize(contextSizeProvider.resolveContextSize()))
-                .append(styleClassProvider).getStyleClass();
+        keyBindingProvider = new KeyBindingProvider(this);
     }
 
     @Override
     public void processEvent(final ComponentSystemEvent event) {
-        if (event instanceof PreRenderComponentEvent && !isEmpty(getKeyBinding())) {
-            getPassThroughAttributes().put(AttributeValue.CUI_CLICK_BINDING.getContent(), getKeyBinding());
+        if (event instanceof PreRenderComponentEvent) {
+            keyBindingProvider.writeBindingToPassThroughAttributes(this);
         }
         super.processEvent(event);
-    }
-
-    @Override
-    public void setStyleClass(final String styleClass) {
-        styleClassProvider.setStyleClass(styleClass);
     }
 
     @Override
@@ -173,7 +143,7 @@ public class Button extends HtmlOutcomeTargetButton implements ComponentBridge, 
 
     /**
      * @return boolean indicating whether to display an icon on the right side of
-     *         the button text
+     * the button text
      */
     public boolean isDisplayIconRight() {
         return iconProvider.isIconSet() && AlignHolder.RIGHT.equals(iconAlignProvider.resolveIconAlign());
@@ -181,24 +151,10 @@ public class Button extends HtmlOutcomeTargetButton implements ComponentBridge, 
 
     /**
      * @return boolean indicating whether to display an icon on the left side of the
-     *         button text
+     * button text
      */
     public boolean isDisplayIconLeft() {
         return iconProvider.isIconSet() && !AlignHolder.RIGHT.equals(iconAlignProvider.resolveIconAlign());
-    }
-
-    /**
-     * @param keyBinding
-     */
-    public void setKeyBinding(final String keyBinding) {
-        state.put(KEY_BINDING_KEY, keyBinding);
-    }
-
-    /**
-     * @return the keyBinding
-     */
-    public String getKeyBinding() {
-        return state.get(KEY_BINDING_KEY);
     }
 
     /**
@@ -208,7 +164,17 @@ public class Button extends HtmlOutcomeTargetButton implements ComponentBridge, 
      * @param facesContext must not be null
      * @return concrete instance of {@link Button}
      */
-    public static final Button create(final FacesContext facesContext) {
+    public static Button create(final FacesContext facesContext) {
         return (Button) facesContext.getApplication().createComponent(BootstrapFamily.BUTTON_COMPONENT);
+    }
+
+    @Override
+    public void writeStyleClassToParent() {
+        super.setStyleClass(styleClassProvider.getStyleClass());
+    }
+
+    @Override
+    public void writeTitleToParent() {
+        super.setTitle(titleProvider.getTitle());
     }
 }

@@ -58,7 +58,7 @@ public class LabelResolver {
     private final String labelKey;
     private final Serializable labelValue;
     private final Object converter;
-    private final boolean strictMode;
+    private final Boolean strictMode;
 
     @Builder.Default
     private final boolean escape = true;
@@ -70,9 +70,9 @@ public class LabelResolver {
      * @return the resolved label.
      */
     public String resolve(final FacesContext context) {
-        if (strictMode && MoreStrings.isEmpty(labelKey) && null == labelValue) {
+        if (Boolean.TRUE.equals(strictMode) && MoreStrings.isEmpty(labelKey) && null == labelValue) {
             throw new IllegalStateException(
-                    "Neither labelvalue nor LabelKey is set. Either set it or use strictMode=false");
+                "Neither labelvalue nor LabelKey is set. Either set it or use strictMode=false");
         }
         if (null != labelValue) {
             Converter resolvedConverter = null;
@@ -88,7 +88,7 @@ public class LabelResolver {
             }
             if (null == resolvedConverter) {
                 throw new IllegalStateException(
-                        "Unable to determine converter for valueClass=" + labelValue.getClass());
+                    "Unable to determine converter for valueClass=" + labelValue.getClass());
             }
             DUMMY.setEscape(escape);
             return resolvedConverter.getAsString(context, DUMMY, labelValue);

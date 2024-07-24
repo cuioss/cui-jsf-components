@@ -15,11 +15,11 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
-import javax.faces.component.StateHelper;
-
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.api.ui.model.ToggleSwitch;
 import lombok.NonNull;
+
+import javax.faces.component.StateHelper;
 
 /**
  * <h2>Summary</h2>
@@ -54,19 +54,25 @@ import lombok.NonNull;
  */
 public class CollapseSwitchProvider {
 
-    /** The key for the {@link StateHelper} */
-    private static final String COLLAPSESWITCH_COLLAPSESWITCH_KEY = "collapseSwitch";
+    /**
+     * The key for the {@link StateHelper}
+     */
+    private static final String COLLAPSE_SWITCH_KEY = "collapseSwitch";
 
-    /** The key for the {@link StateHelper} */
-    private static final String COLLAPSESWITCH_COLLAPSED_KEY = "collapsed";
+    /**
+     * The key for the {@link StateHelper}
+     */
+    private static final String COLLAPSED_KEY = "collapsed";
 
-    /** The key for the {@link StateHelper} */
-    private static final String COLLAPSESWITCH_COLLAPSIBLE_KEY = "collapsible";
+    /**
+     * The key for the {@link StateHelper}
+     */
+    private static final String COLLAPSIBLE_KEY = "collapsible";
 
     private final CuiState state;
 
     /**
-     * @param componentBridge
+     * @param componentBridge must not be null
      */
     public CollapseSwitchProvider(@NonNull ComponentBridge componentBridge) {
         state = new CuiState(componentBridge.stateHelper());
@@ -76,7 +82,7 @@ public class CollapseSwitchProvider {
      * @param toggleSwitch the toggleSwitch to set
      */
     public void setCollapseSwitch(final ToggleSwitch toggleSwitch) {
-        state.put(COLLAPSESWITCH_COLLAPSESWITCH_KEY, toggleSwitch);
+        state.put(COLLAPSE_SWITCH_KEY, toggleSwitch);
     }
 
     /**
@@ -84,39 +90,39 @@ public class CollapseSwitchProvider {
      */
 
     public ToggleSwitch getCollapseSwitch() {
-        return state.get(COLLAPSESWITCH_COLLAPSESWITCH_KEY);
+        return state.get(COLLAPSE_SWITCH_KEY);
     }
 
     /**
      * @param collapsed the collapsed to set
      */
     public void setCollapsed(final boolean collapsed) {
-        state.put(COLLAPSESWITCH_COLLAPSED_KEY, collapsed);
+        state.put(COLLAPSED_KEY, collapsed);
     }
 
     /**
      * @return collapsed
      */
     public boolean isCollapsed() {
-        return state.getBoolean(COLLAPSESWITCH_COLLAPSED_KEY, false);
+        return state.getBoolean(COLLAPSED_KEY, false);
     }
 
     private Boolean hasCollapsed() {
-        return state.get(COLLAPSESWITCH_COLLAPSED_KEY);
+        return state.get(COLLAPSED_KEY);
     }
 
     /**
      * @param collapsible the collapsible to set
      */
     public void setCollapsible(final boolean collapsible) {
-        state.put(COLLAPSESWITCH_COLLAPSIBLE_KEY, collapsible);
+        state.put(COLLAPSIBLE_KEY, collapsible);
     }
 
     /**
      * @return collapsible
      */
     public boolean isCollapsible() {
-        return state.get(COLLAPSESWITCH_COLLAPSIBLE_KEY, true);
+        return state.get(COLLAPSIBLE_KEY, true);
     }
 
     /**
@@ -125,7 +131,7 @@ public class CollapseSwitchProvider {
      * the underlying state holder which can be either <code>collapseSwitch</code>
      * or <code>collapsed</code>.
      *
-     * @param collapsed
+     * @param collapsed to be set
      */
     public void setCollapsedState(final boolean collapsed) {
         final var toggleSwitch = getCollapseSwitch();

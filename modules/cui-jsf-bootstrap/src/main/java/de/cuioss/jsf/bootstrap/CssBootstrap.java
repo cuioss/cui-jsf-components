@@ -15,9 +15,7 @@
  */
 package de.cuioss.jsf.bootstrap;
 
-import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.css.StyleClassProvider;
-import de.cuioss.jsf.api.components.css.impl.StyleClassBuilderImpl;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +25,7 @@ import lombok.RequiredArgsConstructor;
  *
  * @author Oliver Wolff
  */
+@SuppressWarnings("LombokGetterMayBeUsed")
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum CssBootstrap implements StyleClassProvider {
 
@@ -57,7 +56,7 @@ public enum CssBootstrap implements StyleClassProvider {
     /** "collapse" CSS class indicating a collapsed element */
     COLLAPSE("collapse"),
 
-    /** "collpase in" CSS classes indicating an expanded element */
+    /** "collapse in" CSS classes indicating an expanded element */
     COLLAPSE_IN("collapse in"),
 
     /** "control-label". */
@@ -205,8 +204,4 @@ public enum CssBootstrap implements StyleClassProvider {
     @Getter
     private final String styleClass;
 
-    @Override
-    public StyleClassBuilder getStyleClassBuilder() {
-        return new StyleClassBuilderImpl(styleClass);
-    }
 }

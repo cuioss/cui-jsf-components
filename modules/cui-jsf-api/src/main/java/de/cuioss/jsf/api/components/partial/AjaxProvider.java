@@ -15,20 +15,19 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
-import static de.cuioss.tools.string.MoreStrings.isEmpty;
-import static javax.faces.component.search.SearchExpressionContext.createSearchExpressionContext;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.search.SearchExpressionContext;
-import javax.faces.component.search.SearchExpressionHandler;
-
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.tools.string.Joiner;
 import lombok.NonNull;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.search.SearchExpressionContext;
+import javax.faces.component.search.SearchExpressionHandler;
+import java.util.HashMap;
+import java.util.Map;
+
+import static de.cuioss.tools.string.MoreStrings.isEmpty;
+import static javax.faces.component.search.SearchExpressionContext.createSearchExpressionContext;
 
 /**
  * <h2>Summary</h2>
@@ -87,9 +86,9 @@ public class AjaxProvider {
     }
 
     /**
-     * @param dataPrefix to be set. If not set it defaults to "data-cui-ajax-"
+     * @param dataPrefix to be set. If not, set its defaults to "data-cui-ajax-"
      * @return instance of the current {@link AjaxProvider} in order to use it in a
-     *         fluent way.
+     * fluent way.
      */
     public AjaxProvider ajaxDataPrefix(String dataPrefix) {
         this.dataPrefix = dataPrefix;
@@ -99,7 +98,7 @@ public class AjaxProvider {
     /**
      * @param defaultProcess to be set
      * @return instance of the current {@link AjaxProvider} in order to use it in a
-     *         fluent way.
+     * fluent way.
      */
     public AjaxProvider ajaxDefaultProcess(String defaultProcess) {
         this.defaultProcess = defaultProcess;
@@ -109,7 +108,7 @@ public class AjaxProvider {
     /**
      * @param defaultUpdate to be set
      * @return instance of the current {@link AjaxProvider} in order to use it in a
-     *         fluent way.
+     * fluent way.
      */
     public AjaxProvider ajaxDefaultUpdate(String defaultUpdate) {
         this.defaultUpdate = defaultUpdate;
@@ -170,7 +169,7 @@ public class AjaxProvider {
     }
 
     private void addAllAttributes(String elementName, String elementIdentifier, SearchExpressionContext searchContext,
-            SearchExpressionHandler handler, Map<String, String> attributes) {
+                                  SearchExpressionHandler handler, Map<String, String> attributes) {
         var foundIds = handler.resolveClientIds(searchContext, elementIdentifier);
         if (!foundIds.isEmpty()) {
             attributes.put(dataPrefix + elementName, Joiner.on(' ').join(foundIds));

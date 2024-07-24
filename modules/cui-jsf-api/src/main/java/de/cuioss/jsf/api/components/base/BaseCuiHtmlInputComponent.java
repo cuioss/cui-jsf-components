@@ -15,17 +15,13 @@
  */
 package de.cuioss.jsf.api.components.base;
 
+import de.cuioss.jsf.api.components.partial.*;
+import lombok.experimental.Delegate;
+
 import javax.faces.component.StateHelper;
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
-
-import de.cuioss.jsf.api.components.partial.ComponentBridge;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProviderImpl;
-import de.cuioss.jsf.api.components.partial.StyleAttributeProvider;
-import de.cuioss.jsf.api.components.partial.StyleAttributeProviderImpl;
-import lombok.experimental.Delegate;
 
 /**
  * Minimal super-set for cui-based components that are at least

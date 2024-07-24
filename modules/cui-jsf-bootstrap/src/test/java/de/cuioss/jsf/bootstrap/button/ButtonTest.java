@@ -15,17 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.button;
 
-import static de.cuioss.jsf.bootstrap.CssBootstrap.BUTTON;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import javax.faces.event.PreRenderComponentEvent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.css.AlignHolder;
 import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
@@ -34,22 +23,17 @@ import de.cuioss.test.generator.Generators;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "icon", "size", "state", "titleKey", "titleValue", "iconAlign", "keyBinding" })
+import javax.faces.event.PreRenderComponentEvent;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@VerifyComponentProperties(of = {"icon", "size", "state", "titleKey", "titleValue", "iconAlign", "keyBinding", "styleClass"})
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class ButtonTest extends AbstractComponentTest<Button> {
 
     private static final String KEY_BINDING = AttributeValue.CUI_CLICK_BINDING.getContent();
-
-    @Test
-    void shouldHandleStyleClass() {
-        var component = anyComponent();
-        var expected = BUTTON.getStyleClass() + " btn-default";
-        assertEquals(expected, component.getStyleClass());
-        var custom = "custom";
-        component.setStyleClass(custom);
-        assertEquals(expected + " " + custom, component.getStyleClass());
-    }
 
     @Test
     void shouldProvideCorrectMetadata() {

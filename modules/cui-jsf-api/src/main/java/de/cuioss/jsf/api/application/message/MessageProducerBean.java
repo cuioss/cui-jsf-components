@@ -1,7 +1,11 @@
 package de.cuioss.jsf.api.application.message;
 
-import java.text.MessageFormat;
-import java.util.MissingResourceException;
+import de.cuioss.portal.common.bundle.ResourceBundleWrapper;
+import de.cuioss.portal.common.priority.PortalPriorities;
+import de.cuioss.tools.collect.MoreCollections;
+import de.cuioss.tools.string.TextSplitter;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.annotation.Priority;
 import javax.enterprise.context.RequestScoped;
@@ -10,13 +14,9 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Provider;
-
-import de.cuioss.portal.common.bundle.ResourceBundleWrapper;
-import de.cuioss.portal.common.priority.PortalPriorities;
-import de.cuioss.tools.collect.MoreCollections;
-import de.cuioss.tools.string.TextSplitter;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import java.io.Serial;
+import java.text.MessageFormat;
+import java.util.MissingResourceException;
 
 /**
  * Portal version of MessageProducer.
@@ -38,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class MessageProducerBean implements MessageProducer {
 
-    private static final int ABBRIDGE_SIZE = 256;
+    private static final int ABRIDGED_SIZE = 256;
 
     private static final int FORCE_BREAK_COUNT = 35;
 
@@ -47,6 +47,7 @@ public class MessageProducerBean implements MessageProducer {
      */
     public static final String MISSING_KEY_PREFIX = "Missing key : ";
 
+    @Serial
     private static final long serialVersionUID = 4405826619024002836L;
 
     @Inject
@@ -62,7 +63,7 @@ public class MessageProducerBean implements MessageProducer {
             if (parameter.length > 0) {
                 resultingMessage = MessageFormat.format(resultingMessage, parameter);
             }
-            var splitter = new TextSplitter(resultingMessage, FORCE_BREAK_COUNT, ABBRIDGE_SIZE);
+            var splitter = new TextSplitter(resultingMessage, FORCE_BREAK_COUNT, ABRIDGED_SIZE);
             var cleaned = splitter.getTextWithEnforcedLineBreaks();
             return new FacesMessage(severity, cleaned, cleaned);
         } catch (final MissingResourceException e) {
@@ -72,9 +73,9 @@ public class MessageProducerBean implements MessageProducer {
     }
 
     @Override
-    public void setFacesMessage(final String messagekey, final Severity severity, final String componentId,
-            final Object... parameter) {
-        facesContextProvider.get().addMessage(componentId, getMessageFor(messagekey, severity, parameter));
+    public void setFacesMessage(final String messageKey, final Severity severity, final String componentId,
+                                final Object... parameter) {
+        facesContextProvider.get().addMessage(componentId, getMessageFor(messageKey, severity, parameter));
     }
 
     @Override
@@ -83,7 +84,7 @@ public class MessageProducerBean implements MessageProducer {
         if (!MoreCollections.isEmpty(parameter)) {
             resultingMessage = MessageFormat.format(resultingMessage, parameter);
         }
-        var splitter = new TextSplitter(resultingMessage, FORCE_BREAK_COUNT, ABBRIDGE_SIZE);
+        var splitter = new TextSplitter(resultingMessage, FORCE_BREAK_COUNT, ABRIDGED_SIZE);
         var cleaned = splitter.getTextWithEnforcedLineBreaks();
         facesContextProvider.get().addMessage(componentId, new FacesMessage(severity, cleaned, cleaned));
     }

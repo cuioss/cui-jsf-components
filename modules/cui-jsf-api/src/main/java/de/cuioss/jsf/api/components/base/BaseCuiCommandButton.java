@@ -15,33 +15,33 @@
  */
 package de.cuioss.jsf.api.components.base;
 
+import de.cuioss.jsf.api.components.myfaces.MyFacesDelegateStyleClassAdapter;
+import de.cuioss.jsf.api.components.myfaces.MyFacesDelegateTitleAdapter;
+import de.cuioss.jsf.api.components.partial.*;
+import lombok.experimental.Delegate;
+
 import javax.faces.component.StateHelper;
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.context.FacesContext;
-
-import de.cuioss.jsf.api.components.partial.ComponentBridge;
-import de.cuioss.jsf.api.components.partial.TitleProvider;
-import de.cuioss.jsf.api.components.partial.TitleProviderImpl;
-import lombok.experimental.Delegate;
 
 /**
  * Base class for creating cui variants of {@link HtmlCommandButton}
  * implementing {@link ComponentBridge} and {@link TitleProvider}
  *
  * @author Oliver Wolff
- *
  */
-public class BaseCuiCommandButton extends HtmlCommandButton implements ComponentBridge, TitleProvider {
+public class BaseCuiCommandButton extends HtmlCommandButton implements ComponentBridge, TitleProvider, MyFacesDelegateStyleClassAdapter, MyFacesDelegateTitleAdapter {
 
     @Delegate
     private final TitleProvider titleProvider;
 
-    /**
-     *
-     */
+    @Delegate
+    private final ComponentStyleClassProvider styleClassProvider;
+
     public BaseCuiCommandButton() {
         titleProvider = new TitleProviderImpl(this);
+        styleClassProvider = new ComponentStyleClassProviderImpl(this);
     }
 
     @Override
@@ -64,4 +64,13 @@ public class BaseCuiCommandButton extends HtmlCommandButton implements Component
         return titleProvider.resolveTitle();
     }
 
+    @Override
+    public void writeStyleClassToParent() {
+        super.setStyleClass(styleClassProvider.getStyleClass());
+    }
+
+    @Override
+    public void writeTitleToParent() {
+        super.setTitle(titleProvider.getTitle());
+    }
 }

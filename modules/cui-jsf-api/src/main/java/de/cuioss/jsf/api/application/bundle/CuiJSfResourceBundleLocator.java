@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.api.application.bundle;
 
+import java.io.Serial;
 import java.util.Optional;
 
 import javax.annotation.Priority;
@@ -35,6 +36,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public class CuiJSfResourceBundleLocator implements ResourceBundleLocator {
 
+    @Serial
     private static final long serialVersionUID = -8478481710191113463L;
 
     private static final String PATH = "de.cuioss.jsf.api.l18n.messages";
