@@ -15,27 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.taginput;
 
-import static de.cuioss.jsf.bootstrap.selectize.Selectize.OPTION_VALUE_DEFAULT_WRAPPER;
-import static de.cuioss.jsf.bootstrap.selectize.Selectize.OPTION_VALUE_LABEL_KEY;
-import static de.cuioss.jsf.bootstrap.selectize.Selectize.OPTION_VALUE_VALUE_KEY;
-import static de.cuioss.tools.base.Preconditions.checkArgument;
-import static de.cuioss.tools.collect.CollectionLiterals.mutableSortedSet;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.stream.Collectors;
-
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.convert.Converter;
-import jakarta.faces.convert.ConverterException;
-
 import de.cuioss.jsf.api.common.accessor.LocaleAccessor;
 import de.cuioss.jsf.api.components.base.BaseCuiHtmlInputComponent;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
@@ -53,7 +32,19 @@ import de.cuioss.tools.string.Joiner;
 import de.cuioss.tools.string.MoreStrings;
 import de.cuioss.uimodel.model.conceptkey.AugmentationKeyConstans;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.ConverterException;
 import lombok.experimental.Delegate;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static de.cuioss.jsf.bootstrap.selectize.Selectize.*;
+import static de.cuioss.tools.base.Preconditions.checkArgument;
+import static de.cuioss.tools.collect.CollectionLiterals.mutableSortedSet;
 
 /**
  * <p>
@@ -90,6 +81,9 @@ import lombok.experimental.Delegate;
  */
 @FacesComponent(BootstrapFamily.TAG_INPUT_COMPONENT)
 @ResourceDependency(library = "javascript.enabler", name = "enabler.selectize.js", target = "head")
+@ResourceDependency(library = "thirdparty.selectize", name = "selectize.js", target = "head")
+@ResourceDependency(library = "thirdparty.selectize", name = "selectize.css", target = "head")
+@ResourceDependency(library = "thirdparty.selectize", name = "selectize.bootstrap5.css", target = "head")
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
 public class TagInputComponent extends BaseCuiHtmlInputComponent implements StyleClassResolver {
 
@@ -97,11 +91,15 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent implements Styl
 
     private static final Integer DEFAULT_MAX_ITEMS = 10;
 
-    /** Partial elements. */
+    /**
+     * Partial elements.
+     */
     @Delegate
     private final DisabledComponentProvider disabledProvider;
 
-    /** Component specific Keys. */
+    /**
+     * Component-specific Keys.
+     */
     private static final String SOURCE_SET_KEY = "sourceSet";
     private static final String CLIENT_CREATED_KEY = "clientCreated";
     private static final String USER_CREATE_TAGS_KEY = "letUserCreateTags";
@@ -258,8 +256,8 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent implements Styl
 
     /**
      * @return the {@link Set} of ConceptKeyType of
-     *         {@link TagHelper#getValueAsSet(Object...)} marked as undefined and
-     *         not part of {@link #getSourceSet()}.
+     * {@link TagHelper#getValueAsSet(Object...)} marked as undefined and
+     * not part of {@link #getSourceSet()}.
      */
     Set<ConceptKeyType> getUndefinedValues() {
         if (null == getValue()) {
@@ -301,7 +299,7 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent implements Styl
         }
 
         final var errorMessage = "value must be a java.util.Set of ConceptKeyType, but is: "
-                + value.getClass().getName();
+            + value.getClass().getName();
 
         checkArgument(value instanceof Set, errorMessage);
 
@@ -313,7 +311,7 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent implements Styl
 
     @Override
     protected Object getConvertedValue(final FacesContext context, final Object submittedValue)
-            throws ConverterException {
+        throws ConverterException {
         return new ConceptKeyStringConverter().getAsObject(context, this, (String) submittedValue);
     }
 
@@ -330,7 +328,7 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent implements Styl
         attributes.put(PassthroughAttributes.MAX_ITEMS, getMaxItems());
         attributes.put(PassthroughAttributes.DELIMITER, getDelimiter());
         attributes.put(PassthroughAttributes.WRAPPER_CLASS,
-                resolveStyleClass().append(OPTION_VALUE_DEFAULT_WRAPPER).getStyleClass());
+            resolveStyleClass().append(OPTION_VALUE_DEFAULT_WRAPPER).getStyleClass());
         attributes.put(PassthroughAttributes.REMOVE_BUTTON, isDisplayRemoveButton());
         attributes.put(PassthroughAttributes.PERSIST, Boolean.FALSE);
         attributes.put(PassthroughAttributes.OPTIONS, getOptions());

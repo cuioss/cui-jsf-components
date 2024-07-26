@@ -12,6 +12,9 @@
     <description>Bootstrap components, based on cui-api</description>
     <properties>
         <maven.jar.plugin.automatic.module.name>de.cuioss.jsf.bootstrap</maven.jar.plugin.automatic.module.name>
+        <version.webjar.bootstrap>5.3.3</version.webjar.bootstrap>
+        <version.webjar.bootstrap.popper>2.11.7</version.webjar.bootstrap.popper>
+        <version.webjar.selectize>0.15.2</version.webjar.selectize>
     </properties>
     <dependencies>
         <dependency>
@@ -31,4 +34,87 @@
             <artifactId>cui-jsf-test</artifactId>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <!-- Plugin to download and unpack the artifact -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.webjars</groupId>
+                                    <artifactId>bootstrap</artifactId>
+                                    <version>${version.webjar.bootstrap}</version>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/extracted</outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.webjars</groupId>
+                                    <artifactId>popper.js</artifactId>
+                                    <version>${version.webjar.bootstrap.popper}</version>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/extracted</outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.webjars</groupId>
+                                    <artifactId>selectize.js</artifactId>
+                                    <version>${version.webjar.selectize}</version>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/extracted</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <target>
+                                <copy todir="${project.build.directory}/classes/META-INF/resources/thirdparty/bootstrap"
+                                      flatten="true">
+                                    <fileset dir="${project.build.directory}/extracted">
+                                        <include name="**/bootstrap*.js"/>
+                                        <include name="**/popper.js"/>
+                                        <include name="**/popper.min.js"/>
+                                    </fileset>
+                                </copy>
+                                <!-- Consider moving to cui-jsf-bootstrap-css -->
+                                <copy todir="${project.build.directory}/classes/META-INF/resources/thirdparty/selectize"
+                                      flatten="true">
+                                    <fileset dir="${project.build.directory}/extracted">
+                                        <include name="**/selectize*.js"/>
+                                        <include name="**/selectize.css"/>
+                                        <include name="**/selectize.bootstrap5.css"/>
+                                    </fileset>
+                                </copy>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
 </project>

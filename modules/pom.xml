@@ -96,11 +96,6 @@
             <groupId>org.omnifaces</groupId>
             <artifactId>omnifaces</artifactId>
         </dependency>
-        <dependency>
-            <!-- For omnifaces -->
-            <groupId>jakarta.websocket</groupId>
-            <artifactId>jakarta.websocket-api</artifactId>
-        </dependency>
         <!-- Test-->
         <dependency>
             <groupId>de.cuioss.test</groupId>
