@@ -88,7 +88,7 @@
                         <phase>process-resources</phase>
                         <configuration>
                             <target>
-                                <copy todir="${project.build.directory}/classes/META-INF/resources/thirdparty/js"
+                                <copy todir="${project.build.directory}/classes/META-INF/resources/thirdparty.js"
                                       flatten="true">
                                     <fileset dir="${project.build.directory}/extracted">
                                         <include name="**/bootstrap*.js"/>
@@ -97,7 +97,7 @@
                                     </fileset>
                                 </copy>
                                 <!-- Consider moving to cui-jsf-bootstrap-css -->
-                                <copy todir="${project.build.directory}/classes/META-INF/resources/thirdparty/js"
+                                <copy todir="${project.build.directory}/classes/META-INF/resources/thirdparty.js"
                                       flatten="true">
                                     <fileset dir="${project.build.directory}/extracted">
                                         <include name="**/selectize*.js"/>
