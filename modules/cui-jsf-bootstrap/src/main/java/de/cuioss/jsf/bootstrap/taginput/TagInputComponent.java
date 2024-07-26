@@ -81,9 +81,9 @@ import static de.cuioss.tools.collect.CollectionLiterals.mutableSortedSet;
  */
 @FacesComponent(BootstrapFamily.TAG_INPUT_COMPONENT)
 @ResourceDependency(library = "javascript.enabler", name = "enabler.selectize.js", target = "head")
-@ResourceDependency(library = "thirdparty.selectize", name = "selectize.js", target = "head")
-@ResourceDependency(library = "thirdparty.selectize", name = "selectize.css", target = "head")
-@ResourceDependency(library = "thirdparty.selectize", name = "selectize.bootstrap5.css", target = "head")
+@ResourceDependency(library = "thirdparty.js", name = "selectize.js", target = "head")
+@ResourceDependency(library = "thirdparty.js", name = "selectize.css", target = "head")
+@ResourceDependency(library = "thirdparty.js", name = "selectize.bootstrap5.css", target = "head")
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
 public class TagInputComponent extends BaseCuiHtmlInputComponent implements StyleClassResolver {
 
