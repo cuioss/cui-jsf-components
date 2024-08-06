@@ -50,7 +50,8 @@ import lombok.ToString;
  */
 @RequestScoped
 @EqualsAndHashCode(callSuper = false)
-@ToString(callSuper = false)
+@ToString
+@SuppressWarnings("java:S5960") // Assertions are intended to be used in test code. This is test code.
 public class MessageProducerMock implements MessageProducer {
 
     private static final CuiLogger log = new CuiLogger(MessageProducerMock.class);
