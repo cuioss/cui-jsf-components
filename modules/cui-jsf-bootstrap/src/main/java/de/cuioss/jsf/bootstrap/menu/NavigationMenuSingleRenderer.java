@@ -40,8 +40,8 @@ import lombok.NoArgsConstructor;
  * <h2>HTML structure</h2>
  *
  * <pre>
- * &lt;li&gt;
- *   &lt;a href="outcome"&gt;
+ * &lt;li class="nav-item"&gt;
+ *   &lt;a class="nav-link" href="outcome"&gt;
  *     &lt;span class="cui-icon cui-icon-tag"/&gt;
  *     &lt;span&gt;label&lt;/span&gt;
  *   &lt;/a&gt;
@@ -53,14 +53,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class NavigationMenuSingleRenderer {
 
-    /**
-     * @param context
-     * @param writer
-     * @param model
-     * @param component
-     * @param idExtension
-     * @throws IOException
-     */
     static void render(final FacesContext context, final DecoratingResponseWriter<NavigationMenuComponent> writer,
             final NavigationMenuItemSingle model, final NavigationMenuComponent component, final String idExtension)
             throws IOException {
@@ -72,7 +64,7 @@ public class NavigationMenuSingleRenderer {
         writer.withClientId(idExtension);
         writer.withPassThroughAttributes();
         writer.withAttributeStyle(component.getStyle());
-        writer.withStyleClass(component.getStyleClassBuilder());
+        writer.withStyleClass(component.getStyleClassBuilder().append("nav-item"));
         if (model.isActive()) {
             writer.withAttribute(AttributeName.DATA_ITEM_ACTIVE, Boolean.TRUE.toString());
         }
@@ -84,16 +76,17 @@ public class NavigationMenuSingleRenderer {
 
     private static void renderCmdLink(final FacesContext context, final NavigationMenuItemSingle model)
             throws IOException {
-        final var application = context.getApplication();
+        var application = context.getApplication();
 
-        final var commandLink = (HtmlOutcomeTargetLink) application
+        var commandLink = (HtmlOutcomeTargetLink) application
                 .createComponent(HtmlOutcomeTargetLink.COMPONENT_TYPE);
         commandLink.setOutcome(model.getOutcome());
         commandLink.setTarget(model.getTarget());
+        commandLink.setStyleClass(CssCuiBootstrap.CUI_NAVIGATION_MENU_LINK.getStyleClass());
 
         // Output params
         for (final Entry<String, String> current : model.getOutcomeParameter().entrySet()) {
-            final var param = new UIParameter();
+            var param = new UIParameter();
             param.setName(current.getKey());
             param.setValue(current.getValue());
             commandLink.getChildren().add(param);
@@ -106,13 +99,13 @@ public class NavigationMenuSingleRenderer {
 
         // Icon
         if (null != model.getIconStyleClass()) {
-            final var icon = (IconComponent) application.createComponent(BootstrapFamily.ICON_COMPONENT);
+            var icon = (IconComponent) application.createComponent(BootstrapFamily.ICON_COMPONENT);
             icon.setIcon(model.getIconStyleClass());
             commandLink.getChildren().add(icon);
         }
 
         // Label
-        final var outputText = (HtmlOutputText) application.createComponent(HtmlOutputText.COMPONENT_TYPE);
+        var outputText = (HtmlOutputText) application.createComponent(HtmlOutputText.COMPONENT_TYPE);
         outputText.setStyleClass(CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass());
         outputText.setValue(model.getResolvedLabel());
         commandLink.getChildren().add(outputText);
