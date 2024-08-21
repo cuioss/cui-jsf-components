@@ -40,8 +40,8 @@ import java.io.IOException;
  * <h2>HTML structure</h2>
  *
  * <pre>
- * &lt;li class="dropdown"&gt;
- *   &lt;a href="" class="dropdown-toggle" data-toggle="dropdown"&gt;
+ * &lt;li class="nav-item dropdown"&gt;
+ *   &lt;a href="" role="button" class="nav-link dropdown-toggle" data-toggle="dropdown"&gt;
  *     &lt;span class="cui-icon cui-icon-tag"/&gt;
  *     &lt;span&gt;label&lt;/span&gt;
  *     &lt;span class="cui-icon cui-icon-triangle_s"/&gt;
@@ -82,7 +82,9 @@ public class NavigationMenuContainerRenderer {
         writer.withClientId(idExtension);
         writer.withPassThroughAttributes();
         writer.withAttributeStyle(component.getStyle());
-        writer.withStyleClass(component.getStyleClassBuilder().append(CssBootstrap.LIST_DROPDOWN)
+        writer.withStyleClass(component.getStyleClassBuilder()
+            .append(CssBootstrap.NAVIGATION_MENU_ITEM)
+            .append(CssBootstrap.LIST_DROPDOWN)
             .appendIfTrue(CssBootstrap.LIST_DROP_DOWN_SUBMENU, parentIsContainer));
 
         if (model.isActive()) {
@@ -114,12 +116,13 @@ public class NavigationMenuContainerRenderer {
     private static void renderCmdLink(final FacesContext context, final NavigationMenuItemContainer model,
                                       final boolean parentIsContainer) throws IOException {
 
-        final var application = context.getApplication();
+        var application = context.getApplication();
 
-        final var commandLink = (HtmlOutcomeTargetLink) application
-            .createComponent(HtmlOutcomeTargetLink.COMPONENT_TYPE);
-        commandLink.setStyleClass(CssBootstrap.LIST_DROP_DOWN_TOGGLE.getStyleClass());
-        commandLink.getPassThroughAttributes().put("data-toggle", "dropdown");
+        var commandLink = (HtmlOutcomeTargetLink) application.createComponent(HtmlOutcomeTargetLink.COMPONENT_TYPE);
+        commandLink.setOutcome("#");
+        commandLink.setRole("button");
+        commandLink.setStyleClass(CssBootstrap.LIST_DROP_DOWN_TOGGLE.getStyleClassBuilder().append(CssBootstrap.NAVIGATION_MENU_LINK).getStyleClass());
+        commandLink.getPassThroughAttributes().put("data-bs-toggle", "dropdown");
 
         // Title
         if (model.isTitleAvailable()) {
@@ -128,19 +131,19 @@ public class NavigationMenuContainerRenderer {
 
         // Item Icon
         if (null != model.getIconStyleClass()) {
-            final var icon = (IconComponent) application.createComponent(BootstrapFamily.ICON_COMPONENT);
+            var icon = (IconComponent) application.createComponent(BootstrapFamily.ICON_COMPONENT);
             icon.setIcon(model.getIconStyleClass());
             commandLink.getChildren().add(icon);
         }
 
         // Label
-        final var outputText = (HtmlOutputText) application.createComponent(HtmlOutputText.COMPONENT_TYPE);
+        var outputText = (HtmlOutputText) application.createComponent(HtmlOutputText.COMPONENT_TYPE);
         outputText.setStyleClass(CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass());
         outputText.setValue(model.getResolvedLabel());
         commandLink.getChildren().add(outputText);
 
         // Collapse Icon
-        final var caret = (IconComponent) context.getApplication().createComponent(BootstrapFamily.ICON_COMPONENT);
+        var caret = (IconComponent) context.getApplication().createComponent(BootstrapFamily.ICON_COMPONENT);
         if (parentIsContainer) {
             caret.setIcon(ICON_SUB_MENU);
         } else {

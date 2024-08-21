@@ -133,9 +133,7 @@ public enum CssCuiBootstrap implements StyleClassProvider {
      */
     UI_HIDDEN_CONTAINER("ui-hidden-container"),
 
-    INPUT_HELP_TEXT_ACTION("input-help-text-action"),
-
-    CUI_NAVIGATION_MENU_LINK("nav-link");
+    INPUT_HELP_TEXT_ACTION("input-help-text-action");
 
     @Getter
     private final String styleClass;

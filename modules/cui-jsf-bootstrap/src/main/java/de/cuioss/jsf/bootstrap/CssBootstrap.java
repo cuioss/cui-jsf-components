@@ -101,6 +101,10 @@ public enum CssBootstrap implements StyleClassProvider {
     /** "input-group-btn" */
     INPUT_GROUP_BUTTON("input-group-btn"),
 
+    NAVIGATION_MENU_LINK("nav-link"),
+
+    NAVIGATION_MENU_ITEM("nav-item"),
+
     /** "divider" */
     LIST_DIVIDER("divider"),
 

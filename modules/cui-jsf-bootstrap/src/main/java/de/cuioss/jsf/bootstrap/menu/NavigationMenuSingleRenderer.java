@@ -15,24 +15,24 @@
  */
 package de.cuioss.jsf.bootstrap.menu;
 
-import java.io.IOException;
-import java.util.Map.Entry;
-
-import jakarta.faces.component.UIParameter;
-import jakarta.faces.component.html.HtmlOutcomeTargetLink;
-import jakarta.faces.component.html.HtmlOutputText;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.render.Renderer;
-
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSingle;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
+import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.jsf.bootstrap.icon.IconComponent;
+import jakarta.faces.component.UIParameter;
+import jakarta.faces.component.html.HtmlOutcomeTargetLink;
+import jakarta.faces.component.html.HtmlOutputText;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.Renderer;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+
+import java.io.IOException;
+import java.util.Map.Entry;
 
 /**
  * {@link Renderer} utility for the {@link NavigationMenuItemSingle} model.
@@ -64,7 +64,7 @@ public class NavigationMenuSingleRenderer {
         writer.withClientId(idExtension);
         writer.withPassThroughAttributes();
         writer.withAttributeStyle(component.getStyle());
-        writer.withStyleClass(component.getStyleClassBuilder().append("nav-item"));
+        writer.withStyleClass(component.getStyleClassBuilder().append(CssBootstrap.NAVIGATION_MENU_ITEM));
         if (model.isActive()) {
             writer.withAttribute(AttributeName.DATA_ITEM_ACTIVE, Boolean.TRUE.toString());
         }
@@ -82,7 +82,7 @@ public class NavigationMenuSingleRenderer {
                 .createComponent(HtmlOutcomeTargetLink.COMPONENT_TYPE);
         commandLink.setOutcome(model.getOutcome());
         commandLink.setTarget(model.getTarget());
-        commandLink.setStyleClass(CssCuiBootstrap.CUI_NAVIGATION_MENU_LINK.getStyleClass());
+        commandLink.setStyleClass(CssBootstrap.NAVIGATION_MENU_LINK.getStyleClass());
 
         // Output params
         for (final Entry<String, String> current : model.getOutcomeParameter().entrySet()) {

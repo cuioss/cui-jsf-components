@@ -50,7 +50,8 @@ import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
  * @author Sven Haag
  */
 @FacesComponent(BootstrapFamily.NAVIGATION_MENU_COMPONENT)
-@ResourceDependency(library = "javascript.enabler", name = "enabler.sub_menu.js", target = "head")
+//@ResourceDependency(library = "javascript.enabler", name = "enabler.sub_menu.js", target = "head")
+@ResourceDependency(library = "thirdparty.js", name = "popper.js", target = "head")
 public class NavigationMenuComponent extends AbstractBaseCuiComponent {
 
     private static final String MODEL_ITEMS_KEY = "modelItems";
