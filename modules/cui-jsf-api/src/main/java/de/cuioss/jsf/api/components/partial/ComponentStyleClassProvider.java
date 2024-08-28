@@ -30,7 +30,6 @@ import de.cuioss.jsf.api.components.css.StyleClassProvider;
  * Space-separated list of CSS style class(es) to be applied additionally when
  * this element is rendered.
  * </p>
- * <p>
  *
  * @author Oliver Wolff
  */

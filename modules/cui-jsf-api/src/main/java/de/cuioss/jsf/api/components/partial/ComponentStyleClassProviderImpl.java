@@ -18,13 +18,11 @@ package de.cuioss.jsf.api.components.partial;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.css.impl.StyleClassBuilderImpl;
 import de.cuioss.jsf.api.components.util.CuiState;
-import lombok.NonNull;
-
 import jakarta.faces.component.StateHelper;
+import lombok.NonNull;
 
 /**
  * Default implementation for {@link ComponentStyleClassProvider}
- * <p>
  *
  * @author Oliver Wolff
  */

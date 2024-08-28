@@ -11,16 +11,16 @@ import de.cuioss.jsf.api.components.partial.TitleProvider;
  * <em>This workaround is only necessary for cases, where the rendering is done by the concrete implementation (delegation).</em>
  * The Solution:
  * <ul>
- * <li>Use the standard-methods like {@link TitleProvider#setTitleKey(String)}  as usual</li>
- * <li>The {@link jakarta.faces.render.Renderer must call {@link TitleProvider#resolveAndStoreTitle()} </li>
+ * <li>Use the standard-methods like {@link TitleProvider#setTitleKey(String)} as usual</li>
+ * <li>The {@link jakarta.faces.render.Renderer must call {@link TitleProvider#resolveAndStoreTitle()}</li>
  * <li>Finally the {@link jakarta.faces.render.Renderer} must call {@link #writeTitleToParent()}</li>
- *  </ul>
+ * </ul>
  *  See {@link BaseCuiCommandButton} for usage
  */
 public interface MyFacesDelegateTitleAdapter {
 
     /**
-     * Writes the current style-class tot the parent
+     * Writes the current style-class to the parent
      */
     void writeTitleToParent();
 }
