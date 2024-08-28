@@ -15,26 +15,24 @@
  */
 package de.cuioss.jsf.test;
 
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
+import de.cuioss.test.jsf.producer.JsfObjectsProducer;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.view.ViewScoped;
+import org.jboss.weld.junit5.auto.ActivateScopes;
+import org.jboss.weld.junit5.auto.AddBeanClasses;
+import org.jboss.weld.junit5.auto.EnableAutoWeld;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import jakarta.enterprise.context.RequestScoped;
-import jakarta.enterprise.context.SessionScoped;
-import jakarta.faces.view.ViewScoped;
-
-import org.jboss.weld.junit5.auto.ActivateScopes;
-import org.jboss.weld.junit5.auto.AddBeanClasses;
-import org.jboss.weld.junit5.auto.EnableAutoWeld;
-
-import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
-import de.cuioss.test.jsf.producer.JsfObjectsProducer;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Using this annotations at type-level of a junit 5 test defines the basic
+ * Using this annotation at type-level of a junit 5 test defines the basic
  * infrastructure for creating unit-tests in the cui-jsf-components contexts. It
  * is a meta-annotation consisting of:
  *
@@ -42,13 +40,11 @@ import de.cuioss.test.jsf.producer.JsfObjectsProducer;
  * <li>{@link EnableAutoWeld}</li>
  * <li>{@link EnableJsfEnvironment}</li>
  * </ul>
- * <p>
  * <ul>
  * <li>{@link ProjectStageProducerMock}</li>
  * <li>{@link JsfObjectsProducer}</li>
  * </ul>
  * It explicitly activates the Scopes:
- * </p>
  * <ul>
  * <li>{@link RequestScoped}</li>
  * <li>{@link SessionScoped}</li>
@@ -62,7 +58,7 @@ import de.cuioss.test.jsf.producer.JsfObjectsProducer;
 @Target(TYPE)
 @EnableAutoWeld
 @EnableJsfEnvironment
-@ActivateScopes({ RequestScoped.class, SessionScoped.class, ViewScoped.class })
-@AddBeanClasses({ ProjectStageProducerMock.class, JsfObjectsProducer.class })
+@ActivateScopes({RequestScoped.class, SessionScoped.class, ViewScoped.class})
+@AddBeanClasses({ProjectStageProducerMock.class, JsfObjectsProducer.class})
 public @interface EnableJSFCDIEnvironment {
 }

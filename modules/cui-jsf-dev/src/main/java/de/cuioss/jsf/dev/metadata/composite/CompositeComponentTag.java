@@ -32,11 +32,6 @@ import java.util.Map;
 
 /**
  * Helper class for accessing Metadata of Composite components.
- * <p>
- * Inspired by
- * <a href="<a">href="http://weblogs.java.net/blog/edburns/archive/2009/09/02/jsf2-</a>composite">...</a>
- * -component-metadata
- * </p>
  *
  * @author e0571
  */
@@ -56,7 +51,7 @@ public final class CompositeComponentTag extends UINamingContainer {
     private BeanInfo metadata;
 
     /**
-     * Storage for the metadata object. not to be serialized.
+     * Storage for the metadata object. Not to be serialized.
      */
     private ComponentPropertiesWrapper componentPropertiesWrapper = new ComponentPropertiesWrapper();
 

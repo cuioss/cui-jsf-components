@@ -12,8 +12,8 @@ import de.cuioss.jsf.api.components.partial.TitleProvider;
  * The Solution:
  * <ul>
  * <li>Use the standard-methods like {@link TitleProvider#setTitleKey(String)} as usual</li>
- * <li>The {@link jakarta.faces.render.Renderer must call {@link TitleProvider#resolveAndStoreTitle()}</li>
- * <li>Finally the {@link jakarta.faces.render.Renderer} must call {@link #writeTitleToParent()}</li>
+ * <li>The {@link jakarta.faces.render.Renderer} must call {@link TitleProvider#resolveAndStoreTitle()}</li>
+ * <li>Finally, the {@link jakarta.faces.render.Renderer} must call {@link #writeTitleToParent()}</li>
  * </ul>
  *  See {@link BaseCuiCommandButton} for usage
  */
