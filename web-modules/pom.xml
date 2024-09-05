@@ -14,6 +14,7 @@
         javascript, css ...</description>
     <properties>
         <version.slf4j>2.0.7</version.slf4j>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
     </properties>
     <build>
         <resources>
