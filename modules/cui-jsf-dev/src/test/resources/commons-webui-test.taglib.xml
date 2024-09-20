@@ -83,7 +83,7 @@
 		<attribute>
 			<description>
 				The pattern utilized for date formatting. Defaults to "yyyy-MM-dd". See
-				&lt;a href="http://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormat.html"
+				&lt;a href="https://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormat.html"
 				&gt; Joda -Documentation&lt;a/&gt; for details.
 			</description>
 			<name>datePattern</name>
@@ -2418,7 +2418,7 @@
 	</tag>
 
     <tag>
-        <description>Render a &lt;a href=&quot;http://getbootstrap.com/javascript/#modals-examples&quot;&gt;Bootstrap Modal Dialog&lt;/a&gt;. Supported facets are header, body and footer.
+        <description>Render a &lt;a href=&quot;https://getbootstrap.com/javascript/#modals-examples&quot;&gt;Bootstrap Modal Dialog&lt;/a&gt;. Supported facets are header, body and footer.
         In case of the header it is also possible to use headerKey / headerValue. It's possible to use bodyKey /bodyValue as text content of body or some children elements.
         It's possible to use footerKey /footerValue as text content for footer.
         There are also different general styles available (state): one of 'primary', 'success', 'info', 'warning', 'danger'. If none of those is set it uses 'default'.

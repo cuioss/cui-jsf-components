@@ -114,8 +114,6 @@ public final class CompositeComponentTag extends UINamingContainer {
     }
 
     /**
-     * Return the BeanDescriptor for the component as a whole
-     *
      * @return the BeanDescriptor for the component as a whole
      */
     public BeanDescriptor getComponentDescriptor() {
@@ -123,8 +121,6 @@ public final class CompositeComponentTag extends UINamingContainer {
     }
 
     /**
-     * Return the PropertyDescriptors for the component as a whole
-     *
      * @return the PropertyDescriptors for the component as a whole
      */
     public ComponentPropertiesWrapper getPropertyDescriptors() {

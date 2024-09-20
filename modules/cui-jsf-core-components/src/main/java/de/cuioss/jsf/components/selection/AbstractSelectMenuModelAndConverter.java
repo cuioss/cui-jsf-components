@@ -175,7 +175,7 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
     }
 
     /**
-     * Insert a new value at a specific position in the drop down list.
+     * Insert a new value at a specific position in the dropdown list.
      *
      * @param position the position, e.g. 0 to set as first item.
      * @param newValue the new value.
@@ -187,7 +187,7 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
     /**
      * @param value
      *
-     * @return the label to display at the drop down list.
+     * @return the label to display at the dropdown list.
      */
     protected abstract String getLabel(T value);
 

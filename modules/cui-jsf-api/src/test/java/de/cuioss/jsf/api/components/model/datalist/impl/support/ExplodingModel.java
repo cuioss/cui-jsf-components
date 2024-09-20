@@ -24,18 +24,23 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ExplodingModel implements Serializable {
 
-    /**
-     *
-     */
     @Serial
     private static final long serialVersionUID = 1L;
+
     @Getter
     private final String name;
 
+    /**
+     * Throws a {@link RuntimeException}
+     */
+    @SuppressWarnings("CopyConstructorMissesField")
     public ExplodingModel(final ExplodingModel other) {
         throw new RuntimeException();
     }
 
+    /**
+     * Throws a {@link RuntimeException}
+     */
     public ExplodingModel() {
         throw new RuntimeException();
     }

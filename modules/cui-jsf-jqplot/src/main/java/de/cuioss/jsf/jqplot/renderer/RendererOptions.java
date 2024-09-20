@@ -42,20 +42,6 @@ public abstract class RendererOptions extends JsObject implements IPluginConsume
 
     private JsBoolean show;
 
-    /**
-     * wether or not to show the marker.
-     *
-     * @param value
-     * @return fluent api style
-     */
-    public RendererOptions setShow(final Boolean value) {
-        show = JsBoolean.create(value);
-        return this;
-    }
-
-    /**
-     *
-     */
     protected RendererOptions() {
         super("rendererOptions");
     }
@@ -65,6 +51,17 @@ public abstract class RendererOptions extends JsObject implements IPluginConsume
      */
     protected RendererOptions(final String objectName) {
         super(objectName);
+    }
+
+    /**
+     * weather or not to show the marker.
+     *
+     * @param value
+     * @return fluent api style
+     */
+    public RendererOptions setShow(final Boolean value) {
+        show = JsBoolean.create(value);
+        return this;
     }
 
     /**
