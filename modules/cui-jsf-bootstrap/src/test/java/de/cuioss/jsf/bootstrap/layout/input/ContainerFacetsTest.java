@@ -17,15 +17,20 @@ package de.cuioss.jsf.bootstrap.layout.input;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 class ContainerFacetsTest {
 
     @Test
     void shouldHandleValues() {
         for (ContainerFacets facet : ContainerFacets.values()) {
-            assertEquals(facet, ContainerFacets.parse(facet.getName()).get());
+            Optional<ContainerFacets> containerFacets = ContainerFacets.parse(facet.getName());
+            assertTrue(containerFacets.isPresent());
+            assertEquals(facet, containerFacets.get());
         }
     }
 

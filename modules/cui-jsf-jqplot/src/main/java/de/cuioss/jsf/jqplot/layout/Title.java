@@ -59,7 +59,7 @@ public class Title extends JsObject {
     private JsString text;
 
     /**
-     * wether or not to show the title
+     * weather or not to show the title
      */
     private JsBoolean show;
 
@@ -101,9 +101,6 @@ public class Title extends JsObject {
      */
     private JsBoolean escapeHtml;
 
-    /**
-     *
-     */
     public Title() {
         super(JS_OBJECT_NAME);
     }

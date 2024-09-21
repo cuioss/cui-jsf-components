@@ -15,7 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.layout.input;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -194,17 +193,17 @@ public class HelpTextComponent extends BaseCuiHtmlHiddenInputComponent implement
     }
 
     @Override
-    public void encodeChildren(FacesContext context) throws IOException {
+    public void encodeChildren(FacesContext context) {
         // do nothing
     }
 
     @Override
-    public void encodeBegin(FacesContext context) throws IOException {
+    public void encodeBegin(FacesContext context) {
         // do nothing
     }
 
     @Override
-    public void encodeEnd(FacesContext context) throws IOException {
+    public void encodeEnd(FacesContext context) {
         // do nothing
     }
 }

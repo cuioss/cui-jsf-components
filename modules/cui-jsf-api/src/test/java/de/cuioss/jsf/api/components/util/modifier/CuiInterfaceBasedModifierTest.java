@@ -33,7 +33,11 @@ class CuiInterfaceBasedModifierTest {
     @Test
     void shouldHandleTitleProvider() {
         UIComponent component = new TitleProviderImpl();
-        var modifier = CuiInterfaceBasedModifier.wrap(component).get();
+
+        var componentModifier = CuiInterfaceBasedModifier.wrap(component);
+
+        assertTrue(componentModifier.isPresent());
+        var modifier = componentModifier.get();
         assertContracts(modifier, component);
         assertFalse(modifier.isSupportsDisabled());
         assertFalse(modifier.isSupportsLabel());
@@ -46,7 +50,11 @@ class CuiInterfaceBasedModifierTest {
     @Test
     void shouldHandleStyleProvider() {
         UIComponent component = new StyleProvider();
-        var modifier = CuiInterfaceBasedModifier.wrap(component).get();
+
+        var componentModifier = CuiInterfaceBasedModifier.wrap(component);
+
+        assertTrue(componentModifier.isPresent());
+        var modifier = componentModifier.get();
         assertContracts(modifier, component);
         assertFalse(modifier.isSupportsDisabled());
         assertFalse(modifier.isSupportsLabel());
@@ -59,7 +67,11 @@ class CuiInterfaceBasedModifierTest {
     @Test
     void shouldHandleStyleClassProvider() {
         UIComponent component = new StyleClassProvider();
-        var modifier = CuiInterfaceBasedModifier.wrap(component).get();
+
+        var componentModifier = CuiInterfaceBasedModifier.wrap(component);
+
+        assertTrue(componentModifier.isPresent());
+        var modifier = componentModifier.get();
         assertContracts(modifier, component);
         assertFalse(modifier.isSupportsDisabled());
         assertFalse(modifier.isSupportsLabel());
