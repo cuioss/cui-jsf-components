@@ -48,11 +48,11 @@ jobs:
       # Actually we need to resolve it regarding https://maven.apache.org/plugins/maven-javadoc-plugin/examples/aggregate.html
       run: |
         git checkout -b release
-        mvn -B --no-transfer-progress -Prelease release:clean release:prepare -DreleaseVersion=${{steps.metadata.outputs.current-version}} -DdevelopmentVersion=${{steps.metadata.outputs.next-version}} -Dmaven.javadoc.skip=true
-        mvn -B --no-transfer-progress -Prelease site:site site:stage -Dmaven.javadoc.skip=true
+        ./mvnw -B --no-transfer-progress -Prelease release:clean release:prepare -DreleaseVersion=${{steps.metadata.outputs.current-version}} -DdevelopmentVersion=${{steps.metadata.outputs.next-version}} -Dmaven.javadoc.skip=true
+        ./mvnw -B --no-transfer-progress -Prelease site:site site:stage -Dmaven.javadoc.skip=true
         git checkout ${{vars.GITHUB_BASE_REF}}
         git rebase release
-        mvn -B --no-transfer-progress -Prelease release:perform -DskipTests -Dmaven.javadoc.skip=true
+        ./mvnw -B --no-transfer-progress -Prelease release:perform -DskipTests -Dmaven.javadoc.skip=true
       env:
         MAVEN_USERNAME: ${{ secrets.OSS_SONATYPE_USERNAME }}
         MAVEN_CENTRAL_TOKEN: ${{ secrets.OSS_SONATYPE_PASSWORD }}

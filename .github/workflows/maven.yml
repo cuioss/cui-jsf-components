@@ -30,7 +30,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven, Java ${{ matrix.version }}
-        run: mvn --no-transfer-progress package -Dmaven.compiler.source=${{ matrix.version }} -Dmaven.compiler.target=${{ matrix.version }}
+        run: ./mvnw --no-transfer-progress package -Dmaven.compiler.source=${{ matrix.version }} -Dmaven.compiler.target=${{ matrix.version }}
   sonar-build:
     needs: build
     runs-on: ubuntu-latest
@@ -66,7 +66,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify -Psonar -Dsonar.projectKey=${{steps.metadata.outputs.sonar-project-key}} sonar:sonar
+        run: ./mvnw -B verify -Psonar -Dsonar.projectKey=${{steps.metadata.outputs.sonar-project-key}} sonar:sonar
 
   deploy-snapshot:
     needs: sonar-build
@@ -88,15 +88,15 @@ jobs:
 
       - name: Extract project version
         id: project
-        run: echo ::set-output name=version::$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+        run: echo ::set-output name=version::$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
 
       - name: Deploy Snapshot with Maven, version ${{ steps.project.outputs.version }}
         if: ${{endsWith(steps.project.outputs.version, '-SNAPSHOT')}}
         # javadoc:aggregate -> Needs to be fixed: "Error: No source files for package de.cuioss.jsf.api.components.model"
         # Actually we need to resolve it regarding https://maven.apache.org/plugins/maven-javadoc-plugin/examples/aggregate.html
         run: |
-          mvn -B --no-transfer-progress -Prelease-snapshot install -Dmaven.javadoc.skip=true
-          mvn -B --no-transfer-progress -Prelease-snapshot deploy -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
+          ./mvnw -B --no-transfer-progress -Prelease-snapshot install -Dmaven.javadoc.skip=true
+          ./mvnw -B --no-transfer-progress -Prelease-snapshot deploy -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
         env:
           MAVEN_USERNAME: ${{ secrets.OSS_SONATYPE_USERNAME }}
           MAVEN_CENTRAL_TOKEN: ${{ secrets.OSS_SONATYPE_PASSWORD }}
