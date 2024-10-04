@@ -13,7 +13,7 @@ jobs:
     name: release
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         persist-credentials: false # otherwise, the token used is the PA_TOKEN, instead of your personal access token.
         fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
@@ -27,7 +27,7 @@ jobs:
         local-file: true
 
     - name: Set up JDK 17
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
@@ -48,11 +48,10 @@ jobs:
       # Actually we need to resolve it regarding https://maven.apache.org/plugins/maven-javadoc-plugin/examples/aggregate.html
       run: |
         git checkout -b release
-        ./mvnw -B --no-transfer-progress -Prelease release:clean release:prepare -DreleaseVersion=${{steps.metadata.outputs.current-version}} -DdevelopmentVersion=${{steps.metadata.outputs.next-version}} -Dmaven.javadoc.skip=true
-        ./mvnw -B --no-transfer-progress -Prelease site:site site:stage -Dmaven.javadoc.skip=true
+        ./mvnw -B --no-transfer-progress -Prelease,javadoc-mm-reporting release:clean release:prepare site:site site:stage -DreleaseVersion=${{steps.metadata.outputs.current-version}} -DdevelopmentVersion=${{steps.metadata.outputs.next-version}}
         git checkout ${{vars.GITHUB_BASE_REF}}
         git rebase release
-        ./mvnw -B --no-transfer-progress -Prelease release:perform -DskipTests -Dmaven.javadoc.skip=true
+        ./mvnw -B --no-transfer-progress -Prelease,javadoc-mm-reporting release:perform
       env:
         MAVEN_USERNAME: ${{ secrets.OSS_SONATYPE_USERNAME }}
         MAVEN_CENTRAL_TOKEN: ${{ secrets.OSS_SONATYPE_PASSWORD }}
@@ -68,14 +67,14 @@ jobs:
         token:  ${{ secrets.PAGES_DEPLOY_TOKEN }}
 #        
     - name: Push changes to ${{github.ref_name}}
-      uses: ad-m/github-push-action@v0.6.0
+      uses: ad-m/github-push-action@v0.8.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch:  ${{github.ref_name}}
         force: true
 
     - name: Push tag ${{steps.metadata.outputs.current-version}}
-      uses: ad-m/github-push-action@v0.6.0
+      uses: ad-m/github-push-action@v0.8.0
       with:
         branch:  ${{github.ref_name}}
         github_token: ${{ secrets.GITHUB_TOKEN }}
