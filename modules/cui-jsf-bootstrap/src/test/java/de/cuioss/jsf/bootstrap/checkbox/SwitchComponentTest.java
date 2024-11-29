@@ -18,7 +18,6 @@ package de.cuioss.jsf.bootstrap.checkbox;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableMap;
 import static org.junit.jupiter.api.Assertions.*;
 
-import de.cuioss.test.generator.domain.UUIDGenerator;
 import org.junit.jupiter.api.Test;
 
 import de.cuioss.jsf.bootstrap.BootstrapFamily;

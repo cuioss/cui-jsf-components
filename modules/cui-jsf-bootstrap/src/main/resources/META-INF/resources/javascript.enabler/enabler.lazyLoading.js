@@ -42,7 +42,7 @@ jQuery(document).ready(function () {
             if (updateString === "@none") {
                 return;
             }
-            F
+
             // split by "+" (urlencoded space)
             let updateStringSplit = updateString.split("+");
             for (const element of updateStringSplit) {

@@ -34,7 +34,7 @@ import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import de.cuioss.test.jsf.producer.JsfObjectsProducer;
 
 /**
- * Using this annotations at type-level of a junit 5 test defines the basic
+ * Using this annotation at type-level of a junit 5 test defines the basic
  * infrastructure for creating unit-tests in the cui-jsf-components contexts. It
  * is a meta-annotation consisting of:
  *
@@ -42,13 +42,11 @@ import de.cuioss.test.jsf.producer.JsfObjectsProducer;
  * <li>{@link EnableAutoWeld}</li>
  * <li>{@link EnableJsfEnvironment}</li>
  * </ul>
- * <p>
  * <ul>
  * <li>{@link ProjectStageProducerMock}</li>
  * <li>{@link JsfObjectsProducer}</li>
  * </ul>
  * It explicitly activates the Scopes:
- * </p>
  * <ul>
  * <li>{@link RequestScoped}</li>
  * <li>{@link SessionScoped}</li>
