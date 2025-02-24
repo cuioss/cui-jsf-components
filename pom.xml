@@ -33,7 +33,7 @@
         <version.cui.parent>0.8.6</version.cui.parent>
         <!-- Needed for js / css -->
         <version.nodejs>v20.11.1</version.nodejs>
-        <version.cui.portal.core>1.1.0</version.cui.portal.core>
+        <version.cui.portal.core>1.2.0</version.cui.portal.core>
     </properties>
     <modules>
         <module>bom</module>
