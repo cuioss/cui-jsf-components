@@ -30,7 +30,7 @@
         <system>GitHub Issues</system>
     </issueManagement>
     <properties>
-        <version.cui.parent>0.8.6</version.cui.parent>
+        <version.cui.parent>0.9.1</version.cui.parent>
         <!-- Needed for js / css -->
         <version.nodejs>v20.11.1</version.nodejs>
         <version.cui.portal.core>1.1.0</version.cui.portal.core>
