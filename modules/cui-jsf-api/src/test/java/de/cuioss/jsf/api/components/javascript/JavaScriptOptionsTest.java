@@ -19,11 +19,11 @@ import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.junit.jupiter.api.Test;
 
 class JavaScriptOptionsTest {
 

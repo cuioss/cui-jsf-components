@@ -18,9 +18,9 @@ package de.cuioss.jsf.api.components.partial;
 import de.cuioss.jsf.api.components.support.LabelResolver;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.tools.string.MoreStrings;
+import jakarta.faces.component.StateHelper;
 import lombok.NonNull;
 
-import jakarta.faces.component.StateHelper;
 import java.io.Serializable;
 
 /**
@@ -127,7 +127,7 @@ public class TitleProviderImpl implements TitleProvider {
             return null;
         }
         return LabelResolver.builder().withLabelKey(labelKey).withStrictMode(false).withConverter(getTitleConverter())
-            .withLabelValue(labelValue).build().resolve(componentBridge.facesContext());
+                .withLabelValue(labelValue).build().resolve(componentBridge.facesContext());
     }
 
     @Override
@@ -143,7 +143,7 @@ public class TitleProviderImpl implements TitleProvider {
     @Override
     public void setTitle(final String title) {
         throw new UnsupportedOperationException(componentBridge.getClass().getCanonicalName()
-            + " wrong usage detected. Use setTitleKey() or setTitleValue(Serializable) instead.");
+                + " wrong usage detected. Use setTitleKey() or setTitleValue(Serializable) instead.");
     }
 
     @Override

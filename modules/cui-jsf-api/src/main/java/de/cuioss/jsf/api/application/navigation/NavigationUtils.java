@@ -22,27 +22,25 @@ import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
 import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
 import static java.util.Objects.requireNonNull;
 
-import java.io.IOException;
-import java.io.Serial;
-import java.io.Serializable;
-import java.net.URL;
-import java.util.Collections;
-import java.util.List;
-
+import de.cuioss.jsf.api.common.view.ViewDescriptor;
+import de.cuioss.jsf.api.common.view.ViewDescriptorImpl;
+import de.cuioss.jsf.api.servlet.ServletAdapterUtil;
+import de.cuioss.tools.logging.CuiLogger;
+import de.cuioss.tools.net.UrlParameter;
 import jakarta.faces.application.ConfigurableNavigationHandler;
 import jakarta.faces.application.NavigationCase;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.servlet.http.HttpServletRequest;
-
 import org.omnifaces.util.Servlets;
 
-import de.cuioss.jsf.api.common.view.ViewDescriptor;
-import de.cuioss.jsf.api.common.view.ViewDescriptorImpl;
-import de.cuioss.jsf.api.servlet.ServletAdapterUtil;
-import de.cuioss.tools.logging.CuiLogger;
-import de.cuioss.tools.net.UrlParameter;
+import java.io.IOException;
+import java.io.Serial;
+import java.io.Serializable;
+import java.net.URL;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Class provides navigation utilities.<br>
@@ -184,7 +182,7 @@ public final class NavigationUtils implements Serializable {
         if (!response.isCommitted()) {
 
             final var fullUrl = response.encodeRedirectURL(getRequest(facesContext).getContextPath()) +
-                handleViewIdSuffix(url) + createParameterString(encode, parameters);
+                    handleViewIdSuffix(url) + createParameterString(encode, parameters);
 
             redirect(facesContext, fullUrl);
         } else if (log.isWarnEnabled()) {

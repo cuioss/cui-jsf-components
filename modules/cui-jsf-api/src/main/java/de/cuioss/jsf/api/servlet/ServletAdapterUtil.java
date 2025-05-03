@@ -18,16 +18,15 @@ package de.cuioss.jsf.api.servlet;
 import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
 import static java.util.Objects.requireNonNull;
 
-import java.util.Map;
-import java.util.Optional;
-
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import lombok.experimental.UtilityClass;
+
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Utility class, introducing functionality not covered within

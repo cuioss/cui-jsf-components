@@ -15,10 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.icon;
 
-import jakarta.faces.component.UIComponent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.css.AlignHolder;
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
@@ -28,6 +24,8 @@ import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
+import jakarta.faces.component.UIComponent;
+import org.junit.jupiter.api.Test;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class LabeledIconRendererTest extends AbstractComponentRendererTest<LabeledIconRenderer> {

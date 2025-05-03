@@ -95,7 +95,7 @@ public abstract class JsObject implements JavaScriptSupport {
         }
 
         return objectName + ": {" + stringRepresentation +
-            "}";
+                "}";
     }
 
     protected String createAsJSONObjectWithoutName() {

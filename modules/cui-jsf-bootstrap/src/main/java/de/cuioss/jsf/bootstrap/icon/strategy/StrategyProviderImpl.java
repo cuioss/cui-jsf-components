@@ -18,16 +18,16 @@ package de.cuioss.jsf.bootstrap.icon.strategy;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableMap;
 import static java.util.Objects.requireNonNull;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-
 import de.cuioss.tools.base.Preconditions;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Strategy Provider Implementation. Furthermore StrategyProviderImpl provide a

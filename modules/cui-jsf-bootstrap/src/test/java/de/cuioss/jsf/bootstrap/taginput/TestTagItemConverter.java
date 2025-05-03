@@ -15,12 +15,11 @@
  */
 package de.cuioss.jsf.bootstrap.taginput;
 
+import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.FacesConverter;
-
-import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 
 @FacesConverter(TestTagItemConverter.ID)
 public class TestTagItemConverter implements Converter<ConceptKeyType> {

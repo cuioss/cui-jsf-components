@@ -17,10 +17,9 @@ package de.cuioss.jsf.api.components.util.modifier.support;
 
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
+import jakarta.faces.component.UIComponentBase;
 import lombok.Getter;
 import lombok.Setter;
-
-import jakarta.faces.component.UIComponentBase;
 
 public class StyleClassProvider extends UIComponentBase implements ComponentStyleClassProvider {
 

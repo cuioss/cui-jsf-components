@@ -15,10 +15,10 @@
  */
 package de.cuioss.jsf.dev.metadata.model;
 
+import lombok.Data;
+
 import java.io.Serial;
 import java.io.Serializable;
-
-import lombok.Data;
 
 /**
  * Represents an Attribute on a component.

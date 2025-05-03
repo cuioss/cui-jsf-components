@@ -15,17 +15,16 @@
  */
 package de.cuioss.jsf.bootstrap.layout;
 
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.component.StateHelper;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.html.HtmlOutputLabel;
-import jakarta.faces.context.FacesContext;
-
 import de.cuioss.jsf.api.components.partial.ComponentBridge;
 import de.cuioss.jsf.api.components.partial.LabelProvider;
 import de.cuioss.jsf.api.components.partial.TitleProvider;
 import de.cuioss.jsf.api.components.partial.TitleProviderImpl;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlOutputLabel;
+import jakarta.faces.context.FacesContext;
 import lombok.experimental.Delegate;
 
 /**

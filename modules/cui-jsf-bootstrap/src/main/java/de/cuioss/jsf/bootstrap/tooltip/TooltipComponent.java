@@ -18,15 +18,14 @@ package de.cuioss.jsf.bootstrap.tooltip;
 import static de.cuioss.jsf.bootstrap.BootstrapFamily.COMPONENT_FAMILY;
 import static java.util.Objects.requireNonNull;
 
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.FacesComponent;
-
 import de.cuioss.jsf.api.components.decorator.AbstractParentDecorator;
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.jsf.api.components.partial.ContentProvider;
 import de.cuioss.jsf.api.components.util.ComponentModifier;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
 import lombok.experimental.Delegate;
 
 /**

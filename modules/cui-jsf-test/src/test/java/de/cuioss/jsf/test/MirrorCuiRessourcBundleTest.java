@@ -19,18 +19,16 @@ import static de.cuioss.test.generator.Generators.letterStrings;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
-
+import lombok.Getter;
 import org.jboss.weld.junit5.auto.ActivateScopes;
 import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
-import lombok.Getter;
-
 @EnableAutoWeld
-@ActivateScopes({ RequestScoped.class })
+@ActivateScopes({RequestScoped.class})
 class MirrorCuiRessourcBundleTest implements ShouldHandleObjectContracts<MirrorCuiRessourcBundle> {
 
     @Inject

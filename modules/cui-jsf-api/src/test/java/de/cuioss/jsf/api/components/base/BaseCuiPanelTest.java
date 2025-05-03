@@ -17,13 +17,12 @@ package de.cuioss.jsf.api.components.base;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.base.BaseCuiPanel.PanelType;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "styleClass", "rendered", "style" })
+@VerifyComponentProperties(of = {"styleClass", "rendered", "style"})
 class BaseCuiPanelTest extends AbstractComponentTest<BaseCuiPanel> {
 
     @Test

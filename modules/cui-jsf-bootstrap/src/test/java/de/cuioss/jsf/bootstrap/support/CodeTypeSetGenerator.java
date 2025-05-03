@@ -17,13 +17,13 @@ package de.cuioss.jsf.bootstrap.support;
 
 import static de.cuioss.tools.collect.CollectionLiterals.mutableSet;
 
-import java.util.Set;
-
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.uimodel.model.code.CodeType;
 
-@SuppressWarnings({ "rawtypes" })
+import java.util.Set;
+
+@SuppressWarnings({"rawtypes"})
 public class CodeTypeSetGenerator implements TypedGenerator<Set> {
 
     private final CodeTypeGenerator codeType = new CodeTypeGenerator();

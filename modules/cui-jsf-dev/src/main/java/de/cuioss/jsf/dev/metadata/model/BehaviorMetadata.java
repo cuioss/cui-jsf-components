@@ -15,12 +15,12 @@
  */
 package de.cuioss.jsf.dev.metadata.model;
 
-import java.io.Serial;
-import java.util.List;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.util.List;
 
 /**
  * @author Oliver Wolff

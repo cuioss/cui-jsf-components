@@ -36,10 +36,11 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>de.cuioss.portal.core</groupId>
-                <artifactId>portal-common-cdi</artifactId>
+                <groupId>de.cuioss.portal</groupId>
+                <artifactId>bom</artifactId>
                 <version>${version.cui.portal.core}</version>
-                <scope>compile</scope>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -54,32 +55,26 @@
             <artifactId>myfaces-api</artifactId>
         </dependency>
         <dependency>
-            <!-- replaces javax.servlet-api -->
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
         <dependency>
-            <!-- replaces javax.websocket-api -->
             <groupId>jakarta.websocket</groupId>
             <artifactId>jakarta.websocket-api</artifactId>
         </dependency>
         <dependency>
-            <!-- replaces javax.validation:validation-api -->
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
         </dependency>
         <dependency>
-            <!-- replaces javax.el:javax.el-api -->
             <groupId>jakarta.el</groupId>
             <artifactId>jakarta.el-api</artifactId>
         </dependency>
         <dependency>
-            <!-- replaces javax.enterprise:cdi-api -->
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
         </dependency>
         <dependency>
-            <!-- replaces javax.annotation:javax.annotation-api -->
             <groupId>jakarta.annotation</groupId>
             <artifactId>jakarta.annotation-api</artifactId>
         </dependency>
@@ -96,16 +91,7 @@
             <groupId>org.omnifaces</groupId>
             <artifactId>omnifaces</artifactId>
         </dependency>
-        <dependency>
-            <!-- For omnifaces -->
-            <groupId>jakarta.websocket</groupId>
-            <artifactId>jakarta.websocket-api</artifactId>
-        </dependency>
         <!-- Test-->
-        <dependency>
-            <groupId>de.cuioss.test</groupId>
-            <artifactId>cui-jsf-test-basic</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.easymock</groupId>
             <artifactId>easymock</artifactId>
@@ -129,6 +115,7 @@
         <dependency>
             <groupId>org.jboss.weld</groupId>
             <artifactId>weld-junit5</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <modules>

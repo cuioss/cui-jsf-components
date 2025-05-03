@@ -15,16 +15,16 @@
  */
 package de.cuioss.jsf.components.converter;
 
+import de.cuioss.test.jsf.config.JsfTestConfiguration;
+import de.cuioss.test.jsf.converter.AbstractConverterTest;
+import de.cuioss.test.jsf.converter.TestItems;
+import de.cuioss.test.jsf.defaults.BasicApplicationConfiguration;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
-
-import de.cuioss.test.jsf.config.JsfTestConfiguration;
-import de.cuioss.test.jsf.converter.AbstractConverterTest;
-import de.cuioss.test.jsf.converter.TestItems;
-import de.cuioss.test.jsf.defaults.BasicApplicationConfiguration;
 
 @JsfTestConfiguration(BasicApplicationConfiguration.class)
 class PrettyTimeConverterTest extends AbstractConverterTest<PrettyTimeConverter, Object> {

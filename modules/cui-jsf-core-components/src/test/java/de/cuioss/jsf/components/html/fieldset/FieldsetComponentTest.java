@@ -15,15 +15,7 @@
  */
 package de.cuioss.jsf.components.html.fieldset;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import jakarta.faces.event.PostAddToViewEvent;
-import jakarta.faces.event.PreRenderComponentEvent;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.components.CuiFamily;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
@@ -33,8 +25,11 @@ import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 import de.cuioss.test.jsf.mocks.ReverseConverter;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.event.PreRenderComponentEvent;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "disabled", "legendKey", "legendValue", "legendConverter", "legendEscape" })
+@VerifyComponentProperties(of = {"disabled", "legendKey", "legendValue", "legendConverter", "legendEscape"})
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @EnableJSFCDIEnvironment
 @EnableResourceBundleSupport

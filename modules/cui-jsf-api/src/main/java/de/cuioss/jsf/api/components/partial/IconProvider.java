@@ -15,14 +15,12 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
-import jakarta.faces.component.StateHelper;
-
-import org.omnifaces.util.State;
-
 import de.cuioss.jsf.api.components.css.IconLibrary;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.tools.string.MoreStrings;
+import jakarta.faces.component.StateHelper;
 import lombok.NonNull;
+import org.omnifaces.util.State;
 
 /**
  * <h2>Summary</h2>

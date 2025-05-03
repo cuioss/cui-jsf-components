@@ -15,16 +15,15 @@
  */
 package de.cuioss.jsf.bootstrap.layout;
 
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.event.ComponentSystemEvent;
-import jakarta.faces.event.ListenerFor;
-import jakarta.faces.event.PreRenderComponentEvent;
-
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.partial.ContextSizeProvider;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PreRenderComponentEvent;
 import lombok.experimental.Delegate;
 
 /**

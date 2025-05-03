@@ -18,16 +18,12 @@ package de.cuioss.jsf.jqplot.layout;
 import static de.cuioss.jsf.jqplot.ChartTestSupport.assertThatNoPluginsAreUsed;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.jqplot.axes.AxisType;
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.valueobjects.contract.SerializableContractImpl;
+import org.junit.jupiter.api.Test;
 
 class SeriesTest {
 

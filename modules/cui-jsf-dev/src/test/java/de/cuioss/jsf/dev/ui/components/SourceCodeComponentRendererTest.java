@@ -17,16 +17,7 @@ package de.cuioss.jsf.dev.ui.components;
 
 import static de.cuioss.jsf.dev.ui.components.SourceCodeComponent.LangStyle.LANG_HTML;
 import static de.cuioss.jsf.dev.ui.components.SourceCodeComponentRenderer.PRE_STYLE_CLASS;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import jakarta.faces.component.UIComponent;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
@@ -34,6 +25,11 @@ import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 import de.cuioss.tools.string.MoreStrings;
+import jakarta.faces.component.UIComponent;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 class SourceCodeComponentRendererTest extends AbstractComponentRendererTest<SourceCodeComponentRenderer> {
 

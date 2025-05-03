@@ -23,15 +23,15 @@ import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.partial.StyleAttributeProvider;
 import de.cuioss.jsf.api.components.partial.TitleProvider;
 import de.cuioss.tools.string.MoreStrings;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-
 import jakarta.el.ValueExpression;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.ResponseWriter;
 import jakarta.faces.context.ResponseWriterWrapper;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
 import java.io.IOException;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -113,7 +113,7 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
      * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
      */
     public ResponseWriterBase withAttribute(final AttributeName attributeName, final String attributeValue)
-        throws IOException {
+            throws IOException {
         writeAttribute(attributeName.getContent(), attributeValue, attributeName.getContent());
         return this;
     }
@@ -127,7 +127,7 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
      * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
      */
     public ResponseWriterBase withAttribute(final AttributeName attributeName, final AttributeValue attributeValue)
-        throws IOException {
+            throws IOException {
         return withAttribute(attributeName, attributeValue.getContent());
     }
 
@@ -140,7 +140,7 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
      */
     public ResponseWriterBase withAttributeTitle(final String title) throws IOException {
         if (!MoreStrings.isEmpty(title)) {
-           return withAttribute(AttributeName.TITLE, title);
+            return withAttribute(AttributeName.TITLE, title);
         }
         return this;
     }
@@ -191,7 +191,7 @@ public class ResponseWriterBase extends ResponseWriterWrapper {
      * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
      */
     public ResponseWriterBase withPassThroughAttributes(final FacesContext facesContext,
-                                                        final Map<String, Object> passThroughAttributes) throws IOException {
+            final Map<String, Object> passThroughAttributes) throws IOException {
         if (null != passThroughAttributes && !passThroughAttributes.isEmpty()) {
             for (final Entry<String, Object> entry : passThroughAttributes.entrySet()) {
                 getWrapped().writeAttribute(entry.getKey(), resolveValue(facesContext, entry.getValue()), null);

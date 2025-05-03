@@ -20,7 +20,7 @@ import de.cuioss.test.valueobjects.api.contracts.VerifyConstructor;
 import de.cuioss.test.valueobjects.api.generator.PropertyGenerator;
 
 @PropertyGenerator(IDisplayNameProviderTypedGenerator.class)
-@VerifyConstructor(of = { "notificationBoxValue", "notificationBoxState" })
+@VerifyConstructor(of = {"notificationBoxValue", "notificationBoxState"})
 class NotificationBoxMessageTest extends ValueObjectTest<NotificationBoxMessage> {
 
 }

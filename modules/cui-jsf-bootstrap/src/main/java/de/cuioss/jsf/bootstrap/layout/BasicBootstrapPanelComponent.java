@@ -15,10 +15,9 @@
  */
 package de.cuioss.jsf.bootstrap.layout;
 
-import jakarta.faces.component.UIComponent;
-
 import de.cuioss.jsf.api.components.base.BaseCuiPanel;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
+import jakarta.faces.component.UIComponent;
 
 /**
  * Base class for our layout components. It extends {@link BaseCuiPanel} and

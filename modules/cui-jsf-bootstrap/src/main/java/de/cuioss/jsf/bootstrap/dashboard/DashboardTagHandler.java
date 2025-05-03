@@ -15,22 +15,21 @@
  */
 package de.cuioss.jsf.bootstrap.dashboard;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-
+import de.cuioss.jsf.api.components.model.widget.DashboardWidgetModel;
+import de.cuioss.tools.logging.CuiLogger;
+import de.cuioss.tools.string.MoreStrings;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.view.facelets.ComponentConfig;
 import jakarta.faces.view.facelets.FaceletContext;
 import jakarta.faces.view.facelets.TagAttribute;
 import jakarta.faces.view.facelets.TagHandler;
 
-import de.cuioss.jsf.api.components.model.widget.DashboardWidgetModel;
-import de.cuioss.tools.logging.CuiLogger;
-import de.cuioss.tools.string.MoreStrings;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardTagHandler extends TagHandler {
 

@@ -17,11 +17,6 @@ package de.cuioss.jsf.api.application.message;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import jakarta.inject.Inject;
-
-import org.jboss.weld.junit5.auto.AddBeanClasses;
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.CoreJsfTestConfiguration;
 import de.cuioss.jsf.api.EnableJSFCDIEnvironment;
 import de.cuioss.jsf.api.EnableResourceBundleSupport;
@@ -34,13 +29,16 @@ import de.cuioss.uimodel.nameprovider.LabeledKey;
 import de.cuioss.uimodel.result.ResultDetail;
 import de.cuioss.uimodel.result.ResultObject;
 import de.cuioss.uimodel.result.ResultState;
+import jakarta.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
+import org.jboss.weld.junit5.auto.AddBeanClasses;
+import org.junit.jupiter.api.Test;
 
 @EnableJSFCDIEnvironment
 @EnableResourceBundleSupport
 @AddBeanClasses(MessageProducerMock.class)
-@JsfTestConfiguration({ CoreJsfTestConfiguration.class })
+@JsfTestConfiguration({CoreJsfTestConfiguration.class})
 class DisplayNameMessageProducerTest
         implements ShouldHandleObjectContracts<DisplayNameMessageProducer>, JsfEnvironmentConsumer {
 
@@ -62,7 +60,7 @@ class DisplayNameMessageProducerTest
     private DisplayNameMessageProducer underTest;
 
     @Test
-    void testShowAsGlobalMessageAndLogWithError() {
+    void showAsGlobalMessageAndLogWithError() {
         getComponentConfigDecorator().registerConverter(LabeledKeyConverter.class, LabeledKey.class);
         var result = new ResultObject<>(STRING_RESULT, ResultState.ERROR, new ResultDetail(DETAIL));
         underTest.showAsGlobalMessageAndLog(result);
@@ -71,7 +69,7 @@ class DisplayNameMessageProducerTest
     }
 
     @Test
-    void testShowAsGlobalMessageAndLogWithWarn() {
+    void showAsGlobalMessageAndLogWithWarn() {
         getComponentConfigDecorator().registerConverter(LabeledKeyConverter.class, LabeledKey.class);
         var result = new ResultObject<>(STRING_RESULT, ResultState.WARNING, new ResultDetail(DETAIL));
         underTest.showAsGlobalMessageAndLog(result);
@@ -80,7 +78,7 @@ class DisplayNameMessageProducerTest
     }
 
     @Test
-    void testShowAsGlobalMessageAndLogWithInfo() {
+    void showAsGlobalMessageAndLogWithInfo() {
         getComponentConfigDecorator().registerConverter(LabeledKeyConverter.class, LabeledKey.class);
         var result = new ResultObject<>(STRING_RESULT, ResultState.INFO, new ResultDetail(DETAIL));
         underTest.showAsGlobalMessageAndLog(result);
@@ -89,7 +87,7 @@ class DisplayNameMessageProducerTest
     }
 
     @Test
-    void testShowAsGlobalMessageAndLogWithValid() {
+    void showAsGlobalMessageAndLogWithValid() {
         var result = new ResultObject<>(STRING_RESULT, ResultState.VALID, null);
         underTest.showAsGlobalMessageAndLog(result);
         assertEquals(0, messageProducerMock.getGlobalMessages().size());

@@ -15,12 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.checkbox;
 
-import java.io.IOException;
-
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.render.FacesRenderer;
-
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.css.impl.StyleClassBuilderImpl;
@@ -32,6 +26,11 @@ import de.cuioss.jsf.api.components.util.ComponentWrapper;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.layout.ColumnComponent;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
+
+import java.io.IOException;
 
 /**
  * Renders a switch input like:

@@ -15,16 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.layout.messages;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.application.FacesMessage.Severity;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.render.FacesRenderer;
-import jakarta.faces.render.Renderer;
-
 import de.cuioss.jsf.api.components.css.StyleClassProvider;
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.Node;
@@ -35,6 +25,15 @@ import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.tools.collect.MapBuilder;
 import de.cuioss.tools.string.Joiner;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
+import jakarta.faces.render.Renderer;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>

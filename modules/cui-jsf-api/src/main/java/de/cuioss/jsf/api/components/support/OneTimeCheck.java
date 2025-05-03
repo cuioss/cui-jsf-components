@@ -15,12 +15,12 @@
  */
 package de.cuioss.jsf.api.components.support;
 
+import static java.util.Objects.requireNonNull;
+
 import de.cuioss.jsf.api.components.partial.ComponentBridge;
 import de.cuioss.jsf.api.components.util.KeyMappingUtility;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Some attribute like disabled and the style class needs to be changed once.

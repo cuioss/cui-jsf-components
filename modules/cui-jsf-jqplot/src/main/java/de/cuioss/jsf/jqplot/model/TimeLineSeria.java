@@ -15,10 +15,6 @@
  */
 package de.cuioss.jsf.jqplot.model;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.time.temporal.Temporal;
-
 import de.cuioss.jsf.jqplot.js.support.JsArray;
 import de.cuioss.jsf.jqplot.js.support.JsValue;
 import de.cuioss.jsf.jqplot.js.types.JsDateTime;
@@ -27,6 +23,10 @@ import de.cuioss.jsf.jqplot.js.types.JsNumber;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.temporal.Temporal;
 
 /**
  * Typed {@link TimeLineSeria} use {@link Temporal} for x values, {@link Number}

@@ -15,17 +15,14 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.apache.myfaces.test.el.MockValueExpression;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.ui.model.ToggleSwitch;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.apache.myfaces.test.el.MockValueExpression;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "collapsible", "collapseSwitch", "collapsed" })
+@VerifyComponentProperties(of = {"collapsible", "collapseSwitch", "collapsed"})
 class CollapseSwitchProviderImplTest extends AbstractPartialComponentTest {
 
     @Test

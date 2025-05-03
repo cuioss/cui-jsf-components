@@ -17,13 +17,12 @@ package de.cuioss.jsf.bootstrap.icon;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.test.jsf.component.AbstractUiComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "icon", "size", "state", "titleKey", "titleValue" })
+@VerifyComponentProperties(of = {"icon", "size", "state", "titleKey", "titleValue"})
 class IconComponentTest extends AbstractUiComponentTest<IconComponent> {
 
     @Test

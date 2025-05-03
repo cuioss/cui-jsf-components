@@ -17,23 +17,22 @@ package de.cuioss.jsf.api;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.List;
-import java.util.Locale;
-
+import de.cuioss.portal.common.locale.LocaleChangeEvent;
+import de.cuioss.portal.common.locale.PortalLocale;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.Dependent;
 import jakarta.enterprise.event.Event;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
-
-import de.cuioss.portal.common.locale.LocaleChangeEvent;
-import de.cuioss.portal.common.locale.PortalLocale;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Mock version of {@link PortalLocale}

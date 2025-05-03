@@ -15,12 +15,11 @@
  */
 package de.cuioss.jsf.api.components.model.resultContent;
 
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.component.UINamingContainer;
-
 import de.cuioss.jsf.api.composite.AttributeAccessorImpl;
 import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.uimodel.result.ResultObject;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.UINamingContainer;
 
 @FacesComponent("de.cuioss.jsf.api.components.model.resultContent.ResultObjectBackingBean")
 public class ResultObjectBackingBean extends UINamingContainer {

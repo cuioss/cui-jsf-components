@@ -15,9 +15,9 @@
  */
 package de.cuioss.jsf.api.application.view.matcher;
 
-import java.io.Serializable;
-
 import de.cuioss.jsf.api.common.view.ViewDescriptor;
+
+import java.io.Serializable;
 
 /**
  * View matchers are used to check whether a given view matches to given set of

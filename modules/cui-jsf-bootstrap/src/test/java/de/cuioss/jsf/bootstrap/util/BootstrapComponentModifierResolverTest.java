@@ -18,13 +18,11 @@ package de.cuioss.jsf.bootstrap.util;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
-import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
-import jakarta.faces.component.html.HtmlInputText;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.util.modifier.ComponentModifierFactory;
 import de.cuioss.jsf.bootstrap.composite.EditableDataListComponent;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
+import jakarta.faces.component.html.HtmlInputText;
+import org.junit.jupiter.api.Test;
 
 @EnableJsfEnvironment
 class BootstrapComponentModifierResolverTest {

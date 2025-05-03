@@ -15,12 +15,11 @@
  */
 package de.cuioss.jsf.bootstrap.badge;
 
-import jakarta.faces.component.FacesComponent;
-
 import de.cuioss.jsf.api.components.base.BaseCuiOutputText;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
+import jakarta.faces.component.FacesComponent;
 
 /**
  * Component Class for creating badges. All standard attributes are defined by

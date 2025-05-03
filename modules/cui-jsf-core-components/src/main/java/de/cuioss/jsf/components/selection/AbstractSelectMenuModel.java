@@ -17,18 +17,17 @@ package de.cuioss.jsf.components.selection;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.List;
-
+import de.cuioss.jsf.api.components.selection.SelectMenuModel;
+import de.cuioss.jsf.api.converter.AbstractConverter;
 import jakarta.faces.event.AbortProcessingException;
 import jakarta.faces.event.ValueChangeEvent;
 import jakarta.faces.model.SelectItem;
-
-import de.cuioss.jsf.api.components.selection.SelectMenuModel;
-import de.cuioss.jsf.api.converter.AbstractConverter;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Base implementation for {@link SelectMenuModel} providing some convenient

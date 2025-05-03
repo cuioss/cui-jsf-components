@@ -15,19 +15,18 @@
  */
 package de.cuioss.jsf.components.converter;
 
-import java.util.Collection;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.convert.ConverterException;
-import jakarta.faces.convert.FacesConverter;
-
 import de.cuioss.jsf.api.common.accessor.LocaleAccessor;
 import de.cuioss.jsf.api.converter.AbstractConverter;
 import de.cuioss.tools.string.Joiner;
 import de.cuioss.uimodel.model.code.CodeType;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.ConverterException;
+import jakarta.faces.convert.FacesConverter;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Collection;
 
 /**
  * Display a list of CodeTypes.

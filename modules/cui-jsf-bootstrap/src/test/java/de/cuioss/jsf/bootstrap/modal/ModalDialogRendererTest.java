@@ -15,18 +15,11 @@
  */
 package de.cuioss.jsf.bootstrap.modal;
 
-import static de.cuioss.jsf.api.components.html.AttributeName.DATA_MODAL_ID;
-import static de.cuioss.jsf.api.components.html.AttributeName.ROLE;
-import static de.cuioss.jsf.api.components.html.AttributeName.TABINDEX;
+import static de.cuioss.jsf.api.components.html.AttributeName.*;
 import static de.cuioss.jsf.api.components.html.AttributeValue.ROLE_DIALOG;
 import static de.cuioss.jsf.api.components.html.Node.DIV;
 import static de.cuioss.jsf.api.components.html.Node.SPAN;
-import static de.cuioss.jsf.bootstrap.CssBootstrap.MODAL_DIALOG_BODY;
-import static de.cuioss.jsf.bootstrap.CssBootstrap.MODAL_DIALOG_FOOTER;
-import static de.cuioss.jsf.bootstrap.CssBootstrap.MODAL_DIALOG_FOOTER_TEXT;
-import static de.cuioss.jsf.bootstrap.CssBootstrap.MODAL_DIALOG_HEADER;
-
-import org.junit.jupiter.api.Test;
+import static de.cuioss.jsf.bootstrap.CssBootstrap.*;
 
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
@@ -42,6 +35,7 @@ import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.mocks.CuiMockComponent;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
+import org.junit.jupiter.api.Test;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class ModalDialogRendererTest extends AbstractComponentRendererTest<ModalDialogRenderer>

@@ -15,12 +15,12 @@
  */
 package de.cuioss.jsf.api.application.navigation;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import de.cuioss.jsf.api.common.view.ViewDescriptor;
 import de.cuioss.jsf.api.common.view.ViewDescriptorImpl;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ViewIdentifierTest extends JsfEnabledTestEnvironment {
 
@@ -35,13 +35,13 @@ class ViewIdentifierTest extends JsfEnabledTestEnvironment {
     @Test
     void shouldExtractCorrectViewIdentifier() {
         ViewDescriptor descriptor = ViewDescriptorImpl.builder().withViewId(START_URL).withLogicalViewId(START_URL)
-            .build();
+                .build();
         var identifier = ViewIdentifier.getFromViewDesciptor(descriptor, null);
         assertNotNull(identifier);
         assertEquals(START_URL, identifier.getViewId());
         assertNull(identifier.getOutcome());
         final var navigationCase = identifier.toNavigationCase(FROM_VIEW_ID, FROM_ACTION, FROM_OUTCOME, null, true,
-            false);
+                false);
         assertNotNull(navigationCase);
     }
 

@@ -17,14 +17,13 @@ package de.cuioss.jsf.api.converter.nameprovider;
 
 import static de.cuioss.jsf.api.security.CuiSanitizer.COMPLEX_HTML;
 
+import de.cuioss.jsf.api.common.accessor.LocaleAccessor;
+import de.cuioss.jsf.api.converter.AbstractConverter;
+import de.cuioss.uimodel.nameprovider.CodeTypeDisplayNameProvider;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.ConverterException;
 import jakarta.faces.convert.FacesConverter;
-
-import de.cuioss.jsf.api.common.accessor.LocaleAccessor;
-import de.cuioss.jsf.api.converter.AbstractConverter;
-import de.cuioss.uimodel.nameprovider.CodeTypeDisplayNameProvider;
 
 @FacesConverter(forClass = CodeTypeDisplayNameProvider.class)
 public class CodeTypeDisplayNameProviderConverter extends AbstractConverter<CodeTypeDisplayNameProvider> {

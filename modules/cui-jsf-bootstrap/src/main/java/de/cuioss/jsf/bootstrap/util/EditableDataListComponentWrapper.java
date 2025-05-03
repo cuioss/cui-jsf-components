@@ -15,12 +15,11 @@
  */
 package de.cuioss.jsf.bootstrap.util;
 
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.validator.ValidatorException;
-
 import de.cuioss.jsf.api.components.util.ComponentModifier;
 import de.cuioss.jsf.api.components.util.modifier.CuiInterfaceBasedModifier;
 import de.cuioss.jsf.bootstrap.composite.EditableDataListComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.ValidatorException;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 

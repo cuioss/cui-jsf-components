@@ -15,9 +15,6 @@
  */
 package de.cuioss.jsf.jqplot.plugin.cursor;
 
-import java.io.Serial;
-import java.util.List;
-
 import de.cuioss.jsf.jqplot.js.support.JsObject;
 import de.cuioss.jsf.jqplot.js.types.JsBoolean;
 import de.cuioss.jsf.jqplot.js.types.JsDouble;
@@ -27,6 +24,9 @@ import de.cuioss.jsf.jqplot.plugin.IPluginConsumer;
 import de.cuioss.jsf.jqplot.plugin.PluginSupport;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.util.List;
 
 /**
  * @author Eugen Fischer

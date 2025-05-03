@@ -16,18 +16,13 @@
 package de.cuioss.jsf.api.components.partial;
 
 import static de.cuioss.test.generator.Generators.letterStrings;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 import de.cuioss.test.jsf.mocks.ReverseConverter;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "footerKey", "footerValue", "footerConverter", "footerEscape" })
+@VerifyComponentProperties(of = {"footerKey", "footerValue", "footerConverter", "footerEscape"})
 class FooterProviderImplTest extends AbstractPartialComponentTest {
 
     @Test

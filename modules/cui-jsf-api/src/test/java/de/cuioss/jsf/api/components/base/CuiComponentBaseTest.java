@@ -15,13 +15,10 @@
  */
 package de.cuioss.jsf.api.components.base;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.jsf.component.AbstractComponentTest;
+import org.junit.jupiter.api.Test;
 
 class CuiComponentBaseTest extends AbstractComponentTest<CuiComponentBase> {
 

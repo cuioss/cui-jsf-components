@@ -15,9 +15,8 @@
  */
 package de.cuioss.jsf.api.converter;
 
-import jakarta.faces.convert.FacesConverter;
-
 import de.cuioss.jsf.api.security.CuiSanitizer;
+import jakarta.faces.convert.FacesConverter;
 
 /**
  * To be used when a text containing HTML elements for formatting needs to be

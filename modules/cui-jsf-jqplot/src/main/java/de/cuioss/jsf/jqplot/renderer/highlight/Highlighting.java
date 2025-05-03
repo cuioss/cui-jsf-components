@@ -15,10 +15,6 @@
  */
 package de.cuioss.jsf.jqplot.renderer.highlight;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.List;
-
 import de.cuioss.jsf.jqplot.js.support.IPropertyProvider;
 import de.cuioss.jsf.jqplot.js.support.JavaScriptSupport;
 import de.cuioss.jsf.jqplot.js.support.PropertyProvider;
@@ -28,13 +24,17 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * @author Oliver Wolff
  *
  * @param <T> at leaste {@link Serializable}
  */
-@ToString(exclude = { "userClass" })
-@EqualsAndHashCode(exclude = { "userClass" })
+@ToString(exclude = {"userClass"})
+@EqualsAndHashCode(exclude = {"userClass"})
 @RequiredArgsConstructor
 public class Highlighting<T extends Serializable> implements Serializable, IHighlightDecoration<T>, IPropertyProvider {
 

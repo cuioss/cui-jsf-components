@@ -17,8 +17,8 @@ package de.cuioss.jsf.bootstrap.dashboard;
 
 import static de.cuioss.tools.collect.CollectionLiterals.mutableList;
 
-import java.io.IOException;
-
+import de.cuioss.jsf.api.components.model.widget.DashboardWidgetModel;
+import de.cuioss.jsf.api.components.support.DummyComponent;
 import jakarta.faces.view.facelets.ComponentConfig;
 import jakarta.faces.view.facelets.CompositeFaceletHandler;
 import jakarta.faces.view.facelets.FaceletContext;
@@ -26,12 +26,10 @@ import jakarta.faces.view.facelets.FaceletHandler;
 import jakarta.faces.view.facelets.Tag;
 import jakarta.faces.view.facelets.TagAttribute;
 import jakarta.faces.view.facelets.TagAttributes;
-
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.api.components.model.widget.DashboardWidgetModel;
-import de.cuioss.jsf.api.components.support.DummyComponent;
+import java.io.IOException;
 
 class DashboardTagHandlerTest {
 
@@ -43,7 +41,7 @@ class DashboardTagHandlerTest {
     private final DashboardWidgetModel dashboardWidgetModel = EasyMock.niceMock(DashboardWidgetModel.class);
 
     @Test
-    void testEmpty() throws IOException {
+    void empty() throws IOException {
         EasyMock.expect(tagAttribute.getObject(EasyMock.anyObject(FaceletContext.class))).andReturn(mutableList());
         EasyMock.replay(tagAttribute);
         EasyMock.expect(tagAttributes.get("widgets")).andReturn(tagAttribute);

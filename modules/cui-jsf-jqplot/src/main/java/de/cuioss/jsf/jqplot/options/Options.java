@@ -15,9 +15,6 @@
  */
 package de.cuioss.jsf.jqplot.options;
 
-import java.io.Serial;
-import java.util.List;
-
 import de.cuioss.jsf.jqplot.axes.Axes;
 import de.cuioss.jsf.jqplot.hook.PlotHookFunctionProvider;
 import de.cuioss.jsf.jqplot.js.support.JsArray;
@@ -36,6 +33,9 @@ import de.cuioss.jsf.jqplot.renderer.DataRenderer;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.util.List;
 
 /**
  * Container to hold all of the merged options. Convienence for plugins.

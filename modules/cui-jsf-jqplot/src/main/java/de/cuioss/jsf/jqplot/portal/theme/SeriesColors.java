@@ -18,12 +18,6 @@ package de.cuioss.jsf.jqplot.portal.theme;
 import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
 import static java.util.stream.Collectors.toList;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import de.cuioss.jsf.jqplot.js.support.JsArray;
 import de.cuioss.jsf.jqplot.js.types.JsString;
 import de.cuioss.tools.string.MoreStrings;
@@ -33,6 +27,12 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * SeriesColors object that could be applied to all series in the plot.

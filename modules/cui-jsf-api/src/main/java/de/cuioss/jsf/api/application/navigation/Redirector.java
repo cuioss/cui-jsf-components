@@ -15,10 +15,9 @@
  */
 package de.cuioss.jsf.api.application.navigation;
 
+import de.cuioss.tools.net.UrlParameter;
 import jakarta.faces.application.NavigationHandler;
 import jakarta.faces.context.FacesContext;
-
-import de.cuioss.tools.net.UrlParameter;
 
 /**
  * <p>

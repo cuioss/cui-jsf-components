@@ -15,11 +15,10 @@
  */
 package de.cuioss.jsf.bootstrap.layout;
 
-import jakarta.faces.component.FacesComponent;
-
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
+import jakarta.faces.component.FacesComponent;
 
 /**
  * <p>

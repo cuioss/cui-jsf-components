@@ -15,13 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.layout;
 
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.event.ComponentSystemEvent;
-import jakarta.faces.event.ListenerFor;
-import jakarta.faces.event.PreRenderComponentEvent;
-
 import de.cuioss.jsf.api.application.message.MessageProducer;
 import de.cuioss.jsf.api.components.partial.CollapseSwitchProvider;
 import de.cuioss.jsf.api.components.partial.ContextStateProvider;
@@ -33,6 +26,12 @@ import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.portal.common.cdi.PortalBeanManager;
 import de.cuioss.tools.logging.CuiLogger;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PreRenderComponentEvent;
 import lombok.experimental.Delegate;
 
 /**

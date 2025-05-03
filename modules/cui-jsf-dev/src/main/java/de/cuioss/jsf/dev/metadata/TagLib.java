@@ -15,21 +15,6 @@
  */
 package de.cuioss.jsf.dev.metadata;
 
-import java.io.IOException;
-import java.io.Serial;
-import java.io.Serializable;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
-import javax.xml.XMLConstants;
-
-import org.jdom2.Element;
-import org.jdom2.JDOMException;
-import org.jdom2.Namespace;
-import org.jdom2.input.SAXBuilder;
-
 import de.cuioss.jsf.dev.metadata.model.AttributeMetadata;
 import de.cuioss.jsf.dev.metadata.model.BehaviorMetadata;
 import de.cuioss.jsf.dev.metadata.model.ConverterMetadata;
@@ -40,6 +25,19 @@ import de.cuioss.portal.common.util.PortalResourceLoader;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.Namespace;
+import org.jdom2.input.SAXBuilder;
+
+import javax.xml.XMLConstants;
+import java.io.IOException;
+import java.io.Serial;
+import java.io.Serializable;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * @author Oliver Wolff
@@ -100,7 +98,7 @@ public class TagLib implements Serializable {
 
         tagPath = tagLibPath;
 
-        final var resource = PortalResourceLoader.getRessource(tagLibPath, getClass());
+        final var resource = PortalResourceLoader.getResource(tagLibPath, getClass());
 
         componentMetadata = new TagStorage<>();
         converterMetadata = new TagStorage<>();

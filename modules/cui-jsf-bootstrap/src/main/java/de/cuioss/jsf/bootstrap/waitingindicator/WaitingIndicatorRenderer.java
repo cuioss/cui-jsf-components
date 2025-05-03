@@ -19,9 +19,9 @@ import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
-
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.FacesRenderer;
+
 import java.io.IOException;
 
 /**
@@ -39,7 +39,7 @@ public class WaitingIndicatorRenderer extends BaseDecoratorRenderer<WaitingIndic
 
     @Override
     protected void doEncodeEnd(FacesContext context, DecoratingResponseWriter<WaitingIndicatorComponent> writer,
-                               WaitingIndicatorComponent component) throws IOException {
+            WaitingIndicatorComponent component) throws IOException {
 
         // Write element
         writer.withStartElement(Node.DIV);

@@ -17,13 +17,12 @@ package de.cuioss.jsf.api.components.renderer;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.IOException;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.ResponseWriter;
 import jakarta.faces.context.ResponseWriterWrapper;
-
 import lombok.Getter;
+
+import java.io.IOException;
 
 /**
  * Used for filtering calls to the {@link ResponseWriter}. See

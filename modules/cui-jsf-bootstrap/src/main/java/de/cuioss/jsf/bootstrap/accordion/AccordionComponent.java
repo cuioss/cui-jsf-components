@@ -15,12 +15,11 @@
  */
 package de.cuioss.jsf.bootstrap.accordion;
 
-import jakarta.faces.component.FacesComponent;
-
 import de.cuioss.jsf.api.components.partial.ActiveIndexManagerProvider;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.layout.BasicBootstrapPanelComponent;
+import jakarta.faces.component.FacesComponent;
 import lombok.experimental.Delegate;
 
 /**

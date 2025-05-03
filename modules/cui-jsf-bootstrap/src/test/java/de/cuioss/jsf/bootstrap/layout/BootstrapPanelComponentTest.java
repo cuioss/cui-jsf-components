@@ -18,11 +18,6 @@ package de.cuioss.jsf.bootstrap.layout;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import jakarta.faces.component.UIForm;
-import jakarta.faces.event.PreRenderComponentEvent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.jsf.test.EnableJSFCDIEnvironment;
@@ -36,9 +31,12 @@ import de.cuioss.test.juli.LogAsserts;
 import de.cuioss.test.juli.TestLogLevel;
 import de.cuioss.test.juli.TestLoggerFactory;
 import de.cuioss.test.juli.junit5.EnableTestLogger;
+import jakarta.faces.component.UIForm;
+import jakarta.faces.event.PreRenderComponentEvent;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "collapsed", "headerConverter", "headerEscape", "headerKey", "headerValue",
-        "deferred", "childrenLoaded" })
+@VerifyComponentProperties(of = {"collapsed", "headerConverter", "headerEscape", "headerKey", "headerValue",
+        "deferred", "childrenLoaded"})
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @EnableTestLogger
 @EnableJSFCDIEnvironment

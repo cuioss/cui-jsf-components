@@ -15,6 +15,9 @@
  */
 package de.cuioss.jsf.test;
 
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
 import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import de.cuioss.test.jsf.producer.JsfObjectsProducer;
 import jakarta.enterprise.context.RequestScoped;
@@ -27,9 +30,6 @@ import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Using this annotation at type-level of a junit 5 test defines the basic

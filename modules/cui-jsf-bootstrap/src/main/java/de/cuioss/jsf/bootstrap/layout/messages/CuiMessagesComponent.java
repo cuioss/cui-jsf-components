@@ -15,11 +15,10 @@
  */
 package de.cuioss.jsf.bootstrap.layout.messages;
 
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.component.html.HtmlMessages;
-
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.html.HtmlMessages;
 
 /**
  * Extends {@link HtmlMessages} and sets bootstrap aligned style classes.

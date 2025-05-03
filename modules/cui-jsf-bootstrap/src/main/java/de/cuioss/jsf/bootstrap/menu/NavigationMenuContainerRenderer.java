@@ -23,13 +23,13 @@ import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.jsf.bootstrap.icon.IconComponent;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
 import jakarta.faces.component.html.HtmlOutcomeTargetLink;
 import jakarta.faces.component.html.HtmlOutputText;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.Renderer;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.io.IOException;
 
 /**
@@ -72,8 +72,8 @@ public class NavigationMenuContainerRenderer {
      * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
      */
     static void renderBegin(final FacesContext context, final DecoratingResponseWriter<NavigationMenuComponent> writer,
-                            final NavigationMenuItemContainer model, final NavigationMenuComponent component,
-                            final boolean parentIsContainer, final String idExtension) throws IOException {
+            final NavigationMenuItemContainer model, final NavigationMenuComponent component,
+            final boolean parentIsContainer, final String idExtension) throws IOException {
         if (!model.isRendered()) {
             return;
         }
@@ -83,7 +83,7 @@ public class NavigationMenuContainerRenderer {
         writer.withPassThroughAttributes();
         writer.withAttributeStyle(component.getStyle());
         writer.withStyleClass(component.getStyleClassBuilder().append(CssBootstrap.LIST_DROPDOWN)
-            .appendIfTrue(CssBootstrap.LIST_DROP_DOWN_SUBMENU, parentIsContainer));
+                .appendIfTrue(CssBootstrap.LIST_DROP_DOWN_SUBMENU, parentIsContainer));
 
         if (model.isActive()) {
             writer.withAttribute(AttributeName.DATA_ITEM_ACTIVE, Boolean.TRUE.toString());
@@ -103,7 +103,7 @@ public class NavigationMenuContainerRenderer {
      * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
      */
     static void renderEnd(final DecoratingResponseWriter<NavigationMenuComponent> writer,
-                          final NavigationMenuItemContainer model) throws IOException {
+            final NavigationMenuItemContainer model) throws IOException {
         if (!model.isRendered()) {
             return;
         }
@@ -112,12 +112,12 @@ public class NavigationMenuContainerRenderer {
     }
 
     private static void renderCmdLink(final FacesContext context, final NavigationMenuItemContainer model,
-                                      final boolean parentIsContainer) throws IOException {
+            final boolean parentIsContainer) throws IOException {
 
         final var application = context.getApplication();
 
         final var commandLink = (HtmlOutcomeTargetLink) application
-            .createComponent(HtmlOutcomeTargetLink.COMPONENT_TYPE);
+                .createComponent(HtmlOutcomeTargetLink.COMPONENT_TYPE);
         commandLink.setStyleClass(CssBootstrap.LIST_DROP_DOWN_TOGGLE.getStyleClass());
         commandLink.getPassThroughAttributes().put("data-toggle", "dropdown");
 

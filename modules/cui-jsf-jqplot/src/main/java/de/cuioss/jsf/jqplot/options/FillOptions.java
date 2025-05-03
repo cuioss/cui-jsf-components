@@ -15,11 +15,11 @@
  */
 package de.cuioss.jsf.jqplot.options;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 import de.cuioss.jsf.jqplot.options.color.Color;
 import lombok.Data;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * @author Oliver Wolff

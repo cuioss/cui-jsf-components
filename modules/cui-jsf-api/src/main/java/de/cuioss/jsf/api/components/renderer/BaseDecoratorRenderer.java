@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.api.components.renderer;
 
+import static de.cuioss.tools.string.MoreStrings.isEmpty;
+
 import de.cuioss.jsf.api.components.util.ComponentWrapper;
 import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.tools.string.MoreStrings;
@@ -27,8 +29,6 @@ import jakarta.faces.convert.ConverterException;
 import jakarta.faces.render.Renderer;
 
 import java.io.IOException;
-
-import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
 /**
  * Base class for renderer that use {@link DecoratingResponseWriter} in order to
@@ -157,7 +157,7 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
 
     @Override
     public Object getConvertedValue(final FacesContext context, final UIComponent component,
-                                    final Object submittedValue) {
+            final Object submittedValue) {
         final var valueExpression = component.getValueExpression("value");
         Converter<?> converter = null;
         if (component instanceof ValueHolder holder) {
@@ -166,7 +166,7 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
         if (null == converter && null != valueExpression) {
             final Class<?> converterType = valueExpression.getType(context.getELContext());
             if (null == converterType || Object.class == converterType || converterType == String.class
-                && null != context.getApplication().createConverter(String.class)) {
+                    && null != context.getApplication().createConverter(String.class)) {
                 return submittedValue;
             }
             try {
@@ -230,7 +230,7 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
      * @throws IOException occurs on interrupted I/O operations
      */
     protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<T> writer,
-                                 final T component) throws IOException {
+            final T component) throws IOException {
         // NOOP if not overridden by subclass
     }
 
@@ -248,7 +248,7 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
      * @throws IOException occurs on interrupted I/O operations
      */
     protected void doEncodeChildren(final FacesContext context, final DecoratingResponseWriter<T> writer,
-                                    final T component) throws IOException {
+            final T component) throws IOException {
         for (final UIComponent child : component.getChildren()) {
             if (child.isRendered()) {
                 child.encodeAll(context);
@@ -270,7 +270,7 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
      * @throws IOException occurs on interrupted I/O operations
      */
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<T> writer, final T component)
-        throws IOException {
+            throws IOException {
         // NOOP if not overridden by subclass
     }
 

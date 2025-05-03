@@ -18,16 +18,15 @@ package de.cuioss.jsf.dev.metadata.util;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
-
+import de.cuioss.jsf.dev.metadata.composite.util.SampleSourceFinder;
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.dev.metadata.composite.util.SampleSourceFinder;
+import java.io.File;
 
 class SampleSourceFinderTest {
 
     @Test
-    void testGetSampleSource() {
+    void getSampleSource() {
         var resource = this.getClass().getResource("/header.xhtml");
         var finder = new SampleSourceFinder(new File(resource.getFile()), "smpH1");
         var sampleSource = finder.getSampleSource();

@@ -15,16 +15,15 @@
  */
 package de.cuioss.jsf.components.validator;
 
-import java.util.regex.Pattern;
-
+import de.cuioss.jsf.api.validator.AbstractValidator;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.validator.FacesValidator;
 import jakarta.faces.validator.ValidatorException;
-
-import de.cuioss.jsf.api.validator.AbstractValidator;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.regex.Pattern;
 
 /**
  * Validates strings to be a valid email address.

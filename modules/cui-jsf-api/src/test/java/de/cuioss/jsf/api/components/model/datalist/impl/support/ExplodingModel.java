@@ -15,11 +15,11 @@
  */
 package de.cuioss.jsf.api.components.model.datalist.impl.support;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 @RequiredArgsConstructor
 public class ExplodingModel implements Serializable {

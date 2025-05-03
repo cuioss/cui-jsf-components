@@ -15,13 +15,12 @@
  */
 package de.cuioss.jsf.components.converter;
 
-import java.util.Locale;
-
+import de.cuioss.jsf.api.converter.AbstractConverter;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.ConverterException;
 
-import de.cuioss.jsf.api.converter.AbstractConverter;
+import java.util.Locale;
 
 /**
  * Converts a {@link Locale} to String and vice versa

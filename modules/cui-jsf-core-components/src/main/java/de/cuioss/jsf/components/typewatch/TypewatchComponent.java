@@ -15,21 +15,20 @@
  */
 package de.cuioss.jsf.components.typewatch;
 
-import java.util.Map;
-
-import jakarta.el.MethodExpression;
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.component.behavior.ClientBehaviorHolder;
-
 import de.cuioss.jsf.api.components.decorator.AbstractParentDecorator;
 import de.cuioss.jsf.api.components.partial.AjaxProvider;
 import de.cuioss.jsf.api.components.support.OneTimeCheck;
 import de.cuioss.jsf.api.components.util.ComponentModifier;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.components.CuiFamily;
+import jakarta.el.MethodExpression;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import lombok.ToString;
 import lombok.experimental.Delegate;
+
+import java.util.Map;
 
 /**
  * <p>

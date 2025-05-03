@@ -15,14 +15,10 @@
  */
 package de.cuioss.jsf.bootstrap.icon.strategy;
 
+import lombok.*;
+
 import java.io.Serial;
 import java.io.Serializable;
-
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 
 /**
  * Single {@link Rule} define a condition when this rule has to be chosen and
@@ -38,7 +34,7 @@ import lombok.ToString;
  * @param <V> bounded type for result must be serializable
  */
 @ToString
-@EqualsAndHashCode(of = { "condition", "serialVersionUID" })
+@EqualsAndHashCode(of = {"condition", "serialVersionUID"})
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class Rule<K extends Serializable, V extends Serializable> implements Serializable {
 

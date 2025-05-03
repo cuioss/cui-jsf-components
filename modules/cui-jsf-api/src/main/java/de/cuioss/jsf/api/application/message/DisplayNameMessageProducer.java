@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.api.application.message;
 
+import static java.util.Objects.requireNonNull;
+
 import de.cuioss.jsf.api.common.accessor.ConverterAccessor;
 import de.cuioss.jsf.api.components.support.DummyComponent;
 import de.cuioss.tools.logging.CuiLogger;
@@ -30,8 +32,6 @@ import lombok.ToString;
 
 import java.io.Serial;
 import java.io.Serializable;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Decorator for {@link MessageProducer} to log and display

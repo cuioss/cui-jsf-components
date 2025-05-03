@@ -15,10 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.icon;
 
-import jakarta.faces.component.UIComponent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.css.ContextSize;
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
@@ -34,6 +30,8 @@ import de.cuioss.jsf.test.EnableJSFCDIEnvironment;
 import de.cuioss.jsf.test.EnableResourceBundleSupport;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
+import jakarta.faces.component.UIComponent;
+import org.junit.jupiter.api.Test;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @EnableJSFCDIEnvironment

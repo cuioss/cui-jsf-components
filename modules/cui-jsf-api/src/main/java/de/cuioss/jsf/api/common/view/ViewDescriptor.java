@@ -15,11 +15,11 @@
  */
 package de.cuioss.jsf.api.common.view;
 
-import java.io.Serializable;
-import java.util.List;
-
 import de.cuioss.tools.net.ParameterFilter;
 import de.cuioss.tools.net.UrlParameter;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Represents a JSF-view at runtime

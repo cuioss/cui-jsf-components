@@ -17,14 +17,12 @@ package de.cuioss.jsf.api.components.partial;
 
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
-import java.io.Serializable;
-
+import de.cuioss.jsf.api.components.support.LabelResolver;
 import jakarta.faces.component.StateHelper;
-
+import lombok.NonNull;
 import org.omnifaces.util.State;
 
-import de.cuioss.jsf.api.components.support.LabelResolver;
-import lombok.NonNull;
+import java.io.Serializable;
 
 /**
  * <h2>Summary</h2>

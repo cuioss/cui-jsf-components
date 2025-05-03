@@ -18,9 +18,9 @@ package de.cuioss.jsf.bootstrap.layout;
 import static de.cuioss.tools.string.MoreStrings.emptyToNull;
 import static java.util.Objects.requireNonNull;
 
-import java.util.Map;
-
 import de.cuioss.tools.collect.MapBuilder;
+
+import java.util.Map;
 
 /**
  * @author Oliver Wolff

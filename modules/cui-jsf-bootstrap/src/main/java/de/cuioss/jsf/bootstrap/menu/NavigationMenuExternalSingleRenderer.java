@@ -15,13 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.menu;
 
-import java.io.IOException;
-
-import jakarta.faces.component.html.HtmlOutputLink;
-import jakarta.faces.component.html.HtmlOutputText;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.render.Renderer;
-
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemExternalSingle;
@@ -30,7 +23,13 @@ import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.jsf.bootstrap.icon.IconComponent;
+import jakarta.faces.component.html.HtmlOutputLink;
+import jakarta.faces.component.html.HtmlOutputText;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.Renderer;
 import lombok.experimental.UtilityClass;
+
+import java.io.IOException;
 
 /**
  * {@link Renderer} utility for the {@link NavigationMenuItemSingle} model.

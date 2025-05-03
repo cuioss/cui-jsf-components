@@ -15,23 +15,19 @@
  */
 package de.cuioss.jsf.jqplot.js.types;
 
+import de.cuioss.jsf.jqplot.js.support.JsValue;
+import lombok.*;
+
 import java.io.Serial;
 import java.time.temporal.Temporal;
-
-import de.cuioss.jsf.jqplot.js.support.JsValue;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
-import lombok.ToString;
-import lombok.Value;
 
 /**
  * Provide safe way to act with Date as JSON property.
  *
  * @author Eugen Fischer
  */
-@ToString(of = { "value" })
-@EqualsAndHashCode(of = { "value" })
+@ToString(of = {"value"})
+@EqualsAndHashCode(of = {"value"})
 @Builder
 @Value
 public class JsDateTime implements JsValue {

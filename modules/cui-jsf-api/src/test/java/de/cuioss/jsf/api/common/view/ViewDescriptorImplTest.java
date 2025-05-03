@@ -19,16 +19,15 @@ import static de.cuioss.test.generator.Generators.strings;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import java.util.Collections;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.valueobjects.ValueObjectTest;
 import de.cuioss.test.valueobjects.api.contracts.VerifyBuilder;
 import de.cuioss.tools.net.ParameterFilter;
+import org.junit.jupiter.api.Test;
 
-@VerifyBuilder(methodPrefix = "with", exclude = { "viewDefined", "shortIdentifier" })
+import java.util.Collections;
+
+@VerifyBuilder(methodPrefix = "with", exclude = {"viewDefined", "shortIdentifier"})
 class ViewDescriptorImplTest extends ValueObjectTest<ViewDescriptorImpl> {
 
     private final TypedGenerator<String> stringGenerator = strings(1, 55);

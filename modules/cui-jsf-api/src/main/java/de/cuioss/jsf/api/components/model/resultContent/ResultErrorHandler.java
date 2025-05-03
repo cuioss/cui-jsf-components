@@ -44,24 +44,24 @@ public class ResultErrorHandler {
         errorController.setRenderContent(true);
         var cause = detail.getCause();
         switch (state) {
-        case ERROR:
-            log.error(MSG, cause.orElse(null));
-            contextState = ContextState.DANGER;
-            errorController.setRenderContent(false);
-            break;
-        case WARNING:
-            cause.ifPresent(throwable -> log.warn(MSG, throwable));
-            contextState = ContextState.WARNING;
-            break;
-        case INFO:
-            cause.ifPresent(throwable -> log.info(MSG, throwable));
-            contextState = ContextState.INFO;
-            break;
-        case VALID:
-            contextState = ContextState.SUCCESS;
-            break;
-        default:
-            throw new UnsupportedOperationException("No resolving defined for -> " + state, cause.orElse(null));
+            case ERROR:
+                log.error(MSG, cause.orElse(null));
+                contextState = ContextState.DANGER;
+                errorController.setRenderContent(false);
+                break;
+            case WARNING:
+                cause.ifPresent(throwable -> log.warn(MSG, throwable));
+                contextState = ContextState.WARNING;
+                break;
+            case INFO:
+                cause.ifPresent(throwable -> log.info(MSG, throwable));
+                contextState = ContextState.INFO;
+                break;
+            case VALID:
+                contextState = ContextState.SUCCESS;
+                break;
+            default:
+                throw new UnsupportedOperationException("No resolving defined for -> " + state, cause.orElse(null));
         }
 
         errorController.addNotificationBox(detail.getDetail(), contextState);

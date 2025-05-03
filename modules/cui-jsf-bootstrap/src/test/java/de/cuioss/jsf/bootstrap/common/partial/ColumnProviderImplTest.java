@@ -18,13 +18,12 @@ package de.cuioss.jsf.bootstrap.common.partial;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import lombok.Getter;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class ColumnProviderImplTest extends AbstractComponentTest<MockPartialComponent> {
 

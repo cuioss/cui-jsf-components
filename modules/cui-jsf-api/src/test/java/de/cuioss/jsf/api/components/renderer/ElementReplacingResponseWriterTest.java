@@ -16,21 +16,17 @@
 package de.cuioss.jsf.api.components.renderer;
 
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.IOException;
-import java.io.StringWriter;
-
+import de.cuioss.jsf.api.components.support.DummyComponent;
+import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
 import jakarta.faces.component.UIComponent;
-
 import org.apache.myfaces.test.mock.MockResponseWriter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.api.components.support.DummyComponent;
-import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
+import java.io.IOException;
+import java.io.StringWriter;
 
 class ElementReplacingResponseWriterTest extends JsfEnabledTestEnvironment {
 

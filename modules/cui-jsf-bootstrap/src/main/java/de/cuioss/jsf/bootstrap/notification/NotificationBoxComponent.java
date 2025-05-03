@@ -15,11 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.notification;
 
-import jakarta.el.MethodExpression;
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.event.FacesEvent;
-
 import de.cuioss.jsf.api.components.base.AbstractBaseCuiComponent;
 import de.cuioss.jsf.api.components.events.ModelPayloadEvent;
 import de.cuioss.jsf.api.components.partial.CloseButtonTitleProvider;
@@ -29,6 +24,10 @@ import de.cuioss.jsf.api.components.partial.ContextStateProvider;
 import de.cuioss.jsf.api.components.partial.ModelProvider;
 import de.cuioss.jsf.api.components.partial.StyleAttributeProvider;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
+import jakarta.el.MethodExpression;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.event.FacesEvent;
 import lombok.experimental.Delegate;
 
 /**
@@ -139,7 +138,7 @@ public class NotificationBoxComponent extends AbstractBaseCuiComponent {
         super.broadcast(event);
         final var dismissListener = getDismissListener();
         if (event instanceof ModelPayloadEvent && dismissListener != null) {
-            dismissListener.invoke(getFacesContext().getELContext(), new Object[] { event });
+            dismissListener.invoke(getFacesContext().getELContext(), new Object[]{event});
         }
     }
 

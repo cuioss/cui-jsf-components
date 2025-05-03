@@ -22,6 +22,7 @@ import jakarta.faces.component.FacesComponent;
 import jakarta.faces.component.UINamingContainer;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.view.ViewDeclarationLanguage;
+import jakarta.servlet.ServletContext;
 
 import java.beans.BeanDescriptor;
 import java.beans.BeanInfo;
@@ -88,7 +89,7 @@ public final class CompositeComponentTag extends UINamingContainer {
      */
     private ViewDeclarationLanguage getDeclarationLanguage() {
         return getFacesContext().getApplication().getViewHandler().getViewDeclarationLanguage(getFacesContext(),
-            getViewName());
+                getViewName());
     }
 
     /**
@@ -101,12 +102,12 @@ public final class CompositeComponentTag extends UINamingContainer {
                 var compositeComponentResource = resourceHandler.createResource(getCompositeName(), getLibrary());
                 if (null == compositeComponentResource) {
                     throw new IllegalArgumentException(
-                        "No resource found for " + getLibrary() + "/" + getCompositeName());
+                            "No resource found for " + getLibrary() + "/" + getCompositeName());
                 }
                 metadata = getDeclarationLanguage().getComponentMetadata(getFacesContext(), compositeComponentResource);
                 if (log.isTraceEnabled()) {
                     log.trace(
-                        "Lazy loaded metadata for Composite Component " + getLibrary() + "/" + getCompositeName());
+                            "Lazy loaded metadata for Composite Component " + getLibrary() + "/" + getCompositeName());
                 }
             }
         }
@@ -127,7 +128,7 @@ public final class CompositeComponentTag extends UINamingContainer {
         if (!componentPropertiesWrapper.isConfigured()) {
             Map<String, String> additionalInfo = new HashMap<>();
             additionalInfo.put(ComponentPropertiesWrapper.COMOPOSITE_NAME_KEY,
-                getCompositeName().replace(DEFAULT_COMPONENT_SUFFIX, ""));
+                    getCompositeName().replace(DEFAULT_COMPONENT_SUFFIX, ""));
             additionalInfo.put(ComponentPropertiesWrapper.COMOPOSITE_LIBRARY_KEY, getLibrary());
             componentPropertiesWrapper = new ComponentPropertiesWrapper();
             componentPropertiesWrapper.addParentComponentDescriptor(getMetadataInfo().getBeanDescriptor());
@@ -173,9 +174,9 @@ public final class CompositeComponentTag extends UINamingContainer {
      * @return the source for the sample facet
      */
     public String getSampleFacetSource() {
-        final var context = (jakarta.servlet.ServletContext) getFacesContext().getExternalContext().getContext();
+        final var context = (ServletContext) getFacesContext().getExternalContext().getContext();
         final var sampleSourceFinder = new SampleSourceFinder(
-            new File(context.getRealPath(getFacesContext().getViewRoot().getViewId())), getId());
+                new File(context.getRealPath(getFacesContext().getViewRoot().getViewId())), getId());
         return sampleSourceFinder.getSampleSource();
     }
 }

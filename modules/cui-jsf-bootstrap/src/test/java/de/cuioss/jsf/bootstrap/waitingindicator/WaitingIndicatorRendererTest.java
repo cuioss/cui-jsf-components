@@ -15,15 +15,13 @@
  */
 package de.cuioss.jsf.bootstrap.waitingindicator;
 
-import jakarta.faces.component.UIComponent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
+import jakarta.faces.component.UIComponent;
+import org.junit.jupiter.api.Test;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class WaitingIndicatorRendererTest extends AbstractComponentRendererTest<WaitingIndicatorRenderer> {

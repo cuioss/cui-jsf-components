@@ -15,12 +15,11 @@
  */
 package de.cuioss.jsf.api.converter;
 
+import de.cuioss.jsf.api.security.CuiSanitizer;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.ConverterException;
 import jakarta.faces.convert.FacesConverter;
-
-import de.cuioss.jsf.api.security.CuiSanitizer;
 
 /**
  * String converter that uses {@link CuiSanitizer#PLAIN_TEXT} as

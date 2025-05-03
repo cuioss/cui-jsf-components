@@ -15,35 +15,31 @@
  */
 package de.cuioss.jsf.api.servlet;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.junit.jupiter.api.Test;
 
 class ServletAdapterUtilTest extends JsfEnabledTestEnvironment {
 
     private static final String PARAM_NAME = "parameterName";
 
     @Test
-    void testGetRequestParameter() {
+    void getRequestParameter() {
         var s1 = ServletAdapterUtil.getRequestParameter(getFacesContext(), PARAM_NAME);
         var s2 = ServletAdapterUtil.getRequest(getFacesContext()).getParameter(PARAM_NAME);
         assertEquals(s1, s2);
     }
 
     @Test
-    void testGetRequestParameterWithNullContext() {
+    void getRequestParameterWithNullContext() {
         assertThrows(NullPointerException.class, () -> ServletAdapterUtil.getRequestParameter(null, PARAM_NAME));
     }
 
     @Test
-    void testGetRequestParameterWithNullParameter() {
+    void getRequestParameterWithNullParameter() {
         assertThrows(IllegalArgumentException.class,
                 () -> ServletAdapterUtil.getRequestParameter(getFacesContext(), null));
     }
@@ -61,18 +57,18 @@ class ServletAdapterUtilTest extends JsfEnabledTestEnvironment {
     }
 
     @Test
-    void testGetResponseWithNullContext() {
+    void getResponseWithNullContext() {
         assertThrows(NullPointerException.class, () -> ServletAdapterUtil.getResponse(null));
     }
 
     @Test
-    void testGetRequest() {
+    void getRequest() {
         final var request = (HttpServletRequest) getFacesContext().getExternalContext().getRequest();
         assertEquals(request, ServletAdapterUtil.getRequest(getFacesContext()));
     }
 
     @Test
-    void testGetRequestWithNullContext() {
+    void getRequestWithNullContext() {
         assertThrows(NullPointerException.class, () -> ServletAdapterUtil.getRequest(null));
     }
 

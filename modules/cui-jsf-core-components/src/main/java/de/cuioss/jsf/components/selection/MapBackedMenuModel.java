@@ -17,19 +17,18 @@ package de.cuioss.jsf.components.selection;
 
 import static java.util.Objects.requireNonNull;
 
+import de.cuioss.jsf.api.components.selection.SelectMenuModel;
+import de.cuioss.tools.collect.CollectionBuilder;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ValueChangeEvent;
+import jakarta.faces.model.SelectItem;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
-
-import jakarta.faces.event.AbortProcessingException;
-import jakarta.faces.event.ValueChangeEvent;
-import jakarta.faces.model.SelectItem;
-
-import de.cuioss.jsf.api.components.selection.SelectMenuModel;
-import de.cuioss.tools.collect.CollectionBuilder;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * Variant of the {@link SelectMenuModel} that is backed by map. Caution: It is
@@ -65,7 +64,7 @@ public class MapBackedMenuModel<T extends Serializable> extends MapInstanceConve
         super.setInstanceMap(map);
         requireNonNull(map, "Parameter map must not be empty");
         final var itemBuilder = new CollectionBuilder<SelectItem>();
-        for (final java.util.Map.Entry<String, T> mapEntry : map.entrySet()) {
+        for (final Map.Entry<String, T> mapEntry : map.entrySet()) {
             itemBuilder.add(new SelectItem(mapEntry.getValue(), mapEntry.getKey()));
         }
         selectableValues = itemBuilder.toImmutableList();

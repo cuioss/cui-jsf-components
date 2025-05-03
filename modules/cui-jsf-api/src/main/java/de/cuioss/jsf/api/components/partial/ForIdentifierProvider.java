@@ -17,14 +17,13 @@ package de.cuioss.jsf.api.components.partial;
 
 import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
 
-import java.util.List;
-import java.util.Optional;
-
-import jakarta.faces.component.StateHelper;
-
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.tools.string.Splitter;
+import jakarta.faces.component.StateHelper;
 import lombok.NonNull;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Provides the capability to resolve multiple for-identifier

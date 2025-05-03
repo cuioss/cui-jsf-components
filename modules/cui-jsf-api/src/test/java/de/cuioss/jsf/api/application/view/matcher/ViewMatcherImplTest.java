@@ -16,17 +16,14 @@
 package de.cuioss.jsf.api.application.view.matcher;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Collections;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.common.view.ViewDescriptor;
 import de.cuioss.jsf.api.common.view.ViewDescriptorImpl;
 import de.cuioss.tools.net.UrlParameter;
+import org.junit.jupiter.api.Test;
+
+import java.util.Collections;
 
 class ViewMatcherImplTest {
 

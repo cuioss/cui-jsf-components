@@ -15,11 +15,11 @@
  */
 package de.cuioss.jsf.components.selection;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
+
+import java.util.HashMap;
+import java.util.Map;
 
 class MapInstanceConverterTest extends AbstractConverterTest<MapInstanceConverter<String, String>, String> {
 

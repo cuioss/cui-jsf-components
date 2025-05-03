@@ -15,14 +15,11 @@
  */
 package de.cuioss.jsf.jqplot.js.types;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.valueobjects.ValueObjectTest;
+import org.junit.jupiter.api.Test;
 
 class JsNumberTest extends ValueObjectTest<JsNumber<Number>> {
 

@@ -24,10 +24,10 @@ import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.icon.support.IconSize;
 import de.cuioss.jsf.bootstrap.icon.support.IconState;
-
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.FacesRenderer;
 import jakarta.faces.render.Renderer;
+
 import java.io.IOException;
 
 /**
@@ -55,7 +55,7 @@ public class IconRenderer extends BaseDecoratorRenderer<IconComponent> {
 
     @Override
     protected void doEncodeEnd(FacesContext context, DecoratingResponseWriter<IconComponent> writer,
-                               IconComponent component) throws IOException {
+            IconComponent component) throws IOException {
 
         // Write element
         writer.withStartElement(Node.SPAN);

@@ -15,12 +15,12 @@
  */
 package de.cuioss.jsf.bootstrap.button.support;
 
+import static de.cuioss.tools.string.MoreStrings.isEmpty;
+
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.jsf.api.components.css.StyleClassProvider;
 import de.cuioss.tools.string.MoreStrings;
 import lombok.Getter;
-
-import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
 /**
  * @author Oliver Wolff

@@ -15,15 +15,7 @@
  */
 package de.cuioss.jsf.api.application.message;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import jakarta.faces.application.FacesMessage;
-import jakarta.inject.Inject;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.EnableJSFCDIEnvironment;
 import de.cuioss.jsf.api.EnableResourceBundleSupport;
@@ -32,8 +24,11 @@ import de.cuioss.portal.common.stage.ProjectStage;
 import de.cuioss.test.jsf.util.JsfEnvironmentConsumer;
 import de.cuioss.test.jsf.util.JsfEnvironmentHolder;
 import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
+import jakarta.faces.application.FacesMessage;
+import jakarta.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
+import org.junit.jupiter.api.Test;
 
 @EnableJSFCDIEnvironment
 @EnableResourceBundleSupport
@@ -124,7 +119,7 @@ class MessageProducerBeanTest implements ShouldHandleObjectContracts<MessageProd
     }
 
     @Test
-    void testNoMsgParams() {
+    void noMsgParams() {
         assertDoesNotThrow(() -> underTest.addMessage("no-args", FacesMessage.SEVERITY_WARN, COMPONENT_ID),
                 "missing varargs should work");
         assertDoesNotThrow(() -> underTest.addMessage("no-args", FacesMessage.SEVERITY_WARN, COMPONENT_ID),

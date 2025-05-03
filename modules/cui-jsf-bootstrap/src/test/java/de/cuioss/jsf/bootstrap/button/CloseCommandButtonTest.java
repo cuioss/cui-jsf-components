@@ -18,8 +18,6 @@ package de.cuioss.jsf.bootstrap.button;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
@@ -27,8 +25,9 @@ import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "titleKey", "titleValue" })
+@VerifyComponentProperties(of = {"titleKey", "titleValue"})
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class CloseCommandButtonTest extends AbstractComponentTest<CloseCommandButton> {
 

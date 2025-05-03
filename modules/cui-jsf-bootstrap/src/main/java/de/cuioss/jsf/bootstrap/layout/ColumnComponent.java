@@ -15,14 +15,13 @@
  */
 package de.cuioss.jsf.bootstrap.layout;
 
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.context.FacesContext;
-
 import de.cuioss.jsf.api.components.base.BaseCuiPanel;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.util.ComponentUtility;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.common.partial.ColumnProvider;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.context.FacesContext;
 import lombok.experimental.Delegate;
 
 /**

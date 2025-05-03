@@ -15,16 +15,15 @@
  */
 package de.cuioss.jsf.components.converter;
 
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-
+import de.cuioss.jsf.api.converter.AbstractConverter;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.ConverterException;
 import jakarta.faces.convert.FacesConverter;
 
-import de.cuioss.jsf.api.converter.AbstractConverter;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  * If any string used in view param, it will be encoded to escape spaces and

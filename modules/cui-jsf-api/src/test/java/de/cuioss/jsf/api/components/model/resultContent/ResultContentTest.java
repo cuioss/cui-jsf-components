@@ -15,12 +15,7 @@
  */
 package de.cuioss.jsf.api.components.model.resultContent;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.juli.LogAsserts;
 import de.cuioss.test.juli.TestLogLevel;
@@ -31,6 +26,7 @@ import de.cuioss.uimodel.nameprovider.DisplayName;
 import de.cuioss.uimodel.result.ResultDetail;
 import de.cuioss.uimodel.result.ResultObject;
 import de.cuioss.uimodel.result.ResultState;
+import org.junit.jupiter.api.Test;
 
 @EnableTestLogger
 class ResultContentTest {
@@ -38,7 +34,7 @@ class ResultContentTest {
     private static final CuiLogger log = new CuiLogger(ResultContentTest.class);
 
     @Test
-    void testEmpty() {
+    void empty() {
         var underTest = new ResultContent();
         assertEquals(underTest, SerializableContractImpl.serializeAndDeserialize(underTest));
         assertNotNull(underTest.getNotificationBoxMessages());
@@ -47,7 +43,7 @@ class ResultContentTest {
     }
 
     @Test
-    void testValid() {
+    void valid() {
         var underTest = new ResultContent(new ResultObject<>("", ResultState.VALID), log);
         assertEquals(underTest, SerializableContractImpl.serializeAndDeserialize(underTest));
         assertNotNull(underTest.getNotificationBoxMessages());
@@ -56,7 +52,7 @@ class ResultContentTest {
     }
 
     @Test
-    void testError() {
+    void error() {
         var underTest = new ResultContent(
                 new ResultObject<>("", ResultState.ERROR, new ResultDetail(new DisplayName("Test")), null), log);
         assertEquals(underTest, SerializableContractImpl.serializeAndDeserialize(underTest));

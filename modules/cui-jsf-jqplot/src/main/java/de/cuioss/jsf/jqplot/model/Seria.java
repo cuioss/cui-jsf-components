@@ -15,14 +15,14 @@
  */
 package de.cuioss.jsf.jqplot.model;
 
-import java.io.Serial;
-import java.util.Iterator;
-
 import de.cuioss.jsf.jqplot.js.support.JavaScriptSupport;
 import de.cuioss.jsf.jqplot.js.support.JsArray;
 import de.cuioss.jsf.jqplot.js.support.JsValue;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.util.Iterator;
 
 /**
  * Represent a seria for {@linkplain SeriesData}. <br>

@@ -15,11 +15,11 @@
  */
 package de.cuioss.jsf.bootstrap.modal.support;
 
+import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
+
 import de.cuioss.jsf.api.components.css.StyleClassProvider;
 import de.cuioss.tools.string.MoreStrings;
 import lombok.Getter;
-
-import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
 
 /**
  * Represents the different size for bootstrap modal dialog

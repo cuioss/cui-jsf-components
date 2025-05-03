@@ -15,21 +15,20 @@
  */
 package de.cuioss.jsf.components.converter;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
+import de.cuioss.jsf.api.converter.AbstractConverter;
+import de.cuioss.tools.string.Joiner;
+import de.cuioss.tools.string.Splitter;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.ConverterException;
 import jakarta.faces.convert.FacesConverter;
-
-import de.cuioss.jsf.api.converter.AbstractConverter;
-import de.cuioss.tools.string.Joiner;
-import de.cuioss.tools.string.Splitter;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * String to List conversion and vice versa, based on the separator character.

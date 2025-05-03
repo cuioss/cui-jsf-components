@@ -15,11 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.selectize;
 
-import java.io.Serializable;
-import java.util.Map;
-
-import jakarta.faces.component.UIComponent;
-
 import de.cuioss.jsf.api.components.javascript.ComponentWrapperJQuerySelector;
 import de.cuioss.jsf.api.components.javascript.ComponentWrapperJQuerySelector.ComponentWrapperJQuerySelectorBuilder;
 import de.cuioss.jsf.api.components.javascript.JavaScriptOptions;
@@ -28,8 +23,12 @@ import de.cuioss.jsf.api.components.javascript.NotQuotableWrapper;
 import de.cuioss.jsf.api.components.javascript.ScriptProvider;
 import de.cuioss.jsf.api.components.util.ComponentWrapper;
 import de.cuioss.uimodel.model.code.CodeType;
+import jakarta.faces.component.UIComponent;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+
+import java.io.Serializable;
+import java.util.Map;
 
 /**
  * Helper class for creating java-script configuration for the selectize

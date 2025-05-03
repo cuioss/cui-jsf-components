@@ -15,10 +15,6 @@
  */
 package de.cuioss.jsf.jqplot.options.label;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.List;
-
 import de.cuioss.jsf.jqplot.js.support.IPropertyProvider;
 import de.cuioss.jsf.jqplot.js.support.JavaScriptSupport;
 import de.cuioss.jsf.jqplot.js.support.PropertyProvider;
@@ -30,12 +26,16 @@ import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * @author Eugen Fischer
  * @param <T> decorated class type
  */
-@ToString(exclude = { "userClass" })
-@EqualsAndHashCode(exclude = { "userClass" })
+@ToString(exclude = {"userClass"})
+@EqualsAndHashCode(exclude = {"userClass"})
 public class Label<T extends Serializable> implements ILabelDecorator<T>, Serializable, IPropertyProvider {
 
     /** serial Version UID */

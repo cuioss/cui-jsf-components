@@ -17,15 +17,13 @@ package de.cuioss.jsf.api.components;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import jakarta.faces.component.behavior.AjaxBehavior;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import org.junit.jupiter.api.Test;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class JsfBehaviorComponentTest extends JsfEnabledTestEnvironment implements ComponentConfigurator {

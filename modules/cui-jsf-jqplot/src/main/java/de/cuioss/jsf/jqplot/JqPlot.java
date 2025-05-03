@@ -19,11 +19,6 @@ import static de.cuioss.tools.base.Preconditions.checkState;
 import static de.cuioss.tools.string.MoreStrings.emptyToNull;
 import static java.util.Objects.requireNonNull;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import de.cuioss.jsf.jqplot.hook.HookFunctionsManager;
 import de.cuioss.jsf.jqplot.hook.PlotHookFunctionProvider;
 import de.cuioss.jsf.jqplot.js.support.JsObject;
@@ -34,6 +29,11 @@ import de.cuioss.jsf.jqplot.plugin.PluginSupport;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * jqPlot-| |-seriesColors |-textColor |-fontFamily |-fontSize |-stackSeries

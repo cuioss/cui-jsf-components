@@ -16,15 +16,7 @@
 package de.cuioss.jsf.bootstrap.tag;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import jakarta.faces.component.UIInput;
-import jakarta.faces.event.PostAddToViewEvent;
-import jakarta.faces.event.ValueChangeEvent;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.jsf.api.components.events.ModelPayloadEvent;
@@ -36,9 +28,13 @@ import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.mocks.CuiMockMethodExpression;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.event.ValueChangeEvent;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "model", "disposable", "contentKey", "contentValue", "size", "state", "titleKey",
-        "titleValue", "contentEscape" })
+@VerifyComponentProperties(of = {"model", "disposable", "contentKey", "contentValue", "size", "state", "titleKey",
+        "titleValue", "contentEscape"})
 class TagComponentTest extends AbstractUiComponentTest<TagComponent> implements ComponentConfigurator {
 
     private static final String PAYLOAD = "data";
@@ -76,7 +72,7 @@ class TagComponentTest extends AbstractUiComponentTest<TagComponent> implements 
     private static void simulateDisposeItem(final TagComponent component) {
         final var hiddenInput = (UIInput) component.getChildren().stream().filter(child -> child instanceof UIInput)
                 .findFirst().orElseThrow(
-                        () -> new IllegalStateException("Hidden input is missing but should be available as child"));
+                () -> new IllegalStateException("Hidden input is missing but should be available as child"));
         hiddenInput.setValue("true");
     }
 

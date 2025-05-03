@@ -21,12 +21,6 @@ import static de.cuioss.test.generator.Generators.letterStrings;
 import static de.cuioss.tools.collect.CollectionLiterals.mutableList;
 import static org.junit.jupiter.api.Assertions.*;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.event.PostAddToViewEvent;
-import jakarta.faces.event.PreRenderComponentEvent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.JsfComponentIdentifier;
 import de.cuioss.jsf.api.components.base.AbstractBaseCuiComponent;
 import de.cuioss.jsf.api.components.partial.AjaxProvider;
@@ -45,11 +39,15 @@ import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.mocks.CuiMockSearchExpressionHandler;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.event.PreRenderComponentEvent;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "buttonAlign", "resetGuardIcon", "guardIcon", "guardButtonTitleKey",
+@VerifyComponentProperties(of = {"buttonAlign", "resetGuardIcon", "guardIcon", "guardButtonTitleKey",
         "guardButtonTitleValue", "guardButtonTitleConverter", "guardButtonTitleEscape", "resetGuardButtonTitleKey",
         "resetInputValue", "resetGuardButtonTitleValue", "resetGuardButtonTitleConverter", "update", "process",
-        "resetGuardButtonTitleEscape", "renderButtons" })
+        "resetGuardButtonTitleEscape", "renderButtons"})
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @EnableJSFCDIEnvironment
 @EnableResourceBundleSupport

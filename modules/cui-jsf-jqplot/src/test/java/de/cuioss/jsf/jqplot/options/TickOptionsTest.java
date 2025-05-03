@@ -15,14 +15,11 @@
  */
 package de.cuioss.jsf.jqplot.options;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
 import de.cuioss.tools.collect.CollectionBuilder;
+import org.junit.jupiter.api.Test;
 
 class TickOptionsTest implements ShouldHandleObjectContracts<TickOptions> {
 

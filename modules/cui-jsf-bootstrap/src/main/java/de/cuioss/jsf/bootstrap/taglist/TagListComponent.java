@@ -15,10 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.taglist;
 
-import java.util.Collection;
-
-import jakarta.faces.component.FacesComponent;
-
 import de.cuioss.jsf.api.components.base.BaseCuiNamingContainer;
 import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
 import de.cuioss.jsf.api.components.partial.ContentProvider;
@@ -28,7 +24,10 @@ import de.cuioss.jsf.api.components.partial.StyleAttributeProvider;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.tag.support.TagHelper;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
+import jakarta.faces.component.FacesComponent;
 import lombok.experimental.Delegate;
+
+import java.util.Collection;
 
 /**
  * <p>

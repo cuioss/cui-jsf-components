@@ -19,14 +19,12 @@ import static de.cuioss.jsf.api.components.util.modifier.ComponentModifierAssert
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.html.HtmlInputText;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.util.modifier.support.StyleClassProvider;
 import de.cuioss.jsf.api.components.util.modifier.support.StyleProvider;
 import de.cuioss.jsf.api.components.util.modifier.support.TitleProviderImpl;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlInputText;
+import org.junit.jupiter.api.Test;
 
 class CuiInterfaceBasedModifierTest {
 

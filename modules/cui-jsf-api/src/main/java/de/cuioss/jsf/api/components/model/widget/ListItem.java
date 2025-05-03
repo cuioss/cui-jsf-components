@@ -15,10 +15,10 @@
  */
 package de.cuioss.jsf.api.components.model.widget;
 
+import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
+
 import java.io.Serializable;
 import java.time.LocalDate;
-
-import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
 
 /**
  * To be displayed inside the {@link ListItemWidgetModel}.

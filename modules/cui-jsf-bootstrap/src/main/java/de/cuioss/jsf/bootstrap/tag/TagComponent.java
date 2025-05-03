@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.bootstrap.tag;
 
+import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
+
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.jsf.api.components.base.BaseCuiInputComponent;
 import de.cuioss.jsf.api.components.events.ModelPayloadEvent;
@@ -24,8 +26,6 @@ import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.jsf.bootstrap.button.CloseCommandButton;
 import de.cuioss.tools.logging.CuiLogger;
-import lombok.experimental.Delegate;
-
 import jakarta.el.MethodExpression;
 import jakarta.faces.application.ResourceDependency;
 import jakarta.faces.component.FacesComponent;
@@ -34,11 +34,11 @@ import jakarta.faces.component.UIInput;
 import jakarta.faces.component.behavior.ClientBehavior;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import jakarta.faces.event.*;
+import lombok.experimental.Delegate;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-
-import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
 /**
  * <p>
@@ -75,7 +75,7 @@ import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 @ResourceDependency(library = "javascript.enabler", name = "enabler.tagdispose.js", target = "head")
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
 public class TagComponent extends BaseCuiInputComponent
-    implements TitleProvider, ClientBehaviorHolder, ValueChangeListener {
+        implements TitleProvider, ClientBehaviorHolder, ValueChangeListener {
 
     private static final CuiLogger log = new CuiLogger(TagComponent.class);
 
@@ -167,7 +167,7 @@ public class TagComponent extends BaseCuiInputComponent
         }
 
         final var found = getChildren().stream().filter(component -> component instanceof CloseCommandButton)
-            .findFirst();
+                .findFirst();
 
         if (found.isPresent()) {
             return Optional.of((CloseCommandButton) found.get());
@@ -189,8 +189,8 @@ public class TagComponent extends BaseCuiInputComponent
             button.get().addClientBehavior(eventName, behavior);
         } else {
             log.warn(
-                "Invalid configuration: In order to use a client-behavior you need to set disposable=true, clientid='{}'",
-                getClientId());
+                    "Invalid configuration: In order to use a client-behavior you need to set disposable=true, clientid='{}'",
+                    getClientId());
         }
     }
 

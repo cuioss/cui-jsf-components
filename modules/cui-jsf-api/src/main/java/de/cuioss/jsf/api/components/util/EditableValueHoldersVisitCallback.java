@@ -15,18 +15,17 @@
  */
 package de.cuioss.jsf.api.components.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import jakarta.faces.component.EditableValueHolder;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.visit.VisitCallback;
 import jakarta.faces.component.visit.VisitContext;
 import jakarta.faces.component.visit.VisitResult;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implementation for the visiting pattern of JSF, inspired by

@@ -15,26 +15,20 @@
  */
 package de.cuioss.jsf.dev.metadata.composite.util;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import de.cuioss.tools.logging.CuiLogger;
+import org.w3c.dom.Node;
+import org.w3c.dom.ls.DOMImplementationLS;
+import org.xml.sax.SAXException;
+
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
-
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-
-import org.w3c.dom.Node;
-import org.w3c.dom.ls.DOMImplementationLS;
-import org.xml.sax.SAXException;
-
-import de.cuioss.tools.logging.CuiLogger;
 
 /**
  * Finds the source for the samples.

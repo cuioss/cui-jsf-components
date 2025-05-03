@@ -18,14 +18,14 @@ package de.cuioss.jsf.bootstrap.layout.input;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableSet;
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.Set;
-
 import de.cuioss.tools.logging.CuiLogger;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Provides the facets supported by {@link LabeledContainerComponent}

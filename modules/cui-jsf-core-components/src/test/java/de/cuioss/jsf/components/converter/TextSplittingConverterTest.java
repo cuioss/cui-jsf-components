@@ -17,10 +17,9 @@ package de.cuioss.jsf.components.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
+import org.junit.jupiter.api.Test;
 
 class TextSplittingConverterTest extends AbstractConverterTest<TextSplittingConverter, String> {
 

@@ -17,21 +17,19 @@ package de.cuioss.jsf.bootstrap.selectize;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.html.HtmlForm;
-import jakarta.faces.component.html.HtmlInputText;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.util.ComponentWrapper;
 import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlForm;
+import jakarta.faces.component.html.HtmlInputText;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 class SelectizeTest extends JsfEnabledTestEnvironment implements ComponentConfigurator {
 

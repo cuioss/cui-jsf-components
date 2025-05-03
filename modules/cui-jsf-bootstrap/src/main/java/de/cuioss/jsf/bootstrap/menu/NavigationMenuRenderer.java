@@ -15,13 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.menu;
 
-import java.io.IOException;
-import java.util.List;
-
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.render.FacesRenderer;
-import jakarta.faces.render.Renderer;
-
 import de.cuioss.jsf.api.components.model.menu.NavigationMenuItem;
 import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemContainer;
 import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemExternalSingle;
@@ -31,6 +24,12 @@ import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.tools.string.Joiner;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
+import jakarta.faces.render.Renderer;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Default {@link Renderer} for the {@link NavigationMenuComponent} component,

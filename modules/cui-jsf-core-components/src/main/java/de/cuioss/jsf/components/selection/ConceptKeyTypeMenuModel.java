@@ -17,20 +17,19 @@ package de.cuioss.jsf.components.selection;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.Serial;
-import java.util.Locale;
-import java.util.Set;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-
 import de.cuioss.tools.string.MoreStrings;
-import de.cuioss.uimodel.model.conceptkey.AugmentationKeyConstans;
+import de.cuioss.uimodel.model.conceptkey.AugmentationKeyConstants;
 import de.cuioss.uimodel.model.conceptkey.ConceptCategory;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyTypeSelection;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.util.Locale;
+import java.util.Set;
 
 /**
  * SelectMenuModel for {@link ConceptKeyType}
@@ -60,18 +59,18 @@ public class ConceptKeyTypeMenuModel extends AbstractSelectMenuModelAndConverter
 
     /**
      * Initializes to the element in the Model marked as default (
-     * {@link AugmentationKeyConstans#DEFAULT_VALUE}).
+     * {@link AugmentationKeyConstants#DEFAULT_VALUE}).
      */
     public void initToDefault() {
         final var selected = getSelectableValues().stream().map(x -> (ConceptKeyType) x.getValue())
-                .filter(x -> !MoreStrings.isEmpty(x.get(AugmentationKeyConstans.DEFAULT_VALUE))).findFirst();
+                .filter(x -> !MoreStrings.isEmpty(x.get(AugmentationKeyConstants.DEFAULT_VALUE))).findFirst();
         selected.ifPresent(this::setSelectedValue);
     }
 
     /**
      * Set the selected value. Special treatment for null: Will be ignored. Special
      * treatment for undefined values (see
-     * {@link AugmentationKeyConstans#UNDEFINED_VALUE} and
+     * {@link AugmentationKeyConstants#UNDEFINED_VALUE} and
      * {@link ConceptCategory#createUndefinedConceptKey(String)}: Will be add to the
      * list of selectableValues. Other values not part of
      * {@link #getSelectableValues()}: Will be ignored
@@ -84,7 +83,7 @@ public class ConceptKeyTypeMenuModel extends AbstractSelectMenuModelAndConverter
             super.setSelectedValue(null);
             return;
         }
-        if (selectedValue.containsKey(AugmentationKeyConstans.UNDEFINED_VALUE)) {
+        if (selectedValue.containsKey(AugmentationKeyConstants.UNDEFINED_VALUE)) {
             add(0, selectedValue, true);
         } else if (getSelectableValues().stream()
                 .noneMatch(x -> x.getValue() != null && x.getValue().equals(selectedValue))) {

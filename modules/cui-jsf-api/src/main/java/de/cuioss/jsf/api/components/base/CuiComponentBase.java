@@ -15,12 +15,11 @@
  */
 package de.cuioss.jsf.api.components.base;
 
+import de.cuioss.jsf.api.components.partial.ComponentBridge;
 import jakarta.faces.component.StateHelper;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.context.FacesContext;
-
-import de.cuioss.jsf.api.components.partial.ComponentBridge;
 
 /**
  * Base class for creating custom cui-components that are

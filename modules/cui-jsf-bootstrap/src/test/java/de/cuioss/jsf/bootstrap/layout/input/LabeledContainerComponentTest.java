@@ -15,6 +15,11 @@
  */
 package de.cuioss.jsf.bootstrap.layout.input;
 
+import static de.cuioss.jsf.bootstrap.BootstrapFamily.COMPONENT_FAMILY;
+import static de.cuioss.jsf.bootstrap.BootstrapFamily.LABELED_CONTAINER_COMPONENT_RENDERER;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import de.cuioss.jsf.bootstrap.layout.input.support.MockComponentPlugin;
 import de.cuioss.test.jsf.component.AbstractUiComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
@@ -22,17 +27,12 @@ import jakarta.faces.event.PostAddToViewEvent;
 import jakarta.faces.event.PreRenderComponentEvent;
 import org.junit.jupiter.api.Test;
 
-import static de.cuioss.jsf.bootstrap.BootstrapFamily.COMPONENT_FAMILY;
-import static de.cuioss.jsf.bootstrap.BootstrapFamily.LABELED_CONTAINER_COMPONENT_RENDERER;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 @VerifyComponentProperties(of = {"placeholderKey", "placeholderValue", "titleKey", "titleValue",
-    "placeholderConverter", "errorClass", "forIdentifier", "renderMessage", "layoutMode", "titleConverter",
-    "contentSize", "labelSize", "disabled", "contentStyleClass", "labelStyleClass",
-    "renderInputGroup"},
-    defaultValued = {"errorClass", "forIdentifier", "renderMessage", "layoutMode",
-        "contentSize", "labelSize"})
+        "placeholderConverter", "errorClass", "forIdentifier", "renderMessage", "layoutMode", "titleConverter",
+        "contentSize", "labelSize", "disabled", "contentStyleClass", "labelStyleClass",
+        "renderInputGroup"},
+        defaultValued = {"errorClass", "forIdentifier", "renderMessage", "layoutMode",
+                "contentSize", "labelSize"})
 class LabeledContainerComponentTest extends AbstractUiComponentTest<LabeledContainerComponent> {
 
     @Test

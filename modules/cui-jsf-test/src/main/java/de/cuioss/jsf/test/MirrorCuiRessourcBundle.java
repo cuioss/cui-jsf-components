@@ -15,15 +15,14 @@
  */
 package de.cuioss.jsf.test;
 
+import de.cuioss.portal.common.bundle.ResourceBundleWrapper;
+import jakarta.enterprise.context.RequestScoped;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import java.io.Serial;
 import java.util.Collections;
 import java.util.Set;
-
-import jakarta.enterprise.context.RequestScoped;
-
-import de.cuioss.portal.common.bundle.ResourceBundleWrapper;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * Identity version of {@link ResourceBundleWrapper}. It will always return the

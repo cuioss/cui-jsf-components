@@ -16,18 +16,8 @@
 package de.cuioss.jsf.bootstrap.tag.support;
 
 import static de.cuioss.jsf.bootstrap.selectize.Selectize.CLIENT_CREATED_SUFFIX;
-import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
-import static de.cuioss.tools.collect.CollectionLiterals.immutableSet;
-import static de.cuioss.tools.collect.CollectionLiterals.mutableList;
+import static de.cuioss.tools.collect.CollectionLiterals.*;
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
-import jakarta.faces.convert.ConverterException;
-
-import org.junit.jupiter.api.Test;
 
 import de.cuioss.jsf.api.components.javascript.JavaScriptOptions;
 import de.cuioss.jsf.bootstrap.support.ConceptKeyTypeGenerator;
@@ -43,6 +33,12 @@ import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import de.cuioss.uimodel.model.conceptkey.impl.BaseConceptCategory;
 import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
+import jakarta.faces.convert.ConverterException;
+import org.junit.jupiter.api.Test;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 class ConceptKeyStringConverterTest
         extends AbstractConverterTest<ConceptKeyStringConverter, Collection<ConceptKeyType>> {

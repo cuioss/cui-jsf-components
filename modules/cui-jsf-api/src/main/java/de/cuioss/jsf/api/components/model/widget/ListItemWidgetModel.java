@@ -15,9 +15,9 @@
  */
 package de.cuioss.jsf.api.components.model.widget;
 
-import java.util.List;
-
 import de.cuioss.uimodel.nameprovider.LabeledKey;
+
+import java.util.List;
 
 /**
  * Display a list of entries as except.

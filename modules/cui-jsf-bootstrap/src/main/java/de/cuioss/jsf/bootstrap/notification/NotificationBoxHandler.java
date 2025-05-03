@@ -15,13 +15,12 @@
  */
 package de.cuioss.jsf.bootstrap.notification;
 
+import de.cuioss.jsf.api.components.events.ModelPayloadEvent;
+import de.cuioss.jsf.api.components.util.MethodRule;
 import jakarta.faces.view.facelets.ComponentConfig;
 import jakarta.faces.view.facelets.ComponentHandler;
 import jakarta.faces.view.facelets.MetaRule;
 import jakarta.faces.view.facelets.MetaRuleset;
-
-import de.cuioss.jsf.api.components.events.ModelPayloadEvent;
-import de.cuioss.jsf.api.components.util.MethodRule;
 
 /**
  * This handler is responsible for adding the binding to the dismissibleListener
@@ -34,7 +33,7 @@ public class NotificationBoxHandler extends ComponentHandler {
     public static final String DISMISS_LISTENER_NAME = "dismissListener";
 
     private static final MetaRule DISMISS_METHOD = new MethodRule(DISMISS_LISTENER_NAME, null,
-            new Class[] { ModelPayloadEvent.class });
+            new Class[]{ModelPayloadEvent.class});
 
     /**
      * @param config
@@ -45,9 +44,9 @@ public class NotificationBoxHandler extends ComponentHandler {
 
     @Override
     protected MetaRuleset createMetaRuleset(final Class type) { // Rawtype
-                                                                                              // due
-                                                                                              // to
-                                                                                              // API
+        // due
+        // to
+        // API
         final var metaRuleset = super.createMetaRuleset(type);
 
         metaRuleset.addRule(DISMISS_METHOD);

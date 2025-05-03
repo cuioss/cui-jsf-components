@@ -15,6 +15,9 @@
  */
 package de.cuioss.jsf.dev.ui.components;
 
+import static de.cuioss.tools.string.MoreStrings.isEmpty;
+import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
+
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.jsf.api.components.html.Node;
@@ -30,9 +33,6 @@ import jakarta.faces.render.FacesRenderer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static de.cuioss.tools.string.MoreStrings.isEmpty;
-import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
 
 /**
  * @author Oliver Wolff
@@ -64,24 +64,25 @@ public class SourceCodeComponentRenderer extends BaseDecoratorRenderer<SourceCod
 
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<SourceCodeComponent> writer,
-                               final SourceCodeComponent component) throws IOException {
+            final SourceCodeComponent component) throws IOException {
         if (!isEmpty(component.getDescription())) {
             writer.withStartElement(Node.P);
             writer.withTextContent(component.getDescription().formatted(), true);
             writer.withEndElement(Node.P);
         }
-        @SuppressWarnings("RedundantStringFormatCall") final var resolvedSource = component.resolveSource().replace("%", "%%").formatted().replace("%n",
-            LINE_SEPARATOR);
+        @SuppressWarnings("RedundantStringFormatCall")
+        final var resolvedSource = component.resolveSource().replace("%", "%%").formatted().replace("%n",
+                LINE_SEPARATOR);
         if (component.isEnableClipboard()) {
             renderCopyElements(writer, resolvedSource);
         }
         writer.withStartElement(Node.PRE).withClientId(ID_PRE_WRAPPER)
-            .withStyleClass(component.getStyleClassBuilder().append(PRE_STYLE_CLASS)).withPassThroughAttributes()
-            .withAttributeStyle(component.getStyle());
+                .withStyleClass(component.getStyleClassBuilder().append(PRE_STYLE_CLASS)).withPassThroughAttributes()
+                .withAttributeStyle(component.getStyle());
 
         writer.withStartElement(Node.CODE).withStyleClass(component.getType()).withTextContent(
-            replaceHtmlEntities(limitLineSize(sanitizeLineBreaks(resolvedSource), component.getMaxLineLength())),
-            false);
+                replaceHtmlEntities(limitLineSize(sanitizeLineBreaks(resolvedSource), component.getMaxLineLength())),
+                false);
 
         writer.withEndElement(Node.CODE).withEndElement(Node.PRE);
     }
@@ -169,22 +170,22 @@ public class SourceCodeComponentRenderer extends BaseDecoratorRenderer<SourceCod
      * @throws IOException pass through
      */
     private static void renderCopyElements(final DecoratingResponseWriter<SourceCodeComponent> writer,
-                                           final String resolvedSource) throws IOException {
+            final String resolvedSource) throws IOException {
         final var copyButtonId = writer.getComponentWrapper().getSuffixedClientId(COPY_BTN_IDENTIFIER);
 
         final var invisibleTextArea = writer.getComponentWrapper().getSuffixedClientId(ID_INVISIBLE_TEXT_AREA_SUFFIX);
 
         writer.withStartElement(Node.DIV).withStyleClass(COPY_BTN_WRAPPER_CLASS);
         writer.withStartElement(Node.BUTTON).withClientId(COPY_BTN_IDENTIFIER).withStyleClass(COPY_BTN_CLASS)
-            .withAttributeTitle(COPY_BUTTON_TITLE).withAttribute(AttributeName.DATA_TOGGLE, AttributeValue.TOOLTIP);
+                .withAttributeTitle(COPY_BUTTON_TITLE).withAttribute(AttributeName.DATA_TOGGLE, AttributeValue.TOOLTIP);
         writer.withAttribute(AttributeName.JS_ON_CLICK,
-            COPY_ON_CLICK_HANDLER.formatted(invisibleTextArea, copyButtonId));
+                COPY_ON_CLICK_HANDLER.formatted(invisibleTextArea, copyButtonId));
 
         writer.withStartElement(Node.SPAN).withTextContent(COPY_BUTTON_LABEL, true);
         writer.withEndElement(Node.SPAN).withEndElement(Node.BUTTON).withEndElement(Node.DIV);
 
         writer.withStartElement(Node.TEXT_AREA).withClientId(ID_INVISIBLE_TEXT_AREA_SUFFIX)
-            .withAttributeStyle(AttributeValue.STYLE_DISPLAY_NONE.getContent());
+                .withAttributeStyle(AttributeValue.STYLE_DISPLAY_NONE.getContent());
 
         writer.withTextContent(resolvedSource, true);
         writer.withEndElement(Node.TEXT_AREA);

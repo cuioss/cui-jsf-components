@@ -15,16 +15,16 @@
  */
 package de.cuioss.jsf.components.converter;
 
+import de.cuioss.tools.string.Joiner;
+import de.cuioss.tools.string.Splitter;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import de.cuioss.tools.string.Joiner;
-import de.cuioss.tools.string.Splitter;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * Converter provides converting java date time format to jQuery specific one.

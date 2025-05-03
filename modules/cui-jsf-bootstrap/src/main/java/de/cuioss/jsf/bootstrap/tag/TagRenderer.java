@@ -24,12 +24,12 @@ import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.jsf.bootstrap.tag.support.TagSize;
 import de.cuioss.jsf.bootstrap.tag.support.TagState;
 import de.cuioss.tools.string.MoreStrings;
-
 import jakarta.faces.application.ResourceDependency;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.FacesRenderer;
 import jakarta.faces.render.Renderer;
+
 import java.io.IOException;
 
 /**
@@ -57,7 +57,7 @@ public class TagRenderer extends BaseDecoratorRenderer<TagComponent> {
 
     @Override
     protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<TagComponent> writer,
-                                 final TagComponent component) throws IOException {
+            final TagComponent component) throws IOException {
         // Write element
         writer.withStartElement(Node.DIV);
         writer.withStyleClass(computeStyleClass(component));
@@ -73,7 +73,7 @@ public class TagRenderer extends BaseDecoratorRenderer<TagComponent> {
             // no additional ClientBehavior defined, and no id is set by client
             final var componentId = component.getId();
             if (writer.getComponentWrapper().getClientBehaviors().size() > 1
-                || !MoreStrings.isEmpty(componentId) && !componentId.startsWith(UIViewRoot.UNIQUE_ID_PREFIX)) {
+                    || !MoreStrings.isEmpty(componentId) && !componentId.startsWith(UIViewRoot.UNIQUE_ID_PREFIX)) {
                 writer.withClientId();
             }
         }
@@ -84,15 +84,15 @@ public class TagRenderer extends BaseDecoratorRenderer<TagComponent> {
 
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<TagComponent> writer,
-                               final TagComponent component) throws IOException {
+            final TagComponent component) throws IOException {
         writer.withEndElement(Node.DIV);
     }
 
     private static StyleClassBuilder computeStyleClass(final TagComponent component) {
         // Create style-class
         return CssCuiBootstrap.TAG.getStyleClassBuilder().append(component)
-            .append(TagState.getForContextState(component.resolveContextState()))
-            .append(TagSize.getForContextSize(component.resolveContextSize()));
+                .append(TagState.getForContextState(component.resolveContextState()))
+                .append(TagSize.getForContextSize(component.resolveContextSize()));
     }
 
 }

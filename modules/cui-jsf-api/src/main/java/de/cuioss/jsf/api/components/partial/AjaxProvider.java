@@ -15,19 +15,19 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
+import static de.cuioss.tools.string.MoreStrings.isEmpty;
+import static jakarta.faces.component.search.SearchExpressionContext.createSearchExpressionContext;
+
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.tools.string.Joiner;
-import lombok.NonNull;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.search.SearchExpressionContext;
 import jakarta.faces.component.search.SearchExpressionHandler;
+import lombok.NonNull;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import static de.cuioss.tools.string.MoreStrings.isEmpty;
-import static jakarta.faces.component.search.SearchExpressionContext.createSearchExpressionContext;
 
 /**
  * <h2>Summary</h2>
@@ -169,7 +169,7 @@ public class AjaxProvider {
     }
 
     private void addAllAttributes(String elementName, String elementIdentifier, SearchExpressionContext searchContext,
-                                  SearchExpressionHandler handler, Map<String, String> attributes) {
+            SearchExpressionHandler handler, Map<String, String> attributes) {
         var foundIds = handler.resolveClientIds(searchContext, elementIdentifier);
         if (!foundIds.isEmpty()) {
             attributes.put(dataPrefix + elementName, Joiner.on(' ').join(foundIds));

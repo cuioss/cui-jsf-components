@@ -17,15 +17,14 @@ package de.cuioss.jsf.api.converter.nameprovider;
 
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.convert.ConverterException;
-import jakarta.faces.convert.FacesConverter;
-
 import de.cuioss.jsf.api.common.accessor.LocaleAccessor;
 import de.cuioss.jsf.api.converter.AbstractConverter;
 import de.cuioss.jsf.api.security.CuiSanitizer;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.ConverterException;
+import jakarta.faces.convert.FacesConverter;
 
 /**
  * Converter handle to convert {@linkplain I18nDisplayNameProvider} to locale

@@ -15,15 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.taglist;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
-
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.render.FacesRenderer;
-import jakarta.faces.render.Renderer;
-import jakarta.faces.view.facelets.Tag;
-
 import de.cuioss.jsf.api.common.accessor.LocaleAccessor;
 import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
@@ -31,6 +22,14 @@ import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.tag.TagComponent;
 import de.cuioss.jsf.bootstrap.tag.support.TagHelper;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
+import jakarta.faces.render.Renderer;
+import jakarta.faces.view.facelets.Tag;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * <p>

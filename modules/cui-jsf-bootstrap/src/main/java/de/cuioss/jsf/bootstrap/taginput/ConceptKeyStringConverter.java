@@ -17,23 +17,8 @@ package de.cuioss.jsf.bootstrap.taginput;
 
 import static de.cuioss.jsf.bootstrap.selectize.Selectize.CLIENT_CREATED_SUFFIX;
 import static de.cuioss.tools.base.Preconditions.checkArgument;
-import static de.cuioss.tools.collect.CollectionLiterals.immutableSet;
-import static de.cuioss.tools.collect.CollectionLiterals.mutableSet;
-import static de.cuioss.tools.collect.CollectionLiterals.mutableSortedSet;
+import static de.cuioss.tools.collect.CollectionLiterals.*;
 import static java.util.Objects.requireNonNull;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.SortedSet;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.convert.Converter;
-import jakarta.faces.convert.ConverterException;
-import jakarta.faces.convert.FacesConverter;
 
 import de.cuioss.jsf.api.converter.AbstractConverter;
 import de.cuioss.jsf.api.security.CuiSanitizer;
@@ -47,6 +32,13 @@ import de.cuioss.tools.string.Splitter;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.ConverterException;
+import jakarta.faces.convert.FacesConverter;
+
+import java.util.*;
 
 /**
  * Converts a {@link ConceptKeyType} collection to {@link String} and vice versa

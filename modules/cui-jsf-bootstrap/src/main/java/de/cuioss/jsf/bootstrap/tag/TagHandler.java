@@ -15,13 +15,12 @@
  */
 package de.cuioss.jsf.bootstrap.tag;
 
+import de.cuioss.jsf.api.components.events.ModelPayloadEvent;
+import de.cuioss.jsf.api.components.util.MethodRule;
 import jakarta.faces.view.facelets.ComponentConfig;
 import jakarta.faces.view.facelets.ComponentHandler;
 import jakarta.faces.view.facelets.MetaRule;
 import jakarta.faces.view.facelets.MetaRuleset;
-
-import de.cuioss.jsf.api.components.events.ModelPayloadEvent;
-import de.cuioss.jsf.api.components.util.MethodRule;
 
 /**
  * This handler is responsible for adding the binding to the disposeListener
@@ -34,7 +33,7 @@ public class TagHandler extends ComponentHandler {
     public static final String DISPOSE_LISTENER_NAME = "disposeListener";
 
     private static final MetaRule DISPOSE_METHOD = new MethodRule(DISPOSE_LISTENER_NAME, null,
-            new Class[] { ModelPayloadEvent.class });
+            new Class[]{ModelPayloadEvent.class});
 
     /**
      * @param config

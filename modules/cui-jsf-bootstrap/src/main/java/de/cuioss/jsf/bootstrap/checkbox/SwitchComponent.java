@@ -26,6 +26,7 @@ import de.cuioss.jsf.bootstrap.common.partial.ColumnProvider;
 import de.cuioss.tools.collect.MapBuilder;
 import de.cuioss.tools.logging.CuiLogger;
 import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.behavior.AjaxBehavior;
 import jakarta.faces.component.behavior.ClientBehavior;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.ListenerFor;
@@ -126,7 +127,7 @@ public class SwitchComponent extends BaseCuiHtmlSelectBooleanCheckboxComponent {
      */
     public String resolveOffText() {
         return LabelResolver.builder().withLabelKey(getOffTextKey()).withLabelValue(getOffTextValue())
-            .withConverter(getOffTextConverter()).withStrictMode(false).build().resolve(getFacesContext());
+                .withConverter(getOffTextConverter()).withStrictMode(false).build().resolve(getFacesContext());
     }
 
     /**
@@ -163,7 +164,7 @@ public class SwitchComponent extends BaseCuiHtmlSelectBooleanCheckboxComponent {
      */
     public String resolveOnText() {
         return LabelResolver.builder().withLabelKey(getOnTextKey()).withLabelValue(getOnTextValue())
-            .withConverter(getOnTextConverter()).build().resolve(getFacesContext());
+                .withConverter(getOnTextConverter()).build().resolve(getFacesContext());
     }
 
     /**
@@ -218,7 +219,7 @@ public class SwitchComponent extends BaseCuiHtmlSelectBooleanCheckboxComponent {
      */
     public Map<String, Object> resolvePassThroughAttributes() {
         return new MapBuilder<String, Object>().putAll(getPassThroughAttributes())
-            .put(DATA_SWITCH_DISABLED, String.valueOf(isDisabled())).toImmutableMap();
+                .put(DATA_SWITCH_DISABLED, String.valueOf(isDisabled())).toImmutableMap();
     }
 
     @Override
@@ -229,7 +230,7 @@ public class SwitchComponent extends BaseCuiHtmlSelectBooleanCheckboxComponent {
 
     private void replaceClientBehaviorIds() {
         for (final List<ClientBehavior> clientBehavior : getClientBehaviors().values()) {
-            if (clientBehavior instanceof jakarta.faces.component.behavior.AjaxBehavior ajaxBehavior) {
+            if (clientBehavior instanceof AjaxBehavior ajaxBehavior) {
                 ajaxBehavior.setRender(replaceIds(ajaxBehavior.getRender()));
             }
         }

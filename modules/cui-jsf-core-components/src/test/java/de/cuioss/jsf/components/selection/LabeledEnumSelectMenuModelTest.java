@@ -15,25 +15,23 @@
  */
 package de.cuioss.jsf.components.selection;
 
+import de.cuioss.test.jsf.converter.AbstractConverterTest;
+import de.cuioss.test.jsf.converter.TestItems;
+import de.cuioss.test.valueobjects.util.IdentityResourceBundle;
+import jakarta.faces.event.ValueChangeEvent;
+import jakarta.faces.model.SelectItem;
+import lombok.AccessLevel;
+import lombok.Getter;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.TreeSet;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.TreeSet;
-
-import jakarta.faces.event.ValueChangeEvent;
-import jakarta.faces.model.SelectItem;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import de.cuioss.test.jsf.converter.AbstractConverterTest;
-import de.cuioss.test.jsf.converter.TestItems;
-import de.cuioss.test.valueobjects.util.IdentityResourceBundle;
-import lombok.AccessLevel;
-import lombok.Getter;
 
 class LabeledEnumSelectMenuModelTest extends AbstractConverterTest<LabeledEnumSelectMenuModel<TestEnum>, TestEnum> {
 

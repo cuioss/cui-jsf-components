@@ -15,6 +15,9 @@
  */
 package de.cuioss.jsf.bootstrap.layout.input;
 
+import static de.cuioss.jsf.api.components.util.ComponentUtility.findNearestNamingContainer;
+import static de.cuioss.jsf.bootstrap.layout.input.ContainerFacets.*;
+
 import de.cuioss.jsf.api.components.base.BaseCuiNamingContainer;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.partial.*;
@@ -44,9 +47,6 @@ import jakarta.faces.event.PreRenderComponentEvent;
 import lombok.experimental.Delegate;
 
 import java.util.*;
-
-import static de.cuioss.jsf.api.components.util.ComponentUtility.findNearestNamingContainer;
-import static de.cuioss.jsf.bootstrap.layout.input.ContainerFacets.*;
 
 /**
  * <h2>Overview</h2>
@@ -294,7 +294,7 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
                                     not configured for complex output. Please check if you want to \
                                     render an input element and did not adapt the id of this element. \
                                     If you want to use it for output text, you can ignore this message""",
-                                getClientId(), forId.get());
+                                    getClientId(), forId.get());
                         }
                     }
                 } catch (Exception e) {
@@ -545,7 +545,7 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
     @Override
     public String toString() {
         return "LabeledContainerComponent [isRendered()=" + isRendered() + ", getFacetsAndChildren()="
-            + getFacetsAndChildren() + ", getId()=" + getId() + ", getParent()=" + getParent() + ", isTransient()="
-            + isTransient() + "]";
+                + getFacetsAndChildren() + ", getId()=" + getId() + ", getParent()=" + getParent() + ", isTransient()="
+                + isTransient() + "]";
     }
 }

@@ -19,7 +19,6 @@ import static java.util.Objects.requireNonNull;
 
 import jakarta.faces.component.behavior.AjaxBehavior;
 import jakarta.faces.context.FacesContext;
-
 import lombok.experimental.UtilityClass;
 
 /**

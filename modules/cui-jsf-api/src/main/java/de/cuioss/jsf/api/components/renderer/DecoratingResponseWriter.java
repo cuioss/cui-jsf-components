@@ -17,12 +17,6 @@ package de.cuioss.jsf.api.components.renderer;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.IOException;
-import java.io.Serializable;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.css.StyleClassProvider;
 import de.cuioss.jsf.api.components.html.AttributeName;
@@ -33,8 +27,13 @@ import de.cuioss.jsf.api.components.partial.StyleAttributeProvider;
 import de.cuioss.jsf.api.components.partial.TitleProvider;
 import de.cuioss.jsf.api.components.util.ComponentWrapper;
 import de.cuioss.tools.string.MoreStrings;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 import lombok.Getter;
 import lombok.NonNull;
+
+import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * Used for providing additional convenience methods for a response writer.

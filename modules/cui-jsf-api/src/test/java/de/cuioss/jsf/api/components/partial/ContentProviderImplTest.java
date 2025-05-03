@@ -15,18 +15,14 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import jakarta.faces.application.ProjectStage;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.converter.FallbackSanitizingConverter;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import jakarta.faces.application.ProjectStage;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "contentKey", "contentValue", "contentEscape", "contentConverter" })
+@VerifyComponentProperties(of = {"contentKey", "contentValue", "contentEscape", "contentConverter"})
 class ContentProviderImplTest extends AbstractPartialComponentTest {
 
     @Test

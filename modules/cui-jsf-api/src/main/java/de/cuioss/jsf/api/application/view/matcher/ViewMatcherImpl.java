@@ -17,14 +17,14 @@ package de.cuioss.jsf.api.application.view.matcher;
 
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
-import java.io.Serial;
-import java.util.List;
-
 import de.cuioss.jsf.api.common.view.ViewDescriptor;
 import de.cuioss.tools.collect.CollectionBuilder;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.util.List;
 
 /**
  * Default implementation of {@link ViewMatcher} that checks the given view

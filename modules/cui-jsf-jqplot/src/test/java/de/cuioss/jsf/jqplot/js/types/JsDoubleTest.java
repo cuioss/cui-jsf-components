@@ -18,10 +18,9 @@ package de.cuioss.jsf.jqplot.js.types;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.valueobjects.ValueObjectTest;
+import org.junit.jupiter.api.Test;
 
 class JsDoubleTest extends ValueObjectTest<JsDouble> {
 

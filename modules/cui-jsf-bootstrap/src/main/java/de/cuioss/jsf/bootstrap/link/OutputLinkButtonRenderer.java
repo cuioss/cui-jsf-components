@@ -15,17 +15,16 @@
  */
 package de.cuioss.jsf.bootstrap.link;
 
-import java.io.IOException;
-
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.render.FacesRenderer;
-
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.icon.IconComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
+
+import java.io.IOException;
 
 /**
  * @author Oliver Wolff

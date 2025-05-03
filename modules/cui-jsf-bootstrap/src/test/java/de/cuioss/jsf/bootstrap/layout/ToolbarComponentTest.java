@@ -18,16 +18,14 @@ package de.cuioss.jsf.bootstrap.layout;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import jakarta.faces.event.PreRenderComponentEvent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.test.jsf.component.AbstractUiComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import jakarta.faces.event.PreRenderComponentEvent;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "pinBottomOffset", "pinTopOffset", "pinToBottom", "pinToTop" }, defaultValued = {
-        "pinBottomOffset", "pinTopOffset" })
+@VerifyComponentProperties(of = {"pinBottomOffset", "pinTopOffset", "pinToBottom", "pinToTop"}, defaultValued = {
+        "pinBottomOffset", "pinTopOffset"})
 class ToolbarComponentTest extends AbstractUiComponentTest<ToolbarComponent> {
 
     @Test

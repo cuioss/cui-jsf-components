@@ -18,15 +18,14 @@ package de.cuioss.jsf.api.components.renderer;
 import static de.cuioss.tools.string.MoreStrings.emptyToNull;
 import static java.util.Objects.requireNonNull;
 
-import java.io.IOException;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.FacesContextWrapper;
 import jakarta.faces.context.ResponseWriter;
 import jakarta.faces.context.ResponseWriterWrapper;
-
 import lombok.Getter;
+
+import java.io.IOException;
 
 /**
  * This response writer is used for replacing certain html elements, see javadoc

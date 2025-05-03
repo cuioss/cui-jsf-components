@@ -17,18 +17,14 @@ package de.cuioss.jsf.api.composite.accessor;
 
 import static de.cuioss.test.generator.Generators.booleans;
 import static de.cuioss.test.generator.Generators.letterStrings;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import de.cuioss.test.valueobjects.ValueObjectTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.test.valueobjects.ValueObjectTest;
+import java.util.HashMap;
+import java.util.Map;
 
 class BooleanAttributeAccessorTest extends ValueObjectTest<BooleanAttributeAccessor> {
 

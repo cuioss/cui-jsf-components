@@ -20,8 +20,6 @@ import de.cuioss.jsf.api.components.myfaces.MyFacesDelegateStyleClassAdapter;
 import de.cuioss.jsf.api.components.myfaces.MyFacesDelegateTitleAdapter;
 import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
-import lombok.experimental.Delegate;
-
 import jakarta.faces.component.FacesComponent;
 import jakarta.faces.component.StateHelper;
 import jakarta.faces.component.UIComponent;
@@ -30,6 +28,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.ListenerFor;
 import jakarta.faces.event.PreRenderComponentEvent;
+import lombok.experimental.Delegate;
 
 /**
  * <p>

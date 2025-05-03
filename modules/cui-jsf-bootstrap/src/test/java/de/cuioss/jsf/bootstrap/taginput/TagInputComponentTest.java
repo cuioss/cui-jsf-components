@@ -18,11 +18,6 @@ package de.cuioss.jsf.bootstrap.taginput;
 import static de.cuioss.tools.collect.CollectionLiterals.mutableSet;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Collections;
-import java.util.Set;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.support.ConceptKeyTypeGenerator;
 import de.cuioss.jsf.bootstrap.support.ConceptKeyTypeSetGenerator;
@@ -36,9 +31,12 @@ import de.cuioss.test.valueobjects.property.util.CollectionType;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "maxItems", "letUserCreateTags", "delimiter", "itemConverterId",
-        "displayRemoveButton" }, defaultValued = { "maxItems", "displayRemoveButton" })
+import java.util.Set;
+
+@VerifyComponentProperties(of = {"maxItems", "letUserCreateTags", "delimiter", "itemConverterId",
+        "displayRemoveButton"}, defaultValued = {"maxItems", "displayRemoveButton"})
 @PropertyConfig(name = "sourceSet", propertyClass = ConceptKeyType.class, collectionType = CollectionType.SET)
 @PropertyConfig(name = "clientCreated", propertyClass = ConceptKeyType.class, collectionType = CollectionType.SET)
 @PropertyGenerator(ConceptKeyTypeGenerator.class)
@@ -64,7 +62,7 @@ class TagInputComponentTest extends AbstractUiComponentTest<TagInputComponent> {
     void shouldSetValueSets() {
         final var underTest = anyComponent();
         assertTrue(TagHelper.getValueAsSet(underTest.getSubmittedValue(), underTest.getValue()).isEmpty());
-        underTest.setValue(Collections.singleton(conceptKeyTypeGenerator.next()));
+        underTest.setValue(Set.of(conceptKeyTypeGenerator.next()));
         assertEquals(1, TagHelper.getValueAsSet(underTest.getSubmittedValue(), underTest.getValue()).size());
         final Set<ConceptKeyType> valueSet = mutableSet(conceptKeyTypeSetGenerator.next());
         valueSet.add(ConceptKeyTypeImpl.builder().identifier("same").labelResolver(new I18nDisplayNameProvider("same1"))

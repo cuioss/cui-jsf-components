@@ -15,12 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.accordion;
 
-import java.io.IOException;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.render.FacesRenderer;
-
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.jsf.api.components.html.Node;
@@ -29,6 +23,11 @@ import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.layout.BootstrapPanelComponent;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
+
+import java.io.IOException;
 
 /**
  * Renderer for {@linkplain AccordionComponent}.

@@ -15,13 +15,13 @@
  */
 package de.cuioss.jsf.api.composite.accessor;
 
-import java.io.Serial;
-import java.util.Map;
-
 import de.cuioss.jsf.api.composite.AttributeAccessor;
 import de.cuioss.jsf.api.composite.AttributeAccessorImpl;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.util.Map;
 
 /**
  * Shorthand for creating an {@link AttributeAccessor} for Boolean-types. In

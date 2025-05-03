@@ -15,10 +15,10 @@
  */
 package de.cuioss.jsf.components.converter;
 
-import java.util.Locale;
-
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
+
+import java.util.Locale;
 
 class LocaleConverterTest extends AbstractConverterTest<LocaleConverter, Locale> {
 

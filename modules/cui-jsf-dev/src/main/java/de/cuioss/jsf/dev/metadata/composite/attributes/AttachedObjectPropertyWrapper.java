@@ -40,7 +40,7 @@ public class AttachedObjectPropertyWrapper extends AbstractPropertyWrapper {
      * @param attachedObjectTarget attached object target
      */
     public AttachedObjectPropertyWrapper(final FeatureDescriptor featureDescriptor,
-                                         final AttachedObjectTarget attachedObjectTarget) {
+            final AttachedObjectTarget attachedObjectTarget) {
         super(featureDescriptor, createDisplayValues(attachedObjectTarget));
     }
 

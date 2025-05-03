@@ -17,8 +17,6 @@ package de.cuioss.jsf.bootstrap.icon;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.jsf.test.EnableJSFCDIEnvironment;
@@ -27,9 +25,10 @@ import de.cuioss.test.jsf.component.AbstractUiComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 import de.cuioss.uimodel.model.Gender;
+import org.junit.jupiter.api.Test;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
-@VerifyComponentProperties(of = { "gender", "genderString", "size", "state", "titleValue" })
+@VerifyComponentProperties(of = {"gender", "genderString", "size", "state", "titleValue"})
 @EnableJSFCDIEnvironment
 @EnableResourceBundleSupport
 class GenderIconComponentTest extends AbstractUiComponentTest<GenderIconComponent> {

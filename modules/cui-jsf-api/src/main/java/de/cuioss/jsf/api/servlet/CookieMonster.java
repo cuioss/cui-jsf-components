@@ -20,12 +20,12 @@ import static de.cuioss.jsf.api.servlet.ServletAdapterUtil.getResponse;
 import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
 import static java.util.Objects.requireNonNull;
 
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.http.Cookie;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import jakarta.faces.context.FacesContext;
-import jakarta.servlet.http.Cookie;
 
 /**
  * General purpose Cookie Utility for JSF.

@@ -15,11 +15,6 @@
  */
 package de.cuioss.jsf.components.html.fieldset;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.event.PreRenderComponentEvent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
@@ -29,9 +24,12 @@ import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.renderer.VetoRenderAttributeAssert;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 import de.cuioss.test.jsf.renderer.CommonRendererAsserts;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.event.PreRenderComponentEvent;
+import org.junit.jupiter.api.Test;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
-@VetoRenderAttributeAssert({ CommonRendererAsserts.STYLE, CommonRendererAsserts.STYLE_CLASS })
+@VetoRenderAttributeAssert({CommonRendererAsserts.STYLE, CommonRendererAsserts.STYLE_CLASS})
 class FieldsetRendererTest extends AbstractComponentRendererTest<FieldsetRenderer> {
 
     private static final String LEGEND_TEXT = "Some Legend";

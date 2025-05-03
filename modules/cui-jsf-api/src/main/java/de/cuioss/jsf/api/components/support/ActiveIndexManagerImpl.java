@@ -18,14 +18,14 @@ package de.cuioss.jsf.api.components.support;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
-import java.io.Serial;
-import java.util.ArrayList;
-import java.util.List;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Default implementation for {@link ActiveIndexManager}. Adds convenient

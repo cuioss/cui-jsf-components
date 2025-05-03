@@ -15,15 +15,15 @@
  */
 package de.cuioss.jsf.api.composite.accessor;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.Map;
-
 import de.cuioss.jsf.api.composite.AttributeAccessorImpl;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Map;
 
 /**
  * Extends {@link AttributeAccessorImpl} with the handling of defaults for the

@@ -15,17 +15,16 @@
  */
 package de.cuioss.jsf.api.components.model.menu;
 
-import java.io.Serial;
-import java.util.ArrayList;
-import java.util.List;
-
-import jakarta.faces.context.FacesContext;
-
 import de.cuioss.jsf.api.components.support.LabelResolver;
+import jakarta.faces.context.FacesContext;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Basic Implementation of a {@link NavigationMenuItem}

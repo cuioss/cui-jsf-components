@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.dev.ui.components;
 
+import static de.cuioss.tools.string.MoreStrings.isEmpty;
+
 import de.cuioss.jsf.api.application.navigation.NavigationUtils;
 import de.cuioss.jsf.api.components.base.BaseCuiNamingContainer;
 import de.cuioss.portal.common.util.PortalResourceLoader;
@@ -45,7 +47,6 @@ import org.jdom2.xpath.XPathFactory;
 import org.omnifaces.util.State;
 import org.xml.sax.InputSource;
 
-import javax.xml.XMLConstants;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URL;
@@ -54,8 +55,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
-
-import static de.cuioss.tools.string.MoreStrings.isEmpty;
+import javax.xml.XMLConstants;
 
 /**
  * <h2>Summary</h2>
@@ -224,7 +224,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         final var resolved = resolvePath(sourcePath);
         if (resolved.isEmpty()) {
             return "Unable lo load path from any of '%s', because the file can not be found or is not readable"
-                .formatted(determineViewRelativePath(sourcePath));
+                    .formatted(determineViewRelativePath(sourcePath));
         }
         try {
             return IOStreams.toString(resolved.get().openStream(), StandardCharsets.UTF_8);
@@ -245,7 +245,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         if (!path.startsWith("/")) {
             for (var candidate : determineViewRelativePath(path)) {
                 log.debug("Checking candidate '%s'", candidate);
-                var found = PortalResourceLoader.getRessource(candidate, getClass());
+                var found = PortalResourceLoader.getResource(candidate, getClass());
                 if (found.isPresent()) {
                     log.debug("Found candidate '%s'", candidate);
                     return found;
@@ -272,6 +272,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         return candidates.toImmutableSet();
     }
 
+    @SuppressWarnings("java:S3655") // owolff: False positive ist present is checked
     private String resolveFromContainerId(final String sourceContainerId) {
         final var viewId = getFacesContext().getViewRoot().getViewId();
         final var loader = determineViewUrlResource();
@@ -297,7 +298,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         }
         if (filteredElements.size() > 1) {
             log.warn("More than one element found on view='{}' with id='{}' found, choosing the first one",
-                viewId, sourceContainerId);
+                    viewId, sourceContainerId);
         }
 
         final var outputter = new XMLOutputter();
@@ -305,7 +306,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         outputter.setFormat(Format.getPrettyFormat());
         if (filteredElements.iterator().next().getChildren().isEmpty()) {
             return Joiner.on(System.lineSeparator())
-                .join(Splitter.on('\n').splitToList(filteredElements.iterator().next().getText()));
+                    .join(Splitter.on('\n').splitToList(filteredElements.iterator().next().getText()));
         }
         return outputter.outputString(filteredElements.iterator().next().getChildren());
     }
@@ -317,7 +318,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         }
         List<String> candidates = CollectionLiterals.mutableList(META_INF_PREFIX + "resources/" + viewId, META_INF_PREFIX + viewId, viewId);
         for (var candidate : candidates) {
-            var found = PortalResourceLoader.getRessource(candidate, getClass());
+            var found = PortalResourceLoader.getResource(candidate, getClass());
             if (found.isPresent()) {
                 return found;
             }

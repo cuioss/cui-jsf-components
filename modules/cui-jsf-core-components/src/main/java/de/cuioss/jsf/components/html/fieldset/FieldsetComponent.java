@@ -15,14 +15,6 @@
  */
 package de.cuioss.jsf.components.html.fieldset;
 
-import java.io.Serializable;
-
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.event.AbortProcessingException;
-import jakarta.faces.event.ComponentSystemEvent;
-import jakarta.faces.event.ListenerFor;
-import jakarta.faces.event.PreRenderComponentEvent;
-
 import de.cuioss.jsf.api.components.base.CuiComponentBase;
 import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
 import de.cuioss.jsf.api.components.partial.ComponentStyleClassProviderImpl;
@@ -33,7 +25,14 @@ import de.cuioss.jsf.api.components.support.LabelResolver;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.components.CuiFamily;
 import de.cuioss.tools.string.MoreStrings;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PreRenderComponentEvent;
 import lombok.experimental.Delegate;
+
+import java.io.Serializable;
 
 /**
  * Component class for creating fieldset-element

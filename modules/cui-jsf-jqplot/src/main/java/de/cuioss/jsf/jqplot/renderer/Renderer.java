@@ -15,13 +15,13 @@
  */
 package de.cuioss.jsf.jqplot.renderer;
 
-import java.io.Serial;
-import java.util.List;
-
 import de.cuioss.jsf.jqplot.js.support.JsValue;
 import de.cuioss.jsf.jqplot.plugin.IPluginConsumer;
 import de.cuioss.jsf.jqplot.plugin.PluginSupport;
 import lombok.Data;
+
+import java.io.Serial;
+import java.util.List;
 
 /**
  * @author Oliver Wolff

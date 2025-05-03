@@ -15,14 +15,14 @@
  */
 package de.cuioss.jsf.api.composite.accessor;
 
-import java.io.Serial;
-import java.util.Map;
-
 import de.cuioss.tools.string.MoreStrings;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.util.Map;
 
 /**
  * Extends {@link StringAttributeAccessor} with the handling of defaults for the

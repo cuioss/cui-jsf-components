@@ -15,20 +15,10 @@
  */
 package de.cuioss.jsf.components.selection;
 
-import static de.cuioss.jsf.components.selection.ConceptKeyTypeGenerator.TEST_CODE;
-import static de.cuioss.jsf.components.selection.ConceptKeyTypeGenerator.TEST_CODE2;
-import static de.cuioss.jsf.components.selection.ConceptKeyTypeGenerator.TEST_DEFAULT_CODE;
+import static de.cuioss.jsf.components.selection.ConceptKeyTypeGenerator.*;
 import static de.cuioss.tools.collect.CollectionLiterals.mutableSet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Locale;
-
-import jakarta.faces.component.html.HtmlInputText;
-import jakarta.faces.event.ValueChangeEvent;
-
-import org.apache.myfaces.test.mock.MockFacesContext;
-import org.junit.jupiter.api.Test;
 
 import de.cuioss.jsf.api.components.support.DummyComponent;
 import de.cuioss.test.valueobjects.ValueObjectTest;
@@ -41,11 +31,17 @@ import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import de.cuioss.uimodel.model.conceptkey.impl.BaseConceptCategory;
 import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.event.ValueChangeEvent;
+import org.apache.myfaces.test.mock.MockFacesContext;
+import org.junit.jupiter.api.Test;
+
+import java.util.Locale;
 
 @PropertyReflectionConfig(skip = true)
 @PropertyConfig(name = "sourceData", propertyClass = ConceptKeyType.class, generator = ConceptKeyTypeGenerator.class, collectionType = CollectionType.SET, propertyReadWrite = PropertyReadWrite.WRITE_ONLY)
 @PropertyConfig(name = "locale", propertyClass = Locale.class, propertyReadWrite = PropertyReadWrite.WRITE_ONLY)
-@VerifyConstructor(of = { "sourceData", "locale" }, required = "locale")
+@VerifyConstructor(of = {"sourceData", "locale"}, required = "locale")
 class ConceptKeyTypeMenuModelTest extends ValueObjectTest<ConceptKeyTypeMenuModel> {
 
     private static ConceptKeyTypeMenuModel testModel() {
@@ -53,7 +49,7 @@ class ConceptKeyTypeMenuModelTest extends ValueObjectTest<ConceptKeyTypeMenuMode
     }
 
     @Test
-    void testSetSelected() {
+    void setSelected() {
         var sut = testModel();
         assertEquals(2, sut.getSelectableValues().size());
         sut.setSelectedValue(TEST_CODE2);

@@ -15,18 +15,14 @@
  */
 package de.cuioss.jsf.api.common.accessor;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import jakarta.faces.application.ProjectStage;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
 import de.cuioss.test.valueobjects.api.property.PropertyReflectionConfig;
+import jakarta.faces.application.ProjectStage;
+import org.junit.jupiter.api.Test;
 
 @PropertyReflectionConfig(skip = true)
 class CuiProjectStageImplTest extends JsfEnabledTestEnvironment {
@@ -34,7 +30,7 @@ class CuiProjectStageImplTest extends JsfEnabledTestEnvironment {
     private final TypedGenerator<ProjectStage> projectStages = Generators.enumValues(ProjectStage.class);
 
     @Test
-    void testIsDevelopment() {
+    void isDevelopment() {
         final var underTest = anyBean();
         setProjectStage(ProjectStage.Development);
         underTest.initBean();
@@ -50,7 +46,7 @@ class CuiProjectStageImplTest extends JsfEnabledTestEnvironment {
     }
 
     @Test
-    void testIsProduction() {
+    void isProduction() {
         final var underTest = anyBean();
         setProjectStage(ProjectStage.Development);
         underTest.initBean();
@@ -61,14 +57,14 @@ class CuiProjectStageImplTest extends JsfEnabledTestEnvironment {
     }
 
     @Test
-    void testIsConfiguration() {
+    void isConfiguration() {
         final var underTest = anyBean();
         underTest.initBean();
         assertFalse(underTest.isConfiguration());
     }
 
     @Test
-    void testIsTest() {
+    void isTest() {
         final var underTest = anyBean();
         setProjectStage(ProjectStage.SystemTest);
         underTest.initBean();

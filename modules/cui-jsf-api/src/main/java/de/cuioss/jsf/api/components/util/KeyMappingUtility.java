@@ -17,9 +17,9 @@ package de.cuioss.jsf.api.components.util;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.Serializable;
-
 import de.cuioss.tools.string.MoreStrings;
+
+import java.io.Serializable;
 
 /**
  * Simple mapping helper to introduce key extension-mapping

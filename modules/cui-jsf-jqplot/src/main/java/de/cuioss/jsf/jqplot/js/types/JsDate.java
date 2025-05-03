@@ -15,12 +15,12 @@
  */
 package de.cuioss.jsf.jqplot.js.types;
 
+import de.cuioss.jsf.jqplot.js.support.JsValue;
+import lombok.Data;
+
 import java.io.Serial;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import de.cuioss.jsf.jqplot.js.support.JsValue;
-import lombok.Data;
 
 /**
  * Provide safe way to act with Date as JSON property.

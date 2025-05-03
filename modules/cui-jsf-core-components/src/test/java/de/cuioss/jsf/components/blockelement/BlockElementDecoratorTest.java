@@ -18,13 +18,11 @@ package de.cuioss.jsf.components.blockelement;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import jakarta.faces.event.ComponentSystemEvent;
-import jakarta.faces.event.PostAddToViewEvent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.base.BaseCuiCommandButton;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.PostAddToViewEvent;
+import org.junit.jupiter.api.Test;
 
 class BlockElementDecoratorTest extends AbstractComponentTest<BlockElementDecorator> {
 

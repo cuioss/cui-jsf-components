@@ -17,17 +17,16 @@ package de.cuioss.jsf.api.security;
 
 import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
 
+import de.cuioss.tools.collect.MapBuilder;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import org.owasp.html.HtmlPolicyBuilder;
+import org.owasp.html.PolicyFactory;
+
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
-
-import org.owasp.html.HtmlPolicyBuilder;
-import org.owasp.html.PolicyFactory;
-
-import de.cuioss.tools.collect.MapBuilder;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
 
 /**
  * Simple wrapper / utility around org.owasp.html.PolicyFactory providing some

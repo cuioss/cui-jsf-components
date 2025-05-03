@@ -17,10 +17,10 @@ package de.cuioss.jsf.api.components.model.menu;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
-import java.util.List;
-
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
+
+import java.util.List;
 
 /**
  * Generates an instance of a {@linkplain NavigationMenuItem} implementation.

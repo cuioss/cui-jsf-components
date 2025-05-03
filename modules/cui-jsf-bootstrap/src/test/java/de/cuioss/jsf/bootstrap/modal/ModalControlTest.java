@@ -15,31 +15,23 @@
  */
 package de.cuioss.jsf.bootstrap.modal;
 
-import static de.cuioss.jsf.bootstrap.modal.ModalControl.DATA_ACTION;
-import static de.cuioss.jsf.bootstrap.modal.ModalControl.DATA_EVENT;
-import static de.cuioss.jsf.bootstrap.modal.ModalControl.DATA_FOR;
-import static de.cuioss.jsf.bootstrap.modal.ModalControl.DEFAULT_ACTION;
-import static de.cuioss.jsf.bootstrap.modal.ModalControl.DEFAULT_EVENT;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import jakarta.faces.component.html.HtmlOutcomeTargetButton;
-import jakarta.faces.event.ComponentSystemEvent;
-import jakarta.faces.event.PostAddToViewEvent;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static de.cuioss.jsf.bootstrap.modal.ModalControl.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import jakarta.faces.component.html.HtmlOutcomeTargetButton;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.PostAddToViewEvent;
 import lombok.Getter;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
-@VerifyComponentProperties(of = { "action", "event", "for" }, defaultValued = { "action", "event" })
+@VerifyComponentProperties(of = {"action", "event", "for"}, defaultValued = {"action", "event"})
 class ModalControlTest extends AbstractComponentTest<ModalControl> {
 
     private static final String FOR_ID = "forId";

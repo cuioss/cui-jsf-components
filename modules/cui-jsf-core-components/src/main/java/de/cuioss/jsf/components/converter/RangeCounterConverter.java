@@ -15,13 +15,12 @@
  */
 package de.cuioss.jsf.components.converter;
 
+import de.cuioss.jsf.api.converter.AbstractConverter;
+import de.cuioss.uimodel.model.RangeCounter;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.ConverterException;
 import jakarta.faces.convert.FacesConverter;
-
-import de.cuioss.jsf.api.converter.AbstractConverter;
-import de.cuioss.uimodel.model.RangeCounter;
 
 /**
  * Converter for {@link RangeCounter} implementations.

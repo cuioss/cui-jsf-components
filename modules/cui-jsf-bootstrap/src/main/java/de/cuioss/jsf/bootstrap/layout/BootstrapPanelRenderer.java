@@ -15,11 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.layout;
 
-import java.io.IOException;
-
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.render.FacesRenderer;
-
 import de.cuioss.jsf.api.components.css.StyleClassProvider;
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
@@ -32,6 +27,10 @@ import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.jsf.bootstrap.waitingindicator.WaitingIndicatorComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
+
+import java.io.IOException;
 
 /**
  * Bootstrap panel component

@@ -348,7 +348,7 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
     public boolean isNotContentLoadRequest(FacesContext context) {
         var componentWrapper = new ComponentWrapper<>(this);
         return !context.getExternalContext().getRequestParameterMap()
-            .containsKey(componentWrapper.getSuffixedClientId(ID_SUFFIX_IS_LOADED));
+                .containsKey(componentWrapper.getSuffixedClientId(ID_SUFFIX_IS_LOADED));
     }
 
     /**
@@ -373,7 +373,7 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
         if (retrieveNotificationBox().isEmpty()) {
             var notificationBoxComponent = new NotificationBoxComponent();
             notificationBoxComponent.getPassThroughAttributes().put(DATA_RESULT_NOTIFICATION_BOX,
-                DATA_RESULT_NOTIFICATION_BOX);
+                    DATA_RESULT_NOTIFICATION_BOX);
             getChildren().add(0, notificationBoxComponent);
         }
     }
@@ -385,7 +385,7 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
 
     public Optional<UIComponent> retrieveNotificationBox() {
         return getChildren().stream()
-            .filter(child -> child.getPassThroughAttributes().containsKey(DATA_RESULT_NOTIFICATION_BOX))
-            .findFirst();
+                .filter(child -> child.getPassThroughAttributes().containsKey(DATA_RESULT_NOTIFICATION_BOX))
+                .findFirst();
     }
 }

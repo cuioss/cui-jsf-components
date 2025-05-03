@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.bootstrap.menu;
 
+import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
+
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
@@ -37,11 +39,9 @@ import jakarta.faces.component.html.HtmlOutputLink;
 import jakarta.faces.component.html.HtmlOutputText;
 import org.junit.jupiter.api.Test;
 
-import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
-
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class NavigationMenuRendererTest extends AbstractComponentRendererTest<NavigationMenuRenderer>
-    implements ComponentConfigurator {
+        implements ComponentConfigurator {
 
     private static final String CUI_ICON_PREFIX = "cui-icon ";
 
@@ -81,10 +81,10 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         component.setModel(menuModelItem);
         final var builder = new HtmlTreeBuilder();
         builder.withNode(Node.LI).withAttributeNameAndId(CLIENT_ID)
-            .withAttribute(AttributeName.DATA_ITEM_ACTIVE, "true").withNode(HTML_OUTCOME_TARGET_LINK)
-            .withAttribute("outcome", OUTCOME_HOME).withNode(Node.SPAN)
-            .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass())
-            .withTextContent(RESOLVED_LABEL).currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
+                .withAttribute(AttributeName.DATA_ITEM_ACTIVE, "true").withNode(HTML_OUTCOME_TARGET_LINK)
+                .withAttribute("outcome", OUTCOME_HOME).withNode(Node.SPAN)
+                .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass())
+                .withTextContent(RESOLVED_LABEL).currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, builder.getDocument());
     }
 
@@ -98,10 +98,10 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         component.setModel(menuModelItem);
         final var builder = new HtmlTreeBuilder();
         builder.withNode(Node.LI).withAttributeNameAndId(CLIENT_ID).withNode(HTML_OUTPUT_LINK)
-            .withAttribute("value", "http://www.google.de").withAttribute("target", "_blank")
-            .withNode(Node.SPAN)
-            .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass())
-            .withTextContent(RESOLVED_LABEL).currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
+                .withAttribute("value", "http://www.google.de").withAttribute("target", "_blank")
+                .withNode(Node.SPAN)
+                .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass())
+                .withTextContent(RESOLVED_LABEL).currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, builder.getDocument());
     }
 
@@ -115,9 +115,9 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         component.setModel(menuModelItem);
         final var builder = new HtmlTreeBuilder();
         builder.withNode(Node.LI).withAttributeNameAndId(CLIENT_ID).withNode(HTML_OUTCOME_TARGET_LINK)
-            .withAttribute("outcome", OUTCOME_HOME).withAttribute("target", "_blank").withNode(Node.SPAN)
-            .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass())
-            .withTextContent(RESOLVED_LABEL).currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
+                .withAttribute("outcome", OUTCOME_HOME).withAttribute("target", "_blank").withNode(Node.SPAN)
+                .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass())
+                .withTextContent(RESOLVED_LABEL).currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
         assertRenderResult(component, builder.getDocument());
     }
 
@@ -131,10 +131,10 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         component.setModel(menuModelItem);
         final var builder = new HtmlTreeBuilder();
         builder.withNode(Node.LI).withAttributeNameAndId(CLIENT_ID).withNode(HTML_OUTCOME_TARGET_LINK)
-            .withAttribute("outcome", OUTCOME_HOME).withNode(Node.SPAN)
-            .withStyleClass(CUI_ICON_PREFIX + CUI_ICON_ICON).currentHierarchyUp().withNode(Node.SPAN)
-            .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass())
-            .withTextContent(RESOLVED_LABEL);
+                .withAttribute("outcome", OUTCOME_HOME).withNode(Node.SPAN)
+                .withStyleClass(CUI_ICON_PREFIX + CUI_ICON_ICON).currentHierarchyUp().withNode(Node.SPAN)
+                .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass())
+                .withTextContent(RESOLVED_LABEL);
         assertRenderResult(component, builder.getDocument());
     }
 
@@ -143,7 +143,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         final var component = new NavigationMenuComponent();
         component.setModel(new NavigationMenuItemSeparatorImpl(10));
         final var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId(CLIENT_ID)
-            .withStyleClass(CssBootstrap.LIST_DIVIDER);
+                .withStyleClass(CssBootstrap.LIST_DIVIDER);
         assertRenderResult(component, builder.getDocument());
     }
 
@@ -155,7 +155,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         navigationMenuItemContainer.setId("bar");
         component.setModel(navigationMenuItemContainer);
         final var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId("foo_0_bar")
-            .withStyleClass("dropdown");
+                .withStyleClass("dropdown");
         withContainerElement(builder);
         assertRenderResult(component, builder.getDocument());
     }
@@ -181,13 +181,13 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         builder.withNode(Node.LI).withAttributeNameAndId(CLIENT_ID).withStyleClass("dropdown");
         withContainerElement(builder, "", false);
         builder.withNode(Node.LI).withAttributeNameAndId(CLIENT_ID + ID_EXTENSION)
-            .withStyleClass("dropdown dropdown-submenu");
+                .withStyleClass("dropdown dropdown-submenu");
         withContainerElement(builder, "", true);
         builder.withNode(Node.LI).withAttributeNameAndId(CLIENT_ID + ID_EXTENSION + ID_EXTENSION)
-            .withStyleClass("dropdown dropdown-submenu");
+                .withStyleClass("dropdown dropdown-submenu");
         withContainerElement(builder, "", true);
         withCommandElement(builder, CLIENT_ID + ID_EXTENSION + ID_EXTENSION + ID_EXTENSION, OUTCOME_HOME,
-            RESOLVED_LABEL);
+                RESOLVED_LABEL);
         assertRenderResult(component, builder.getDocument());
     }
 
@@ -225,7 +225,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         component.setId(id);
         component.setModel(menuModelItem);
         final var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId(id + ID_EXTENSION)
-            .withStyleClass("dropdown");
+                .withStyleClass("dropdown");
         withContainerElement(builder, topLevelText);
         withCommandElement(builder, id + ID_EXTENSION + ID_EXTENSION, OUTCOME_HOME, child1_labelValue);
         withCommandElement(builder, id + ID_EXTENSION + "_" + child2Id, OUTCOME_HOME, child2_labelValue);
@@ -240,7 +240,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         menuModelItem2.setOutcome("foo");
         component.setModelItems(immutableList(menuModelItem1, menuModelItem2));
         final var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId(CLIENT_ID)
-            .withStyleClass("dropdown");
+                .withStyleClass("dropdown");
         withContainerElement(builder);
         // container
         builder.currentHierarchyUp().currentHierarchyUp();
@@ -267,7 +267,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         final var component = new NavigationMenuComponent();
         component.setModelItems(immutableList(menuModelItem));
         final var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId(CLIENT_ID)
-            .withStyleClass("dropdown");
+                .withStyleClass("dropdown");
         containerElement(builder, "", true, false);
         withCommandElement(builder, CLIENT_ID + "_0_model1", "out1", "");
         withCommandElement(builder, CLIENT_ID + "_1_model2", "out2", "");
@@ -305,7 +305,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         component.setModel(menuModelItem);
         component.setId(id);
         final var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId(id + ID_EXTENSION)
-            .withStyleClass("dropdown");
+                .withStyleClass("dropdown");
         withContainerElement(builder, topLevelText);
         withCommandElement(builder, id + ID_EXTENSION + ID_EXTENSION, OUTCOME_HOME, child1_labelValue);
         separatorElement(builder, id + ID_EXTENSION + "_1_separatorid");
@@ -328,7 +328,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         component.setId("compid");
         component.setModel(new NavigationMenuItemSeparatorImpl(10));
         final var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId("compid" + ID_EXTENSION)
-            .withStyleClass("divider").currentHierarchyUp();
+                .withStyleClass("divider").currentHierarchyUp();
         assertRenderResult(component, builder.getDocument());
     }
 
@@ -356,11 +356,11 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     }
 
     private static void withCommandElement(final HtmlTreeBuilder builder, final String id, final String outcome,
-                                           final String text) {
+            final String text) {
         builder.withNode(Node.LI).withAttributeNameAndId(id).withNode(HTML_OUTCOME_TARGET_LINK)
-            .withAttribute("outcome", outcome).withNode(Node.SPAN)
-            .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass()).withTextContent(text)
-            .currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
+                .withAttribute("outcome", outcome).withNode(Node.SPAN)
+                .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass()).withTextContent(text)
+                .currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
     }
 
     private static void withContainerElement(final HtmlTreeBuilder builder) {
@@ -372,7 +372,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     }
 
     private static void withContainerElement(final HtmlTreeBuilder builder, final String text,
-                                             final boolean isSubItem) {
+            final boolean isSubItem) {
         containerElement(builder, text, false, isSubItem);
     }
 
@@ -385,18 +385,18 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
      * @param isSubItem
      */
     private static void containerElement(final HtmlTreeBuilder builder, final String text,
-                                         final boolean setIconStyleClass, final boolean isSubItem) {
+            final boolean setIconStyleClass, final boolean isSubItem) {
         builder.withNode(HTML_OUTCOME_TARGET_LINK).withStyleClass("dropdown-toggle")
-            .withAttribute(AttributeName.DATA_TOGGLE, "dropdown");
+                .withAttribute(AttributeName.DATA_TOGGLE, "dropdown");
         if (setIconStyleClass) {
             builder.withNode(Node.SPAN).withStyleClass(IconProvider.FALLBACK_ICON_STRING).currentHierarchyUp();
         }
         builder.withNode(Node.SPAN)
-            .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass()).withTextContent(text)
-            .currentHierarchyUp();
+                .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass()).withTextContent(text)
+                .currentHierarchyUp();
         builder.withNode(Node.SPAN)
-            .withStyleClass("cui-icon " + (isSubItem ? "cui-icon-triangle_e" : "cui-icon-triangle_s"))
-            .currentHierarchyUp().currentHierarchyUp();
+                .withStyleClass("cui-icon " + (isSubItem ? "cui-icon-triangle_e" : "cui-icon-triangle_s"))
+                .currentHierarchyUp().currentHierarchyUp();
         builder.withNode(Node.UL).withStyleClass("dropdown-menu");
     }
 
@@ -410,9 +410,9 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     @Override
     public void configureComponents(final ComponentConfigDecorator decorator) {
         decorator.registerUIComponent(HtmlOutcomeTargetLink.COMPONENT_TYPE, HtmlOutcomeTargetLink.class)
-            .registerMockRenderer(UIOutcomeTarget.COMPONENT_FAMILY, "jakarta.faces.Link");
+                .registerMockRenderer(UIOutcomeTarget.COMPONENT_FAMILY, "jakarta.faces.Link");
         decorator.registerUIComponent(HtmlOutputLink.COMPONENT_TYPE, HtmlOutputLink.class)
-            .registerMockRenderer(UIOutput.COMPONENT_FAMILY, "jakarta.faces.Link");
+                .registerMockRenderer(UIOutput.COMPONENT_FAMILY, "jakarta.faces.Link");
         decorator.registerUIComponent(HtmlOutputText.COMPONENT_TYPE, HtmlOutputText.class);
         decorator.registerUIComponent(NavigationMenuComponent.class).registerRenderer(NavigationMenuRenderer.class);
         decorator.registerUIComponent(IconComponent.class).registerRenderer(IconRenderer.class);

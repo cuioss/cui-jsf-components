@@ -17,17 +17,17 @@ package de.cuioss.jsf.api.common.view;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
-import java.io.Serial;
-import java.util.Collections;
-import java.util.List;
-import java.util.regex.Pattern;
-
 import de.cuioss.tools.net.ParameterFilter;
 import de.cuioss.tools.net.UrlParameter;
 import de.cuioss.tools.string.MoreStrings;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.util.Collections;
+import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * @author Oliver Wolff

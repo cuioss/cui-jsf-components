@@ -15,11 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.support;
 
-import java.io.Serial;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.uimodel.model.conceptkey.ConceptCategory;
@@ -27,6 +22,11 @@ import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import de.cuioss.uimodel.model.conceptkey.impl.BaseConceptCategory;
 import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
+
+import java.io.Serial;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class ConceptKeyTypeGenerator implements TypedGenerator<ConceptKeyType> {
 

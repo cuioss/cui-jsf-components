@@ -15,17 +15,16 @@
  */
 package de.cuioss.jsf.api.converter.nameprovider;
 
-import java.text.MessageFormat;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.convert.FacesConverter;
-
 import de.cuioss.jsf.api.converter.AbstractConverter;
 import de.cuioss.jsf.api.security.CuiSanitizer;
 import de.cuioss.portal.common.bundle.ResourceBundleWrapper;
 import de.cuioss.portal.common.cdi.PortalBeanManager;
 import de.cuioss.uimodel.nameprovider.LabeledKey;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.FacesConverter;
+
+import java.text.MessageFormat;
 
 /**
  * Converter for the type {@link LabeledKey}

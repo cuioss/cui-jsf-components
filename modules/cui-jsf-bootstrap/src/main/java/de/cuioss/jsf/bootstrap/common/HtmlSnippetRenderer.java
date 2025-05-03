@@ -15,16 +15,15 @@
  */
 package de.cuioss.jsf.bootstrap.common;
 
-import java.io.IOException;
-
-import jakarta.faces.component.UIComponent;
-
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
+import jakarta.faces.component.UIComponent;
 import lombok.experimental.UtilityClass;
+
+import java.io.IOException;
 
 /**
  * @author Oliver Wolff

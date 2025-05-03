@@ -21,8 +21,6 @@ import static java.lang.Boolean.TRUE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.jqplot.axes.Axis;
 import de.cuioss.jsf.jqplot.axes.AxisType;
 import de.cuioss.jsf.jqplot.layout.Grid;
@@ -32,6 +30,7 @@ import de.cuioss.jsf.jqplot.options.legend.Legend;
 import de.cuioss.jsf.jqplot.plugin.cursor.Cursor;
 import de.cuioss.jsf.jqplot.plugin.highlighter.Highlighter;
 import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
+import org.junit.jupiter.api.Test;
 
 class OptionsTest implements ShouldHandleObjectContracts<Options> {
 

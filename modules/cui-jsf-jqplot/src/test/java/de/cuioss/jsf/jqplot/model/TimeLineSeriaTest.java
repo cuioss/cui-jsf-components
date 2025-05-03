@@ -18,13 +18,12 @@ package de.cuioss.jsf.jqplot.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.time.LocalDateTime;
-import java.time.temporal.Temporal;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.jqplot.js.types.JsDateTimeFormat;
 import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
+import java.time.temporal.Temporal;
 
 class TimeLineSeriaTest implements ShouldHandleObjectContracts<TimeLineSeria<?>> {
 

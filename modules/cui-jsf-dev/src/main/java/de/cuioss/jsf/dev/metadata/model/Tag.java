@@ -15,11 +15,11 @@
  */
 package de.cuioss.jsf.dev.metadata.model;
 
+import lombok.Data;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
-
-import lombok.Data;
 
 /**
  * Represents a top JSF Tag

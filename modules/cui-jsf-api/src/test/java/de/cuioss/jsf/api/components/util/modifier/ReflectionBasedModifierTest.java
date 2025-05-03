@@ -15,15 +15,15 @@
  */
 package de.cuioss.jsf.api.components.util.modifier;
 
+import static de.cuioss.jsf.api.components.util.modifier.ComponentModifierAssert.assertContracts;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.component.html.HtmlInputText;
 import org.junit.jupiter.api.Test;
-
-import static de.cuioss.jsf.api.components.util.modifier.ComponentModifierAssert.assertContracts;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @EnableJsfEnvironment
 class ReflectionBasedModifierTest {

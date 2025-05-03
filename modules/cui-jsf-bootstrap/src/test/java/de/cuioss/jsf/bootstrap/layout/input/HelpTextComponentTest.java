@@ -18,8 +18,6 @@ package de.cuioss.jsf.bootstrap.layout.input;
 import static de.cuioss.jsf.bootstrap.layout.input.HelpTextComponent.FIXED_ID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.JsfComponentIdentifier;
 import de.cuioss.jsf.bootstrap.button.CommandButton;
 import de.cuioss.jsf.bootstrap.layout.messages.CuiMessageComponent;
@@ -30,9 +28,10 @@ import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "titleKey", "titleValue", "contentKey", "contentValue", "contentEscape",
-        "buttonAlign", "renderButton" })
+@VerifyComponentProperties(of = {"titleKey", "titleValue", "contentKey", "contentValue", "contentEscape",
+        "buttonAlign", "renderButton"})
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class HelpTextComponentTest extends AbstractComponentTest<HelpTextComponent> implements ComponentConfigurator {
 

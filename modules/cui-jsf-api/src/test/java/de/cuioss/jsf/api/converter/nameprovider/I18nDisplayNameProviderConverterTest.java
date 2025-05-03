@@ -15,13 +15,13 @@
  */
 package de.cuioss.jsf.api.converter.nameprovider;
 
-import java.util.Locale;
-
 import de.cuioss.jsf.api.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.converter.AbstractSanitizingConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
+
+import java.util.Locale;
 
 /**
  * @author Sven Haag

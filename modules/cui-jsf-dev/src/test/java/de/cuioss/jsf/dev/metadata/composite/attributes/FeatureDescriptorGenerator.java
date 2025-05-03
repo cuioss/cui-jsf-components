@@ -18,9 +18,9 @@ package de.cuioss.jsf.dev.metadata.composite.attributes;
 import static de.cuioss.test.generator.Generators.booleans;
 import static de.cuioss.test.generator.Generators.fixedValues;
 
-import java.beans.FeatureDescriptor;
-
 import de.cuioss.test.generator.TypedGenerator;
+
+import java.beans.FeatureDescriptor;
 
 class FeatureDescriptorGenerator implements TypedGenerator<FeatureDescriptor> {
 

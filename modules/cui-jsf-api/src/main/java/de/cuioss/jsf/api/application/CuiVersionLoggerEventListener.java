@@ -16,7 +16,6 @@
 package de.cuioss.jsf.api.application;
 
 import de.cuioss.tools.logging.CuiLogger;
-
 import jakarta.faces.event.SystemEvent;
 import jakarta.faces.event.SystemEventListener;
 
@@ -35,9 +34,9 @@ public class CuiVersionLoggerEventListener implements SystemEventListener {
     public void processEvent(final SystemEvent event) {
         final var pack = CuiVersionLoggerEventListener.class.getPackage();
         log.info("Running on {} ( Version : {} )",
-            pack.getImplementationTitle() != null ? pack.getImplementationTitle().toUpperCase()
-                : "cuioss-Common-Ui",
-            pack.getImplementationVersion() != null ? pack.getImplementationVersion().toUpperCase() : "unknown");
+                pack.getImplementationTitle() != null ? pack.getImplementationTitle().toUpperCase()
+                        : "cuioss-Common-Ui",
+                pack.getImplementationVersion() != null ? pack.getImplementationVersion().toUpperCase() : "unknown");
     }
 
     @Override

@@ -15,6 +15,9 @@
  */
 package de.cuioss.jsf.api.components.model.datalist.impl;
 
+import static de.cuioss.tools.base.Preconditions.checkState;
+import static java.util.Objects.requireNonNull;
+
 import de.cuioss.jsf.api.components.model.datalist.AddStatus;
 import de.cuioss.jsf.api.components.model.datalist.EditStatus;
 import de.cuioss.jsf.api.components.model.datalist.ItemWrapper;
@@ -25,9 +28,6 @@ import lombok.ToString;
 
 import java.io.Serial;
 import java.io.Serializable;
-
-import static de.cuioss.tools.base.Preconditions.checkState;
-import static java.util.Objects.requireNonNull;
 
 /**
  * @param <T> identifying the type of items to be created. Must be at least

@@ -15,20 +15,16 @@
  */
 package de.cuioss.jsf.api.components.util;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import jakarta.faces.component.UIViewRoot;
-import jakarta.faces.component.behavior.AjaxBehavior;
-import jakarta.faces.component.html.HtmlInputText;
-import jakarta.faces.component.html.HtmlOutputText;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.component.html.HtmlOutputText;
+import org.junit.jupiter.api.Test;
 
 class ComponentWrapperTest extends JsfEnabledTestEnvironment implements ComponentConfigurator {
 

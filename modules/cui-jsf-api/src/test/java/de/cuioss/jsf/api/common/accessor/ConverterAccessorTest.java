@@ -16,15 +16,7 @@
 package de.cuioss.jsf.api.common.accessor;
 
 import static de.cuioss.test.jsf.generator.JsfProvidedConverter.CONVERTER_ID_GENERATOR;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import jakarta.faces.convert.IntegerConverter;
-import jakarta.faces.convert.NumberConverter;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.converter.ObjectToStringConverter;
 import de.cuioss.jsf.api.converter.StringIdentConverter;
@@ -33,6 +25,9 @@ import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
 import de.cuioss.test.valueobjects.api.property.PropertyConfig;
 import de.cuioss.test.valueobjects.api.property.PropertyReflectionConfig;
+import jakarta.faces.convert.IntegerConverter;
+import jakarta.faces.convert.NumberConverter;
+import org.junit.jupiter.api.Test;
 
 @PropertyReflectionConfig(skip = true)
 @PropertyConfig(name = "converterId", propertyClass = String.class, generator = ConverterIdGenerator.class)

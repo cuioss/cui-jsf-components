@@ -17,16 +17,14 @@ package de.cuioss.jsf.api.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import jakarta.faces.application.ProjectStage;
-import jakarta.faces.component.html.HtmlInputText;
-import jakarta.faces.component.html.HtmlOutputText;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
 import de.cuioss.test.juli.LogAsserts;
 import de.cuioss.test.juli.TestLogLevel;
 import de.cuioss.test.juli.junit5.EnableTestLogger;
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.component.html.HtmlOutputText;
+import org.junit.jupiter.api.Test;
 
 @EnableTestLogger
 class FallbackSanitizingConverterTest extends JsfEnabledTestEnvironment {

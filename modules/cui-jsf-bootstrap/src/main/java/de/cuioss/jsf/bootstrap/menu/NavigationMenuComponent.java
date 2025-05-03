@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.bootstrap.menu;
 
+import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
+
 import de.cuioss.jsf.api.components.base.AbstractBaseCuiComponent;
 import de.cuioss.jsf.api.components.model.menu.NavigationMenuItem;
 import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemContainer;
@@ -28,8 +30,6 @@ import jakarta.faces.component.FacesComponent;
 
 import java.io.Serializable;
 import java.util.List;
-
-import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
 /**
  * Holder of the bootstrap conform navigation menu component model.

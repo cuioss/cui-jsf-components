@@ -16,15 +16,12 @@
 package de.cuioss.jsf.jqplot.portal.theme;
 
 import static de.cuioss.test.generator.Generators.fixedValues;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.valueobjects.ValueObjectTest;
 import de.cuioss.test.valueobjects.api.property.PropertyReflectionConfig;
+import org.junit.jupiter.api.Test;
 
 @PropertyReflectionConfig(of = "selector")
 class CssRuleTest extends ValueObjectTest<CssRule> {

@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.bootstrap.tag;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import de.cuioss.jsf.api.components.css.ContextSize;
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
@@ -35,16 +37,13 @@ import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 import de.cuioss.tools.string.Joiner;
-import org.jdom2.Element;
-import org.junit.jupiter.api.Test;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.event.PostAddToViewEvent;
 import jakarta.faces.event.ValueChangeEvent;
 import jakarta.faces.event.ValueChangeListener;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.jdom2.Element;
+import org.junit.jupiter.api.Test;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @EnableJSFCDIEnvironment
@@ -64,7 +63,7 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> impleme
         final var component = new TagComponent();
         component.setContentKey(SOME_KEY);
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(LABEL_PRIMARY_STYLE_CLASS)
-            .withTextContent(SOME_KEY);
+                .withTextContent(SOME_KEY);
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -74,7 +73,7 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> impleme
         component.setContentValue(SOME_CONTENT_VALUE);
         component.setTitleKey(SOME_KEY);
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(LABEL_PRIMARY_STYLE_CLASS)
-            .withAttribute(AttributeName.TITLE, SOME_KEY).withTextContent(SOME_CONTENT_VALUE);
+                .withAttribute(AttributeName.TITLE, SOME_KEY).withTextContent(SOME_CONTENT_VALUE);
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -84,7 +83,7 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> impleme
         component.setContentValue(ESCAPE_CONTENT);
         component.setContentEscape(false);
         assertEquals("<div class=\"cui-tag cui-tag-default\">" + ESCAPE_CONTENT + "</div>",
-            assertDoesNotThrow(() -> renderToString(component)));
+                assertDoesNotThrow(() -> renderToString(component)));
     }
 
     @Test
@@ -93,7 +92,7 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> impleme
         component.setContentValue(ESCAPE_CONTENT);
         component.setContentEscape(true);
         assertEquals("<div class=\"cui-tag cui-tag-default\">&lt;&gt;</div>",
-            assertDoesNotThrow(() -> renderToString(component)));
+                assertDoesNotThrow(() -> renderToString(component)));
     }
 
     @Test
@@ -104,7 +103,7 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> impleme
         final var styleClassBuilder = CssCuiBootstrap.TAG.getStyleClassBuilder();
         styleClassBuilder.append(TagState.DANGER);
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(styleClassBuilder)
-            .withTextContent(SOME_CONTENT_VALUE);
+                .withTextContent(SOME_CONTENT_VALUE);
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -116,7 +115,7 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> impleme
         final StyleClassBuilder styleClassBuilder = new StyleClassBuilderImpl(LABEL_PRIMARY_STYLE_CLASS);
         styleClassBuilder.append(TagSize.LG);
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(styleClassBuilder)
-            .withTextContent(SOME_CONTENT_VALUE);
+                .withTextContent(SOME_CONTENT_VALUE);
         assertRenderResult(component, expected.getDocument());
     }
 
@@ -131,8 +130,8 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> impleme
         final var clientId = component.getClientId();
         final StyleClassBuilder styleClassBuilder = new StyleClassBuilderImpl(LABEL_PRIMARY_STYLE_CLASS);
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(styleClassBuilder)
-            .withTextContent(SOME_CONTENT_VALUE).withAttribute(AttributeName.ID, clientId)
-            .withAttribute(AttributeName.NAME, clientId);
+                .withTextContent(SOME_CONTENT_VALUE).withAttribute(AttributeName.ID, clientId)
+                .withAttribute(AttributeName.NAME, clientId);
         final var current = expected.getCurrent();
         // Close button
         final var closeButton = new Element(Node.BUTTON.getContent());
@@ -189,8 +188,8 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> impleme
 
     private static UIInput getHiddenInput(final TagComponent component) {
         return (UIInput) component.getChildren().stream().filter(child -> child instanceof UIInput).findFirst()
-            .orElseThrow(
-                () -> new IllegalStateException("Hidden input is missing but should be available as child"));
+                .orElseThrow(
+                        () -> new IllegalStateException("Hidden input is missing but should be available as child"));
     }
 
     private void simulatePostAddToView(final TagComponent component) {

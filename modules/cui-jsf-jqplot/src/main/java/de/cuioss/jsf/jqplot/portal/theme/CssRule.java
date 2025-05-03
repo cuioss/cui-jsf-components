@@ -19,17 +19,17 @@ import static de.cuioss.tools.collect.CollectionLiterals.mutableSet;
 import static de.cuioss.tools.string.MoreStrings.emptyToNull;
 import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
 import de.cuioss.tools.string.Splitter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Class represent a single Css rule and provide a simplified api to interact

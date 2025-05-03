@@ -15,14 +15,13 @@
  */
 package de.cuioss.jsf.api.components.events;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.event.FacesEvent;
 import jakarta.faces.event.FacesListener;
-
 import lombok.Getter;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * Simple payload wrapper for events like the disposeEvents on

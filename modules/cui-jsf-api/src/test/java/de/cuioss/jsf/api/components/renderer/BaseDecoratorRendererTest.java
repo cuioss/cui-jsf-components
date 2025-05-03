@@ -17,18 +17,16 @@ package de.cuioss.jsf.api.components.renderer;
 
 import static de.cuioss.test.jsf.renderer.util.HtmlTreeAsserts.assertHtmlTreeEquals;
 
-import java.io.IOException;
-import java.io.StringWriter;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.html.HtmlInputText;
-
-import org.apache.myfaces.test.mock.MockResponseWriter;
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.test.jsf.renderer.AbstractRendererTestBase;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlInputText;
+import org.apache.myfaces.test.mock.MockResponseWriter;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.io.StringWriter;
 
 class BaseDecoratorRendererTest extends AbstractRendererTestBase<MockDecoratorRenderer> {
 

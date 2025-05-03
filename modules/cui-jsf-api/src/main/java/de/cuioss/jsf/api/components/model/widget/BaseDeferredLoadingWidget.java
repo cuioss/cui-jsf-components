@@ -15,16 +15,15 @@
  */
 package de.cuioss.jsf.api.components.model.widget;
 
-import java.io.Serial;
-import java.io.Serializable;
-
-import jakarta.faces.event.ActionEvent;
-
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
+import jakarta.faces.event.ActionEvent;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Synchronized;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * Abstract implementation of the {@link WidgetModel} supporting deferred

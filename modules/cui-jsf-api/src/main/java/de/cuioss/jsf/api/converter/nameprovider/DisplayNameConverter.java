@@ -15,15 +15,14 @@
  */
 package de.cuioss.jsf.api.converter.nameprovider;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.convert.ConverterException;
-import jakarta.faces.convert.FacesConverter;
-
 import de.cuioss.jsf.api.converter.AbstractConverter;
 import de.cuioss.jsf.api.security.CuiSanitizer;
 import de.cuioss.uimodel.nameprovider.DisplayName;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.ConverterException;
+import jakarta.faces.convert.FacesConverter;
 
 /**
  * Converter for implementation of {@link IDisplayNameProvider}

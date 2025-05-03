@@ -15,19 +15,15 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import jakarta.faces.component.UIComponent;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 import de.cuioss.test.jsf.mocks.ReverseConverter;
+import jakarta.faces.component.UIComponent;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "placeholderKey", "placeholderValue", "placeholderConverter" })
+@VerifyComponentProperties(of = {"placeholderKey", "placeholderValue", "placeholderConverter"})
 class PlaceholderProviderImplTest extends AbstractPartialComponentTest {
 
     @Test

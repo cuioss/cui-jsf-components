@@ -18,14 +18,13 @@ package de.cuioss.jsf.jqplot.js.types;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import de.cuioss.test.valueobjects.ValueObjectTest;
+import de.cuioss.test.valueobjects.api.property.PropertyReflectionConfig;
+import org.junit.jupiter.api.Test;
+
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.temporal.Temporal;
-
-import org.junit.jupiter.api.Test;
-
-import de.cuioss.test.valueobjects.ValueObjectTest;
-import de.cuioss.test.valueobjects.api.property.PropertyReflectionConfig;
 
 @PropertyReflectionConfig(skip = true)
 class JsDateTimeTest extends ValueObjectTest<JsDateTime> {

@@ -17,14 +17,6 @@ package de.cuioss.jsf.bootstrap.layout.messages;
 
 import static jakarta.faces.application.FacesMessage.SEVERITY_WARN;
 
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIPanel;
-import jakarta.faces.component.html.HtmlInputText;
-import jakarta.faces.component.html.HtmlPanelGrid;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
@@ -34,6 +26,12 @@ import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIPanel;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.component.html.HtmlPanelGrid;
+import org.junit.jupiter.api.Test;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class CuiMessageRendererTest extends AbstractComponentRendererTest<CuiMessageRenderer>

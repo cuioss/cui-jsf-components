@@ -15,11 +15,11 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @VerifyComponentProperties(of = "keyBinding")
 class KeyBindingProviderTest extends AbstractPartialComponentTest {

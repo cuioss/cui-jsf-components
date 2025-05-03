@@ -15,11 +15,10 @@
  */
 package de.cuioss.jsf.api.common.accessor;
 
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.convert.Converter;
-
 import de.cuioss.jsf.api.converter.ObjectToStringConverter;
 import de.cuioss.jsf.api.converter.StringIdentConverter;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

@@ -15,26 +15,9 @@
  */
 package de.cuioss.jsf.bootstrap.taginput;
 
-import static de.cuioss.jsf.bootstrap.selectize.Selectize.OPTION_VALUE_DEFAULT_WRAPPER;
-import static de.cuioss.jsf.bootstrap.selectize.Selectize.OPTION_VALUE_LABEL_KEY;
-import static de.cuioss.jsf.bootstrap.selectize.Selectize.OPTION_VALUE_VALUE_KEY;
+import static de.cuioss.jsf.bootstrap.selectize.Selectize.*;
 import static de.cuioss.tools.base.Preconditions.checkArgument;
 import static de.cuioss.tools.collect.CollectionLiterals.mutableSortedSet;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.stream.Collectors;
-
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.convert.Converter;
-import jakarta.faces.convert.ConverterException;
 
 import de.cuioss.jsf.api.common.accessor.LocaleAccessor;
 import de.cuioss.jsf.api.components.base.BaseCuiHtmlInputComponent;
@@ -51,9 +34,23 @@ import de.cuioss.tools.codec.Hex;
 import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.tools.string.Joiner;
 import de.cuioss.tools.string.MoreStrings;
-import de.cuioss.uimodel.model.conceptkey.AugmentationKeyConstans;
+import de.cuioss.uimodel.model.conceptkey.AugmentationKeyConstants;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.ConverterException;
 import lombok.experimental.Delegate;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -265,7 +262,7 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent implements Styl
         if (null == getValue()) {
             return Collections.emptySet();
         }
-        return getValue().stream().filter(AugmentationKeyConstans::isUndefinedValue).collect(Collectors.toSet());
+        return getValue().stream().filter(AugmentationKeyConstants::isUndefinedValue).collect(Collectors.toSet());
     }
 
     /**
@@ -369,6 +366,6 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent implements Styl
 
     private static String buildOptionElement(final String label, final String identifier) {
         return "{\"" + OPTION_VALUE_LABEL_KEY + "\":\"" + label +
-            "\",\"" + OPTION_VALUE_VALUE_KEY + "\":\"" + identifier + "\"}";
+                "\",\"" + OPTION_VALUE_VALUE_KEY + "\":\"" + identifier + "\"}";
     }
 }

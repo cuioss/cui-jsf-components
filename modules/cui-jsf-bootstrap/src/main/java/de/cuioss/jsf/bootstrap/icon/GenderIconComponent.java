@@ -15,8 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.icon;
 
-import jakarta.faces.component.FacesComponent;
-
 import de.cuioss.jsf.api.components.css.IconLibrary;
 import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
 import de.cuioss.jsf.api.components.partial.ContextSizeProvider;
@@ -27,6 +25,7 @@ import de.cuioss.jsf.api.components.support.LabelResolver;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.uimodel.model.Gender;
+import jakarta.faces.component.FacesComponent;
 
 /**
  * <p>

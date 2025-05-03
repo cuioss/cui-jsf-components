@@ -18,14 +18,13 @@ package de.cuioss.jsf.bootstrap.layout;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.jsf.component.AbstractUiComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "offsetSize" })
+@VerifyComponentProperties(of = {"offsetSize"})
 class ControlGroupComponentTest extends AbstractUiComponentTest<ControlGroupComponent> {
 
     private final TypedGenerator<Integer> validNumbers = Generators.integers(1, 12);

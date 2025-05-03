@@ -15,19 +15,14 @@
  */
 package de.cuioss.jsf.test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import jakarta.faces.application.FacesMessage;
-import jakarta.inject.Inject;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.jsf.junit5.AbstractBeanTest;
 import de.cuioss.test.valueobjects.api.property.PropertyReflectionConfig;
+import jakarta.faces.application.FacesMessage;
+import jakarta.inject.Inject;
 import lombok.Getter;
+import org.junit.jupiter.api.Test;
 
 @PropertyReflectionConfig(skip = true)
 @EnableJSFCDIEnvironment

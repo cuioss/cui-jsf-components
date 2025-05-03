@@ -82,7 +82,7 @@ public abstract class AbstractConverter<T> implements Converter<T> {
      * @throws UnsupportedOperationException by default implementation
      */
     protected T convertToObject(final FacesContext context, final UIComponent component, final String value)
-        throws ConverterException {
+            throws ConverterException {
         throw new UnsupportedOperationException("Converter is used for formatting only.");
     }
 
@@ -99,7 +99,7 @@ public abstract class AbstractConverter<T> implements Converter<T> {
      * @throws ConverterException
      */
     protected abstract String convertToString(FacesContext context, UIComponent component, T value)
-        throws ConverterException;
+            throws ConverterException;
 
     /**
      * Ensures the truth of an expression involving the state of the calling
@@ -142,10 +142,10 @@ public abstract class AbstractConverter<T> implements Converter<T> {
      *                   resulting Exception string.
      */
     public static void throwConverterException(final String messageKey, final Object... parameter)
-        throws ConverterException {
+            throws ConverterException {
 
         throw new ConverterException(
-            PortalBeanManager.resolveRequiredBean(MessageProducer.class).getErrorMessageFor(messageKey, parameter));
+                PortalBeanManager.resolveRequiredBean(MessageProducer.class).getErrorMessageFor(messageKey, parameter));
     }
 
     /**

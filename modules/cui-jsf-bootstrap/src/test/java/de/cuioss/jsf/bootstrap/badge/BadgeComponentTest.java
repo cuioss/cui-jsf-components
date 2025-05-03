@@ -17,13 +17,12 @@ package de.cuioss.jsf.bootstrap.badge;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "titleKey", "titleValue" })
+@VerifyComponentProperties(of = {"titleKey", "titleValue"})
 class BadgeComponentTest extends AbstractComponentTest<BadgeComponent> {
 
     @Test

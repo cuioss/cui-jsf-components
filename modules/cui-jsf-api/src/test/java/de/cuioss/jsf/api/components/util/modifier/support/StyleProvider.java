@@ -15,9 +15,8 @@
  */
 package de.cuioss.jsf.api.components.util.modifier.support;
 
-import jakarta.faces.component.UIComponentBase;
-
 import de.cuioss.jsf.api.components.partial.StyleAttributeProvider;
+import jakarta.faces.component.UIComponentBase;
 import lombok.Getter;
 import lombok.Setter;
 

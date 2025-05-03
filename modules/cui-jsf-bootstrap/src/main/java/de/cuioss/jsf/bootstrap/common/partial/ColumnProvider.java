@@ -15,11 +15,10 @@
  */
 package de.cuioss.jsf.bootstrap.common.partial;
 
-import jakarta.faces.component.StateHelper;
-
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.partial.ComponentBridge;
 import de.cuioss.jsf.api.components.util.CuiState;
+import jakarta.faces.component.StateHelper;
 import lombok.NonNull;
 
 /**

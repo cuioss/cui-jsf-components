@@ -24,10 +24,10 @@ import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.api.components.renderer.ElementReplacingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.FacesRenderer;
+
 import java.io.IOException;
 
 /**
@@ -46,10 +46,10 @@ public class CloseCommandButtonRenderer extends BaseDecoratorRenderer<CloseComma
 
     @Override
     protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<CloseCommandButton> writer,
-                                 final CloseCommandButton component) throws IOException {
+            final CloseCommandButton component) throws IOException {
 
         var wrapped = ElementReplacingResponseWriter.createWrappedReplacingResonseWriter(context, "input", "button",
-            true);
+                true);
 
         component.resolveAndStoreTitle();
         component.writeTitleToParent();
@@ -62,7 +62,7 @@ public class CloseCommandButtonRenderer extends BaseDecoratorRenderer<CloseComma
         var output = JsfHtmlComponent.SPAN.component(context);
 
         output.getPassThroughAttributes(true).put(AttributeName.ARIA_HIDDEN.getContent(),
-            AttributeValue.TRUE.getContent());
+                AttributeValue.TRUE.getContent());
 
         output.setValue("&#xD7;");
         output.setEscape(false);
@@ -78,7 +78,7 @@ public class CloseCommandButtonRenderer extends BaseDecoratorRenderer<CloseComma
 
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<CloseCommandButton> writer,
-                               final CloseCommandButton component) throws IOException {
+            final CloseCommandButton component) throws IOException {
         writer.withEndElement(Node.BUTTON);
     }
 }

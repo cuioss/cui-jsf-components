@@ -17,14 +17,13 @@ package de.cuioss.jsf.bootstrap.layout;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.test.jsf.component.AbstractUiComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "align" })
+@VerifyComponentProperties(of = {"align"})
 class QuickControlGroupComponentTest extends AbstractUiComponentTest<QuickControlGroupComponent> {
 
     @Test

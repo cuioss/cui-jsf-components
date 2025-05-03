@@ -16,15 +16,15 @@
 package de.cuioss.jsf.components.converter;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.List;
-import java.util.SortedSet;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.SortedSet;
 
 class StringToListConverterTest extends AbstractConverterTest<StringToListConverter, String> {
 

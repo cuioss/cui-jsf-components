@@ -25,11 +25,11 @@ import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.button.support.ButtonSize;
 import de.cuioss.jsf.bootstrap.button.support.ButtonState;
 import de.cuioss.jsf.bootstrap.icon.IconComponent;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.FacesRenderer;
 import jakarta.faces.render.Renderer;
+
 import java.io.IOException;
 
 /**
@@ -60,16 +60,16 @@ public class ButtonRenderer extends BaseDecoratorRenderer<Button> {
 
     @Override
     protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<Button> writer,
-                                 final Button component) throws IOException {
+            final Button component) throws IOException {
         var wrapped = ElementReplacingResponseWriter.createWrappedReplacingResonseWriter(context, "input", "button",
-            true);
+                true);
 
         component.resolveAndStoreTitle();
 
 
         component.computeAndStoreFinalStyleClass(CssBootstrap.BUTTON.getStyleClassBuilder()
-            .append(ButtonState.getForContextState(component.getState()))
-            .append(ButtonSize.getForContextSize(component.resolveContextSize())));
+                .append(ButtonState.getForContextState(component.getState()))
+                .append(ButtonSize.getForContextSize(component.resolveContextSize())));
         component.writeStyleClassToParent();
 
         JsfHtmlComponent.BUTTON.renderer(context).encodeBegin(wrapped, component);
@@ -101,7 +101,7 @@ public class ButtonRenderer extends BaseDecoratorRenderer<Button> {
 
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<Button> writer,
-                               final Button component) throws IOException {
+            final Button component) throws IOException {
         writer.withEndElement(Node.BUTTON);
     }
 

@@ -17,13 +17,13 @@ package de.cuioss.jsf.dev.metadata.model;
 
 import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.*;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * @author Oliver Wolff

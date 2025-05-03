@@ -17,13 +17,12 @@ package de.cuioss.jsf.dev.metadata.composite;
 
 import static java.util.Objects.requireNonNull;
 
-import java.beans.BeanInfo;
-
-import jakarta.faces.context.FacesContext;
-
 import de.cuioss.tools.logging.CuiLogger;
+import jakarta.faces.context.FacesContext;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+
+import java.beans.BeanInfo;
 
 /**
  * Provide some utility methods for dealing with Composite Components.

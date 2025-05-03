@@ -15,16 +15,12 @@
  */
 package de.cuioss.jsf.api.components;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import jakarta.faces.FacesException;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
 import de.cuioss.test.jsf.mocks.CuiMockRenderer;
+import jakarta.faces.FacesException;
+import org.junit.jupiter.api.Test;
 
 class JsfHtmlComponentTest extends JsfEnabledTestEnvironment {
 

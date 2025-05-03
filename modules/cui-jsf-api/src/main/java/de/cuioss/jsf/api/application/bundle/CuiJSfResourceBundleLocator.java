@@ -15,15 +15,14 @@
  */
 package de.cuioss.jsf.api.application.bundle;
 
-import java.io.Serial;
-import java.util.Optional;
-
-import jakarta.enterprise.context.ApplicationScoped;
-
 import de.cuioss.portal.common.bundle.ResourceBundleLocator;
 import de.cuioss.portal.common.priority.PortalPriorities;
 import jakarta.annotation.Priority;
+import jakarta.enterprise.context.ApplicationScoped;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serial;
+import java.util.Optional;
 
 /**
  * Defines the base bundles "de.cuioss.jsf.api.l18n.messages" with the Priority

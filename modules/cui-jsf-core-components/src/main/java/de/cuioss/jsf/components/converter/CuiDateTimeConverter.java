@@ -15,17 +15,14 @@
  */
 package de.cuioss.jsf.components.converter;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.Date;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.ConverterException;
+import jakarta.faces.convert.DateTimeConverter;
 import jakarta.faces.convert.FacesConverter;
+
+import java.time.*;
+import java.util.Date;
 
 /**
  * Extends standard {@link jakarta.faces.convert.DateTimeConverter} to support
@@ -37,7 +34,7 @@ import jakarta.faces.convert.FacesConverter;
  * @author Matthias Walliczek
  */
 @FacesConverter(value = "de.cuioss.jsf.components.converter.DateTimeConverter")
-public class CuiDateTimeConverter extends jakarta.faces.convert.DateTimeConverter {
+public class CuiDateTimeConverter extends DateTimeConverter {
 
     /**
      * @throws ConverterException   {@inheritDoc}

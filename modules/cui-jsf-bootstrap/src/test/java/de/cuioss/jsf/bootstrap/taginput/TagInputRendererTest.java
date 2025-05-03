@@ -15,20 +15,8 @@
  */
 package de.cuioss.jsf.bootstrap.taginput;
 
-import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
-import static de.cuioss.tools.collect.CollectionLiterals.immutableSet;
-import static de.cuioss.tools.collect.CollectionLiterals.immutableSortedSet;
+import static de.cuioss.tools.collect.CollectionLiterals.*;
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.convert.ConverterException;
-
-import org.junit.jupiter.api.Test;
 
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
@@ -54,6 +42,13 @@ import de.cuioss.uimodel.model.code.CodeType;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.convert.ConverterException;
+import org.junit.jupiter.api.Test;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRenderer> implements ComponentConfigurator {
@@ -110,7 +105,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
     void shouldRenderDisabled() {
         final var component = new TagInputComponent();
         component.setDisabled(true);
-        component.setValue(Collections.singleton(CODE_TYPE_1));
+        component.setValue(Set.of(CODE_TYPE_1));
         final var expected = new HtmlTreeBuilder();
         expected.withNode(Node.UL).withStyleClass(CssBootstrap.LIST_INLINE.getStyleClass());
         TagTestUtils.insertTag(expected);
@@ -369,7 +364,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
                         component.isLetUserCreateTags()
                                 ? TagInputComponent.CSS_CLASS_CAN_CREATE + " " + Selectize.OPTION_VALUE_DEFAULT_WRAPPER
                                 : TagInputComponent.CSS_CLASS_CANNOT_CREATE + " "
-                                        + Selectize.OPTION_VALUE_DEFAULT_WRAPPER)
+                                + Selectize.OPTION_VALUE_DEFAULT_WRAPPER)
                 .withAttribute(PassthroughAttributes.CAN_CREATE, String.valueOf(component.isLetUserCreateTags()))
                 .withAttribute(PassthroughAttributes.DELIMITER, component.getDelimiter())
                 .withAttribute(PassthroughAttributes.MAX_ITEMS, String.valueOf(component.getMaxItems()))

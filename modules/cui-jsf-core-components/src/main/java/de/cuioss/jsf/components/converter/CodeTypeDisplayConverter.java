@@ -15,16 +15,15 @@
  */
 package de.cuioss.jsf.components.converter;
 
-import java.util.Locale;
-
+import de.cuioss.jsf.api.common.accessor.LocaleAccessor;
+import de.cuioss.jsf.api.converter.AbstractConverter;
+import de.cuioss.uimodel.model.code.CodeType;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.ConverterException;
 import jakarta.faces.convert.FacesConverter;
 
-import de.cuioss.jsf.api.common.accessor.LocaleAccessor;
-import de.cuioss.jsf.api.converter.AbstractConverter;
-import de.cuioss.uimodel.model.code.CodeType;
+import java.util.Locale;
 
 /**
  * Formatting converter for creating / resolving the label of a given

@@ -30,10 +30,10 @@ import de.cuioss.jsf.bootstrap.tag.support.TagHelper;
 import de.cuioss.tools.string.MoreStrings;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
-
 import jakarta.faces.application.ResourceDependency;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.FacesRenderer;
+
 import java.io.IOException;
 import java.util.*;
 
@@ -119,7 +119,7 @@ public class TagInputRenderer extends BaseDecoratorRenderer<TagInputComponent> {
 
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<TagInputComponent> writer,
-                               final TagInputComponent component) throws IOException {
+            final TagInputComponent component) throws IOException {
 
         if (component.isDisabled()) {
             encodeDisabled(context, writer, component);
@@ -134,13 +134,13 @@ public class TagInputRenderer extends BaseDecoratorRenderer<TagInputComponent> {
     }
 
     private void encodeDisabled(final FacesContext context, final DecoratingResponseWriter<TagInputComponent> writer,
-                                final TagInputComponent component) throws IOException {
+            final TagInputComponent component) throws IOException {
         TagHelper.writeDisabled(context, writer, createTags(component.getValue()), component.getStyle(),
-            component.getStyleClass());
+                component.getStyleClass());
     }
 
     private List<TagComponent> createTags(final Collection<ConceptKeyType> values) {
         return TagHelper.createFromConceptKeys(null != values ? new TreeSet<>(values) : Collections.emptySortedSet(),
-            localeAccessor.getValue(), true, ContextSize.LG.name(), ContextState.DEFAULT.name());
+                localeAccessor.getValue(), true, ContextSize.LG.name(), ContextState.DEFAULT.name());
     }
 }

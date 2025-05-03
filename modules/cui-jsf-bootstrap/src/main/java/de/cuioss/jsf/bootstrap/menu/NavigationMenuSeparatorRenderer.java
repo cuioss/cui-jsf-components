@@ -15,16 +15,15 @@
  */
 package de.cuioss.jsf.bootstrap.menu;
 
-import java.io.IOException;
-
-import jakarta.faces.render.Renderer;
-
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSeparator;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
+import jakarta.faces.render.Renderer;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+
+import java.io.IOException;
 
 /**
  * {@link Renderer} utility for the {@link NavigationMenuItemSeparator} model.

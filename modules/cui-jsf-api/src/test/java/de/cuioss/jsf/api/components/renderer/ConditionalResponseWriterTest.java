@@ -19,13 +19,12 @@ import static de.cuioss.jsf.api.components.ComponentTestUtils.createSimplePartia
 import static de.cuioss.jsf.api.components.ComponentTestUtils.createWrappedPartialRenderBuilder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.IOException;
-import java.io.StringWriter;
-
+import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import org.apache.myfaces.test.mock.MockResponseWriter;
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
+import java.io.IOException;
+import java.io.StringWriter;
 
 class ConditionalResponseWriterTest {
 

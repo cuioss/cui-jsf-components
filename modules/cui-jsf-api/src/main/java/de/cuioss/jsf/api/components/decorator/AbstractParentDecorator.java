@@ -15,10 +15,11 @@
  */
 package de.cuioss.jsf.api.components.decorator;
 
+import static java.util.Objects.requireNonNull;
+
 import de.cuioss.jsf.api.components.partial.ComponentBridge;
 import de.cuioss.jsf.api.components.util.ComponentModifier;
 import de.cuioss.jsf.api.components.util.modifier.ComponentModifierFactory;
-
 import jakarta.faces.component.StateHelper;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIComponentBase;
@@ -26,8 +27,6 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.ListenerFor;
 import jakarta.faces.event.PostAddToViewEvent;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Base class for decorating the parent of the given component. This component

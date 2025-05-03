@@ -15,15 +15,15 @@
  */
 package de.cuioss.jsf.components.selection;
 
-import java.io.Serial;
-import java.util.List;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.ConverterException;
 import jakarta.faces.convert.EnumConverter;
 import jakarta.faces.model.SelectItem;
+
+import java.io.Serial;
+import java.util.List;
 
 /**
  * Variant for simplified usage with enum.

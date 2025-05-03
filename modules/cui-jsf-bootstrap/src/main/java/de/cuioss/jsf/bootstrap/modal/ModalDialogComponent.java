@@ -18,12 +18,6 @@ package de.cuioss.jsf.bootstrap.modal;
 import static de.cuioss.tools.base.Preconditions.checkArgument;
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.component.UIComponent;
-
-import org.omnifaces.util.State;
-
 import de.cuioss.jsf.api.components.base.BaseCuiPanel;
 import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
 import de.cuioss.jsf.api.components.partial.ComponentStyleClassProviderImpl;
@@ -34,7 +28,11 @@ import de.cuioss.jsf.api.components.partial.HeaderProvider;
 import de.cuioss.jsf.api.components.partial.StyleAttributeProvider;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.UIComponent;
 import lombok.experimental.Delegate;
+import org.omnifaces.util.State;
 
 /**
  * <p>

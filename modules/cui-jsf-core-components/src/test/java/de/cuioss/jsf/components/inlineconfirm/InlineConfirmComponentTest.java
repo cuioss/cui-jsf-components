@@ -15,12 +15,12 @@
  */
 package de.cuioss.jsf.components.inlineconfirm;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import de.cuioss.jsf.api.components.support.DummyComponent;
 import de.cuioss.jsf.components.CuiFamily;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class InlineConfirmComponentTest extends AbstractComponentTest<InlineConfirmComponent> {
 

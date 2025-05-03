@@ -16,14 +16,11 @@
 package de.cuioss.jsf.api.components.css.impl;
 
 import static de.cuioss.test.generator.Generators.letterStrings;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.components.css.CssCommon;
 import de.cuioss.test.valueobjects.ValueObjectTest;
+import org.junit.jupiter.api.Test;
 
 class StyleClassBuilderImplTest extends ValueObjectTest<StyleClassBuilderImpl> {
 

@@ -15,10 +15,9 @@
  */
 package de.cuioss.jsf.api.application.view.matcher;
 
-import jakarta.faces.context.FacesContext;
-
 import de.cuioss.jsf.api.application.navigation.NavigationUtils;
 import de.cuioss.jsf.api.common.view.ViewDescriptor;
+import jakarta.faces.context.FacesContext;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

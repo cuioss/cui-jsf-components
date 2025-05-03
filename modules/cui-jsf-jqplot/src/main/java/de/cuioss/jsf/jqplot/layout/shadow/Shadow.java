@@ -15,10 +15,6 @@
  */
 package de.cuioss.jsf.jqplot.layout.shadow;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.List;
-
 import de.cuioss.jsf.jqplot.js.support.IPropertyProvider;
 import de.cuioss.jsf.jqplot.js.support.JavaScriptSupport;
 import de.cuioss.jsf.jqplot.js.support.PropertyProvider;
@@ -30,14 +26,18 @@ import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Decorating any target class with shadow properties
  *
  * @author Eugen Fischer
  * @param <T> user class, will be used for fluent api / builder
  */
-@ToString(exclude = { "userClass" })
-@EqualsAndHashCode(exclude = { "userClass" })
+@ToString(exclude = {"userClass"})
+@EqualsAndHashCode(exclude = {"userClass"})
 public class Shadow<T extends Serializable> implements Serializable, IShadowDecoration<T>, IPropertyProvider {
 
     /** serialVersionUID */

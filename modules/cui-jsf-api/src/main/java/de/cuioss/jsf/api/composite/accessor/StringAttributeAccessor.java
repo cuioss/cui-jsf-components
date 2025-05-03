@@ -15,12 +15,12 @@
  */
 package de.cuioss.jsf.api.composite.accessor;
 
-import java.io.Serial;
-import java.util.Map;
-
 import de.cuioss.jsf.api.composite.AttributeAccessorImpl;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.util.Map;
 
 /**
  * Implementation for String based attributes. Depending on

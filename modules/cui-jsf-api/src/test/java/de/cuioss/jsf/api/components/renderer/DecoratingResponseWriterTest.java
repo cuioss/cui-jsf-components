@@ -18,19 +18,6 @@ package de.cuioss.jsf.api.components.renderer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.io.IOException;
-import java.io.StringWriter;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIViewRoot;
-import jakarta.faces.component.behavior.AjaxBehavior;
-import jakarta.faces.component.html.HtmlInputText;
-
-import org.apache.myfaces.test.el.MockValueExpression;
-import org.apache.myfaces.test.mock.MockResponseWriter;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.css.CssCommon;
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
@@ -40,6 +27,17 @@ import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
 import de.cuioss.test.jsf.renderer.util.HtmlTreeAsserts;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.html.HtmlInputText;
+import org.apache.myfaces.test.el.MockValueExpression;
+import org.apache.myfaces.test.mock.MockResponseWriter;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.io.StringWriter;
 
 class DecoratingResponseWriterTest extends JsfEnabledTestEnvironment implements ComponentConfigurator {
 
@@ -271,7 +269,7 @@ class DecoratingResponseWriterTest extends JsfEnabledTestEnvironment implements 
     @Test
     void shouldNotWriteTitleIfEmpty() throws IOException {
         responseWriter.withStartElement(Node.DIV);
-        responseWriter.withAttributeTitle((String)null);
+        responseWriter.withAttributeTitle((String) null);
         responseWriter.withEndElement(Node.DIV);
         assertWritten(SIMPLE_DIV);
     }

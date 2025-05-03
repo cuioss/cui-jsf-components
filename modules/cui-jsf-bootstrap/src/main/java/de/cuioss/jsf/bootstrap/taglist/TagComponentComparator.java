@@ -15,9 +15,9 @@
  */
 package de.cuioss.jsf.bootstrap.taglist;
 
-import java.util.Comparator;
-
 import de.cuioss.jsf.bootstrap.tag.TagComponent;
+
+import java.util.Comparator;
 
 /**
  * @author Matthias Walliczek

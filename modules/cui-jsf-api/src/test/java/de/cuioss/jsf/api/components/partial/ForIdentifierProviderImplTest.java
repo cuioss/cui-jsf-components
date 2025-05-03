@@ -19,19 +19,15 @@ import static de.cuioss.test.generator.Generators.integers;
 import static de.cuioss.test.generator.Generators.letterStrings;
 import static de.cuioss.tools.collect.CollectionLiterals.mutableList;
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
+import de.cuioss.test.generator.TypedGenerator;
+import de.cuioss.tools.string.Joiner;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import org.junit.jupiter.api.Test;
-
-import de.cuioss.test.generator.TypedGenerator;
-import de.cuioss.tools.string.Joiner;
 
 class ForIdentifierProviderImplTest {
 

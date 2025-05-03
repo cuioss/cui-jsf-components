@@ -15,11 +15,10 @@
  */
 package de.cuioss.jsf.api.components.util;
 
-import java.io.Serializable;
-
 import jakarta.faces.component.StateHelper;
-
 import org.omnifaces.util.State;
+
+import java.io.Serializable;
 
 /**
  * Extension to omnifaces {@link State} providing specific methods for dealing

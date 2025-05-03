@@ -18,11 +18,11 @@ package de.cuioss.jsf.test;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+import org.jboss.weld.junit5.auto.AddBeanClasses;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-
-import org.jboss.weld.junit5.auto.AddBeanClasses;
 
 /**
  * It adds the {@link LocaleProducerMock}, {@link MirrorCuiRessourcBundle} and
@@ -34,6 +34,6 @@ import org.jboss.weld.junit5.auto.AddBeanClasses;
 @Documented
 @Retention(RUNTIME)
 @Target(TYPE)
-@AddBeanClasses({ MirrorCuiRessourcBundle.class, LocaleProducerMock.class, MessageProducerMock.class })
+@AddBeanClasses({MirrorCuiRessourcBundle.class, LocaleProducerMock.class, MessageProducerMock.class})
 public @interface EnableResourceBundleSupport {
 }

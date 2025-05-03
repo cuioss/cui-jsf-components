@@ -18,16 +18,15 @@ package de.cuioss.jsf.dev.ui.components;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import de.cuioss.test.generator.Generators;
+import de.cuioss.test.jsf.component.AbstractComponentTest;
+import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import de.cuioss.test.generator.Generators;
-import de.cuioss.test.jsf.component.AbstractComponentTest;
-import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
-
-@VerifyComponentProperties(of = { "source", "sourcePath", "sourceContainerId", "enableClipboard", "type",
-        "description" }, defaultValued = { "enableClipboard" })
+@VerifyComponentProperties(of = {"source", "sourcePath", "sourceContainerId", "enableClipboard", "type",
+        "description"}, defaultValued = {"enableClipboard"})
 class SourceCodeComponentTest extends AbstractComponentTest<SourceCodeComponent> {
 
     private static final String BASE = "/samples/";
@@ -54,8 +53,8 @@ class SourceCodeComponentTest extends AbstractComponentTest<SourceCodeComponent>
     }
 
     @ParameterizedTest
-    @CsvSource({ "test.properties,hello=world", "relativeResources.properties,hello=relative",
-            "absoluteResources.properties,hello=absolute" })
+    @CsvSource({"test.properties,hello=world", "relativeResources.properties,hello=relative",
+            "absoluteResources.properties,hello=absolute"})
     void shouldReadRelativeSourceFile(String path, String result) {
         getRequestConfigDecorator().setViewId(VIEW_ID);
         var component = new SourceCodeComponent();

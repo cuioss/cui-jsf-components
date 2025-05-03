@@ -15,13 +15,10 @@
  */
 package de.cuioss.jsf.jqplot.layout;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.valueobjects.contract.SerializableContractImpl;
+import org.junit.jupiter.api.Test;
 
 class TitleTest {
 

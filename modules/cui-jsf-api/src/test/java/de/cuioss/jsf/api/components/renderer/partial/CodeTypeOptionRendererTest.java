@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.api.components.renderer.partial;
 
+import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
+
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
@@ -28,8 +30,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.StringWriter;
-
-import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
 class CodeTypeOptionRendererTest extends JsfEnabledTestEnvironment {
 

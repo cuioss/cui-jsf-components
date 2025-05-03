@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.components.selection;
 
+import static java.util.Objects.requireNonNull;
+
 import de.cuioss.jsf.api.converter.AbstractConverter;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
@@ -27,8 +29,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Converter is based on {@link AbstractConverter} and is used in most cased
@@ -55,7 +55,7 @@ import static java.util.Objects.requireNonNull;
  */
 @ToString
 public class MapInstanceConverter<K extends Serializable, T extends Serializable> extends AbstractConverter<T>
-    implements Serializable {
+        implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 2920782351086654176L;

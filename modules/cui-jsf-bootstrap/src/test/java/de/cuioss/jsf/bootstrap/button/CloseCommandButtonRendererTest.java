@@ -17,11 +17,6 @@ package de.cuioss.jsf.bootstrap.button;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-import jakarta.faces.component.UICommand;
-import jakarta.faces.component.UIComponent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.JsfComponentIdentifier;
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
@@ -35,6 +30,9 @@ import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.mocks.CuiMockRenderer;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
+import jakarta.faces.component.UICommand;
+import jakarta.faces.component.UIComponent;
+import org.junit.jupiter.api.Test;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class CloseCommandButtonRendererTest extends AbstractComponentRendererTest<CloseCommandButtonRenderer>

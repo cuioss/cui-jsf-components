@@ -88,7 +88,7 @@ class CuiSanitizerTest {
     }
 
     @Test
-    void testHtmlPreserveEntities() {
+    void htmlPreserveEntities() {
         assertEquals("", CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(""));
         assertEquals("abc", CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply("abc"));
         assertEquals("abc", CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply("abc<script>javascript</script>"));
@@ -98,14 +98,14 @@ class CuiSanitizerTest {
     }
 
     @Test
-    void testEntities() {
+    void entities() {
         assertEquals("abc&#64;abc.de", CuiSanitizer.COMPLEX_HTML.apply(MAIL_ADDRESS));
         assertEquals(MAIL_ADDRESS, CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(MAIL_ADDRESS));
         assertEquals(MAIL_ADDRESS, CuiSanitizer.PLAIN_TEXT_PRESERVE_ENTITIES.apply(MAIL_ADDRESS));
     }
 
     @Test
-    void testNullAndEmpty() {
+    void nullAndEmpty() {
         for (final CuiSanitizer sanitizer : CuiSanitizer.values()) {
             assertEquals("", sanitizer.apply(null),
                     "null must be converter to empty string, using sanitizer: " + sanitizer);

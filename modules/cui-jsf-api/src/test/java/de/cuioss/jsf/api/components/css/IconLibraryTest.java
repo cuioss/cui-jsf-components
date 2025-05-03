@@ -15,10 +15,7 @@
  */
 package de.cuioss.jsf.api.components.css;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -33,12 +30,12 @@ class IconLibraryTest {
     private static final String NO_VALID_ICON = "novalid-icon";
 
     @Test
-    void testResolveLibraryFromIconClass() {
+    void resolveLibraryFromIconClass() {
         assertEquals(CUI_ICON_PREFIX, IconLibrary.resolveLibraryFromIconClass(CUI_ICON_WARNING));
     }
 
     @Test
-    void testResolveCssString() {
+    void resolveCssString() {
         assertEquals(CUI_ICON_WARNING_CSS, IconLibrary.resolveCssString(CUI_ICON_WARNING));
     }
 

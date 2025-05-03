@@ -16,7 +16,6 @@
 package de.cuioss.jsf.api.components.util.modifier;
 
 import jakarta.faces.component.UIInput;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;

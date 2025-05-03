@@ -15,16 +15,15 @@
  */
 package de.cuioss.jsf.api.converter;
 
+import de.cuioss.jsf.api.common.accessor.CuiProjectStageAccessor;
+import de.cuioss.jsf.api.security.CuiSanitizer;
+import de.cuioss.tools.logging.CuiLogger;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.component.html.HtmlOutputText;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.ConverterException;
 import jakarta.faces.convert.FacesConverter;
-
-import de.cuioss.jsf.api.common.accessor.CuiProjectStageAccessor;
-import de.cuioss.jsf.api.security.CuiSanitizer;
-import de.cuioss.tools.logging.CuiLogger;
 
 /**
  * Converter utilized for ensuring proper escaping of output fields. Input

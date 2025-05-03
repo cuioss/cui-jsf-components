@@ -18,13 +18,12 @@ package de.cuioss.jsf.components.inlineconfirm;
 import static de.cuioss.jsf.components.CuiFamily.INLINE_CONFIRM_COMPONENT;
 import static de.cuioss.jsf.components.CuiFamily.INLINE_CONFIRM_RENDERER;
 
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.FacesComponent;
-
 import de.cuioss.jsf.api.components.base.BaseCuiPanel;
 import de.cuioss.jsf.api.components.util.ComponentModifier;
 import de.cuioss.jsf.api.components.util.modifier.ComponentModifierFactory;
 import de.cuioss.jsf.components.CuiFamily;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
 
 /**
  * @author Oliver Wolff

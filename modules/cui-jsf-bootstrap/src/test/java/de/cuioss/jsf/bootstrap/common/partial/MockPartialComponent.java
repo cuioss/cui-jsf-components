@@ -15,13 +15,12 @@
  */
 package de.cuioss.jsf.bootstrap.common.partial;
 
+import de.cuioss.jsf.api.components.partial.ComponentBridge;
+import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import jakarta.faces.component.StateHelper;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.context.FacesContext;
-
-import de.cuioss.jsf.api.components.partial.ComponentBridge;
-import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import lombok.experimental.Delegate;
 
 /**

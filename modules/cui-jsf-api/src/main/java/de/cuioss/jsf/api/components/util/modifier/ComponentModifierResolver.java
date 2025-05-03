@@ -15,11 +15,10 @@
  */
 package de.cuioss.jsf.api.components.util.modifier;
 
-import java.util.Optional;
-
+import de.cuioss.jsf.api.components.util.ComponentModifier;
 import jakarta.faces.component.UIComponent;
 
-import de.cuioss.jsf.api.components.util.ComponentModifier;
+import java.util.Optional;
 
 /**
  * Used for the SPI to define Resolver for concrete {@link ComponentModifier}

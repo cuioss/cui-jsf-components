@@ -15,16 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.layout.input;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.html.HtmlOutputText;
-import jakarta.faces.context.FacesContext;
-
 import de.cuioss.jsf.api.components.JsfComponentIdentifier;
 import de.cuioss.jsf.api.components.base.BaseCuiHtmlHiddenInputComponent;
 import de.cuioss.jsf.api.components.base.BaseCuiPanel;
@@ -38,7 +28,16 @@ import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.jsf.bootstrap.button.Button;
 import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.tools.string.MoreStrings;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlOutputText;
+import jakarta.faces.context.FacesContext;
 import lombok.experimental.Delegate;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Helper / Decorator component used for input-elements within

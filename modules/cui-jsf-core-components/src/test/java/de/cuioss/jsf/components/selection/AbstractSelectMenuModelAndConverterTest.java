@@ -16,28 +16,18 @@
 package de.cuioss.jsf.components.selection;
 
 import static de.cuioss.tools.collect.CollectionLiterals.mutableSet;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
-import org.apache.myfaces.test.mock.MockFacesContext;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.components.support.DummyComponent;
 import de.cuioss.test.valueobjects.contract.SerializableContractImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.apache.myfaces.test.mock.MockFacesContext;
+import org.junit.jupiter.api.Test;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.*;
 
 class AbstractSelectMenuModelAndConverterTest {
 
@@ -83,7 +73,7 @@ class AbstractSelectMenuModelAndConverterTest {
     }
 
     @Test
-    void testNullConstructor() {
+    void nullConstructor() {
         var underTest = new MockAbstractSelectMenuModelAndConverter(null);
         assertNotNull(underTest.getSelectableValues());
         assertTrue(underTest.getSelectableValues().isEmpty());
@@ -93,7 +83,7 @@ class AbstractSelectMenuModelAndConverterTest {
     }
 
     @Test
-    void testEmptyConstructor() {
+    void emptyConstructor() {
         var underTest = new MockAbstractSelectMenuModelAndConverter(mutableSet());
         assertNotNull(underTest.getSelectableValues());
         assertTrue(underTest.getSelectableValues().isEmpty());
@@ -103,28 +93,28 @@ class AbstractSelectMenuModelAndConverterTest {
     }
 
     @Test
-    void testSingleValueConstructor() {
+    void singleValueConstructor() {
         var value = new MockValue("id1", "label1");
         var underTest = new MockAbstractSelectMenuModelAndConverter(mutableSet(value));
         assertNotNull(underTest.getSelectableValues());
         assertEquals(1, underTest.getSelectableValues().size());
         var selectItem = underTest.getSelectableValues().get(0);
         assertEquals("label1", selectItem.getLabel());
-        Assertions.assertEquals(value, selectItem.getValue());
+        assertEquals(value, selectItem.getValue());
         assertNull(underTest.getSelectedValue());
         assertTrue(underTest.isSelectionAvailable());
         assertFalse(underTest.isValueSelected());
-        Assertions.assertEquals(value, underTest.getAsObject(new MockFacesContext(), new DummyComponent(), "id1"));
-        Assertions.assertEquals("id1", underTest.getAsString(new MockFacesContext(), new DummyComponent(), value));
+        assertEquals(value, underTest.getAsObject(new MockFacesContext(), new DummyComponent(), "id1"));
+        assertEquals("id1", underTest.getAsString(new MockFacesContext(), new DummyComponent(), value));
     }
 
     @Test
-    void testInitToFirst() {
+    void initToFirst() {
         var value = new MockValue("id1", "label1");
         var underTest = new MockAbstractSelectMenuModelAndConverter(mutableSet(value));
         underTest.initToFirstElement();
         assertTrue(underTest.isValueSelected());
-        Assertions.assertEquals(value, underTest.getSelectedValue());
+        assertEquals(value, underTest.getSelectedValue());
     }
 
     @Test
@@ -141,7 +131,7 @@ class AbstractSelectMenuModelAndConverterTest {
         var underTest = new MockAbstractSelectMenuModelAndConverter(set);
         underTest.initToFirstElement();
         assertTrue(underTest.isValueSelected());
-        Assertions.assertEquals(new MockValue("id1", "label1"), underTest.getSelectedValue());
+        assertEquals(new MockValue("id1", "label1"), underTest.getSelectedValue());
 
     }
 
@@ -157,12 +147,12 @@ class AbstractSelectMenuModelAndConverterTest {
         var underTest = new MockAbstractSelectMenuModelAndConverter(sortedSet);
         underTest.initToFirstElement();
         assertTrue(underTest.isValueSelected());
-        Assertions.assertEquals(new MockValue("id5", "label5"), underTest.getSelectedValue());
+        assertEquals(new MockValue("id5", "label5"), underTest.getSelectedValue());
 
     }
 
     @Test
-    void testAdd() {
+    void add() {
         var underTest = new MockAbstractSelectMenuModelAndConverter(mutableSet());
         var value = new MockValue("id1", "label1");
         underTest.add(0, value);
@@ -170,16 +160,16 @@ class AbstractSelectMenuModelAndConverterTest {
         assertEquals(1, underTest.getSelectableValues().size());
         var selectItem = underTest.getSelectableValues().get(0);
         assertEquals("label1", selectItem.getLabel());
-        Assertions.assertEquals(value, selectItem.getValue());
+        assertEquals(value, selectItem.getValue());
         assertNull(underTest.getSelectedValue());
         assertTrue(underTest.isSelectionAvailable());
         assertFalse(underTest.isValueSelected());
-        Assertions.assertEquals(value, underTest.getAsObject(new MockFacesContext(), new DummyComponent(), "id1"));
-        Assertions.assertEquals("id1", underTest.getAsString(new MockFacesContext(), new DummyComponent(), value));
+        assertEquals(value, underTest.getAsObject(new MockFacesContext(), new DummyComponent(), "id1"));
+        assertEquals("id1", underTest.getAsString(new MockFacesContext(), new DummyComponent(), value));
     }
 
     @Test
-    void testSerialize() {
+    void serialize() {
         var value = new MockValue("id1", "label1");
         var underTest = new MockAbstractSelectMenuModelAndConverter(mutableSet(value));
         underTest.initToFirstElement();

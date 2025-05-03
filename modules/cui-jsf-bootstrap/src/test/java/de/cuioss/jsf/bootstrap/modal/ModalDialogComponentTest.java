@@ -18,14 +18,13 @@ package de.cuioss.jsf.bootstrap.modal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "closable", "footerKey", "footerValue", "headerKey", "headerValue", "size", "state",
-        "style", "animation" })
+@VerifyComponentProperties(of = {"closable", "footerKey", "footerValue", "headerKey", "headerValue", "size", "state",
+        "style", "animation"})
 class ModalDialogComponentTest extends AbstractComponentTest<ModalDialogComponent> {
 
     @Test

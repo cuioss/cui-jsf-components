@@ -15,14 +15,14 @@
  */
 package de.cuioss.jsf.api.composite;
 
-import java.io.Serial;
-import java.util.Map;
-
 import de.cuioss.tools.reflect.MoreReflection;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.util.Map;
 
 /**
  * Basic Implementation for {@link AttributeAccessor}. Depending on the value of

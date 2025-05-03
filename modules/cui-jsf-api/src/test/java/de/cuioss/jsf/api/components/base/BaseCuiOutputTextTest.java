@@ -17,12 +17,11 @@ package de.cuioss.jsf.api.components.base;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "titleKey", "titleValue" })
+@VerifyComponentProperties(of = {"titleKey", "titleValue"})
 class BaseCuiOutputTextTest extends AbstractComponentTest<MockBaseCuiOutputText> {
 
     @Test

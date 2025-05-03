@@ -15,10 +15,10 @@
  */
 package de.cuioss.jsf.api.components.javascript;
 
+import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
+
 import de.cuioss.tools.string.Joiner;
 import de.cuioss.tools.string.Splitter;
-
-import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
 
 /**
  * Provides a simple way to create a correctly escaped JQuery-selector

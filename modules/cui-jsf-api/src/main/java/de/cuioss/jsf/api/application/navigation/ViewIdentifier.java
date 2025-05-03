@@ -15,22 +15,21 @@
  */
 package de.cuioss.jsf.api.application.navigation;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.List;
-
-import jakarta.faces.application.NavigationCase;
-import jakarta.faces.context.FacesContext;
-
 import de.cuioss.jsf.api.common.view.ViewDescriptor;
 import de.cuioss.tools.collect.CollectionLiterals;
 import de.cuioss.tools.net.ParameterFilter;
 import de.cuioss.tools.net.UrlParameter;
 import de.cuioss.tools.string.MoreStrings;
+import jakarta.faces.application.NavigationCase;
+import jakarta.faces.context.FacesContext;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Helper class, combining a view Id and the corresponding {@link UrlParameter}
@@ -67,7 +66,7 @@ public class ViewIdentifier implements Serializable, Redirector {
      *         {@link UrlParameter}. If a view can not be determined it returns null
      */
     public static ViewIdentifier getFromViewDesciptor(final ViewDescriptor viewDescriptor,
-                                                      final ParameterFilter parameterFilter) {
+            final ParameterFilter parameterFilter) {
         if (null == viewDescriptor || null == viewDescriptor.getLogicalViewId()) {
             return null;
         }

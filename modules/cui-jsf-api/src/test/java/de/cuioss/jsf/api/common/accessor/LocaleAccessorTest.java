@@ -17,14 +17,13 @@ package de.cuioss.jsf.api.common.accessor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Locale;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.defaults.BasicApplicationConfiguration;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
 import de.cuioss.test.valueobjects.api.property.PropertyReflectionConfig;
+import org.junit.jupiter.api.Test;
+
+import java.util.Locale;
 
 @JsfTestConfiguration(BasicApplicationConfiguration.class)
 @PropertyReflectionConfig(skip = true)

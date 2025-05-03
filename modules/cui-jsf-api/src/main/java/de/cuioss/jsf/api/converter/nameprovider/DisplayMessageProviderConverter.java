@@ -15,14 +15,13 @@
  */
 package de.cuioss.jsf.api.converter.nameprovider;
 
+import de.cuioss.jsf.api.converter.AbstractConverter;
+import de.cuioss.portal.common.bundle.PortalResourceBundleBean;
+import de.cuioss.uimodel.nameprovider.DisplayMessageProvider;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.ConverterException;
 import jakarta.faces.convert.FacesConverter;
-
-import de.cuioss.jsf.api.converter.AbstractConverter;
-import de.cuioss.portal.common.bundle.PortalResourceBundleBean;
-import de.cuioss.uimodel.nameprovider.DisplayMessageProvider;
 
 /**
  * Converter for the type {@link DisplayMessageProvider}
@@ -36,6 +35,6 @@ public class DisplayMessageProviderConverter extends AbstractConverter<DisplayMe
     protected String convertToString(final FacesContext context, final UIComponent component,
             final DisplayMessageProvider value) throws ConverterException {
 
-        return value.getMessageFormated(PortalResourceBundleBean.resolveFromCDIContext());
+        return value.getMessageFormated(new PortalResourceBundleBean());
     }
 }

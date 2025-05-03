@@ -18,14 +18,12 @@ package de.cuioss.jsf.bootstrap.modal;
 import static de.cuioss.tools.base.Preconditions.checkArgument;
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.FacesComponent;
-
-import org.omnifaces.util.State;
-
 import de.cuioss.jsf.api.components.decorator.AbstractParentDecorator;
 import de.cuioss.jsf.api.components.util.ComponentModifier;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
+import org.omnifaces.util.State;
 
 /**
  * Enables a parent element like boot:button to control a

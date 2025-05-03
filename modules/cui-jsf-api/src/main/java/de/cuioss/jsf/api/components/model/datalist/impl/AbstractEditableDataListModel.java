@@ -17,18 +17,18 @@ package de.cuioss.jsf.api.components.model.datalist.impl;
 
 import static de.cuioss.jsf.api.components.model.datalist.AddStatus.PERSISTED;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-
 import de.cuioss.jsf.api.components.model.datalist.EditEvent;
 import de.cuioss.jsf.api.components.model.datalist.EditStatus;
 import de.cuioss.jsf.api.components.model.datalist.EditableDataListModel;
 import de.cuioss.jsf.api.components.model.datalist.ItemWrapper;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 /**
  * Base class for implementing {@link EditableDataListModel}, should be the

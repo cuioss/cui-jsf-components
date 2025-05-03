@@ -20,7 +20,6 @@ import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.jsf.api.components.util.ComponentUtility;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
-
 import jakarta.faces.component.FacesComponent;
 import jakarta.faces.component.html.HtmlCommandButton;
 import jakarta.faces.context.FacesContext;
@@ -38,7 +37,7 @@ public class CloseCommandButton extends BaseCuiCommandButton {
     public CloseCommandButton() {
         super.setRendererType(BootstrapFamily.CLOSE_COMMAND_BUTTON_RENDERER);
         getPassThroughAttributes(true).put(AttributeName.ARIA_LABEL.getContent(),
-            AttributeValue.ARIA_CLOSE.getContent());
+                AttributeValue.ARIA_CLOSE.getContent());
     }
 
     @Override

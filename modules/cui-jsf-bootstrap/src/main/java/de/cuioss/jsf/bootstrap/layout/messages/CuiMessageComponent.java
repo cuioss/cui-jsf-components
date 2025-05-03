@@ -15,21 +15,20 @@
  */
 package de.cuioss.jsf.bootstrap.layout.messages;
 
-import java.util.List;
-
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.ListenerFor;
-import jakarta.faces.event.PostAddToViewEvent;
-
 import de.cuioss.jsf.api.components.partial.ForIdentifierProvider;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.layout.BasicBootstrapPanelComponent;
 import de.cuioss.tools.collect.CollectionBuilder;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PostAddToViewEvent;
 import lombok.ToString;
 import lombok.experimental.Delegate;
+
+import java.util.List;
 
 /**
  * <p>

@@ -17,10 +17,9 @@ package de.cuioss.jsf.jqplot.portal.theme;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.valueobjects.ValueObjectTest;
+import org.junit.jupiter.api.Test;
 
 class GridThemeTest extends ValueObjectTest<GridTheme> implements TypedGenerator<GridTheme> {
 

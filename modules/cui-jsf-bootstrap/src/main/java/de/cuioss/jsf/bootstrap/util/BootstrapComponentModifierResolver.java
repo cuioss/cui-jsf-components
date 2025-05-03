@@ -15,13 +15,12 @@
  */
 package de.cuioss.jsf.bootstrap.util;
 
-import java.util.Optional;
-
-import jakarta.faces.component.UIComponent;
-
 import de.cuioss.jsf.api.components.util.ComponentModifier;
 import de.cuioss.jsf.api.components.util.modifier.ComponentModifierResolver;
 import de.cuioss.jsf.bootstrap.composite.EditableDataListComponent;
+import jakarta.faces.component.UIComponent;
+
+import java.util.Optional;
 
 /**
  * Resolves bootstrap-specific components, currently the

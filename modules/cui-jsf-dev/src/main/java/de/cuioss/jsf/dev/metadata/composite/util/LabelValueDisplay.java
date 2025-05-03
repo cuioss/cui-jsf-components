@@ -15,13 +15,13 @@
  */
 package de.cuioss.jsf.dev.metadata.composite.util;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * Simple Helper class for displaying key value pairs. The label is regarded as

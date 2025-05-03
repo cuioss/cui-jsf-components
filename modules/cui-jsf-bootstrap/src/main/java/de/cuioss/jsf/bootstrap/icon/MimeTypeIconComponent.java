@@ -20,9 +20,8 @@ import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.icon.support.CssMimeTypeIcon;
 import de.cuioss.tools.string.MoreStrings;
-import lombok.experimental.Delegate;
-
 import jakarta.faces.component.FacesComponent;
+import lombok.experimental.Delegate;
 
 /**
  * <p>
@@ -133,7 +132,7 @@ public class MimeTypeIconComponent extends AbstractBaseCuiComponent implements T
      */
     public String getDecoratorClass() {
         return (String) getStateHelper().eval(DECORATOR_CLASS_KEY,
-            CssMimeTypeIcon.CUI_STACKED_ICON_NO_DECORATOR.getStyleClass());
+                CssMimeTypeIcon.CUI_STACKED_ICON_NO_DECORATOR.getStyleClass());
     }
 
     /**

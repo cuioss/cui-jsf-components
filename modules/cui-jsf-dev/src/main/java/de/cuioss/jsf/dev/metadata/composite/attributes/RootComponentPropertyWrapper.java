@@ -15,12 +15,12 @@
  */
 package de.cuioss.jsf.dev.metadata.composite.attributes;
 
+import de.cuioss.jsf.dev.metadata.composite.util.LabelValueDisplay;
+
 import java.beans.FeatureDescriptor;
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
-
-import de.cuioss.jsf.dev.metadata.composite.util.LabelValueDisplay;
 
 /**
  * Implementation for the core component.

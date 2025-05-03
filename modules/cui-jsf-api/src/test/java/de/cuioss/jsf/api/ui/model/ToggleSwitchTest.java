@@ -18,14 +18,12 @@ package de.cuioss.jsf.api.ui.model;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import jakarta.faces.event.ActionEvent;
-import jakarta.faces.event.ComponentSystemEvent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.support.DummyComponent;
 import de.cuioss.test.valueobjects.ValueObjectTest;
 import de.cuioss.test.valueobjects.api.contracts.VerifyBeanProperty;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.ComponentSystemEvent;
+import org.junit.jupiter.api.Test;
 
 import java.io.Serial;
 

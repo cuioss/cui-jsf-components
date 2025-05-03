@@ -15,10 +15,10 @@
  */
 package de.cuioss.jsf.components.selection;
 
-import java.io.Serial;
-import java.util.List;
-import java.util.ResourceBundle;
-
+import de.cuioss.jsf.api.components.selection.SelectMenuModel;
+import de.cuioss.tools.collect.CollectionBuilder;
+import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
+import de.cuioss.uimodel.nameprovider.LabelKeyProvider;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
@@ -26,15 +26,14 @@ import jakarta.faces.convert.EnumConverter;
 import jakarta.faces.event.AbortProcessingException;
 import jakarta.faces.event.ValueChangeEvent;
 import jakarta.faces.model.SelectItem;
-
-import de.cuioss.jsf.api.components.selection.SelectMenuModel;
-import de.cuioss.tools.collect.CollectionBuilder;
-import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
-import de.cuioss.uimodel.nameprovider.LabelKeyProvider;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * Variant for simplified usage with enum. The enum is supposed to implement

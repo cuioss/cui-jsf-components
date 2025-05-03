@@ -15,6 +15,13 @@
  */
 package de.cuioss.jsf.dev.metadata.composite.attributes;
 
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.view.AttachedObjectTarget;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.beans.FeatureDescriptor;
 import java.beans.PropertyDescriptor;
 import java.io.Serial;
@@ -23,14 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.view.AttachedObjectTarget;
-
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 /**
  * Simple Wrapper for attribute types for Composite Components.

@@ -16,23 +16,19 @@
 package de.cuioss.jsf.api.components.support;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.List;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class ActiveIndexManagerImplTest {
 
     @Test
-    void testResetToDefault() {
+    void resetToDefault() {
         ActiveIndexManager underTest = new ActiveIndexManagerImpl(immutableList(1, 2));
         underTest.setActiveIndex(3, 4);
         assertTrue(underTest.getActiveIndexes().containsAll(immutableList(3, 4)));
@@ -45,7 +41,7 @@ class ActiveIndexManagerImplTest {
     }
 
     @Test
-    void testSetActiveIndex() {
+    void setActiveIndex() {
         ActiveIndexManager underTest = new ActiveIndexManagerImpl(immutableList(5));
         assertTrue(underTest.hasActiveIndex());
         underTest.setActiveIndex();
@@ -60,7 +56,7 @@ class ActiveIndexManagerImplTest {
     }
 
     @Test
-    void testToggleSingleIndex() {
+    void toggleSingleIndex() {
         ActiveIndexManager underTest = new ActiveIndexManagerImpl(immutableList(5));
         assertEquals("5", underTest.getActiveIndexesString());
         underTest.toggleSingleIndex();

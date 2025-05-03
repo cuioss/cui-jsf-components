@@ -15,6 +15,10 @@
  */
 package de.cuioss.jsf.api.components.util;
 
+import static de.cuioss.tools.base.Preconditions.checkArgument;
+import static de.cuioss.tools.string.MoreStrings.emptyToNull;
+import static java.util.Objects.requireNonNull;
+
 import jakarta.faces.component.*;
 import jakarta.faces.component.visit.VisitContext;
 import jakarta.faces.context.FacesContext;
@@ -22,10 +26,6 @@ import jakarta.faces.render.Renderer;
 
 import java.util.List;
 import java.util.Map;
-
-import static de.cuioss.tools.base.Preconditions.checkArgument;
-import static de.cuioss.tools.string.MoreStrings.emptyToNull;
-import static java.util.Objects.requireNonNull;
 
 /**
  * Some component / tree-specific helper methods.
@@ -103,7 +103,7 @@ public final class ComponentUtility {
         final UIComponent form = ComponentUtility.findCorrespondingFormOrNull(component);
         if (form == null) {
             throw new IllegalStateException("Component %s with id [%s] should be placed inside a form"
-                .formatted(component.getClass().getSimpleName(), component.getId()));
+                    .formatted(component.getClass().getSimpleName(), component.getId()));
         }
         return form;
     }
@@ -210,7 +210,7 @@ public final class ComponentUtility {
      */
     @SuppressWarnings("unchecked")
     public static <T extends Renderer> T createRenderer(final FacesContext context, final String family,
-                                                        final String rendererType) {
+            final String rendererType) {
         requireNonNull(context);
         requireNonNull(emptyToNull(family));
         requireNonNull(emptyToNull(rendererType));
@@ -218,7 +218,7 @@ public final class ComponentUtility {
     }
 
     private static List<EditableValueHolder> getEditableValueHolders(final UIForm form,
-                                                                     final FacesContext facesContext) {
+            final FacesContext facesContext) {
         final var visitCallback = new EditableValueHoldersVisitCallback();
 
         final var visitContext = VisitContext.createVisitContext(facesContext);

@@ -17,9 +17,8 @@ package de.cuioss.jsf.jqplot.plugin.highlighter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
+import org.junit.jupiter.api.Test;
 
 class TooltipContentEditorTest implements ShouldHandleObjectContracts<TooltipContentEditor> {
 

@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.bootstrap.tag.support;
 
+import static de.cuioss.tools.collect.CollectionLiterals.mutableSortedSet;
+
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
@@ -28,8 +30,6 @@ import lombok.experimental.UtilityClass;
 
 import java.io.IOException;
 import java.util.*;
-
-import static de.cuioss.tools.collect.CollectionLiterals.mutableSortedSet;
 
 /**
  * @author Sven Haag
@@ -52,7 +52,7 @@ public class TagHelper {
      * ConceptKeys
      */
     public static List<TagComponent> createFromConceptKeys(final SortedSet<ConceptKeyType> types, final Locale locale,
-                                                           final boolean contentEscape, final String contextSize, final String contextState) {
+            final boolean contentEscape, final String contextSize, final String contextState) {
         final List<TagComponent> result = new ArrayList<>();
         for (final ConceptKeyType type : types) {
             result.add(createFromConceptKey(type, locale, contentEscape, contextSize, contextState));
@@ -69,7 +69,7 @@ public class TagHelper {
      * @return an {@link TagComponent} instance representing the given ConceptKey
      */
     public static TagComponent createFromConceptKey(final ConceptKeyType type, final Locale locale,
-                                                    final boolean contentEscape, final String contextSize, final String contextState) {
+            final boolean contentEscape, final String contextSize, final String contextState) {
         final var tagComponent = new TagComponent();
         tagComponent.setContentEscape(contentEscape);
         final var resolved = type.getResolved(locale);
@@ -99,8 +99,8 @@ public class TagHelper {
                 return Optional.empty();
             }
             return Optional.of(ConceptKeyTypeImpl.builder().identifier(elementAsString)
-                .labelResolver(new I18nDisplayNameProvider(elementAsString))
-                .category(new MissingTagConceptKeyCategory()).build());
+                    .labelResolver(new I18nDisplayNameProvider(elementAsString))
+                    .category(new MissingTagConceptKeyCategory()).build());
         }
         return Optional.empty();
     }
@@ -124,12 +124,12 @@ public class TagHelper {
             if (finalValue instanceof Collection<?> set) {
                 for (final Object element : set) {
                     values.add(resolveFrom(element).orElseThrow(
-                        () -> new IllegalArgumentException(INVALID_VALUE_EXCEPTION.formatted(element))));
+                            () -> new IllegalArgumentException(INVALID_VALUE_EXCEPTION.formatted(element))));
                 }
 
             } else {
                 values.add(resolveFrom(finalValue).orElseThrow(
-                    () -> new IllegalArgumentException(INVALID_VALUE_EXCEPTION.formatted(finalValue))));
+                        () -> new IllegalArgumentException(INVALID_VALUE_EXCEPTION.formatted(finalValue))));
             }
         }
 
@@ -146,7 +146,7 @@ public class TagHelper {
      * @throws IOException
      */
     public static void writeDisabled(final FacesContext context, final DecoratingResponseWriter<?> writer,
-                                     final List<TagComponent> tagsToDisplay, final String style, final String styleClass) throws IOException {
+            final List<TagComponent> tagsToDisplay, final String style, final String styleClass) throws IOException {
         writer.withStartElement(Node.UL);
         writer.withClientIdIfNecessary();
         writer.withPassThroughAttributes();

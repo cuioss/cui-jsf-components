@@ -15,6 +15,17 @@
  */
 package de.cuioss.jsf.components.selection;
 
+import de.cuioss.jsf.api.components.selection.SelectMenuModel;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ValueChangeEvent;
+import jakarta.faces.model.SelectItem;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,18 +39,6 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.AbortProcessingException;
-import jakarta.faces.event.ValueChangeEvent;
-import jakarta.faces.model.SelectItem;
-
-import de.cuioss.jsf.api.components.selection.SelectMenuModel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 /**
  * Abstract class using {@link MapInstanceConverter} to create a drop down list
@@ -57,8 +56,8 @@ import lombok.ToString;
  *
  * @author Matthias Walliczek
  */
-@ToString(doNotUseGetters = true, exclude = { "converter", "selectableValues" })
-@EqualsAndHashCode(doNotUseGetters = true, exclude = { "converter", "selectableValues" })
+@ToString(doNotUseGetters = true, exclude = {"converter", "selectableValues"})
+@EqualsAndHashCode(doNotUseGetters = true, exclude = {"converter", "selectableValues"})
 public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable> implements SelectMenuModel<T> {
 
     @Serial

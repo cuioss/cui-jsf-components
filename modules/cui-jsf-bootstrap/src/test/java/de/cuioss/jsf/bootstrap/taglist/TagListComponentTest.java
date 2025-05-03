@@ -15,19 +15,7 @@
  */
 package de.cuioss.jsf.bootstrap.taglist;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.support.ConceptKeyTypeGenerator;
@@ -36,8 +24,11 @@ import de.cuioss.jsf.bootstrap.tag.support.TagHelper;
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "state", "size", "contentEscape", "style", "styleClass" })
+import java.util.*;
+
+@VerifyComponentProperties(of = {"state", "size", "contentEscape", "style", "styleClass"})
 class TagListComponentTest extends AbstractComponentTest<TagListComponent> {
 
     private final ConceptKeyTypeSetGenerator conceptKeyTypeSetGenerator = new ConceptKeyTypeSetGenerator();

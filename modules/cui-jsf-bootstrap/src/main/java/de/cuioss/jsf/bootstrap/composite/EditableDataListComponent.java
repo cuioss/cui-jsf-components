@@ -17,12 +17,6 @@ package de.cuioss.jsf.bootstrap.composite;
 
 import static de.cuioss.jsf.api.components.model.datalist.AddStatus.CREATED;
 
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.validator.ValidatorException;
-
 import de.cuioss.jsf.api.components.base.BaseCuiNamingContainer;
 import de.cuioss.jsf.api.components.model.datalist.EditableDataListModel;
 import de.cuioss.jsf.api.components.model.datalist.ItemWrapper;
@@ -33,6 +27,11 @@ import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.tools.string.Splitter;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.ValidatorException;
 
 /**
  * Backing-class for cui-composite/editableDataList.xhtml

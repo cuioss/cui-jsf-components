@@ -15,18 +15,7 @@
  */
 package de.cuioss.jsf.test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
-import java.io.Serial;
-import java.util.ArrayList;
-import java.util.List;
-
-import jakarta.enterprise.context.RequestScoped;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.application.FacesMessage.Severity;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.application.message.MessageProducer;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
@@ -34,9 +23,16 @@ import de.cuioss.tools.base.Preconditions;
 import de.cuioss.tools.collect.MoreCollections;
 import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.tools.string.MoreStrings;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Mock implementation of {@link MessageProducer} that will solely store the
@@ -166,7 +162,7 @@ public class MessageProducerMock implements MessageProducer {
         var i = 1;
         for (FacesMessage facesMessage : facesMessages) {
             String messageBuilder = String.valueOf(i) + ':' + facesMessage.getSeverity() + ':' +
-                facesMessage.getSummary();
+                    facesMessage.getSummary();
             i++;
             builder.append('\n');
             builder.append(messageBuilder);

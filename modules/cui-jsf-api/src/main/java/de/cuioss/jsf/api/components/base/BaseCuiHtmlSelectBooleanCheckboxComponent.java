@@ -34,7 +34,7 @@ import lombok.experimental.Delegate;
  */
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
 public class BaseCuiHtmlSelectBooleanCheckboxComponent extends HtmlSelectBooleanCheckbox
-    implements ComponentBridge, ComponentStyleClassProvider, StyleAttributeProvider {
+        implements ComponentBridge, ComponentStyleClassProvider, StyleAttributeProvider {
 
     @Delegate
     protected final ComponentStyleClassProvider styleClassProvider;

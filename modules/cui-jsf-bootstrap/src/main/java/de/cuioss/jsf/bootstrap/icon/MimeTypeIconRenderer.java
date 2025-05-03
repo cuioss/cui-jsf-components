@@ -21,10 +21,10 @@ import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.icon.support.CssMimeTypeIcon;
 import de.cuioss.jsf.bootstrap.icon.support.IconSize;
-
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.FacesRenderer;
 import jakarta.faces.render.Renderer;
+
 import java.io.IOException;
 
 /**
@@ -51,12 +51,12 @@ public class MimeTypeIconRenderer extends BaseDecoratorRenderer<MimeTypeIconComp
 
     @Override
     protected void doEncodeEnd(FacesContext context, DecoratingResponseWriter<MimeTypeIconComponent> writer,
-                               MimeTypeIconComponent component) throws IOException {
+            MimeTypeIconComponent component) throws IOException {
 
         // span wrapper
         writer.withStartElement(Node.SPAN);
         writer.withStyleClass(CssMimeTypeIcon.CUI_STACKED_ICON.getStyleClassBuilder().append(component)
-            .append(IconSize.getForContextSize(component.resolveContextSize())));
+                .append(IconSize.getForContextSize(component.resolveContextSize())));
         writer.withAttributeStyle(component);
         writer.withAttributeTitle(component);
         writer.withClientIdIfNecessary();
@@ -65,26 +65,26 @@ public class MimeTypeIconRenderer extends BaseDecoratorRenderer<MimeTypeIconComp
         // Layer 1
         writer.withStartElement(Node.ITALIC);
         writer.withStyleClass(CssMimeTypeIcon.CUI_STACKED_BASE_STRING.getStyleClassBuilder()
-            .append(CssMimeTypeIcon.CUI_MIME_TYPE_FOLDER));
+                .append(CssMimeTypeIcon.CUI_MIME_TYPE_FOLDER));
         writer.withEndElement(Node.ITALIC);
 
         // Layer 2
         writer.withStartElement(Node.ITALIC);
         writer.withStyleClass(
-            CssMimeTypeIcon.CUI_STACKED_BASE_STRING.getStyleClassBuilder().append(component.getDecoratorClass()));
+                CssMimeTypeIcon.CUI_STACKED_BASE_STRING.getStyleClassBuilder().append(component.getDecoratorClass()));
         writer.withEndElement(Node.ITALIC);
 
         var mimeTypeIcon = component.resolveMimeTypeIcon();
         // Layer 3
         writer.withStartElement(Node.ITALIC);
         writer.withStyleClass(CssMimeTypeIcon.CUI_STACKED_BASE_STRING.getStyleClassBuilder()
-            .append(CssMimeTypeIcon.CUI_MIME_TYPE_PLACEHOLDER).append(mimeTypeIcon.getPlaceholder()));
+                .append(CssMimeTypeIcon.CUI_MIME_TYPE_PLACEHOLDER).append(mimeTypeIcon.getPlaceholder()));
         writer.withEndElement(Node.ITALIC);
 
         // Layer 4
         writer.withStartElement(Node.ITALIC);
         writer.withStyleClass(
-            CssMimeTypeIcon.CUI_STACKED_BASE_STRING.getStyleClassBuilder().append(mimeTypeIcon.getIconClass()));
+                CssMimeTypeIcon.CUI_STACKED_BASE_STRING.getStyleClassBuilder().append(mimeTypeIcon.getIconClass()));
         writer.withEndElement(Node.ITALIC);
 
         // end span wrapper

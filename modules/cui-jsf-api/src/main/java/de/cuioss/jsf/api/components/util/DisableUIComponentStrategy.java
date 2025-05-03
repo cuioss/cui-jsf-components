@@ -15,11 +15,11 @@
  */
 package de.cuioss.jsf.api.components.util;
 
+import static java.util.Objects.requireNonNull;
+
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.html.HtmlInputText;
 import jakarta.faces.component.html.HtmlSelectOneMenu;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Include strategies to access disable attribute of UIComponent and set this
@@ -83,7 +83,7 @@ public enum DisableUIComponentStrategy {
             }
         }
         throw new IllegalArgumentException(
-            "[%s] has no corresponding disable strategy".formatted(component.getClass().getSimpleName()));
+                "[%s] has no corresponding disable strategy".formatted(component.getClass().getSimpleName()));
     }
 
 }

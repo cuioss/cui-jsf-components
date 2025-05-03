@@ -15,9 +15,8 @@
  */
 package de.cuioss.jsf.api.components.model.menu;
 
-import jakarta.faces.context.FacesContext;
-
 import de.cuioss.jsf.api.components.support.LabelResolver;
+import jakarta.faces.context.FacesContext;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

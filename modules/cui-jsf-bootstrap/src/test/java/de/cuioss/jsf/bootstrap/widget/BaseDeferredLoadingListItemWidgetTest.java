@@ -18,18 +18,16 @@ package de.cuioss.jsf.bootstrap.widget;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import jakarta.faces.event.ActionEvent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.support.DummyComponent;
 import de.cuioss.test.valueobjects.ValueObjectTest;
 import de.cuioss.test.valueobjects.api.contracts.VerifyBeanProperty;
+import jakarta.faces.event.ActionEvent;
+import org.junit.jupiter.api.Test;
 
-@VerifyBeanProperty(exclude = { "primaryActionTitle", "notificationBoxState", "primaryAction", "notificationBoxValue",
+@VerifyBeanProperty(exclude = {"primaryActionTitle", "notificationBoxState", "primaryAction", "notificationBoxValue",
         "title", "content", "disableCoreAction", "disablePrimaryAction", "rendered", "compositeComponentId",
         "coreAction", "renderPrimaryAction", "initialized", "renderContent", "id", "titleIcon", "titleValue",
-        "noItemsMessage", "renderShowMoreButton", "items" })
+        "noItemsMessage", "renderShowMoreButton", "items"})
 class BaseDeferredLoadingListItemWidgetTest extends ValueObjectTest<BaseDeferredLoadingListItemWidgetMock> {
 
     @Test

@@ -15,21 +15,16 @@
  */
 package de.cuioss.jsf.bootstrap.composite;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import jakarta.faces.component.html.HtmlInputText;
-import jakarta.faces.validator.ValidatorException;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.components.model.datalist.EditStatus;
 import de.cuioss.jsf.api.components.model.datalist.ItemWrapper;
 import de.cuioss.jsf.api.components.model.datalist.impl.ItemWrapperImpl;
 import de.cuioss.jsf.api.converter.ObjectToStringConverter;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.validator.ValidatorException;
+import org.junit.jupiter.api.Test;
 
 class EditableDataListComponentTest extends AbstractComponentTest<EditableDataListComponent> {
 

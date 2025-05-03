@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.bootstrap.button;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import de.cuioss.jsf.api.components.css.AlignHolder;
 import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
@@ -23,11 +25,8 @@ import de.cuioss.test.generator.Generators;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
-import org.junit.jupiter.api.Test;
-
 import jakarta.faces.event.PreRenderComponentEvent;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 @VerifyComponentProperties(of = {"icon", "size", "state", "titleKey", "titleValue", "iconAlign", "keyBinding", "styleClass"})
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)

@@ -15,17 +15,17 @@
  */
 package de.cuioss.jsf.api.components.javascript;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import de.cuioss.tools.string.Joiner;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Builder for creating arbitrary JavaScript option elements. Options is in
@@ -76,7 +76,7 @@ public class JavaScriptOptions implements ScriptProvider {
             builder.append('{');
         }
         List<String> entries = new ArrayList<>();
-        for (java.util.Map.Entry<String, Serializable> entry : options.entrySet()) {
+        for (Map.Entry<String, Serializable> entry : options.entrySet()) {
             var entryBuilder = new StringBuilder();
             entryBuilder.append(entry.getKey());
             entryBuilder.append(':');

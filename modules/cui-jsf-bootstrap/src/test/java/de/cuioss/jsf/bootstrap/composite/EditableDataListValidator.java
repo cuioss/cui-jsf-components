@@ -17,16 +17,15 @@ package de.cuioss.jsf.bootstrap.composite;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import de.cuioss.jsf.api.components.model.datalist.EditableDataListModel;
+import de.cuioss.jsf.api.validator.AbstractValidator;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.validator.FacesValidator;
 import jakarta.faces.validator.ValidatorException;
 
-import de.cuioss.jsf.api.components.model.datalist.EditableDataListModel;
-import de.cuioss.jsf.api.validator.AbstractValidator;
-
-@SuppressWarnings({ "rawtypes" })
+@SuppressWarnings({"rawtypes"})
 @FacesValidator("test.EditableDataListValidator")
 public class EditableDataListValidator extends AbstractValidator<EditableDataListModel> {
 

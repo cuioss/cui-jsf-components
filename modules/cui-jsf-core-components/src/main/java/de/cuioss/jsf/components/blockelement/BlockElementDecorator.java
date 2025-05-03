@@ -15,12 +15,11 @@
  */
 package de.cuioss.jsf.components.blockelement;
 
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.FacesComponent;
-
 import de.cuioss.jsf.api.components.decorator.AbstractParentDecorator;
 import de.cuioss.jsf.api.components.util.ComponentModifier;
 import de.cuioss.jsf.components.CuiFamily;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
 import lombok.ToString;
 
 /**

@@ -15,16 +15,15 @@
  */
 package de.cuioss.jsf.bootstrap.layout;
 
-import java.io.IOException;
-
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.render.FacesRenderer;
-import jakarta.faces.render.Renderer;
-
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
+import jakarta.faces.render.Renderer;
+
+import java.io.IOException;
 
 /**
  * {@link Renderer} for all variants of {@link AbstractLayoutComponent}

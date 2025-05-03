@@ -15,20 +15,20 @@
  */
 package de.cuioss.jsf.dev.metadata.composite.attributes;
 
+import de.cuioss.jsf.dev.metadata.composite.util.SampleSourceFinder;
+import de.cuioss.tools.logging.CuiLogger;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.view.ViewDeclarationLanguage;
+import jakarta.servlet.ServletContext;
+
 import java.beans.BeanDescriptor;
 import java.beans.BeanInfo;
 import java.beans.PropertyDescriptor;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.component.UINamingContainer;
-import jakarta.faces.event.ComponentSystemEvent;
-import jakarta.faces.view.ViewDeclarationLanguage;
-
-import de.cuioss.jsf.dev.metadata.composite.util.SampleSourceFinder;
-import de.cuioss.tools.logging.CuiLogger;
 
 /**
  * @author Oliver Wolff
@@ -165,7 +165,7 @@ public final class DisplayXmlCode extends UINamingContainer {
      * @return the source for the sample facet
      */
     public String getSampleFacetSource() {
-        final var context = (jakarta.servlet.ServletContext) getFacesContext().getExternalContext().getContext();
+        final var context = (ServletContext) getFacesContext().getExternalContext().getContext();
         final var sampleSourceFinder = new SampleSourceFinder(
                 new File(context.getRealPath(getFacesContext().getViewRoot().getViewId())), getId());
         return sampleSourceFinder.getSampleSource();

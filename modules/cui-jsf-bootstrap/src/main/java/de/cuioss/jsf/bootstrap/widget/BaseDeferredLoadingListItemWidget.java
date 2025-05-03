@@ -15,16 +15,16 @@
  */
 package de.cuioss.jsf.bootstrap.widget;
 
-import java.io.Serial;
-import java.util.ArrayList;
-import java.util.List;
-
 import de.cuioss.jsf.api.components.model.widget.BaseDeferredLoadingWidget;
 import de.cuioss.jsf.api.components.model.widget.ListItem;
 import de.cuioss.jsf.api.components.model.widget.ListItemWidgetModel;
 import de.cuioss.tools.string.MoreStrings;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Abstract extension of the {@link BaseDeferredLoadingWidget} for list items,

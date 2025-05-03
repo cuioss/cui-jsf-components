@@ -15,11 +15,13 @@
  */
 package de.cuioss.jsf.api.components.html;
 
-import java.io.IOException;
-
+import de.cuioss.jsf.api.components.css.StyleClassBuilder;
+import de.cuioss.jsf.api.components.css.StyleClassProvider;
+import de.cuioss.jsf.api.components.renderer.ConditionalResponseWriter;
+import de.cuioss.tools.io.IOStreams;
+import de.cuioss.tools.string.MoreStrings;
 import jakarta.faces.context.ResponseWriter;
-import javax.xml.XMLConstants;
-
+import lombok.Getter;
 import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -27,12 +29,8 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
 
-import de.cuioss.jsf.api.components.css.StyleClassBuilder;
-import de.cuioss.jsf.api.components.css.StyleClassProvider;
-import de.cuioss.jsf.api.components.renderer.ConditionalResponseWriter;
-import de.cuioss.tools.io.IOStreams;
-import de.cuioss.tools.string.MoreStrings;
-import lombok.Getter;
+import java.io.IOException;
+import javax.xml.XMLConstants;
 
 /**
  * Represents a partial html tree.

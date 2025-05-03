@@ -15,14 +15,14 @@
  */
 package de.cuioss.jsf.bootstrap.layout.input.support;
 
-import java.io.Serializable;
-
 import de.cuioss.jsf.api.components.partial.ComponentBridge;
 import de.cuioss.jsf.api.components.support.LabelResolver;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.bootstrap.layout.input.InputGuardComponent;
 import de.cuioss.tools.string.MoreStrings;
 import lombok.NonNull;
+
+import java.io.Serializable;
 
 /**
  * <h2>Summary</h2>

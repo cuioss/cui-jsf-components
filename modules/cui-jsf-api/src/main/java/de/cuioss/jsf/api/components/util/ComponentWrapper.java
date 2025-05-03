@@ -15,20 +15,19 @@
  */
 package de.cuioss.jsf.api.components.util;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
+import de.cuioss.tools.string.Joiner;
+import de.cuioss.tools.string.MoreStrings;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.component.behavior.ClientBehavior;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
-
-import de.cuioss.tools.string.Joiner;
-import de.cuioss.tools.string.MoreStrings;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>

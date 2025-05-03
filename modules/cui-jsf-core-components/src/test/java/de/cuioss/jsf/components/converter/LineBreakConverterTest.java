@@ -17,11 +17,10 @@ package de.cuioss.jsf.components.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.security.CuiSanitizer;
 import de.cuioss.test.jsf.converter.AbstractSanitizingConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
+import org.junit.jupiter.api.Test;
 
 class LineBreakConverterTest extends AbstractSanitizingConverterTest<LineBreakConverter, String> {
 

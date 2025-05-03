@@ -18,13 +18,12 @@ package de.cuioss.jsf.bootstrap.layout.messages;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "rendered", "showDetail", "showSummary", "for" })
+@VerifyComponentProperties(of = {"rendered", "showDetail", "showSummary", "for"})
 class CuiMessagesComponentTest extends AbstractComponentTest<CuiMessagesComponent> {
 
     private static final String STYLE_CLASS = CssCuiBootstrap.CUI_MESSAGES_CLASS.getStyleClass();

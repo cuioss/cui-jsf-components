@@ -15,11 +15,10 @@
  */
 package de.cuioss.jsf.api.components.model.widget;
 
-import jakarta.faces.event.ActionEvent;
-
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.tools.string.MoreStrings;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
+import jakarta.faces.event.ActionEvent;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 

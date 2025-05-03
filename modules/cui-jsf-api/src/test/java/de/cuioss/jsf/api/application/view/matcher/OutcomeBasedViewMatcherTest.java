@@ -18,8 +18,6 @@ package de.cuioss.jsf.api.application.view.matcher;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.application.navigation.NavigationUtils;
 import de.cuioss.jsf.api.common.view.ViewDescriptor;
 import de.cuioss.jsf.api.common.view.ViewDescriptorImpl;
@@ -28,6 +26,7 @@ import de.cuioss.test.jsf.config.RequestConfigurator;
 import de.cuioss.test.jsf.config.decorator.ApplicationConfigDecorator;
 import de.cuioss.test.jsf.config.decorator.RequestConfigDecorator;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
+import org.junit.jupiter.api.Test;
 
 class OutcomeBasedViewMatcherTest extends JsfEnabledTestEnvironment
         implements ApplicationConfigurator, RequestConfigurator {

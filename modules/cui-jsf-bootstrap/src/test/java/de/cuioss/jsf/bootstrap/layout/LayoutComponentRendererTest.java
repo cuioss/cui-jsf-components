@@ -40,7 +40,7 @@ class LayoutComponentRendererTest extends AbstractComponentRendererTest<LayoutCo
         var component = new RowComponent();
         component.getChildren().add(new HtmlOutputText());
         var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.ROW)
-            .withNode(Node.SPAN);
+                .withNode(Node.SPAN);
         assertRenderResult(component, expected.getDocument());
     }
 

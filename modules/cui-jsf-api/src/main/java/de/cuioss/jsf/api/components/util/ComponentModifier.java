@@ -15,10 +15,10 @@
  */
 package de.cuioss.jsf.api.components.util;
 
-import java.util.Map;
-
 import jakarta.faces.component.EditableValueHolder;
 import jakarta.faces.component.UIComponent;
+
+import java.util.Map;
 
 /**
  * Helper class that defines an interface over some generic methods of

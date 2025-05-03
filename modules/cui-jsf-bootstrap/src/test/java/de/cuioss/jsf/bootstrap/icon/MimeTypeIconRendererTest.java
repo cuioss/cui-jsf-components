@@ -15,16 +15,14 @@
  */
 package de.cuioss.jsf.bootstrap.icon;
 
-import jakarta.faces.component.UIComponent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.css.ContextSize;
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.converter.StringIdentConverter;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
+import jakarta.faces.component.UIComponent;
+import org.junit.jupiter.api.Test;
 
 class MimeTypeIconRendererTest extends AbstractComponentRendererTest<MimeTypeIconRenderer> {
 

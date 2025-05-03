@@ -15,6 +15,9 @@
  */
 package de.cuioss.jsf.api.components.util;
 
+import static de.cuioss.tools.collect.CollectionLiterals.immutableMap;
+import static org.junit.jupiter.api.Assertions.*;
+
 import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
@@ -27,9 +30,6 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static de.cuioss.tools.collect.CollectionLiterals.immutableMap;
-import static org.junit.jupiter.api.Assertions.*;
-
 class ComponentUtilityTest extends JsfEnabledTestEnvironment implements ComponentConfigurator {
 
     private static final String FORM_COMPONENT = "jakarta.faces.HtmlForm";
@@ -39,7 +39,7 @@ class ComponentUtilityTest extends JsfEnabledTestEnvironment implements Componen
     private static final String NOT_THERE_COMPONENT_ID = "not:there";
 
     @Test
-    void testIsSelfRequest() {
+    void isSelfRequest() {
         final UIComponent component = new HtmlInputText();
         component.setId(COMPONENT_ID);
         Map<String, String> map = immutableMap(ComponentUtility.JAVAX_FACES_SOURCE, COMPONENT_ID);
@@ -49,7 +49,7 @@ class ComponentUtilityTest extends JsfEnabledTestEnvironment implements Componen
     }
 
     @Test
-    void testIsAjaxRequest() {
+    void isAjaxRequest() {
         Map<String, String> map = immutableMap(ComponentUtility.JAVAX_FACES_PARTIAL_AJAX, Boolean.TRUE.toString());
         assertTrue(ComponentUtility.isAjaxRequest(map));
         map = immutableMap(ComponentUtility.JAVAX_FACES_PARTIAL_AJAX, Boolean.FALSE.toString());
@@ -59,7 +59,7 @@ class ComponentUtilityTest extends JsfEnabledTestEnvironment implements Componen
     }
 
     @Test
-    void testFindCorrespondingForm() {
+    void findCorrespondingForm() {
         final var form = new HtmlForm();
         final var panel = new HtmlPanelGroup();
         final UIComponent input = new HtmlInputText();
@@ -74,7 +74,7 @@ class ComponentUtilityTest extends JsfEnabledTestEnvironment implements Componen
     }
 
     @Test
-    void testFindCorrespondingFormOrNull() {
+    void findCorrespondingFormOrNull() {
         final var form = new HtmlForm();
         final var panel = new HtmlPanelGroup();
         final UIComponent input = new HtmlInputText();
@@ -88,7 +88,7 @@ class ComponentUtilityTest extends JsfEnabledTestEnvironment implements Componen
     }
 
     @Test
-    void testFindNearestNamingContainer() {
+    void findNearestNamingContainer() {
         final var form = new HtmlForm();
         final var panel = new HtmlPanelGroup();
         final UIComponent input = new HtmlInputText();
@@ -117,19 +117,19 @@ class ComponentUtilityTest extends JsfEnabledTestEnvironment implements Componen
     }
 
     @Test
-    void testResetEditableValueHolder() {
+    void resetEditableValueHolder() {
         final var form = createFormWithEditableValueHolder();
         assertDoesNotThrow(() -> ComponentUtility.resetEditableValueHolder(form, getFacesContext()));
     }
 
     @Test
-    void testSetEditableValueHoldersValid() {
+    void setEditableValueHoldersValid() {
         final var form = createFormWithEditableValueHolder();
         assertDoesNotThrow(() -> ComponentUtility.resetEditableValueHolder(form, getFacesContext()));
     }
 
     @Test
-    void testIsInForm() {
+    void isInForm() {
         final var form = new HtmlForm();
         final UIComponent input = new HtmlInputText();
         form.getChildren().add(input);

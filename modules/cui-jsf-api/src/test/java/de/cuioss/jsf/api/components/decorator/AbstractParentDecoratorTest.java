@@ -15,20 +15,15 @@
  */
 package de.cuioss.jsf.api.components.decorator;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
+import de.cuioss.test.jsf.component.AbstractComponentTest;
 import jakarta.faces.component.html.HtmlInputText;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.PostAddToViewEvent;
 import jakarta.faces.event.PostValidateEvent;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import de.cuioss.test.jsf.component.AbstractComponentTest;
 
 class AbstractParentDecoratorTest extends AbstractComponentTest<ParentDecoratorDummy> {
 

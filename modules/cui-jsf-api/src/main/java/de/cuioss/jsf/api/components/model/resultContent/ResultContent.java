@@ -73,7 +73,7 @@ public class ResultContent implements ErrorController, Serializable {
     public ResultContent(ResultObject<?> resultObject, ResultErrorHandler errorHandler, CuiLogger log) {
         var resultDetail = resultObject.getResultDetail();
         resultDetail.ifPresent(detail -> errorHandler.handleResultDetail(resultObject.getState(), detail,
-            resultObject.getErrorCode().orElse(null), this, log));
+                resultObject.getErrorCode().orElse(null), this, log));
     }
 
     /**
@@ -103,7 +103,7 @@ public class ResultContent implements ErrorController, Serializable {
     public void handleAdditionalResult(ResultObject<?> resultObject, ResultErrorHandler errorHandler, CuiLogger log) {
         var resultDetail = resultObject.getResultDetail();
         resultDetail.ifPresent(detail -> errorHandler.handleResultDetail(resultObject.getState(), detail,
-            resultObject.getErrorCode().orElse(null), this, log));
+                resultObject.getErrorCode().orElse(null), this, log));
     }
 
     @Override

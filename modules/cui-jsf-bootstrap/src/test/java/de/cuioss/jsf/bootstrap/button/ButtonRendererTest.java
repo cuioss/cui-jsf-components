@@ -17,12 +17,6 @@ package de.cuioss.jsf.bootstrap.button;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIOutcomeTarget;
-import jakarta.faces.event.PreRenderComponentEvent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.JsfComponentIdentifier;
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
@@ -37,6 +31,10 @@ import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.mocks.CuiMockRenderer;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIOutcomeTarget;
+import jakarta.faces.event.PreRenderComponentEvent;
+import org.junit.jupiter.api.Test;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> implements ComponentConfigurator {
@@ -145,7 +143,7 @@ class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> i
                 .registerRenderer(UIOutcomeTarget.COMPONENT_FAMILY, JsfComponentIdentifier.BUTTON_RENDERER_TYPE,
                         new CuiMockRenderer("input"))
                 .registerUIComponent(IconComponent.class).registerRenderer(BootstrapFamily.COMPONENT_FAMILY,
-                        BootstrapFamily.ICON_COMPONENT_RENDERER, new CuiMockRenderer(ICONCOMPONENT));
+                BootstrapFamily.ICON_COMPONENT_RENDERER, new CuiMockRenderer(ICONCOMPONENT));
     }
 
     @Override

@@ -17,14 +17,13 @@ package de.cuioss.jsf.api.components.util.modifier;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Iterator;
-import java.util.ServiceLoader;
-
-import jakarta.faces.component.UIComponent;
-
 import de.cuioss.jsf.api.components.util.ComponentModifier;
 import de.cuioss.tools.logging.CuiLogger;
+import jakarta.faces.component.UIComponent;
 import lombok.experimental.UtilityClass;
+
+import java.util.Iterator;
+import java.util.ServiceLoader;
 
 /**
  * Factory for creating wrapper classes defining an interface like contract for

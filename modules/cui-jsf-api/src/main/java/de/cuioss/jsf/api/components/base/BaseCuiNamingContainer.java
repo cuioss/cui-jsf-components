@@ -16,12 +16,11 @@
 package de.cuioss.jsf.api.components.base;
 
 import de.cuioss.jsf.api.components.partial.*;
-import lombok.experimental.Delegate;
-
 import jakarta.faces.component.StateHelper;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UINamingContainer;
 import jakarta.faces.context.FacesContext;
+import lombok.experimental.Delegate;
 
 /**
  * Minimal superset for cui-based components that are at least
@@ -34,7 +33,7 @@ import jakarta.faces.context.FacesContext;
  * @author Oliver Wolff
  */
 public class BaseCuiNamingContainer extends UINamingContainer
-    implements ComponentBridge, ComponentStyleClassProvider, StyleAttributeProvider {
+        implements ComponentBridge, ComponentStyleClassProvider, StyleAttributeProvider {
 
     @Delegate
     private final ComponentStyleClassProvider styleClassProvider;

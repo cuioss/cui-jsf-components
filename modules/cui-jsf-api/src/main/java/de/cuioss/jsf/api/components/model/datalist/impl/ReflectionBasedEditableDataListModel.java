@@ -17,17 +17,17 @@ package de.cuioss.jsf.api.components.model.datalist.impl;
 
 import static java.util.Objects.requireNonNull;
 
+import de.cuioss.jsf.api.components.model.datalist.EditableDataListModel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import de.cuioss.jsf.api.components.model.datalist.EditableDataListModel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
 
 /**
  * Base class for implementing {@link EditableDataListModel}. In addition to

@@ -18,16 +18,16 @@ package de.cuioss.jsf.bootstrap.icon;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
-
 import de.cuioss.jsf.bootstrap.icon.strategy.IStrategyProvider;
 import de.cuioss.jsf.bootstrap.icon.strategy.Rule;
 import de.cuioss.jsf.bootstrap.icon.strategy.StrategyProviderImpl;
 import de.cuioss.tools.io.StructuredFilename;
 import lombok.AccessLevel;
 import lombok.Getter;
+
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
 
 /**
  * Each constant represents a mime type icon, defined within icons.css.<br>

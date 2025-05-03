@@ -15,38 +15,23 @@
  */
 package de.cuioss.jsf.api.components;
 
-import static de.cuioss.jsf.api.components.JsfComponentIdentifier.BUTTON_RENDERER_TYPE;
-import static de.cuioss.jsf.api.components.JsfComponentIdentifier.CHECKBOX_RENDERER_TYPE;
-import static de.cuioss.jsf.api.components.JsfComponentIdentifier.FORM_RENDERER_TYPE;
-import static de.cuioss.jsf.api.components.JsfComponentIdentifier.GROUP_RENDERER_TYPE;
-import static de.cuioss.jsf.api.components.JsfComponentIdentifier.HIDDEN_RENDERER_TYPE;
-import static de.cuioss.jsf.api.components.JsfComponentIdentifier.LINK_RENDERER_TYPE;
-import static de.cuioss.jsf.api.components.JsfComponentIdentifier.TEXT_RENDERER_TYPE;
+import static de.cuioss.jsf.api.components.JsfComponentIdentifier.*;
 import static java.util.Objects.requireNonNull;
-
-import java.util.Collection;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIComponentBase;
-import jakarta.faces.component.UIInput;
-import jakarta.faces.component.html.HtmlCommandButton;
-import jakarta.faces.component.html.HtmlForm;
-import jakarta.faces.component.html.HtmlInputHidden;
-import jakarta.faces.component.html.HtmlInputText;
-import jakarta.faces.component.html.HtmlOutcomeTargetButton;
-import jakarta.faces.component.html.HtmlOutputLink;
-import jakarta.faces.component.html.HtmlOutputText;
-import jakarta.faces.component.html.HtmlPanelGroup;
-import jakarta.faces.component.html.HtmlSelectBooleanCheckbox;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.render.Renderer;
 
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.util.ComponentUtility;
 import de.cuioss.tools.collect.CollectionLiterals;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.component.html.*;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.Renderer;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import java.util.Collection;
 
 /**
  * Repository for the standard JSF components / renderer

@@ -18,17 +18,16 @@ package de.cuioss.jsf.bootstrap.checkbox;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableMap;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "offTextValue", "offTextKey", "onTextValue", "onTextKey", "titleValue", "titleKey",
-        "rendered", "disabled" })
+@VerifyComponentProperties(of = {"offTextValue", "offTextKey", "onTextValue", "onTextKey", "titleValue", "titleKey",
+        "rendered", "disabled"})
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class SwitchComponentTest extends AbstractComponentTest<SwitchComponent> {
 

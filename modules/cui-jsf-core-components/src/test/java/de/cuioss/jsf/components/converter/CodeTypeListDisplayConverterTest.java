@@ -17,12 +17,12 @@ package de.cuioss.jsf.components.converter;
 
 import static de.cuioss.tools.collect.CollectionLiterals.mutableList;
 
-import java.util.List;
-
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
 import de.cuioss.uimodel.model.code.CodeType;
 import de.cuioss.uimodel.model.code.CodeTypeImpl;
+
+import java.util.List;
 
 class CodeTypeListDisplayConverterTest extends AbstractConverterTest<CodeTypeListDisplayConverter, List<CodeType>> {
 

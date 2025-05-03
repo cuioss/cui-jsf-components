@@ -21,9 +21,9 @@ import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
-
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.FacesRenderer;
+
 import java.io.IOException;
 
 /**
@@ -44,7 +44,7 @@ public class LabeledIconRenderer extends BaseDecoratorRenderer<LabeledIconCompon
 
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<LabeledIconComponent> writer,
-                               final LabeledIconComponent component) throws IOException {
+            final LabeledIconComponent component) throws IOException {
         // Write wrapper span
         writer.withStartElement(Node.SPAN);
         writer.withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER.getStyleClassBuilder().append(component));
@@ -66,7 +66,7 @@ public class LabeledIconRenderer extends BaseDecoratorRenderer<LabeledIconCompon
     }
 
     private static void writeIcon(final DecoratingResponseWriter<LabeledIconComponent> writer,
-                                  final LabeledIconComponent component) throws IOException {
+            final LabeledIconComponent component) throws IOException {
         writer.withStartElement(Node.SPAN);
         writer.withStyleClass(component.resolveIconCss());
         writer.withEndElement(Node.SPAN);
@@ -74,7 +74,7 @@ public class LabeledIconRenderer extends BaseDecoratorRenderer<LabeledIconCompon
 
 
     private static void writeLabel(final DecoratingResponseWriter<LabeledIconComponent> writer,
-                                   final LabeledIconComponent component) throws IOException {
+            final LabeledIconComponent component) throws IOException {
         writer.withStartElement(Node.SPAN);
         writer.withStyleClass(CssCuiBootstrap.LABELED_ICON_TEXT);
         writer.withTextContent(component.resolveLabel(), component.isLabelEscape());

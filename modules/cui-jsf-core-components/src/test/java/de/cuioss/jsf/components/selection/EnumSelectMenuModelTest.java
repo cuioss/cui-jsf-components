@@ -49,7 +49,7 @@ class EnumSelectMenuModelTest extends AbstractConverterTest<EnumSelectMenuModel<
     @Override
     public void populate(final TestItems<TestEnumeration> testItems) {
         testItems.addRoundtripValues(TestEnumeration.ONE.toString(), TestEnumeration.TWO.toString(),
-            TestEnumeration.THREE.toString()).addInvalidString("notThere");
+                TestEnumeration.THREE.toString()).addInvalidString("notThere");
     }
 
 }

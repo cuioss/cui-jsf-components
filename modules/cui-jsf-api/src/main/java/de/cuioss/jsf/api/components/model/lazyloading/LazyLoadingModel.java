@@ -15,13 +15,12 @@
  */
 package de.cuioss.jsf.api.components.model.lazyloading;
 
-import java.io.Serializable;
-
+import de.cuioss.jsf.api.components.css.ContextState;
+import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
 import jakarta.faces.event.ActionEvent;
 import jakarta.faces.event.ActionListener;
 
-import de.cuioss.jsf.api.components.css.ContextState;
-import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
+import java.io.Serializable;
 
 /**
  * A model for the LazyLoadingComponent

@@ -15,13 +15,13 @@
  */
 package de.cuioss.jsf.api.components.util;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import jakarta.faces.component.html.HtmlForm;
 import jakarta.faces.component.html.HtmlInputText;
 import jakarta.faces.component.html.HtmlSelectOneMenu;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @EnableJsfEnvironment
 class DisableUIComponentStrategyTest {

@@ -15,19 +15,18 @@
  */
 package de.cuioss.jsf.dev.metadata.composite.attributes;
 
+import de.cuioss.jsf.dev.metadata.composite.util.LabelValueDisplay;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.beans.FeatureDescriptor;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import jakarta.el.ValueExpression;
-import jakarta.faces.context.FacesContext;
-
-import de.cuioss.jsf.dev.metadata.composite.util.LabelValueDisplay;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
 
 /**
  * Wraps a concrete Property for composite components.

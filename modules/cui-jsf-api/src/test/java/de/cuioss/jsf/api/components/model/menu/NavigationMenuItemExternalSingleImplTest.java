@@ -17,17 +17,14 @@ package de.cuioss.jsf.api.components.model.menu;
 
 import static de.cuioss.test.generator.Generators.letterStrings;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import de.cuioss.test.valueobjects.ValueObjectTest;
 import de.cuioss.test.valueobjects.api.contracts.VerifyConstructor;
+import org.junit.jupiter.api.Test;
 
 @VerifyConstructor(of = "order")
 @EnableJsfEnvironment

@@ -19,9 +19,8 @@ import static de.cuioss.jsf.jqplot.ChartTestSupport.assertThatNoPluginsAreUsed;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
+import org.junit.jupiter.api.Test;
 
 class MarkerRendererOptionsTest implements ShouldHandleObjectContracts<MarkerRendererOptions> {
 

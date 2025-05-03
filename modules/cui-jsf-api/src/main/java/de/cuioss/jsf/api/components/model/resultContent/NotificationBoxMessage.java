@@ -15,12 +15,12 @@
  */
 package de.cuioss.jsf.api.components.model.resultContent;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
 import lombok.Value;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 @Value
 public class NotificationBoxMessage implements Serializable {

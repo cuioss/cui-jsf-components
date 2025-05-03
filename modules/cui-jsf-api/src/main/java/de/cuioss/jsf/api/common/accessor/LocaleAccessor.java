@@ -15,13 +15,12 @@
  */
 package de.cuioss.jsf.api.common.accessor;
 
-import java.io.Serial;
-import java.util.Locale;
-
 import jakarta.faces.application.ViewHandler;
 import jakarta.faces.context.FacesContext;
-
 import lombok.Getter;
+
+import java.io.Serial;
+import java.util.Locale;
 
 /**
  * <p>

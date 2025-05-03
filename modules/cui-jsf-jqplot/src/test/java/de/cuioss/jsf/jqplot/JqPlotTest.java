@@ -15,14 +15,7 @@
  */
 package de.cuioss.jsf.jqplot;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Calendar;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.jqplot.js.support.JsArray;
 import de.cuioss.jsf.jqplot.js.support.JsValue;
@@ -34,8 +27,11 @@ import de.cuioss.jsf.jqplot.model.SeriaTupelItem;
 import de.cuioss.jsf.jqplot.model.SeriesData;
 import de.cuioss.jsf.jqplot.options.Options;
 import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
+import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "unchecked" })
+import java.util.Calendar;
+
+@SuppressWarnings({"unchecked"})
 class JqPlotTest implements ShouldHandleObjectContracts<JqPlot> {
 
     @Override

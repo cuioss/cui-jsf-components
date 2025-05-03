@@ -15,14 +15,13 @@
  */
 package de.cuioss.jsf.api.ui.model;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 import jakarta.faces.model.SelectItem;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * TypedSelectItem is a wrapper for {@link SelectItem} which provide a Type

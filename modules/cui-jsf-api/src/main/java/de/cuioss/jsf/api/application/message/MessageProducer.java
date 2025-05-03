@@ -15,16 +15,15 @@
  */
 package de.cuioss.jsf.api.application.message;
 
-import java.io.Serializable;
-
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Provider;
-
 import lombok.NonNull;
+
+import java.io.Serializable;
 
 /**
  * Helper class simplifying the production of {@link FacesMessage}s.

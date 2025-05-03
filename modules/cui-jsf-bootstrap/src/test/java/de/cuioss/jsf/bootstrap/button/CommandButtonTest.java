@@ -15,15 +15,7 @@
  */
 package de.cuioss.jsf.bootstrap.button;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import jakarta.faces.event.PreRenderComponentEvent;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.components.css.AlignHolder;
 import de.cuioss.jsf.api.components.html.AttributeValue;
@@ -33,8 +25,10 @@ import de.cuioss.test.generator.Generators;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import jakarta.faces.event.PreRenderComponentEvent;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "icon", "size", "state", "titleKey", "titleValue", "iconAlign", "keyBinding" })
+@VerifyComponentProperties(of = {"icon", "size", "state", "titleKey", "titleValue", "iconAlign", "keyBinding"})
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class CommandButtonTest extends AbstractComponentTest<CommandButton> {
 

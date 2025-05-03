@@ -15,11 +15,11 @@
  */
 package de.cuioss.jsf.api.components.model.widget;
 
-import java.io.Serial;
-import java.time.LocalDate;
-
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
 import lombok.Data;
+
+import java.io.Serial;
+import java.time.LocalDate;
 
 /**
  * Default implementation for {@link ListItem}

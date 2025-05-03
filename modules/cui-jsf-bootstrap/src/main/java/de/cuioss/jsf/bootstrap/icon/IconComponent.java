@@ -19,10 +19,9 @@ import de.cuioss.jsf.api.components.base.AbstractBaseCuiComponent;
 import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.api.components.util.ComponentUtility;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
-import lombok.experimental.Delegate;
-
 import jakarta.faces.component.FacesComponent;
 import jakarta.faces.context.FacesContext;
+import lombok.experimental.Delegate;
 
 /**
  * <p>

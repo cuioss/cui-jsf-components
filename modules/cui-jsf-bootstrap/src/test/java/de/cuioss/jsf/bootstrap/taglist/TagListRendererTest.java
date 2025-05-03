@@ -18,12 +18,6 @@ package de.cuioss.jsf.bootstrap.taglist;
 import static de.cuioss.jsf.bootstrap.taglist.TagTestUtils.insertTag;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
-import java.util.List;
-
-import jakarta.faces.component.UIComponent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
@@ -37,6 +31,10 @@ import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
+import jakarta.faces.component.UIComponent;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class TagListRendererTest extends AbstractComponentRendererTest<TagListRenderer> implements ComponentConfigurator {

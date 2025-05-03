@@ -17,10 +17,6 @@ package de.cuioss.jsf.bootstrap.accordion;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
-import jakarta.faces.component.UIComponent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
@@ -35,6 +31,8 @@ import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
+import jakarta.faces.component.UIComponent;
+import org.junit.jupiter.api.Test;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class AccordionRendererTest extends AbstractComponentRendererTest<AccordionRenderer> implements ComponentConfigurator {
@@ -123,9 +121,9 @@ class AccordionRendererTest extends AbstractComponentRendererTest<AccordionRende
                 .withStyleClass("cui-icon cui-collapsible-icon").currentHierarchyUp().currentHierarchyUp()
                 .currentHierarchyUp().withNode(Node.DIV)
                 .withStyleClass(CssBootstrap.PANEL_COLLAPSE.getStyleClassBuilder().append("collapse").append(// "in"
-                                                                                                             // =
-                                                                                                             // show
-                                                                                                             // content
+                        // =
+                        // show
+                        // content
                         panelExpanded ? "in" : ""))
                 .withAttribute(AttributeName.ID, CHILD_ID + CLIENT_ID_BODY)
                 .withAttribute(AttributeName.NAME, CHILD_ID + CLIENT_ID_BODY)
