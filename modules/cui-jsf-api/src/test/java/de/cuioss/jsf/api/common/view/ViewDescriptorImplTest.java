@@ -23,36 +23,77 @@ import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.valueobjects.ValueObjectTest;
 import de.cuioss.test.valueobjects.api.contracts.VerifyBuilder;
 import de.cuioss.tools.net.ParameterFilter;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
+// Class is documented by @DisplayName
+@DisplayName("Tests for ViewDescriptorImpl")
 @VerifyBuilder(methodPrefix = "with", exclude = {"viewDefined", "shortIdentifier"})
 class ViewDescriptorImplTest extends ValueObjectTest<ViewDescriptorImpl> {
 
     private final TypedGenerator<String> stringGenerator = strings(1, 55);
 
-    @Test
-    void shouldBuildWithCopyConstructor() {
-        final var built = ViewDescriptorImpl.builder().withLogicalViewId(stringGenerator.next())
-                .withUrlParameter(Collections.emptyList()).withViewId(stringGenerator.next()).build();
-        final var copy = new ViewDescriptorImpl(built, null);
-        assertEquals(built, copy);
+    @Nested
+    @DisplayName("Copy Constructor Tests")
+    class CopyConstructorTests {
+
+        @Test
+        @DisplayName("Should create equal copy using copy constructor without filter")
+        void shouldCreateEqualCopyWithoutFilter() {
+            // Arrange
+            final var original = ViewDescriptorImpl.builder()
+                    .withLogicalViewId(stringGenerator.next())
+                    .withUrlParameter(Collections.emptyList())
+                    .withViewId(stringGenerator.next())
+                    .build();
+
+            // Act
+            final var copy = new ViewDescriptorImpl(original, null);
+
+            // Assert
+            assertEquals(original, copy, "Copy should be equal to original");
+        }
+
+        @Test
+        @DisplayName("Should create equal copy using copy constructor with filter")
+        void shouldCreateEqualCopyWithFilter() {
+            // Arrange
+            final var original = ViewDescriptorImpl.builder()
+                    .withLogicalViewId(stringGenerator.next())
+                    .withUrlParameter(Collections.emptyList())
+                    .withViewId(stringGenerator.next())
+                    .build();
+            final var filter = new ParameterFilter(Collections.emptyList(), true);
+
+            // Act
+            final var copy = new ViewDescriptorImpl(original, filter);
+
+            // Assert
+            assertEquals(original, copy, "Copy should be equal to original even with filter");
+        }
     }
 
-    @Test
-    void shouldBuildWithCopyConstructorAndFilter() {
-        final var built = ViewDescriptorImpl.builder().withLogicalViewId(stringGenerator.next())
-                .withUrlParameter(Collections.emptyList()).withViewId(stringGenerator.next()).build();
-        final var copy = new ViewDescriptorImpl(built, new ParameterFilter(Collections.emptyList(), true));
-        assertEquals(built, copy);
-    }
+    @Nested
+    @DisplayName("View Defined Tests")
+    class ViewDefinedTests {
 
-    @Test
-    void shouldBuildDetermineViewDefined() {
-        final var built = ViewDescriptorImpl.builder().build();
-        assertFalse(built.isViewDefined());
-        final var copy = new ViewDescriptorImpl(built, null);
-        assertFalse(copy.isViewDefined());
+        @Test
+        @DisplayName("Should correctly determine if view is defined")
+        void shouldCorrectlyDetermineIfViewIsDefined() {
+            // Arrange
+            final var emptyDescriptor = ViewDescriptorImpl.builder().build();
+
+            // Act & Assert
+            assertFalse(emptyDescriptor.isViewDefined(), "Empty descriptor should not have view defined");
+
+            // Arrange
+            final var copy = new ViewDescriptorImpl(emptyDescriptor, null);
+
+            // Act & Assert
+            assertFalse(copy.isViewDefined(), "Copy of empty descriptor should not have view defined");
+        }
     }
 }

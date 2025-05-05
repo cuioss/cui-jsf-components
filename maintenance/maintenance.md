@@ -5,53 +5,65 @@ This document provides an overview of the maintenance tasks for all modules in t
 ## Modules Overview
 
 ### Core Modules
-1. [cui-jsf-api](modules/cui-jsf-api/maintenance.md) - Core API module
-2. [cui-jsf-bootstrap](modules/cui-jsf-bootstrap/maintenance.md) - Bootstrap integration module
-3. [cui-jsf-core-components](modules/cui-jsf-core-components/maintenance.md) - Core JSF components
-4. [cui-jsf-dev](modules/cui-jsf-dev/maintenance.md) - Development utilities
-5. [cui-jsf-jqplot](modules/cui-jsf-jqplot/maintenance.md) - JQPlot integration
-6. [cui-jsf-test](modules/cui-jsf-test/maintenance.md) - Testing utilities
+1. [cui-jsf-api](../modules/cui-jsf-api/maintenance/maintenance.md) - Core API module
+2. [cui-jsf-bootstrap](../modules/cui-jsf-bootstrap/maintenance/maintenance.md) - Bootstrap integration module
+3. [cui-jsf-core-components](../modules/cui-jsf-core-components/maintenance/maintenance.md) - Core JSF components
+4. [cui-jsf-dev](../modules/cui-jsf-dev/maintenance/maintenance.md) - Development utilities
+5. [cui-jsf-jqplot](../modules/cui-jsf-jqplot/maintenance/maintenance.md) - JQPlot integration
+6. [cui-jsf-test](../modules/cui-jsf-test/maintenance/maintenance.md) - Testing utilities
 
 ### Web Modules
-7. [cui-javascript](web-modules/cui-javascript/maintenance.md) - JavaScript resources
-8. [cui-jsf-bootstrap-css](web-modules/cui-jsf-bootstrap-css/maintenance.md) - Bootstrap CSS resources
+7. [cui-javascript](../web-modules/cui-javascript/maintenance/maintenance.md) - JavaScript resources
+8. [cui-jsf-bootstrap-css](../web-modules/cui-jsf-bootstrap-css/maintenance/maintenance.md) - Bootstrap CSS resources
 
 ## Maintenance Tasks
 
 Each module has the following maintenance tasks defined:
 
-1. **Update Unit Tests to Comply with Standards**
+1. **[Update Unit Tests to Comply with Standards](task1-unit-tests.md)**
    - Pre-conditions: Existing unit tests may not fully comply with testing standards
    - Post-conditions: All unit tests follow the CUI testing standards
    - No production code changes during this task
 
-2. **Update Production Code to Logging Standards**
+   See the [detailed task document](task1-unit-tests.md) for complete implementation guidelines.
+
+2. **[Update Production Code to Logging Standards](task2-logging-standards.md)**
    - Pre-conditions: Logging implementation may not follow CUI logging standards
    - Post-conditions: All logging in production code follows CUI logging standards
    - No other changes to production code during this task
 
-3. **Update to Logging Testing Standards**
+   See the [detailed task document](task2-logging-standards.md) for complete implementation guidelines.
+
+3. **[Update to Logging Testing Standards](task3-logging-testing.md)**
    - Pre-conditions: Logging tests may not follow CUI logging testing standards
    - Post-conditions: All logging tests follow CUI logging testing standards
    - No other changes during this task
 
-4. **Update Javadoc to Comply with Standards**
+   See the [detailed task document](task3-logging-testing.md) for complete implementation guidelines.
+
+4. **[Update Javadoc to Comply with Standards](task4-javadoc-standards.md)**
    - Pre-conditions: Existing Javadoc may not follow CUI documentation standards
    - Post-conditions: All Javadoc follows the CUI documentation standards
    - Documentation is complete for all public classes, methods, and interfaces
    - No functional code changes during this task
 
-5. **Create README According to Standards**
+   See the [detailed task document](task4-javadoc-standards.md) for complete implementation guidelines.
+
+5. **[Create README According to Standards](task5-readme-standards.md)**
    - Pre-conditions: Module may not have a standardized README or it may be incomplete
    - Post-conditions: Each module has a README file following the CUI README structure
    - README provides clear information about the module's purpose, usage, and features
    - No code changes during this task
 
-6. **Analyze Code for Refactoring Opportunities**
+   See the [detailed task document](task5-readme-standards.md) for complete implementation guidelines.
+
+6. **[Analyze Code for Refactoring Opportunities](task6-refactoring-analysis.md)**
    - Pre-conditions: Code may have areas that could benefit from refactoring
    - Post-conditions: A refactoring document is created for each module
    - Document identifies specific refactoring opportunities with justifications
    - No actual code changes during this task
+
+   See the [detailed task document](task6-refactoring-analysis.md) for complete implementation guidelines.
 
 ## Refactoring Process
 
@@ -95,6 +107,16 @@ For each module and task, progress should be tracked using the following status 
 - **Blocked**: Task cannot proceed due to dependencies or issues
 
 Progress updates should be documented in the module-specific maintenance documents with dates and responsible individuals.
+
+### Current Progress
+
+#### cui-jsf-api Module
+- Task 1 (Update Unit Tests to Comply with Standards): In Progress
+- Task 2 (Update Production Code to Logging Standards): Not Started
+- Task 3 (Update to Logging Testing Standards): Not Started
+- Task 4 (Update Javadoc to Comply with Standards): Not Started
+- Task 5 (Create README According to Standards): Not Started
+- Task 6 (Analyze Code for Refactoring Opportunities): Not Started
 
 ## Standards References
 

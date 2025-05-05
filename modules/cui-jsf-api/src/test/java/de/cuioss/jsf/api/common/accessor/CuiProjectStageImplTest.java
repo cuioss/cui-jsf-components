@@ -22,55 +22,113 @@ import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
 import de.cuioss.test.valueobjects.api.property.PropertyReflectionConfig;
 import jakarta.faces.application.ProjectStage;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+// Class is documented by @DisplayName
+@DisplayName("Tests for CuiProjectStageImpl")
 @PropertyReflectionConfig(skip = true)
 class CuiProjectStageImplTest extends JsfEnabledTestEnvironment {
 
     private final TypedGenerator<ProjectStage> projectStages = Generators.enumValues(ProjectStage.class);
 
-    @Test
-    void isDevelopment() {
-        final var underTest = anyBean();
-        setProjectStage(ProjectStage.Development);
-        underTest.initBean();
-        assertTrue(underTest.isDevelopment());
-        setProjectStage(ProjectStage.Production);
-        underTest.initBean();
-        assertFalse(underTest.isDevelopment());
+    @Nested
+    @DisplayName("Project Stage Detection Tests")
+    class ProjectStageDetectionTests {
+
+        @Test
+        @DisplayName("Should correctly identify Development stage")
+        void shouldIdentifyDevelopmentStage() {
+            // Arrange - create bean first
+            final var underTest = new CuiProjectStageImpl();
+
+            // Act - set stage and initialize
+            setProjectStage(ProjectStage.Development);
+            underTest.initBean();
+
+            // Assert
+            assertTrue(underTest.isDevelopment(), "Should identify Development stage");
+
+            // Act - change stage and reinitialize
+            setProjectStage(ProjectStage.Production);
+            underTest.initBean();
+
+            // Assert
+            assertFalse(underTest.isDevelopment(), "Should not identify Production as Development");
+        }
+
+        @Test
+        @DisplayName("Should correctly identify Production stage")
+        void shouldIdentifyProductionStage() {
+            // Arrange - create bean first
+            final var underTest = new CuiProjectStageImpl();
+
+            // Act - set stage and initialize
+            setProjectStage(ProjectStage.Development);
+            underTest.initBean();
+
+            // Assert
+            assertFalse(underTest.isProduction(), "Should not identify Development as Production");
+
+            // Act - change stage and reinitialize
+            setProjectStage(ProjectStage.Production);
+            underTest.initBean();
+
+            // Assert
+            assertTrue(underTest.isProduction(), "Should identify Production stage");
+        }
+
+        @Test
+        @DisplayName("Should correctly identify Test stage")
+        void shouldIdentifyTestStage() {
+            // Arrange - create bean first
+            final var underTest = new CuiProjectStageImpl();
+
+            // Act - set stage and initialize
+            setProjectStage(ProjectStage.SystemTest);
+            underTest.initBean();
+
+            // Assert
+            assertTrue(underTest.isTest(), "Should identify SystemTest as Test stage");
+        }
+
+        @Test
+        @DisplayName("Should correctly handle Configuration stage")
+        void shouldHandleConfigurationStage() {
+            // Arrange
+            final var underTest = anyBean();
+
+            // Act
+            underTest.initBean();
+
+            // Assert
+            assertFalse(underTest.isConfiguration(), "Should not identify as Configuration stage");
+        }
     }
 
-    @Test
-    void shouldBeProvidedByAccessor() {
-        assertNotNull(new CuiProjectStageAccessor().getValue());
+    @Nested
+    @DisplayName("Accessor Tests")
+    class AccessorTests {
+
+        @Test
+        @DisplayName("Should provide project stage through accessor")
+        void shouldProvideProjectStageViaAccessor() {
+            // Arrange
+            final var accessor = new CuiProjectStageAccessor();
+
+            // Act
+            final var result = accessor.getValue();
+
+            // Assert
+            assertNotNull(result, "Project stage should be provided by accessor");
+        }
     }
 
-    @Test
-    void isProduction() {
-        final var underTest = anyBean();
-        setProjectStage(ProjectStage.Development);
-        underTest.initBean();
-        assertFalse(underTest.isProduction());
-        setProjectStage(ProjectStage.Production);
-        underTest.initBean();
-        assertTrue(underTest.isProduction());
-    }
-
-    @Test
-    void isConfiguration() {
-        final var underTest = anyBean();
-        underTest.initBean();
-        assertFalse(underTest.isConfiguration());
-    }
-
-    @Test
-    void isTest() {
-        final var underTest = anyBean();
-        setProjectStage(ProjectStage.SystemTest);
-        underTest.initBean();
-        assertTrue(underTest.isTest());
-    }
-
+    /**
+     * Creates a CuiProjectStageImpl instance with a random project stage
+     * @return initialized CuiProjectStageImpl
+     */
     private CuiProjectStageImpl anyBean() {
         var projectStageImpl = new CuiProjectStageImpl();
         setProjectStage(projectStages.next());
@@ -78,6 +136,10 @@ class CuiProjectStageImplTest extends JsfEnabledTestEnvironment {
         return projectStageImpl;
     }
 
+    /**
+     * Sets the project stage in the JSF application
+     * @param stage the ProjectStage to set
+     */
     private void setProjectStage(final ProjectStage stage) {
         getApplicationConfigDecorator().setProjectStage(stage);
     }

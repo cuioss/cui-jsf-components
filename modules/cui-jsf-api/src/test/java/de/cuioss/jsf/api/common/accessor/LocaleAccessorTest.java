@@ -21,20 +21,40 @@ import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.defaults.BasicApplicationConfiguration;
 import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
 import de.cuioss.test.valueobjects.api.property.PropertyReflectionConfig;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
 
+// Class is documented by @DisplayName
+@DisplayName("Tests for LocaleAccessor")
 @JsfTestConfiguration(BasicApplicationConfiguration.class)
 @PropertyReflectionConfig(skip = true)
 class LocaleAccessorTest extends JsfEnabledTestEnvironment {
 
-    @Test
-    void shouldProvideLocale() {
-        var producer = new LocaleAccessor();
-        assertEquals(Locale.ENGLISH, producer.getValue());
-        // Access cached Value
-        assertEquals(Locale.ENGLISH, producer.getValue());
-    }
+    @Nested
+    @DisplayName("Value Retrieval Tests")
+    class ValueRetrievalTests {
 
+        @Test
+        @DisplayName("Should provide the correct locale from JSF context")
+        void shouldProvideCorrectLocaleFromContext() {
+            // Arrange
+            var localeAccessor = new LocaleAccessor();
+
+            // Act
+            var result = localeAccessor.getValue();
+
+            // Assert - using the actual locale from the test environment
+            Locale expectedLocale = getFacesContext().getViewRoot().getLocale();
+            assertEquals(expectedLocale, result, "Should return the locale from JSF context");
+
+            // Act again - testing caching
+            var cachedResult = localeAccessor.getValue();
+
+            // Assert cached value
+            assertEquals(expectedLocale, cachedResult, "Should return the same locale from cache");
+        }
+    }
 }

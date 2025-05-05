@@ -10,7 +10,7 @@ The cui-jsf-api module provides the fundamental interfaces, classes, and utiliti
 
 ### 1. Update Unit Tests to Comply with Standards
 
-**Status**: [ ] Not Started [ ] In Progress [ ] Completed [ ] Blocked
+**Status**: [ ] Not Started [x] In Progress [ ] Completed [ ] Blocked
 
 #### Pre-conditions
 - Existing unit tests may not follow CUI testing standards
@@ -20,13 +20,34 @@ The cui-jsf-api module provides the fundamental interfaces, classes, and utiliti
 - Mocking and stubbing approaches may vary
 
 #### Task Description
-- [ ] Review all existing unit tests
+- [x] Review all existing unit tests
 - [ ] Update tests to use JUnit 5 annotations and features
 - [ ] Ensure tests follow the Arrange-Act-Assert pattern
 - [ ] Implement nested test classes for better organization
 - [ ] Use descriptive method names for tests
 - [ ] Ensure tests are independent and don't rely on execution order
 - [ ] Aim for at least 80% line coverage
+
+#### Detailed Progress Tracking
+A detailed list of all test classes and their current status is maintained in [unit-tests.md](unit-tests.md). This document tracks which tests have been:
+- **Analyzed**: The test has been reviewed but not yet updated
+- **Completed**: The test has been updated to comply with standards
+- **NoChanges**: The test already complies with standards or no changes are needed
+
+For comprehensive guidance on implementing this task, refer to the [Task 1: Update Unit Tests to Comply with Standards](../../../maintenance/task1-unit-tests.md) document.
+
+#### Documentation Guidelines
+- Use `@DisplayName` annotations for test classes and methods to provide clear descriptions
+- Avoid excessive Javadoc that merely states the obvious - `@DisplayName` is sufficient in most cases
+- Class-level Javadoc should be minimal and not duplicate information from the class being tested
+- Only add method-level Javadoc for helper/utility methods where the purpose isn't obvious
+
+#### Current Progress Summary
+- Total Test Classes: 120+
+- Analyzed: 5
+- Completed: 5
+- NoChanges: 0
+- Remaining: 115+
 
 #### Post-conditions
 - All unit tests follow CUI testing standards
@@ -136,7 +157,7 @@ The cui-jsf-api module provides the fundamental interfaces, classes, and utiliti
 
 ### 6. Analyze Code for Refactoring Opportunities
 
-**Status**: [ ] Not Started [ ] In Progress [ ] Completed [ ] Blocked
+**Status**: [ ] Not Started [x] In Progress [ ] Completed [ ] Blocked
 
 #### Pre-conditions
 - Code may have areas that could benefit from refactoring
@@ -181,6 +202,7 @@ Update the status checkboxes at the beginning of each task as progress is made. 
 
 ## References
 
+- [Task 1: Update Unit Tests to Comply with Standards](../../../maintenance/task1-unit-tests.md)
 - [CUI Testing Standards](https://github.com/cuioss/cui-llm-rules/tree/main/standards/testing)
 - [CUI Logging Standards](https://github.com/cuioss/cui-llm-rules/tree/main/standards/logging)
 - [CUI Logging Testing Guide](https://github.com/cuioss/cui-llm-rules/tree/main/standards/logging/testing-guide.adoc)
