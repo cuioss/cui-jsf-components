@@ -20,32 +20,65 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 @VerifyComponentProperties(of = HtmlElementProvider.KEY)
+@ExplicitParamInjection
+@DisplayName("Tests for HtmlElementProvider implementation")
 class HtmlElementProviderTest extends AbstractPartialComponentTest {
 
     @Test
+    @DisplayName("Should throw NullPointerException when constructed with null parameters")
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> new HtmlElementProvider(null, null));
+        // Act & Assert
+        assertThrows(NullPointerException.class, () -> new HtmlElementProvider(null, null),
+                "Constructor should reject null parameters");
     }
 
-    @Test
-    void shouldUseDefault() {
-        assertEquals(Node.DIV, anyComponent().resolveHtmlElement());
+    @Nested
+    @DisplayName("Tests for HTML element resolution")
+    class HtmlElementResolutionTests {
+
+        @Test
+        @DisplayName("Should use default HTML element when none is set")
+        void shouldUseDefaultElement() {
+            // Act & Assert
+            assertEquals(Node.DIV, anyComponent().resolveHtmlElement(),
+                    "Should use default DIV element when none is set");
+        }
+
+        @Test
+        @DisplayName("Should resolve custom HTML element when set")
+        void shouldResolveCustomElement() {
+            // Arrange
+            var underTest = anyComponent();
+
+            // Act
+            underTest.setHtmlElement(Node.NAV.getContent());
+
+            // Assert
+            assertEquals(Node.NAV, underTest.resolveHtmlElement(),
+                    "Should resolve to NAV element when set to NAV");
+        }
     }
 
-    @Test
-    void shouldResolveComponent() {
-        var underTest = anyComponent();
-        underTest.setHtmlElement(Node.NAV.getContent());
-        assertEquals(Node.NAV, underTest.resolveHtmlElement());
-    }
+    @Nested
+    @DisplayName("Tests for invalid HTML element handling")
+    class InvalidElementTests {
 
-    @Test
-    void shouldFailOnInvalidElement() {
-        var underTest = anyComponent();
-        underTest.setHtmlElement("boom");
-        assertThrows(IllegalArgumentException.class, underTest::resolveHtmlElement);
+        @Test
+        @DisplayName("Should throw IllegalArgumentException for invalid HTML element")
+        void shouldRejectInvalidElement() {
+            // Arrange
+            var underTest = anyComponent();
+            underTest.setHtmlElement("boom");
+
+            // Act & Assert
+            assertThrows(IllegalArgumentException.class, underTest::resolveHtmlElement,
+                    "Should reject invalid HTML element with IllegalArgumentException");
+        }
     }
 }

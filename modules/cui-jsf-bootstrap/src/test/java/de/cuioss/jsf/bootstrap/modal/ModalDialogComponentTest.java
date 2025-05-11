@@ -21,40 +21,95 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 @VerifyComponentProperties(of = {"closable", "footerKey", "footerValue", "headerKey", "headerValue", "size", "state",
         "style", "animation"})
+@DisplayName("Tests for ModalDialogComponent")
 class ModalDialogComponentTest extends AbstractComponentTest<ModalDialogComponent> {
 
-    @Test
-    void shouldProvideCorrectMetadata() {
-        assertEquals(BootstrapFamily.MODAL_DIALOG_COMPONENT_RENDERER, anyComponent().getRendererType());
-        assertEquals(BootstrapFamily.COMPONENT_FAMILY, anyComponent().getFamily());
+    @Nested
+    @DisplayName("Tests for component metadata")
+    class ComponentMetadataTests {
+
+        @Test
+        @DisplayName("Should provide correct renderer type and component family")
+        void shouldProvideCorrectMetadata() {
+            // Arrange
+            var component = anyComponent();
+
+            // Act & Assert
+            assertEquals(BootstrapFamily.MODAL_DIALOG_COMPONENT_RENDERER, component.getRendererType(),
+                    "Renderer type should be MODAL_DIALOG_COMPONENT_RENDERER");
+            assertEquals(BootstrapFamily.COMPONENT_FAMILY, component.getFamily(),
+                    "Component family should be COMPONENT_FAMILY");
+        }
     }
 
-    @Test
-    void shouldHandleStyleClass() {
-        var component = anyComponent();
-        assertEquals("modal modal-default", component.getStyleClass());
-        component.setSize("fluid");
-        assertEquals("modal modal-default", component.getStyleClass());
-        component.setStyleClass("someStyleClass");
-        assertEquals("modal modal-default someStyleClass", component.getStyleClass());
-        component.setAnimation("fade");
-        assertEquals("modal modal-default fade someStyleClass", component.getStyleClass());
+    @Nested
+    @DisplayName("Tests for style class handling")
+    class StyleClassTests {
+
+        @Test
+        @DisplayName("Should handle style class with various configurations")
+        void shouldHandleStyleClassWithVariousConfigurations() {
+            // Arrange
+            var component = anyComponent();
+
+            // Act & Assert - Default style class
+            assertEquals("modal modal-default", component.getStyleClass(),
+                    "Default style class should be 'modal modal-default'");
+
+            // Act - Set size
+            component.setSize("fluid");
+
+            // Assert - Size should not affect style class
+            assertEquals("modal modal-default", component.getStyleClass(),
+                    "Size 'fluid' should not affect style class");
+
+            // Act - Set custom style class
+            component.setStyleClass("someStyleClass");
+
+            // Assert - Custom style class should be appended
+            assertEquals("modal modal-default someStyleClass", component.getStyleClass(),
+                    "Custom style class should be appended");
+
+            // Act - Set animation
+            component.setAnimation("fade");
+
+            // Assert - Animation should be included in style class
+            assertEquals("modal modal-default fade someStyleClass", component.getStyleClass(),
+                    "Animation 'fade' should be included in style class");
+        }
     }
 
-    @Test
-    void shouldFailOnUnsetId() {
-        var component = anyComponent();
-        assertThrows(IllegalArgumentException.class, component::resolveDialogId);
-    }
+    @Nested
+    @DisplayName("Tests for dialog ID resolution")
+    class DialogIdTests {
 
-    @Test
-    void shouldResolveToId() {
-        var component = anyComponent();
-        component.setId("dialogid");
-        assertEquals("dialogid", component.resolveDialogId());
+        @Test
+        @DisplayName("Should throw exception when ID is not set")
+        void shouldThrowExceptionWhenIdIsNotSet() {
+            // Arrange
+            var component = anyComponent();
+
+            // Act & Assert
+            assertThrows(IllegalArgumentException.class, component::resolveDialogId,
+                    "Should throw IllegalArgumentException when ID is not set");
+        }
+
+        @Test
+        @DisplayName("Should resolve dialog ID to component ID")
+        void shouldResolveDialogIdToComponentId() {
+            // Arrange
+            var component = anyComponent();
+            component.setId("dialogid");
+
+            // Act & Assert
+            assertEquals("dialogid", component.resolveDialogId(),
+                    "Dialog ID should resolve to component ID");
+        }
     }
 }

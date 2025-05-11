@@ -21,15 +21,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import de.cuioss.jsf.api.application.navigation.NavigationUtils;
 import de.cuioss.jsf.api.common.view.ViewDescriptor;
 import de.cuioss.jsf.api.common.view.ViewDescriptorImpl;
-import de.cuioss.test.jsf.config.ApplicationConfigurator;
-import de.cuioss.test.jsf.config.RequestConfigurator;
 import de.cuioss.test.jsf.config.decorator.ApplicationConfigDecorator;
 import de.cuioss.test.jsf.config.decorator.RequestConfigDecorator;
-import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
+import jakarta.faces.context.FacesContext;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-class OutcomeBasedViewMatcherTest extends JsfEnabledTestEnvironment
-        implements ApplicationConfigurator, RequestConfigurator {
+@EnableJsfEnvironment
+@DisplayName("Tests for OutcomeBasedViewMatcher")
+class OutcomeBasedViewMatcherTest {
 
     private static final String CONTEXT_PATH = "contextPath";
 
@@ -38,29 +41,45 @@ class OutcomeBasedViewMatcherTest extends JsfEnabledTestEnvironment
 
     private static final String OUTCOME_HOME = "home";
 
-    /** The home navigation view */
+    /** The navigated view */
     private static final String VIEW_NAVIGATED = "/portal/navigated.jsf";
 
     private static final String OUTCOME_NAVIGATED = "navigate";
 
-    @Override
-    public void configureApplication(final ApplicationConfigDecorator decorator) {
-        decorator.registerNavigationCase(OUTCOME_HOME, VIEW_HOME)
+    @BeforeEach
+    void setUp(ApplicationConfigDecorator applicationConfig, RequestConfigDecorator requestConfig) {
+        applicationConfig.registerNavigationCase(OUTCOME_HOME, VIEW_HOME)
                 .registerNavigationCase(OUTCOME_NAVIGATED, VIEW_NAVIGATED).setContextPath(CONTEXT_PATH);
+        requestConfig.setViewId(VIEW_HOME);
     }
 
-    @Override
-    public void configureRequest(final RequestConfigDecorator decorator) {
-        decorator.setViewId(VIEW_HOME);
-    }
+    @Nested
+    @DisplayName("Tests for match method")
+    class MatchTests {
 
-    @Test
-    void shouldHandleRegisteredView() {
-        var matcher = new OutcomeBasedViewMatcher(OUTCOME_HOME);
-        var current = NavigationUtils.getCurrentView(getFacesContext());
-        assertTrue(matcher.match(current));
-        assertTrue(matcher.match(current));
-        ViewDescriptor navigate = ViewDescriptorImpl.builder().withLogicalViewId(VIEW_NAVIGATED).build();
-        assertFalse(matcher.match(navigate));
+        @Test
+        @DisplayName("Should correctly match views based on outcome")
+        void shouldMatchViewsBasedOnOutcome(FacesContext facesContext) {
+            // Arrange
+            var matcher = new OutcomeBasedViewMatcher(OUTCOME_HOME);
+            var current = NavigationUtils.getCurrentView(facesContext);
+
+            // Act & Assert - should match current view with home outcome
+            assertTrue(matcher.match(current),
+                    "Matcher should match view with the same outcome");
+
+            // Act & Assert - verify consistent matching behavior
+            assertTrue(matcher.match(current),
+                    "Matcher should consistently match the same view");
+
+            // Arrange - create a different view
+            ViewDescriptor navigate = ViewDescriptorImpl.builder()
+                    .withLogicalViewId(VIEW_NAVIGATED)
+                    .build();
+
+            // Act & Assert - should not match different view
+            assertFalse(matcher.match(navigate),
+                    "Matcher should not match view with different outcome");
+        }
     }
 }

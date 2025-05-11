@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.components.selection;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
 import de.cuioss.test.valueobjects.util.IdentityResourceBundle;
@@ -23,16 +25,13 @@ import jakarta.faces.model.SelectItem;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.TreeSet;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+@DisplayName("Tests for LabeledEnumSelectMenuModel")
 class LabeledEnumSelectMenuModelTest extends AbstractConverterTest<LabeledEnumSelectMenuModel<TestEnum>, TestEnum> {
 
     @Getter
@@ -43,44 +42,82 @@ class LabeledEnumSelectMenuModelTest extends AbstractConverterTest<LabeledEnumSe
 
     @Override
     @BeforeEach
-    public void initConverter() {
+    @DisplayName("Initialize converter for testing")
+    protected void initConverter() {
+        // Arrange & Act
         converter = new LabeledEnumSelectMenuModel<>(TestEnum.class, new IdentityResourceBundle());
         testItems = new TestItems<>();
         populate(testItems);
     }
 
-    @Test
-    void shouldConstructCorrectly() {
-        assertNotNull(converter.getSelectableValues());
-        assertEquals(3, converter.getSelectableValues().size());
+    @Nested
+    @DisplayName("Construction tests")
+    class ConstructionTests {
+
+        @Test
+        @DisplayName("Should construct with correct selectable values")
+        void shouldConstructCorrectly() {
+            // Arrange & Act already done in initConverter
+
+            // Assert
+            assertNotNull(converter.getSelectableValues());
+            assertEquals(3, converter.getSelectableValues().size());
+        }
     }
 
-    @Test
-    void shouldProvideCorrectTranslations() {
-        final var expected = new TreeSet<String>();
-        for (final TestEnum testEnum : TestEnum.values()) {
-            expected.add(testEnum.getLabelKey());
+    @Nested
+    @DisplayName("Translation tests")
+    class TranslationTests {
+
+        @Test
+        @DisplayName("Should provide correct translations for enum values")
+        void shouldProvideCorrectTranslations() {
+            // Arrange
+            final var expected = new TreeSet<String>();
+            for (final TestEnum testEnum : TestEnum.values()) {
+                expected.add(testEnum.getLabelKey());
+            }
+
+            // Act
+            final var actual = new TreeSet<String>();
+            for (final SelectItem selectItem : converter.getSelectableValues()) {
+                actual.add(selectItem.getLabel());
+            }
+
+            // Assert
+            assertEquals(expected, actual);
         }
-        final var actual = new TreeSet<String>();
-        for (final SelectItem selectItem : converter.getSelectableValues()) {
-            actual.add(selectItem.getLabel());
-        }
-        assertEquals(expected, actual);
     }
 
-    @Test
-    void shouldSelectProperly() {
-        assertNull(converter.getSelectedValue());
-        assertFalse(converter.isValueSelected());
-        converter.setSelectedValue(TestEnum.DAY);
-        assertTrue(converter.isValueSelected());
-        assertEquals(TestEnum.DAY, converter.getSelectedValue());
-        converter.processValueChange(new ValueChangeEvent(getComponent(), TestEnum.DAY, TestEnum.MONTH));
-        assertEquals(TestEnum.MONTH, converter.getSelectedValue());
+    @Nested
+    @DisplayName("Selection tests")
+    class SelectionTests {
+
+        @Test
+        @DisplayName("Should handle selection and value changes properly")
+        void shouldSelectProperly() {
+            // Arrange & Assert initial state
+            assertNull(converter.getSelectedValue());
+            assertFalse(converter.isValueSelected());
+
+            // Act & Assert - set selected value
+            converter.setSelectedValue(TestEnum.DAY);
+            assertTrue(converter.isValueSelected());
+            assertEquals(TestEnum.DAY, converter.getSelectedValue());
+
+            // Act & Assert - process value change
+            converter.processValueChange(new ValueChangeEvent(getComponent(), TestEnum.DAY, TestEnum.MONTH));
+            assertEquals(TestEnum.MONTH, converter.getSelectedValue());
+        }
     }
 
     @Override
+    @DisplayName("Populate test items for enum conversion")
     public void populate(final TestItems<TestEnum> testItems) {
-        testItems.addRoundtripValues(TestEnum.DAY.toString(), TestEnum.MONTH.toString(), TestEnum.YEAR.toString());
+        // Add valid enum values for roundtrip testing
+        testItems.addRoundtripValues(
+                TestEnum.DAY.toString(),
+                TestEnum.MONTH.toString(),
+                TestEnum.YEAR.toString());
     }
 }

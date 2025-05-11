@@ -18,8 +18,11 @@ package de.cuioss.jsf.dev.metadata.composite.attributes;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for AttributePropertyWrapper")
 class AttributePropertyWrapperTest extends AbstractPropertyWrapperTest<AttributePropertyWrapper> {
 
     @Override
@@ -27,13 +30,39 @@ class AttributePropertyWrapperTest extends AbstractPropertyWrapperTest<Attribute
         return new AttributePropertyWrapper(featureDescriptorGenerator.next());
     }
 
-    @Test
-    void shouldBeProperType() {
-        assertEquals(PropertyType.ATTRIBUTE, getUnderTest().getPropertyType());
+    @Nested
+    @DisplayName("Property Type Tests")
+    class PropertyTypeTests {
+
+        @Test
+        @DisplayName("Should return ATTRIBUTE as property type")
+        void shouldBeProperType() {
+            // Arrange
+            var wrapper = getUnderTest();
+
+            // Act
+            var propertyType = wrapper.getPropertyType();
+
+            // Assert
+            assertEquals(PropertyType.ATTRIBUTE, propertyType);
+        }
     }
 
-    @Test
-    void shouldReturnDescriptors() {
-        assertNotNull(getUnderTest().getAdvancedMetaData());
+    @Nested
+    @DisplayName("Metadata Tests")
+    class MetadataTests {
+
+        @Test
+        @DisplayName("Should return non-null advanced metadata")
+        void shouldReturnDescriptors() {
+            // Arrange
+            var wrapper = getUnderTest();
+
+            // Act
+            var metadata = wrapper.getAdvancedMetaData();
+
+            // Assert
+            assertNotNull(metadata);
+        }
     }
 }

@@ -20,35 +20,78 @@ import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
 import lombok.experimental.UtilityClass;
 
+/**
+ * Utility class providing helper methods for component testing,
+ * particularly for testing partial rendering scenarios.
+ */
 @UtilityClass
 public final class ComponentTestUtils {
 
     /**
-     * @return {@link HtmlTreeBuilder} configured in a way that partial rendering
-     *         can be tested. It defines three direct children: one div(header), a
-     *         childBreakpoint with some content that should never be rendered and
-     *         another div(footer).
+     * Creates a simple HTML tree structure for testing partial rendering.
+     * 
+     * <p>The structure consists of three direct children:
+     * <ol>
+     *   <li>A div element with name="header"</li>
+     *   <li>A child breakpoint element (which should never be rendered in partial rendering tests)</li>
+     *   <li>A div element with name="footer"</li>
+     * </ol>
+     * 
+     * <p>This structure allows testing of partial rendering where only the elements
+     * before or after the breakpoint should be rendered.
+     * 
+     * @return {@link HtmlTreeBuilder} configured for simple partial rendering tests
      */
     public static HtmlTreeBuilder createSimplePartialRenderBuilder() {
-        final var builder = new HtmlTreeBuilder().withNode(Node.DIV).withAttribute(AttributeName.NAME, "header");
-        builder.currentHierarchyUp().withNodeChildBreakpoint().withNode(Node.DIV)
-                .withAttribute(AttributeName.NAME, "DoNotRender").currentHierarchyUp();
-        builder.currentHierarchyUp().withNode(Node.DIV).withAttribute(AttributeName.NAME, "footer");
+        final var builder = new HtmlTreeBuilder()
+                .withNode(Node.DIV)
+                .withAttribute(AttributeName.NAME, "header");
+
+        builder.currentHierarchyUp()
+                .withNodeChildBreakpoint()
+                .withNode(Node.DIV)
+                .withAttribute(AttributeName.NAME, "DoNotRender")
+                .currentHierarchyUp();
+
+        builder.currentHierarchyUp()
+                .withNode(Node.DIV)
+                .withAttribute(AttributeName.NAME, "footer");
+
         return builder;
     }
 
     /**
-     * @return {@link HtmlTreeBuilder} configured in a way that partial rendering
-     *         can be tested. It defines a sourround div (wrapper) with three
-     *         children: one div(header), a childBreakpoint with some content that
-     *         should never be rendered and another div(footer).
+     * Creates a wrapped HTML tree structure for testing partial rendering.
+     * 
+     * <p>The structure consists of a wrapper div containing three children:
+     * <ol>
+     *   <li>A div element with name="header"</li>
+     *   <li>A child breakpoint element (which should never be rendered in partial rendering tests)</li>
+     *   <li>A div element with name="footer"</li>
+     * </ol>
+     * 
+     * <p>This structure allows testing of partial rendering where only the elements
+     * before or after the breakpoint should be rendered, all within a containing wrapper.
+     * 
+     * @return {@link HtmlTreeBuilder} configured for wrapped partial rendering tests
      */
     public static HtmlTreeBuilder createWrappedPartialRenderBuilder() {
-        final var builder = new HtmlTreeBuilder().withNode(Node.DIV).withAttribute(AttributeName.NAME, "wrapper")
-                .withNode(Node.DIV).withAttribute(AttributeName.NAME, "header");
-        builder.currentHierarchyUp().withNodeChildBreakpoint().withNode(Node.DIV)
-                .withAttribute(AttributeName.NAME, "DoNotRender").currentHierarchyUp();
-        builder.currentHierarchyUp().withNode(Node.DIV).withAttribute(AttributeName.NAME, "footer");
+        final var builder = new HtmlTreeBuilder()
+                .withNode(Node.DIV)
+                .withAttribute(AttributeName.NAME, "wrapper")
+                .withNode(Node.DIV)
+                .withAttribute(AttributeName.NAME, "header");
+
+        builder.currentHierarchyUp()
+                .withNodeChildBreakpoint()
+                .withNode(Node.DIV)
+                .withAttribute(AttributeName.NAME, "DoNotRender")
+                .currentHierarchyUp();
+
+        builder.currentHierarchyUp()
+                .withNode(Node.DIV)
+                .withAttribute(AttributeName.NAME, "footer");
+
         return builder;
     }
 }

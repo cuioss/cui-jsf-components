@@ -18,14 +18,17 @@ package de.cuioss.jsf.api.application.navigation;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 import static org.junit.jupiter.api.Assertions.*;
 
-import de.cuioss.test.jsf.config.ApplicationConfigurator;
-import de.cuioss.test.jsf.config.RequestConfigurator;
 import de.cuioss.test.jsf.config.decorator.ApplicationConfigDecorator;
 import de.cuioss.test.jsf.config.decorator.RequestConfigDecorator;
-import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import de.cuioss.tools.net.UrlParameter;
+import jakarta.faces.application.Application;
+import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.test.mock.MockHttpServletResponse;
 import org.apache.myfaces.test.mock.MockNavigationHandler;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
@@ -33,7 +36,9 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
-class NavigationUtilsTest extends JsfEnabledTestEnvironment implements ApplicationConfigurator, RequestConfigurator {
+@EnableJsfEnvironment
+@DisplayName("Tests for NavigationUtils")
+class NavigationUtilsTest {
 
     private static final String CUIOSS_DE = "http://cuioss.de/index.html";
 
@@ -46,155 +51,6 @@ class NavigationUtilsTest extends JsfEnabledTestEnvironment implements Applicati
     private static final String SOMEWHERE_JSF = "/somewhere.jsf";
 
     private static final String CONTEXT_PATH = "contextPath";
-
-    private final List<UrlParameter> parameters = immutableList(new UrlParameter(PARAM_NAME, PARAM_VALUE));
-
-    @Test
-    void errorHandlingOnMissingUrl() {
-        assertThrows(IllegalArgumentException.class,
-                () -> NavigationUtils.sendRedirect(getFacesContext(), null, false));
-    }
-
-    @Test
-    void errorHandlingOnEmptyUrl() {
-        assertThrows(IllegalArgumentException.class, () -> NavigationUtils.sendRedirect(getFacesContext(), "", false));
-    }
-
-    @Test
-    void errorHandlingOnMissingFacesContext() {
-        assertThrows(NullPointerException.class, () -> NavigationUtils.sendRedirect(null, "somewhere", false));
-    }
-
-    private void verifyRedirect(final String expected) {
-        assertEquals(expected,
-                ((MockHttpServletResponse) getFacesContext().getExternalContext().getResponse()).getMessage(),
-                "RedirectedUrl is wrong. ");
-    }
-
-    @Test
-    void sendRedirect() {
-        NavigationUtils.sendRedirect(getFacesContext(), SOMEWHERE_JSF, false);
-        verifyRedirect(CONTEXT_PATH + SOMEWHERE_JSF);
-    }
-
-    @Test
-    void sendRedirectWithUrl() throws MalformedURLException {
-        final var url = new URL(CUIOSS_DE);
-        NavigationUtils.executeRedirect(url);
-        verifyRedirect("/index.html");
-    }
-
-    @Test
-    void sendRedirectWithUrlParameter() {
-        NavigationUtils.sendRedirectParameterList(getFacesContext(), SOMEWHERE_JSF, parameters);
-        verifyRedirect(CONTEXT_PATH + SOMEWHERE_JSF + UrlParameter.createParameterString(parameters.get(0)));
-    }
-
-    @Test
-    void shouldSendRedirectOutcomeParameterList() {
-        NavigationUtils.sendRedirectOutcomeParameterList(getFacesContext(), OUTCOME_NAVIGATED, parameters);
-        verifyRedirect(CONTEXT_PATH + VIEW_NAVIGATED + UrlParameter.createParameterString(parameters.get(0)));
-    }
-
-    @Test
-    void sendRedirectWithEmptyUrlParameter() {
-        NavigationUtils.sendRedirectParameterList(getFacesContext(), SOMEWHERE_JSF, Collections.emptyList());
-        verifyRedirect(CONTEXT_PATH + SOMEWHERE_JSF);
-        assertTrue(getFacesContext().getResponseComplete(),
-                "After redirect a Signal to FacesContext must be set, that request processing lifecycle should be terminated.");
-    }
-
-    @Test
-    void sendRedirectOnAjax() {
-        getFacesContext().getPartialViewContext().setPartialRequest(true);
-        NavigationUtils.sendRedirect(getFacesContext(), SOMEWHERE_JSF, false);
-        verifyRedirect(CONTEXT_PATH + SOMEWHERE_JSF);
-    }
-
-    @Test
-    void sendNoRedirect() {
-        final var urlOne = "/somewhere";
-        final var urlTwo = "/somewhereelse";
-        NavigationUtils.sendRedirect(getFacesContext(), urlOne, false);
-        verifyRedirect(CONTEXT_PATH + urlOne);
-        NavigationUtils.sendRedirect(getFacesContext(), urlTwo, false);
-        verifyRedirect(CONTEXT_PATH + urlOne);
-    }
-
-    @Test
-    void shouldCreateViewDescriptor() {
-        // First fallback with nothing set
-        var descriptor = NavigationUtils.getCurrentView(getFacesContext());
-        assertNotNull(descriptor);
-        assertEquals(VIEW_HOME, descriptor.getViewId());
-        assertEquals(VIEW_HOME, descriptor.getLogicalViewId());
-        assertTrue(descriptor.getUrlParameter().isEmpty());
-        getFacesContext().getViewRoot().setViewId(SOMEWHERE_XHTML);
-        getFacesContext().getViewRoot().setTransient(true);
-        getRequestConfigDecorator()
-                .setQueryString(UrlParameter.createParameterString(new UrlParameter(PARAM_NAME, PARAM_VALUE)));
-        descriptor = NavigationUtils.getCurrentView(getFacesContext());
-        assertEquals(SOMEWHERE_XHTML, descriptor.getViewId());
-        assertEquals(SOMEWHERE_JSF, descriptor.getLogicalViewId());
-        assertFalse(descriptor.getUrlParameter().isEmpty());
-        assertEquals(PARAM_NAME, descriptor.getUrlParameter().get(0).getName());
-        assertEquals(PARAM_VALUE, descriptor.getUrlParameter().get(0).getValue());
-    }
-
-    @Test
-    void shouldCreateViewDescriptorWithMultipleParameters() {
-        // First fallback with nothing set
-        var descriptor = NavigationUtils.getCurrentView(getFacesContext());
-        assertNotNull(descriptor);
-        assertEquals(VIEW_HOME, descriptor.getViewId());
-        assertEquals(VIEW_HOME, descriptor.getLogicalViewId());
-        assertTrue(descriptor.getUrlParameter().isEmpty());
-        getFacesContext().getViewRoot().setViewId(SOMEWHERE_XHTML);
-        getFacesContext().getViewRoot().setTransient(true);
-        getRequestConfigDecorator().setQueryString(UrlParameter.createParameterString(
-                new UrlParameter(PARAM_NAME, PARAM_VALUE), new UrlParameter("param-name1", ""),
-                new UrlParameter("param-name2", null),
-                new UrlParameter("param-name-%C3%A4%C3%B6%C3%BC", "value%20%C3%A4%C3%B6%C3%BC-*%2F%3F%2F%3D", false)));
-        descriptor = NavigationUtils.getCurrentView(getFacesContext());
-        assertEquals(SOMEWHERE_XHTML, descriptor.getViewId());
-        assertEquals(SOMEWHERE_JSF, descriptor.getLogicalViewId());
-        assertFalse(descriptor.getUrlParameter().isEmpty());
-        assertEquals(PARAM_NAME, descriptor.getUrlParameter().get(0).getName());
-        assertEquals(PARAM_VALUE, descriptor.getUrlParameter().get(0).getValue());
-        assertEquals("param-name1", descriptor.getUrlParameter().get(1).getName());
-        assertNull(descriptor.getUrlParameter().get(1).getValue());
-        assertEquals("param-name2", descriptor.getUrlParameter().get(2).getName());
-        assertNull(descriptor.getUrlParameter().get(2).getValue());
-        assertEquals("param-name-äöü", descriptor.getUrlParameter().get(3).getName());
-        assertEquals("value äöü-*/?/=", descriptor.getUrlParameter().get(3).getValue());
-    }
-
-    @Test
-    void shouldLookupToViewId() {
-        assertEquals(VIEW_HOME, NavigationUtils.lookUpToViewIdBy(getFacesContext(), OUTCOME_HOME));
-    }
-
-    @Test
-    void shouldFailToLookupToViewId() {
-        assertThrows(IllegalStateException.class,
-                () -> NavigationUtils.lookUpToViewIdBy(getFacesContext(), CONTEXT_PATH));
-    }
-
-    /**
-     * In case of an invalid configuration: No ConfigurableNavigationHandler
-     * present.
-     */
-    @Test
-    void shouldFailToLookupToViewIdWrongHandler() {
-        getApplication().setNavigationHandler(new MockNavigationHandler());
-        assertThrows(IllegalStateException.class,
-                () -> NavigationUtils.lookUpToViewIdBy(getFacesContext(), OUTCOME_HOME));
-    }
-
-    @Test
-    void shouldFailToExtractRequestUri() {
-        assertNull(NavigationUtils.extractRequestUri("No servlet request"));
-    }
 
     /**
      * The home navigation view
@@ -210,14 +66,270 @@ class NavigationUtilsTest extends JsfEnabledTestEnvironment implements Applicati
 
     private static final String OUTCOME_NAVIGATED = "navigate";
 
-    @Override
-    public void configureApplication(final ApplicationConfigDecorator decorator) {
-        decorator.registerNavigationCase(OUTCOME_HOME, VIEW_HOME)
-                .registerNavigationCase(OUTCOME_NAVIGATED, VIEW_NAVIGATED).setContextPath(CONTEXT_PATH);
+    private final List<UrlParameter> parameters = immutableList(new UrlParameter(PARAM_NAME, PARAM_VALUE));
+
+    @Nested
+    @DisplayName("Tests for error handling")
+    class ErrorHandlingTests {
+
+        @Test
+        @DisplayName("Should throw exception on missing URL")
+        void shouldThrowExceptionOnMissingUrl(FacesContext facesContext) {
+            // Act & Assert
+            assertThrows(IllegalArgumentException.class,
+                    () -> NavigationUtils.sendRedirect(facesContext, null, false),
+                    "Should throw IllegalArgumentException for null URL");
+        }
+
+        @Test
+        @DisplayName("Should throw exception on empty URL")
+        void shouldThrowExceptionOnEmptyUrl(FacesContext facesContext) {
+            // Act & Assert
+            assertThrows(IllegalArgumentException.class,
+                    () -> NavigationUtils.sendRedirect(facesContext, "", false),
+                    "Should throw IllegalArgumentException for empty URL");
+        }
+
+        @Test
+        @DisplayName("Should throw exception on missing FacesContext")
+        void shouldThrowExceptionOnMissingFacesContext() {
+            // Act & Assert
+            assertThrows(NullPointerException.class,
+                    () -> NavigationUtils.sendRedirect(null, "somewhere", false),
+                    "Should throw NullPointerException for null FacesContext");
+        }
+
+        @Test
+        @DisplayName("Should fail to lookup view ID with invalid outcome")
+        void shouldFailToLookupViewId(FacesContext facesContext) {
+            // Act & Assert
+            assertThrows(IllegalStateException.class,
+                    () -> NavigationUtils.lookUpToViewIdBy(facesContext, CONTEXT_PATH),
+                    "Should throw IllegalStateException for invalid outcome");
+        }
+
+        @Test
+        @DisplayName("Should fail to lookup view ID with wrong navigation handler")
+        void shouldFailToLookupViewIdWithWrongHandler(FacesContext facesContext, Application application) {
+            // Arrange
+            application.setNavigationHandler(new MockNavigationHandler());
+
+            // Act & Assert
+            assertThrows(IllegalStateException.class,
+                    () -> NavigationUtils.lookUpToViewIdBy(facesContext, OUTCOME_HOME),
+                    "Should throw IllegalStateException when ConfigurableNavigationHandler is not present");
+        }
+
+        @Test
+        @DisplayName("Should return null when extracting request URI from non-servlet request")
+        void shouldReturnNullWhenExtractingRequestUriFromNonServletRequest() {
+            // Act & Assert
+            assertNull(NavigationUtils.extractRequestUri("No servlet request"),
+                    "Should return null for non-servlet request");
+        }
     }
 
-    @Override
-    public void configureRequest(final RequestConfigDecorator decorator) {
-        decorator.setViewId(VIEW_HOME);
+    private void verifyRedirect(final String expected, FacesContext facesContext) {
+        assertEquals(expected,
+                ((MockHttpServletResponse) facesContext.getExternalContext().getResponse()).getMessage(),
+                "RedirectedUrl is wrong. ");
+    }
+
+    @Nested
+    @DisplayName("Tests for redirect functionality")
+    class RedirectTests {
+
+        @Test
+        @DisplayName("Should send redirect to specified URL")
+        void shouldSendRedirect(FacesContext facesContext) {
+            // Act
+            NavigationUtils.sendRedirect(facesContext, SOMEWHERE_JSF, false);
+
+            // Assert
+            verifyRedirect(CONTEXT_PATH + SOMEWHERE_JSF, facesContext);
+        }
+
+        @Test
+        @DisplayName("Should send redirect with URL object")
+        void shouldSendRedirectWithUrl(FacesContext facesContext) throws MalformedURLException {
+            // Arrange
+            final var url = new URL(CUIOSS_DE);
+
+            // Act
+            NavigationUtils.executeRedirect(url);
+
+            // Assert
+            verifyRedirect("/index.html", facesContext);
+        }
+
+        @Test
+        @DisplayName("Should send redirect with URL parameters")
+        void shouldSendRedirectWithUrlParameters(FacesContext facesContext) {
+            // Act
+            NavigationUtils.sendRedirectParameterList(facesContext, SOMEWHERE_JSF, parameters);
+
+            // Assert
+            verifyRedirect(CONTEXT_PATH + SOMEWHERE_JSF + UrlParameter.createParameterString(parameters.get(0)),
+                    facesContext);
+        }
+
+        @Test
+        @DisplayName("Should send redirect with outcome and URL parameters")
+        void shouldSendRedirectWithOutcomeAndParameters(FacesContext facesContext) {
+            // Act
+            NavigationUtils.sendRedirectOutcomeParameterList(facesContext, OUTCOME_NAVIGATED, parameters);
+
+            // Assert
+            verifyRedirect(CONTEXT_PATH + VIEW_NAVIGATED + UrlParameter.createParameterString(parameters.get(0)),
+                    facesContext);
+        }
+
+        @Test
+        @DisplayName("Should send redirect with empty URL parameters")
+        void shouldSendRedirectWithEmptyUrlParameters(FacesContext facesContext) {
+            // Act
+            NavigationUtils.sendRedirectParameterList(facesContext, SOMEWHERE_JSF, Collections.emptyList());
+
+            // Assert
+            verifyRedirect(CONTEXT_PATH + SOMEWHERE_JSF, facesContext);
+            assertTrue(facesContext.getResponseComplete(),
+                    "After redirect a Signal to FacesContext must be set, that request processing lifecycle should be terminated.");
+        }
+
+        @Test
+        @DisplayName("Should send redirect on AJAX request")
+        void shouldSendRedirectOnAjaxRequest(FacesContext facesContext) {
+            // Arrange
+            facesContext.getPartialViewContext().setPartialRequest(true);
+
+            // Act
+            NavigationUtils.sendRedirect(facesContext, SOMEWHERE_JSF, false);
+
+            // Assert
+            verifyRedirect(CONTEXT_PATH + SOMEWHERE_JSF, facesContext);
+        }
+
+        @Test
+        @DisplayName("Should not send second redirect after first one")
+        void shouldNotSendSecondRedirect(FacesContext facesContext) {
+            // Arrange
+            final var urlOne = "/somewhere";
+            final var urlTwo = "/somewhereelse";
+
+            // Act - first redirect
+            NavigationUtils.sendRedirect(facesContext, urlOne, false);
+
+            // Assert - first redirect successful
+            verifyRedirect(CONTEXT_PATH + urlOne, facesContext);
+
+            // Act - attempt second redirect
+            NavigationUtils.sendRedirect(facesContext, urlTwo, false);
+
+            // Assert - still shows first redirect
+            verifyRedirect(CONTEXT_PATH + urlOne, facesContext);
+        }
+    }
+
+    @Nested
+    @DisplayName("Tests for view descriptor functionality")
+    class ViewDescriptorTests {
+
+        @Test
+        @DisplayName("Should create view descriptor with default values")
+        void shouldCreateViewDescriptorWithDefaults(FacesContext facesContext) {
+            // Act
+            var descriptor = NavigationUtils.getCurrentView(facesContext);
+
+            // Assert
+            assertNotNull(descriptor, "View descriptor should not be null");
+            assertEquals(VIEW_HOME, descriptor.getViewId(), "View ID should match home view");
+            assertEquals(VIEW_HOME, descriptor.getLogicalViewId(), "Logical view ID should match home view");
+            assertTrue(descriptor.getUrlParameter().isEmpty(), "URL parameters should be empty");
+        }
+
+        @Test
+        @DisplayName("Should create view descriptor with view ID and parameters")
+        void shouldCreateViewDescriptorWithViewIdAndParameters(FacesContext facesContext,
+                RequestConfigDecorator requestConfigDecorator) {
+            // Arrange
+            facesContext.getViewRoot().setViewId(SOMEWHERE_XHTML);
+            facesContext.getViewRoot().setTransient(true);
+            requestConfigDecorator
+                    .setQueryString(UrlParameter.createParameterString(new UrlParameter(PARAM_NAME, PARAM_VALUE)));
+
+            // Act
+            var descriptor = NavigationUtils.getCurrentView(facesContext);
+
+            // Assert
+            assertEquals(SOMEWHERE_XHTML, descriptor.getViewId(), "View ID should match set view");
+            assertEquals(SOMEWHERE_JSF, descriptor.getLogicalViewId(), "Logical view ID should be converted to JSF");
+            assertFalse(descriptor.getUrlParameter().isEmpty(), "URL parameters should not be empty");
+            assertEquals(PARAM_NAME, descriptor.getUrlParameter().get(0).getName(),
+                    "Parameter name should match");
+            assertEquals(PARAM_VALUE, descriptor.getUrlParameter().get(0).getValue(),
+                    "Parameter value should match");
+        }
+
+        @Test
+        @DisplayName("Should create view descriptor with multiple parameters")
+        void shouldCreateViewDescriptorWithMultipleParameters(FacesContext facesContext,
+                RequestConfigDecorator requestConfigDecorator) {
+            // Arrange
+            facesContext.getViewRoot().setViewId(SOMEWHERE_XHTML);
+            facesContext.getViewRoot().setTransient(true);
+            requestConfigDecorator.setQueryString(UrlParameter.createParameterString(
+                    new UrlParameter(PARAM_NAME, PARAM_VALUE), new UrlParameter("param-name1", ""),
+                    new UrlParameter("param-name2", null),
+                    new UrlParameter("param-name-%C3%A4%C3%B6%C3%BC", "value%20%C3%A4%C3%B6%C3%BC-*%2F%3F%2F%3D", false)));
+
+            // Act
+            var descriptor = NavigationUtils.getCurrentView(facesContext);
+
+            // Assert
+            assertEquals(SOMEWHERE_XHTML, descriptor.getViewId(), "View ID should match set view");
+            assertEquals(SOMEWHERE_JSF, descriptor.getLogicalViewId(), "Logical view ID should be converted to JSF");
+            assertFalse(descriptor.getUrlParameter().isEmpty(), "URL parameters should not be empty");
+
+            // Verify first parameter
+            assertEquals(PARAM_NAME, descriptor.getUrlParameter().get(0).getName(),
+                    "First parameter name should match");
+            assertEquals(PARAM_VALUE, descriptor.getUrlParameter().get(0).getValue(),
+                    "First parameter value should match");
+
+            // Verify second parameter
+            assertEquals("param-name1", descriptor.getUrlParameter().get(1).getName(),
+                    "Second parameter name should match");
+            assertNull(descriptor.getUrlParameter().get(1).getValue(),
+                    "Second parameter value should be null");
+
+            // Verify third parameter
+            assertEquals("param-name2", descriptor.getUrlParameter().get(2).getName(),
+                    "Third parameter name should match");
+            assertNull(descriptor.getUrlParameter().get(2).getValue(),
+                    "Third parameter value should be null");
+
+            // Verify fourth parameter
+            assertEquals("param-name-äöü", descriptor.getUrlParameter().get(3).getName(),
+                    "Fourth parameter name should be properly decoded");
+            assertEquals("value äöü-*/?/=", descriptor.getUrlParameter().get(3).getValue(),
+                    "Fourth parameter value should be properly decoded");
+        }
+
+        @Test
+        @DisplayName("Should lookup view ID by outcome")
+        void shouldLookupViewIdByOutcome(FacesContext facesContext) {
+            // Act & Assert
+            assertEquals(VIEW_HOME, NavigationUtils.lookUpToViewIdBy(facesContext, OUTCOME_HOME),
+                    "Should return correct view ID for outcome");
+        }
+    }
+
+    // These tests have been moved to the ErrorHandlingTests nested class
+
+    @BeforeEach
+    void setUp(ApplicationConfigDecorator applicationConfig, RequestConfigDecorator requestConfig) {
+        applicationConfig.registerNavigationCase(OUTCOME_HOME, VIEW_HOME)
+                .registerNavigationCase(OUTCOME_NAVIGATED, VIEW_NAVIGATED).setContextPath(CONTEXT_PATH);
+        requestConfig.setViewId(VIEW_HOME);
     }
 }

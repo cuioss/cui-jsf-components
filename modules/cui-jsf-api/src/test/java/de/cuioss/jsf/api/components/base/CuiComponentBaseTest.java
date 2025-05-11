@@ -18,16 +18,38 @@ package de.cuioss.jsf.api.components.base;
 import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.jsf.component.AbstractComponentTest;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for CuiComponentBase")
 class CuiComponentBaseTest extends AbstractComponentTest<CuiComponentBase> {
 
-    @Test
-    void shouldActAsBridge() {
-        assertNotNull(anyComponent().facesContext());
-        assertNull(anyComponent().facet("notThere"));
-        assertNotNull(anyComponent().stateHelper());
-        assertEquals(CuiComponentBase.COMPONENT_FAMILY, anyComponent().getFamily());
-    }
+    @Nested
+    @DisplayName("Tests for bridge functionality")
+    class BridgeFunctionalityTests {
 
+        @Test
+        @DisplayName("Should provide access to JSF infrastructure")
+        void shouldProvideAccessToJsfInfrastructure() {
+            // Arrange
+            var component = anyComponent();
+
+            // Act & Assert - FacesContext access
+            assertNotNull(component.facesContext(),
+                    "Component should provide access to FacesContext");
+
+            // Act & Assert - Facet access
+            assertNull(component.facet("notThere"),
+                    "Component should return null for non-existent facet");
+
+            // Act & Assert - StateHelper access
+            assertNotNull(component.stateHelper(),
+                    "Component should provide access to StateHelper");
+
+            // Act & Assert - Component family
+            assertEquals(CuiComponentBase.COMPONENT_FAMILY, component.getFamily(),
+                    "Component should return the correct component family");
+        }
+    }
 }

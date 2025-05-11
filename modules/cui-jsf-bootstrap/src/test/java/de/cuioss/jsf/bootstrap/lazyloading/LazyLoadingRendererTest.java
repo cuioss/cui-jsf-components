@@ -27,19 +27,26 @@ import de.cuioss.jsf.bootstrap.notification.NotificationBoxComponent;
 import de.cuioss.jsf.bootstrap.notification.NotificationBoxRenderer;
 import de.cuioss.jsf.bootstrap.waitingindicator.WaitingIndicatorComponent;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
-import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
-import de.cuioss.uimodel.nameprovider.DisplayName;
 import jakarta.faces.component.html.HtmlOutputText;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.PostAddToViewEvent;
 import jakarta.servlet.http.HttpServletRequest;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
+/**
+ * Tests for {@link LazyLoadingRenderer}
+ */
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
-class LazyLoadingRendererTest extends AbstractComponentRendererTest<LazyLoadingRenderer>
-        implements ComponentConfigurator {
+@DisplayName("Tests for LazyLoadingRenderer")
+class LazyLoadingRendererTest extends AbstractComponentRendererTest<LazyLoadingRenderer> {
 
     private static final String DEFAULT_ID = "j_id__v_0";
 
@@ -48,61 +55,78 @@ class LazyLoadingRendererTest extends AbstractComponentRendererTest<LazyLoadingR
         return new LazyLoadingComponent();
     }
 
-    @Override
-    public void configureComponents(final ComponentConfigDecorator decorator) {
+    @BeforeEach
+    void setUp(ComponentConfigDecorator decorator) {
         decorator.registerUIComponent(NotificationBoxComponent.class).registerRenderer(NotificationBoxRenderer.class)
                 .registerConverter(DisplayNameConverter.class)
                 .registerMockRenderer(BootstrapFamily.COMPONENT_FAMILY, BootstrapFamily.WAITING_INDICATOR_RENDERER)
                 .registerUIComponent(WaitingIndicatorComponent.class);
     }
 
-    @Test
-    void shouldRenderMinimal() {
-        final var component = getComponent();
-        component.getClientId();
-        component.processEvent(new PostAddToViewEvent(component));
-        var expected = new HtmlTreeBuilder().withNode(Node.DIV).withAttributeNameAndId(DEFAULT_ID)
-                .withAttribute(LazyLoadingRenderer.DATA_WAITING_INDICATOR_ID, DEFAULT_ID + ":waitingIndicator")
-                .withStyleClass(CUI_LAZY_LOADING.getStyleClassBuilder().append(CssCuiBootstrap.UI_HIDDEN_CONTAINER))
-                .withAttribute("data-ignore-auto-update", "false").withAttribute("data-async", "false")
-                .withNode("WaitingIndicatorComponent").withAttributeNameAndId(DEFAULT_ID + ":waitingIndicator")
-                .withAttribute("style", "display: block;");
-        assertRenderResult(component, expected.getDocument());
+    @Nested
+    @DisplayName("Tests for basic rendering")
+    class BasicRenderingTests {
+
+        @Test
+        @DisplayName("Should render minimal component correctly")
+        void shouldRenderMinimal(FacesContext facesContext) throws IOException {
+            // Arrange
+            final var component = getComponent();
+            component.getClientId();
+            component.processEvent(new PostAddToViewEvent(component));
+
+            // Act & Assert
+            var expected = new HtmlTreeBuilder().withNode(Node.DIV).withAttributeNameAndId(DEFAULT_ID)
+                    .withAttribute(LazyLoadingRenderer.DATA_WAITING_INDICATOR_ID, DEFAULT_ID + ":waitingIndicator")
+                    .withStyleClass(CUI_LAZY_LOADING.getStyleClassBuilder().append(CssCuiBootstrap.UI_HIDDEN_CONTAINER))
+                    .withAttribute("data-ignore-auto-update", "false").withAttribute("data-async", "false")
+                    .withNode("WaitingIndicatorComponent").withAttributeNameAndId(DEFAULT_ID + ":waitingIndicator")
+                    .withAttribute("style", "display: block;");
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
+
+        @Test
+        @DisplayName("Should render component with additional style class")
+        void shouldRenderAdditionalStyleClass(FacesContext facesContext) throws IOException {
+            // Arrange
+            final var component = getComponent();
+            var styleClass = "additiv";
+            component.setStyleClass(styleClass);
+            component.getClientId();
+            component.processEvent(new PostAddToViewEvent(component));
+
+            // Act & Assert
+            var expected = new HtmlTreeBuilder().withNode(Node.DIV).withAttributeNameAndId(DEFAULT_ID)
+                    .withAttribute(LazyLoadingRenderer.DATA_WAITING_INDICATOR_ID, DEFAULT_ID + ":waitingIndicator")
+                    .withStyleClass(CUI_LAZY_LOADING.getStyleClassBuilder().append(styleClass)
+                            .append(CssCuiBootstrap.UI_HIDDEN_CONTAINER))
+                    .withAttribute("data-ignore-auto-update", "false").withAttribute("data-async", "false")
+                    .withNode("WaitingIndicatorComponent").withAttributeNameAndId(DEFAULT_ID + ":waitingIndicator")
+                    .withAttribute("style", "display: block;");
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
+
+        @Test
+        @DisplayName("Should render spinner correctly")
+        void shouldRenderSpinner(FacesContext facesContext) throws IOException {
+            // Arrange
+            final var component = createComponentWithContent();
+            component.getClientId();
+            component.processEvent(new PostAddToViewEvent(component));
+
+            // Act & Assert
+            var expected = new HtmlTreeBuilder().withNode(Node.DIV).withAttributeNameAndId(DEFAULT_ID)
+                    .withAttribute(LazyLoadingRenderer.DATA_WAITING_INDICATOR_ID, DEFAULT_ID + ":waitingIndicator")
+                    .withStyleClass(CUI_LAZY_LOADING.getStyleClassBuilder().append(CssCuiBootstrap.UI_HIDDEN_CONTAINER))
+                    .withAttribute("data-ignore-auto-update", "false").withAttribute("data-async", "false")
+                    .withNode("WaitingIndicatorComponent").withAttributeNameAndId(DEFAULT_ID + ":waitingIndicator")
+                    .withAttribute("style", "display: block;");
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
     }
 
     @Test
-    void shouldRenderAdditionalStyleClass() {
-        final var component = getComponent();
-        var styleClass = "additiv";
-        component.setStyleClass(styleClass);
-        component.getClientId();
-        component.processEvent(new PostAddToViewEvent(component));
-        var expected = new HtmlTreeBuilder().withNode(Node.DIV).withAttributeNameAndId(DEFAULT_ID)
-                .withAttribute(LazyLoadingRenderer.DATA_WAITING_INDICATOR_ID, DEFAULT_ID + ":waitingIndicator")
-                .withStyleClass(CUI_LAZY_LOADING.getStyleClassBuilder().append(styleClass)
-                        .append(CssCuiBootstrap.UI_HIDDEN_CONTAINER))
-                .withAttribute("data-ignore-auto-update", "false").withAttribute("data-async", "false")
-                .withNode("WaitingIndicatorComponent").withAttributeNameAndId(DEFAULT_ID + ":waitingIndicator")
-                .withAttribute("style", "display: block;");
-        assertRenderResult(component, expected.getDocument());
-    }
-
-    @Test
-    void shouldRenderSpinner() {
-        final var component = createComponentWithContent();
-        component.getClientId();
-        component.processEvent(new PostAddToViewEvent(component));
-        var expected = new HtmlTreeBuilder().withNode(Node.DIV).withAttributeNameAndId(DEFAULT_ID)
-                .withAttribute(LazyLoadingRenderer.DATA_WAITING_INDICATOR_ID, DEFAULT_ID + ":waitingIndicator")
-                .withStyleClass(CUI_LAZY_LOADING.getStyleClassBuilder().append(CssCuiBootstrap.UI_HIDDEN_CONTAINER))
-                .withAttribute("data-ignore-auto-update", "false").withAttribute("data-async", "false")
-                .withNode("WaitingIndicatorComponent").withAttributeNameAndId(DEFAULT_ID + ":waitingIndicator")
-                .withAttribute("style", "display: block;");
-        assertRenderResult(component, expected.getDocument());
-    }
-
-    @Test
-    void shouldRenderContent() {
+    void shouldRenderContent(FacesContext facesContext) throws IOException {
         final var component = createComponentWithContent();
         component.getClientId();
         component.setInitialized(true);
@@ -116,14 +140,13 @@ class LazyLoadingRendererTest extends AbstractComponentRendererTest<LazyLoadingR
                 .withAttributeNameAndId(DEFAULT_ID + "_content").withNode(Node.SPAN).withTextContent("lazy loading...")
                 .currentHierarchyUp().currentHierarchyUp().withNode("WaitingIndicatorComponent")
                 .withAttributeNameAndId(DEFAULT_ID + ":waitingIndicator").withAttribute("style", "display: none;");
-        assertRenderResult(component, expected.getDocument());
+        assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderContentAfterDecode() {
+    void shouldRenderContentAfterDecode(FacesContext facesContext) throws IOException {
         final var component = createComponentWithContent();
         component.getClientId();
-        var facesContext = getFacesContext();
         facesContext.getViewRoot().getChildren().add(component);
         component.processEvent(new PostAddToViewEvent(component));
         ((HttpServletRequest) facesContext.getExternalContext().getRequest()).getParameterMap()
@@ -138,15 +161,15 @@ class LazyLoadingRendererTest extends AbstractComponentRendererTest<LazyLoadingR
                 .withAttributeNameAndId(DEFAULT_ID + "_content").withNode(Node.SPAN).withTextContent("lazy loading...")
                 .currentHierarchyUp().currentHierarchyUp().withNode("WaitingIndicatorComponent")
                 .withAttributeNameAndId(DEFAULT_ID + ":waitingIndicator").withAttribute("style", "display: none;");
-        assertRenderResult(component, expected.getDocument());
+        assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderNotificationBox() {
+    void shouldRenderNotificationBox(FacesContext facesContext) throws IOException {
         final var component = createComponentWithContent();
         component.getClientId();
         component.setInitialized(true);
-        component.setNotificationBoxValue(new DisplayName("Error"));
+        component.setNotificationBoxValue(new de.cuioss.uimodel.nameprovider.DisplayName("Error"));
         component.setRenderContent(false);
         component.processEvent(new PostAddToViewEvent(component));
         var expected = new HtmlTreeBuilder().withNode(Node.DIV).withAttributeNameAndId(DEFAULT_ID)
@@ -162,7 +185,7 @@ class LazyLoadingRendererTest extends AbstractComponentRendererTest<LazyLoadingR
                 .withTextContent("Error").currentHierarchyUp().currentHierarchyUp()
                 .withNode("WaitingIndicatorComponent").withAttributeNameAndId(DEFAULT_ID + ":waitingIndicator")
                 .withAttribute("style", "display: none;");
-        assertRenderResult(component, expected.getDocument());
+        assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
     private LazyLoadingComponent createComponentWithContent() {

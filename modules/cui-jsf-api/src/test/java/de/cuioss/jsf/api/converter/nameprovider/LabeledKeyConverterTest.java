@@ -23,11 +23,15 @@ import de.cuioss.jsf.api.EnableResourceBundleSupport;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import de.cuioss.uimodel.nameprovider.LabeledKey;
+import org.jboss.weld.junit5.ExplicitParamInjection;
 
+@EnableJsfEnvironment
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @EnableJSFCDIEnvironment
 @EnableResourceBundleSupport
+@ExplicitParamInjection
 class LabeledKeyConverterTest extends AbstractConverterTest<LabeledKeyConverter, LabeledKey> {
 
     protected static final String MESSAGE_KEY = "de.cuioss.common.email.invalid";

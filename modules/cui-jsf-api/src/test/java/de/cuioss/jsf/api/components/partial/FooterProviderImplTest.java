@@ -19,86 +19,194 @@ import static de.cuioss.test.generator.Generators.letterStrings;
 import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.mocks.ReverseConverter;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 @VerifyComponentProperties(of = {"footerKey", "footerValue", "footerConverter", "footerEscape"})
+@ExplicitParamInjection
+@DisplayName("Tests for FooterProvider implementation")
 class FooterProviderImplTest extends AbstractPartialComponentTest {
 
     @Test
+    @DisplayName("Should throw NullPointerException when constructed with null")
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> new FooterProvider(null));
+        // Act & Assert
+        assertThrows(NullPointerException.class, () -> new FooterProvider(null),
+                "Constructor should reject null component");
     }
 
-    @Test
-    void shouldResolveNullForNoTitleSet() {
-        assertNull(anyComponent().resolveFooter());
+    @Nested
+    @DisplayName("Tests for footer resolution")
+    class FooterResolutionTests {
+
+        @Test
+        @DisplayName("Should resolve null when no footer is set")
+        void shouldResolveNullForNoFooterSet() {
+            // Act & Assert
+            assertNull(anyComponent().resolveFooter(),
+                    "Footer should be null when no footer is set");
+        }
+
+        @Test
+        @DisplayName("Should resolve footer value when set directly")
+        void shouldResolveFooterValue() {
+            // Arrange
+            final var any = anyComponent();
+
+            // Act
+            any.setFooterValue(MESSAGE_VALUE);
+
+            // Assert
+            assertEquals(MESSAGE_VALUE, any.resolveFooter(),
+                    "Should return the directly set footer value");
+        }
+
+        @Test
+        @DisplayName("Should resolve footer from resource bundle when key is set")
+        void shouldResolveFooterKey() {
+            // Arrange
+            final var any = anyComponent();
+
+            // Act
+            any.setFooterKey(MESSAGE_KEY);
+
+            // Assert
+            assertEquals(MESSAGE_VALUE, any.resolveFooter(),
+                    "Should resolve footer from resource bundle using the key");
+        }
     }
 
-    @Test
-    void shouldresolveFooterValue() {
-        final var any = anyComponent();
-        any.setFooterValue(MESSAGE_VALUE);
-        assertEquals(MESSAGE_VALUE, any.resolveFooter());
+    @Nested
+    @DisplayName("Tests for footer conversion")
+    class FooterConversionTests {
+
+        @Test
+        @DisplayName("Should use converter by ID when registered in application")
+        void shouldUseConverterAsId(ComponentConfigDecorator componentConfig) {
+            // Arrange
+            componentConfig.registerConverter(ReverseConverter.class);
+            final var any = anyComponent();
+
+            // Act
+            any.setFooterConverter(ReverseConverter.CONVERTER_ID);
+            any.setFooterValue("test");
+
+            // Assert
+            assertEquals("tset", any.resolveFooter(),
+                    "Footer should be converted using the registered converter");
+        }
+
+        @Test
+        @DisplayName("Should use converter instance when set directly")
+        void shouldUseConverterAsConverter() {
+            // Arrange
+            final var any = anyComponent();
+
+            // Act
+            any.setFooterConverter(new ReverseConverter());
+            any.setFooterValue("test");
+
+            // Assert
+            assertEquals("tset", any.resolveFooter(),
+                    "Footer should be converted using the direct converter instance");
+        }
     }
 
-    @Test
-    void shouldresolveFooterKey() {
-        final var any = anyComponent();
-        any.setFooterKey(MESSAGE_KEY);
-        assertEquals(MESSAGE_VALUE, any.resolveFooter());
+    @Nested
+    @DisplayName("Tests for footer availability detection")
+    class FooterAvailabilityTests {
+
+        @Test
+        @DisplayName("Should correctly detect whether footer is set")
+        void shouldDetectFooterAvailability() {
+            // Arrange
+            final var any = anyComponent();
+            final var strings = letterStrings(1, 10);
+
+            // Assert - initial state
+            assertFalse(any.hasFooterTitleSet(),
+                    "Footer should not be set initially");
+
+            // Act - set footer key
+            any.setFooterKey(strings.next());
+
+            // Assert - after setting key
+            assertTrue(any.hasFooterTitleSet(),
+                    "Footer should be detected as set after setting key");
+
+            // Act - set footer value
+            any.setFooterValue(strings.next());
+
+            // Assert - after setting value
+            assertTrue(any.hasFooterTitleSet(),
+                    "Footer should be detected as set after setting value");
+
+            // Act - clear key but keep value
+            any.setFooterKey(null);
+
+            // Assert - after clearing key
+            assertTrue(any.hasFooterTitleSet(),
+                    "Footer should still be detected as set when value remains");
+        }
     }
 
-    @Test
-    void shouldUseConverterAsId() {
-        getComponentConfigDecorator().registerConverter(ReverseConverter.class);
-        final var any = anyComponent();
-        any.setFooterConverter(ReverseConverter.CONVERTER_ID);
-        any.setFooterValue("test");
-        assertEquals("tset", any.resolveFooter());
-    }
+    @Nested
+    @DisplayName("Tests for footer facet handling")
+    class FooterFacetTests {
 
-    @Test
-    void shouldUseConverterAsConverter() {
-        final var any = anyComponent();
-        any.setFooterConverter(new ReverseConverter());
-        any.setFooterValue("test");
-        assertEquals("tset", any.resolveFooter());
-    }
+        @Test
+        @DisplayName("Should detect and handle footer facet correctly")
+        void shouldHandleFooterFacet() {
+            // Arrange
+            final var any = anyComponent();
 
-    @Test
-    void shouldDetectTitleAvailabilty() {
-        final var any = anyComponent();
-        assertFalse(any.hasFooterTitleSet());
-        final var strings = letterStrings(1, 10);
-        any.setFooterKey(strings.next());
-        assertTrue(any.hasFooterTitleSet());
-        any.setFooterValue(strings.next());
-        assertTrue(any.hasFooterTitleSet());
-        any.setFooterKey(null);
-        assertTrue(any.hasFooterTitleSet());
-    }
+            // Assert - initial state
+            assertFalse(any.shouldRenderFooterFacet(),
+                    "Should not render footer facet when none exists");
 
-    @Test
-    void shouldUseFacet() {
-        final var any = anyComponent();
-        assertFalse(any.shouldRenderFooterFacet());
-        any.getFacets().put("footer", anyComponent());
-        assertTrue(any.shouldRenderFooterFacet());
-    }
+            // Act - add footer facet
+            any.getFacets().put("footer", anyComponent());
 
-    @Test
-    void shouldRenderFootereader() {
-        final var any = anyComponent();
-        // false, because no facet or key/value is present
-        assertFalse(any.shouldRenderFooter());
-        any.getFacets().put("footer", anyComponent());
-        assertTrue(any.shouldRenderFooter());
-        any.getFacet("footer").setRendered(false);
-        // false because facet is not rendered
-        assertFalse(any.shouldRenderFooter());
-        any.getFacets().clear();
-        any.setFooterKey("Foo");
-        assertTrue(any.shouldRenderFooter());
+            // Assert - after adding facet
+            assertTrue(any.shouldRenderFooterFacet(),
+                    "Should render footer facet when it exists and is rendered");
+        }
+
+        @Test
+        @DisplayName("Should determine footer rendering based on content and facets")
+        void shouldDetermineFooterRendering() {
+            // Arrange
+            final var any = anyComponent();
+
+            // Assert - initial state
+            assertFalse(any.shouldRenderFooter(),
+                    "Should not render footer when no facet or key/value is present");
+
+            // Act - add footer facet
+            any.getFacets().put("footer", anyComponent());
+
+            // Assert - after adding facet
+            assertTrue(any.shouldRenderFooter(),
+                    "Should render footer when facet is present and rendered");
+
+            // Act - set facet to not rendered
+            any.getFacet("footer").setRendered(false);
+
+            // Assert - after setting facet to not rendered
+            assertFalse(any.shouldRenderFooter(),
+                    "Should not render footer when facet is not rendered");
+
+            // Act - clear facets and set footer key
+            any.getFacets().clear();
+            any.setFooterKey("Foo");
+
+            // Assert - after setting footer key
+            assertTrue(any.shouldRenderFooter(),
+                    "Should render footer when footer key is set");
+        }
     }
 }

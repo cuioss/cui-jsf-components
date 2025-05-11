@@ -20,8 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import de.cuioss.jsf.api.security.CuiSanitizer;
 import de.cuioss.test.jsf.converter.AbstractSanitizingConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for LineBreakConverter")
 class LineBreakConverterTest extends AbstractSanitizingConverterTest<LineBreakConverter, String> {
 
     private static final String RESULT = "this is<br>a new line";
@@ -41,6 +43,7 @@ class LineBreakConverterTest extends AbstractSanitizingConverterTest<LineBreakCo
     private static final String DEFAULT_DELIMITER = "<br>";
 
     @Override
+    @DisplayName("Configure test items for line break conversion")
     public void populate(final TestItems<String> testItems) {
         testItems.addValidObjectWithStringResult(WINDOWS_SAMPLE, RESULT)
                 .addValidObjectWithStringResult(UNIX_SAMPLE, RESULT)
@@ -48,24 +51,44 @@ class LineBreakConverterTest extends AbstractSanitizingConverterTest<LineBreakCo
     }
 
     @Test
+    @DisplayName("Should handle sanitizer configuration correctly")
     void shouldHandleSanitizer() {
+        // Arrange
         var converter = new LineBreakConverter();
-        assertEquals(CuiSanitizer.PLAIN_TEXT_PRESERVE_ENTITIES, converter.getSanitizer());
+
+        // Act & Assert - Default sanitizer
+        assertEquals(CuiSanitizer.PLAIN_TEXT_PRESERVE_ENTITIES, converter.getSanitizer(),
+                "Default sanitizer should be PLAIN_TEXT_PRESERVE_ENTITIES");
+
+        // Act & Assert - Null sanitizer strategy
         converter.setSanitizingStrategy(null);
-        assertEquals(CuiSanitizer.PLAIN_TEXT_PRESERVE_ENTITIES, converter.getSanitizer());
+        assertEquals(CuiSanitizer.PLAIN_TEXT_PRESERVE_ENTITIES, converter.getSanitizer(),
+                "Sanitizer should remain default when setting null strategy");
+
+        // Act & Assert - Custom sanitizer strategy
         converter.setSanitizingStrategy(CuiSanitizer.COMPLEX_HTML.name());
-        assertEquals(CuiSanitizer.COMPLEX_HTML, converter.getSanitizer());
+        assertEquals(CuiSanitizer.COMPLEX_HTML, converter.getSanitizer(),
+                "Sanitizer should be updated to COMPLEX_HTML");
     }
 
     @Test
+    @DisplayName("Should handle delimiter configuration correctly")
     void shouldHandleDelimiter() {
+        // Arrange
         var converter = new LineBreakConverter();
-        assertEquals(DEFAULT_DELIMITER, converter.getDelimiter());
+
+        // Act & Assert - Default delimiter
+        assertEquals(DEFAULT_DELIMITER, converter.getDelimiter(),
+                "Default delimiter should be <br>");
+
+        // Act & Assert - Custom delimiter
         converter.setDelimiter(WINODWS_LINE_BREAK);
-        assertEquals(WINODWS_LINE_BREAK, converter.getDelimiter());
+        assertEquals(WINODWS_LINE_BREAK, converter.getDelimiter(),
+                "Delimiter should be updated to Windows line break");
     }
 
     @Override
+    @DisplayName("Create test object with malicious content")
     protected String createTestObjectWithMaliciousContent(String content) {
         return content;
     }

@@ -19,13 +19,7 @@ import static de.cuioss.tools.base.Preconditions.checkArgument;
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
 import de.cuioss.jsf.api.components.base.BaseCuiPanel;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProviderImpl;
-import de.cuioss.jsf.api.components.partial.ContextSizeProvider;
-import de.cuioss.jsf.api.components.partial.ContextStateProvider;
-import de.cuioss.jsf.api.components.partial.FooterProvider;
-import de.cuioss.jsf.api.components.partial.HeaderProvider;
-import de.cuioss.jsf.api.components.partial.StyleAttributeProvider;
+import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import jakarta.faces.application.ResourceDependency;

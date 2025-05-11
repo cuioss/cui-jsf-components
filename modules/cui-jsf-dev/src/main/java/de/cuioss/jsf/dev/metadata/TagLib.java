@@ -15,12 +15,7 @@
  */
 package de.cuioss.jsf.dev.metadata;
 
-import de.cuioss.jsf.dev.metadata.model.AttributeMetadata;
-import de.cuioss.jsf.dev.metadata.model.BehaviorMetadata;
-import de.cuioss.jsf.dev.metadata.model.ConverterMetadata;
-import de.cuioss.jsf.dev.metadata.model.TagStorage;
-import de.cuioss.jsf.dev.metadata.model.UIComponentMetadata;
-import de.cuioss.jsf.dev.metadata.model.ValidatorMetadata;
+import de.cuioss.jsf.dev.metadata.model.*;
 import de.cuioss.portal.common.util.PortalResourceLoader;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -30,7 +25,6 @@ import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
 import org.jdom2.input.SAXBuilder;
 
-import javax.xml.XMLConstants;
 import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
@@ -38,6 +32,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import javax.xml.XMLConstants;
 
 /**
  * @author Oliver Wolff

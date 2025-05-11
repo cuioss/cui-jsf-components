@@ -23,23 +23,27 @@ import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
-import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
-import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import de.cuioss.test.jsf.renderer.util.HtmlTreeAsserts;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.component.behavior.AjaxBehavior;
 import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.test.el.MockValueExpression;
 import org.apache.myfaces.test.mock.MockResponseWriter;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.StringWriter;
 
-class DecoratingResponseWriterTest extends JsfEnabledTestEnvironment implements ComponentConfigurator {
+@EnableJsfEnvironment
+@DisplayName("Tests for DecoratingResponseWriter")
+class DecoratingResponseWriterTest {
 
     private static final String SIMPLE_DIV = "<div />";
 
@@ -89,212 +93,385 @@ class DecoratingResponseWriterTest extends JsfEnabledTestEnvironment implements 
     private DecoratingResponseWriter<UIComponent> responseWriter;
 
     @BeforeEach
-    void before() {
+    void before(FacesContext facesContext, ComponentConfigDecorator componentConfig) {
         sink = new StringWriter();
         component = new HtmlInputText();
         component.setId("id");
-        getFacesContext().setResponseWriter(new MockResponseWriter(sink));
-        responseWriter = new DecoratingResponseWriter<>(getFacesContext(), component);
+        facesContext.setResponseWriter(new MockResponseWriter(sink));
+        responseWriter = new DecoratingResponseWriter<>(facesContext, component);
+        componentConfig.registerMockRendererForHtmlInputText();
     }
 
     @Test
+    @DisplayName("Should provide access to the component")
     void shouldProvideComponent() {
-        assertNotNull(responseWriter.getComponent());
+        // Act & Assert
+        assertNotNull(responseWriter.getComponent(), "Component should not be null");
     }
 
-    @Test
-    void shouldWriteSimpleDiv() throws IOException {
-        responseWriter.withStartElement(Node.DIV).withEndElement(Node.DIV);
-        assertWritten(SIMPLE_DIV);
+    @Nested
+    @DisplayName("Tests for basic HTML element rendering")
+    class BasicHtmlElementTests {
+
+        @Test
+        @DisplayName("Should write a simple div element")
+        void shouldWriteSimpleDiv() throws IOException {
+            // Act
+            responseWriter.withStartElement(Node.DIV).withEndElement(Node.DIV);
+
+            // Assert
+            assertWritten(SIMPLE_DIV);
+        }
+
+        @Test
+        @DisplayName("Should write a nested div with span element")
+        void shouldWriteNestedDivWithSpan() throws IOException {
+            // Act
+            responseWriter.withStartElement(Node.DIV)
+                    .withStartElement(Node.SPAN)
+                    .withEndElement(Node.SPAN)
+                    .withEndElement(Node.DIV);
+
+            // Assert
+            assertWritten(SIMPLE_DIV_WITH_NESTED_SPAN);
+        }
+
+        @Test
+        @DisplayName("Should write an input text element")
+        void shouldWriteInputText() throws IOException {
+            // Act
+            responseWriter.withStartElement(Node.INPUT)
+                    .withAttribute(AttributeName.TYPE, AttributeValue.INPUT_TEXT)
+                    .withEndElement(Node.INPUT);
+
+            // Assert
+            assertWritten(INPUT_TYPE_TEXT);
+        }
     }
 
-    @Test
-    void shouldWriteNestedDivWithSpan() throws IOException {
-        responseWriter.withStartElement(Node.DIV).withStartElement(Node.SPAN).withEndElement(Node.SPAN)
-                .withEndElement(Node.DIV);
-        assertWritten(SIMPLE_DIV_WITH_NESTED_SPAN);
+    @Nested
+    @DisplayName("Tests for style class handling")
+    class StyleClassTests {
+
+        @Test
+        @DisplayName("Should write nested div with style class provider")
+        void shouldWriteNestedDivWithStyleClassProvider() throws IOException {
+            // Act
+            responseWriter.withStartElement(Node.DIV)
+                    .withStartElement(Node.SPAN)
+                    .withStyleClass(CssCommon.PULL_LEFT)
+                    .withEndElement(Node.SPAN)
+                    .withEndElement(Node.DIV);
+
+            // Assert
+            assertWritten(NESTED_WITH_STYLE_CLASS);
+        }
+
+        @Test
+        @DisplayName("Should write nested div with style class builder")
+        void shouldWriteNestedDivWithStyleClassBuilder() throws IOException {
+            // Act
+            responseWriter.withStartElement(Node.DIV)
+                    .withStartElement(Node.SPAN)
+                    .withStyleClass(CssCommon.PULL_LEFT.getStyleClass())
+                    .withEndElement(Node.SPAN)
+                    .withEndElement(Node.DIV);
+
+            // Assert
+            assertWritten(NESTED_WITH_STYLE_CLASS);
+        }
+
+        @Test
+        @DisplayName("Should write nested div with class attribute")
+        void shouldWriteNestedDivWithAttribute() throws IOException {
+            // Act
+            responseWriter.withStartElement(Node.DIV)
+                    .withStartElement(Node.SPAN)
+                    .withAttribute(AttributeName.CLASS, CssCommon.PULL_LEFT.getStyleClass())
+                    .withEndElement(Node.SPAN)
+                    .withEndElement(Node.DIV);
+
+            // Assert
+            assertWritten(NESTED_WITH_STYLE_CLASS);
+        }
     }
 
-    @Test
-    void shouldWriteNestedDivWithStyleClassProvider() throws IOException {
-        responseWriter.withStartElement(Node.DIV).withStartElement(Node.SPAN).withStyleClass(CssCommon.PULL_LEFT)
-                .withEndElement(Node.SPAN).withEndElement(Node.DIV);
-        assertWritten(NESTED_WITH_STYLE_CLASS);
+    @Nested
+    @DisplayName("Tests for client ID handling")
+    class ClientIdTests {
+
+        @Test
+        @DisplayName("Should write nested div with client ID")
+        void shouldWriteNestedDivWithClientId() throws IOException {
+            // Act
+            responseWriter.withStartElement(Node.DIV)
+                    .withStartElement(Node.SPAN)
+                    .withClientId()
+                    .withEndElement(Node.SPAN)
+                    .withEndElement(Node.DIV);
+
+            // Assert
+            assertWritten(NESTED_WITH_ID);
+        }
+
+        @Test
+        @DisplayName("Should write nested div with suffixed client ID")
+        void shouldWriteNestedDivWithSuffixedClientId() throws IOException {
+            // Act
+            responseWriter.withStartElement(Node.DIV)
+                    .withStartElement(Node.SPAN)
+                    .withClientId(ID_SUFFIX)
+                    .withEndElement(Node.SPAN)
+                    .withEndElement(Node.DIV);
+
+            // Assert
+            assertWritten(NESTED_WITH_SUFFIXED_ID);
+        }
+
+        @Test
+        @DisplayName("Should not write client ID if not set")
+        void shouldNotWriteClientIdIfNotSet() throws IOException {
+            // Arrange
+            component.setId(null);
+            responseWriter.withStartElement(Node.DIV);
+
+            // Act
+            responseWriter.withClientIdIfNecessary();
+            responseWriter.withEndElement(Node.DIV);
+
+            // Assert
+            assertWritten(SIMPLE_DIV);
+        }
+
+        @Test
+        @DisplayName("Should write client ID if set")
+        void shouldWriteClientIdIfSet() throws IOException {
+            // Arrange
+            component.setId(COMPONENT_ID);
+            responseWriter.withStartElement(Node.DIV);
+
+            // Act
+            responseWriter.withClientIdIfNecessary();
+            responseWriter.withEndElement(Node.DIV);
+
+            // Assert
+            assertWritten(SIMPLE_DIV_WITH_COMPONENT_ID);
+        }
+
+        @Test
+        @DisplayName("Should not write client ID if ID is generated")
+        void shouldNotWriteClientIdIfIDIsGenerated() throws IOException {
+            // Arrange
+            component.setId(UIViewRoot.UNIQUE_ID_PREFIX);
+            responseWriter.withStartElement(Node.DIV);
+
+            // Act
+            responseWriter.withClientIdIfNecessary();
+            responseWriter.withEndElement(Node.DIV);
+
+            // Assert
+            assertWritten(SIMPLE_DIV);
+        }
+
+        @Test
+        @DisplayName("Should write client ID for client behavior")
+        void shouldWriteClientIdForClientBehavior(FacesContext facesContext) throws IOException {
+            // Arrange
+            final var htmlInputText = new HtmlInputText();
+            htmlInputText.addClientBehavior("click", new AjaxBehavior());
+            responseWriter = new DecoratingResponseWriter<>(facesContext, htmlInputText);
+            responseWriter.withStartElement(Node.DIV);
+
+            // Act
+            responseWriter.withClientIdIfNecessary();
+            responseWriter.withEndElement(Node.DIV);
+
+            // Assert
+            assertWritten(SIMPLE_DIV_WITH_COMPUTED_COMPONENT_ID);
+        }
     }
 
-    @Test
-    void shouldWriteNestedDivWithClientId() throws IOException {
-        responseWriter.withStartElement(Node.DIV).withStartElement(Node.SPAN).withClientId().withEndElement(Node.SPAN)
-                .withEndElement(Node.DIV);
-        assertWritten(NESTED_WITH_ID);
+
+    @Nested
+    @DisplayName("Tests for text content handling")
+    class TextContentTests {
+
+        @Test
+        @DisplayName("Should write div with unescaped text content")
+        void shouldWriteDivWithUnescapedTextChild() throws IOException {
+            // Act
+            responseWriter.withStartElement(Node.DIV)
+                    .withTextContent(TEXT_CONTENT, false)
+                    .withEndElement(Node.DIV);
+
+            // Assert
+            assertEquals(SIMPLE_DIV_WITH_UNESCAPED_TEXT, sink.toString(),
+                    "Should render div with unescaped text content");
+        }
+
+        @Test
+        @DisplayName("Should not write text content if empty")
+        void shouldNotWriteTextIfEmpty() throws IOException {
+            // Arrange
+            responseWriter.withStartElement(Node.DIV);
+
+            // Act
+            responseWriter.withTextContent(null, true);
+            responseWriter.withEndElement(Node.DIV);
+
+            // Assert
+            assertWritten(SIMPLE_DIV);
+        }
+
+        @Test
+        @DisplayName("Should write div with escaped text content")
+        void shouldWriteDivWithEscapedTextChild() throws IOException {
+            // Act
+            responseWriter.withStartElement(Node.DIV)
+                    .withTextContent(TEXT_CONTENT, true)
+                    .withEndElement(Node.DIV);
+
+            // Assert
+            assertWritten(SIMPLE_DIV_WITH_ESCAPED_TEXT);
+        }
     }
 
-    @Test
-    void shouldWriteNestedDivWithSuffixedClientId() throws IOException {
-        responseWriter.withStartElement(Node.DIV).withStartElement(Node.SPAN).withClientId(ID_SUFFIX)
-                .withEndElement(Node.SPAN).withEndElement(Node.DIV);
-        assertWritten(NESTED_WITH_SUFFIXED_ID);
+    @Nested
+    @DisplayName("Tests for pass-through attributes")
+    class PassThroughAttributeTests {
+
+        @Test
+        @DisplayName("Should not write pass-through attributes if not set")
+        void shouldNotWritePassThroughAttributesIfNotSet() throws IOException {
+            // Act
+            responseWriter.withStartElement(Node.DIV);
+            responseWriter.withPassThroughAttributes();
+            responseWriter.withEndElement(Node.DIV);
+
+            // Assert
+            assertWritten(SIMPLE_DIV);
+        }
+
+        @Test
+        @DisplayName("Should write pass-through attributes")
+        void shouldWritePassThroughAttributes() throws IOException {
+            // Arrange
+            component.getPassThroughAttributes().put(PASS_THROUGH_NAME, PASS_THROUGH_VALUE);
+
+            // Act
+            responseWriter.withStartElement(Node.DIV);
+            responseWriter.withPassThroughAttributes();
+            responseWriter.withEndElement(Node.DIV);
+
+            // Assert
+            assertWritten("<div passThroughName=\"passThroughValue\"></div>");
+        }
+
+        @Test
+        @DisplayName("Should write pass-through attributes with EL expression")
+        void shouldWritePassThroughAttributesWithEl(FacesContext facesContext) throws IOException {
+            // Arrange
+            var mockValueExpression = new MockValueExpression("#{test.expression}", Integer.class);
+            mockValueExpression.setValue(facesContext.getELContext(), 1);
+            component.getPassThroughAttributes().put(PASS_THROUGH_NAME, mockValueExpression);
+
+            // Act
+            responseWriter.withStartElement(Node.DIV);
+            responseWriter.withPassThroughAttributes();
+            responseWriter.withEndElement(Node.DIV);
+
+            // Assert
+            assertWritten("<div passThroughName=\"1\"></div>");
+        }
     }
 
-    @Test
-    void shouldWriteInputText() throws IOException {
-        responseWriter.withStartElement(Node.INPUT).withAttribute(AttributeName.TYPE, AttributeValue.INPUT_TEXT)
-                .withEndElement(Node.INPUT);
-        assertWritten(INPUT_TYPE_TEXT);
+    @Nested
+    @DisplayName("Tests for hidden field handling")
+    class HiddenFieldTests {
+
+        @Test
+        @DisplayName("Should write hidden field")
+        void shouldWriteHiddenField() throws IOException {
+            // Act
+            responseWriter.withHiddenField(INPUT_HIDDEN_SUFFIX, "value");
+
+            // Assert
+            assertWritten(INPUT_HIDDEN_WITH_EXTENSION);
+        }
     }
 
-    @Test
-    void shouldWriteNestedDivWithStyleClassBuilder() throws IOException {
-        responseWriter.withStartElement(Node.DIV).withStartElement(Node.SPAN)
-                .withStyleClass(CssCommon.PULL_LEFT.getStyleClassBuilder()).withEndElement(Node.SPAN)
-                .withEndElement(Node.DIV);
-        assertWritten(NESTED_WITH_STYLE_CLASS);
+    @Nested
+    @DisplayName("Tests for title attribute handling")
+    class TitleAttributeTests {
+
+        @Test
+        @DisplayName("Should write title attribute")
+        void shouldWriteTitleAttribute() throws IOException {
+            // Act
+            responseWriter.withStartElement(Node.DIV);
+            responseWriter.withAttributeTitle(TITLE);
+            responseWriter.withEndElement(Node.DIV);
+
+            // Assert
+            assertWritten(SIMPLE_DIV_WITH_TITLE);
+        }
+
+        @Test
+        @DisplayName("Should not write title if null")
+        void shouldNotWriteTitleIfNull() throws IOException {
+            // Act
+            responseWriter.withStartElement(Node.DIV);
+            responseWriter.withAttributeTitle((String) null);
+            responseWriter.withEndElement(Node.DIV);
+
+            // Assert
+            assertWritten(SIMPLE_DIV);
+        }
     }
 
-    @Test
-    void shouldWriteNestedDivWithStyleClassString() throws IOException {
-        responseWriter.withStartElement(Node.DIV).withStartElement(Node.SPAN)
-                .withStyleClass(CssCommon.PULL_LEFT.getStyleClass()).withEndElement(Node.SPAN).withEndElement(Node.DIV);
-        assertWritten(NESTED_WITH_STYLE_CLASS);
+    @Nested
+    @DisplayName("Tests for style attribute handling")
+    class StyleAttributeTests {
+
+        @Test
+        @DisplayName("Should not write style if null")
+        void shouldNotWriteStyleIfNull() throws IOException {
+            // Act
+            responseWriter.withStartElement(Node.DIV);
+            responseWriter.withAttributeStyle((String) null);
+            responseWriter.withEndElement(Node.DIV);
+
+            // Assert
+            assertWritten(SIMPLE_DIV);
+        }
+
+        @Test
+        @DisplayName("Should write style attribute")
+        void shouldWriteStyleAttribute() throws IOException {
+            // Act
+            responseWriter.withStartElement(Node.DIV);
+            responseWriter.withAttributeStyle("style");
+            responseWriter.withEndElement(Node.DIV);
+
+            // Assert
+            assertWritten("<div style=\"style\"></div>");
+        }
     }
 
-    @Test
-    void shouldWriteDivWithUnescapedTextChild() throws IOException {
-        responseWriter.withStartElement(Node.DIV).withTextContent(TEXT_CONTENT, false).withEndElement(Node.DIV);
-        assertEquals(SIMPLE_DIV_WITH_UNESCAPED_TEXT, sink.toString());
-    }
+    @Nested
+    @DisplayName("Tests for JavaScript handling")
+    class JavaScriptTests {
 
-    @Test
-    void shouldNotWriteTextIfEmpty() throws IOException {
-        responseWriter.withStartElement(Node.DIV);
-        responseWriter.withTextContent(null, true);
-        responseWriter.withEndElement(Node.DIV);
-        assertWritten(SIMPLE_DIV);
-    }
+        @Test
+        @DisplayName("Should escape JavaScript identifier")
+        void shouldEscapeJavaScriptId() {
+            // Act
+            var actual = DecoratingResponseWriter.escapeJavaScriptIdentifier("a:b_c");
+            var expected = "a\\:b_c";
 
-    @Test
-    void shouldWriteDivWithEscapedTextChild() throws IOException {
-        responseWriter.withStartElement(Node.DIV).withTextContent(TEXT_CONTENT, true).withEndElement(Node.DIV);
-        assertWritten(SIMPLE_DIV_WITH_ESCAPED_TEXT);
-    }
-
-    @Test
-    void shouldWriteNestedDivWithAttribute() throws IOException {
-        responseWriter.withStartElement(Node.DIV).withStartElement(Node.SPAN)
-                .withAttribute(AttributeName.CLASS, CssCommon.PULL_LEFT.getStyleClass()).withEndElement(Node.SPAN)
-                .withEndElement(Node.DIV);
-        assertWritten(NESTED_WITH_STYLE_CLASS);
-    }
-
-    @Test
-    void shouldNotWriteClientIdIfNotSet() throws IOException {
-        component.setId(null);
-        responseWriter.withStartElement(Node.DIV);
-        responseWriter.withClientIdIfNecessary();
-        responseWriter.withEndElement(Node.DIV);
-        assertWritten(SIMPLE_DIV);
-    }
-
-    @Test
-    void shouldWriteClientIdIfSet() throws IOException {
-        component.setId(COMPONENT_ID);
-        responseWriter.withStartElement(Node.DIV);
-        responseWriter.withClientIdIfNecessary();
-        responseWriter.withEndElement(Node.DIV);
-        assertWritten(SIMPLE_DIV_WITH_COMPONENT_ID);
-    }
-
-    @Test
-    void shouldNotWriteClientIdIfIDIsGenerated() throws IOException {
-        component.setId(UIViewRoot.UNIQUE_ID_PREFIX);
-        responseWriter.withStartElement(Node.DIV);
-        responseWriter.withClientIdIfNecessary();
-        responseWriter.withEndElement(Node.DIV);
-        assertWritten(SIMPLE_DIV);
-    }
-
-    @Test
-    void shouldWriteClientIdForClientBehavior() throws IOException {
-        final var htmlInputText = new HtmlInputText();
-        htmlInputText.addClientBehavior("click", new AjaxBehavior());
-        responseWriter = new DecoratingResponseWriter<>(getFacesContext(), htmlInputText);
-        responseWriter.withStartElement(Node.DIV);
-        responseWriter.withClientIdIfNecessary();
-        responseWriter.withEndElement(Node.DIV);
-        assertWritten(SIMPLE_DIV_WITH_COMPUTED_COMPONENT_ID);
-    }
-
-    @Test
-    void shouldNotWritePassThroughAttributesIfNotSet() throws IOException {
-        responseWriter.withStartElement(Node.DIV);
-        responseWriter.withPassThroughAttributes();
-        responseWriter.withEndElement(Node.DIV);
-        assertWritten(SIMPLE_DIV);
-    }
-
-    @Test
-    void shouldWritePassThroughAttributes() throws IOException {
-        component.getPassThroughAttributes().put(PASS_THROUGH_NAME, PASS_THROUGH_VALUE);
-        responseWriter.withStartElement(Node.DIV);
-        responseWriter.withPassThroughAttributes();
-        responseWriter.withEndElement(Node.DIV);
-        assertWritten("<div passThroughName=\"passThroughValue\"></div>");
-    }
-
-    @Test
-    void shouldWritePassThroughAttributesWithEl() throws IOException {
-        var mockValueExpression = new MockValueExpression("#{test.expression}", Integer.class);
-        mockValueExpression.setValue(getFacesContext().getELContext(), 1);
-        component.getPassThroughAttributes().put(PASS_THROUGH_NAME, mockValueExpression);
-        responseWriter.withStartElement(Node.DIV);
-        responseWriter.withPassThroughAttributes();
-        responseWriter.withEndElement(Node.DIV);
-        assertWritten("<div passThroughName=\"1\"></div>");
-    }
-
-    @Test
-    void shouldWriteHiddenField() throws IOException {
-        responseWriter.withHiddenField(INPUT_HIDDEN_SUFFIX, "value");
-        assertWritten(INPUT_HIDDEN_WITH_EXTENSION);
-    }
-
-    @Test
-    void shouldNotWriteTitleIfNull() throws IOException {
-        responseWriter.withStartElement(Node.DIV);
-        responseWriter.withAttributeTitle(TITLE);
-        responseWriter.withEndElement(Node.DIV);
-        assertWritten(SIMPLE_DIV_WITH_TITLE);
-    }
-
-    @Test
-    void shouldNotWriteTitleIfEmpty() throws IOException {
-        responseWriter.withStartElement(Node.DIV);
-        responseWriter.withAttributeTitle((String) null);
-        responseWriter.withEndElement(Node.DIV);
-        assertWritten(SIMPLE_DIV);
-    }
-
-    @Test
-    void shouldNotWriteStyleIfEmpty() throws IOException {
-        responseWriter.withStartElement(Node.DIV);
-        responseWriter.withAttributeStyle((String) null);
-        responseWriter.withEndElement(Node.DIV);
-        assertWritten(SIMPLE_DIV);
-    }
-
-    @Test
-    void shouldWriteStyleAttribute() throws IOException {
-        responseWriter.withStartElement(Node.DIV);
-        responseWriter.withAttributeStyle("style");
-        responseWriter.withEndElement(Node.DIV);
-        assertWritten("<div style=\"style\"></div>");
-    }
-
-    @Test
-    void shouldEscapeJavaScriptId() {
-        var actual = DecoratingResponseWriter.escapeJavaScriptIdentifier("a:b_c");
-        var expected = "a\\:b_c";
-        assertEquals(expected, actual);
+            // Assert
+            assertEquals(expected, actual, "Should properly escape colons in JavaScript identifiers");
+        }
     }
 
     private void assertWritten(final String expected) {
@@ -303,8 +480,4 @@ class DecoratingResponseWriterTest extends JsfEnabledTestEnvironment implements 
         HtmlTreeAsserts.assertHtmlTreeEquals(builderExpected.getDocument(), builderActual.getDocument());
     }
 
-    @Override
-    public void configureComponents(final ComponentConfigDecorator decorator) {
-        decorator.registerMockRendererForHtmlInputText();
-    }
 }

@@ -19,67 +19,131 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.mocks.ReverseConverter;
 import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 @VerifyComponentProperties(of = {"placeholderKey", "placeholderValue", "placeholderConverter"})
+@ExplicitParamInjection
+@DisplayName("Tests for PlaceholderProvider implementation")
 class PlaceholderProviderImplTest extends AbstractPartialComponentTest {
 
     @Test
+    @DisplayName("Should throw NullPointerException when constructed with null")
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> new PlaceholderProvider(null));
+        // Act & Assert
+        assertThrows(NullPointerException.class, () -> new PlaceholderProvider(null),
+                "Constructor should reject null component");
     }
 
-    @Test
-    void shouldResolveNullForNoTitleSet() {
-        assertNull(anyComponent().resolveTitle());
+    @Nested
+    @DisplayName("Tests for placeholder resolution")
+    class PlaceholderResolutionTests {
+
+        @Test
+        @DisplayName("Should resolve null when no placeholder is set")
+        void shouldResolveNullForNoPlaceholderSet() {
+            // Act & Assert
+            assertNull(anyComponent().resolvePlaceholder(),
+                    "Placeholder should be null when none is set");
+        }
+
+        @Test
+        @DisplayName("Should resolve placeholder value when set directly")
+        void shouldResolvePlaceholderValue() {
+            // Arrange
+            var any = anyComponent();
+
+            // Act
+            any.setPlaceholderValue(MESSAGE_KEY);
+
+            // Assert
+            assertEquals(MESSAGE_KEY, any.resolvePlaceholder(),
+                    "Should return the directly set placeholder value");
+        }
+
+        @Test
+        @DisplayName("Should resolve placeholder from resource bundle when key is set")
+        void shouldResolvePlaceholderKey() {
+            // Arrange
+            var any = anyComponent();
+
+            // Act
+            any.setPlaceholderKey(MESSAGE_KEY);
+
+            // Assert
+            assertEquals(MESSAGE_VALUE, any.resolvePlaceholder(),
+                    "Should resolve placeholder from resource bundle using the key");
+        }
     }
 
-    @Test
-    void shouldResolvePlaceholderValue() {
-        var any = anyComponent();
-        any.setPlaceholderValue(MESSAGE_KEY);
-        assertEquals(MESSAGE_KEY, any.resolvePlaceholder());
+    @Nested
+    @DisplayName("Tests for placeholder conversion")
+    class PlaceholderConversionTests {
+
+        @Test
+        @DisplayName("Should use converter by ID when registered in application")
+        void shouldUseConverterById(ComponentConfigDecorator componentConfig) {
+            // Arrange
+            componentConfig.registerConverter(ReverseConverter.class);
+            var any = anyComponent();
+
+            // Act
+            any.setPlaceholderConverter(ReverseConverter.CONVERTER_ID);
+            any.setPlaceholderValue("test");
+
+            // Assert
+            assertEquals("tset", any.resolvePlaceholder(),
+                    "Placeholder should be converted using the registered converter");
+        }
+
+        @Test
+        @DisplayName("Should use converter instance when set directly")
+        void shouldUseConverterInstance() {
+            // Arrange
+            var any = anyComponent();
+
+            // Act
+            any.setPlaceholderConverter(new ReverseConverter());
+            any.setPlaceholderValue("test");
+
+            // Assert
+            assertEquals("tset", any.resolvePlaceholder(),
+                    "Placeholder should be converted using the direct converter instance");
+        }
     }
 
-    @Test
-    void shouldResolveTitleKey() {
-        var any = anyComponent();
-        any.setPlaceholderKey(MESSAGE_KEY);
-        assertEquals(MESSAGE_VALUE, any.resolvePlaceholder());
-    }
+    @Nested
+    @DisplayName("Tests for pass-through attribute handling")
+    class PassThroughAttributeTests {
 
-    @Test
-    void shouldUseConverterAsId() {
-        getComponentConfigDecorator().registerConverter(ReverseConverter.class);
-        var any = anyComponent();
-        any.setPlaceholderConverter(ReverseConverter.CONVERTER_ID);
-        any.setPlaceholderValue("test");
-        assertEquals("tset", any.resolvePlaceholder());
-    }
+        @Test
+        @DisplayName("Should add and remove placeholder from pass-through attributes")
+        void shouldAddAndRemovePlaceholderFromPassThrough(FacesContext facesContext) {
+            // Arrange
+            var pt = anyComponent();
+            UIComponent other = JsfHtmlComponent.INPUT.component(facesContext);
 
-    @Test
-    void shouldUseConverterAsConverter() {
-        var any = anyComponent();
-        any.setPlaceholderConverter(new ReverseConverter());
-        any.setPlaceholderValue("test");
-        assertEquals("tset", any.resolvePlaceholder());
-    }
+            // Act - set placeholder and apply to component
+            pt.setPlaceholderValue("test");
+            pt.setPlaceholder(other, facesContext, pt);
 
-    /**
-     * Tests adding and removing of passthrough attributes emulating an ui:repeat
-     * scenario.
-     */
-    @Test
-    void shouldRemoveIfNull() {
-        var pt = anyComponent();
-        UIComponent other = JsfHtmlComponent.INPUT.component(getFacesContext());
-        pt.setPlaceholderValue("test");
-        pt.setPlaceholder(other, getFacesContext(), pt);
-        assertEquals("test", other.getPassThroughAttributes().get(PlaceholderProvider.PT_PLACEHOLDER));
-        pt.setPlaceholderValue(null);
-        pt.setPlaceholder(other, getFacesContext(), pt);
-        assertNull(other.getPassThroughAttributes().get(PlaceholderProvider.PT_PLACEHOLDER));
+            // Assert - placeholder is set in pass-through attributes
+            assertEquals("test", other.getPassThroughAttributes().get(PlaceholderProvider.PT_PLACEHOLDER),
+                    "Placeholder should be added to pass-through attributes");
+
+            // Act - clear placeholder and apply to component
+            pt.setPlaceholderValue(null);
+            pt.setPlaceholder(other, facesContext, pt);
+
+            // Assert - placeholder is removed from pass-through attributes
+            assertNull(other.getPassThroughAttributes().get(PlaceholderProvider.PT_PLACEHOLDER),
+                    "Placeholder should be removed from pass-through attributes when set to null");
+        }
     }
 }

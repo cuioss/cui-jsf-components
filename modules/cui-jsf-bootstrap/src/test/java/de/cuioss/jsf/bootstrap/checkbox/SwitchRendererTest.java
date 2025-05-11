@@ -22,76 +22,95 @@ import de.cuioss.jsf.bootstrap.common.partial.ColumnCssResolver;
 import de.cuioss.jsf.bootstrap.layout.ColumnComponent;
 import de.cuioss.jsf.bootstrap.layout.LayoutComponentRenderer;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
-import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.PostAddToViewEvent;
 import jakarta.faces.event.PreRenderComponentEvent;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
-class SwitchRendererTest extends AbstractComponentRendererTest<SwitchRenderer> implements ComponentConfigurator {
+@DisplayName("Tests for SwitchRenderer")
+class SwitchRendererTest extends AbstractComponentRendererTest<SwitchRenderer> {
 
-    private static final String default_column_size = ColumnCssResolver.COL_PREFIX + "3";
+    private static final String DEFAULT_COLUMN_SIZE = ColumnCssResolver.COL_PREFIX + "3";
 
-    private static final String testComponent = "testComponent";
+    private static final String TEST_COMPONENT = "testComponent";
 
-    private static final String titleValue = "titleValue";
+    private static final String TITLE_VALUE = "titleValue";
 
-    private static final String titleKey = "titleKey";
+    private static final String TITLE_KEY = "titleKey";
 
-    private static final String onText = "onText";
+    private static final String ON_TEXT = "onText";
 
-    private static final String offText = "offText";
+    private static final String OFF_TEXT = "offText";
 
-    private static final String onTextKey = "onTextKey";
+    private static final String ON_TEXT_KEY = "onTextKey";
 
-    private static final String offTextKey = "offTextKey";
+    private static final String OFF_TEXT_KEY = "offTextKey";
 
-    private static final String style = "style";
+    private static final String STYLE = "style";
 
-    private static final String styleClass = "styleClass";
+    private static final String STYLE_CLASS = "styleClass";
 
-    @Override
-    public void configureComponents(final ComponentConfigDecorator decorator) {
+    @BeforeEach
+    void setUp(ComponentConfigDecorator decorator) {
         decorator.registerUIComponent(ColumnComponent.class).registerRenderer(LayoutComponentRenderer.class);
     }
 
     @Override
     protected UIComponent getComponent() {
         final var component = new SwitchComponent();
-        component.setId(testComponent);
-        component.setTitleValue(titleValue);
-        component.setTitleKey(titleKey);
-        component.setOnTextValue(onText);
-        component.setOffTextValue(offText);
-        component.setOnTextKey(onTextKey);
-        component.setOffTextKey(offTextKey);
-        component.setStyle(style);
+        component.setId(TEST_COMPONENT);
+        component.setTitleValue(TITLE_VALUE);
+        component.setTitleKey(TITLE_KEY);
+        component.setOnTextValue(ON_TEXT);
+        component.setOffTextValue(OFF_TEXT);
+        component.setOnTextKey(ON_TEXT_KEY);
+        component.setOffTextKey(OFF_TEXT_KEY);
+        component.setStyle(STYLE);
         component.setSize(3);
-        component.setStyleClass(styleClass);
+        component.setStyleClass(STYLE_CLASS);
         return component;
     }
 
-    @Test
-    void shouldRenderMinimal() {
-        final var component = (SwitchComponent) getComponent();
-        component.processEvent(new PostAddToViewEvent(component));
-        component.processEvent(new PreRenderComponentEvent(component));
-        final var expected = buildHtmlTree(false, false);
-        assertRenderResult(component, expected.getDocument());
-    }
+    @Nested
+    @DisplayName("Rendering tests")
+    class RenderingTests {
 
-    @Test
-    void shouldRenderDisabled() {
-        final var component = (SwitchComponent) getComponent();
-        component.setDisabled(true);
-        component.processEvent(new PostAddToViewEvent(component));
-        component.processEvent(new PreRenderComponentEvent(component));
-        final var expected = buildHtmlTree(false, true);
-        assertRenderResult(component, expected.getDocument());
+        @Test
+        @DisplayName("Should render minimal switch component")
+        void shouldRenderMinimal(FacesContext facesContext) throws IOException {
+            // Arrange
+            final var component = (SwitchComponent) getComponent();
+            component.processEvent(new PostAddToViewEvent(component));
+            component.processEvent(new PreRenderComponentEvent(component));
+
+            // Act & Assert
+            final var expected = buildHtmlTree(false, false);
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
+
+        @Test
+        @DisplayName("Should render disabled switch component")
+        void shouldRenderDisabled(FacesContext facesContext) throws IOException {
+            // Arrange
+            final var component = (SwitchComponent) getComponent();
+            component.setDisabled(true);
+            component.processEvent(new PostAddToViewEvent(component));
+            component.processEvent(new PreRenderComponentEvent(component));
+
+            // Act & Assert
+            final var expected = buildHtmlTree(false, true);
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
     }
 
     /**
@@ -106,16 +125,16 @@ class SwitchRendererTest extends AbstractComponentRendererTest<SwitchRenderer> i
     private HtmlTreeBuilder buildHtmlTree(final boolean isActive, final boolean isDisabled) {
         return new HtmlTreeBuilder().withNode(Node.DIV).withAttributeNameAndId("testComponent_container")
                 .withAttribute("data-switch-disabled", String.valueOf(isDisabled))
-                .withAttribute(AttributeName.CLASS, styleClass).withAttribute(AttributeName.STYLE, style)
-                .withNode(Node.DIV).withAttribute(AttributeName.CLASS, default_column_size + " switch-placing")
+                .withAttribute(AttributeName.CLASS, STYLE_CLASS).withAttribute(AttributeName.STYLE, STYLE)
+                .withNode(Node.DIV).withAttribute(AttributeName.CLASS, DEFAULT_COLUMN_SIZE + " switch-placing")
                 .withNode(Node.LABEL).withAttribute(AttributeName.CLASS, "switch")
-                .withAttribute(AttributeName.TITLE, titleValue).withNode(Node.INPUT)
+                .withAttribute(AttributeName.TITLE, TITLE_VALUE).withNode(Node.INPUT)
                 .withAttributeNameAndId("testComponent").currentHierarchyUp().withNode(Node.SPAN)
                 .withAttribute(AttributeName.CLASS, "slider round").currentHierarchyUp().currentHierarchyUp()
                 .withNode(Node.SPAN).withAttribute(AttributeName.CLASS, "switch-text" + (!isActive ? " hidden" : ""))
-                .withAttribute(AttributeName.DATA_ITEM_ACTIVE, "true").withTextContent(onText).currentHierarchyUp()
+                .withAttribute(AttributeName.DATA_ITEM_ACTIVE, "true").withTextContent(ON_TEXT).currentHierarchyUp()
                 .withNode(Node.SPAN).withAttribute(AttributeName.CLASS, "switch-text" + (isActive ? " hidden" : ""))
-                .withAttribute(AttributeName.DATA_ITEM_ACTIVE, "false").withTextContent(offText).currentHierarchyUp()
+                .withAttribute(AttributeName.DATA_ITEM_ACTIVE, "false").withTextContent(OFF_TEXT).currentHierarchyUp()
                 .currentHierarchyUp();
     }
 }

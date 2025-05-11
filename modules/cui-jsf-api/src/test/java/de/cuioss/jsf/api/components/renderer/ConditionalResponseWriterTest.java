@@ -21,11 +21,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import org.apache.myfaces.test.mock.MockResponseWriter;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.StringWriter;
 
+@DisplayName("Tests for ConditionalResponseWriter")
 class ConditionalResponseWriterTest {
 
     public static final String PARTIAL_SIMPLE_RENDER_START = "<div name=\"header\"/>";
@@ -36,43 +39,81 @@ class ConditionalResponseWriterTest {
 
     public static final String PARTIAL_WRAPPED_RENDER_END = "<div name=\"footer\"/></div>";
 
-    @Test
-    void shouldRenderSimpleStart() throws IOException {
-        var builder = createSimplePartialRenderBuilder();
-        var sink = new StringWriter();
-        var mockWriter = new MockResponseWriter(sink);
-        var writer = new ConditionalResponseWriter(mockWriter, HtmlTreeBuilder.CHILD_BREAKPOINT_ELEMENT, true);
-        builder.writeToResponseWriter(writer);
-        assertEquals(PARTIAL_SIMPLE_RENDER_START, sink.toString());
+    @Nested
+    @DisplayName("Tests for simple partial rendering")
+    class SimpleRenderingTests {
+
+        @Test
+        @DisplayName("Should render start part of simple partial render")
+        void shouldRenderSimpleStartPart() throws IOException {
+            // Arrange
+            var builder = createSimplePartialRenderBuilder();
+            var sink = new StringWriter();
+            var mockWriter = new MockResponseWriter(sink);
+
+            // Act - create writer with renderStart=true and write to it
+            var writer = new ConditionalResponseWriter(mockWriter, HtmlTreeBuilder.CHILD_BREAKPOINT_ELEMENT, true);
+            builder.writeToResponseWriter(writer);
+
+            // Assert
+            assertEquals(PARTIAL_SIMPLE_RENDER_START, sink.toString(),
+                    "Should render only the start part of simple partial render");
+        }
+
+        @Test
+        @DisplayName("Should render end part of simple partial render")
+        void shouldRenderSimpleEndPart() throws IOException {
+            // Arrange
+            var builder = createSimplePartialRenderBuilder();
+            var sink = new StringWriter();
+            var mockWriter = new MockResponseWriter(sink);
+
+            // Act - create writer with renderStart=false and write to it
+            var writer = new ConditionalResponseWriter(mockWriter, HtmlTreeBuilder.CHILD_BREAKPOINT_ELEMENT, false);
+            builder.writeToResponseWriter(writer);
+
+            // Assert
+            assertEquals(PARTIAL_SIMPLE_RENDER_END, sink.toString(),
+                    "Should render only the end part of simple partial render");
+        }
     }
 
-    @Test
-    void shouldRenderSimpleEnd() throws IOException {
-        var builder = createSimplePartialRenderBuilder();
-        var sink = new StringWriter();
-        var mockWriter = new MockResponseWriter(sink);
-        var writer = new ConditionalResponseWriter(mockWriter, HtmlTreeBuilder.CHILD_BREAKPOINT_ELEMENT, false);
-        builder.writeToResponseWriter(writer);
-        assertEquals(PARTIAL_SIMPLE_RENDER_END, sink.toString());
-    }
+    @Nested
+    @DisplayName("Tests for wrapped partial rendering")
+    class WrappedRenderingTests {
 
-    @Test
-    void shouldRenderWrappedStart() throws IOException {
-        var builder = createWrappedPartialRenderBuilder();
-        var sink = new StringWriter();
-        var mockWriter = new MockResponseWriter(sink);
-        var writer = new ConditionalResponseWriter(mockWriter, HtmlTreeBuilder.CHILD_BREAKPOINT_ELEMENT, true);
-        builder.writeToResponseWriter(writer);
-        assertEquals(PARTIAL_WRAPPED_RENDER_START, sink.toString());
-    }
+        @Test
+        @DisplayName("Should render start part of wrapped partial render")
+        void shouldRenderWrappedStartPart() throws IOException {
+            // Arrange
+            var builder = createWrappedPartialRenderBuilder();
+            var sink = new StringWriter();
+            var mockWriter = new MockResponseWriter(sink);
 
-    @Test
-    void shouldRenderWrappedEnd() throws IOException {
-        var builder = createWrappedPartialRenderBuilder();
-        var sink = new StringWriter();
-        var mockWriter = new MockResponseWriter(sink);
-        var writer = new ConditionalResponseWriter(mockWriter, HtmlTreeBuilder.CHILD_BREAKPOINT_ELEMENT, false);
-        builder.writeToResponseWriter(writer);
-        assertEquals(PARTIAL_WRAPPED_RENDER_END, sink.toString());
+            // Act - create writer with renderStart=true and write to it
+            var writer = new ConditionalResponseWriter(mockWriter, HtmlTreeBuilder.CHILD_BREAKPOINT_ELEMENT, true);
+            builder.writeToResponseWriter(writer);
+
+            // Assert
+            assertEquals(PARTIAL_WRAPPED_RENDER_START, sink.toString(),
+                    "Should render only the start part of wrapped partial render");
+        }
+
+        @Test
+        @DisplayName("Should render end part of wrapped partial render")
+        void shouldRenderWrappedEndPart() throws IOException {
+            // Arrange
+            var builder = createWrappedPartialRenderBuilder();
+            var sink = new StringWriter();
+            var mockWriter = new MockResponseWriter(sink);
+
+            // Act - create writer with renderStart=false and write to it
+            var writer = new ConditionalResponseWriter(mockWriter, HtmlTreeBuilder.CHILD_BREAKPOINT_ELEMENT, false);
+            builder.writeToResponseWriter(writer);
+
+            // Assert
+            assertEquals(PARTIAL_WRAPPED_RENDER_END, sink.toString(),
+                    "Should render only the end part of wrapped partial render");
+        }
     }
 }

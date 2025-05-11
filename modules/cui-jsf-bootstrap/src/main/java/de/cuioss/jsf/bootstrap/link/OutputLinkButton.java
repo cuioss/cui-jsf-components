@@ -16,16 +16,7 @@
 package de.cuioss.jsf.bootstrap.link;
 
 import de.cuioss.jsf.api.components.css.AlignHolder;
-import de.cuioss.jsf.api.components.partial.ComponentBridge;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProviderImpl;
-import de.cuioss.jsf.api.components.partial.ContextSizeProvider;
-import de.cuioss.jsf.api.components.partial.ContextStateProvider;
-import de.cuioss.jsf.api.components.partial.IconAlignProvider;
-import de.cuioss.jsf.api.components.partial.IconProvider;
-import de.cuioss.jsf.api.components.partial.LabelProvider;
-import de.cuioss.jsf.api.components.partial.TitleProvider;
-import de.cuioss.jsf.api.components.partial.TitleProviderImpl;
+import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.button.support.ButtonSize;

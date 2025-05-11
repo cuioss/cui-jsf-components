@@ -15,11 +15,7 @@
  */
 package de.cuioss.jsf.bootstrap.menu;
 
-import de.cuioss.jsf.api.components.model.menu.NavigationMenuItem;
-import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemContainer;
-import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemExternalSingle;
-import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSeparator;
-import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSingle;
+import de.cuioss.jsf.api.components.model.menu.*;
 import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;

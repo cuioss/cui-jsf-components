@@ -17,16 +17,25 @@ package de.cuioss.jsf.api.converter;
 
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
+import org.junit.jupiter.api.DisplayName;
 
+@EnableJsfEnvironment
+@DisplayName("Tests for ComplexHtmlSanitizingConverter")
 class ComplexHtmlSanitizingConverterTest extends AbstractConverterTest<ComplexHtmlSanitizingConverter, String> {
 
+    // Safe HTML content that should pass through unchanged
     static final String SIMPLE_HTML = "<div><p>Test</p></div>";
-    static final String MALICIOS_HTML = "<div><p>Test<script>alert('Hallo');</script></p></div>";
+
+    // HTML with malicious script that should be sanitized
+    static final String MALICIOUS_HTML = "<div><p>Test<script>alert('Hallo');</script></p></div>";
 
     @Override
+    @DisplayName("Configure test cases for HTML sanitization")
     public void populate(final TestItems<String> testItems) {
-        testItems.addValidObjectWithStringResult(SIMPLE_HTML, SIMPLE_HTML).addValidStringWithObjectResult(MALICIOS_HTML,
-                SIMPLE_HTML);
-
+        // Test that safe HTML passes through unchanged
+        testItems.addValidObjectWithStringResult(SIMPLE_HTML, SIMPLE_HTML)
+                // Test that malicious HTML is sanitized (script tag removed)
+                .addValidStringWithObjectResult(MALICIOUS_HTML, SIMPLE_HTML);
     }
 }

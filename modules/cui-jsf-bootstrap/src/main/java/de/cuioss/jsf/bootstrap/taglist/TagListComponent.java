@@ -16,11 +16,7 @@
 package de.cuioss.jsf.bootstrap.taglist;
 
 import de.cuioss.jsf.api.components.base.BaseCuiNamingContainer;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
-import de.cuioss.jsf.api.components.partial.ContentProvider;
-import de.cuioss.jsf.api.components.partial.ContextSizeProvider;
-import de.cuioss.jsf.api.components.partial.ContextStateProvider;
-import de.cuioss.jsf.api.components.partial.StyleAttributeProvider;
+import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.tag.support.TagHelper;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;

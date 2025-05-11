@@ -28,7 +28,6 @@ import de.cuioss.jsf.bootstrap.common.partial.ColumnCssResolver;
 import de.cuioss.jsf.bootstrap.layout.messages.CuiMessageComponent;
 import de.cuioss.jsf.bootstrap.layout.messages.CuiMessageRenderer;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
-import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
@@ -39,7 +38,10 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.PostAddToViewEvent;
 import jakarta.faces.event.PreRenderComponentEvent;
 import jakarta.faces.view.ViewDeclarationLanguage;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 /**
  * Expectation for renderer cycle :
@@ -59,8 +61,7 @@ import org.junit.jupiter.api.Test;
  */
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
-class HelpTextRendererTest extends AbstractComponentRendererTest<LabeledContainerRenderer>
-        implements ComponentConfigurator {
+class HelpTextRendererTest extends AbstractComponentRendererTest<LabeledContainerRenderer> {
 
     private static final String CLIENT_ID = "j_id__v_0";
 
@@ -75,7 +76,7 @@ class HelpTextRendererTest extends AbstractComponentRendererTest<LabeledContaine
     private static final String INPUT = "input";
 
     @Test
-    void shouldRenderMinimal() {
+    void shouldRenderMinimal(FacesContext facesContext) throws IOException {
         final var htmlInputText = new HtmlInputText();
         htmlInputText.setId(INPUT);
         var component = new LabeledContainerComponent();
@@ -98,11 +99,11 @@ class HelpTextRendererTest extends AbstractComponentRendererTest<LabeledContaine
                 .withStyleClass(CssBootstrap.CUI_ADDITIONAL_MESSAGE.getStyleClass())
                 .withAttribute(HelpTextComponent.DATA_HELP_BLOCK, HelpTextComponent.DATA_HELP_BLOCK).withNode(Node.SPAN)
                 .withTextContent("title").currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
-        assertRenderResult(component, expected.getDocument());
+        assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderWithChild() {
+    void shouldRenderWithChild(FacesContext facesContext) throws IOException {
         final var htmlInputText = new HtmlInputText();
         htmlInputText.setId(INPUT);
         var component = new LabeledContainerComponent();
@@ -136,7 +137,7 @@ class HelpTextRendererTest extends AbstractComponentRendererTest<LabeledContaine
                 .withAttribute(AttributeName.STYLE, "display: none;")
                 .withAttribute(HelpTextComponent.DATA_HELP_BLOCK, HelpTextComponent.DATA_HELP_BLOCK).withNode(Node.A)
                 .withAttribute("target", "https://www.cuioss.de").currentHierarchyUp().currentHierarchyUp();
-        assertRenderResult(component, expected.getDocument());
+        assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
     @Override
@@ -150,8 +151,8 @@ class HelpTextRendererTest extends AbstractComponentRendererTest<LabeledContaine
         return containerComponent;
     }
 
-    @Override
-    public void configureComponents(final ComponentConfigDecorator decorator) {
+    @BeforeEach
+    void configureComponents(ComponentConfigDecorator decorator) {
         decorator.registerUIComponent(CuiMessageComponent.class).registerRenderer(CuiMessageRenderer.class)
                 .registerUIComponent(Button.class)
                 .registerMockRenderer(BootstrapFamily.COMPONENT_FAMILY, BootstrapFamily.BUTTON_RENDERER);

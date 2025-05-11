@@ -236,6 +236,17 @@ For more detailed information on test data generation, refer to the [Using Gener
 
 This section outlines the systematic approach for implementing Task 1. Follow this structured process to ensure consistent and thorough updates to all test classes.
 
+### 0. Prerequisites
+
+Before starting the refactoring of JUnit tests, you must first migrate the cui-jsf-test-basic tests according to the [migration guide](cui-jsf-test-basic/migration.adoc). This migration involves:
+
+- Moving from the legacy `JsfEnvironmentConsumer` approach to the new parameter resolution approach
+- Updating test classes that implement `JsfEnvironmentConsumer` or extend `JsfEnabledTestEnvironment`
+- Replacing configurator interfaces with parameter resolution
+- Updating navigation assertions to use the new `NavigationAsserts` parameter
+
+This prerequisite step is essential as it ensures all JSF tests use the modern JUnit 5 parameter resolution capabilities, making them more concise, readable, and maintainable before proceeding with other test refactoring tasks.
+
 ### 1. Analysis Phase
 
 - Review current state of the module's tests

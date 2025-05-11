@@ -19,23 +19,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import de.cuioss.jsf.api.components.util.ComponentWrapper;
-import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
-import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.html.HtmlForm;
 import jakarta.faces.component.html.HtmlInputText;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ComponentWrapperJQuerySelectorTest extends JsfEnabledTestEnvironment implements ComponentConfigurator {
+@EnableJsfEnvironment
+class ComponentWrapperJQuerySelectorTest {
 
     private static final String EXTENSION = "extension";
 
     private ComponentWrapper<UIComponent> componentWrapper;
 
     @BeforeEach
-    void setUpBefore() {
+    void setUpBefore(ComponentConfigDecorator decorator) {
+        decorator.registerMockRendererForHtmlForm().registerMockRendererForHtmlInputText();
+
         var form = new HtmlForm();
         var wrapped = new HtmlInputText();
         wrapped.setId("mock");
@@ -65,8 +67,4 @@ class ComponentWrapperJQuerySelectorTest extends JsfEnabledTestEnvironment imple
                 ComponentWrapperJQuerySelector.builder().withComponentWrapper(componentWrapper).build().toString());
     }
 
-    @Override
-    public void configureComponents(final ComponentConfigDecorator decorator) {
-        decorator.registerMockRendererForHtmlForm().registerMockRendererForHtmlInputText();
-    }
 }

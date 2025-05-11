@@ -21,11 +21,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import de.cuioss.jsf.api.components.support.ActiveIndexManagerImpl;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.jboss.weld.junit5.ExplicitParamInjection;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 @VerifyComponentProperties
+@ExplicitParamInjection
 class ActiveIndexManagerProviderImplTest extends AbstractPartialComponentTest {
 
     @Test

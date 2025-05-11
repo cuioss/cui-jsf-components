@@ -17,12 +17,7 @@ package de.cuioss.jsf.bootstrap.notification;
 
 import de.cuioss.jsf.api.components.base.AbstractBaseCuiComponent;
 import de.cuioss.jsf.api.components.events.ModelPayloadEvent;
-import de.cuioss.jsf.api.components.partial.CloseButtonTitleProvider;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
-import de.cuioss.jsf.api.components.partial.ContentProvider;
-import de.cuioss.jsf.api.components.partial.ContextStateProvider;
-import de.cuioss.jsf.api.components.partial.ModelProvider;
-import de.cuioss.jsf.api.components.partial.StyleAttributeProvider;
+import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import jakarta.el.MethodExpression;
 import jakarta.faces.application.ResourceDependency;

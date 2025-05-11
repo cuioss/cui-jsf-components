@@ -31,6 +31,7 @@ import de.cuioss.test.valueobjects.property.util.CollectionType;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
+import jakarta.faces.context.FacesContext;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;
@@ -77,7 +78,8 @@ class TagInputComponentTest extends AbstractUiComponentTest<TagInputComponent> {
     @Test
     void shouldNotSetSingleValue() {
         final var underTest = anyComponent();
-        assertThrows(IllegalArgumentException.class, () -> underTest.setValue(conceptKeyTypeGenerator.next()));
+        ConceptKeyType next = conceptKeyTypeGenerator.next();
+        assertThrows(IllegalArgumentException.class, () -> underTest.setValue(next));
     }
 
     @Test
@@ -97,7 +99,8 @@ class TagInputComponentTest extends AbstractUiComponentTest<TagInputComponent> {
     @Test
     void shouldFailOnInvalidSetValue() {
         final var component = anyComponent();
-        assertThrows(IllegalArgumentException.class, () -> component.setValue(mutableSet(1)));
+        Set<Integer> value = mutableSet(1);
+        assertThrows(IllegalArgumentException.class, () -> component.setValue(value));
     }
 
     @Test
@@ -107,8 +110,8 @@ class TagInputComponentTest extends AbstractUiComponentTest<TagInputComponent> {
     }
 
     @Test
-    void shouldResolveItemConverter() {
-        getFacesContext().getApplication().addConverter(TestTagItemConverter.ID, TestTagItemConverter.class.getName());
+    void shouldResolveItemConverter(FacesContext facesContext) {
+        facesContext.getApplication().addConverter(TestTagItemConverter.ID, TestTagItemConverter.class.getName());
         final var component = anyComponent();
         component.setItemConverterId(TestTagItemConverter.ID);
         assertNotNull(component.getItemConverter());

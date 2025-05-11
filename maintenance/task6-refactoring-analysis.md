@@ -112,14 +112,27 @@ Look for these common refactoring opportunities:
 - Lack of documentation
 - Brittle inheritance hierarchies
 
-## Progress Tracking
+## Progress Tracking Approach
 
-For each module, progress should be tracked in the module-specific maintenance document:
+### Module-Level Status
+
+For each module, overall progress should be tracked in the module-specific maintenance document:
 
 - **Not Started**: Task has not been initiated
 - **In Progress**: Task is currently being worked on
 - **Completed**: Task has been completed and verified
 - **Blocked**: Task cannot proceed due to dependencies or issues
+
+### Detailed Java File Tracking
+
+Each module should maintain a `maintenance/code.md` file listing all Java files from the main source directory with their current status for various maintenance tasks, including refactoring analysis:
+
+- **Analyzed**: The code has been reviewed but not yet updated
+- **logging-standards**: The code has been updated to comply with logging standards
+- **javadoc**: The code has been updated to comply with Javadoc standards
+- **refactoring**: The code has been analyzed for refactoring opportunities
+
+This granular tracking allows for better progress monitoring and ensures no files are overlooked during the implementation process.
 
 ## References
 

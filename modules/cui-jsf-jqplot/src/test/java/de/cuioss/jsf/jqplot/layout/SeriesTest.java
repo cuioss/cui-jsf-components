@@ -23,78 +23,175 @@ import static org.junit.jupiter.api.Assertions.*;
 import de.cuioss.jsf.jqplot.axes.AxisType;
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.valueobjects.contract.SerializableContractImpl;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for Series class")
 class SeriesTest {
 
     private Series target;
 
-    @Test
-    void shouldBeSerializable() {
-        assertDoesNotThrow(() -> SerializableContractImpl.serializeAndDeserialize(Series.createAsListElement()));
+    @Nested
+    @DisplayName("Serialization tests")
+    class SerializationTests {
+
+        @Test
+        @DisplayName("Should be serializable")
+        void shouldBeSerializable() {
+            // Arrange & Act & Assert
+            assertDoesNotThrow(() -> SerializableContractImpl.serializeAndDeserialize(Series.createAsListElement()));
+        }
     }
 
-    @Test
-    void shouldNotReturnObjectOnEmptyProperties() {
-        target = Series.createAsSeriesDefaults();
-        assertNull(target.asJavaScriptObjectNotation());
-        assertThatNoPluginsAreUsed(target);
+    @Nested
+    @DisplayName("Basic property tests")
+    class BasicPropertyTests {
+
+        @Test
+        @DisplayName("Should not return object when no properties are set")
+        void shouldNotReturnObjectOnEmptyProperties() {
+            // Arrange
+            target = Series.createAsSeriesDefaults();
+
+            // Act & Assert
+            assertNull(target.asJavaScriptObjectNotation());
+            assertThatNoPluginsAreUsed(target);
+        }
     }
 
-    @Test
-    void shouldProvideHideLine() {
-        target = Series.createAsSeriesDefaults();
-        target.setShowLine(TRUE);
-        assertEquals("seriesDefaults: {showLine:true}", target.asJavaScriptObjectNotation());
-        target.setShowLine(FALSE);
-        assertEquals("seriesDefaults: {showLine:false}", target.asJavaScriptObjectNotation());
-        assertThatNoPluginsAreUsed(target);
+    @Nested
+    @DisplayName("Line visibility tests")
+    class LineVisibilityTests {
+
+        @Test
+        @DisplayName("Should control line visibility with showLine property")
+        void shouldProvideHideLine() {
+            // Arrange
+            target = Series.createAsSeriesDefaults();
+
+            // Act - set to true
+            target.setShowLine(TRUE);
+
+            // Assert
+            assertEquals("seriesDefaults: {showLine:true}", target.asJavaScriptObjectNotation(),
+                    "Should show line when showLine is true");
+
+            // Act - set to false
+            target.setShowLine(FALSE);
+
+            // Assert
+            assertEquals("seriesDefaults: {showLine:false}", target.asJavaScriptObjectNotation(),
+                    "Should hide line when showLine is false");
+            assertThatNoPluginsAreUsed(target);
+        }
     }
 
-    @Test
-    void shouldProvideColorLine() {
-        target = Series.createAsListElement();
-        target.setColor("#FF5500");
-        assertEquals("{color:\"#FF5500\"}", target.asJavaScriptObjectNotation());
-        target.setColor(null);
-        assertEquals("{color:\"transparent\"}", target.asJavaScriptObjectNotation());
-        assertThatNoPluginsAreUsed(target);
+    @Nested
+    @DisplayName("Line appearance tests")
+    class LineAppearanceTests {
+
+        @Test
+        @DisplayName("Should set line color")
+        void shouldProvideColorLine() {
+            // Arrange
+            target = Series.createAsListElement();
+
+            // Act - set color
+            target.setColor("#FF5500");
+
+            // Assert
+            assertEquals("{color:\"#FF5500\"}", target.asJavaScriptObjectNotation(),
+                    "Should set specific color");
+
+            // Act - set null color
+            target.setColor(null);
+
+            // Assert
+            assertEquals("{color:\"transparent\"}", target.asJavaScriptObjectNotation(),
+                    "Should set transparent color when null");
+            assertThatNoPluginsAreUsed(target);
+        }
+
+        @Test
+        @DisplayName("Should control shadow property")
+        void shouldProvideShadow() {
+            // Arrange
+            target = Series.createAsListElement();
+
+            // Act - set shadow to true
+            target.setShadow(TRUE);
+
+            // Assert
+            assertEquals("{shadow:true}", target.asJavaScriptObjectNotation(),
+                    "Should enable shadow when true");
+
+            // Act - set shadow to false
+            target.setShadow(FALSE);
+
+            // Assert
+            assertEquals("{shadow:false}", target.asJavaScriptObjectNotation(),
+                    "Should disable shadow when false");
+            assertThatNoPluginsAreUsed(target);
+        }
+
+        @Test
+        @DisplayName("Should set line width")
+        void shouldProvideLineWidth() {
+            // Arrange
+            target = Series.createAsListElement();
+
+            // Act - set line width
+            target.setLineWidth(10.1);
+
+            // Assert
+            assertEquals("{lineWidth:10.100}", target.asJavaScriptObjectNotation(),
+                    "Should set line width with three decimal places");
+
+            // Act - set null line width
+            target.setLineWidth(null);
+
+            // Assert
+            assertNull(target.asJavaScriptObjectNotation(), "Should return null when line width is null");
+            assertThatNoPluginsAreUsed(target);
+        }
     }
 
-    @Test
-    void shouldProvideShadow() {
-        target = Series.createAsListElement();
-        target.setShadow(TRUE);
-        assertEquals("{shadow:true}", target.asJavaScriptObjectNotation());
-        target.setShadow(FALSE);
-        assertEquals("{shadow:false}", target.asJavaScriptObjectNotation());
-        assertThatNoPluginsAreUsed(target);
-    }
+    @Nested
+    @DisplayName("Axis configuration tests")
+    class AxisConfigurationTests {
 
-    @Test
-    void shouldProvideLineWidth() {
-        target = Series.createAsListElement();
-        target.setLineWidth(10.1);
-        assertEquals("{lineWidth:10.100}", target.asJavaScriptObjectNotation());
-        target.setLineWidth(null);
-        assertNull(target.asJavaScriptObjectNotation());
-        assertThatNoPluginsAreUsed(target);
-    }
+        @Test
+        @DisplayName("Should configure x and y axis types")
+        void shouldProvideChangeSeriaAxis() {
+            // Arrange
+            target = Series.createAsSeriesDefaults();
+            var yaxis = Generators.fixedValues(AxisType.Y_AXES).next();
 
-    @Test
-    void shouldProvideChangeSeriaAxis() {
-        target = Series.createAsSeriesDefaults();
-        var yaxis = Generators.fixedValues(AxisType.Y_AXES).next();
-        assertThrows(IllegalArgumentException.class, () -> target.setXaxis(yaxis));
+            // Act & Assert - validate x-axis type checking
+            assertThrows(IllegalArgumentException.class, () -> target.setXaxis(yaxis),
+                    "Should reject Y axis type for X axis");
 
-        target.setXaxis(AxisType.X2AXIS);
+            // Act - set valid x-axis
+            target.setXaxis(AxisType.X2AXIS);
 
-        assertEquals("seriesDefaults: {xaxis:\"x2axis\"}", target.asJavaScriptObjectNotation());
+            // Assert
+            assertEquals("seriesDefaults: {xaxis:\"x2axis\"}", target.asJavaScriptObjectNotation(),
+                    "Should set x2axis correctly");
 
-        var xaxis = Generators.fixedValues(AxisType.X_AXES).next();
-        assertThrows(IllegalArgumentException.class, () -> target.setYaxis(xaxis));
+            // Arrange for y-axis test
+            var xaxis = Generators.fixedValues(AxisType.X_AXES).next();
 
-        target.setYaxis(AxisType.Y2AXIS);
-        assertEquals("seriesDefaults: {xaxis:\"x2axis\",yaxis:\"y2axis\"}", target.asJavaScriptObjectNotation());
+            // Act & Assert - validate y-axis type checking
+            assertThrows(IllegalArgumentException.class, () -> target.setYaxis(xaxis),
+                    "Should reject X axis type for Y axis");
+
+            // Act - set valid y-axis
+            target.setYaxis(AxisType.Y2AXIS);
+
+            // Assert
+            assertEquals("seriesDefaults: {xaxis:\"x2axis\",yaxis:\"y2axis\"}", target.asJavaScriptObjectNotation(),
+                    "Should set both axes correctly");
+        }
     }
 }

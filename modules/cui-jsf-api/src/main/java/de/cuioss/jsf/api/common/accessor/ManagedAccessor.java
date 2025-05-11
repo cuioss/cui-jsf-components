@@ -15,8 +15,6 @@
  */
 package de.cuioss.jsf.api.common.accessor;
 
-import jakarta.faces.context.FacesContext;
-
 import java.io.Serializable;
 import java.util.ResourceBundle;
 

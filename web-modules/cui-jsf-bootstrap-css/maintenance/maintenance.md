@@ -10,7 +10,7 @@ The cui-jsf-bootstrap-css module contains CSS stylesheets, themes, and related a
 
 ### 1. Update Unit Tests to Comply with Standards
 
-**Status**: [ ] Not Started [ ] In Progress [ ] Completed [ ] Blocked
+**Status**: [ ] Not Started [x] In Progress [ ] Completed [ ] Blocked
 
 #### Pre-conditions
 - Existing CSS tests may not follow CUI testing standards

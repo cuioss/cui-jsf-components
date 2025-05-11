@@ -22,24 +22,51 @@ import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.jsf.component.AbstractUiComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 @VerifyComponentProperties(of = {"offsetSize"})
+@DisplayName("Tests for ControlGroupComponent")
 class ControlGroupComponentTest extends AbstractUiComponentTest<ControlGroupComponent> {
 
     private final TypedGenerator<Integer> validNumbers = Generators.integers(1, 12);
 
-    @Test
-    void shouldProvideDefaultSize() {
-        final var underTest = new ControlGroupComponent();
-        assertEquals(Integer.valueOf(8), underTest.getSize());
+    @Nested
+    @DisplayName("Tests for component properties")
+    class PropertyTests {
+
+        @Test
+        @DisplayName("Should provide default size of 8")
+        void shouldProvideDefaultSize() {
+            // Arrange
+            final var underTest = new ControlGroupComponent();
+
+            // Act & Assert
+            assertEquals(Integer.valueOf(8), underTest.getSize(),
+                    "Default size should be 8");
+        }
     }
 
-    @Test
-    void shouldResolveColumnCss() {
-        final var underTest = new ControlGroupComponent();
-        underTest.setSize(validNumbers.next());
-        underTest.setOffsetSize(validNumbers.next());
-        assertNotNull(underTest.resolveColumnCss());
+    @Nested
+    @DisplayName("Tests for CSS resolution")
+    class CssResolutionTests {
+
+        @Test
+        @DisplayName("Should resolve column CSS with size and offset")
+        void shouldResolveColumnCss() {
+            // Arrange
+            final var underTest = new ControlGroupComponent();
+            final var size = validNumbers.next();
+            final var offsetSize = validNumbers.next();
+
+            // Act
+            underTest.setSize(size);
+            underTest.setOffsetSize(offsetSize);
+
+            // Assert
+            assertNotNull(underTest.resolveColumnCss(),
+                    "Should resolve column CSS for size " + size + " and offset " + offsetSize);
+        }
     }
 }

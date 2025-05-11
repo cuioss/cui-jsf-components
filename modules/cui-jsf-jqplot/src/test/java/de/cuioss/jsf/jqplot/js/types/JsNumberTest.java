@@ -19,8 +19,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.valueobjects.ValueObjectTest;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for JsNumber class")
 class JsNumberTest extends ValueObjectTest<JsNumber<Number>> {
 
     @Override
@@ -28,24 +31,51 @@ class JsNumberTest extends ValueObjectTest<JsNumber<Number>> {
         return JsNumber.create(Generators.integers().next());
     }
 
-    @Test
-    void shouldSupportIntegerValue() {
-        final JsNumber<Integer> target = JsNumber.create(10);
-        assertEquals("10", target.getValueAsString());
-        final JsNumber<Integer> targetEmpty = JsNumber.create(null);
-        assertNull(targetEmpty.getValueAsString());
+    @Nested
+    @DisplayName("Integer value handling tests")
+    class IntegerValueTests {
+
+        @Test
+        @DisplayName("Should correctly format integer values")
+        void shouldSupportIntegerValue() {
+            // Arrange
+            final JsNumber<Integer> target = JsNumber.create(10);
+            final JsNumber<Integer> targetEmpty = JsNumber.create(null);
+
+            // Act & Assert
+            assertEquals("10", target.getValueAsString(), "Integer should be formatted without decimals");
+            assertNull(targetEmpty.getValueAsString(), "Null integer should return null string");
+        }
     }
 
-    @Test
-    void shouldSupportDoubleValue() {
-        final JsNumber<Double> target = JsNumber.create(10.1);
-        assertEquals("10.100", target.getValueAsString());
-        final JsNumber<Double> targetEmpty = JsNumber.create(null);
-        assertNull(targetEmpty.getValueAsString());
+    @Nested
+    @DisplayName("Double value handling tests")
+    class DoubleValueTests {
+
+        @Test
+        @DisplayName("Should correctly format double values with three decimal places")
+        void shouldSupportDoubleValue() {
+            // Arrange
+            final JsNumber<Double> target = JsNumber.create(10.1);
+            final JsNumber<Double> targetEmpty = JsNumber.create(null);
+
+            // Act & Assert
+            assertEquals("10.100", target.getValueAsString(), "Double should be formatted with three decimal places");
+            assertNull(targetEmpty.getValueAsString(), "Null double should return null string");
+        }
     }
 
-    @Test
-    void shouldReactOnUnsupportedNumberType() {
-        assertThrows(UnsupportedOperationException.class, () -> JsNumber.create(Byte.MAX_VALUE));
+    @Nested
+    @DisplayName("Error handling tests")
+    class ErrorHandlingTests {
+
+        @Test
+        @DisplayName("Should throw exception for unsupported number types")
+        void shouldReactOnUnsupportedNumberType() {
+            // Act & Assert
+            assertThrows(UnsupportedOperationException.class,
+                    () -> JsNumber.create(Byte.MAX_VALUE),
+                    "Should throw exception for Byte type");
+        }
     }
 }

@@ -24,39 +24,67 @@ import de.cuioss.jsf.bootstrap.layout.messages.CuiMessageComponent;
 import de.cuioss.jsf.bootstrap.layout.messages.CuiMessageRenderer;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
-import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests for {@link HelpTextComponent} using the property verification from
+ * {@link AbstractComponentTest}.
+ */
 @VerifyComponentProperties(of = {"titleKey", "titleValue", "contentKey", "contentValue", "contentEscape",
         "buttonAlign", "renderButton"})
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
-class HelpTextComponentTest extends AbstractComponentTest<HelpTextComponent> implements ComponentConfigurator {
+@DisplayName("Tests for HelpTextComponent")
+class HelpTextComponentTest extends AbstractComponentTest<HelpTextComponent> {
 
-    @Test
-    void shouldProvideMetadata() {
-        assertEquals(JsfComponentIdentifier.INPUT_FAMILY, anyComponent().getFamily());
-        assertEquals(JsfComponentIdentifier.HIDDEN_RENDERER_TYPE, anyComponent().getRendererType());
-    }
-
-    @Test
-    void shouldProvideFixedAttributes() {
-        assertEquals(FIXED_ID, anyComponent().getId());
+    @BeforeEach
+    void configureComponents(ComponentConfigDecorator decorator) {
+        decorator.registerUIComponent(CommandButton.class)
+                .registerUIComponent(CuiMessageComponent.class)
+                .registerRenderer(CuiMessageRenderer.class)
+                .registerRenderer(LabeledContainerRenderer.class)
+                .registerMockRendererForHtmlInputText();
     }
 
     @Override
     public void configure(HelpTextComponent toBeConfigured) {
+        // Set up parent component
         var parent = new LabeledContainerComponent();
         parent.setId("labeledContainer");
         parent.getChildren().add(toBeConfigured);
     }
 
-    @Override
-    public void configureComponents(ComponentConfigDecorator decorator) {
-        decorator.registerUIComponent(CommandButton.class).registerUIComponent(CuiMessageComponent.class)
-                .registerRenderer(CuiMessageRenderer.class).registerRenderer(LabeledContainerRenderer.class)
-                .registerMockRendererForHtmlInputText();
+    @Nested
+    @DisplayName("Tests for component properties")
+    class PropertyTests {
+
+        @Test
+        @DisplayName("Should provide correct component metadata")
+        void shouldProvideMetadata() {
+            // Arrange
+            var component = anyComponent();
+
+            // Act & Assert
+            assertEquals(JsfComponentIdentifier.INPUT_FAMILY, component.getFamily(),
+                    "Component family should match INPUT_FAMILY");
+            assertEquals(JsfComponentIdentifier.HIDDEN_RENDERER_TYPE, component.getRendererType(),
+                    "Renderer type should match HIDDEN_RENDERER_TYPE");
+        }
+
+        @Test
+        @DisplayName("Should have fixed ID attribute")
+        void shouldProvideFixedAttributes() {
+            // Arrange
+            var component = anyComponent();
+
+            // Act & Assert
+            assertEquals(FIXED_ID, component.getId(),
+                    "Component ID should match FIXED_ID constant");
+        }
     }
 }

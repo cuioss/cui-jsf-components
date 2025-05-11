@@ -27,7 +27,6 @@ import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.jsf.bootstrap.icon.IconComponent;
 import de.cuioss.jsf.bootstrap.icon.IconRenderer;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
-import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
@@ -37,11 +36,14 @@ import jakarta.faces.component.UIOutput;
 import jakarta.faces.component.html.HtmlOutcomeTargetLink;
 import jakarta.faces.component.html.HtmlOutputLink;
 import jakarta.faces.component.html.HtmlOutputText;
+import jakarta.faces.context.FacesContext;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
-class NavigationMenuRendererTest extends AbstractComponentRendererTest<NavigationMenuRenderer>
-        implements ComponentConfigurator {
+class NavigationMenuRendererTest extends AbstractComponentRendererTest<NavigationMenuRenderer> {
 
     private static final String CUI_ICON_PREFIX = "cui-icon ";
 
@@ -59,8 +61,19 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
 
     private static final String OUTCOME_HOME = "home";
 
+    @BeforeEach
+    void setUp(ComponentConfigDecorator decorator) {
+        decorator.registerUIComponent(HtmlOutcomeTargetLink.COMPONENT_TYPE, HtmlOutcomeTargetLink.class)
+                .registerMockRenderer(UIOutcomeTarget.COMPONENT_FAMILY, "jakarta.faces.Link");
+        decorator.registerUIComponent(HtmlOutputLink.COMPONENT_TYPE, HtmlOutputLink.class)
+                .registerMockRenderer(UIOutput.COMPONENT_FAMILY, "jakarta.faces.Link");
+        decorator.registerUIComponent(HtmlOutputText.COMPONENT_TYPE, HtmlOutputText.class);
+        decorator.registerUIComponent(NavigationMenuComponent.class).registerRenderer(NavigationMenuRenderer.class);
+        decorator.registerUIComponent(IconComponent.class).registerRenderer(IconRenderer.class);
+    }
+
     @Test
-    void shouldRenderMinimalWithCommand() {
+    void shouldRenderMinimalWithCommand(FacesContext facesContext) throws IOException {
         final var menuModelItem = new NavigationMenuItemSingleImpl(10);
         menuModelItem.setOutcome(OUTCOME_HOME);
         menuModelItem.setLabelValue(RESOLVED_LABEL);
@@ -68,11 +81,11 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         component.setModel(menuModelItem);
         final var builder = new HtmlTreeBuilder();
         withCommandElement(builder, CLIENT_ID, OUTCOME_HOME, RESOLVED_LABEL);
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderMinimalWithActiveState() {
+    void shouldRenderMinimalWithActiveState(FacesContext facesContext) throws IOException {
         final var menuModelItem = new NavigationMenuItemSingleImpl(10);
         menuModelItem.setOutcome(OUTCOME_HOME);
         menuModelItem.setLabelValue(RESOLVED_LABEL);
@@ -85,11 +98,11 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
                 .withAttribute("outcome", OUTCOME_HOME).withNode(Node.SPAN)
                 .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass())
                 .withTextContent(RESOLVED_LABEL).currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderMinimalWithExternalHref() {
+    void shouldRenderMinimalWithExternalHref(FacesContext facesContext) throws IOException {
         final var menuModelItem = new NavigationMenuItemExternalSingleImpl(10);
         menuModelItem.setHRef("http://www.google.de");
         menuModelItem.setLabelValue(RESOLVED_LABEL);
@@ -102,11 +115,11 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
                 .withNode(Node.SPAN)
                 .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass())
                 .withTextContent(RESOLVED_LABEL).currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderMinimalWithTarget() {
+    void shouldRenderMinimalWithTarget(FacesContext facesContext) throws IOException {
         final var menuModelItem = new NavigationMenuItemSingleImpl(10);
         menuModelItem.setOutcome(OUTCOME_HOME);
         menuModelItem.setLabelValue(RESOLVED_LABEL);
@@ -118,11 +131,11 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
                 .withAttribute("outcome", OUTCOME_HOME).withAttribute("target", "_blank").withNode(Node.SPAN)
                 .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass())
                 .withTextContent(RESOLVED_LABEL).currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderMinimalWithCommandAndIcon() {
+    void shouldRenderMinimalWithCommandAndIcon(FacesContext facesContext) throws IOException {
         final var menuModelItem = new NavigationMenuItemSingleImpl(10);
         menuModelItem.setOutcome(OUTCOME_HOME);
         menuModelItem.setLabelValue(RESOLVED_LABEL);
@@ -135,20 +148,20 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
                 .withStyleClass(CUI_ICON_PREFIX + CUI_ICON_ICON).currentHierarchyUp().withNode(Node.SPAN)
                 .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass())
                 .withTextContent(RESOLVED_LABEL);
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderMinimalWithSeparator() {
+    void shouldRenderMinimalWithSeparator(FacesContext facesContext) throws IOException {
         final var component = new NavigationMenuComponent();
         component.setModel(new NavigationMenuItemSeparatorImpl(10));
         final var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId(CLIENT_ID)
                 .withStyleClass(CssBootstrap.LIST_DIVIDER);
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderMinimalWithContainer() {
+    void shouldRenderMinimalWithContainer(FacesContext facesContext) throws IOException {
         final var component = new NavigationMenuComponent();
         component.setId("foo");
         var navigationMenuItemContainer = new NavigationMenuItemContainerImpl(10);
@@ -157,14 +170,14 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         final var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId("foo_0_bar")
                 .withStyleClass("dropdown");
         withContainerElement(builder);
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     /**
      * expected icons: south, east, east Structure: C1 > C2 > C3 > Single
      */
     @Test
-    void shouldRenderNestedContainers() {
+    void shouldRenderNestedContainers(FacesContext facesContext) throws IOException {
         final var component = new NavigationMenuComponent();
         NavigationMenuItemContainer container1 = new NavigationMenuItemContainerImpl(10);
         NavigationMenuItemContainer container2 = new NavigationMenuItemContainerImpl(10);
@@ -188,7 +201,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         withContainerElement(builder, "", true);
         withCommandElement(builder, CLIENT_ID + ID_EXTENSION + ID_EXTENSION + ID_EXTENSION, OUTCOME_HOME,
                 RESOLVED_LABEL);
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     /**
@@ -196,7 +209,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
      * children.
      */
     @Test
-    void shouldRenderComplexMenuItem() {
+    void shouldRenderComplexMenuItem(FacesContext facesContext) throws IOException {
         final var menuModelItem = new NavigationMenuItemContainerImpl(10);
         final var id = "linkId_0";
         final var topLevelText = "parentlabelValue";
@@ -229,11 +242,11 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         withContainerElement(builder, topLevelText);
         withCommandElement(builder, id + ID_EXTENSION + ID_EXTENSION, OUTCOME_HOME, child1_labelValue);
         withCommandElement(builder, id + ID_EXTENSION + "_" + child2Id, OUTCOME_HOME, child2_labelValue);
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderModelItemsWithMultipleElements() {
+    void shouldRenderModelItemsWithMultipleElements(FacesContext facesContext) throws IOException {
         final var component = new NavigationMenuComponent();
         final NavigationMenuItemContainer menuModelItem1 = new NavigationMenuItemContainerImpl(10);
         final var menuModelItem2 = new NavigationMenuItemSingleImpl(10);
@@ -245,11 +258,11 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         // container
         builder.currentHierarchyUp().currentHierarchyUp();
         withCommandElement(builder, "j_id__v_0_1_menu", "foo", "");
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderModelItemsWithOneElement() {
+    void shouldRenderModelItemsWithOneElement(FacesContext facesContext) throws IOException {
         final var menuModelItem = new NavigationMenuItemContainerImpl(10);
         // menuModelItem.setTitleValue("foo");
         menuModelItem.setIconStyleClass("fooicon");
@@ -272,7 +285,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         withCommandElement(builder, CLIENT_ID + "_0_model1", "out1", "");
         withCommandElement(builder, CLIENT_ID + "_1_model2", "out2", "");
         withCommandElement(builder, CLIENT_ID + "_2_menu", "", "");
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     /**
@@ -280,7 +293,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
      * children with separator.
      */
     @Test
-    void shouldRenderComplexMenuItemWithSeparator() {
+    void shouldRenderComplexMenuItemWithSeparator(FacesContext facesContext) throws IOException {
         final var menuModelItem = new NavigationMenuItemContainerImpl(10);
         final var id = "linkId";
         final var topLevelText = "parentlabelValue";
@@ -310,30 +323,30 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         withCommandElement(builder, id + ID_EXTENSION + ID_EXTENSION, OUTCOME_HOME, child1_labelValue);
         separatorElement(builder, id + ID_EXTENSION + "_1_separatorid");
         withCommandElement(builder, id + ID_EXTENSION + "_" + child2Id, OUTCOME_HOME, child2_labelValue);
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderNothing() {
+    void shouldRenderNothing(FacesContext facesContext) throws IOException {
         final var component = new NavigationMenuComponent();
-        assertEmptyRenderResult(component);
+        assertEmptyRenderResult(component, facesContext);
         component.setModel(new NavigationMenuItemSingleImpl(10));
         component.setRendered(false);
-        assertEmptyRenderResult(component);
+        assertEmptyRenderResult(component, facesContext);
     }
 
     @Test
-    void shouldRenderSeparator() {
+    void shouldRenderSeparator(FacesContext facesContext) throws IOException {
         final var component = (NavigationMenuComponent) getComponent();
         component.setId("compid");
         component.setModel(new NavigationMenuItemSeparatorImpl(10));
         final var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId("compid" + ID_EXTENSION)
                 .withStyleClass("divider").currentHierarchyUp();
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
-    void shouldNotRenderChildsIfParentIsNotRendered() {
+    void shouldNotRenderChildsIfParentIsNotRendered(FacesContext facesContext) throws IOException {
         final var menuModelItem = new NavigationMenuItemContainerImpl(10);
         menuModelItem.setRendered(false);
         menuModelItem.getChildren().add(new NavigationMenuItemSingleImpl(10));
@@ -342,7 +355,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         final var component = new NavigationMenuComponent();
         component.setModel(menuModelItem);
         component.setId("rendertest");
-        assertEmptyRenderResult(component);
+        assertEmptyRenderResult(component, facesContext);
     }
 
     /**
@@ -407,14 +420,4 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         return component;
     }
 
-    @Override
-    public void configureComponents(final ComponentConfigDecorator decorator) {
-        decorator.registerUIComponent(HtmlOutcomeTargetLink.COMPONENT_TYPE, HtmlOutcomeTargetLink.class)
-                .registerMockRenderer(UIOutcomeTarget.COMPONENT_FAMILY, "jakarta.faces.Link");
-        decorator.registerUIComponent(HtmlOutputLink.COMPONENT_TYPE, HtmlOutputLink.class)
-                .registerMockRenderer(UIOutput.COMPONENT_FAMILY, "jakarta.faces.Link");
-        decorator.registerUIComponent(HtmlOutputText.COMPONENT_TYPE, HtmlOutputText.class);
-        decorator.registerUIComponent(NavigationMenuComponent.class).registerRenderer(NavigationMenuRenderer.class);
-        decorator.registerUIComponent(IconComponent.class).registerRenderer(IconRenderer.class);
-    }
 }

@@ -18,63 +18,96 @@ package de.cuioss.jsf.components.typewatch;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.cuioss.test.jsf.component.AbstractComponentTest;
-import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import jakarta.faces.component.html.HtmlInputText;
 import jakarta.faces.component.html.HtmlPanelGroup;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.PostAddToViewEvent;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 @VerifyComponentProperties(of = {"process", "update", "allowSubmit", "wait", "highlight", "captureLength"})
-class TypewatchComponentTest extends AbstractComponentTest<TypewatchComponent> implements ComponentConfigurator {
+@DisplayName("Tests for TypewatchComponent")
+class TypewatchComponentTest extends AbstractComponentTest<TypewatchComponent> {
 
     private HtmlInputText parent;
 
     private ComponentSystemEvent expectedEvent;
 
-    @Test
-    void shouldDecorateMinimal() {
-        var underTest = anyComponent();
-        assertEquals(1, parent.getParent().getChildren().size());
-        assertEquals(0, parent.getParent().getChildren().get(0).getPassThroughAttributes().size());
-        underTest.processEvent(expectedEvent);
-        assertEquals(1, parent.getParent().getChildren().size());
-        final var pt = parent.getParent().getChildren().get(0).getPassThroughAttributes();
-        assertEquals("data-typewatch", pt.get("data-typewatch"));
-        assertEquals(false, pt.get("data-typewatch-allowsubmit"));
-        assertEquals(false, pt.get("data-typewatch-highlight"));
-    }
-
-    @Test
-    void shouldDecorateMaximal() {
-        var underTest = anyComponent();
-        underTest.setAllowSubmit(true);
-        underTest.setWait(666);
-        underTest.setHighlight(true);
-        underTest.setCaptureLength(42);
-        underTest.processEvent(expectedEvent);
-        final var pt = parent.getParent().getChildren().get(0).getPassThroughAttributes();
-        assertEquals("data-typewatch", pt.get("data-typewatch"));
-        assertEquals(true, pt.get("data-typewatch-allowsubmit"));
-        assertEquals(666, pt.get("data-typewatch-wait"));
-        assertEquals(true, pt.get("data-typewatch-highlight"));
-        assertEquals(42, pt.get("data-typewatch-capturelength"));
+    @BeforeEach
+    @DisplayName("Set up test environment")
+    void setUp(ComponentConfigDecorator decorator) {
+        // Register mock renderer for HtmlInputText to support the test
+        decorator.registerMockRendererForHtmlInputText();
     }
 
     @Override
+    @DisplayName("Configure component for testing")
     public void configure(final TypewatchComponent toBeConfigured) {
+        // Call parent configuration
         super.configure(toBeConfigured);
+
+        // Create parent component structure
         var panel = new HtmlPanelGroup();
         parent = new HtmlInputText();
         panel.getChildren().add(parent);
+
+        // Set parent for the typewatch component
         toBeConfigured.setParent(parent);
+
+        // Create event for testing
         expectedEvent = new PostAddToViewEvent(toBeConfigured);
     }
 
-    @Override
-    public void configureComponents(final ComponentConfigDecorator decorator) {
-        decorator.registerMockRendererForHtmlInputText();
+    @Nested
+    @DisplayName("Component decoration tests")
+    class DecorationTests {
+
+        @Test
+        @DisplayName("Should decorate with minimal configuration")
+        void shouldDecorateMinimal() {
+            // Arrange
+            var underTest = anyComponent();
+
+            // Verify initial state
+            assertEquals(1, parent.getParent().getChildren().size(), "Parent should have one child");
+            assertEquals(0, parent.getParent().getChildren().get(0).getPassThroughAttributes().size(),
+                    "No pass-through attributes should be set initially");
+
+            // Act
+            underTest.processEvent(expectedEvent);
+
+            // Assert
+            assertEquals(1, parent.getParent().getChildren().size(), "Parent should still have one child");
+            final var pt = parent.getParent().getChildren().get(0).getPassThroughAttributes();
+            assertEquals("data-typewatch", pt.get("data-typewatch"), "Should have data-typewatch attribute");
+            assertEquals(false, pt.get("data-typewatch-allowsubmit"), "Allow submit should be false by default");
+            assertEquals(false, pt.get("data-typewatch-highlight"), "Highlight should be false by default");
+        }
+
+        @Test
+        @DisplayName("Should decorate with maximal configuration")
+        void shouldDecorateMaximal() {
+            // Arrange
+            var underTest = anyComponent();
+            underTest.setAllowSubmit(true);
+            underTest.setWait(666);
+            underTest.setHighlight(true);
+            underTest.setCaptureLength(42);
+
+            // Act
+            underTest.processEvent(expectedEvent);
+
+            // Assert
+            final var pt = parent.getParent().getChildren().get(0).getPassThroughAttributes();
+            assertEquals("data-typewatch", pt.get("data-typewatch"), "Should have data-typewatch attribute");
+            assertEquals(true, pt.get("data-typewatch-allowsubmit"), "Allow submit should be true");
+            assertEquals(666, pt.get("data-typewatch-wait"), "Wait should be 666");
+            assertEquals(true, pt.get("data-typewatch-highlight"), "Highlight should be true");
+            assertEquals(42, pt.get("data-typewatch-capturelength"), "Capture length should be 42");
+        }
     }
 }

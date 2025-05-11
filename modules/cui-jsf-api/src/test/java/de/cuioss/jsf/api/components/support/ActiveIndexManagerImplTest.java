@@ -20,50 +20,125 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
+@DisplayName("Tests for ActiveIndexManagerImpl")
 class ActiveIndexManagerImplTest {
 
-    @Test
-    void resetToDefault() {
-        ActiveIndexManager underTest = new ActiveIndexManagerImpl(immutableList(1, 2));
-        underTest.setActiveIndex(3, 4);
-        assertTrue(underTest.getActiveIndexes().containsAll(immutableList(3, 4)));
-        underTest.resetToDefaultIndex();
-        assertTrue(underTest.getActiveIndexes().containsAll(immutableList(1, 2)));
-        assertEquals("1 2", underTest.getActiveIndexesString());
-        underTest.setDefaultIndex(immutableList(5));
-        underTest.resetToDefaultIndex();
-        assertEquals(immutableList(5), underTest.getActiveIndexes());
+    @Nested
+    @DisplayName("Tests for default index handling")
+    class DefaultIndexTests {
+
+        @Test
+        @DisplayName("Should reset to default indexes when requested")
+        void shouldResetToDefaultIndexes() {
+            // Arrange
+            ActiveIndexManager underTest = new ActiveIndexManagerImpl(immutableList(1, 2));
+            underTest.setActiveIndex(3, 4);
+
+            // Assert - initial state
+            assertTrue(underTest.getActiveIndexes().containsAll(immutableList(3, 4)),
+                    "Active indexes should contain the set values");
+
+            // Act - reset to default
+            underTest.resetToDefaultIndex();
+
+            // Assert - after reset
+            assertTrue(underTest.getActiveIndexes().containsAll(immutableList(1, 2)),
+                    "Active indexes should be reset to default values");
+            assertEquals("1 2", underTest.getActiveIndexesString(),
+                    "Active indexes string should match default values");
+
+            // Act - change default and reset again
+            underTest.setDefaultIndex(immutableList(5));
+            underTest.resetToDefaultIndex();
+
+            // Assert - after changing default
+            assertEquals(immutableList(5), underTest.getActiveIndexes(),
+                    "Active indexes should match the new default value");
+        }
     }
 
-    @Test
-    void setActiveIndex() {
-        ActiveIndexManager underTest = new ActiveIndexManagerImpl(immutableList(5));
-        assertTrue(underTest.hasActiveIndex());
-        underTest.setActiveIndex();
-        assertFalse(underTest.hasActiveIndex());
-        underTest.setActiveIndex((List<Integer>) null);
-        assertFalse(underTest.hasActiveIndex());
-        underTest.setActiveIndex(3, 4);
-        assertTrue(underTest.getActiveIndexes().containsAll(immutableList(3, 4)));
-        underTest.setActiveIndex((Integer) null);
-        assertNotNull(underTest.getActiveIndexes());
-        assertFalse(underTest.hasActiveIndex());
+    @Nested
+    @DisplayName("Tests for active index manipulation")
+    class ActiveIndexManipulationTests {
+
+        @Test
+        @DisplayName("Should handle various ways of setting active indexes")
+        void shouldHandleSettingActiveIndexes() {
+            // Arrange
+            ActiveIndexManager underTest = new ActiveIndexManagerImpl(immutableList(5));
+
+            // Assert - initial state
+            assertTrue(underTest.hasActiveIndex(),
+                    "Should have active index initially");
+
+            // Act - clear active indexes
+            underTest.setActiveIndex();
+
+            // Assert - after clearing
+            assertFalse(underTest.hasActiveIndex(),
+                    "Should not have active index after clearing");
+
+            // Act - set null list
+            underTest.setActiveIndex((List<Integer>) null);
+
+            // Assert - after setting null list
+            assertFalse(underTest.hasActiveIndex(),
+                    "Should not have active index after setting null list");
+
+            // Act - set multiple indexes
+            underTest.setActiveIndex(3, 4);
+
+            // Assert - after setting multiple indexes
+            assertTrue(underTest.getActiveIndexes().containsAll(immutableList(3, 4)),
+                    "Active indexes should contain all set values");
+
+            // Act - set null integer
+            underTest.setActiveIndex((Integer) null);
+
+            // Assert - after setting null integer
+            assertNotNull(underTest.getActiveIndexes(),
+                    "Active indexes list should never be null");
+            assertFalse(underTest.hasActiveIndex(),
+                    "Should not have active index after setting null integer");
+        }
     }
 
-    @Test
-    void toggleSingleIndex() {
-        ActiveIndexManager underTest = new ActiveIndexManagerImpl(immutableList(5));
-        assertEquals("5", underTest.getActiveIndexesString());
-        underTest.toggleSingleIndex();
-        assertEquals("", underTest.getActiveIndexesString());
-        underTest.setActiveIndex();
-        underTest.toggleSingleIndex();
-        underTest.toggleSingleIndex();
-        assertEquals("", underTest.getActiveIndexesString());
+    @Nested
+    @DisplayName("Tests for toggling indexes")
+    class ToggleIndexTests {
+
+        @Test
+        @DisplayName("Should toggle single index correctly")
+        void shouldToggleSingleIndex() {
+            // Arrange
+            ActiveIndexManager underTest = new ActiveIndexManagerImpl(immutableList(5));
+
+            // Assert - initial state
+            assertEquals("5", underTest.getActiveIndexesString(),
+                    "Initial active index string should be '5'");
+
+            // Act - toggle once
+            underTest.toggleSingleIndex();
+
+            // Assert - after first toggle
+            assertEquals("", underTest.getActiveIndexesString(),
+                    "Active index string should be empty after toggle");
+
+            // Act - set empty and toggle twice
+            underTest.setActiveIndex();
+            underTest.toggleSingleIndex();
+            underTest.toggleSingleIndex();
+
+            // Assert - after multiple toggles
+            assertEquals("", underTest.getActiveIndexesString(),
+                    "Active index string should remain empty after multiple toggles from empty state");
+        }
     }
 }

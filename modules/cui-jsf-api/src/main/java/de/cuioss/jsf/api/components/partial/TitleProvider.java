@@ -15,8 +15,6 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
-import jakarta.faces.component.UIComponent;
-
 import java.io.Serializable;
 
 /**

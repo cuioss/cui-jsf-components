@@ -19,10 +19,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.common.view.ViewDescriptor;
 import de.cuioss.jsf.api.common.view.ViewDescriptorImpl;
-import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
+import jakarta.faces.context.FacesContext;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class ViewIdentifierTest extends JsfEnabledTestEnvironment {
+@EnableJsfEnvironment
+@DisplayName("Tests for ViewIdentifier")
+class ViewIdentifierTest {
 
     private static final String FROM_OUTCOME = "fromOutcome";
 
@@ -33,20 +37,35 @@ class ViewIdentifierTest extends JsfEnabledTestEnvironment {
     private static final String START_URL = "/some/page.jsf";
 
     @Test
-    void shouldExtractCorrectViewIdentifier() {
-        ViewDescriptor descriptor = ViewDescriptorImpl.builder().withViewId(START_URL).withLogicalViewId(START_URL)
+    @DisplayName("Should extract correct view identifier from ViewDescriptor")
+    void shouldExtractCorrectViewIdentifierFromViewDescriptor() {
+        // Arrange
+        ViewDescriptor descriptor = ViewDescriptorImpl.builder()
+                .withViewId(START_URL)
+                .withLogicalViewId(START_URL)
                 .build();
+
+        // Act
         var identifier = ViewIdentifier.getFromViewDesciptor(descriptor, null);
-        assertNotNull(identifier);
-        assertEquals(START_URL, identifier.getViewId());
-        assertNull(identifier.getOutcome());
+
+        // Assert
+        assertNotNull(identifier, "ViewIdentifier should not be null");
+        assertEquals(START_URL, identifier.getViewId(), "ViewId should match the start URL");
+        assertNull(identifier.getOutcome(), "Outcome should be null");
+
+        // Act - convert to navigation case
         final var navigationCase = identifier.toNavigationCase(FROM_VIEW_ID, FROM_ACTION, FROM_OUTCOME, null, true,
                 false);
-        assertNotNull(navigationCase);
+
+        // Assert
+        assertNotNull(navigationCase, "NavigationCase should not be null");
     }
 
     @Test
-    void handleNullUrlParams() {
-        assertDoesNotThrow(() -> new ViewIdentifier("some/page.jsf", null, null).redirect(getFacesContext()));
+    @DisplayName("Should handle null URL parameters without throwing exceptions")
+    void shouldHandleNullUrlParametersGracefully(FacesContext facesContext) {
+        // Act & Assert
+        assertDoesNotThrow(() -> new ViewIdentifier("some/page.jsf", null, null).redirect(facesContext),
+                "Should not throw exception when URL parameters are null");
     }
 }

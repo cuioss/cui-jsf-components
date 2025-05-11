@@ -18,40 +18,83 @@ package de.cuioss.jsf.api.components.partial;
 import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 @VerifyComponentProperties(of = "icon")
+@ExplicitParamInjection
+@DisplayName("Tests for IconProvider implementation")
 class IconProviderImplTest extends AbstractPartialComponentTest {
 
     @Test
+    @DisplayName("Should throw NullPointerException when constructed with null")
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> new IconProvider(null));
+        // Act & Assert
+        assertThrows(NullPointerException.class, () -> new IconProvider(null),
+                "Constructor should reject null component");
     }
 
-    @Test
-    void shouldFallbackOnNoIconSet() {
-        assertEquals(IconProvider.FALLBACK_ICON_STRING, anyComponent().resolveIconCss());
+    @Nested
+    @DisplayName("Tests for icon resolution")
+    class IconResolutionTests {
+
+        @Test
+        @DisplayName("Should use fallback icon when no icon is set")
+        void shouldFallbackOnNoIconSet() {
+            // Act & Assert
+            assertEquals(IconProvider.FALLBACK_ICON_STRING, anyComponent().resolveIconCss(),
+                    "Should return fallback icon when no icon is set");
+        }
+
+        @Test
+        @DisplayName("Should use fallback icon when invalid icon is set")
+        void shouldFallbackOnInvalidIconSet() {
+            // Arrange
+            var any = anyComponent();
+
+            // Act
+            any.setIcon(MESSAGE_KEY);
+
+            // Assert
+            assertEquals(IconProvider.FALLBACK_ICON_STRING, any.resolveIconCss(),
+                    "Should return fallback icon when invalid icon is set");
+        }
+
+        @Test
+        @DisplayName("Should resolve valid icon with proper CSS classes")
+        void shouldResolveValidIcon() {
+            // Arrange
+            var any = anyComponent();
+
+            // Act
+            any.setIcon("cui-icon-alarm");
+
+            // Assert
+            assertEquals("cui-icon cui-icon-alarm", any.resolveIconCss(),
+                    "Should return properly formatted icon CSS classes");
+        }
     }
 
-    @Test
-    void shouldFallbackOnInvalidIconSet() {
-        var any = anyComponent();
-        any.setIcon(MESSAGE_KEY);
-        assertEquals(IconProvider.FALLBACK_ICON_STRING, any.resolveIconCss());
-    }
+    @Nested
+    @DisplayName("Tests for icon state detection")
+    class IconStateTests {
 
-    @Test
-    void shouldResolveIcon() {
-        var any = anyComponent();
-        any.setIcon("cui-icon-alarm");
-        assertEquals("cui-icon cui-icon-alarm", any.resolveIconCss());
-    }
+        @Test
+        @DisplayName("Should correctly detect whether icon is set")
+        void shouldDetectIconSetState() {
+            // Arrange
+            var any = anyComponent();
 
-    @Test
-    void shouldDetectWhetherIconIsSet() {
-        var any = anyComponent();
-        assertFalse(any.isIconSet());
-        any.setIcon("cui-icon-alarm");
-        assertTrue(any.isIconSet());
+            // Assert - initial state
+            assertFalse(any.isIconSet(), "Icon should not be set initially");
+
+            // Act - set icon
+            any.setIcon("cui-icon-alarm");
+
+            // Assert - after setting
+            assertTrue(any.isIconSet(), "Icon should be detected as set after setting");
+        }
     }
 }

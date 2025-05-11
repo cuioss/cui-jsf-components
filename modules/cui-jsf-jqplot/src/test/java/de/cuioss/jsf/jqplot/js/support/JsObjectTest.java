@@ -20,14 +20,26 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import de.cuioss.jsf.jqplot.js.support.testobjects.TestObject1;
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.valueobjects.ValueObjectTest;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for JsObject class")
 class JsObjectTest extends ValueObjectTest<JsObject> {
 
-    @Test
-    void shouldProduceEmptyObject() {
-        final JsObject target = new TestObject1();
-        assertNull(target.asJavaScriptObjectNotation());
+    @Nested
+    @DisplayName("Basic functionality tests")
+    class BasicFunctionalityTests {
+
+        @Test
+        @DisplayName("Should produce empty object when no properties are set")
+        void shouldProduceEmptyObject() {
+            // Arrange
+            final JsObject target = new TestObject1();
+
+            // Act & Assert
+            assertNull(target.asJavaScriptObjectNotation());
+        }
     }
 
     @Override

@@ -25,9 +25,14 @@ import de.cuioss.test.jsf.config.renderer.VetoRenderAttributeAssert;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 import de.cuioss.test.jsf.renderer.CommonRendererAsserts;
 import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.PreRenderComponentEvent;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
+@DisplayName("Tests for FieldsetRenderer")
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @VetoRenderAttributeAssert({CommonRendererAsserts.STYLE, CommonRendererAsserts.STYLE_CLASS})
 class FieldsetRendererTest extends AbstractComponentRendererTest<FieldsetRenderer> {
@@ -35,36 +40,58 @@ class FieldsetRendererTest extends AbstractComponentRendererTest<FieldsetRendere
     private static final String LEGEND_TEXT = "Some Legend";
 
     @Test
-    void shouldRenderMinimal() {
+    @DisplayName("Should render minimal fieldset without any attributes")
+    void shouldRenderMinimal(FacesContext facesContext) throws IOException {
+        // Arrange
+        var component = getComponent();
         var expected = new HtmlTreeBuilder().withNode(Node.FIELDSET);
-        assertRenderResult(getComponent(), expected.getDocument());
+
+        // Act & Assert - Minimal fieldset should render as a simple fieldset element
+        assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderLegend() {
-        var expected = new HtmlTreeBuilder().withNode(Node.FIELDSET).withNode(Node.LEGEND).withTextContent(LEGEND_TEXT);
+    @DisplayName("Should render fieldset with legend")
+    void shouldRenderLegend(FacesContext facesContext) throws IOException {
+        // Arrange
         var component = new FieldsetComponent();
         component.setLegendValue(LEGEND_TEXT);
-        assertRenderResult(component, expected.getDocument());
+
+        var expected = new HtmlTreeBuilder()
+                .withNode(Node.FIELDSET)
+                .withNode(Node.LEGEND)
+                .withTextContent(LEGEND_TEXT);
+
+        // Act & Assert - Fieldset with legend should render with a legend element containing the text
+        assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderFull() {
-        var expected = new HtmlTreeBuilder().withNode(Node.FIELDSET)
-                .withAttribute(FieldsetComponent.DISABLED_ATTRIBUTE_NAME, FieldsetComponent.DISABLED_ATTRIBUTE_NAME)
-                .withAttribute(AttributeName.CLASS, "styleClass").withAttribute(StyleAttributeProviderImpl.KEY, "style")
-                .withNode(Node.LEGEND).withTextContent(LEGEND_TEXT);
+    @DisplayName("Should render fully configured fieldset with all attributes")
+    void shouldRenderFull(FacesContext facesContext) throws IOException {
+        // Arrange
         var component = new FieldsetComponent();
         component.setLegendValue(LEGEND_TEXT);
         component.setDisabled(true);
-        component.processEvent(new PreRenderComponentEvent(component));
+        component.processEvent(new PreRenderComponentEvent(facesContext, component));
         component.setStyle("style");
         component.setStyleClass("styleClass");
-        assertRenderResult(component, expected.getDocument());
+
+        var expected = new HtmlTreeBuilder()
+                .withNode(Node.FIELDSET)
+                .withAttribute(FieldsetComponent.DISABLED_ATTRIBUTE_NAME, FieldsetComponent.DISABLED_ATTRIBUTE_NAME)
+                .withAttribute(AttributeName.CLASS, "styleClass")
+                .withAttribute(StyleAttributeProviderImpl.KEY, "style")
+                .withNode(Node.LEGEND)
+                .withTextContent(LEGEND_TEXT);
+
+        // Act & Assert - Fully configured fieldset should render with all attributes and legend
+        assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
     @Override
     protected UIComponent getComponent() {
+        // Create a new instance of the component for each test
         return new FieldsetComponent();
     }
 }

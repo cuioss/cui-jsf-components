@@ -6,7 +6,7 @@
     <parent>
         <groupId>de.cuioss</groupId>
         <artifactId>cui-java-parent</artifactId>
-        <version>0.9.9.5</version>
+        <version>0.9.9.6</version>
         <relativePath/>
     </parent>
     <groupId>de.cuioss.jsf</groupId>
@@ -51,6 +51,12 @@
                 <groupId>de.cuioss.test</groupId>
                 <artifactId>cui-test-generator</artifactId>
                 <version>2.3.1</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>de.cuioss.test</groupId>
+                <artifactId>cui-jsf-test-basic</artifactId>
+                <version>4.1.0</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

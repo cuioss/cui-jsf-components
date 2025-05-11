@@ -17,25 +17,43 @@ package de.cuioss.jsf.bootstrap.layout.input;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
+@DisplayName("Tests for ContainerFacets")
 class ContainerFacetsTest {
 
-    @Test
-    void shouldHandleValues() {
-        for (ContainerFacets facet : ContainerFacets.values()) {
-            Optional<ContainerFacets> containerFacets = ContainerFacets.parse(facet.getName());
-            assertTrue(containerFacets.isPresent());
-            assertEquals(facet, containerFacets.get());
-        }
-    }
+    @Nested
+    @DisplayName("Tests for parsing facet names")
+    class ParsingTests {
 
-    @Test
-    void shouldHandleInvalidValues() {
-        assertFalse(ContainerFacets.parse(null).isPresent());
-        assertFalse(ContainerFacets.parse("").isPresent());
-        assertFalse(ContainerFacets.parse("null").isPresent());
+        @Test
+        @DisplayName("Should parse all valid enum values correctly")
+        void shouldParseValidEnumValues() {
+            // Arrange & Act & Assert
+            for (ContainerFacets facet : ContainerFacets.values()) {
+                // Arrange
+                String facetName = facet.getName();
+
+                // Act
+                Optional<ContainerFacets> result = ContainerFacets.parse(facetName);
+
+                // Assert
+                assertTrue(result.isPresent(), "Should parse valid facet name: " + facetName);
+                assertEquals(facet, result.get(), "Parsed facet should match original enum value");
+            }
+        }
+
+        @Test
+        @DisplayName("Should handle invalid values by returning empty Optional")
+        void shouldHandleInvalidValues() {
+            // Arrange & Act & Assert
+            assertFalse(ContainerFacets.parse(null).isPresent(), "Should handle null value");
+            assertFalse(ContainerFacets.parse("").isPresent(), "Should handle empty string");
+            assertFalse(ContainerFacets.parse("null").isPresent(), "Should handle 'null' string");
+        }
     }
 }

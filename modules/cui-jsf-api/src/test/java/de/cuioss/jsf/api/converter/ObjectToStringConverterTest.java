@@ -17,7 +17,9 @@ package de.cuioss.jsf.api.converter;
 
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 
+@EnableJsfEnvironment
 class ObjectToStringConverterTest extends AbstractConverterTest<ObjectToStringConverter, Object> {
 
     @Override

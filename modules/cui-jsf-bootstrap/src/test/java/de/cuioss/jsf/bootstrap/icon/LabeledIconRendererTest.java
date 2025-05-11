@@ -25,85 +25,154 @@ import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
+@DisplayName("Tests for LabeledIconRenderer")
 class LabeledIconRendererTest extends AbstractComponentRendererTest<LabeledIconRenderer> {
 
     private static final String ICON = "cui-icon-alarm";
-
     private static final String ICON_PREFIX = "cui-icon";
-
     private static final String ICON_RESULT_CSS = ICON_PREFIX + " " + ICON;
-
     private static final String SOME_TITLE = "hello";
 
-    @Test
-    void shouldRenderMinimal() {
-        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER);
-        // Icon
-        expected.withNode(Node.SPAN).withStyleClass(IconProvider.FALLBACK_ICON_STRING).currentHierarchyUp();
-        // Text
-        expected.withNode(Node.SPAN).withStyleClass(CssCuiBootstrap.LABELED_ICON_TEXT).currentHierarchyUp();
-        assertRenderResult(getComponent(), expected.getDocument());
+    @Nested
+    @DisplayName("Basic rendering tests")
+    class BasicRenderingTests {
+
+        @Test
+        @DisplayName("Should render minimal component with default settings")
+        void shouldRenderMinimalComponent(FacesContext facesContext) throws IOException {
+            // Arrange
+            var component = getComponent();
+
+            // Act & Assert
+            var expected = new HtmlTreeBuilder().withNode(Node.SPAN)
+                    .withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER);
+            // Icon
+            expected.withNode(Node.SPAN)
+                    .withStyleClass(IconProvider.FALLBACK_ICON_STRING)
+                    .currentHierarchyUp();
+            // Text
+            expected.withNode(Node.SPAN)
+                    .withStyleClass(CssCuiBootstrap.LABELED_ICON_TEXT)
+                    .currentHierarchyUp();
+
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
+
+        @Test
+        @DisplayName("Should render component with label content")
+        void shouldRenderWithLabelContent(FacesContext facesContext) throws IOException {
+            // Arrange
+            var component = new LabeledIconComponent();
+            component.setLabelValue(SOME_TITLE);
+
+            // Act & Assert
+            var expected = new HtmlTreeBuilder().withNode(Node.SPAN)
+                    .withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER);
+            // Icon
+            expected.withNode(Node.SPAN)
+                    .withStyleClass(IconProvider.FALLBACK_ICON_STRING)
+                    .currentHierarchyUp();
+            // Text
+            expected.withNode(Node.SPAN)
+                    .withStyleClass(CssCuiBootstrap.LABELED_ICON_TEXT)
+                    .withTextContent(SOME_TITLE)
+                    .currentHierarchyUp();
+
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
     }
 
-    @Test
-    void shouldRenderLabelContent() {
-        var component = new LabeledIconComponent();
-        component.setLabelValue(SOME_TITLE);
-        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER);
-        // Icon
-        expected.withNode(Node.SPAN).withStyleClass(IconProvider.FALLBACK_ICON_STRING).currentHierarchyUp();
-        // Text
-        expected.withNode(Node.SPAN).withStyleClass(CssCuiBootstrap.LABELED_ICON_TEXT).withTextContent(SOME_TITLE)
-                .currentHierarchyUp();
-        assertRenderResult(component, expected.getDocument());
+    @Nested
+    @DisplayName("Icon rendering tests")
+    class IconRenderingTests {
+
+        @Test
+        @DisplayName("Should render component with custom icon and label")
+        void shouldRenderWithCustomIconAndLabel(FacesContext facesContext) throws IOException {
+            // Arrange
+            var component = new LabeledIconComponent();
+            component.setLabelValue(SOME_TITLE);
+            component.setIcon(ICON);
+
+            // Act & Assert
+            var expected = new HtmlTreeBuilder().withNode(Node.SPAN)
+                    .withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER);
+            // Icon
+            expected.withNode(Node.SPAN)
+                    .withStyleClass(ICON_RESULT_CSS)
+                    .currentHierarchyUp();
+            // Text
+            expected.withNode(Node.SPAN)
+                    .withStyleClass(CssCuiBootstrap.LABELED_ICON_TEXT)
+                    .withTextContent(SOME_TITLE)
+                    .currentHierarchyUp();
+
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
+
+        @Test
+        @DisplayName("Should render component with right-aligned icon")
+        void shouldRenderWithRightAlignedIcon(FacesContext facesContext) throws IOException {
+            // Arrange
+            var component = new LabeledIconComponent();
+            component.setIconAlign(AlignHolder.RIGHT.name());
+            component.setLabelValue(SOME_TITLE);
+            component.setIcon(ICON);
+
+            // Act & Assert
+            var expected = new HtmlTreeBuilder().withNode(Node.SPAN)
+                    .withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER);
+            // Text (comes first with right-aligned icon)
+            expected.withNode(Node.SPAN)
+                    .withStyleClass(CssCuiBootstrap.LABELED_ICON_TEXT)
+                    .withTextContent(SOME_TITLE)
+                    .currentHierarchyUp();
+            // Icon
+            expected.withNode(Node.SPAN)
+                    .withStyleClass(ICON_RESULT_CSS)
+                    .currentHierarchyUp();
+
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
     }
 
-    @Test
-    void shouldRenderCustomIconWithLabel() {
-        var component = new LabeledIconComponent();
-        component.setLabelValue(SOME_TITLE);
-        component.setIcon(ICON);
-        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER);
-        // Icon
-        expected.withNode(Node.SPAN).withStyleClass(ICON_RESULT_CSS).currentHierarchyUp();
-        // Text
-        expected.withNode(Node.SPAN).withStyleClass(CssCuiBootstrap.LABELED_ICON_TEXT).withTextContent(SOME_TITLE)
-                .currentHierarchyUp();
-        assertRenderResult(component, expected.getDocument());
-    }
+    @Nested
+    @DisplayName("Title attribute tests")
+    class TitleAttributeTests {
 
-    @Test
-    void shouldRenderRightAlignedIcon() {
-        var component = new LabeledIconComponent();
-        component.setIconAlign(AlignHolder.RIGHT.name());
-        component.setLabelValue(SOME_TITLE);
-        component.setIcon(ICON);
-        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER);
-        // Text
-        expected.withNode(Node.SPAN).withStyleClass(CssCuiBootstrap.LABELED_ICON_TEXT).withTextContent(SOME_TITLE)
-                .currentHierarchyUp();
-        // Icon
-        expected.withNode(Node.SPAN).withStyleClass(ICON_RESULT_CSS).currentHierarchyUp();
-        assertRenderResult(component, expected.getDocument());
-    }
+        @Test
+        @DisplayName("Should render component with title attribute")
+        void shouldRenderWithTitleAttribute(FacesContext facesContext) throws IOException {
+            // Arrange
+            var component = new LabeledIconComponent();
+            component.setLabelValue(SOME_TITLE);
+            component.setTitleValue(SOME_TITLE);
+            component.setIcon(ICON);
 
-    @Test
-    void shouldRenderWithTitle() {
-        var component = new LabeledIconComponent();
-        component.setLabelValue(SOME_TITLE);
-        component.setTitleValue(SOME_TITLE);
-        component.setIcon(ICON);
-        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER)
-                .withAttribute(AttributeName.TITLE, SOME_TITLE);
-        // Icon
-        expected.withNode(Node.SPAN).withStyleClass(ICON_RESULT_CSS).currentHierarchyUp();
-        // Text
-        expected.withNode(Node.SPAN).withStyleClass(CssCuiBootstrap.LABELED_ICON_TEXT).withTextContent(SOME_TITLE)
-                .currentHierarchyUp();
-        assertRenderResult(component, expected.getDocument());
+            // Act & Assert
+            var expected = new HtmlTreeBuilder().withNode(Node.SPAN)
+                    .withStyleClass(CssCuiBootstrap.LABELED_ICON_WRAPPER)
+                    .withAttribute(AttributeName.TITLE, SOME_TITLE);
+            // Icon
+            expected.withNode(Node.SPAN)
+                    .withStyleClass(ICON_RESULT_CSS)
+                    .currentHierarchyUp();
+            // Text
+            expected.withNode(Node.SPAN)
+                    .withStyleClass(CssCuiBootstrap.LABELED_ICON_TEXT)
+                    .withTextContent(SOME_TITLE)
+                    .currentHierarchyUp();
+
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
     }
 
     @Override

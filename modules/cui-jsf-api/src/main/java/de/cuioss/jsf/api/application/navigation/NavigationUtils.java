@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.api.application.navigation;
 
+import static de.cuioss.jsf.api.common.logging.JsfApiLogMessages.WARN;
 import static de.cuioss.jsf.api.servlet.ServletAdapterUtil.getRequest;
 import static de.cuioss.jsf.api.servlet.ServletAdapterUtil.getResponse;
 import static de.cuioss.tools.net.UrlParameter.createParameterString;
@@ -186,7 +187,7 @@ public final class NavigationUtils implements Serializable {
 
             redirect(facesContext, fullUrl);
         } else if (log.isWarnEnabled()) {
-            log.warn(UNABLE_TO_REDIRECT_RESPONSE_ALREADY_COMMITTED);
+            log.warn(WARN.RESPONSE_ALREADY_COMMITTED::format);
         }
     }
 
@@ -283,9 +284,7 @@ public final class NavigationUtils implements Serializable {
         if (request instanceof HttpServletRequest servletRequest) {
             return UrlParameter.fromQueryString(Servlets.getRequestQueryString(servletRequest));
         }
-        log.warn(
-                "Unexpected environment. {} is not of type javax.servlet.http.HttpServletRequest. This call therefore returns null",
-                request);
+        log.warn(WARN.UNEXPECTED_ENVIRONMENT.format(request));
         return Collections.emptyList();
     }
 
@@ -326,7 +325,7 @@ public final class NavigationUtils implements Serializable {
             redirect(facesContext, fullUrl);
 
         } else if (log.isWarnEnabled()) {
-            log.warn(UNABLE_TO_REDIRECT_RESPONSE_ALREADY_COMMITTED);
+            log.warn(WARN.RESPONSE_ALREADY_COMMITTED::format);
         }
     }
 
@@ -346,9 +345,7 @@ public final class NavigationUtils implements Serializable {
             return nullToEmpty(servletRequest.getRequestURI())
                     .replaceFirst(nullToEmpty(servletRequest.getContextPath()), "");
         }
-        log.warn(
-                "Unexpected environment. {} is not of type javax.servlet.http.HttpServletRequest. This call therefore returns null",
-                request);
+        log.warn(WARN.UNEXPECTED_ENVIRONMENT.format(request));
         return null;
 
     }

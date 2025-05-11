@@ -18,26 +18,59 @@ package de.cuioss.jsf.jqplot.layout;
 import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.valueobjects.contract.SerializableContractImpl;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for Title class")
 class TitleTest {
 
-    @Test
-    void shouldBeSerializable() {
-        assertDoesNotThrow(() -> SerializableContractImpl.serializeAndDeserialize(new Title()));
+    @Nested
+    @DisplayName("Serialization tests")
+    class SerializationTests {
+
+        @Test
+        @DisplayName("Should be serializable")
+        void shouldBeSerializable() {
+            // Arrange & Act & Assert
+            assertDoesNotThrow(() -> SerializableContractImpl.serializeAndDeserialize(new Title()));
+        }
     }
 
-    @Test
-    void shouldProvideTitleText() {
-        final var target = new Title("any text");
-        final var json = target.asJavaScriptObjectNotation();
-        assertEquals("title: {text:\"any text\",escapeHtml:true}", json);
-        assertEquals(json, target.asJavaScriptObjectNotation());
+    @Nested
+    @DisplayName("Title text tests")
+    class TitleTextTests {
+
+        @Test
+        @DisplayName("Should provide title text in JavaScript notation")
+        void shouldProvideTitleText() {
+            // Arrange
+            final var target = new Title("any text");
+
+            // Act
+            final var json = target.asJavaScriptObjectNotation();
+
+            // Assert
+            assertEquals("title: {text:\"any text\",escapeHtml:true}", json,
+                    "Should format title text with escapeHtml set to true");
+            assertEquals(json, target.asJavaScriptObjectNotation(),
+                    "Should return consistent results on multiple calls");
+        }
     }
 
-    @Test
-    void shouldNotReturnObjectOnEmptyProperties() {
-        final var target = new Title();
-        assertNull(target.asJavaScriptObjectNotation());
+    @Nested
+    @DisplayName("Empty property tests")
+    class EmptyPropertyTests {
+
+        @Test
+        @DisplayName("Should return null when no properties are set")
+        void shouldNotReturnObjectOnEmptyProperties() {
+            // Arrange
+            final var target = new Title();
+
+            // Act & Assert
+            assertNull(target.asJavaScriptObjectNotation(),
+                    "Should return null for empty title");
+        }
     }
 }

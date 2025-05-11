@@ -55,7 +55,7 @@ import java.util.Map;
  */
 public class AjaxProvider {
 
-    private static final CuiLogger log = new CuiLogger(AjaxProvider.class);
+    private static final CuiLogger LOGGER = new CuiLogger(AjaxProvider.class);
 
     /**
      * "data-cui-ajax-".
@@ -164,7 +164,7 @@ public class AjaxProvider {
             addAllAttributes(UPDATE_KEY, update, searchContext, handler, result);
         }
 
-        log.trace("Created pass through-map {}", result);
+        LOGGER.trace("Created pass through-map %s", result);
         return result;
     }
 

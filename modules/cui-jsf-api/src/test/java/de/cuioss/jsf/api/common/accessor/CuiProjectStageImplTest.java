@@ -19,9 +19,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
-import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
+import de.cuioss.test.jsf.config.decorator.ApplicationConfigDecorator;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import de.cuioss.test.valueobjects.api.property.PropertyReflectionConfig;
 import jakarta.faces.application.ProjectStage;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -29,7 +31,8 @@ import org.junit.jupiter.api.Test;
 // Class is documented by @DisplayName
 @DisplayName("Tests for CuiProjectStageImpl")
 @PropertyReflectionConfig(skip = true)
-class CuiProjectStageImplTest extends JsfEnabledTestEnvironment {
+@EnableJsfEnvironment
+class CuiProjectStageImplTest {
 
     private final TypedGenerator<ProjectStage> projectStages = Generators.enumValues(ProjectStage.class);
 
@@ -136,11 +139,23 @@ class CuiProjectStageImplTest extends JsfEnabledTestEnvironment {
         return projectStageImpl;
     }
 
+    // Store the application config decorator for use in setProjectStage
+    private ApplicationConfigDecorator applicationConfigDecorator;
+
     /**
      * Sets the project stage in the JSF application
      * @param stage the ProjectStage to set
      */
     private void setProjectStage(final ProjectStage stage) {
-        getApplicationConfigDecorator().setProjectStage(stage);
+        applicationConfigDecorator.setProjectStage(stage);
+    }
+
+    /**
+     * Initializes the application config decorator
+     * @param decorator the ApplicationConfigDecorator to use
+     */
+    @BeforeEach
+    void initApplicationConfigDecorator(ApplicationConfigDecorator decorator) {
+        this.applicationConfigDecorator = decorator;
     }
 }

@@ -19,6 +19,7 @@ import de.cuioss.jsf.api.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.converter.AbstractSanitizingConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
 
 import java.util.Locale;
@@ -26,6 +27,7 @@ import java.util.Locale;
 /**
  * @author Sven Haag
  */
+@EnableJsfEnvironment
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class I18nDisplayNameProviderConverterTest
         extends AbstractSanitizingConverterTest<I18nDisplayNameProviderConverter, I18nDisplayNameProvider> {

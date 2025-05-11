@@ -24,14 +24,18 @@ import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 import jakarta.faces.component.html.HtmlOutcomeTargetButton;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.PostAddToViewEvent;
 import lombok.Getter;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @VerifyComponentProperties(of = {"action", "event", "for"}, defaultValued = {"action", "event"})
+@DisplayName("Tests for ModalControl")
 class ModalControlTest extends AbstractComponentTest<ModalControl> {
 
     private static final String FOR_ID = "forId";
@@ -44,28 +48,50 @@ class ModalControlTest extends AbstractComponentTest<ModalControl> {
     private ComponentSystemEvent expectedEvent;
 
     @BeforeEach
-    void before() {
+    void before(FacesContext facesContext) {
         underTest = new ModalControl();
-        parent = JsfHtmlComponent.createComponent(getFacesContext(), JsfHtmlComponent.BUTTON);
+        parent = JsfHtmlComponent.createComponent(facesContext, JsfHtmlComponent.BUTTON);
         underTest.setParent(parent);
         underTest.setFor(FOR_ID);
         expectedEvent = new PostAddToViewEvent(underTest);
     }
 
-    @Test
-    void shouldDecorateDefault() {
-        assertTrue(parent.getPassThroughAttributes(true).isEmpty());
-        underTest.processEvent(expectedEvent);
-        final var attributes = parent.getPassThroughAttributes();
-        assertEquals(3, attributes.size());
-        assertEquals(FOR_ID, attributes.get(DATA_FOR));
-        assertEquals(DEFAULT_ACTION, attributes.get(DATA_ACTION));
-        assertEquals(DEFAULT_EVENT, attributes.get(DATA_EVENT));
+    @Nested
+    @DisplayName("Tests for attribute handling")
+    class AttributeHandlingTests {
+
+        @Test
+        @DisplayName("Should decorate parent with default attributes")
+        void shouldDecorateWithDefaultAttributes() {
+            // Arrange
+            assertTrue(parent.getPassThroughAttributes(true).isEmpty());
+
+            // Act
+            underTest.processEvent(expectedEvent);
+
+            // Assert
+            final var attributes = parent.getPassThroughAttributes();
+            assertEquals(3, attributes.size(), "Should have 3 pass-through attributes");
+            assertEquals(FOR_ID, attributes.get(DATA_FOR), "DATA_FOR attribute should match FOR_ID");
+            assertEquals(DEFAULT_ACTION, attributes.get(DATA_ACTION), "DATA_ACTION attribute should match DEFAULT_ACTION");
+            assertEquals(DEFAULT_EVENT, attributes.get(DATA_EVENT), "DATA_EVENT attribute should match DEFAULT_EVENT");
+        }
     }
 
-    @Test
-    void shouldFailOnMissingForIdentifier() {
-        underTest.setFor(null);
-        assertThrows(IllegalArgumentException.class, () -> underTest.processEvent(expectedEvent));
+    @Nested
+    @DisplayName("Tests for validation")
+    class ValidationTests {
+
+        @Test
+        @DisplayName("Should throw exception when 'for' attribute is missing")
+        void shouldFailOnMissingForIdentifier() {
+            // Arrange
+            underTest.setFor(null);
+
+            // Act & Assert
+            assertThrows(IllegalArgumentException.class,
+                    () -> underTest.processEvent(expectedEvent),
+                    "Should throw IllegalArgumentException when 'for' attribute is missing");
+        }
     }
 }

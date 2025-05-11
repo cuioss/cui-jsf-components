@@ -38,12 +38,12 @@ public final class DisplayXmlCode extends UINamingContainer {
 
     private static final CuiLogger LOGGER = new CuiLogger(DisplayXmlCode.class);
     /** Default suffix for xhtml components. */
-    private static final String DEFAULT_COMPONENT_SUFIX = ".xhtml";
+    private static final String DEFAULT_COMPONENT_SUFFIX = ".xhtml";
 
-    /** Storage for the metadata object. not to be serialized. */
+    /** Storage for the metadata object. Not to be serialized. */
     private BeanInfo metadata;
 
-    /** Storage for the metadata object. not to be serialized. */
+    /** Storage for the metadata object. Not to be serialized. */
     private ComponentPropertiesWrapper componentPropertiesWrapper = new ComponentPropertiesWrapper();
 
     /**
@@ -61,8 +61,8 @@ public final class DisplayXmlCode extends UINamingContainer {
         if (null == composite || composite.isEmpty()) {
             throw new IllegalArgumentException("Composite name must not be empty");
         }
-        if (!composite.endsWith(DEFAULT_COMPONENT_SUFIX)) {
-            composite += DEFAULT_COMPONENT_SUFIX;
+        if (!composite.endsWith(DEFAULT_COMPONENT_SUFFIX)) {
+            composite += DEFAULT_COMPONENT_SUFFIX;
         }
         return composite;
     }
@@ -119,7 +119,7 @@ public final class DisplayXmlCode extends UINamingContainer {
         if (!componentPropertiesWrapper.isConfigured()) {
             Map<String, String> additionalInfo = new HashMap<>();
             additionalInfo.put(ComponentPropertiesWrapper.COMOPOSITE_NAME_KEY,
-                    getCompositeName().replace(DEFAULT_COMPONENT_SUFIX, ""));
+                    getCompositeName().replace(DEFAULT_COMPONENT_SUFFIX, ""));
             additionalInfo.put(ComponentPropertiesWrapper.COMOPOSITE_LIBRARY_KEY, getLibrary());
             componentPropertiesWrapper = new ComponentPropertiesWrapper();
             componentPropertiesWrapper.addParentComponentDescriptor(getMetadataInfo().getBeanDescriptor());
@@ -134,7 +134,7 @@ public final class DisplayXmlCode extends UINamingContainer {
     /**
      * Listener for AddToViewEvent, currently only for demonstration purpose.
      *
-     * @param event , not utilized.
+     * @param event , not used.
      */
     public void processAddToViewEvent(final ComponentSystemEvent event) {
         getPropertyDescriptors();

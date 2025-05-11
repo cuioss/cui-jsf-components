@@ -18,29 +18,55 @@ package de.cuioss.jsf.api.components.partial;
 import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 @VerifyComponentProperties(of = "styleClass")
+@ExplicitParamInjection
+@DisplayName("Tests for ComponentStyleClassProvider implementation")
 class ComponentStyleClassProviderImplTest extends AbstractPartialComponentTest {
 
     @Test
+    @DisplayName("Should throw NullPointerException when constructed with null")
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> new ComponentStyleClassProviderImpl(null));
+        // Act & Assert
+        assertThrows(NullPointerException.class, () -> new ComponentStyleClassProviderImpl(null),
+                "Constructor should reject null component");
     }
 
-    @Test
-    void shouldResolveBuilderForNoStyleClassSet() {
-        assertNotNull(anyComponent().getStyleClassBuilder());
-        assertFalse(anyComponent().getStyleClassBuilder().isAvailable());
-    }
+    @Nested
+    @DisplayName("Tests for style class builder")
+    class StyleClassBuilderTests {
 
-    @Test
-    void shouldResolveBuilderStyleClass() {
-        final var styleClass = "styleClassThingy";
-        var any = anyComponent();
-        any.setStyleClass(styleClass);
-        assertNotNull(any.getStyleClassBuilder());
-        assertTrue(any.getStyleClassBuilder().isAvailable());
-        assertEquals(styleClass, any.getStyleClassBuilder().getStyleClass());
+        @Test
+        @DisplayName("Should provide empty builder when no style class is set")
+        void shouldResolveBuilderForNoStyleClassSet() {
+            // Act
+            var builder = anyComponent().getStyleClassBuilder();
+
+            // Assert
+            assertNotNull(builder, "Style class builder should never be null");
+            assertFalse(builder.isAvailable(), "Builder should not have available styles when none set");
+        }
+
+        @Test
+        @DisplayName("Should provide builder with style class when set")
+        void shouldResolveBuilderWithStyleClass() {
+            // Arrange
+            final var styleClass = "styleClassThingy";
+            var any = anyComponent();
+
+            // Act
+            any.setStyleClass(styleClass);
+            var builder = any.getStyleClassBuilder();
+
+            // Assert
+            assertNotNull(builder, "Style class builder should never be null");
+            assertTrue(builder.isAvailable(), "Builder should have available styles when set");
+            assertEquals(styleClass, builder.getStyleClass(),
+                    "Builder should return the style class that was set");
+        }
     }
 }

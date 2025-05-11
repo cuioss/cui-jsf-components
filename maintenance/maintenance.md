@@ -118,6 +118,62 @@ Progress updates should be documented in the module-specific maintenance documen
 - Task 5 (Create README According to Standards): Not Started
 - Task 6 (Analyze Code for Refactoring Opportunities): Not Started
 
+#### cui-jsf-bootstrap Module
+- Task 1 (Update Unit Tests to Comply with Standards): In Progress
+- Task 2 (Update Production Code to Logging Standards): Not Started
+- Task 3 (Update to Logging Testing Standards): Not Started
+- Task 4 (Update Javadoc to Comply with Standards): Not Started
+- Task 5 (Create README According to Standards): Not Started
+- Task 6 (Analyze Code for Refactoring Opportunities): Not Started
+
+#### cui-jsf-core-components Module
+- Task 1 (Update Unit Tests to Comply with Standards): In Progress
+- Task 2 (Update Production Code to Logging Standards): Not Started
+- Task 3 (Update to Logging Testing Standards): Not Started
+- Task 4 (Update Javadoc to Comply with Standards): Not Started
+- Task 5 (Create README According to Standards): Not Started
+- Task 6 (Analyze Code for Refactoring Opportunities): Not Started
+
+#### cui-jsf-dev Module
+- Task 1 (Update Unit Tests to Comply with Standards): In Progress
+- Task 2 (Update Production Code to Logging Standards): Not Started
+- Task 3 (Update to Logging Testing Standards): Not Started
+- Task 4 (Update Javadoc to Comply with Standards): Not Started
+- Task 5 (Create README According to Standards): Not Started
+- Task 6 (Analyze Code for Refactoring Opportunities): Not Started
+
+#### cui-jsf-jqplot Module
+- Task 1 (Update Unit Tests to Comply with Standards): In Progress
+- Task 2 (Update Production Code to Logging Standards): Not Started
+- Task 3 (Update to Logging Testing Standards): Not Started
+- Task 4 (Update Javadoc to Comply with Standards): Not Started
+- Task 5 (Create README According to Standards): Not Started
+- Task 6 (Analyze Code for Refactoring Opportunities): Not Started
+
+#### cui-jsf-test Module
+- Task 1 (Update Unit Tests to Comply with Standards): In Progress
+- Task 2 (Update Production Code to Logging Standards): Not Started
+- Task 3 (Update to Logging Testing Standards): Not Started
+- Task 4 (Update Javadoc to Comply with Standards): Not Started
+- Task 5 (Create README According to Standards): Not Started
+- Task 6 (Analyze Code for Refactoring Opportunities): Not Started
+
+#### cui-javascript Module
+- Task 1 (Update Unit Tests to Comply with Standards): In Progress
+- Task 2 (Update Production Code to Logging Standards): Not Started
+- Task 3 (Update to Logging Testing Standards): Not Started
+- Task 4 (Update Javadoc to Comply with Standards): Not Started
+- Task 5 (Create README According to Standards): Not Started
+- Task 6 (Analyze Code for Refactoring Opportunities): Not Started
+
+#### cui-jsf-bootstrap-css Module
+- Task 1 (Update Unit Tests to Comply with Standards): In Progress
+- Task 2 (Update Production Code to Logging Standards): Not Started
+- Task 3 (Update to Logging Testing Standards): Not Started
+- Task 4 (Update Javadoc to Comply with Standards): Not Started
+- Task 5 (Create README According to Standards): Not Started
+- Task 6 (Analyze Code for Refactoring Opportunities): Not Started
+
 ## Standards References
 
 - Testing Standards: [CUI Testing Standards](https://github.com/cuioss/cui-llm-rules/tree/main/standards/testing)

@@ -18,31 +18,63 @@ package de.cuioss.jsf.bootstrap.modal.support;
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for ModalDialogSize")
 class ModalDialogSizeTest {
 
-    @Test
-    void shouldMapSizes() {
-        assertEquals(ModalDialogSize.DEFAULT, ModalDialogSize.getFromString(""));
-        assertEquals(ModalDialogSize.LG, ModalDialogSize.getFromString(ModalDialogSize.LG.name()));
-        assertEquals(ModalDialogSize.FLUID, ModalDialogSize.getFromString(ModalDialogSize.FLUID.name()));
-        assertEquals(ModalDialogSize.SM, ModalDialogSize.getFromString(ModalDialogSize.SM.name()));
+    @Nested
+    @DisplayName("Tests for string to enum mapping")
+    class StringMappingTests {
+
+        @Test
+        @DisplayName("Should map string values to correct enum values")
+        void shouldMapStringValuesToEnumValues() {
+            // Act & Assert
+            assertEquals(ModalDialogSize.DEFAULT, ModalDialogSize.getFromString(""),
+                    "Empty string should map to DEFAULT");
+            assertEquals(ModalDialogSize.LG, ModalDialogSize.getFromString(ModalDialogSize.LG.name()),
+                    "LG string should map to LG enum");
+            assertEquals(ModalDialogSize.FLUID, ModalDialogSize.getFromString(ModalDialogSize.FLUID.name()),
+                    "FLUID string should map to FLUID enum");
+            assertEquals(ModalDialogSize.SM, ModalDialogSize.getFromString(ModalDialogSize.SM.name()),
+                    "SM string should map to SM enum");
+        }
+
+        @Test
+        @DisplayName("Should throw exception for invalid string value")
+        void shouldThrowExceptionForInvalidString() {
+            // Act & Assert
+            assertThrows(IllegalArgumentException.class,
+                    () -> ModalDialogSize.getFromString("not-there"),
+                    "Should throw IllegalArgumentException for invalid string");
+        }
     }
 
-    @Test
-    void shouldMapStyleClasses() {
-        assertTrue(isEmpty(ModalDialogSize.DEFAULT.getStyleClass()));
-        assertEquals(ModalDialogSize.PREFIX + ModalDialogSize.FLUID.name().toLowerCase(),
-                ModalDialogSize.FLUID.getStyleClass());
-        assertEquals(ModalDialogSize.PREFIX + ModalDialogSize.SM.name().toLowerCase(),
-                ModalDialogSize.SM.getStyleClass());
-        assertEquals(ModalDialogSize.PREFIX + ModalDialogSize.LG.name().toLowerCase(),
-                ModalDialogSize.LG.getStyleClass());
-    }
+    @Nested
+    @DisplayName("Tests for style class resolution")
+    class StyleClassTests {
 
-    @Test
-    void shouldFailToMapInvalidString() {
-        assertThrows(IllegalArgumentException.class, () -> ModalDialogSize.getFromString("not-there"));
+        @Test
+        @DisplayName("Should resolve correct style class for each enum value")
+        void shouldResolveCorrectStyleClass() {
+            // Act & Assert
+            assertTrue(isEmpty(ModalDialogSize.DEFAULT.getStyleClass()),
+                    "DEFAULT should have empty style class");
+
+            assertEquals(ModalDialogSize.PREFIX + ModalDialogSize.FLUID.name().toLowerCase(),
+                    ModalDialogSize.FLUID.getStyleClass(),
+                    "FLUID should have correct style class");
+
+            assertEquals(ModalDialogSize.PREFIX + ModalDialogSize.SM.name().toLowerCase(),
+                    ModalDialogSize.SM.getStyleClass(),
+                    "SM should have correct style class");
+
+            assertEquals(ModalDialogSize.PREFIX + ModalDialogSize.LG.name().toLowerCase(),
+                    ModalDialogSize.LG.getStyleClass(),
+                    "LG should have correct style class");
+        }
     }
 }

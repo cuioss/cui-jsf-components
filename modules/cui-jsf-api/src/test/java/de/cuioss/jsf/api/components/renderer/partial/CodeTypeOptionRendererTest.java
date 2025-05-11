@@ -19,19 +19,24 @@ import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
-import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import de.cuioss.test.jsf.renderer.util.HtmlTreeAsserts;
 import de.cuioss.uimodel.model.code.CodeTypeImpl;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.test.mock.MockResponseWriter;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.StringWriter;
 
-class CodeTypeOptionRendererTest extends JsfEnabledTestEnvironment {
+@EnableJsfEnvironment
+@DisplayName("Tests for CodeTypeOptionRenderer")
+class CodeTypeOptionRendererTest {
 
     private static final String RESOLVED = "resolved";
 
@@ -46,29 +51,46 @@ class CodeTypeOptionRendererTest extends JsfEnabledTestEnvironment {
     private DecoratingResponseWriter<UIComponent> responseWriter;
 
     @BeforeEach
-    void before() {
+    void before(FacesContext facesContext) {
         output = new StringWriter();
         UIComponent component = new HtmlInputText();
         component.setId("id");
-        getFacesContext().setResponseWriter(new MockResponseWriter(output));
-        responseWriter = new DecoratingResponseWriter<>(getFacesContext(), component);
+        facesContext.setResponseWriter(new MockResponseWriter(output));
+        responseWriter = new DecoratingResponseWriter<>(facesContext, component);
     }
 
-    @Test
-    void shouldRenderSingleElement() throws IOException {
-        var type = new CodeTypeImpl(RESOLVED, IDENTIFIER);
-        var renderer = new CodeTypeOptionRenderer(type);
-        renderer.render(responseWriter, null, false);
-        assertWritten(OPTION_1_HTML);
-    }
+    @Nested
+    @DisplayName("Tests for rendering code type options")
+    class RenderingTests {
 
-    @Test
-    void shouldRenderMultipleElements() throws IOException {
-        var type = new CodeTypeImpl(RESOLVED, IDENTIFIER);
-        var type2 = new CodeTypeImpl(IDENTIFIER, RESOLVED);
-        var renderer = new CodeTypeOptionRenderer(immutableList(type, type2));
-        renderer.render(responseWriter, null, false);
-        assertWritten(OPTION_1_HTML + OPTION_2_HTML);
+        @Test
+        @DisplayName("Should render a single code type option element")
+        void shouldRenderSingleElement() throws IOException {
+            // Arrange
+            var type = new CodeTypeImpl(RESOLVED, IDENTIFIER);
+            var renderer = new CodeTypeOptionRenderer(type);
+
+            // Act
+            renderer.render(responseWriter, null, false);
+
+            // Assert
+            assertWritten(OPTION_1_HTML);
+        }
+
+        @Test
+        @DisplayName("Should render multiple code type option elements")
+        void shouldRenderMultipleElements() throws IOException {
+            // Arrange
+            var type = new CodeTypeImpl(RESOLVED, IDENTIFIER);
+            var type2 = new CodeTypeImpl(IDENTIFIER, RESOLVED);
+            var renderer = new CodeTypeOptionRenderer(immutableList(type, type2));
+
+            // Act
+            renderer.render(responseWriter, null, false);
+
+            // Assert
+            assertWritten(OPTION_1_HTML + OPTION_2_HTML);
+        }
     }
 
     private void assertWritten(final String expected) {

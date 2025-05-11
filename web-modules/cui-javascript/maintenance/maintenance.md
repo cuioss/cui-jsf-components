@@ -10,7 +10,7 @@ The cui-javascript module contains JavaScript libraries, utilities, and custom s
 
 ### 1. Update Unit Tests to Comply with Standards
 
-**Status**: [ ] Not Started [ ] In Progress [ ] Completed [ ] Blocked
+**Status**: [ ] Not Started [x] In Progress [ ] Completed [ ] Blocked
 
 #### Pre-conditions
 - Existing JavaScript unit tests may not follow CUI testing standards

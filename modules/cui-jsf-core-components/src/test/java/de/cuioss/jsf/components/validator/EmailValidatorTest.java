@@ -15,24 +15,95 @@
  */
 package de.cuioss.jsf.components.validator;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.jsf.test.EnableJSFCDIEnvironment;
 import de.cuioss.jsf.test.EnableResourceBundleSupport;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.validator.AbstractValidatorTest;
 import de.cuioss.test.jsf.validator.TestItems;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.ValidatorException;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @EnableJSFCDIEnvironment
 @EnableResourceBundleSupport
+@ExplicitParamInjection
+@DisplayName("Tests for EmailValidator")
 class EmailValidatorTest extends AbstractValidatorTest<EmailValidator, String> {
 
     @Override
+    @DisplayName("Configure test items for email validation")
     public void populate(final TestItems<String> testItems) {
-        testItems.addInvalid("a").addValid("test@cuioss.de")
-                .addValid("7f9a39ff-d8e8-6de3-c81d-77c8c6b20445@example.com").addInvalid("abc")
-                .addInvalid("ab-c@de-f@ghi").addValid("ab-c@de-fghi").addValid("abc@def").addValid("123@456")
+        // Add valid email addresses
+        testItems.addValid("test@cuioss.de")
+                .addValid("7f9a39ff-d8e8-6de3-c81d-77c8c6b20445@example.com")
+                .addValid("ab-c@de-fghi")
+                .addValid("abc@def")
+                .addValid("123@456")
                 .addValid("?%&äö.ü-_@?%&_ä.ö-ü");
+
+        // Add invalid email addresses
+        testItems.addInvalid("a")
+                .addInvalid("abc")
+                .addInvalid("ab-c@de-f@ghi");
     }
 
+    @Nested
+    @DisplayName("Email format validation tests")
+    class EmailFormatTests {
+
+        @Test
+        @DisplayName("Should validate standard email formats")
+        void shouldValidateStandardEmailFormats(FacesContext facesContext) {
+            // Arrange
+            var validator = getValidator();
+            var component = getComponent();
+
+            // Act & Assert - Valid emails
+            assertDoesNotThrow(() ->
+                            validator.validate(facesContext, component, "user@example.com"),
+                    "Standard email format should be valid");
+
+            assertDoesNotThrow(() ->
+                            validator.validate(facesContext, component, "user.name@example.co.uk"),
+                    "Email with dots and subdomains should be valid");
+
+            // Act & Assert - Invalid emails
+            assertThrows(ValidatorException.class, () ->
+                            validator.validate(facesContext, component, "user@"),
+                    "Email without domain should be invalid");
+
+            assertThrows(ValidatorException.class, () ->
+                            validator.validate(facesContext, component, "@example.com"),
+                    "Email without local part should be invalid");
+        }
+
+        @Test
+        @DisplayName("Should validate emails with special characters")
+        void shouldValidateEmailsWithSpecialCharacters(FacesContext facesContext) {
+            // Arrange
+            var validator = getValidator();
+            var component = getComponent();
+
+            // Act & Assert
+            assertDoesNotThrow(() ->
+                            validator.validate(facesContext, component, "user+tag@example.com"),
+                    "Email with plus sign should be valid");
+
+            assertDoesNotThrow(() ->
+                            validator.validate(facesContext, component, "user-name@example.com"),
+                    "Email with hyphen should be valid");
+
+            assertDoesNotThrow(() ->
+                            validator.validate(facesContext, component, "user_name@example.com"),
+                    "Email with underscore should be valid");
+        }
+    }
 }

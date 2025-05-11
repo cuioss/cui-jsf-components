@@ -19,40 +19,70 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.ui.model.ToggleSwitch;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.test.el.MockValueExpression;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 @VerifyComponentProperties(of = {"collapsible", "collapseSwitch", "collapsed"})
+@ExplicitParamInjection
+@DisplayName("Tests for CollapseSwitchProvider implementation")
 class CollapseSwitchProviderImplTest extends AbstractPartialComponentTest {
 
     @Test
+    @DisplayName("Should throw NullPointerException when constructed with null")
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> new CollapseSwitchProvider(null));
+        // Act & Assert
+        assertThrows(NullPointerException.class, () -> new CollapseSwitchProvider(null),
+                "Constructor should reject null component");
     }
 
-    @Test
-    void shouldHandleValueBinding() {
-        var any = anyComponent();
-        var beanToggler = new ToggleSwitch(Boolean.FALSE);
-        // bind switch
-        var expression = new MockValueExpression("#{collapseSwitch}", ToggleSwitch.class);
-        expression.setValue(getFacesContext().getELContext(), beanToggler);
-        any.setValueExpression("collapseSwitch", expression);
-        assertEquals(Boolean.FALSE, beanToggler.isToggled());
-        assertEquals(Boolean.FALSE, any.resolveCollapsed());
-        // toggle in component -> check bean
-        any.setCollapsedState(true);
-        assertEquals(Boolean.TRUE, beanToggler.isToggled());
-        assertEquals(Boolean.TRUE, any.resolveCollapsed());
-        // toggle in bean -> check component
-        beanToggler.setToggled(false);
-        assertEquals(Boolean.FALSE, beanToggler.isToggled());
-        assertEquals(Boolean.FALSE, any.resolveCollapsed());
-        // bind bool to EL
-        expression = new MockValueExpression("#{collapsed}", Boolean.class);
-        expression.setValue(getFacesContext().getELContext(), Boolean.TRUE);
-        any.setValueExpression("collapsed", expression);
-        assertTrue(any.isCollapsed());
-        // TODO how to test a value binding "#{true}" ???
+    @Nested
+    @DisplayName("Tests for value binding behavior")
+    class ValueBindingTests {
+
+        @Test
+        @DisplayName("Should properly handle value binding between component and model")
+        void shouldHandleValueBindingBetweenComponentAndModel(FacesContext facesContext) {
+            // Arrange
+            var any = anyComponent();
+            var beanToggler = new ToggleSwitch(Boolean.FALSE);
+
+            // Act - bind switch
+            var expression = new MockValueExpression("#{collapseSwitch}", ToggleSwitch.class);
+            expression.setValue(facesContext.getELContext(), beanToggler);
+            any.setValueExpression("collapseSwitch", expression);
+
+            // Assert - initial state
+            assertEquals(Boolean.FALSE, beanToggler.isToggled(), "Initial bean toggle state should be false");
+            assertEquals(Boolean.FALSE, any.resolveCollapsed(), "Initial component collapsed state should be false");
+
+            // Act - toggle in component
+            any.setCollapsedState(true);
+
+            // Assert - component change affects bean
+            assertEquals(Boolean.TRUE, beanToggler.isToggled(), "Bean toggle state should be updated to true");
+            assertEquals(Boolean.TRUE, any.resolveCollapsed(), "Component collapsed state should be true");
+
+            // Act - toggle in bean
+            beanToggler.setToggled(false);
+
+            // Assert - bean change affects component
+            assertEquals(Boolean.FALSE, beanToggler.isToggled(), "Bean toggle state should be false");
+            assertEquals(Boolean.FALSE, any.resolveCollapsed(), "Component collapsed state should be updated to false");
+
+            // Act - bind boolean to EL
+            expression = new MockValueExpression("#{collapsed}", Boolean.class);
+            expression.setValue(facesContext.getELContext(), Boolean.TRUE);
+            any.setValueExpression("collapsed", expression);
+
+            // Assert - direct boolean binding
+            assertTrue(any.isCollapsed(), "Component should be collapsed with direct boolean binding");
+
+            // Note: Testing a literal value binding like "#{true}" would require mocking the EL context evaluation
+            // which is beyond the scope of this test
+        }
     }
 }

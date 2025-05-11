@@ -18,8 +18,11 @@ package de.cuioss.jsf.api.components.util;
 import static de.cuioss.jsf.api.components.util.KeyMappingUtility.mapKeyWithExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for KeyMappingUtility")
 class KeyMappingUtilityTest {
 
     private static final String STRING_KEY = "key";
@@ -30,15 +33,36 @@ class KeyMappingUtilityTest {
 
     private static final Integer INTEGER_KEY = 1;
 
-    @Test
-    void shouldMapWithEmptyExtension() {
-        assertEquals(STRING_KEY, mapKeyWithExtension(STRING_KEY, null));
-        assertEquals(INTEGER_KEY.toString(), mapKeyWithExtension(INTEGER_KEY, null));
-    }
+    @Nested
+    @DisplayName("Tests for key mapping with extensions")
+    class KeyMappingTests {
 
-    @Test
-    void shouldMapWithExtension() {
-        assertEquals(STRING_KEY + EXTENSION_SUFFIX, mapKeyWithExtension(STRING_KEY, EXTENSION));
-        assertEquals(INTEGER_KEY + EXTENSION_SUFFIX, mapKeyWithExtension(INTEGER_KEY, EXTENSION));
+        @Test
+        @DisplayName("Should map keys without modification when extension is null")
+        void shouldMapWithEmptyExtension() {
+            // Arrange - test data defined in class constants
+
+            // Act & Assert - string key with null extension
+            assertEquals(STRING_KEY, mapKeyWithExtension(STRING_KEY, null),
+                    "String key should remain unchanged with null extension");
+
+            // Act & Assert - integer key with null extension
+            assertEquals(INTEGER_KEY.toString(), mapKeyWithExtension(INTEGER_KEY, null),
+                    "Integer key should be converted to string and remain unchanged with null extension");
+        }
+
+        @Test
+        @DisplayName("Should append extension to keys with underscore separator")
+        void shouldMapWithExtension() {
+            // Arrange - test data defined in class constants
+
+            // Act & Assert - string key with extension
+            assertEquals(STRING_KEY + EXTENSION_SUFFIX, mapKeyWithExtension(STRING_KEY, EXTENSION),
+                    "String key should have extension appended with underscore separator");
+
+            // Act & Assert - integer key with extension
+            assertEquals(INTEGER_KEY + EXTENSION_SUFFIX, mapKeyWithExtension(INTEGER_KEY, EXTENSION),
+                    "Integer key should be converted to string and have extension appended with underscore separator");
+        }
     }
 }

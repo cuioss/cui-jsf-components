@@ -106,7 +106,7 @@ class CuiSanitizerTest {
             final String mailAddress = MAIL_ADDRESS;
 
             // Act & Assert
-            assertEquals("abc&#64;abc.de", CuiSanitizer.COMPLEX_HTML.apply(mailAddress), 
+            assertEquals("abc&#64;abc.de", CuiSanitizer.COMPLEX_HTML.apply(mailAddress),
                     "Email addresses should have @ encoded");
         }
     }
@@ -121,15 +121,15 @@ class CuiSanitizerTest {
             // Arrange - using test constants
 
             // Act & Assert
-            assertEquals(PLAIN_TEXT, CuiSanitizer.MORE_COMPLEX_HTML.apply(PLAIN_TEXT), 
+            assertEquals(PLAIN_TEXT, CuiSanitizer.MORE_COMPLEX_HTML.apply(PLAIN_TEXT),
                     "Plain text should remain unchanged");
-            assertEquals(SIMPLE_HTML, CuiSanitizer.MORE_COMPLEX_HTML.apply(SIMPLE_HTML), 
+            assertEquals(SIMPLE_HTML, CuiSanitizer.MORE_COMPLEX_HTML.apply(SIMPLE_HTML),
                     "Simple HTML should remain unchanged");
-            assertEquals(COMPLEX_HTML, CuiSanitizer.MORE_COMPLEX_HTML.apply(COMPLEX_HTML), 
+            assertEquals(COMPLEX_HTML, CuiSanitizer.MORE_COMPLEX_HTML.apply(COMPLEX_HTML),
                     "Complex HTML should remain unchanged");
-            assertEquals(COMPLEX_HTML, CuiSanitizer.MORE_COMPLEX_HTML.apply(MALICIOUS_HTML), 
+            assertEquals(COMPLEX_HTML, CuiSanitizer.MORE_COMPLEX_HTML.apply(MALICIOUS_HTML),
                     "Malicious HTML should be sanitized to complex HTML");
-            assertEquals(COMPLEX_HTML_WITH_TABLE, CuiSanitizer.MORE_COMPLEX_HTML.apply(COMPLEX_HTML_WITH_TABLE), 
+            assertEquals(COMPLEX_HTML_WITH_TABLE, CuiSanitizer.MORE_COMPLEX_HTML.apply(COMPLEX_HTML_WITH_TABLE),
                     "HTML with tables should be preserved");
         }
     }
@@ -144,11 +144,11 @@ class CuiSanitizerTest {
             // Arrange - using test constants
 
             // Act & Assert
-            assertEquals(PLAIN_TEXT, CuiSanitizer.PASSTHROUGH.apply(PLAIN_TEXT), 
+            assertEquals(PLAIN_TEXT, CuiSanitizer.PASSTHROUGH.apply(PLAIN_TEXT),
                     "Plain text should remain unchanged");
-            assertEquals(SIMPLE_HTML, CuiSanitizer.PASSTHROUGH.apply(SIMPLE_HTML), 
+            assertEquals(SIMPLE_HTML, CuiSanitizer.PASSTHROUGH.apply(SIMPLE_HTML),
                     "Simple HTML should remain unchanged");
-            assertEquals(COMPLEX_HTML, CuiSanitizer.PASSTHROUGH.apply(COMPLEX_HTML), 
+            assertEquals(COMPLEX_HTML, CuiSanitizer.PASSTHROUGH.apply(COMPLEX_HTML),
                     "Complex HTML should remain unchanged");
         }
     }
@@ -168,15 +168,15 @@ class CuiSanitizerTest {
             final String complexEntityText = "a&amp;lt;script&amp;amp;gt;javascript</script>bc";
 
             // Act & Assert
-            assertEquals(empty, CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(empty), 
+            assertEquals(empty, CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(empty),
                     "Empty string should remain empty");
-            assertEquals(plainText, CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(plainText), 
+            assertEquals(plainText, CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(plainText),
                     "Plain text should remain unchanged");
-            assertEquals(plainText, CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(scriptText), 
+            assertEquals(plainText, CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(scriptText),
                     "Script tags should be removed");
-            assertEquals(plainText, CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(entityText), 
+            assertEquals(plainText, CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(entityText),
                     "Entities should be preserved but script tags removed");
-            assertEquals(plainText, CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(complexEntityText), 
+            assertEquals(plainText, CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(complexEntityText),
                     "Complex entities should be preserved but script tags removed");
         }
 
@@ -187,9 +187,9 @@ class CuiSanitizerTest {
             final String mailAddress = MAIL_ADDRESS;
 
             // Act & Assert
-            assertEquals(mailAddress, CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(mailAddress), 
+            assertEquals(mailAddress, CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(mailAddress),
                     "Email should be preserved with entities");
-            assertEquals(mailAddress, CuiSanitizer.PLAIN_TEXT_PRESERVE_ENTITIES.apply(mailAddress), 
+            assertEquals(mailAddress, CuiSanitizer.PLAIN_TEXT_PRESERVE_ENTITIES.apply(mailAddress),
                     "Email should be preserved with plain text and entities");
         }
     }
@@ -208,10 +208,10 @@ class CuiSanitizerTest {
                 assertEquals("", sanitizer.apply(null),
                         "null must be converted to empty string, using sanitizer: " + sanitizer);
 
-                assertEquals("", sanitizer.apply(""), 
+                assertEquals("", sanitizer.apply(""),
                         "empty string must be returned, using sanitizer: " + sanitizer);
 
-                assertEquals(" ", sanitizer.apply(" "), 
+                assertEquals(" ", sanitizer.apply(" "),
                         "whitespaces should not be trimmed, using sanitizer: " + sanitizer);
             }
         }

@@ -21,31 +21,55 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests for {@link CuiMessagesComponent} using the property verification from
+ * {@link AbstractComponentTest}.
+ */
 @VerifyComponentProperties(of = {"rendered", "showDetail", "showSummary", "for"})
+@DisplayName("Tests for CuiMessagesComponent")
 class CuiMessagesComponentTest extends AbstractComponentTest<CuiMessagesComponent> {
 
     private static final String STYLE_CLASS = CssCuiBootstrap.CUI_MESSAGES_CLASS.getStyleClass();
 
-    @Test
-    void shouldProvideDefaultClasses() {
-        var component = anyComponent();
-        assertEquals(STYLE_CLASS, component.getStyleClass());
-        assertNotNull(component.getFatalClass());
-        assertNotNull(component.getWarnClass());
-        assertNotNull(component.getErrorClass());
-        assertNotNull(component.getInfoClass());
-    }
+    @Nested
+    @DisplayName("Tests for style class handling")
+    class StyleClassTests {
 
-    @Test
-    void shouldMofiyStyleClasses() {
-        var component = anyComponent();
-        component.setStyleClass("added");
-        assertEquals(STYLE_CLASS + " added", component.getStyleClass());
-        assertNotNull(component.getFatalClass());
-        assertNotNull(component.getWarnClass());
-        assertNotNull(component.getErrorClass());
-        assertNotNull(component.getInfoClass());
+        @Test
+        @DisplayName("Should provide default style classes")
+        void shouldProvideDefaultClasses() {
+            // Arrange
+            var component = anyComponent();
+
+            // Act & Assert
+            assertEquals(STYLE_CLASS, component.getStyleClass(),
+                    "Default style class should match CUI_MESSAGES_CLASS");
+            assertNotNull(component.getFatalClass(), "Fatal class should not be null");
+            assertNotNull(component.getWarnClass(), "Warn class should not be null");
+            assertNotNull(component.getErrorClass(), "Error class should not be null");
+            assertNotNull(component.getInfoClass(), "Info class should not be null");
+        }
+
+        @Test
+        @DisplayName("Should append custom style class to default class")
+        void shouldAppendCustomStyleClass() {
+            // Arrange
+            var component = anyComponent();
+
+            // Act
+            component.setStyleClass("added");
+
+            // Assert
+            assertEquals(STYLE_CLASS + " added", component.getStyleClass(),
+                    "Custom style class should be appended to default class");
+            assertNotNull(component.getFatalClass(), "Fatal class should not be null");
+            assertNotNull(component.getWarnClass(), "Warn class should not be null");
+            assertNotNull(component.getErrorClass(), "Error class should not be null");
+            assertNotNull(component.getInfoClass(), "Info class should not be null");
+        }
     }
 }

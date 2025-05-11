@@ -17,19 +17,21 @@ package de.cuioss.jsf.api.servlet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
+import jakarta.faces.context.FacesContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.Test;
 
-class ServletAdapterUtilTest extends JsfEnabledTestEnvironment {
+@EnableJsfEnvironment
+class ServletAdapterUtilTest {
 
     private static final String PARAM_NAME = "parameterName";
 
     @Test
-    void getRequestParameter() {
-        var s1 = ServletAdapterUtil.getRequestParameter(getFacesContext(), PARAM_NAME);
-        var s2 = ServletAdapterUtil.getRequest(getFacesContext()).getParameter(PARAM_NAME);
+    void getRequestParameter(FacesContext facesContext) {
+        var s1 = ServletAdapterUtil.getRequestParameter(facesContext, PARAM_NAME);
+        var s2 = ServletAdapterUtil.getRequest(facesContext).getParameter(PARAM_NAME);
         assertEquals(s1, s2);
     }
 
@@ -39,20 +41,20 @@ class ServletAdapterUtilTest extends JsfEnabledTestEnvironment {
     }
 
     @Test
-    void getRequestParameterWithNullParameter() {
+    void getRequestParameterWithNullParameter(FacesContext facesContext) {
         assertThrows(IllegalArgumentException.class,
-                () -> ServletAdapterUtil.getRequestParameter(getFacesContext(), null));
+                () -> ServletAdapterUtil.getRequestParameter(facesContext, null));
     }
 
     @Test
-    void testGetResponse() {
-        final var response = (HttpServletResponse) getFacesContext().getExternalContext().getResponse();
-        assertEquals(response, ServletAdapterUtil.getResponse(getFacesContext()));
+    void getResponse(FacesContext facesContext) {
+        final var response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+        assertEquals(response, ServletAdapterUtil.getResponse(facesContext));
     }
 
     @Test
-    void shouldProduceSession() {
-        var session = ServletAdapterUtil.getSession(getFacesContext());
+    void shouldProduceSession(FacesContext facesContext) {
+        var session = ServletAdapterUtil.getSession(facesContext);
         assertTrue(session.isPresent());
     }
 
@@ -62,9 +64,9 @@ class ServletAdapterUtilTest extends JsfEnabledTestEnvironment {
     }
 
     @Test
-    void getRequest() {
-        final var request = (HttpServletRequest) getFacesContext().getExternalContext().getRequest();
-        assertEquals(request, ServletAdapterUtil.getRequest(getFacesContext()));
+    void getRequest(FacesContext facesContext) {
+        final var request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
+        assertEquals(request, ServletAdapterUtil.getRequest(facesContext));
     }
 
     @Test

@@ -19,23 +19,55 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import de.cuioss.jsf.api.components.base.BaseCuiCommandButton;
+import de.cuioss.jsf.api.components.util.modifier.ComponentModifierFactory;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.PostAddToViewEvent;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for BlockElementDecorator")
 class BlockElementDecoratorTest extends AbstractComponentTest<BlockElementDecorator> {
 
     private BaseCuiCommandButton parent;
 
     private ComponentSystemEvent expectedEvent;
 
-    @Test
-    void shouldDecorate() {
-        var underTest = anyComponent();
-        assertNull(parent.getPassThroughAttributes().get("data-cui-block-element"));
-        underTest.processEvent(expectedEvent);
-        assertEquals("data-cui-block-element", parent.getPassThroughAttributes().get("data-cui-block-element"));
+    @Nested
+    @DisplayName("Decorator Functionality Tests")
+    class DecoratorTests {
+
+        @Test
+        @DisplayName("Should add block element attribute to parent component")
+        void shouldDecorate() {
+            // Arrange
+            var underTest = anyComponent();
+            assertNull(parent.getPassThroughAttributes().get("data-cui-block-element"),
+                    "Attribute should not be present before decoration");
+
+            // Act
+            underTest.processEvent(expectedEvent);
+
+            // Assert
+            assertEquals("data-cui-block-element", parent.getPassThroughAttributes().get("data-cui-block-element"),
+                    "Block element attribute should be added to parent component");
+        }
+
+        @Test
+        @DisplayName("Should correctly implement decorate method")
+        void shouldImplementDecorateMethod() {
+            // Arrange
+            var underTest = anyComponent();
+            var modifier = ComponentModifierFactory.findFittingWrapper(parent);
+
+            // Act
+            underTest.decorate(modifier);
+
+            // Assert
+            assertEquals("data-cui-block-element", parent.getPassThroughAttributes().get("data-cui-block-element"),
+                    "Block element attribute should be added via decorate method");
+        }
     }
 
     @Override

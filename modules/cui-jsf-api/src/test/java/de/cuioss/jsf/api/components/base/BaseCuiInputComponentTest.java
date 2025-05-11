@@ -19,13 +19,21 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @VerifyComponentProperties(of = {"styleClass", "rendered", "style"})
+@DisplayName("Tests for BaseCuiInputComponent")
 class BaseCuiInputComponentTest extends AbstractComponentTest<BaseCuiInputComponent> {
 
     @Test
+    @DisplayName("Should provide access to FacesContext through bridge")
     void shouldBridgeFacesContext() {
-        assertNotNull(anyComponent().facesContext());
+        // Arrange
+        var component = anyComponent();
+
+        // Act & Assert
+        assertNotNull(component.facesContext(),
+                "FacesContext should be accessible through the component bridge");
     }
 }

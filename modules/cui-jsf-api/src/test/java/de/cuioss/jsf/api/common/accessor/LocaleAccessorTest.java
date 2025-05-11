@@ -19,8 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.defaults.BasicApplicationConfiguration;
-import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import de.cuioss.test.valueobjects.api.property.PropertyReflectionConfig;
+import jakarta.faces.context.FacesContext;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -29,9 +30,10 @@ import java.util.Locale;
 
 // Class is documented by @DisplayName
 @DisplayName("Tests for LocaleAccessor")
+@EnableJsfEnvironment
 @JsfTestConfiguration(BasicApplicationConfiguration.class)
 @PropertyReflectionConfig(skip = true)
-class LocaleAccessorTest extends JsfEnabledTestEnvironment {
+class LocaleAccessorTest {
 
     @Nested
     @DisplayName("Value Retrieval Tests")
@@ -39,7 +41,7 @@ class LocaleAccessorTest extends JsfEnabledTestEnvironment {
 
         @Test
         @DisplayName("Should provide the correct locale from JSF context")
-        void shouldProvideCorrectLocaleFromContext() {
+        void shouldProvideCorrectLocaleFromContext(FacesContext facesContext) {
             // Arrange
             var localeAccessor = new LocaleAccessor();
 
@@ -47,7 +49,7 @@ class LocaleAccessorTest extends JsfEnabledTestEnvironment {
             var result = localeAccessor.getValue();
 
             // Assert - using the actual locale from the test environment
-            Locale expectedLocale = getFacesContext().getViewRoot().getLocale();
+            Locale expectedLocale = facesContext.getViewRoot().getLocale();
             assertEquals(expectedLocale, result, "Should return the locale from JSF context");
 
             // Act again - testing caching

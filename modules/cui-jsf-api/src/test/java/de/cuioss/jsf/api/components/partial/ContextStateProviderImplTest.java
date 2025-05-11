@@ -20,25 +20,48 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 @VerifyComponentProperties(of = "state")
+@ExplicitParamInjection
+@DisplayName("Tests for ContextStateProvider implementation")
 class ContextStateProviderImplTest extends AbstractPartialComponentTest {
 
     @Test
+    @DisplayName("Should throw NullPointerException when constructed with null")
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> new ContextStateProvider(null));
+        // Act & Assert
+        assertThrows(NullPointerException.class, () -> new ContextStateProvider(null),
+                "Constructor should reject null component");
     }
 
-    @Test
-    void shouldResolveDefaultForNoStateSet() {
-        assertEquals(ContextState.DEFAULT, anyComponent().resolveContextState());
-    }
+    @Nested
+    @DisplayName("Tests for state resolution")
+    class StateResolutionTests {
 
-    @Test
-    void shouldResolveState() {
-        var any = anyComponent();
-        any.setState(ContextState.INFO.name());
-        assertEquals(ContextState.INFO, any.resolveContextState());
+        @Test
+        @DisplayName("Should resolve default state when none is set")
+        void shouldResolveDefaultForNoStateSet() {
+            // Act & Assert
+            assertEquals(ContextState.DEFAULT, anyComponent().resolveContextState(),
+                    "Should return default state when none is set");
+        }
+
+        @Test
+        @DisplayName("Should resolve specific state when set")
+        void shouldResolveSpecificState() {
+            // Arrange
+            var any = anyComponent();
+
+            // Act
+            any.setState(ContextState.INFO.name());
+
+            // Assert
+            assertEquals(ContextState.INFO, any.resolveContextState(),
+                    "Should return the specific state that was set");
+        }
     }
 }

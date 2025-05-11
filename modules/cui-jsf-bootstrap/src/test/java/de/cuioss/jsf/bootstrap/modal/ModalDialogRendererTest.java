@@ -30,137 +30,199 @@ import de.cuioss.jsf.bootstrap.modal.support.ModalDialogSize;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
-import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.mocks.CuiMockComponent;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
+import jakarta.faces.context.FacesContext;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
-class ModalDialogRendererTest extends AbstractComponentRendererTest<ModalDialogRenderer>
-        implements ComponentConfigurator {
+@DisplayName("Tests for ModalDialogRenderer")
+class ModalDialogRendererTest extends AbstractComponentRendererTest<ModalDialogRenderer> {
 
     private final TypedGenerator<String> strings = Generators.letterStrings(1, 12);
 
     private static final String DEFAULT_ID = "neeededId";
 
-    @Test
-    void shouldRenderMinimal() {
-        final var component = getComponent();
-        final var expected = new HtmlTreeBuilder();
-        addDefaultNode(expected);
-        expected.withNode(DIV).withStyleClass(MODAL_DIALOG_HEADER);
-        addCloseButtonNode(expected);
-        expected.currentHierarchyUp();
-        expected.withNode(DIV).withStyleClass(MODAL_DIALOG_BODY);
-        assertRenderResult(component, expected.getDocument());
+    @BeforeEach
+    void setUp(ComponentConfigDecorator decorator) {
+        decorator.registerCuiMockComponentWithRenderer();
     }
 
-    @Test
-    void shouldRenderChildren() {
-        final var component = getComponent();
-        component.getChildren().add(new CuiMockComponent());
-        final var expected = new HtmlTreeBuilder();
-        addDefaultNode(expected);
-        expected.withNode(DIV).withStyleClass(MODAL_DIALOG_HEADER);
-        addCloseButtonNode(expected);
-        expected.currentHierarchyUp();
-        expected.withNode(DIV).withStyleClass(MODAL_DIALOG_BODY);
-        expected.withNode(CuiMockComponent.class.getSimpleName());
-        assertRenderResult(component, expected.getDocument());
+    @Nested
+    @DisplayName("Tests for basic rendering")
+    class BasicRenderingTests {
+
+        @Test
+        @DisplayName("Should render minimal component correctly")
+        void shouldRenderMinimalComponent(FacesContext facesContext) throws IOException {
+            // Arrange
+            final var component = getComponent();
+            final var expected = new HtmlTreeBuilder();
+
+            // Act & Assert
+            addDefaultNode(expected);
+            expected.withNode(DIV).withStyleClass(MODAL_DIALOG_HEADER);
+            addCloseButtonNode(expected);
+            expected.currentHierarchyUp();
+            expected.withNode(DIV).withStyleClass(MODAL_DIALOG_BODY);
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
+
+        @Test
+        @DisplayName("Should render component with children correctly")
+        void shouldRenderWithChildren(FacesContext facesContext) throws IOException {
+            // Arrange
+            final var component = getComponent();
+            component.getChildren().add(new CuiMockComponent());
+            final var expected = new HtmlTreeBuilder();
+
+            // Act & Assert
+            addDefaultNode(expected);
+            expected.withNode(DIV).withStyleClass(MODAL_DIALOG_HEADER);
+            addCloseButtonNode(expected);
+            expected.currentHierarchyUp();
+            expected.withNode(DIV).withStyleClass(MODAL_DIALOG_BODY);
+            expected.withNode(CuiMockComponent.class.getSimpleName());
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
     }
 
-    @Test
-    void shouldRenderHeader() {
-        final var string = strings.next();
-        final var component = getComponent();
-        component.setHeaderValue(string);
-        final var expected = new HtmlTreeBuilder();
-        addDefaultNode(expected);
-        expected.withNode(DIV).withStyleClass(MODAL_DIALOG_HEADER);
-        addCloseButtonNode(expected);
-        expected.withNode(Node.H4).withStyleClass(CssBootstrap.MODAL_DIALOG_TITLE).withTextContent(string)
-                .currentHierarchyUp();
-        expected.currentHierarchyUp();
-        expected.withNode(DIV).withStyleClass(MODAL_DIALOG_BODY);
-        assertRenderResult(component, expected.getDocument());
+    @Nested
+    @DisplayName("Tests for header rendering")
+    class HeaderRenderingTests {
+
+        @Test
+        @DisplayName("Should render component with header value correctly")
+        void shouldRenderWithHeaderValue(FacesContext facesContext) throws IOException {
+            // Arrange
+            final var string = strings.next();
+            final var component = getComponent();
+            component.setHeaderValue(string);
+            final var expected = new HtmlTreeBuilder();
+
+            // Act & Assert
+            addDefaultNode(expected);
+            expected.withNode(DIV).withStyleClass(MODAL_DIALOG_HEADER);
+            addCloseButtonNode(expected);
+            expected.withNode(Node.H4).withStyleClass(CssBootstrap.MODAL_DIALOG_TITLE).withTextContent(string)
+                    .currentHierarchyUp();
+            expected.currentHierarchyUp();
+            expected.withNode(DIV).withStyleClass(MODAL_DIALOG_BODY);
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
+
+        @Test
+        @DisplayName("Should render component with header facet correctly")
+        void shouldRenderWithHeaderFacet(FacesContext facesContext) throws IOException {
+            // Arrange
+            final var component = getComponent();
+            component.getFacets().put("header", new CuiMockComponent());
+            final var expected = new HtmlTreeBuilder();
+
+            // Act & Assert
+            addDefaultNode(expected);
+            expected.withNode(DIV).withStyleClass(MODAL_DIALOG_HEADER);
+            addCloseButtonNode(expected);
+            expected.withNode(CuiMockComponent.class.getSimpleName()).currentHierarchyUp();
+            expected.currentHierarchyUp();
+            expected.withNode(DIV).withStyleClass(MODAL_DIALOG_BODY);
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
     }
 
-    @Test
-    void shouldRenderHeaderFacet() {
-        final var component = getComponent();
-        component.getFacets().put("header", new CuiMockComponent());
-        final var expected = new HtmlTreeBuilder();
-        addDefaultNode(expected);
-        expected.withNode(DIV).withStyleClass(MODAL_DIALOG_HEADER);
-        addCloseButtonNode(expected);
-        expected.withNode(CuiMockComponent.class.getSimpleName()).currentHierarchyUp();
-        expected.currentHierarchyUp();
-        expected.withNode(DIV).withStyleClass(MODAL_DIALOG_BODY);
-        assertRenderResult(component, expected.getDocument());
+    @Nested
+    @DisplayName("Tests for footer rendering")
+    class FooterRenderingTests {
+
+        @Test
+        @DisplayName("Should render component with footer value correctly")
+        void shouldRenderWithFooterValue(FacesContext facesContext) throws IOException {
+            // Arrange
+            final var string = strings.next();
+            final var component = getComponent();
+            component.setFooterValue(string);
+            final var expected = new HtmlTreeBuilder();
+
+            // Act & Assert
+            addDefaultNode(expected);
+            expected.withNode(DIV).withStyleClass(MODAL_DIALOG_HEADER);
+            addCloseButtonNode(expected);
+            expected.currentHierarchyUp();
+            expected.withNode(DIV).withStyleClass(MODAL_DIALOG_BODY);
+            expected.currentHierarchyUp();
+            expected.withNode(DIV).withStyleClass(MODAL_DIALOG_FOOTER).withNode(SPAN)
+                    .withStyleClass(MODAL_DIALOG_FOOTER_TEXT).withTextContent(string).currentHierarchyUp();
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
+
+        @Test
+        @DisplayName("Should render component with footer facet correctly")
+        void shouldRenderWithFooterFacet(FacesContext facesContext) throws IOException {
+            // Arrange
+            final var component = getComponent();
+            component.getFacets().put("footer", new CuiMockComponent());
+            final var expected = new HtmlTreeBuilder();
+
+            // Act & Assert
+            addDefaultNode(expected);
+            expected.withNode(DIV).withStyleClass(MODAL_DIALOG_HEADER);
+            addCloseButtonNode(expected);
+            expected.currentHierarchyUp();
+            expected.withNode(DIV).withStyleClass(MODAL_DIALOG_BODY);
+            expected.currentHierarchyUp();
+            expected.withNode(DIV).withStyleClass(MODAL_DIALOG_FOOTER);
+            expected.withNode(CuiMockComponent.class.getSimpleName()).currentHierarchyUp();
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
     }
 
-    @Test
-    void shouldRenderFooter() {
-        final var string = strings.next();
-        final var component = getComponent();
-        component.setFooterValue(string);
-        final var expected = new HtmlTreeBuilder();
-        addDefaultNode(expected);
-        expected.withNode(DIV).withStyleClass(MODAL_DIALOG_HEADER);
-        addCloseButtonNode(expected);
-        expected.currentHierarchyUp();
-        expected.withNode(DIV).withStyleClass(MODAL_DIALOG_BODY);
-        expected.currentHierarchyUp();
-        expected.withNode(DIV).withStyleClass(MODAL_DIALOG_FOOTER).withNode(SPAN)
-                .withStyleClass(MODAL_DIALOG_FOOTER_TEXT).withTextContent(string).currentHierarchyUp();
-        assertRenderResult(component, expected.getDocument());
-    }
+    @Nested
+    @DisplayName("Tests for configuration options")
+    class ConfigurationTests {
 
-    @Test
-    void shouldRenderFooterFacet() {
-        final var component = getComponent();
-        component.getFacets().put("footer", new CuiMockComponent());
-        final var expected = new HtmlTreeBuilder();
-        addDefaultNode(expected);
-        expected.withNode(DIV).withStyleClass(MODAL_DIALOG_HEADER);
-        addCloseButtonNode(expected);
-        expected.currentHierarchyUp();
-        expected.withNode(DIV).withStyleClass(MODAL_DIALOG_BODY);
-        expected.currentHierarchyUp();
-        expected.withNode(DIV).withStyleClass(MODAL_DIALOG_FOOTER);
-        expected.withNode(CuiMockComponent.class.getSimpleName()).currentHierarchyUp();
-        assertRenderResult(component, expected.getDocument());
-    }
+        @Test
+        @DisplayName("Should render component without close button when closable is false")
+        void shouldRenderWithoutCloseButton(FacesContext facesContext) throws IOException {
+            // Arrange
+            final var component = getComponent();
+            component.setClosable(false);
+            final var expected = new HtmlTreeBuilder();
 
-    @Test
-    void shouldRenderWithoutCloseButton() {
-        final var component = getComponent();
-        component.setClosable(false);
-        final var expected = new HtmlTreeBuilder();
-        expected.withNode(Node.DIV).withAttributeNameAndId(DEFAULT_ID).withStyleClass("modal modal-default")
-                .withAttribute(DATA_MODAL_ID, DEFAULT_ID).withAttribute(TABINDEX, "-1")
-                .withAttribute(AttributeName.DATA_BACKDROP, "static").withAttribute(ROLE, ROLE_DIALOG);
-        expected.withNode(Node.DIV).withStyleClass(CssBootstrap.MODAL_DIALOG).withAttribute(ROLE, "document");
-        expected.withNode(Node.DIV).withStyleClass(CssBootstrap.MODAL_CONTENT);
-        expected.withNode(DIV).withStyleClass(MODAL_DIALOG_HEADER);
-        expected.currentHierarchyUp();
-        expected.withNode(DIV).withStyleClass(MODAL_DIALOG_BODY);
-        assertRenderResult(component, expected.getDocument());
-    }
+            // Act & Assert
+            expected.withNode(Node.DIV).withAttributeNameAndId(DEFAULT_ID).withStyleClass("modal modal-default")
+                    .withAttribute(DATA_MODAL_ID, DEFAULT_ID).withAttribute(TABINDEX, "-1")
+                    .withAttribute(AttributeName.DATA_BACKDROP, "static").withAttribute(ROLE, ROLE_DIALOG);
+            expected.withNode(Node.DIV).withStyleClass(CssBootstrap.MODAL_DIALOG).withAttribute(ROLE, "document");
+            expected.withNode(Node.DIV).withStyleClass(CssBootstrap.MODAL_CONTENT);
+            expected.withNode(DIV).withStyleClass(MODAL_DIALOG_HEADER);
+            expected.currentHierarchyUp();
+            expected.withNode(DIV).withStyleClass(MODAL_DIALOG_BODY);
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
 
-    @Test
-    void shouldRenderSize() {
-        final var component = getComponent();
-        component.setSize("fluid");
-        final var expected = new HtmlTreeBuilder();
-        addDefaultNodeWithSize(expected, ModalDialogSize.FLUID);
-        expected.withNode(DIV).withStyleClass(MODAL_DIALOG_HEADER);
-        addCloseButtonNode(expected);
-        expected.currentHierarchyUp();
-        expected.withNode(DIV).withStyleClass(MODAL_DIALOG_BODY);
-        assertRenderResult(component, expected.getDocument());
+        @Test
+        @DisplayName("Should render component with specified size correctly")
+        void shouldRenderWithSpecifiedSize(FacesContext facesContext) throws IOException {
+            // Arrange
+            final var component = getComponent();
+            component.setSize("fluid");
+            final var expected = new HtmlTreeBuilder();
+
+            // Act & Assert
+            addDefaultNodeWithSize(expected, ModalDialogSize.FLUID);
+            expected.withNode(DIV).withStyleClass(MODAL_DIALOG_HEADER);
+            addCloseButtonNode(expected);
+            expected.currentHierarchyUp();
+            expected.withNode(DIV).withStyleClass(MODAL_DIALOG_BODY);
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
     }
 
     private static void addCloseButtonNode(final HtmlTreeBuilder expected) {
@@ -198,8 +260,4 @@ class ModalDialogRendererTest extends AbstractComponentRendererTest<ModalDialogR
         return component;
     }
 
-    @Override
-    public void configureComponents(final ComponentConfigDecorator decorator) {
-        decorator.registerCuiMockComponentWithRenderer();
-    }
 }

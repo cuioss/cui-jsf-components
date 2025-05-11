@@ -18,62 +18,127 @@ package de.cuioss.jsf.api.components.partial;
 import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.mocks.ReverseConverter;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 @VerifyComponentProperties(of = {"labelKey", "labelValue", "labelEscape", "labelConverter"})
+@ExplicitParamInjection
+@DisplayName("Tests for LabelProvider implementation")
 class LabelProviderImplTest extends AbstractPartialComponentTest {
 
     @Test
+    @DisplayName("Should throw NullPointerException when constructed with null")
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> new LabelProvider(null));
+        // Act & Assert
+        assertThrows(NullPointerException.class, () -> new LabelProvider(null),
+                "Constructor should reject null component");
     }
 
-    @Test
-    void shouldResolveNullForNoLabelSet() {
-        assertNull(anyComponent().resolveLabel());
+    @Nested
+    @DisplayName("Tests for label resolution")
+    class LabelResolutionTests {
+
+        @Test
+        @DisplayName("Should resolve null when no label is set")
+        void shouldResolveNullForNoLabelSet() {
+            // Act & Assert
+            assertNull(anyComponent().resolveLabel(),
+                    "Label should be null when no label is set");
+        }
+
+        @Test
+        @DisplayName("Should resolve label value when set directly")
+        void shouldResolveLabelValue() {
+            // Arrange
+            var any = anyComponent();
+
+            // Act
+            any.setLabelValue(MESSAGE_KEY);
+
+            // Assert
+            assertEquals(MESSAGE_KEY, any.resolveLabel(),
+                    "Should return the directly set label value");
+        }
+
+        @Test
+        @DisplayName("Should resolve label from resource bundle when key is set")
+        void shouldResolveLabelKey() {
+            // Arrange
+            var any = anyComponent();
+
+            // Act
+            any.setLabelKey(MESSAGE_KEY);
+
+            // Assert
+            assertEquals(MESSAGE_VALUE, any.resolveLabel(),
+                    "Should resolve label from resource bundle using the key");
+        }
     }
 
-    @Test
-    void shouldResolveLabelValue() {
-        var any = anyComponent();
-        any.setLabelValue(MESSAGE_KEY);
-        assertEquals(MESSAGE_KEY, any.resolveLabel());
+    @Nested
+    @DisplayName("Tests for label conversion")
+    class LabelConversionTests {
+
+        @Test
+        @DisplayName("Should use converter by ID when registered in application")
+        void shouldUseConverterAsId(ComponentConfigDecorator componentConfig) {
+            // Arrange
+            componentConfig.registerConverter(ReverseConverter.class);
+            var any = anyComponent();
+
+            // Act
+            any.setLabelConverter(ReverseConverter.CONVERTER_ID);
+            any.setLabelValue("test");
+
+            // Assert
+            assertEquals("tset", any.resolveLabel(),
+                    "Label should be converted using the registered converter");
+        }
+
+        @Test
+        @DisplayName("Should use converter instance when set directly")
+        void shouldUseConverterAsConverter() {
+            // Arrange
+            var any = anyComponent();
+
+            // Act
+            any.setLabelConverter(new ReverseConverter());
+            any.setLabelValue("test");
+
+            // Assert
+            assertEquals("tset", any.resolveLabel(),
+                    "Label should be converted using the direct converter instance");
+        }
     }
 
-    @Test
-    void shouldResolveLabelKey() {
-        var any = anyComponent();
-        any.setLabelKey(MESSAGE_KEY);
-        assertEquals(MESSAGE_VALUE, any.resolveLabel());
-    }
+    @Nested
+    @DisplayName("Tests for label escaping")
+    class LabelEscapeTests {
 
-    @Test
-    void shouldUseConverterAsId() {
-        getComponentConfigDecorator().registerConverter(ReverseConverter.class);
-        var any = anyComponent();
-        any.setLabelConverter(ReverseConverter.CONVERTER_ID);
-        any.setLabelValue("test");
-        assertEquals("tset", any.resolveLabel());
-    }
+        @Test
+        @DisplayName("Should default to escaping labels")
+        void shouldDefaultToLabelEscape() {
+            // Act & Assert
+            assertTrue(anyComponent().isLabelEscape(),
+                    "Label escaping should be enabled by default");
+        }
 
-    @Test
-    void shouldUseConverterAsConverter() {
-        var any = anyComponent();
-        any.setLabelConverter(new ReverseConverter());
-        any.setLabelValue("test");
-        assertEquals("tset", any.resolveLabel());
-    }
+        @Test
+        @DisplayName("Should allow disabling label escaping")
+        void shouldAllowDisablingLabelEscape() {
+            // Arrange
+            var any = anyComponent();
 
-    @Test
-    void shouldDefaultToLabelEscape() {
-        assertTrue(anyComponent().isLabelEscape());
-    }
+            // Act
+            any.setLabelEscape(false);
 
-    @Test
-    void shouldResolveLabelEscape() {
-        var any = anyComponent();
-        any.setLabelEscape(false);
-        assertFalse(any.isLabelEscape());
+            // Assert
+            assertFalse(any.isLabelEscape(),
+                    "Label escaping should be disabled when set to false");
+        }
     }
 }

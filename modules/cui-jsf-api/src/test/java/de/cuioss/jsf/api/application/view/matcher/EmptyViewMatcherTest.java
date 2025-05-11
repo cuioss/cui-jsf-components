@@ -22,19 +22,38 @@ import de.cuioss.jsf.api.common.view.ViewDescriptor;
 import de.cuioss.jsf.api.common.view.ViewDescriptorImpl;
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
+@DisplayName("Tests for EmptyViewMatcher")
 class EmptyViewMatcherTest {
 
     final TypedGenerator<String> viewGenerator = Generators.letterStrings(2, 10);
 
-    @Test
-    void match() {
-        final ViewDescriptor descriptor = ViewDescriptorImpl.builder().withViewId(viewGenerator.next())
-                .withUrlParameter(Collections.emptyList()).withLogicalViewId(viewGenerator.next()).build();
-        assertFalse(new EmptyViewMatcher(false).match(descriptor));
-        assertTrue(new EmptyViewMatcher(true).match(descriptor));
+    @Nested
+    @DisplayName("Tests for match method")
+    class MatchTests {
+
+        @Test
+        @DisplayName("Should match based on configured behavior")
+        void shouldMatchBasedOnConfiguration() {
+            // Arrange
+            final ViewDescriptor descriptor = ViewDescriptorImpl.builder()
+                    .withViewId(viewGenerator.next())
+                    .withUrlParameter(Collections.emptyList())
+                    .withLogicalViewId(viewGenerator.next())
+                    .build();
+
+            // Act & Assert - with matcher configured to not match
+            assertFalse(new EmptyViewMatcher(false).match(descriptor),
+                    "EmptyViewMatcher(false) should not match any descriptor");
+
+            // Act & Assert - with matcher configured to match
+            assertTrue(new EmptyViewMatcher(true).match(descriptor),
+                    "EmptyViewMatcher(true) should match any descriptor");
+        }
     }
 }

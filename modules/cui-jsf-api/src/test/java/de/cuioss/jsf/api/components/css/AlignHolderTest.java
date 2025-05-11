@@ -18,30 +18,80 @@ package de.cuioss.jsf.api.components.css;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for AlignHolder enum")
 class AlignHolderTest {
 
-    @Test
-    void shouldDefaultToUndefined() {
-        assertEquals(AlignHolder.DEFAULT, AlignHolder.getFromString(null));
-        assertEquals(AlignHolder.DEFAULT, AlignHolder.getFromString(""));
-        assertEquals(AlignHolder.DEFAULT, AlignHolder.getFromString("notThere"));
-        assertNotNull(AlignHolder.DEFAULT.getStyleClassBuilder());
-        assertNotNull(AlignHolder.DEFAULT.getStyleClass());
+    @Nested
+    @DisplayName("Tests for getFromString method")
+    class GetFromStringTests {
+
+        @Test
+        @DisplayName("Should return DEFAULT for null, empty, or invalid strings")
+        void shouldReturnDefaultForInvalidInput() {
+            // Act & Assert - null input
+            assertEquals(AlignHolder.DEFAULT, AlignHolder.getFromString(null),
+                    "Should return DEFAULT for null input");
+
+            // Act & Assert - empty string
+            assertEquals(AlignHolder.DEFAULT, AlignHolder.getFromString(""),
+                    "Should return DEFAULT for empty string");
+
+            // Act & Assert - invalid string
+            assertEquals(AlignHolder.DEFAULT, AlignHolder.getFromString("notThere"),
+                    "Should return DEFAULT for invalid alignment value");
+        }
+
+        @Test
+        @DisplayName("Should resolve RIGHT alignment regardless of case")
+        void shouldResolveRightAlignment() {
+            // Act & Assert - lowercase
+            assertEquals(AlignHolder.RIGHT, AlignHolder.getFromString("right"),
+                    "Should resolve lowercase 'right' to RIGHT alignment");
+
+            // Act & Assert - uppercase
+            assertEquals(AlignHolder.RIGHT, AlignHolder.getFromString("RIGHT"),
+                    "Should resolve uppercase 'RIGHT' to RIGHT alignment");
+
+            // Act & Assert - mixed case
+            assertEquals(AlignHolder.RIGHT, AlignHolder.getFromString("RigHt"),
+                    "Should resolve mixed case 'RigHt' to RIGHT alignment");
+        }
+
+        @Test
+        @DisplayName("Should resolve LEFT alignment regardless of case")
+        void shouldResolveLeftAlignment() {
+            // Act & Assert - lowercase
+            assertEquals(AlignHolder.LEFT, AlignHolder.getFromString("left"),
+                    "Should resolve lowercase 'left' to LEFT alignment");
+
+            // Act & Assert - uppercase
+            assertEquals(AlignHolder.LEFT, AlignHolder.getFromString("LEFT"),
+                    "Should resolve uppercase 'LEFT' to LEFT alignment");
+
+            // Act & Assert - mixed case
+            assertEquals(AlignHolder.LEFT, AlignHolder.getFromString("lEFt"),
+                    "Should resolve mixed case 'lEFt' to LEFT alignment");
+        }
     }
 
-    @Test
-    void shouldDetermineRight() {
-        assertEquals(AlignHolder.RIGHT, AlignHolder.getFromString("right"));
-        assertEquals(AlignHolder.RIGHT, AlignHolder.getFromString("RIGHT"));
-        assertEquals(AlignHolder.RIGHT, AlignHolder.getFromString("RigHt"));
-    }
+    @Nested
+    @DisplayName("Tests for style class methods")
+    class StyleClassTests {
 
-    @Test
-    void shouldDetermineLeft() {
-        assertEquals(AlignHolder.LEFT, AlignHolder.getFromString("left"));
-        assertEquals(AlignHolder.LEFT, AlignHolder.getFromString("LEFT"));
-        assertEquals(AlignHolder.LEFT, AlignHolder.getFromString("lEFt"));
+        @Test
+        @DisplayName("Should provide style class information for DEFAULT alignment")
+        void shouldProvideStyleClassForDefault() {
+            // Act & Assert - style class builder
+            assertNotNull(AlignHolder.DEFAULT.getStyleClassBuilder(),
+                    "DEFAULT alignment should provide a style class builder");
+
+            // Act & Assert - style class string
+            assertNotNull(AlignHolder.DEFAULT.getStyleClass(),
+                    "DEFAULT alignment should provide a style class string");
+        }
     }
 }

@@ -15,6 +15,9 @@
  */
 package de.cuioss.jsf.api.application.message;
 
+import static de.cuioss.jsf.api.common.logging.JsfApiLogMessages.ERROR;
+import static de.cuioss.jsf.api.common.logging.JsfApiLogMessages.INFO;
+import static de.cuioss.jsf.api.common.logging.JsfApiLogMessages.WARN;
 import static java.util.Objects.requireNonNull;
 
 import de.cuioss.jsf.api.common.accessor.ConverterAccessor;
@@ -44,9 +47,7 @@ import java.io.Serializable;
 @ToString(exclude = {"messageProducer"})
 public class DisplayNameMessageProducer implements Serializable {
 
-    private static final CuiLogger log = new CuiLogger(DisplayNameMessageProducer.class);
-
-    private static final String SILENT_ERROR_LOG = "Error occurred but was handled silent.";
+    private static final CuiLogger LOGGER = new CuiLogger(DisplayNameMessageProducer.class);
 
     private static final UIComponent DUMMY = new DummyComponent();
 
@@ -69,19 +70,19 @@ public class DisplayNameMessageProducer implements Serializable {
         FacesMessage.Severity severity = switch (requestResultObject.getState()) {
             case ERROR -> {
                 if (requestResultObject.getResultDetail().get().getCause().isPresent()) {
-                    log.error(SILENT_ERROR_LOG, requestResultObject.getResultDetail().get().getCause().get());
+                    LOGGER.error(requestResultObject.getResultDetail().get().getCause().get(), ERROR.SILENT_ERROR::format);
                 }
                 yield FacesMessage.SEVERITY_ERROR;
             }
             case WARNING -> {
                 if (requestResultObject.getResultDetail().get().getCause().isPresent()) {
-                    log.warn(SILENT_ERROR_LOG, requestResultObject.getResultDetail().get().getCause().get());
+                    LOGGER.warn(requestResultObject.getResultDetail().get().getCause().get(), WARN.SILENT_ERROR::format);
                 }
                 yield FacesMessage.SEVERITY_WARN;
             }
             case INFO -> {
                 if (requestResultObject.getResultDetail().get().getCause().isPresent()) {
-                    log.info(SILENT_ERROR_LOG, requestResultObject.getResultDetail().get().getCause().get());
+                    LOGGER.info(requestResultObject.getResultDetail().get().getCause().get(), INFO.SILENT_ERROR::format);
                 }
                 yield FacesMessage.SEVERITY_INFO;
             }

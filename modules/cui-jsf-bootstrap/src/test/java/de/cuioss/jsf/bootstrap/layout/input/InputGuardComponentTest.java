@@ -34,14 +34,17 @@ import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.jsf.test.EnableJSFCDIEnvironment;
 import de.cuioss.jsf.test.EnableResourceBundleSupport;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
-import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
+import de.cuioss.test.jsf.config.decorator.RequestConfigDecorator;
 import de.cuioss.test.jsf.mocks.CuiMockSearchExpressionHandler;
 import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.PostAddToViewEvent;
 import jakarta.faces.event.PreRenderComponentEvent;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @VerifyComponentProperties(of = {"buttonAlign", "resetGuardIcon", "guardIcon", "guardButtonTitleKey",
@@ -51,7 +54,8 @@ import org.junit.jupiter.api.Test;
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @EnableJSFCDIEnvironment
 @EnableResourceBundleSupport
-class InputGuardComponentTest extends AbstractComponentTest<InputGuardComponent> implements ComponentConfigurator {
+@ExplicitParamInjection
+class InputGuardComponentTest extends AbstractComponentTest<InputGuardComponent> {
 
     static final String DEFAULT_UPDATE_KEY = AjaxProvider.DATA_CUI_AJAX + AjaxProvider.UPDATE_KEY;
 
@@ -166,9 +170,9 @@ class InputGuardComponentTest extends AbstractComponentTest<InputGuardComponent>
     }
 
     @Test
-    void shouldProvideAjaxAttributes() {
+    void shouldProvideAjaxAttributes(FacesContext facesContext) {
         var ajaxId = "thisId";
-        CuiMockSearchExpressionHandler.retrieve(getFacesContext()).setResolvedClientIds(mutableList(ajaxId));
+        CuiMockSearchExpressionHandler.retrieve(facesContext).setResolvedClientIds(mutableList(ajaxId));
         var component = anyComponent();
         component.prerender((LabeledContainerComponent) component.getParent());
         var map = component.getPassThroughAttributes();
@@ -234,28 +238,28 @@ class InputGuardComponentTest extends AbstractComponentTest<InputGuardComponent>
     }
 
     @Test
-    void shouldHandleDecodeWithoutPayload() {
+    void shouldHandleDecodeWithoutPayload(FacesContext facesContext, RequestConfigDecorator requestConfig) {
         var component = prepareCompleteSetup();
         var input = accessRelatedInput(component);
         // Initial Values
         assertFalse(input.isResetValueCalled());
         assertEquals(Boolean.TRUE, component.getValue());
         assertNull(input.getValue());
-        component.decode(getFacesContext());
+        component.decode(facesContext);
         // nothing should have happened
         assertFalse(input.isResetValueCalled());
         assertEquals(Boolean.TRUE, component.getValue());
         assertNull(input.getSubmittedValue());
         component.setRendered(false);
-        component.decode(getFacesContext());
+        component.decode(facesContext);
         // nothing should have happened
         assertFalse(input.isResetValueCalled());
         assertEquals(Boolean.TRUE, component.getValue());
         assertNull(input.getSubmittedValue());
         component.setRendered(true);
-        var clientId = component.getClientId(getFacesContext());
-        getRequestConfigDecorator().setRequestParameter(JAVAX_FACES_SOURCE, clientId);
-        component.decode(getFacesContext());
+        var clientId = component.getClientId(facesContext);
+        requestConfig.setRequestParameter(JAVAX_FACES_SOURCE, clientId);
+        component.decode(facesContext);
         // nothing should have happened
         assertFalse(input.isResetValueCalled());
         assertEquals(Boolean.TRUE, component.getValue());
@@ -263,14 +267,14 @@ class InputGuardComponentTest extends AbstractComponentTest<InputGuardComponent>
     }
 
     @Test
-    void shouldHandleDecodeWithoutChanges() {
+    void shouldHandleDecodeWithoutChanges(FacesContext facesContext, RequestConfigDecorator requestConfig) {
         var component = prepareCompleteSetup();
         var input = accessRelatedInput(component);
-        var clientId = component.getClientId(getFacesContext());
-        getRequestConfigDecorator().setRequestParameter(JAVAX_FACES_SOURCE, clientId);
+        var clientId = component.getClientId(facesContext);
+        requestConfig.setRequestParameter(JAVAX_FACES_SOURCE, clientId);
         // same value
-        getRequestConfigDecorator().setRequestParameter(clientId, Boolean.TRUE.toString());
-        component.decode(getFacesContext());
+        requestConfig.setRequestParameter(clientId, Boolean.TRUE.toString());
+        component.decode(facesContext);
         // nothing should have happened
         assertFalse(input.isResetValueCalled());
         assertEquals(Boolean.TRUE, component.getValue());
@@ -278,39 +282,38 @@ class InputGuardComponentTest extends AbstractComponentTest<InputGuardComponent>
     }
 
     @Test
-    void shouldHandleDecodeWithChanges() {
+    void shouldHandleDecodeWithChanges(FacesContext facesContext, RequestConfigDecorator requestConfig) {
         var component = prepareCompleteSetup();
         var input = accessRelatedInput(component);
         component.setValue(Boolean.FALSE);
-        var clientId = component.getClientId(getFacesContext());
-        getRequestConfigDecorator().setRequestParameter(JAVAX_FACES_SOURCE, clientId);
-        getRequestConfigDecorator().setRequestParameter(clientId, Boolean.TRUE.toString());
-        component.decode(getFacesContext());
+        var clientId = component.getClientId(facesContext);
+        requestConfig.setRequestParameter(JAVAX_FACES_SOURCE, clientId);
+        requestConfig.setRequestParameter(clientId, Boolean.TRUE.toString());
+        component.decode(facesContext);
         assertTrue(input.isResetValueCalled());
         assertEquals(Boolean.TRUE.toString(), component.getSubmittedValue());
     }
 
     @Test
-    void shouldHandleDecodeWithDisableResetValue() {
+    void shouldHandleDecodeWithDisableResetValue(FacesContext facesContext, RequestConfigDecorator requestConfig) {
         var component = prepareCompleteSetup();
         component.setResetInputValue(false);
         var input = accessRelatedInput(component);
-        var clientId = component.getClientId(getFacesContext());
-        getRequestConfigDecorator().setRequestParameter(JAVAX_FACES_SOURCE, clientId);
-        getRequestConfigDecorator().setRequestParameter(clientId, Boolean.FALSE.toString());
-        component.decode(getFacesContext());
+        var clientId = component.getClientId(facesContext);
+        requestConfig.setRequestParameter(JAVAX_FACES_SOURCE, clientId);
+        requestConfig.setRequestParameter(clientId, Boolean.FALSE.toString());
+        component.decode(facesContext);
         assertFalse(input.isResetValueCalled());
         assertEquals(Boolean.FALSE.toString(), component.getSubmittedValue());
     }
 
     @Test
-    void shouldFailDecodeOnInvalidNesting() {
+    void shouldFailDecodeOnInvalidNesting(FacesContext facesContext, RequestConfigDecorator requestConfig) {
         var component = new InputGuardComponent();
         component.setValue(Boolean.FALSE);
-        var clientId = component.getClientId(getFacesContext());
-        getRequestConfigDecorator().setRequestParameter(JAVAX_FACES_SOURCE, clientId);
-        getRequestConfigDecorator().setRequestParameter(clientId, Boolean.TRUE.toString());
-        var facesContext = getFacesContext();
+        var clientId = component.getClientId(facesContext);
+        requestConfig.setRequestParameter(JAVAX_FACES_SOURCE, clientId);
+        requestConfig.setRequestParameter(clientId, Boolean.TRUE.toString());
         assertThrows(IllegalStateException.class, () -> component.decode(facesContext));
     }
 
@@ -338,8 +341,8 @@ class InputGuardComponentTest extends AbstractComponentTest<InputGuardComponent>
         parent.getChildren().add(toBeConfigured);
     }
 
-    @Override
-    public void configureComponents(ComponentConfigDecorator decorator) {
+    @BeforeEach
+    void configureComponents(ComponentConfigDecorator decorator) {
         decorator.registerUIComponent(CommandButton.class).registerUIComponent(CuiMessageComponent.class)
                 .registerRenderer(CuiMessageRenderer.class).registerRenderer(LabeledContainerRenderer.class)
                 .registerMockRendererForHtmlInputText();

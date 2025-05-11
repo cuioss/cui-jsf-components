@@ -15,16 +15,81 @@
  */
 package de.cuioss.jsf.components.converter;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
+import jakarta.faces.context.FacesContext;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
 
+@DisplayName("Tests for LocaleConverter")
 class LocaleConverterTest extends AbstractConverterTest<LocaleConverter, Locale> {
 
     @Override
+    @DisplayName("Configure test items for locale conversion")
     public void populate(final TestItems<Locale> testItems) {
+        // Test simple language locales
         testItems.addRoundtripValues("en");
+        testItems.addRoundtripValues("de");
+        testItems.addRoundtripValues("fr");
+
+        // Test language and country locales
+        testItems.addRoundtripValues("en-US");
+        testItems.addRoundtripValues("de-DE");
+        testItems.addRoundtripValues("fr-FR");
+
+        // Test language, country and variant locales
+        testItems.addRoundtripValues("en-US-POSIX");
+
+        // Test with null value
+        testItems.addValidObjectWithStringResult(null, "");
     }
 
+    @Test
+    @DisplayName("Should convert locale to language tag string")
+    void shouldConvertLocaleToString(FacesContext facesContext) {
+        // Arrange
+        var converter = new LocaleConverter();
+        var component = getComponent();
+        var locale = Locale.GERMANY;
+
+        // Act
+        var result = converter.getAsString(facesContext, component, locale);
+
+        // Assert
+        assertEquals("de-DE", result, "Should convert Locale.GERMANY to 'de-DE'");
+    }
+
+    @Test
+    @DisplayName("Should convert language tag string to locale")
+    void shouldConvertStringToLocale(FacesContext facesContext) {
+        // Arrange
+        var converter = new LocaleConverter();
+        var component = getComponent();
+        var languageTag = "de-DE";
+
+        // Act
+        var result = converter.getAsObject(facesContext, component, languageTag);
+
+        // Assert
+        assertEquals(Locale.GERMANY, result, "Should convert 'de-DE' to Locale.GERMANY");
+    }
+
+    @Test
+    @DisplayName("Should handle invalid language tag")
+    void shouldHandleInvalidLanguageTag(FacesContext facesContext) {
+        // Arrange
+        var converter = new LocaleConverter();
+        var component = getComponent();
+
+        // Act & Assert
+        // Invalid language tags should still be parsed by Locale.forLanguageTag without throwing exceptions
+        // but may result in unexpected locales
+        var result = converter.getAsObject(facesContext, component, "invalid-tag");
+        assertEquals("tag", result.getLanguage(), "Should parse 'tag' as language");
+        assertEquals("", result.getCountry(), "Country should be empty");
+    }
 }

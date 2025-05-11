@@ -36,10 +36,10 @@ public class JsDateTime implements JsValue {
     private static final long serialVersionUID = -726077446906162610L;
 
     @SuppressWarnings("squid:S1948") // All known implementations are Serializable
-    private final Temporal value;
+    Temporal value;
 
     @NonNull
-    private final JsDateTimeFormat formatter;
+    JsDateTimeFormat formatter;
 
     @Override
     public String getValueAsString() {

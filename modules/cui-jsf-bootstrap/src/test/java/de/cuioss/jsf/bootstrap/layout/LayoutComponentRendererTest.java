@@ -20,37 +20,66 @@ import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.html.HtmlOutputText;
+import jakarta.faces.context.FacesContext;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
+@DisplayName("Tests for LayoutComponentRenderer")
 class LayoutComponentRendererTest extends AbstractComponentRendererTest<LayoutComponentRenderer> {
 
-    @Test
-    void shouldRenderMinimal() {
-        var component = new RowComponent();
-        var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.ROW);
-        assertRenderResult(component, expected.getDocument());
+    @Nested
+    @DisplayName("Tests for rendering behavior")
+    class RenderingTests {
+
+        @Test
+        @DisplayName("Should render minimal component correctly")
+        void shouldRenderMinimal(FacesContext facesContext) throws IOException {
+            // Arrange
+            var component = new RowComponent();
+
+            // Act & Assert
+            var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.ROW);
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
+
+        @Test
+        @DisplayName("Should render component with children correctly")
+        void shouldRenderWithChildren(FacesContext facesContext) throws IOException {
+            // Arrange
+            var component = new RowComponent();
+            component.getChildren().add(new HtmlOutputText());
+
+            // Act & Assert
+            var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.ROW)
+                    .withNode(Node.SPAN);
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
     }
 
-    @Test
-    void shouldRenderWithChildren() {
-        var component = new RowComponent();
-        component.getChildren().add(new HtmlOutputText());
-        var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.ROW)
-                .withNode(Node.SPAN);
-        assertRenderResult(component, expected.getDocument());
-    }
+    @Nested
+    @DisplayName("Tests for component states")
+    class ComponentStateTests {
 
-    @Test
-    void shouldHandleRenderedSetToFalse() {
-        var component = new RowComponent();
-        component.setRendered(false);
-        component.getChildren().add(new HtmlOutputText());
-        getComponentConfigDecorator().registerMockRendererForHtmlOutputText();
-        assertEmptyRenderResult(component);
+        @Test
+        @DisplayName("Should handle rendered set to false correctly")
+        void shouldHandleRenderedSetToFalse(FacesContext facesContext, ComponentConfigDecorator componentConfig) throws IOException {
+            // Arrange
+            var component = new RowComponent();
+            component.setRendered(false);
+            component.getChildren().add(new HtmlOutputText());
+            componentConfig.registerMockRendererForHtmlOutputText();
+
+            // Act & Assert
+            assertEmptyRenderResult(component, facesContext);
+        }
     }
 
     @Override

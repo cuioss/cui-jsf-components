@@ -24,7 +24,6 @@ import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.support.ConceptKeyTypeGenerator;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
-import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
@@ -32,12 +31,15 @@ import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
 import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
-class TagListRendererTest extends AbstractComponentRendererTest<TagListRenderer> implements ComponentConfigurator {
+class TagListRendererTest extends AbstractComponentRendererTest<TagListRenderer> {
 
     private static final ConceptKeyTypeImpl CODE_TYPE_1 = ConceptKeyTypeImpl.builder().identifier("identifier1")
             .labelResolver(new I18nDisplayNameProvider("resolved1"))
@@ -50,29 +52,29 @@ class TagListRendererTest extends AbstractComponentRendererTest<TagListRenderer>
     private static final List<ConceptKeyType> TYPES = immutableList(CODE_TYPE_1, CODE_TYPE_2);
 
     @Test
-    void shouldNotRenderWithNoValueSet() {
-        assertEmptyRenderResult(new TagListComponent());
+    void shouldNotRenderWithNoValueSet(FacesContext facesContext) {
+        assertEmptyRenderResult(new TagListComponent(), facesContext);
     }
 
     @Test
-    void shouldRenderMinimal() {
+    void shouldRenderMinimal(FacesContext facesContext) throws IOException {
         var component = new TagListComponent();
         component.setValue(CODE_TYPE_1);
         var expected = new HtmlTreeBuilder();
         expected.withNode(Node.UL).withStyleClass(CssBootstrap.LIST_INLINE.getStyleClass());
         insertTag(expected);
-        assertRenderResult(component, expected.getDocument());
+        assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderList() {
+    void shouldRenderList(FacesContext facesContext) throws IOException {
         var component = new TagListComponent();
         component.setValue(TYPES);
         var expected = new HtmlTreeBuilder();
         expected.withNode(Node.UL).withStyleClass(CssBootstrap.LIST_INLINE.getStyleClass());
         insertTag(expected, 0);
         insertTag(expected, 1);
-        assertRenderResult(component, expected.getDocument());
+        assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
     @Override
@@ -82,8 +84,8 @@ class TagListRendererTest extends AbstractComponentRendererTest<TagListRenderer>
         return component;
     }
 
-    @Override
-    public void configureComponents(final ComponentConfigDecorator decorator) {
+    @BeforeEach
+    void setUp(ComponentConfigDecorator decorator) {
         decorator.registerMockRenderer(BootstrapFamily.COMPONENT_FAMILY, BootstrapFamily.TAG_COMPONENT_RENDERER);
     }
 }

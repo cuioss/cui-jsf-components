@@ -21,18 +21,23 @@ import de.cuioss.jsf.api.EnableJSFCDIEnvironment;
 import de.cuioss.jsf.api.EnableResourceBundleSupport;
 import de.cuioss.portal.common.bundle.ResourceBundleWrapper;
 import jakarta.inject.Inject;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @EnableJSFCDIEnvironment
 @EnableResourceBundleSupport
+@DisplayName("Tests for CuiJSfResourceBundleLocator")
 class CuiJSfResourceBundleLocatorTest {
 
     @Inject
     private ResourceBundleWrapper bundleWrapper;
 
     @Test
-    void test() {
-        assertTrue(bundleWrapper.keySet().contains("message.error.request"));
+    @DisplayName("Should contain required message keys")
+    void shouldContainRequiredMessageKeys() {
+        // Act & Assert
+        assertTrue(bundleWrapper.keySet().contains("message.error.request"),
+                "Bundle should contain the error message key");
     }
 
 }

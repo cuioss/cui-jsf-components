@@ -16,7 +16,6 @@
 package de.cuioss.jsf.jqplot.portal.theme;
 
 import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
-import static java.util.stream.Collectors.toList;
 
 import de.cuioss.jsf.jqplot.js.support.JsArray;
 import de.cuioss.jsf.jqplot.js.types.JsString;
@@ -72,7 +71,7 @@ public class SeriesColors implements Serializable {
     public String getColorsAsJs() {
         if (null == colorsAsJs) {
             final var colJs = new JsArray<JsString>();
-            colJs.addAll(colors.stream().map(JsString::new).collect(toList()));
+            colJs.addAll(colors.stream().map(JsString::new).toList());
             colorsAsJs = colJs.getValueAsString();
         }
         return colorsAsJs;
@@ -105,7 +104,7 @@ public class SeriesColors implements Serializable {
         }
 
         return Splitter.on(",").omitEmptyStrings().trimResults().splitToList(value).stream()
-                .map(item -> item.replace("'", "")).map(item -> item.replace("\"", "")).collect(toList());
+                .map(item -> item.replace("'", "")).map(item -> item.replace("\"", "")).toList();
 
     }
 

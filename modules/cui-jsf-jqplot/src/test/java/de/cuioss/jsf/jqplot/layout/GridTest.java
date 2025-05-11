@@ -17,15 +17,29 @@ package de.cuioss.jsf.jqplot.layout;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for Grid class")
 class GridTest {
 
-    @Test
-    void verifyDefaultSettings() {
-        Grid target = new Grid();
-        final var expected = "grid: {drawGridLines:true,gridLineColor:\"#cccccc\",borderWidth:2.000}";
-        final var actual = target.asJavaScriptObjectNotation();
-        assertEquals(expected, actual);
+    @Nested
+    @DisplayName("Default configuration tests")
+    class DefaultConfigurationTests {
+
+        @Test
+        @DisplayName("Should have correct default settings")
+        void shouldHaveCorrectDefaultSettings() {
+            // Arrange
+            Grid target = new Grid();
+            final var expected = "grid: {drawGridLines:true,gridLineColor:\"#cccccc\",borderWidth:2.000}";
+
+            // Act
+            final var actual = target.asJavaScriptObjectNotation();
+
+            // Assert
+            assertEquals(expected, actual, "Default grid configuration should match expected output");
+        }
     }
 }

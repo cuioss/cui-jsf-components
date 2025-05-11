@@ -18,22 +18,40 @@ package de.cuioss.jsf.jqplot.plugin.highlighter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for TooltipContentEditor class")
 class TooltipContentEditorTest implements ShouldHandleObjectContracts<TooltipContentEditor> {
-
-    @Test
-    void shouldProvideExtensionPoint() {
-        final var target = new TooltipContentEditor();
-        assertEquals("function tooltipContentEditor(str,seriesIndex,pointIndex,plot){return \"\";};",
-                target.getHookFunctionCode());
-        target.setFunctionContent("{var bla = 10;};");
-        assertEquals("function tooltipContentEditor(str,seriesIndex,pointIndex,plot){var bla = 10;};",
-                target.getHookFunctionCode());
-    }
 
     @Override
     public TooltipContentEditor getUnderTest() {
         return new TooltipContentEditor();
+    }
+
+    @Nested
+    @DisplayName("JavaScript function generation tests")
+    class JavaScriptFunctionGenerationTests {
+
+        @Test
+        @DisplayName("Should generate correct JavaScript function code")
+        void shouldGenerateCorrectJavaScriptFunctionCode() {
+            // Arrange
+            final var target = new TooltipContentEditor();
+
+            // Act & Assert - default function content
+            assertEquals("function tooltipContentEditor(str,seriesIndex,pointIndex,plot){return \"\";};",
+                    target.getHookFunctionCode(),
+                    "Should generate correct default function code");
+
+            // Act - set custom function content
+            target.setFunctionContent("{var bla = 10;};");
+
+            // Assert - custom function content
+            assertEquals("function tooltipContentEditor(str,seriesIndex,pointIndex,plot){var bla = 10;};",
+                    target.getHookFunctionCode(),
+                    "Should generate correct function code with custom content");
+        }
     }
 }

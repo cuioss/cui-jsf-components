@@ -16,11 +16,7 @@
 package de.cuioss.jsf.components.html.fieldset;
 
 import de.cuioss.jsf.api.components.base.CuiComponentBase;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProviderImpl;
-import de.cuioss.jsf.api.components.partial.DisabledComponentProvider;
-import de.cuioss.jsf.api.components.partial.StyleAttributeProvider;
-import de.cuioss.jsf.api.components.partial.StyleAttributeProviderImpl;
+import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.api.components.support.LabelResolver;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.components.CuiFamily;

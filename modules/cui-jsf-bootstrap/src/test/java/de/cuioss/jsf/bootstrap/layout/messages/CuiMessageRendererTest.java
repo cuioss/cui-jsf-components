@@ -22,68 +22,34 @@ import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
-import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
+import de.cuioss.test.jsf.config.renderer.VetoRenderAttributeAssert;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
+import de.cuioss.test.jsf.renderer.CommonRendererAsserts;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIPanel;
 import jakarta.faces.component.html.HtmlInputText;
 import jakarta.faces.component.html.HtmlPanelGrid;
+import jakarta.faces.context.FacesContext;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
-class CuiMessageRendererTest extends AbstractComponentRendererTest<CuiMessageRenderer>
-        implements ComponentConfigurator {
+@ExplicitParamInjection
+@VetoRenderAttributeAssert({CommonRendererAsserts.STYLE, CommonRendererAsserts.STYLE_CLASS, CommonRendererAsserts.ID, CommonRendererAsserts.PASSTHROUGH})
+@DisplayName("Tests for CuiMessageRenderer")
+class CuiMessageRendererTest extends AbstractComponentRendererTest<CuiMessageRenderer> {
 
-    /**
-     * Should render placeholder if no violation available
-     */
-    @Test
-    void shouldRenderWarning() {
-        UIComponent parent = new HtmlPanelGrid();
-        var component = new CuiMessageComponent();
-        final var htmlInputText = new HtmlInputText();
-        htmlInputText.setId("input");
-        parent.getChildren().add(htmlInputText);
-        final var summary = "warning message";
-        final var detail = "detail msg";
-        prepareViolationMessage(summary, detail);
-        component.setParent(parent);
-        var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.CUI_MESSAGE)
-                .withAttribute(AttributeName.ARIA_LIVE, "polite").withNode(Node.SPAN).withStyleClass("cui_msg_warn")
-                .withAttribute(AttributeName.TITLE, detail).withTextContent(summary);
-        assertRenderResult(component, expected.getDocument());
-    }
-
-    @Test
-    void shouldRenderDetail() {
-        UIComponent parent = new HtmlPanelGrid();
-        var component = new CuiMessageComponent();
-        component.setShowDetail(true);
-        final var htmlInputText = new HtmlInputText();
-        htmlInputText.setId("input");
-        parent.getChildren().add(htmlInputText);
-        final var summary = "warning message";
-        final var detail = "detail msg";
-        prepareViolationMessage(summary, detail);
-        component.setParent(parent);
-        var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.CUI_MESSAGE)
-                .withAttribute(AttributeName.ARIA_LIVE, "polite").withNode(Node.SPAN).withStyleClass("cui_msg_warn")
-                .withTextContent(summary + ' ' + detail);
-        assertRenderResult(component, expected.getDocument());
-    }
-
-    private void prepareViolationMessage(final String summary, final String detail) {
-        var message = new FacesMessage(SEVERITY_WARN, summary, detail);
-        getFacesContext().addMessage("input", message);
-    }
-
-    @Test
-    void shouldRenderMinimal() {
-        var component = new CuiMessageComponent();
-        assertEmptyRenderResult(component);
+    @BeforeEach
+    void configureComponents(ComponentConfigDecorator decorator) {
+        decorator.registerMockRenderer(UIPanel.COMPONENT_FAMILY, new HtmlPanelGrid().getRendererType());
     }
 
     @Override
@@ -93,15 +59,96 @@ class CuiMessageRendererTest extends AbstractComponentRendererTest<CuiMessageRen
         final var htmlInputText = new HtmlInputText();
         htmlInputText.setId("input");
         parent.getChildren().add(htmlInputText);
-        final var summary = "warning message";
-        final var detail = "detail msg";
-        prepareViolationMessage(summary, detail);
         component.setParent(parent);
         return component;
     }
 
     @Override
-    public void configureComponents(final ComponentConfigDecorator decorator) {
-        decorator.registerMockRenderer(UIPanel.COMPONENT_FAMILY, new HtmlPanelGrid().getRendererType());
+    @Test
+    @DisplayName("Should handle renderer attribute assertions")
+    public void shouldHandleRendererAttributeAsserts(FacesContext facesContext) {
+        // Arrange
+        new ComponentConfigDecorator(facesContext.getApplication(), facesContext)
+                .registerMockRenderer(UIPanel.COMPONENT_FAMILY, new HtmlPanelGrid().getRendererType());
+
+        // Act & Assert
+        super.shouldHandleRendererAttributeAsserts(facesContext);
+    }
+
+    /**
+     * Helper method to prepare a violation message for testing
+     */
+    private void prepareViolationMessage(final String summary, final String detail, FacesContext facesContext) {
+        var message = new FacesMessage(SEVERITY_WARN, summary, detail);
+        facesContext.addMessage("input", message);
+    }
+
+    @Nested
+    @DisplayName("Tests for rendering behavior")
+    class RenderingTests {
+
+        @Test
+        @DisplayName("Should render minimal component with no messages")
+        void shouldRenderMinimal(FacesContext facesContext) {
+            // Arrange
+            var component = new CuiMessageComponent();
+
+            // Act & Assert
+            assertEmptyRenderResult(component, facesContext);
+        }
+
+        @Test
+        @DisplayName("Should render warning message with summary")
+        void shouldRenderWarning(FacesContext facesContext) throws IOException {
+            // Arrange
+            UIComponent parent = new HtmlPanelGrid();
+            var component = new CuiMessageComponent();
+            final var htmlInputText = new HtmlInputText();
+            htmlInputText.setId("input");
+            parent.getChildren().add(htmlInputText);
+            final var summary = "warning message";
+            final var detail = "detail msg";
+
+            // Act
+            prepareViolationMessage(summary, detail, facesContext);
+            component.setParent(parent);
+
+            // Assert
+            var expected = new HtmlTreeBuilder()
+                    .withNode(Node.DIV).withStyleClass(CssBootstrap.CUI_MESSAGE)
+                    .withAttribute(AttributeName.ARIA_LIVE, "polite")
+                    .withNode(Node.SPAN).withStyleClass("cui_msg_warn")
+                    .withAttribute(AttributeName.TITLE, detail)
+                    .withTextContent(summary);
+
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
+
+        @Test
+        @DisplayName("Should render both summary and detail when showDetail is true")
+        void shouldRenderDetail(FacesContext facesContext) throws IOException {
+            // Arrange
+            UIComponent parent = new HtmlPanelGrid();
+            var component = new CuiMessageComponent();
+            component.setShowDetail(true);
+            final var htmlInputText = new HtmlInputText();
+            htmlInputText.setId("input");
+            parent.getChildren().add(htmlInputText);
+            final var summary = "warning message";
+            final var detail = "detail msg";
+
+            // Act
+            prepareViolationMessage(summary, detail, facesContext);
+            component.setParent(parent);
+
+            // Assert
+            var expected = new HtmlTreeBuilder()
+                    .withNode(Node.DIV).withStyleClass(CssBootstrap.CUI_MESSAGE)
+                    .withAttribute(AttributeName.ARIA_LIVE, "polite")
+                    .withNode(Node.SPAN).withStyleClass("cui_msg_warn")
+                    .withTextContent(summary + ' ' + detail);
+
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
     }
 }

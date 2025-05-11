@@ -20,19 +20,41 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.test.jsf.component.AbstractUiComponentTest;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests for {@link FormGroupComponent}
+ */
+@DisplayName("Tests for FormGroupComponent")
 class FormGroupComponentTest extends AbstractUiComponentTest<FormGroupComponent> {
 
-    @Test
-    void shouldProvideCorrectStyleClass() {
-        final var component = anyComponent();
-        final var expected = CssBootstrap.FORM_GROUP.getStyleClass();
-        assertEquals(expected, component.resolveStyleClass().getStyleClass());
-    }
+    @Nested
+    @DisplayName("Tests for component properties")
+    class PropertyTests {
 
-    @Test
-    void shouldProvideCorrectMetadata() {
-        assertEquals(BootstrapFamily.LAYOUT_RENDERER, anyComponent().getRendererType());
+        @Test
+        @DisplayName("Should provide correct style class")
+        void shouldProvideCorrectStyleClass() {
+            // Arrange
+            final var component = anyComponent();
+            final var expected = CssBootstrap.FORM_GROUP.getStyleClass();
+
+            // Act & Assert
+            assertEquals(expected, component.resolveStyleClass().getStyleClass(),
+                    "Style class should match FORM_GROUP");
+        }
+
+        @Test
+        @DisplayName("Should provide correct renderer type")
+        void shouldProvideCorrectRendererType() {
+            // Arrange
+            final var component = anyComponent();
+
+            // Act & Assert
+            assertEquals(BootstrapFamily.LAYOUT_RENDERER, component.getRendererType(),
+                    "Renderer type should match LAYOUT_RENDERER");
+        }
     }
 }

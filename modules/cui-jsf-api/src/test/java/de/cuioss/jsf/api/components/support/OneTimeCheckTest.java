@@ -21,8 +21,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import de.cuioss.jsf.api.components.partial.ComponentBridge;
 import de.cuioss.jsf.api.components.partial.MockPartialComponent;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for OneTimeCheck")
 class OneTimeCheckTest {
 
     private ComponentBridge bridge;
@@ -32,34 +35,89 @@ class OneTimeCheckTest {
         bridge = new MockPartialComponent();
     }
 
-    @Test
-    void shouldDefaultToFalse() {
-        final var check = new OneTimeCheck(bridge);
-        assertFalse(check.isChecked());
+    @Nested
+    @DisplayName("Tests for initialization and default state")
+    class InitializationTests {
+
+        @Test
+        @DisplayName("Should initialize with default state of false")
+        void shouldInitializeWithDefaultStateFalse() {
+            // Arrange & Act
+            final var check = new OneTimeCheck(bridge);
+
+            // Assert
+            assertFalse(check.isChecked(),
+                    "Check should initialize with false state");
+        }
     }
 
-    @Test
-    void shouldBeUsableMultipleTimes() {
-        final var checkOne = new OneTimeCheck(bridge, "one");
-        final var checkTwo = new OneTimeCheck(bridge, "two");
-        assertFalse(checkOne.isChecked());
-        assertFalse(checkTwo.isChecked());
-        checkOne.setChecked(true);
-        assertTrue(checkOne.isChecked());
-        assertFalse(checkTwo.isChecked());
-        checkTwo.setChecked(true);
-        assertTrue(checkOne.isChecked());
-        assertTrue(checkTwo.isChecked());
-        checkOne.setChecked(false);
-        assertFalse(checkOne.isChecked());
-        assertTrue(checkTwo.isChecked());
+    @Nested
+    @DisplayName("Tests for multiple instances")
+    class MultipleInstanceTests {
+
+        @Test
+        @DisplayName("Should allow multiple independent instances with different keys")
+        void shouldSupportMultipleIndependentInstances() {
+            // Arrange - create two instances with different keys
+            final var checkOne = new OneTimeCheck(bridge, "one");
+            final var checkTwo = new OneTimeCheck(bridge, "two");
+
+            // Assert - initial state
+            assertFalse(checkOne.isChecked(),
+                    "First check should initialize with false state");
+            assertFalse(checkTwo.isChecked(),
+                    "Second check should initialize with false state");
+
+            // Act - set first check to true
+            checkOne.setChecked(true);
+
+            // Assert - after setting first check
+            assertTrue(checkOne.isChecked(),
+                    "First check should be true after setting");
+            assertFalse(checkTwo.isChecked(),
+                    "Second check should remain false when first is set");
+
+            // Act - set second check to true
+            checkTwo.setChecked(true);
+
+            // Assert - after setting second check
+            assertTrue(checkOne.isChecked(),
+                    "First check should remain true");
+            assertTrue(checkTwo.isChecked(),
+                    "Second check should be true after setting");
+
+            // Act - set first check back to false
+            checkOne.setChecked(false);
+
+            // Assert - after setting first check to false
+            assertFalse(checkOne.isChecked(),
+                    "First check should be false after resetting");
+            assertTrue(checkTwo.isChecked(),
+                    "Second check should remain true when first is reset");
+        }
     }
 
-    @Test
-    void shouldReadAndSetChecked() {
-        final var check = new OneTimeCheck(bridge);
-        assertFalse(check.isChecked());
-        assertFalse(check.readAndSetChecked());
-        assertTrue(check.isChecked());
+    @Nested
+    @DisplayName("Tests for read and set operations")
+    class ReadAndSetTests {
+
+        @Test
+        @DisplayName("Should read current state and set to true in one operation")
+        void shouldReadCurrentStateAndSetToTrue() {
+            // Arrange
+            final var check = new OneTimeCheck(bridge);
+
+            // Assert - initial state
+            assertFalse(check.isChecked(),
+                    "Check should initialize with false state");
+
+            // Act & Assert - read and set operation
+            assertFalse(check.readAndSetChecked(),
+                    "readAndSetChecked should return the previous state (false)");
+
+            // Assert - after read and set
+            assertTrue(check.isChecked(),
+                    "Check should be true after readAndSetChecked operation");
+        }
     }
 }

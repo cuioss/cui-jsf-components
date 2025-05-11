@@ -17,86 +17,193 @@ package de.cuioss.jsf.jqplot.options;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for DateFormatConverter class")
 class DateFormatConverterTest {
 
-    @Test
-    void shouldHandleDifferentYear() {
-        // YYYY or yyyy
-        // YY or yy two letters
-        assertEquals("%Y", DateFormatConverter.convertToJavaScriptDateFormat("yyyy"));
-        assertEquals("%Y", DateFormatConverter.convertToJavaScriptDateFormat("YYYY"));
-        assertEquals("%y", DateFormatConverter.convertToJavaScriptDateFormat("yy"));
-        assertEquals("%y", DateFormatConverter.convertToJavaScriptDateFormat("YY"));
+    @Nested
+    @DisplayName("Year format conversion tests")
+    class YearFormatTests {
+
+        @Test
+        @DisplayName("Should convert year formats correctly")
+        void shouldConvertYearFormatsCorrectly() {
+            // Arrange & Act & Assert
+            // 4-digit year formats
+            assertEquals("%Y", DateFormatConverter.convertToJavaScriptDateFormat("yyyy"),
+                    "Should convert lowercase 4-digit year");
+            assertEquals("%Y", DateFormatConverter.convertToJavaScriptDateFormat("YYYY"),
+                    "Should convert uppercase 4-digit year");
+
+            // 2-digit year formats
+            assertEquals("%y", DateFormatConverter.convertToJavaScriptDateFormat("yy"),
+                    "Should convert lowercase 2-digit year");
+            assertEquals("%y", DateFormatConverter.convertToJavaScriptDateFormat("YY"),
+                    "Should convert uppercase 2-digit year");
+        }
     }
 
-    @Test
-    void shouldHandleDifferentMonth() {
-        // If the number of pattern letters is 3 or more, the month is interpreted as
-        // text
-        assertEquals("%B", DateFormatConverter.convertToJavaScriptDateFormat("MMMM"));
-        assertEquals("%b", DateFormatConverter.convertToJavaScriptDateFormat("MMM"));
-        assertEquals("%m", DateFormatConverter.convertToJavaScriptDateFormat("MM"));
-        assertEquals("%#m", DateFormatConverter.convertToJavaScriptDateFormat("M"));
+    @Nested
+    @DisplayName("Month format conversion tests")
+    class MonthFormatTests {
+
+        @Test
+        @DisplayName("Should convert month formats correctly")
+        void shouldConvertMonthFormatsCorrectly() {
+            // Arrange & Act & Assert
+            // Full month name
+            assertEquals("%B", DateFormatConverter.convertToJavaScriptDateFormat("MMMM"),
+                    "Should convert full month name format");
+
+            // Abbreviated month name
+            assertEquals("%b", DateFormatConverter.convertToJavaScriptDateFormat("MMM"),
+                    "Should convert abbreviated month name format");
+
+            // 2-digit month
+            assertEquals("%m", DateFormatConverter.convertToJavaScriptDateFormat("MM"),
+                    "Should convert 2-digit month format");
+
+            // 1-digit month
+            assertEquals("%#m", DateFormatConverter.convertToJavaScriptDateFormat("M"),
+                    "Should convert 1-digit month format");
+        }
     }
 
-    /**
-     * D Day in year Number 189 d Day in month Number 10 F Day of week in month
-     * Number 2 E Day name in week Text Tuesday; Tue u Day number of week (1 =
-     * Monday, ..., 7 = Sunday) Number 1
-     */
-    @Test
-    void shouldHandleDifferentDay() {
-        assertEquals("%A", DateFormatConverter.convertToJavaScriptDateFormat("dddd"));
-        assertEquals("%a", DateFormatConverter.convertToJavaScriptDateFormat("ddd"));
-        assertEquals("%a", DateFormatConverter.convertToJavaScriptDateFormat("DDD"));
-        assertEquals("%d", DateFormatConverter.convertToJavaScriptDateFormat("dd"));
-        assertEquals("%d", DateFormatConverter.convertToJavaScriptDateFormat("DD"));
-        assertEquals("%#d", DateFormatConverter.convertToJavaScriptDateFormat("d"));
-        assertEquals("%#d", DateFormatConverter.convertToJavaScriptDateFormat("D"));
-        assertEquals("%A", DateFormatConverter.convertToJavaScriptDateFormat("E"));
-        assertEquals("%w", DateFormatConverter.convertToJavaScriptDateFormat("F"));
-        assertEquals("%o", DateFormatConverter.convertToJavaScriptDateFormat("u"));
+    @Nested
+    @DisplayName("Day format conversion tests")
+    class DayFormatTests {
+
+        @Test
+        @DisplayName("Should convert day formats correctly")
+        void shouldConvertDayFormatsCorrectly() {
+            // Arrange & Act & Assert
+            // Full day name
+            assertEquals("%A", DateFormatConverter.convertToJavaScriptDateFormat("dddd"),
+                    "Should convert full day name format (dddd)");
+
+            // Abbreviated day name
+            assertEquals("%a", DateFormatConverter.convertToJavaScriptDateFormat("ddd"),
+                    "Should convert abbreviated day name format (ddd)");
+            assertEquals("%a", DateFormatConverter.convertToJavaScriptDateFormat("DDD"),
+                    "Should convert abbreviated day name format (DDD)");
+
+            // 2-digit day
+            assertEquals("%d", DateFormatConverter.convertToJavaScriptDateFormat("dd"),
+                    "Should convert 2-digit day format (dd)");
+            assertEquals("%d", DateFormatConverter.convertToJavaScriptDateFormat("DD"),
+                    "Should convert 2-digit day format (DD)");
+
+            // 1-digit day
+            assertEquals("%#d", DateFormatConverter.convertToJavaScriptDateFormat("d"),
+                    "Should convert 1-digit day format (d)");
+            assertEquals("%#d", DateFormatConverter.convertToJavaScriptDateFormat("D"),
+                    "Should convert 1-digit day format (D)");
+
+            // Day name in week
+            assertEquals("%A", DateFormatConverter.convertToJavaScriptDateFormat("E"),
+                    "Should convert day name in week format");
+
+            // Day of week in month
+            assertEquals("%w", DateFormatConverter.convertToJavaScriptDateFormat("F"),
+                    "Should convert day of week in month format");
+
+            // Day number of week
+            assertEquals("%o", DateFormatConverter.convertToJavaScriptDateFormat("u"),
+                    "Should convert day number of week format");
+        }
     }
 
-    @Test
-    void shouldHandleDifferentHours() {
-        assertEquals("%#I", DateFormatConverter.convertToJavaScriptDateFormat("hh"));
-        assertEquals("%I", DateFormatConverter.convertToJavaScriptDateFormat("h"));
-        assertEquals("%H", DateFormatConverter.convertToJavaScriptDateFormat("HH"));
-        assertEquals("%#H", DateFormatConverter.convertToJavaScriptDateFormat("H"));
-        assertEquals("%#H", DateFormatConverter.convertToJavaScriptDateFormat("k"));
+    @Nested
+    @DisplayName("Time format conversion tests")
+    class TimeFormatTests {
+
+        @Test
+        @DisplayName("Should convert hour formats correctly")
+        void shouldConvertHourFormatsCorrectly() {
+            // Arrange & Act & Assert
+            // 12-hour format
+            assertEquals("%#I", DateFormatConverter.convertToJavaScriptDateFormat("hh"),
+                    "Should convert 2-digit 12-hour format");
+            assertEquals("%I", DateFormatConverter.convertToJavaScriptDateFormat("h"),
+                    "Should convert 1-digit 12-hour format");
+
+            // 24-hour format
+            assertEquals("%H", DateFormatConverter.convertToJavaScriptDateFormat("HH"),
+                    "Should convert 2-digit 24-hour format");
+            assertEquals("%#H", DateFormatConverter.convertToJavaScriptDateFormat("H"),
+                    "Should convert 1-digit 24-hour format");
+            assertEquals("%#H", DateFormatConverter.convertToJavaScriptDateFormat("k"),
+                    "Should convert hour in day (1-24) format");
+        }
+
+        @Test
+        @DisplayName("Should convert minute formats correctly")
+        void shouldConvertMinuteFormatsCorrectly() {
+            // Arrange & Act & Assert
+            assertEquals("%M", DateFormatConverter.convertToJavaScriptDateFormat("mm"),
+                    "Should convert 2-digit minute format");
+            assertEquals("%#M", DateFormatConverter.convertToJavaScriptDateFormat("m"),
+                    "Should convert 1-digit minute format");
+        }
+
+        @Test
+        @DisplayName("Should convert second formats correctly")
+        void shouldConvertSecondFormatsCorrectly() {
+            // Arrange & Act & Assert
+            assertEquals("%S", DateFormatConverter.convertToJavaScriptDateFormat("ss"),
+                    "Should convert 2-digit second format");
+            assertEquals("%#S", DateFormatConverter.convertToJavaScriptDateFormat("s"),
+                    "Should convert 1-digit second format");
+        }
+
+        @Test
+        @DisplayName("Should convert millisecond formats correctly")
+        void shouldConvertMillisecondFormatsCorrectly() {
+            // Arrange & Act & Assert
+            assertEquals("%N", DateFormatConverter.convertToJavaScriptDateFormat("SSS"),
+                    "Should convert 3-digit millisecond format");
+            assertEquals("%#N", DateFormatConverter.convertToJavaScriptDateFormat("S"),
+                    "Should convert 1-digit millisecond format");
+        }
     }
 
-    @Test
-    void shouldHandleDifferentMinutes() {
-        assertEquals("%M", DateFormatConverter.convertToJavaScriptDateFormat("mm"));
-        assertEquals("%#M", DateFormatConverter.convertToJavaScriptDateFormat("m"));
+    @Nested
+    @DisplayName("Time zone format conversion tests")
+    class TimeZoneFormatTests {
+
+        @Test
+        @DisplayName("Should convert time zone formats correctly")
+        void shouldConvertTimeZoneFormatsCorrectly() {
+            // Arrange & Act & Assert
+            assertEquals("%O", DateFormatConverter.convertToJavaScriptDateFormat("z"),
+                    "Should convert general time zone format");
+            assertEquals("%Z", DateFormatConverter.convertToJavaScriptDateFormat("Z"),
+                    "Should convert RFC 822 time zone format");
+            assertEquals("%G", DateFormatConverter.convertToJavaScriptDateFormat("ZZ"),
+                    "Should convert ISO 8601 time zone format");
+        }
     }
 
-    @Test
-    void shouldHandleDifferentSeconds() {
-        assertEquals("%S", DateFormatConverter.convertToJavaScriptDateFormat("ss"));
-        assertEquals("%#S", DateFormatConverter.convertToJavaScriptDateFormat("s"));
-    }
+    @Nested
+    @DisplayName("Complex format conversion tests")
+    class ComplexFormatTests {
 
-    @Test
-    void shouldHandleDifferentMilliSeconds() {
-        assertEquals("%N", DateFormatConverter.convertToJavaScriptDateFormat("SSS"));
-        assertEquals("%#N", DateFormatConverter.convertToJavaScriptDateFormat("S"));
-    }
+        @Test
+        @DisplayName("Should convert complex date-time formats correctly")
+        void shouldConvertComplexFormatsCorrectly() {
+            // Arrange
+            String javaFormat = "yyyy-MM-dd'T'HH:mm:ssZZ";
+            String expectedJsFormat = "%Y-%m-%d'T'%H:%M:%S%G";
 
-    @Test
-    void shouldHandleDifferentTimeZones() {
-        assertEquals("%O", DateFormatConverter.convertToJavaScriptDateFormat("z"));
-        assertEquals("%Z", DateFormatConverter.convertToJavaScriptDateFormat("Z"));
-        assertEquals("%G", DateFormatConverter.convertToJavaScriptDateFormat("ZZ"));
-    }
+            // Act
+            String actualJsFormat = DateFormatConverter.convertToJavaScriptDateFormat(javaFormat);
 
-    @Test
-    void shouldHandleComplex() {
-        assertEquals("%Y-%m-%d'T'%H:%M:%S%G",
-                DateFormatConverter.convertToJavaScriptDateFormat("yyyy-MM-dd'T'HH:mm:ssZZ"));
+            // Assert
+            assertEquals(expectedJsFormat, actualJsFormat,
+                    "Should convert ISO 8601 date-time format correctly");
+        }
     }
 }

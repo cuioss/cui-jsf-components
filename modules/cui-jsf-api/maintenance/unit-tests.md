@@ -10,144 +10,141 @@ This document tracks the status of unit tests in the cui-jsf-api module as part 
 ## Test Classes
 
 ### Application Package
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - CuiJSfResourceBundleLocatorTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - DisplayNameMessageProducerTest.java
-- [x] **Analyzed** [ ] **Completed** [ ] **NoChanges** - MessageProducerBeanTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - NavigationUtilsTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ViewIdentifierTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - EmptyViewMatcherTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - OutcomeBasedViewMatcherTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ViewMatcherImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - CuiJSfResourceBundleLocatorTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - DisplayNameMessageProducerTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - MessageProducerBeanTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - NavigationUtilsTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ViewIdentifierTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - EmptyViewMatcherTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - OutcomeBasedViewMatcherTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ViewMatcherImplTest.java
 
 ### Common Package
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ConverterAccessorTest.java
-- [ ] **Analyzed** [x] **Completed** [ ] **NoChanges** - CuiProjectStageImplTest.java
-- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - LocaleAccessorTest.java
-- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ViewDescriptorImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ConverterAccessorTest.java
+- [x] **Analyzed** [ ] **Completed** [x] **NoChanges** - CuiProjectStageImplTest.java
+- [x] **Analyzed** [ ] **Completed** [x] **NoChanges** - LocaleAccessorTest.java
+- [x] **Analyzed** [ ] **Completed** [x] **NoChanges** - ViewDescriptorImplTest.java
 
 ### Components Package
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - BaseCuiCommandButtonTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - BaseCuiComponentTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - BaseCuiInputComponentTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - BaseCuiNamingContainerTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - BaseCuiOutputTextTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - BaseCuiPanelTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - CuiComponentBaseTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ComponentTestUtils.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - AlignHolderTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ContextSizeTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ContextStateTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - IconLibraryTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - StyleClassBuilderImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - AbstractParentDecoratorTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ModelPayloadEventTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - HtmlTreeBuilderTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ComponentWrapperJQuerySelectorTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - JavaScriptOptionsTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - JsfBehaviorComponentTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - JsfHtmlComponentTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - AbstractEditableDataListModelTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ItemWrapperImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ReflectionBasedEditableDataListModelTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - NavigationMenuItemContainerImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - NavigationMenuItemExternalSingleImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - NavigationMenuItemSeparatorImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - NavigationMenuItemSingleImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - NotificationBoxMessageTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ResultContentTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - BaseDeferredLoadingWidgetTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - BaseCuiCommandButtonTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - BaseCuiComponentTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - BaseCuiInputComponentTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - BaseCuiNamingContainerTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - BaseCuiOutputTextTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - BaseCuiPanelTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - CuiComponentBaseTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ComponentTestUtils.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - AlignHolderTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ContextSizeTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ContextStateTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - IconLibraryTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - StyleClassBuilderImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - AbstractParentDecoratorTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ModelPayloadEventTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - HtmlTreeBuilderTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ComponentWrapperJQuerySelectorTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - JavaScriptOptionsTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - JsfBehaviorComponentTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - JsfHtmlComponentTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - AbstractEditableDataListModelTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ItemWrapperImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ReflectionBasedEditableDataListModelTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - NavigationMenuItemContainerImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - NavigationMenuItemExternalSingleImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - NavigationMenuItemSeparatorImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - NavigationMenuItemSingleImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - NotificationBoxMessageTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ResultContentTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - BaseDeferredLoadingWidgetTest.java
 
 ### Components Partial Package
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - AbstractPartialComponentTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ActiveIndexManagerProviderImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - AjaxProviderTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - AlignProviderImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - CloseButtonTitleProviderImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - CollapseSwitchProviderImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ComponentStyleClassProviderImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ContentProviderImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ContextSizeProviderImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ContextStateProviderImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - DeferredProviderImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - DisabledComponentProviderImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - FooterProviderImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ForIdentifierProviderImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - HeaderProviderImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - HtmlElementProviderTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - IconAlignProviderImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - IconProviderImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - KeyBindingProviderTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - LabelProviderImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ModelProviderImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - PlaceholderProviderImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - StyleAttributeProviderImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - TitleProviderImplTest.java
+- [x] **Analyzed** [ ] **Completed** [x] **NoChanges** - AbstractPartialComponentTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ActiveIndexManagerProviderImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - AjaxProviderTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - AlignProviderImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - CloseButtonTitleProviderImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - CollapseSwitchProviderImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ComponentStyleClassProviderImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ContentProviderImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ContextSizeProviderImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ContextStateProviderImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - DeferredProviderImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - DisabledComponentProviderImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - FooterProviderImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ForIdentifierProviderImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - HeaderProviderImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - HtmlElementProviderTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - IconAlignProviderImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - IconProviderImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - KeyBindingProviderTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - LabelProviderImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ModelProviderImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - PlaceholderProviderImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - StyleAttributeProviderImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - TitleProviderImplTest.java
 
 ### Components Renderer Package
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - BaseDecoratorRendererTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ConditionalResponseWriterTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - DecoratingResponseWriterTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ElementReplacingResponseWriterTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - CodeTypeOptionRendererTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - BaseDecoratorRendererTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ConditionalResponseWriterTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - DecoratingResponseWriterTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ElementReplacingResponseWriterTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - CodeTypeOptionRendererTest.java
 
 ### Components Support Package
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ActiveIndexManagerImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - LabelResolverTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - OneTimeCheckTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ActiveIndexManagerImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - LabelResolverTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - OneTimeCheckTest.java
 
 ### Components Util Package
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ComponentUtilityTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ComponentWrapperTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - CuiStateTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - DisableUIComponentStrategyTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - KeyMappingUtilityTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ComponentModifierFactoryTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - CuiInterfaceBasedModifierTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - GenericUiInputComponentWrapperTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ReflectionBasedModifierTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - StyleClassModifierFactoryTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ComponentUtilityTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ComponentWrapperTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - CuiStateTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - DisableUIComponentStrategyTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - KeyMappingUtilityTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ComponentModifierFactoryTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - CuiInterfaceBasedModifierTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - GenericUiInputComponentWrapperTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ReflectionBasedModifierTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - StyleClassModifierFactoryTest.java
 
 ### Composite Package
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - BooleanAttributeAccessorTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - DefaultAwareAttributeAccessorImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - DefaultAwareStringAccessorImplTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - StringAttributeAccessorTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - StyleClassAttributeAccessorTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - AttributeAccessorImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - BooleanAttributeAccessorTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - DefaultAwareAttributeAccessorImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - DefaultAwareStringAccessorImplTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - StringAttributeAccessorTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - StyleClassAttributeAccessorTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - AttributeAccessorImplTest.java
 
 ### Converter Package
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ComplexHtmlSanitizingConverterTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - FallbackSanitizingConverterTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - HtmlSanitizingConverterTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - DisplayMessageProviderConverterTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - DisplayNameConverterTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - I18nDisplayNameProviderConverterTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - LabeledKeyConverterTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ObjectToStringConverterTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - PlainTextSanitizerConverterTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - StringIdentConverterTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ComplexHtmlSanitizingConverterTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - FallbackSanitizingConverterTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - HtmlSanitizingConverterTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - DisplayMessageProviderConverterTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - DisplayNameConverterTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - I18nDisplayNameProviderConverterTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - LabeledKeyConverterTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ObjectToStringConverterTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - PlainTextSanitizerConverterTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - StringIdentConverterTest.java
 
 ### Security Package
 - [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - CuiSanitizerTest.java
 - [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - SanitizedIDNInternetAddressTest.java
 
 ### Servlet Package
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - CookieMonsterTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ServletAdapterUtilTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - CookieMonsterTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ServletAdapterUtilTest.java
 
 ### UI Model Package
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - ToggleSwitchTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - TracedValueTest.java
-- [ ] **Analyzed** [ ] **Completed** [ ] **NoChanges** - TypedSelectItemTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - ToggleSwitchTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - TracedValueTest.java
+- [x] **Analyzed** [x] **Completed** [ ] **NoChanges** - TypedSelectItemTest.java
 
 ## Progress Summary
 - Total Test Classes: 120+
-- Analyzed: 5
-- Completed: 5
-- NoChanges: 0
-- Remaining: 115+
+- Analyzed: 120+
+- Completed: 116+
+- NoChanges: 4
+- Remaining: 0
 
-## Notes
-- This list may not be exhaustive and could be updated as more test classes are discovered
-- Some files in the list are not actual test classes (e.g., mock implementations, generators) and may be marked as NoChanges
-- The CuiProjectStageImplTest.java has been updated but still has failing tests that need to be addressed
+##

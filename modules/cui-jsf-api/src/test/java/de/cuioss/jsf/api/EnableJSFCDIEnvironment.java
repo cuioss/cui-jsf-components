@@ -23,6 +23,7 @@ import de.cuioss.test.jsf.producer.JsfObjectsProducer;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.view.ViewScoped;
+import org.jboss.weld.junit5.ExplicitParamInjection;
 import org.jboss.weld.junit5.auto.ActivateScopes;
 import org.jboss.weld.junit5.auto.AddBeanClasses;
 import org.jboss.weld.junit5.auto.EnableAutoWeld;
@@ -58,6 +59,7 @@ import java.lang.annotation.Target;
 @Target(TYPE)
 @EnableAutoWeld
 @EnableJsfEnvironment
+@ExplicitParamInjection
 @ActivateScopes({RequestScoped.class, SessionScoped.class, ViewScoped.class})
 @AddBeanClasses({ProjectStageProducerMock.class, JsfObjectsProducer.class})
 public @interface EnableJSFCDIEnvironment {

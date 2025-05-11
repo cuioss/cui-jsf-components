@@ -15,6 +15,10 @@
  */
 package de.cuioss.jsf.api.components.model.resultContent;
 
+import static de.cuioss.jsf.api.common.logging.JsfApiLogMessages.ERROR;
+import static de.cuioss.jsf.api.common.logging.JsfApiLogMessages.INFO;
+import static de.cuioss.jsf.api.common.logging.JsfApiLogMessages.WARN;
+
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.uimodel.result.ResultDetail;
@@ -26,7 +30,7 @@ import de.cuioss.uimodel.result.ResultState;
  */
 public class ResultErrorHandler {
 
-    private static final String MSG = "Error occurred but was handled silent.";
+    // Removed in favor of JsfApiLogMessages.ERROR_HANDLED_SILENT
 
     /**
      * Handles a potential error.
@@ -45,16 +49,16 @@ public class ResultErrorHandler {
         var cause = detail.getCause();
         switch (state) {
             case ERROR:
-                log.error(MSG, cause.orElse(null));
+                log.error(cause.orElse(null), ERROR.ERROR_HANDLED_SILENT::format);
                 contextState = ContextState.DANGER;
                 errorController.setRenderContent(false);
                 break;
             case WARNING:
-                cause.ifPresent(throwable -> log.warn(MSG, throwable));
+                cause.ifPresent(throwable -> log.warn(throwable, WARN.ERROR_HANDLED_SILENT::format));
                 contextState = ContextState.WARNING;
                 break;
             case INFO:
-                cause.ifPresent(throwable -> log.info(MSG, throwable));
+                cause.ifPresent(throwable -> log.info(throwable, INFO.ERROR_HANDLED_SILENT::format));
                 contextState = ContextState.INFO;
                 break;
             case VALID:

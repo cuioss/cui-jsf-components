@@ -16,11 +16,7 @@
 package de.cuioss.jsf.bootstrap.layout;
 
 import de.cuioss.jsf.api.application.message.MessageProducer;
-import de.cuioss.jsf.api.components.partial.CollapseSwitchProvider;
-import de.cuioss.jsf.api.components.partial.ContextStateProvider;
-import de.cuioss.jsf.api.components.partial.DeferredProvider;
-import de.cuioss.jsf.api.components.partial.FooterProvider;
-import de.cuioss.jsf.api.components.partial.HeaderProvider;
+import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.api.components.util.ComponentUtility;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
