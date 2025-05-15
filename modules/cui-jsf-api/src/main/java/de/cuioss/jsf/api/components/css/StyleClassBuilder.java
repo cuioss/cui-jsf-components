@@ -16,108 +16,187 @@
 package de.cuioss.jsf.api.components.css;
 
 /**
- * Simple interface for objects that can provide styleClasses. It can be used
- * for dynamically modifying styleClass-strings using a fluent-api
+ * Interface defining a builder for constructing and manipulating CSS style class strings.
+ * <p>
+ * This interface provides a fluent API for dynamically modifying style class strings
+ * by appending, removing, or toggling CSS classes. It's particularly useful when
+ * building complex component styling that depends on runtime conditions.
+ * </p>
+ * <p>
+ * The builder ensures proper handling of space-separated CSS classes, avoiding duplicates
+ * and managing the combination of multiple style sources. All methods return the builder
+ * instance to support method chaining.
+ * </p>
+ * <p>
+ * Implementation note: Implementations of this interface should be thread-safe if they
+ * are intended to be shared between threads.
+ * </p>
+ * <p>
+ * Usage example:
+ * </p>
+ * <pre>
+ * StyleClassBuilder builder = new StyleClassBuilderImpl();
+ * builder.append("base-class")
+ *        .appendIfTrue(ContextSize.MD, isResponsive)
+ *        .append(otherBuilder)
+ *        .toggle("active", isActive);
+ * String cssClasses = builder.getStyleClass();
+ * </pre>
  *
  * @author Oliver Wolff
+ * @since 1.0
+ * @see StyleClassProvider
  */
 public interface StyleClassBuilder {
 
     /**
-     * @return the styleClass. It will never return null but an empty String if no
-     * style-class is set.
+     * Retrieves the constructed style class string.
+     * <p>
+     * The returned string contains all the CSS classes that have been added to this builder,
+     * properly formatted with space separators.
+     * </p>
+     *
+     * @return the complete style class string, never {@code null} but may be empty if no
+     *         style classes are present
      */
     String getStyleClass();
 
     /**
-     * @return boolean indicating whether the builder is not empty.
+     * Checks if the builder contains any style classes.
+     * <p>
+     * This method can be used to determine if any style classes have been added to the builder.
+     * </p>
+     *
+     * @return {@code true} if the builder contains at least one style class,
+     *         {@code false} if it is empty
      */
     boolean isAvailable();
 
     /**
-     * @param styleClass to be appended to the styleClass string. If it is null or
-     *                   empty, it will be ignored. The same for duplicate entries.
-     * @return the resulting {@link StyleClassBuilder} instance
+     * Appends a CSS class to the existing style classes.
+     * <p>
+     * If the provided style class is already present in the builder, it will not be added again.
+     * This ensures that the resulting CSS class string doesn't contain duplicates.
+     * </p>
+     *
+     * @param styleClass the CSS class to be appended, if {@code null} or empty it will be ignored
+     * @return this builder instance for method chaining
      */
     StyleClassBuilder append(String styleClass);
 
     /**
-     * @param styleClassBuilder If it is null or empty, it will be ignored.
-     *                          The same for duplicate entries.
-     * @return the resulting {@link StyleClassBuilder} instance. If it is null or
-     * empty, it will be ignored. The same for duplicate entries.
+     * Appends all style classes from another StyleClassBuilder.
+     * <p>
+     * This method combines the content of both builders while ensuring no duplicate
+     * classes are added.
+     * </p>
+     *
+     * @param styleClassBuilder the StyleClassBuilder whose classes should be appended,
+     *                          if {@code null} or empty it will be ignored
+     * @return this builder instance for method chaining
      */
     StyleClassBuilder append(StyleClassBuilder styleClassBuilder);
 
     /**
-     * @param styleClassProvider If it is null or empty, it will be ignored.
-     *                           The same for duplicate entries.
-     * @return the resulting {@link StyleClassBuilder} instance. If it is null or
-     * empty, it will be ignored. The same for duplicate entries.
+     * Appends styles from a StyleClassProvider.
+     * <p>
+     * This is a convenience method that extracts the style class from the provider
+     * and appends it to this builder.
+     * </p>
+     *
+     * @param styleClassProvider the provider of the style class to be appended,
+     *                           if {@code null} or providing an empty value it will be ignored
+     * @return this builder instance for method chaining
+     * @see StyleClassProvider#getStyleClass()
      */
     StyleClassBuilder append(StyleClassProvider styleClassProvider);
 
     /**
-     * @param styleClassProvider If it is null or empty, it will be ignored.
-     *                           The same for duplicate entries.
-     * @param condition          Append only if this is true.
-     * @return the resulting {@link StyleClassBuilder} instance. If it is null or
-     * empty, it will be ignored. The same for duplicate entries.
+     * Conditionally appends styles from a StyleClassProvider.
+     * <p>
+     * This method allows for conditional styling based on runtime conditions.
+     * The style class is only appended if the specified condition is true.
+     * </p>
+     *
+     * @param styleClassProvider the provider of the style class to be appended,
+     *                           if {@code null} or providing an empty value it will be ignored
+     * @param condition the boolean condition that determines whether the style class should be appended
+     * @return this builder instance for method chaining
      */
     StyleClassBuilder appendIfTrue(StyleClassProvider styleClassProvider, boolean condition);
 
     /**
-     * @param styleClass to be removed from the styleClass string. If it is null or
-     *                   empty, it will be ignored.
-     * @return the resulting {@link StyleClassBuilder} instance
+     * Removes a CSS class from the existing style classes.
+     * <p>
+     * If the specified style class is present in the builder, it will be removed.
+     * </p>
+     *
+     * @param styleClass the CSS class to be removed, if {@code null} or empty it will be ignored
+     * @return this builder instance for method chaining
      */
     StyleClassBuilder remove(String styleClass);
 
     /**
-     * @param styleClassBuilder to be removed from the styleClass string. If it is
-     *                          null or empty, it will be ignored.
-     * @return the resulting {@link StyleClassBuilder} instance. If it is null or
-     * empty, it will be ignored. The same for duplicate entries.
+     * Removes all style classes from the specified StyleClassBuilder.
+     * <p>
+     * This method removes each class in the provided builder from this builder.
+     * </p>
+     *
+     * @param styleClassBuilder the StyleClassBuilder whose classes should be removed,
+     *                          if {@code null} or empty it will be ignored
+     * @return this builder instance for method chaining
      */
     StyleClassBuilder remove(StyleClassBuilder styleClassBuilder);
 
     /**
-     * @param styleClassProvider to be removed from the styleClass string. If it is
-     *                           null or empty, it will be ignored.
-     * @return the resulting {@link StyleClassBuilder} instance. If it is null or
-     * empty, it will be ignored. The same for duplicate entries.
+     * Removes styles from a StyleClassProvider.
+     * <p>
+     * This is a convenience method that extracts the style class from the provider
+     * and removes it from this builder.
+     * </p>
+     *
+     * @param styleClassProvider the provider of the style class to be removed,
+     *                           if {@code null} or providing an empty value it will be ignored
+     * @return this builder instance for method chaining
      */
     StyleClassBuilder remove(StyleClassProvider styleClassProvider);
 
     /**
-     * Analogous to jQuery.toggleClass(): If a class is present, remove it.
-     * If not, add it.
+     * Toggles a CSS class in the existing style classes.
+     * <p>
+     * If the specified style class is present in the builder, it will be removed;
+     * if it's not present, it will be added. This behavior is analogous to jQuery's
+     * toggleClass() function.
+     * </p>
      *
-     * @param styleClass to be toggled within the styleClass string.
-     *                   If it is null or empty, it will be ignored.
-     * @return the resulting {@link StyleClassBuilder} instance
+     * @param styleClass the CSS class to be toggled, if {@code null} or empty it will be ignored
+     * @return this builder instance for method chaining
      */
     StyleClassBuilder toggle(String styleClass);
 
     /**
-     * Analogous to jQuery.toggleClass(): If a class is present, remove it.
-     * If not, add it.
+     * Toggles all style classes from the specified StyleClassBuilder.
+     * <p>
+     * For each class in the provided builder, if it's present in this builder it will be removed;
+     * if it's not present, it will be added.
+     * </p>
      *
-     * @param styleClassBuilder to be toggled within the styleClass string.
-     *                          If it is null or empty, it will be ignored.
-     * @return the resulting {@link StyleClassBuilder} instance. If it is null or
-     * empty, it will be ignored. The same for duplicate entries.
+     * @param styleClassBuilder the StyleClassBuilder whose classes should be toggled,
+     *                          if {@code null} or empty it will be ignored
+     * @return this builder instance for method chaining
      */
     StyleClassBuilder toggle(StyleClassBuilder styleClassBuilder);
 
     /**
-     * Analogous to jQuery.toggleClass(): If a class is present, remove it.
-     * If not, add it.
+     * Toggles styles from a StyleClassProvider.
+     * <p>
+     * This is a convenience method that extracts the style class from the provider
+     * and toggles it in this builder.
+     * </p>
      *
-     * @param styleClassProvider to be toggled within the styleClass string.
-     *                           If it is null or empty, it will be ignored.
-     * @return the resulting {@link StyleClassBuilder} instance. If it is null or
-     * empty, it will be ignored. The same for duplicate entries.
+     * @param styleClassProvider the provider of the style class to be toggled,
+     *                           if {@code null} or providing an empty value it will be ignored
+     * @return this builder instance for method chaining
      */
     StyleClassBuilder toggle(StyleClassProvider styleClassProvider);
 }

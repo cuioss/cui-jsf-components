@@ -22,10 +22,60 @@ import jakarta.enterprise.inject.Produces;
 import lombok.Getter;
 import lombok.Setter;
 
-/** Simple Mock for dealing with {@link ProjectStage} for unit-testing. */
+/**
+ * A mock implementation that produces configurable {@link ProjectStage} instances for testing.
+ * <p>
+ * This class allows test cases to control the project stage, enabling verification of
+ * stage-dependent behavior without modifying production configuration. It defaults to
+ * {@link ProjectStage#PRODUCTION} but can be set to any other stage during tests.
+ * </p>
+ * <p>
+ * This mock is automatically included when using the {@link EnableJSFCDIEnvironment} annotation,
+ * making it available for injection in test classes.
+ * </p>
+ * <p>
+ * Usage example:
+ * <pre>
+ * {@code
+ * @EnableJSFCDIEnvironment
+ * class ProjectStageTest {
+ *     
+ *     @Inject
+ *     private ProjectStageProducerMock stageProducer;
+ *     
+ *     @Inject
+ *     private ProjectStage projectStage;
+ *     
+ *     @Test
+ *     void shouldBehaveDifferentlyInDevelopment() {
+ *         // Change project stage for this test
+ *         stageProducer.setProjectStage(ProjectStage.DEVELOPMENT);
+ *         
+ *         // Test development-specific behavior
+ *         assertEquals(ProjectStage.DEVELOPMENT, projectStage);
+ *     }
+ * }
+ * }
+ * </pre>
+ * </p>
+ * <p>
+ * This class is conditionally thread-safe. Thread safety depends on clients
+ * properly synchronizing access when modifying the project stage.
+ * </p>
+ *
+ * @author Oliver Wolff
+ * @since 1.0
+ */
 @ApplicationScoped
 public class ProjectStageProducerMock {
 
+    /**
+     * The project stage to be used for testing.
+     * <p>
+     * By default, this is set to {@link ProjectStage#PRODUCTION}. Tests can modify
+     * this value to verify stage-specific behavior.
+     * </p>
+     */
     @Getter
     @Setter
     @Produces

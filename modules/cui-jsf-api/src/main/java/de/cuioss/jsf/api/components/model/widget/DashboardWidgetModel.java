@@ -16,21 +16,49 @@
 package de.cuioss.jsf.api.components.model.widget;
 
 /**
- * Model interface for the DashboardWidgetRegistration to collect all widgets to
- * be rendered by the
- * {@link de.cuioss.jsf.bootstrap.dashboard.DashboardTagHandler}.
+ * Model interface for widgets that can be rendered within a dashboard layout.
+ * <p>
+ * This interface extends {@link WidgetModel} to add dashboard-specific functionality,
+ * particularly the ability to identify which composite component should be used to
+ * render the widget. This allows for a flexible widget registry system where widgets
+ * can be dynamically collected and rendered by the dashboard component.
+ * </p>
+ * <p>
+ * Widgets implementing this interface can be registered with the dashboard system
+ * and will be rendered using their specified composite component templates.
+ * </p>
+ * <p>
+ * The dashboard widget infrastructure enables the creation of modular, reusable
+ * widgets that can be arranged and displayed within dashboard layouts.
+ * </p>
+ * <p>
+ * Implementation classes should consider thread safety for their specific use cases.
+ * </p>
+ * 
+ * @author Matthias Walliczek
+ * @since 1.0
+ * @see WidgetModel
+ * @see BaseDeferredLoadingWidget
  */
 public interface DashboardWidgetModel extends WidgetModel {
 
     /**
-     * Link a {@link WidgetModel} to a composite component that should be used to
-     * render the widget.
+     * Returns the composite component identifier for rendering this widget.
+     * <p>
+     * This method provides the link between a widget model and its visual representation
+     * by identifying which composite component should be used to render the widget.
+     * The dashboard system uses this identifier to dynamically load and render the 
+     * appropriate component for each widget.
+     * </p>
+     * <p>
+     * The format of the identifier follows the JSF composite component namespace pattern,
+     * consisting of a library name and component name separated by a colon.
+     * </p>
      *
-     * @return the folder of the composite component inside the resources
-     *         directory and the name of the composite component file. (e.g.
-     *         "cui-composite:listItemWidget" for a component named
-     *         "listItemWidget.xhtml" in
-     *         /src/main/resources/META-INF/resources/cui-composite).
+     * @return the composite component identifier in the format "library:componentName",
+     *         for example "cui-composite:listItemWidget" for a component named
+     *         "listItemWidget.xhtml" located in
+     *         /src/main/resources/META-INF/resources/cui-composite
      */
     String getCompositeComponentId();
 }

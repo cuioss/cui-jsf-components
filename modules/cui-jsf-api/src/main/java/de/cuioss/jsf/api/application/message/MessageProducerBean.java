@@ -33,18 +33,36 @@ import java.text.MessageFormat;
 import java.util.MissingResourceException;
 
 /**
- * Portal version of MessageProducer.
+ * The default implementation of {@link MessageProducer} that handles resource bundle lookups
+ * and message formatting for displaying JSF messages.
+ * <p>
+ * This implementation enhances message display by applying text processing to prevent UI
+ * rendering issues. Specifically, it:
+ * <ul>
+ *   <li>Enforces line breaks for long messages</li>
+ *   <li>Abridges extremely long messages</li>
+ *   <li>Prevents word-breaking in the UI by inserting zero-width spaces at appropriate locations</li>
+ * </ul>
+ * 
  * <h3>Implementation Note</h3>
  * <p>
  * All message-strings will be post-processed using {@link TextSplitter} prior
- * to displaying. This will smoothen possible ui glitches on the growl display
+ * to displaying. This will smoothen possible UI glitches on the growl display
  * element, but may be problematic regarding unit-tests that will check the
  * result using {@link String#equals(Object)}. Especially the insertion of
  * invisible spaces: '\u200B' on the elements ".,;+-!?_" may be problematic. See
- * the unit-test of this class
- * </p>
+ * the unit-test of this class for examples.
+ * 
+ * <p>
+ * This class is annotated with {@link Priority} to ensure it is loaded at the appropriate
+ * time within the portal's component hierarchy.
+ * 
+ * <p>
+ * This class is not thread-safe. It is designed to be used within a single request context
+ * due to its {@link RequestScoped} nature.
  *
  * @author Oliver Wolff
+ * @since 1.0
  */
 @RequestScoped
 @Priority(PortalPriorities.PORTAL_CORE_LEVEL)
@@ -52,24 +70,55 @@ import java.util.MissingResourceException;
 @ToString
 public class MessageProducerBean implements MessageProducer {
 
+    /**
+     * The maximum size of a message before it gets abridged.
+     */
     private static final int ABRIDGED_SIZE = 256;
 
+    /**
+     * The number of characters after which a line break is enforced.
+     */
     private static final int FORCE_BREAK_COUNT = 35;
 
     /**
-     * Used for gracefully react on not existing message-keys.
+     * Prefix used when a message key cannot be found in the resource bundle.
+     * This allows for graceful degradation when message keys are missing.
      */
     public static final String MISSING_KEY_PREFIX = "Missing key : ";
 
     @Serial
     private static final long serialVersionUID = 4405826619024002836L;
 
+    /**
+     * The resource bundle wrapper used to look up message templates.
+     */
     @Inject
     private ResourceBundleWrapper resourceBundle;
 
+    /**
+     * Provider for the FacesContext to ensure availability during request processing.
+     */
     @Inject
     private Provider<FacesContext> facesContextProvider;
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * This implementation performs the following steps:
+     * <ol>
+     *   <li>Looks up the message template in the resource bundle using the provided key</li>
+     *   <li>Applies any parameters using {@link MessageFormat#format(String, Object...)}</li>
+     *   <li>Processes the text using {@link TextSplitter} to ensure proper line breaks</li>
+     *   <li>Returns a new {@link FacesMessage} with the processed text</li>
+     * </ol>
+     * If the message key is not found in the resource bundle, returns a message indicating the missing key.
+     * 
+     * @param messageKey The key to look up in the resource bundle, must not be {@code null}
+     * @param severity The severity level of the message, must not be {@code null}
+     * @param parameter Optional parameters for message formatting
+     * @return A new {@link FacesMessage} with the processed message text
+     * @throws NullPointerException if messageKey or severity is null
+     */
     @Override
     public FacesMessage getMessageFor(final String messageKey, final FacesMessage.Severity severity, final Object... parameter) {
         try {
@@ -86,12 +135,36 @@ public class MessageProducerBean implements MessageProducer {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * This implementation creates a {@link FacesMessage} using {@link #getMessageFor(String, FacesMessage.Severity, Object...)}
+     * and adds it to the current {@link FacesContext}.
+     * 
+     * @param messageKey The key to look up in the resource bundle, must not be {@code null}
+     * @param severity The severity level of the message, must not be {@code null}
+     * @param componentId The ID of the component to associate the message with, or {@code null} for a global message
+     * @param parameter Optional parameters for message formatting
+     * @throws NullPointerException if messageKey or severity is null
+     */
     @Override
     public void setFacesMessage(final String messageKey, final FacesMessage.Severity severity, final String componentId,
             final Object... parameter) {
         facesContextProvider.get().addMessage(componentId, getMessageFor(messageKey, severity, parameter));
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * This implementation applies the provided parameters to the message using {@link MessageFormat#format(String, Object...)},
+     * processes the text using {@link TextSplitter}, and adds the resulting message to the current {@link FacesContext}.
+     * 
+     * @param message The message text, must not be {@code null}
+     * @param severity The severity level of the message, must not be {@code null}
+     * @param componentId The ID of the component to associate the message with, or {@code null} for a global message
+     * @param parameter Optional parameters for message formatting
+     * @throws NullPointerException if message or severity is null
+     */
     @Override
     public void addMessage(String message, FacesMessage.Severity severity, String componentId, Object... parameter) {
         var resultingMessage = message;

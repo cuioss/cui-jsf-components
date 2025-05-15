@@ -37,10 +37,23 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * Decorator for {@link MessageProducer} to log and display
- * {@link ResultObject#getResultDetail()}.
+ * Specialized decorator for {@link MessageProducer} that handles {@link IDisplayNameProvider} objects
+ * and {@link ResultObject} instances, displaying and logging their content appropriately.
+ * <p>
+ * This class provides methods to convert {@link ResultObject} instances into user-visible
+ * messages with appropriate severity levels. It also handles the conversion of {@link IDisplayNameProvider}
+ * objects to displayable strings using the JSF converter mechanism.
+ * </p>
+ * <p>
+ * The class automatically logs exceptions contained in {@link ResultObject} instances with
+ * the appropriate log level based on the result state.
+ * </p>
+ * <p>
+ * This class is not thread-safe. It is designed to be used within a single request context.
+ * </p>
  *
  * @author Matthias Walliczek
+ * @since 1.0
  */
 @RequestScoped
 @EqualsAndHashCode(exclude = {"messageProducer"})
@@ -49,21 +62,41 @@ public class DisplayNameMessageProducer implements Serializable {
 
     private static final CuiLogger LOGGER = new CuiLogger(DisplayNameMessageProducer.class);
 
+    /**
+     * A dummy component used for converter operations when no actual component is available.
+     */
     private static final UIComponent DUMMY = new DummyComponent();
 
     @Serial
     private static final long serialVersionUID = 3367432860164772689L;
 
+    /**
+     * Error message format string used when no suitable converter can be found for a class.
+     */
     private static final String NO_FITTING_CONVERTER_REGISTERED = "No fitting converter for [%s] class registered.";
 
+    /**
+     * The underlying message producer used to create and add faces messages.
+     */
     @Inject
     MessageProducer messageProducer;
 
     /**
-     * Create and add a global faces message, use resolved text from detail
+     * Creates and adds a global faces message using the detail information from the provided
+     * {@link ResultObject}. Also logs any exceptions with the appropriate log level
+     * based on the result state.
+     * <p>
+     * The severity of the message is determined by the state of the {@link ResultObject}:
+     * <ul>
+     *   <li>ERROR state → SEVERITY_ERROR</li>
+     *   <li>WARNING state → SEVERITY_WARN</li>
+     *   <li>INFO state → SEVERITY_INFO</li>
+     *   <li>VALID state → SEVERITY_INFO</li>
+     * </ul>
      *
-     * @param requestResultObject {@linkplain ResultObject } must not be
-     *                            {@code null}
+     * @param requestResultObject The result object containing the message details and state,
+     *                            must not be {@code null}
+     * @throws NullPointerException if requestResultObject is null
      */
     @SuppressWarnings("squid:S3655")
     public void showAsGlobalMessageAndLog(final ResultObject<?> requestResultObject) {
@@ -95,23 +128,33 @@ public class DisplayNameMessageProducer implements Serializable {
     }
 
     /**
-     * Create and add a global faces message, use resolved text from content
+     * Creates and adds a global faces message using the provided content and severity level.
+     * <p>
+     * This method resolves the {@link IDisplayNameProvider} to a displayable string
+     * and then adds it as a global message with the specified severity.
+     * </p>
      *
-     * @param content  {@linkplain IDisplayNameProvider} must not be {@code null}
-     * @param severity {@linkplain FacesMessage#getSeverity()} must not be
-     *                 {@code null}
+     * @param content The content provider that supplies the message text, must not be {@code null}
+     * @param severity The severity level for the message, must not be {@code null}
+     * @throws NullPointerException if content or severity is null
+     * @throws IllegalStateException if no suitable converter is found for the content
      */
     public void showAsGlobalMessage(final IDisplayNameProvider<?> content, final FacesMessage.Severity severity) {
-
         final var message = resolve(requireNonNull(content, "content"));
         messageProducer.addGlobalMessage(message, severity);
     }
 
     /**
-     * Resolve a {@linkplain IDisplayNameProvider} via matching converter.
+     * Resolves a {@link IDisplayNameProvider} to a displayable string using the JSF converter mechanism.
+     * <p>
+     * This method attempts to find a suitable converter for the provided content based on its class type.
+     * If no converter is found, an {@link IllegalStateException} is thrown.
+     * </p>
      *
-     * @param content to be resolved
-     * @return the message string
+     * @param content The content provider to be resolved, must not be {@code null}
+     * @return The resolved message string
+     * @throws NullPointerException if content is null
+     * @throws IllegalStateException if no suitable converter is found for the content
      */
     public static String resolve(final IDisplayNameProvider<?> content) {
         final Class<?> targetType = content.getClass();

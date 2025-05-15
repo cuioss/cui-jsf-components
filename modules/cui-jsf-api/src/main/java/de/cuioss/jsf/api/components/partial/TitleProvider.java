@@ -17,104 +17,176 @@ package de.cuioss.jsf.api.components.partial;
 
 import java.io.Serializable;
 
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.render.Renderer;
+
 /**
- * <h2>Summary</h2>
+ * Provider interface for components that need to support HTML title attributes.
  * <p>
- * Implementors of this class manage the state and resolving of the title
- * attribute. The implementation relies on the correct user of the attribute
- * names, saying they must exactly match the accessor methods.
+ * This interface defines the contract for managing the state and resolving of the title
+ * attribute on JSF components. Implementing components can provide title text either through
+ * a resource bundle key, direct value, or a combination with conversion support.
  * </p>
- * <h2>titleKey</h2>
  * <p>
- * The key for looking up the text for the title-attribute. Although this
- * attribute is not required you must provide either this or #titleValue if you
- * want a title to be displayed.
+ * The implementation relies on consistent attribute naming that matches the accessor methods
+ * defined in this interface.
  * </p>
- * <h2>titleValue</h2>
+ * 
+ * <h2>Attributes</h2>
+ * <h3>titleKey</h3>
  * <p>
- * The Object displayed for the title-attribute. This is a replacement for
- * #titleKey. If both are present titleValue takes precedence. This object is
- * usually a String. If not, the developer must ensure that a corresponding
- * converter is either registered for the type or must provide a converter using
- * #titleConverter.
+ * The key for looking up the localized text for the title attribute from a resource bundle.
+ * This attribute is not required, but either this or {@code titleValue} must be provided
+ * to display a title.
  * </p>
- * <h2>titleConverter</h2>
+ * 
+ * <h3>titleValue</h3>
  * <p>
- * The optional converterId to be used in case of titleValue is set and needs
- * conversion.
+ * The direct value to be displayed as the title attribute. This takes precedence over
+ * {@code titleKey} if both are present. The value is typically a String but can be any
+ * Serializable object. If a non-String value is provided, a converter must be available
+ * either through the default converter facility or explicitly through {@code titleConverter}.
  * </p>
- * <h2>Update to the state-management</h2>
- * In previous versions targeted at mojarra, the logic of modifying the final title was in the method
- * {@link #resolveTitle()}}.
- * With myfaces on the other hand the default Renderer use {@link UIComponent#getAttributes()} for looking up the
- * title.
+ * 
+ * <h3>titleConverter</h3>
  * <p>
- * The Solution: {@link #resolveAndStoreTitle()} must be called prior rendering.
- * This must be done prior Rendering, usually by the concrete {@link jakarta.faces.render.Renderer}
- * <em>This workaround is only necessary for cases, where the rendering is done by the concrete implementation.</em>
+ * An optional converter ID or Converter instance to be used when {@code titleValue} needs
+ * conversion to a String. Only required when titleValue is not a String and no default
+ * converter is registered for its type.
+ * </p>
+ * 
+ * <h2>State Management Note</h2>
+ * <p>
+ * Due to differences between JSF implementations (Mojarra vs MyFaces), there's a special
+ * requirement for handling title resolution:
+ * </p>
+ * <p>
+ * In previous versions targeted at Mojarra, the title resolution logic was solely in the
+ * {@link #resolveTitle()} method. With MyFaces, the default Renderer uses 
+ * {@link UIComponent#getAttributes()} to look up the title attribute.
+ * </p>
+ * <p>
+ * To address this difference, implementations must call {@link #resolveAndStoreTitle()}
+ * prior to rendering. This is typically handled by the component's {@link Renderer}
+ * in the encodeBegin method. This workaround is only necessary for cases where the 
+ * rendering is done by a concrete implementation rather than using the standard HTML renderer.
  * </p>
  *
  * @author Oliver Wolff
+ * @since 1.0
  */
 public interface TitleProvider {
 
     /**
-     * @param titleKey to be set.
+     * Sets the resource bundle key for the title.
+     *
+     * @param titleKey the resource bundle key to be used for title lookup
      */
     void setTitleKey(String titleKey);
 
     /**
-     * @return the resolved titleKey.
+     * Returns the configured resource bundle key for the title.
+     *
+     * @return the resource bundle key used for title lookup, may be null
      */
     String getTitleKey();
 
     /**
-     * @param titleValue to be set.
+     * Sets a direct value for the title.
+     * <p>
+     * This value takes precedence over the titleKey if both are specified.
+     * </p>
+     *
+     * @param titleValue the value to be used as title, must be Serializable
      */
     void setTitleValue(Serializable titleValue);
 
     /**
-     * @return the titleValue.
+     * Returns the configured direct value for the title.
+     *
+     * @return the direct value configured for the title, may be null
      */
     Serializable getTitleValue();
 
     /**
-     * @return the titleConverter
+     * Returns the converter configured for the title value.
+     *
+     * @return the configured converter (as a String converterId or a Converter instance),
+     *         may be null
      */
     Object getTitleConverter();
 
     /**
-     * @param titleConverter the titleConverter to set
+     * Sets the converter to use for the title value.
+     * <p>
+     * The converter is used when the titleValue is not a String and needs to be converted
+     * to a String representation.
+     * </p>
+     *
+     * @param titleConverter the converter to use (can be a String converterId or a
+     *                      Converter instance)
      */
     void setTitleConverter(Object titleConverter);
 
     /**
-     * @return the resolved title is available, otherwise it will return null.
+     * Resolves the title based on the configured titleKey, titleValue, and titleConverter.
+     * <p>
+     * This method performs the following resolution logic:
+     * </p>
+     * <ol>
+     *   <li>If titleValue is set, it is converted to a String (using the titleConverter if specified)</li>
+     *   <li>If no titleValue is set but titleKey is available, the key is used to look up
+     *       a message from the component's message bundle</li>
+     *   <li>If neither is set, null is returned</li>
+     * </ol>
+     *
+     * @return the resolved title if available, otherwise null
      */
     String resolveTitle();
 
     /**
-     * Resolves and stores the final title in the {@link jakarta.faces.component.StateHelper}, see class-documentation
-     * for details.
+     * Resolves the title and stores it in the component's state.
+     * <p>
+     * This method must be called before rendering to ensure proper title handling
+     * across different JSF implementations. It resolves the title and stores it in the
+     * component's attribute map for later retrieval by the standard HTML renderer.
+     * </p>
+     * <p>
+     * This is primarily needed to handle differences between Mojarra and MyFaces
+     * rendering behavior.
+     * </p>
      */
     void resolveAndStoreTitle();
 
     /**
-     * @return the resolved title is available, otherwise it will return null.
+     * Returns the title from the component's state.
+     * <p>
+     * This method is typically used by renderers to retrieve the resolved title.
+     * For proper functionality, {@link #resolveAndStoreTitle()} should be called
+     * before this method.
+     * </p>
+     *
+     * @return the resolved title if available, otherwise null
      */
     String getTitle();
 
     /**
-     * @return boolean indicating whether a title is there (set)
+     * Checks if a title is set (either via titleKey or titleValue).
+     *
+     * @return true if a title is set, false otherwise
      */
     boolean isTitleSet();
 
     /**
-     * @param title as defined within components but this one will always throw an
-     *              {@link UnsupportedOperationException} indicating that the
-     *              developer should always use {@link #setTitleValue(Serializable)}
-     *              instead
+     * This method is provided for compatibility with the standard title attribute
+     * pattern but should not be used directly.
+     * <p>
+     * Always throws an {@link UnsupportedOperationException} indicating that developers
+     * should use {@link #setTitleValue(Serializable)} or {@link #setTitleKey(String)} instead.
+     * </p>
+     *
+     * @param title the title string
+     * @throws UnsupportedOperationException always thrown to discourage direct use
      */
     void setTitle(String title);
-
 }

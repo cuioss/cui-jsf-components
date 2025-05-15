@@ -32,26 +32,45 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * Using this annotation at type-level of a junit 5 test defines the basic
- * infrastructure for creating unit-tests in the cui-jsf-components contexts. It
- * is a meta-annotation consisting of:
- *
+ * JUnit 5 annotation that enables a fully configured JSF and CDI environment for testing.
+ * <p>
+ * This meta-annotation sets up the essential infrastructure for creating comprehensive
+ * unit tests in the CUI JSF Components context. It combines JSF test utilities with
+ * CDI capabilities, providing access to both frameworks within tests.
+ * </p>
+ * <p>
+ * The annotation includes the following capabilities:
  * <ul>
- * <li>{@link EnableAutoWeld}</li>
- * <li>{@link EnableJsfEnvironment}</li>
+ * <li>{@link EnableAutoWeld}: Activates the Weld CDI container for tests</li>
+ * <li>{@link EnableJsfEnvironment}: Sets up a complete JSF environment with mock FacesContext and related objects</li>
+ * <li>Registers essential producers: {@link ProjectStageProducerMock} and {@link JsfObjectsProducer}</li>
+ * <li>Activates common CDI scopes: {@link RequestScoped}, {@link SessionScoped}, and {@link ViewScoped}</li>
  * </ul>
- * <ul>
- * <li>{@link ProjectStageProducerMock}</li>
- * <li>{@link JsfObjectsProducer}</li>
- * </ul>
- * It explicitly activates the Scopes:
- * <ul>
- * <li>{@link RequestScoped}</li>
- * <li>{@link SessionScoped}</li>
- * <li>{@link ViewScoped}</li>
- * </ul>
- *
+ * </p>
+ * <p>
+ * Usage example:
+ * <pre>
+ * {@code
+ * @EnableJSFCDIEnvironment
+ * class MyComponentTest {
+ *     
+ *     @Inject
+ *     private FacesContext facesContext;
+ *     
+ *     @Test
+ *     void shouldDoSomethingWithJsfAndCdi() {
+ *         // Test using injected JSF and CDI resources
+ *     }
+ * }
+ * }
+ * </pre>
+ * </p>
+ * <p>
+ * This annotation is thread-safe and can be applied to any JUnit 5 test class.
+ * </p>
+ * 
  * @author Oliver Wolff
+ * @since 1.0
  */
 @Documented
 @Retention(RUNTIME)

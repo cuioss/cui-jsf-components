@@ -26,25 +26,69 @@ import jakarta.faces.convert.NumberConverter;
 import jakarta.faces.render.Renderer;
 
 /**
- * Defines a base setup for testing. Implicitly uses
- * {@link BasicApplicationConfiguration}. In addition, it:
+ * Defines a base setup for JSF testing that provides standard CUI configuration elements.
+ * <p>
+ * This configuration extends {@link BasicApplicationConfiguration} and adds CUI-specific
+ * components, converters, and renderers for comprehensive JSF unit testing.
+ * </p>
+ * <p>
+ * Core configurations provided:
  * <ul>
- * <li>Registers {@link StringIdentConverter} {@link ObjectToStringConverter}
+ * <li>Registers essential converters: {@link StringIdentConverter}, {@link ObjectToStringConverter},
  * and {@link NumberConverter}</li>
- * <li>Registers a number of default components and {@link Renderer} derived
- * from {@link JsfHtmlComponent}</li>
+ * <li>Registers all standard JSF HTML components defined in {@link JsfHtmlComponent}</li>
+ * <li>Sets up appropriate mock renderers for each component</li>
+ * <li>Provides access to test and core resource bundles</li>
  * </ul>
+ * </p>
+ * <p>
+ * Usage example:
+ * <pre>
+ * {@code
+ * @JsfTestConfiguration(CoreJsfTestConfiguration.class)
+ * class MyComponentTest extends AbstractComponentTest<MyComponent> {
+ *     // Test methods
+ * }
+ * }
+ * </pre>
+ * </p>
+ * <p>
+ * This class is thread-safe as it contains no mutable state.
+ * </p>
  *
  * @author Oliver Wolff
+ * @since 1.0
  */
 public class CoreJsfTestConfiguration extends BasicApplicationConfiguration implements ComponentConfigurator {
 
-    /** Test resource bundle path */
+    /**
+     * Path to test resource bundle.
+     * <p>
+     * Used for locating test-specific message resources.
+     * </p>
+     */
     public static final String TEST_BUNDLE_BASE_PATH = "de.cuioss.jsf.components.bundle.";
 
-    /** cui-messages bundle path */
+    /**
+     * Path to cui-messages resource bundle.
+     * <p>
+     * Used for accessing core CUI framework messages and labels.
+     * </p>
+     */
     public static final String CUI_BUNDLE_BASE_PATH = "de.cuioss.jsf.api.core.l18n.";
 
+    /**
+     * Configures the JSF test environment with CUI components and converters.
+     * <p>
+     * This method registers all standard converters and components needed for
+     * testing CUI JSF components, providing mocked renderers for each component
+     * that render the appropriate HTML element.
+     * </p>
+     *
+     * @param decorator The component configuration decorator used to register
+     *                  components, converters, and renderers with the test environment.
+     *                  Must not be null.
+     */
     @Override
     public void configureComponents(final ComponentConfigDecorator decorator) {
         decorator.registerConverter(StringIdentConverter.class);
@@ -56,5 +100,4 @@ public class CoreJsfTestConfiguration extends BasicApplicationConfiguration impl
                     new CuiMockRenderer(component.getDefaultHtmlElement().getContent()));
         }
     }
-
 }

@@ -21,7 +21,24 @@ import lombok.ToString;
 import java.io.Serial;
 
 /**
- * Basic Implementation of a {@link NavigationMenuItem}
+ * <h2>Standard implementation of the NavigationMenuItemSeparator interface</h2>
+ * <p>
+ * This class extends {@link NavigationMenuItemImpl} and implements {@link NavigationMenuItemSeparator}
+ * to provide a concrete implementation of a separator-type menu item. Separators are
+ * non-interactive elements that visually divide groups of related menu items.
+ * </p>
+ * <p>
+ * Key features of this implementation:
+ * </p>
+ * <ul>
+ * <li>Simple, stateless implementation focused on presentation</li>
+ * <li>Provides a factory method to avoid creating redundant instances</li>
+ * <li>Inherits ordering capabilities from NavigationMenuItemImpl</li>
+ * </ul>
+ * <p>
+ * This class is typically used to create visual dividers within dropdown menus
+ * or to separate groups of related navigation options.
+ * </p>
  *
  * @author Sven Haag
  */
@@ -33,18 +50,26 @@ public class NavigationMenuItemSeparatorImpl extends NavigationMenuItemImpl impl
     private static final long serialVersionUID = 2808000723947735968L;
 
     /**
-     * @param order
+     * <p>Creates a new separator menu item with the specified order value.</p>
+     * <p>The order value determines the position of this separator relative to
+     * other menu items within the same container.</p>
+     *
+     * @param order The order value for positioning this separator. Lower values
+     *              position the separator earlier/higher in the menu structure.
      */
     public NavigationMenuItemSeparatorImpl(Integer order) {
         super(order);
     }
 
     /**
-     * Factory method
+     * <p>Factory method to create instances of NavigationMenuItemSeparator.</p>
+     * <p>This method provides a consistent way to create separator instances,
+     * and could be extended in the future to implement caching or pooling of
+     * separator instances if needed, since separators are stateless elements.</p>
      *
-     * @param order for the instance
-     *
-     * @return provide instance of {@linkplain NavigationMenuItemSeparatorImpl}
+     * @param order The order value for positioning the separator within a menu.
+     *              Lower values position the separator earlier/higher in the menu.
+     * @return A new instance of {@link NavigationMenuItemSeparator} with the specified order.
      */
     public static NavigationMenuItemSeparator getInstance(Integer order) {
         return new NavigationMenuItemSeparatorImpl(order);

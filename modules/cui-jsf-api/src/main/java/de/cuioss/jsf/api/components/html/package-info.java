@@ -1,20 +1,62 @@
 /**
- * <h2>Summary</h2>
- * Provides common helper classes / utilities that can be used
- * for the creation of partial html-trees. The central class is
- * {@link de.cuioss.jsf.api.components.html.HtmlTreeBuilder} with a number of
- * fluent-style methods for creating the trees. A typical using-code is
- *
+ * <h2>HTML Component Generation Package</h2>
+ * <p>
+ * Provides common helper classes and utilities that can be used
+ * for the creation of partial HTML trees. This package offers a fluent API
+ * for building HTML structures programmatically, ensuring proper nesting and escaping.
+ * </p>
+ * 
+ * <h3>Key Components</h3>
+ * <ul>
+ *   <li>{@link de.cuioss.jsf.api.components.html.HtmlTreeBuilder} - Central builder class with fluent methods for creating HTML trees</li>
+ *   <li>{@link de.cuioss.jsf.api.components.html.Node} - Enum representing HTML element types</li>
+ *   <li>{@link de.cuioss.jsf.api.components.html.AttributeName} - Standard HTML attribute names</li>
+ *   <li>{@link de.cuioss.jsf.api.components.html.AttributeValue} - Common HTML attribute values</li>
+ *   <li>NodeElement - Representation of a concrete HTML node element</li>
+ *   <li>HtmlFragment - Represents a structured HTML fragment for JSF rendering</li>
+ * </ul>
+ * 
+ * <h3>Usage Example</h3>
  * <pre>
  * {@code
- * new HtmlTreeBuilder().withNode(Node.DIV).withTextContent("Some Text Child");
+ * new HtmlTreeBuilder()
+ *   .withNode(Node.DIV)
+ *   .withStyleClass("alert alert-info")
+ *   .withAttribute(AttributeName.ROLE, "alert")
+ *   .withTextContent("Some Text Child");
  * }
  * </pre>
+ * 
+ * <h3>Advanced Example</h3>
+ * <pre>
+ * {@code
+ * new HtmlTreeBuilder()
+ *   .withNode(Node.DIV)
+ *   .withStyleClass("container")
+ *   .withNode(Node.SPAN)
+ *     .withStyleClass("label")
+ *     .withTextContent("Label:")
+ *   .currentHierarchyUp()
+ *   .withNode(Node.INPUT)
+ *     .withAttribute(AttributeName.TYPE, "text")
+ *     .withAttribute(AttributeName.VALUE, "Hello World")
+ *   .currentHierarchyUp()
+ *   .build();
+ * }
+ * </pre>
+ * 
+ * <h3>Integration with JSF</h3>
  * <p>
  * The result can be directly passed to a
  * {@link jakarta.faces.context.ResponseWriter} in order to integrate with the
- * creation of {@link jakarta.faces.render.Renderer}
+ * creation of {@link jakarta.faces.render.Renderer} implementations.
+ * </p>
+ * 
+ * <p>
+ * Classes in this package are generally immutable and therefore thread-safe.
+ * </p>
  *
  * @author Oliver Wolff
+ * @since 1.0
  */
 package de.cuioss.jsf.api.components.html;

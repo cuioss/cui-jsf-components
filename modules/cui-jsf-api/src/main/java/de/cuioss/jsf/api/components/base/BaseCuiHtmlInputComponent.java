@@ -23,43 +23,116 @@ import jakarta.faces.context.FacesContext;
 import lombok.experimental.Delegate;
 
 /**
- * Minimal super-set for cui-based components that are at least
- * {@link HtmlInputText}.
- * Therefore, it provides the handling of the styleClass
- * and style attribute and the implicit attributes provided by
- * {@link HtmlInputText}.
- * In addition, it acts as a {@link ComponentBridge}
+ * Base class for CUI components that extend {@link HtmlInputText}.
+ * <p>
+ * This class provides enhanced functionality for input text components by implementing:
+ * </p>
+ * <ul>
+ *   <li>{@link ComponentBridge} - Provides simplified access to component state and context</li>
+ *   <li>{@link ComponentStyleClassProvider} - Manages the "styleClass" attribute common to HTML components</li>
+ *   <li>{@link StyleAttributeProvider} - Manages the "style" attribute for inline CSS styling</li>
+ * </ul>
+ * <p>
+ * The class uses the delegation pattern via Lombok's {@code @Delegate} annotation to implement
+ * the style-related interfaces, keeping the implementation clean and focused.
+ * </p>
+ * <p>
+ * Usage example for creating a component subclass:
+ * </p>
+ * <pre>
+ * public class CustomInputText extends BaseCuiHtmlInputComponent {
+ *     
+ *     public static final String COMPONENT_TYPE = "custom.inputText";
+ *     
+ *     &#64;Override
+ *     public String getFamily() {
+ *         return "custom.input.family";
+ *     }
+ *     
+ *     // Additional functionality...
+ * }
+ * </pre>
+ * <p>
+ * Like other JSF components, this class is not thread-safe and instances
+ * should not be shared between requests.
+ * </p>
  *
  * @author Sven Haag
+ * @since 1.0
+ * @see HtmlInputText
+ * @see ComponentBridge
+ * @see ComponentStyleClassProvider
+ * @see StyleAttributeProvider
  */
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
 public class BaseCuiHtmlInputComponent extends HtmlInputText
         implements ComponentBridge, ComponentStyleClassProvider, StyleAttributeProvider {
 
+    /**
+     * Delegate for implementing the {@link ComponentStyleClassProvider} interface.
+     * <p>
+     * This delegate handles the "styleClass" attribute and related functionality.
+     * </p>
+     */
     @Delegate
     private final ComponentStyleClassProvider styleClassProvider;
 
+    /**
+     * Delegate for implementing the {@link StyleAttributeProvider} interface.
+     * <p>
+     * This delegate handles the "style" attribute for inline CSS.
+     * </p>
+     */
     @Delegate
     private final StyleAttributeProvider styleAttributeProvider;
 
     /**
-     *
+     * Default constructor that initializes the component delegates.
+     * <p>
+     * This constructor sets up the style and styleClass attribute providers
+     * that implement the corresponding interfaces.
+     * </p>
      */
     public BaseCuiHtmlInputComponent() {
         styleClassProvider = new ComponentStyleClassProviderImpl(this);
         styleAttributeProvider = new StyleAttributeProviderImpl(this);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Provides access to the component's StateHelper for storing component state.
+     * </p>
+     * 
+     * @return the StateHelper for this component
+     */
     @Override
     public StateHelper stateHelper() {
         return getStateHelper();
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Provides access to the current FacesContext.
+     * </p>
+     * 
+     * @return the current FacesContext
+     */
     @Override
     public FacesContext facesContext() {
         return getFacesContext();
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Provides access to the named facet of this component.
+     * </p>
+     * 
+     * @param facetName the name of the facet to retrieve
+     * @return the UIComponent that corresponds to the requested facet, or null if no such facet exists
+     */
     @Override
     public UIComponent facet(String facetName) {
         return getFacet(facetName);

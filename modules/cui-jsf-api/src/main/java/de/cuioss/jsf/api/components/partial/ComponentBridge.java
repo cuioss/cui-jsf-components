@@ -20,36 +20,103 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 
 /**
+ * Bridge interface that connects partial component implementations to their owning {@link UIComponent}.
  * <p>
- * This Interface builds the bridge for the interaction between
- * {@link UIComponent} and the partial elements. In essence it exposes the
- * {@link StateHelper}, {@link FacesContext} and {@link UIComponent Facets} to
- * the corresponding composite element.
+ * This interface provides a standardized way for partial component implementations (like
+ * {@link TitleProviderImpl}) to access essential elements of the JSF component infrastructure
+ * without directly coupling to specific component implementations. It exposes the
+ * {@link StateHelper}, {@link FacesContext} and component facets to the partial implementations.
  * </p>
  * <p>
- * <em>Caution:</em> With this concept we introduce a cyclic dependency into the
- * component classes. Use it with care. The actual implementations, like
- * {@link TitleProviderImpl} must <em>not</em> contain any state within a field.
- * Especially not {@link FacesContext} or {@link StateHelper}
+ * The bridge pattern used here allows for better separation of concerns and more modular
+ * component design by delegating specific functional aspects to focused implementation classes
+ * while maintaining access to the core JSF infrastructure.
  * </p>
+ * 
+ * <h3>Implementation Note</h3>
+ * <p>
+ * <strong>Caution:</strong> This design introduces a cyclic dependency between the component
+ * and its partial implementations. Use it with care. Partial implementations like 
+ * {@link TitleProviderImpl} must <em>not</em> store any state in instance fields,
+ * especially not references to {@link FacesContext} or {@link StateHelper}.
+ * These should always be accessed through the bridge to ensure proper state management
+ * within the JSF lifecycle.
+ * </p>
+ * 
+ * <h3>Usage Example</h3>
+ * <pre>
+ * // In a UIComponent subclass:
+ * public class MyComponent extends UIComponentBase implements TitleProvider {
+ *     
+ *     private final TitleProviderImpl titleProvider;
+ *     
+ *     public MyComponent() {
+ *         titleProvider = new TitleProviderImpl(new ComponentBridge() {
+ *             &#64;Override
+ *             public StateHelper stateHelper() {
+ *                 return getStateHelper();
+ *             }
+ *             
+ *             &#64;Override
+ *             public FacesContext facesContext() {
+ *                 return getFacesContext();
+ *             }
+ *             
+ *             &#64;Override
+ *             public UIComponent facet(String facetName) {
+ *                 return getFacet(facetName);
+ *             }
+ *         });
+ *     }
+ *     
+ *     // Delegate to the provider implementation
+ *     &#64;Override
+ *     public void setTitleKey(String titleKey) {
+ *         titleProvider.setTitleKey(titleKey);
+ *     }
+ *     
+ *     // Other delegate methods...
+ * }
+ * </pre>
  *
  * @author Oliver Wolff
+ * @since 1.0
  */
 public interface ComponentBridge {
 
     /**
-     * @return the {@link StateHelper} encapsulated within the specific component.
+     * Provides access to the component's state helper.
+     * <p>
+     * The state helper is used by partial implementations to store and retrieve
+     * component state in a way that integrates with JSF's state management system.
+     * </p>
+     *
+     * @return the {@link StateHelper} of the owning component
      */
     StateHelper stateHelper();
 
     /**
-     * @return the {@link FacesContext} encapsulated within the specific component.
+     * Provides access to the current faces context.
+     * <p>
+     * The faces context gives access to the current request, response,
+     * application context, and other JSF infrastructure necessary for
+     * component operations.
+     * </p>
+     *
+     * @return the current {@link FacesContext}
      */
     FacesContext facesContext();
 
     /**
-     * @param facetName the facets name, e.g. 'header', 'footer'.
-     * @return the facet or null.
+     * Retrieves a named facet from the owning component.
+     * <p>
+     * Facets are named components that serve special roles within a parent component,
+     * such as headers, footers, or detail sections.
+     * </p>
+     *
+     * @param facetName the name of the facet to retrieve, such as "header" or "footer"
+     * @return the {@link UIComponent} representing the facet, or null if no facet
+     *         with the specified name exists
      */
     UIComponent facet(String facetName);
 }

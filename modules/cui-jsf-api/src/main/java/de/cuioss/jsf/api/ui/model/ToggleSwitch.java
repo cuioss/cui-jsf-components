@@ -43,7 +43,7 @@ public class ToggleSwitch implements Serializable {
     private boolean toggled;
 
     /**
-     * Constructor. Sets {@link #isToggled()} to false.
+     * Constructor. Sets {@code toggled} to false.
      */
     public ToggleSwitch() {
         toggled = false;

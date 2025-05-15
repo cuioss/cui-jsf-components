@@ -28,12 +28,31 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * General purpose Cookie Utility for JSF.
+ * General purpose Cookie utility for JSF applications built on the Servlet API.
  * <p>
- * This implementation works for the servlet not for the portlet API
+ * This class provides methods to easily access and manipulate cookies in a JSF context.
+ * It simplifies common cookie operations like retrieving request cookies, finding cookies
+ * by name, and setting response cookies with appropriate security settings.
  * </p>
  * <p>
- * I like cookies !!!
+ * Important: This implementation works only with the Servlet API, not with the Portlet API.
+ * </p>
+ * <p>
+ * Usage examples:
+ * </p>
+ * <pre>
+ * // Get all cookies from the current request
+ * List&lt;Cookie&gt; cookies = CookieMonster.getRequestCookies(facesContext);
+ * 
+ * // Find a specific cookie by name
+ * Cookie userCookie = CookieMonster.getRequestCookieForName(facesContext, "userName");
+ * 
+ * // Set a simple cookie with secure defaults
+ * CookieMonster.setSimpleResponseCookie(facesContext, "userName", "johndoe");
+ * </pre>
+ * <p>
+ * By default, cookies set through this utility are marked as HttpOnly and Secure
+ * to enhance security.
  * </p>
  *
  * @author Oliver Wolff
@@ -42,9 +61,13 @@ public final class CookieMonster {
 
     /**
      * Access the available cookies for a given request.
+     * <p>
+     * This method retrieves all cookies sent with the current HTTP request.
+     * </p>
      *
-     * @param facesContext representing current state. Must not be null
-     * @return a list of request-cookies, an empty list if no cookie is found.
+     * @param facesContext representing current JSF context. Must not be null
+     * @return a list of request-cookies, an empty list if no cookie is found
+     * @throws NullPointerException if facesContext is null
      */
     public static List<Cookie> getRequestCookies(final FacesContext facesContext) {
         final var cookies = getRequest(facesContext).getCookies();
@@ -56,12 +79,18 @@ public final class CookieMonster {
     }
 
     /**
-     * Accesses a cookie for a given name.
+     * Accesses a cookie for a given name from the current request.
+     * <p>
+     * This method searches through all cookies in the current request and
+     * returns the first one matching the specified name.
+     * </p>
      *
-     * @param facesContext representing current state. Must not be null or empty
+     * @param facesContext representing current JSF context. Must not be null
      * @param cookieName   name of the cookie to be looked up. Must not be null or
      *                     empty
-     * @return the found cookie or null if none is found.
+     * @return the found cookie or null if none is found with the given name
+     * @throws IllegalArgumentException if cookieName is null or empty
+     * @throws NullPointerException if facesContext is null
      */
     public static Cookie getRequestCookieForName(final FacesContext facesContext, final String cookieName) {
         requireNotEmpty(cookieName, "cookieName");
@@ -76,12 +105,19 @@ public final class CookieMonster {
     }
 
     /**
-     * Simplified adding of a cookie. It solely sets the payload. It utilizes
-     * RequestContextPath as path for the cookie.
+     * Simplified method for adding a cookie to the response with secure defaults.
+     * <p>
+     * This method creates a cookie with the provided name and value, sets it to be
+     * HttpOnly and Secure, and uses the current request context path as the cookie path.
+     * This ensures the cookie is accessible only to the current application and only
+     * sent over HTTPS connections.
+     * </p>
      *
-     * @param facesContext representing current state. Must not be null or empty
-     * @param cookieName   Must not be null or empty
-     * @param cookieValue  Must not be null
+     * @param facesContext representing current JSF context. Must not be null
+     * @param cookieName   name of the cookie to be created. Must not be null or empty
+     * @param cookieValue  value of the cookie to be set. Must not be null or empty
+     * @throws IllegalArgumentException if cookieName or cookieValue is null or empty
+     * @throws NullPointerException if facesContext is null
      */
     public static void setSimpleResponseCookie(final FacesContext facesContext, final String cookieName,
             final String cookieValue) {
@@ -96,10 +132,16 @@ public final class CookieMonster {
     }
 
     /**
-     * Adding a cookie.
+     * Adds a pre-configured cookie to the response.
+     * <p>
+     * This method allows for adding a fully configured cookie to the response.
+     * Use this method when you need more control over cookie properties than
+     * what {@link #setSimpleResponseCookie(FacesContext, String, String)} provides.
+     * </p>
      *
-     * @param facesContext representing current state. Must not be null or empty
-     * @param cookie       Must not be null
+     * @param facesContext representing current JSF context. Must not be null
+     * @param cookie       the pre-configured cookie to add to the response. Must not be null
+     * @throws NullPointerException if facesContext or cookie is null
      */
     public static void setResponseCookie(final FacesContext facesContext, final Cookie cookie) {
         requireNonNull(cookie, "cookie");
@@ -107,9 +149,9 @@ public final class CookieMonster {
     }
 
     /**
-     * Enforce utility class
+     * Private constructor to prevent instantiation of utility class.
      */
     private CookieMonster() {
-
+        // Enforce utility class pattern
     }
 }

@@ -20,25 +20,52 @@ import jakarta.faces.application.NavigationHandler;
 import jakarta.faces.context.FacesContext;
 
 /**
+ * Interface defining a simple redirection capability for JSF applications.
  * <p>
- * Defines a simply redirectMethod a given object. The Object is usually an enum
- * or similar representing a page or portal.
- * </p>
- * <em>Caution</em>: This Interface does not define a replacement for
- * {@link NavigationHandler} and should solely be used for special cases to
- * simplify do redirects with complex parameter set. If you find it often within
- * your code you have possible a design / architectural issue
+ * Implementors of this interface can perform redirects to specific locations,
+ * optionally with URL parameters. This is typically implemented by objects that
+ * represent navigation targets, such as enums or other constants that identify
+ * pages or views within the application.
+ * 
+ * <p>
+ * The primary use case for this interface is to encapsulate redirection logic
+ * for complex navigation scenarios where the standard JSF navigation rules
+ * are insufficient, such as:
+ * <ul>
+ *   <li>Navigating with complex parameter sets</li>
+ *   <li>Dynamic navigation based on runtime conditions</li>
+ *   <li>Navigation to external resources</li>
+ * </ul>
+ * 
+ * <p>
+ * <em>Important:</em> This interface is not intended as a replacement for the standard
+ * {@link NavigationHandler} and should only be used for special cases where the
+ * standard navigation mechanisms are insufficient. Frequent use of this interface
+ * may indicate design or architectural issues in the application.
+ * 
+ * <p>
+ * Implementations must be thread-safe if they are to be used from multiple threads.
  *
  * @author Oliver Wolff
+ * @since 1.0
+ * @see NavigationUtils
+ * @see ViewIdentifier
  */
 public interface Redirector {
 
     /**
-     * Executes a redirect on a given object. The Object is usually an enum or
-     * similar representing a page or portal.
+     * Executes a redirect to the target represented by this object.
+     * <p>
+     * This method performs a redirection to a JSF view or external resource,
+     * optionally with the provided URL parameters.
+     * 
+     * <p>
+     * Implementation details, such as how the target URL is determined and
+     * how parameters are handled, are left to the implementing class.
      *
-     * @param facesContext must not be null.
-     * @param parameters   optional {@link UrlParameter}
+     * @param facesContext The current FacesContext, must not be null
+     * @param parameters   Optional URL parameters to include in the redirect
+     * @throws NullPointerException if facesContext is null
      */
     void redirect(FacesContext facesContext, UrlParameter... parameters);
 }

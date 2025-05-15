@@ -19,22 +19,59 @@ import jakarta.faces.context.FacesContext;
 import lombok.experimental.UtilityClass;
 
 /**
- * Utilities provided for handling {@link FacesContext} related actions
+ * Utility class providing methods for checking and handling {@link FacesContext} state.
+ * <p>
+ * This class allows components and backing beans to check the current state of the
+ * JSF lifecycle and determine whether further processing should continue.
+ * 
+ * <p>
+ * During the JSF lifecycle, certain conditions can cause processing to be short-circuited,
+ * such as when {@code responseComplete()} or {@code renderResponse()} is called. This
+ * utility provides convenient methods to check these conditions.
+ * 
+ * <p>
+ * Usage example:
+ * <pre>
+ * if (CheckContextState.isResponseNotComplete(facesContext)) {
+ *     // Proceed with further processing
+ * } else {
+ *     // Skip processing as response is already complete
+ * }
+ * </pre>
+ * 
+ * <p>
+ * This class is designed as a stateless utility class (using Lombok's {@code @UtilityClass})
+ * and cannot be instantiated.
+ * 
+ * @author Oliver Wolff
+ * @since 1.0
  */
 @UtilityClass
 public class CheckContextState {
 
     /**
-     * Helper method needed for indicating whether the Lifecycle processing should
-     * continue
+     * Determines whether JSF lifecycle processing should continue by checking the
+     * current state of the FacesContext.
+     * <p>
+     * This method checks several conditions:
+     * <ul>
+     *   <li>Whether the FacesContext is null</li>
+     *   <li>Whether the FacesContext has been released</li>
+     *   <li>Whether response completion has been signaled</li>
+     * </ul>
+     * 
+     * <p>
+     * This method is particularly useful in phases like Invoke Application or
+     * Update Model Values, where you might want to check if previous phases have
+     * short-circuited the lifecycle.
      *
-     * @param facesContext To be used for checking
-     * @return boolean indicating whether {@link FacesContext#getRenderResponse()}
-     *         or {@link FacesContext#getResponseComplete()} has been called. In
-     *         case none of that happened it will return <code>true</code>
+     * @param facesContext The current FacesContext instance to check, may be null
+     * @return {@code true} if processing should continue (response is not complete),
+     *         {@code false} otherwise (including when facesContext is null)
+     * @see FacesContext#getResponseComplete()
+     * @see FacesContext#isReleased()
      */
     public static boolean isResponseNotComplete(FacesContext facesContext) {
         return null != facesContext && !facesContext.isReleased() && !facesContext.getResponseComplete();
     }
-
 }

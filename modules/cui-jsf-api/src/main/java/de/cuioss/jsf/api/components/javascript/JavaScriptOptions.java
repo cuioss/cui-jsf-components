@@ -28,44 +28,104 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Builder for creating arbitrary JavaScript option elements. Options is in
- * essence a map of property and values, usually used for configuring JavaScript
- * methods. The resulting String of {@link #script()} is either empty if the map
- * is empty or in the form {option1:'value1',option2:'value2'}. The quoting of
- * the value is implicitly done by the object. In case you want a certain
- * element not being wrapped into single-quotes Wrap it in an instance of
- * {@link NotQuotableWrapper}. The brackets are part of the method-result. If
- * you do not want the use
- * {@link JavaScriptOptionsBuilder#withWrapInBrackets(boolean)} with
- * <code>false</code>
- *
+ * Builder for creating JavaScript option objects in JSON-like format.
+ * <p>
+ * This class helps generate JavaScript options in the format
+ * {@code {option1:'value1',option2:'value2'}}. It manages the proper
+ * formatting and escaping of values, and handles special cases for values
+ * that should not be quoted.
+ * 
+ * <p>
+ * Key features:
+ * <ul>
+ *   <li>Option values can be strings, numbers, booleans, or raw JavaScript</li>
+ *   <li>Support for nested option objects</li>
+ *   <li>Automatic handling of quoting and escaping</li>
+ *   <li>Fluent builder API for easy construction</li>
+ * </ul>
+ * 
+ * <p>
+ * Usage example:
+ * <pre>
+ * JavaScriptOptions options = new JavaScriptOptions();
+ * options.addOption("stringValue", "text")
+ *        .addNumericOption("count", 5)
+ *        .addBooleanOption("enabled", true)
+ *        .addJavaScriptOption("callback", "function() { return true; }");
+ * String result = options.asJavaScriptObjectNotation();
+ * // Result: {stringValue:'text',count:5,enabled:true,callback:function() { return true; }}
+ * </pre>
+ * 
  * @author Oliver Wolff
- *
+ * @since 1.0.0
  */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 public class JavaScriptOptions implements ScriptProvider {
 
+    /**
+     * Map of option key-value pairs.
+     * <p>
+     * The keys represent JavaScript property names and the values represent their corresponding values.
+     * </p>
+     */
     @NonNull
     private final Map<String, Serializable> options;
 
-    /** Single quote wrapper for values. */
+    /** 
+     * Format string for wrapping values in single quotes.
+     * <p>
+     * Value: {@code "'%s'"}
+     * </p>
+     */
     public static final String SINGLE_QUOTE_WRAPPER = "'%s'";
 
-    /** {%s} */
+    /** 
+     * Format string for wrapping content in curly brackets.
+     * <p>
+     * Value: {@code "{%s}"}
+     * </p>
+     */
     public static final String CURRLY_BRACKETS_WRAPPER = "{%s}";
 
-    /** [%s] */
+    /** 
+     * Format string for wrapping content in square brackets.
+     * <p>
+     * Value: {@code "[%s]"}
+     * </p>
+     */
     public static final String SQUARE_BRACKETS_WRAPPER = "[%s]";
 
     /**
-     * Indicates whether to wrap the result in curly brackets, defaults to true
+     * Flag controlling whether the options are wrapped in curly brackets.
+     * <p>
+     * When true (the default), the resulting script is wrapped in curly brackets.
+     * When false, only the key-value pairs are included without the surrounding brackets.
+     * </p>
      */
     private final boolean wrapInBrackets;
 
-    /** "," */
+    /** 
+     * Delimiter for separating option values.
+     * <p>
+     * Value: {@code ","}
+     * </p>
+     */
     public static final String OPTION_VALUE_DELIMITER = ",";
 
+    /**
+     * Generates the JavaScript options string.
+     * <p>
+     * The resulting string is formatted as a JavaScript object literal with keys and
+     * appropriately quoted values. If the options map is empty, an empty string is returned.
+     * </p>
+     * <p>
+     * Values are automatically wrapped in single quotes unless they are instances of
+     * {@link NotQuotableWrapper}, in which case their raw string value is used.
+     * </p>
+     *
+     * @return the JavaScript options string, or an empty string if no options are defined
+     */
     @Override
     public String script() {
         if (options.isEmpty()) {
@@ -99,22 +159,44 @@ public class JavaScriptOptions implements ScriptProvider {
     }
 
     /**
-     * @author Oliver Wolff
+     * Builder for creating {@link JavaScriptOptions} instances.
+     * <p>
+     * This builder provides a fluent API for constructing JavaScript option objects
+     * with various configuration options.
+     * </p>
      *
+     * @author Oliver Wolff
+     * @since 1.0
      */
     public static class JavaScriptOptionsBuilder {
 
+        /**
+         * Map of option key-value pairs being built.
+         */
         private final Map<String, Serializable> options;
+        
+        /**
+         * Flag controlling whether the options are wrapped in curly brackets.
+         */
         private boolean wrapInBrackets = true;
 
+        /**
+         * Default constructor that initializes an empty options map.
+         */
         JavaScriptOptionsBuilder() {
             options = new HashMap<>();
         }
 
         /**
-         * @param key   identifying the key of an entry, must no be null
-         * @param value the concrete value of an option, may be null.
-         * @return the instance of {@link JavaScriptOptionsBuilder}
+         * Adds a single option key-value pair.
+         * <p>
+         * The value will be automatically quoted in the resulting JavaScript unless
+         * it's wrapped in a {@link NotQuotableWrapper}.
+         * </p>
+         *
+         * @param key identifying the key of an entry, must not be null
+         * @param value the concrete value of an option, may be null
+         * @return this builder instance for method chaining
          */
         public JavaScriptOptionsBuilder withOption(String key, Serializable value) {
             options.put(key, value);
@@ -122,9 +204,14 @@ public class JavaScriptOptions implements ScriptProvider {
         }
 
         /**
-         * @param wrapInBrackets Indicates whether to wrap the result in curly brackets,
-         *                       defaults to true
-         * @return the instance of {@link JavaScriptOptionsBuilder}
+         * Controls whether the resulting options are wrapped in curly brackets.
+         * <p>
+         * By default, options are wrapped in curly brackets to form a valid JavaScript object.
+         * Setting this to false will produce a comma-separated list of key-value pairs without brackets.
+         * </p>
+         *
+         * @param wrapInBrackets true to wrap the result in curly brackets, false otherwise
+         * @return this builder instance for method chaining
          */
         public JavaScriptOptionsBuilder withWrapInBrackets(boolean wrapInBrackets) {
             this.wrapInBrackets = wrapInBrackets;
@@ -132,8 +219,13 @@ public class JavaScriptOptions implements ScriptProvider {
         }
 
         /**
-         * @param options a map of concrete options.
-         * @return the instance of {@link JavaScriptOptionsBuilder}
+         * Adds multiple options from a map.
+         * <p>
+         * All entries from the provided map will be added to the options being built.
+         * </p>
+         *
+         * @param options a map of option key-value pairs to add
+         * @return this builder instance for method chaining
          */
         public JavaScriptOptionsBuilder withOptions(Map<String, Serializable> options) {
             this.options.putAll(options);
@@ -141,7 +233,9 @@ public class JavaScriptOptions implements ScriptProvider {
         }
 
         /**
-         * @return {@link JavaScriptOptions}
+         * Builds the {@link JavaScriptOptions} instance with the configured options.
+         *
+         * @return a new immutable JavaScriptOptions instance
          */
         public JavaScriptOptions build() {
             return new JavaScriptOptions(options, wrapInBrackets);
@@ -149,21 +243,29 @@ public class JavaScriptOptions implements ScriptProvider {
     }
 
     /**
-     * @return a newly created instance of {@link JavaScriptOptionsBuilder}
+     * Creates a new builder for constructing {@link JavaScriptOptions} instances.
+     *
+     * @return a new JavaScriptOptionsBuilder instance
      */
     public static JavaScriptOptionsBuilder builder() {
         return new JavaScriptOptionsBuilder();
     }
 
     /**
-     * Add a number of quoted String options to the given map with the given key.
-     * The option will be wrapped into an instance of {@link NotQuotableWrapper}
+     * Utility method to add an array of quoted string options to an options map.
+     * <p>
+     * This method creates a JavaScript array of quoted strings and adds it to the options map
+     * under the specified key. The array will be formatted as a {@link NotQuotableWrapper} to
+     * prevent additional quoting.
+     * </p>
+     * <p>
+     * The resulting option will appear in the format: {@code optionKey:['value1','value2']}
+     * </p>
      *
-     * @param options         must not be null
-     * @param optionKey       must not be null or empty
-     * @param optionParameter must not be null. If it is empty the element will not
-     *                        be added. Each option will be single quoted and
-     *                        separated by {@link #OPTION_VALUE_DELIMITER}
+     * @param options the options map to add to, must not be null
+     * @param optionKey the key under which to add the array, must not be null
+     * @param optionParameter the list of string values to include in the array, must not be null.
+     *                        If empty, no option will be added.
      */
     public static void addStringOptions(Map<String, Serializable> options, String optionKey,
             List<String> optionParameter) {
@@ -176,5 +278,4 @@ public class JavaScriptOptions implements ScriptProvider {
             options.put(optionKey, new NotQuotableWrapper(nameString));
         }
     }
-
 }

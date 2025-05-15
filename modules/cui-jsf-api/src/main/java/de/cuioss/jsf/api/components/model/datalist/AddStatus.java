@@ -16,25 +16,38 @@
 package de.cuioss.jsf.api.components.model.datalist;
 
 /**
- * Defines the current status of persisting for that precise new created
- * {@link Object}. Is is always used in conjunction with {@link ItemWrapper}
- *
+ * <h2>Defines the current persistence status of a newly created item</h2>
+ * <p>
+ * This enum represents the different states in the lifecycle of a new item in an editable data list.
+ * It tracks the item's progress from initial creation through addition to the list and
+ * eventual persistence to the underlying data store.
+ * </p>
+ * <p>
+ * The status is always used in conjunction with {@link ItemWrapper} to keep track of item states
+ * within an {@link EditableDataListModel}.
+ * </p>
+ * 
  * @author Matthias Walliczek
  */
 public enum AddStatus {
 
     /**
-     * Initial created, not saved in the list
+     * The item has been initially created but not yet saved in the list.
+     * This is the initial state when a new item is being constructed.
      */
     CREATED,
 
     /**
-     * Saved in the list, not persisted
+     * The item has been saved in the list but not yet persisted to the underlying data store.
+     * This state indicates that the item is part of the model's in-memory collection
+     * but hasn't been committed to permanent storage.
      */
     ADDED,
 
     /**
-     * Already persisted
+     * The item has been persisted to the underlying data store.
+     * This is the final state in the lifecycle, indicating that the item
+     * has been successfully saved to permanent storage.
      */
     PERSISTED
 }

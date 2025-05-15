@@ -16,30 +16,62 @@
 package de.cuioss.jsf.api.components.model.datalist;
 
 /**
- * Defines the current status of editing for that precise {@link Object}. Is is
- * always used in conjunction with {@link ItemWrapper}
+ * <h2>Defines the current edit status of an item in an editable data list</h2>
+ * <p>
+ * This enum represents the different states that an item can have within an
+ * {@link EditableDataListModel}. It tracks the lifecycle of items from their
+ * initial state through editing, modification, and potentially deletion.
+ * </p>
+ * <p>
+ * The status is always used in conjunction with {@link ItemWrapper} which encapsulates
+ * both the item itself and metadata about its current state in the model.
+ * </p>
  *
  * @author Oliver Wolff
  */
 public enum EditStatus {
 
-    /** The initially loaded, unmodified item */
+    /**
+     * <p>Represents an item in its initial, unmodified state.</p>
+     * <p>This is the status of items that were loaded from the backend system
+     * and have not been edited or marked for deletion.</p>
+     */
     INITIAL,
 
-    /** The item is currently being edited. */
+    /**
+     * <p>Indicates that an item is currently being edited.</p>
+     * <p>Items with this status are in the process of being modified by the user,
+     * but the changes have not yet been confirmed or saved to the model.</p>
+     * <p>Typically, only one item can be in this state at a time within an
+     * {@link EditableDataListModel}.</p>
+     */
     EDIT,
 
     /**
-     * The item was added by the EditableDataListComponent by calling
-     * {@link EditableDataListModel#createEmptyItem()}
+     * <p>Indicates that an item has been newly added to the data list but not yet persisted.</p>
+     * <p>This status is assigned to items that were created using
+     * {@link EditableDataListModel#createEmptyItem()} and added to the model
+     * through {@link EditableDataListModel#addItem()}.</p>
+     * <p>These items exist only in the model and have not yet been saved
+     * to the backend system.</p>
      */
     ADDED,
 
     /**
-     * Defines an item that was loaded from the BE-system but modified in some way.
+     * <p>Indicates that an existing item has been modified.</p>
+     * <p>This status is assigned to items that were loaded from the backend system
+     * and subsequently edited, with the changes confirmed by the user.</p>
+     * <p>Items with this status have pending changes that may need to be
+     * persisted to the backend system.</p>
      */
     MODIFIED,
 
-    /** The item is marked to be deleted. */
+    /**
+     * <p>Indicates that an item has been marked for deletion.</p>
+     * <p>Items with this status are still part of the model's display items
+     * (accessible via {@link EditableDataListModel#getDisplayItems()}) but are
+     * excluded from the result items (returned by {@link EditableDataListModel#getResultItems()}).</p>
+     * <p>They may be visually distinguished in the UI to indicate their pending deletion status.</p>
+     */
     DELETED
 }

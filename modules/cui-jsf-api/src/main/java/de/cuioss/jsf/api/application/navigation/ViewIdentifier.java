@@ -32,38 +32,83 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Helper class, combining a view Id and the corresponding {@link UrlParameter}
+ * Represents a view in a JSF application, combining a view ID with its corresponding URL parameters
+ * and optional outcome information.
+ * <p>
+ * This class provides a unified way to identify views and handle navigation within JSF applications.
+ * It encapsulates:
+ * <ul>
+ *   <li>The view ID (logical path to the view)</li>
+ *   <li>The navigation outcome (if applicable)</li>
+ *   <li>URL parameters associated with the view</li>
+ * </ul>
+ * 
+ * <p>
+ * ViewIdentifier can be used to:
+ * <ul>
+ *   <li>Create {@link NavigationCase} objects for programmatic navigation</li>
+ *   <li>Perform redirects to views with parameters</li>
+ *   <li>Capture the current view state for later navigation</li>
+ * </ul>
+ * 
+ * <p>
+ * This class is immutable and thread-safe.
  *
  * @author Oliver Wolff
+ * @since 1.0
  */
 @RequiredArgsConstructor
 @EqualsAndHashCode
 @ToString
 public class ViewIdentifier implements Serializable, Redirector {
 
+    /**
+     * Parameter name for the Deep State Window ID used in JSF applications with state saving.
+     */
     private static final String DSWID = "dswid";
 
-    /** The outcome identifying back navigation. */
+    /** 
+     * The outcome identifying back navigation.
+     * This constant is used to create navigation cases that represent navigation
+     * back to a previous view.
+     */
     public static final String BACK = "back";
 
     @Serial
     private static final long serialVersionUID = -8246314995093995027L;
 
+    /**
+     * The view ID, which is the logical path to the JSF view.
+     */
     @Getter
     private final String viewId;
 
+    /**
+     * The navigation outcome associated with this view, if applicable.
+     * May be null if the view was not accessed via a navigation outcome.
+     */
     @Getter
     private final String outcome;
 
+    /**
+     * The URL parameters associated with this view.
+     * These parameters will be included when redirecting to this view.
+     */
     @Getter
     private final List<UrlParameter> urlParameters;
 
     /**
-     * @param viewDescriptor  represents the view
-     * @param parameterFilter defines the parameter to be filtered. May be null or
-     *                        empty.
-     * @return The {@link ViewIdentifier} representing the current view incl
-     *         {@link UrlParameter}. If a view can not be determined it returns null
+     * Creates a ViewIdentifier from a ViewDescriptor, optionally filtering the URL parameters.
+     * <p>
+     * This factory method extracts the logical view ID and URL parameters from the provided
+     * ViewDescriptor, applying the specified parameter filter if provided.
+     * </p>
+     *
+     * @param viewDescriptor  The view descriptor representing the view, must not be null
+     *                        for a meaningful result
+     * @param parameterFilter Defines which parameters to include/exclude. May be null or empty
+     * @return A new ViewIdentifier representing the specified view, or null if the
+     *         viewDescriptor or its logical view ID is null
      */
     public static ViewIdentifier getFromViewDesciptor(final ViewDescriptor viewDescriptor,
             final ParameterFilter parameterFilter) {
@@ -75,21 +120,24 @@ public class ViewIdentifier implements Serializable, Redirector {
     }
 
     /**
-     * Create a {@link NavigationCase} representation of this {@link ViewIdentifier}
-     * the number of parameters is in respect to the API contract. A shorthand
-     * version is {@link #toBackNavigationCase()}. The elements String toViewId,
-     * {@code Map<String, List<String>>} parameters are derived by this object, the
-     * others are passed in.
+     * Creates a NavigationCase representation of this ViewIdentifier.
+     * <p>
+     * This method allows the ViewIdentifier to be used with the JSF navigation system
+     * by creating a NavigationCase that encapsulates the view ID and parameters.
+     * A shorthand version for back navigation is available via {@link #toBackNavigationCase()}.
+     * </p>
+     * <p>
+     * The view ID and parameters are derived from this ViewIdentifier instance,
+     * while the other NavigationCase properties are provided as parameters.
+     * </p>
      *
-     * @param fromViewId        return from {@link NavigationCase#getFromViewId}
-     * @param fromAction        return from {@link NavigationCase#getFromAction}
-     * @param fromOutcome       return from {@link NavigationCase#getFromOutcome}
-     * @param condition         A string to be interpreted as a
-     *                          <code>ValueExpression</code> by a call to
-     *                          {@link NavigationCase#getCondition}
-     * @param redirect          return from {@link NavigationCase#isRedirect}
-     * @param includeViewParams return {@link NavigationCase#isIncludeViewParams}
-     * @return the corresponding navigation case
+     * @param fromViewId        The originating view ID, returned by {@link NavigationCase#getFromViewId()}
+     * @param fromAction        The originating action, returned by {@link NavigationCase#getFromAction()}
+     * @param fromOutcome       The originating outcome, returned by {@link NavigationCase#getFromOutcome()}
+     * @param condition         A string to be interpreted as a ValueExpression for the navigation condition
+     * @param redirect          Whether the navigation should be a redirect, returned by {@link NavigationCase#isRedirect()}
+     * @param includeViewParams Whether to include view parameters, returned by {@link NavigationCase#isIncludeViewParams()}
+     * @return A NavigationCase representing this ViewIdentifier
      */
     public NavigationCase toNavigationCase(final String fromViewId, final String fromAction, final String fromOutcome,
             final String condition, final boolean redirect, final boolean includeViewParams) {
@@ -98,16 +146,33 @@ public class ViewIdentifier implements Serializable, Redirector {
     }
 
     /**
-     * @return a {@link NavigationCase} representing a back navigation incorporating
-     *         a redirect and the according {@link UrlParameter}
+     * Creates a NavigationCase for navigating back to this view.
+     * <p>
+     * This is a convenience method that creates a NavigationCase with the BACK outcome,
+     * redirect=true, and includes all URL parameters from this ViewIdentifier.
+     * </p>
+     *
+     * @return A NavigationCase representing a back navigation to this view
      */
     public NavigationCase toBackNavigationCase() {
         return toNavigationCase(null, null, BACK, null, true, false);
     }
 
     /**
-     * The given {@link UrlParameter} are ignored but taken from this
-     * {@link ViewIdentifier} itself
+     * Redirects to this view, preserving the current window ID if available.
+     * <p>
+     * This implementation ignores any parameters passed to this method and
+     * uses the URL parameters stored in this ViewIdentifier instead.
+     * It also preserves the Deep State Window ID (dswid) parameter if available
+     * in the current request to ensure proper window management in JSF.
+     * </p>
+     * <p>
+     * If this ViewIdentifier has a view ID, it will redirect directly to that view.
+     * Otherwise, it will use the outcome to determine the navigation target.
+     * </p>
+     *
+     * @param facesContext The current FacesContext
+     * @param parameters   Ignored in this implementation, as parameters are taken from this ViewIdentifier
      */
     @Override
     public void redirect(final FacesContext facesContext, final UrlParameter... parameters) {

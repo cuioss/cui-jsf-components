@@ -22,19 +22,42 @@ import de.cuioss.tools.string.MoreStrings;
 import java.io.Serializable;
 
 /**
- * Simple mapping helper to introduce key extension-mapping
+ * <p>This utility class provides methods for creating extended key strings by 
+ * combining a base key with an optional extension. This is particularly useful in JSF
+ * components that need to generate unique identifiers based on a primary key with
+ * potential variations.</p>
+ * 
+ * <p>The primary use case is to create context-specific keys by appending a suffix to a 
+ * base key, separated by an underscore. For example, combining a component ID with 
+ * a specific state or variant identifier.</p>
+ * 
+ * <p>Usage example:</p>
+ * <pre>
+ * String baseKey = "userPanel";
+ * String extensionKey = "collapsed";
+ * String mappedKey = KeyMappingUtility.mapKeyWithExtension(baseKey, extensionKey);
+ * // Result: "userPanel_collapsed"
+ * </pre>
  *
  * @author Oliver Wolff
  */
 public final class KeyMappingUtility {
 
     /**
-     * Creates a key String depending on its input.
+     * <p>Creates a composite key string by combining a base key with an optional extension.
+     * If the extension is provided, it will be appended to the base key, separated by an
+     * underscore character ('_').</p>
+     * 
+     * <p>This method is typically used for generating unique identifiers for components
+     * that may have multiple states or variants, ensuring each has a distinct key.</p>
      *
-     * @param key       must not be null, must implement toString properly.
-     * @param extension may be null or empty
-     * @return If extension-parameter is null or empty it returns key.toString().
-     *         Otherwise it returns key.toString()_extension
+     * @param key       The base key to use, must not be null and should implement 
+     *                  toString() properly to provide a meaningful string representation.
+     * @param extension An optional extension string to append to the key. If null or empty,
+     *                  only the base key's string representation will be returned.
+     * @return If extension parameter is null or empty, returns key.toString().
+     *         Otherwise, returns key.toString() + "_" + extension.
+     * @throws NullPointerException if the key parameter is null
      */
     public static String mapKeyWithExtension(Serializable key, String extension) {
         requireNonNull(key);
@@ -46,9 +69,9 @@ public final class KeyMappingUtility {
     }
 
     /**
-     * Enforce utility class
+     * Private constructor to prevent instantiation of this utility class.
      */
     private KeyMappingUtility() {
-
+        // Enforce utility class pattern
     }
 }

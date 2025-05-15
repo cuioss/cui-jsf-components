@@ -22,7 +22,7 @@ import de.cuioss.tools.logging.LogRecordModel;
  * Defines the log messages for the JSF API module.
  * <p>
  * The module prefix is "JSF_API".
- * </p>
+ * 
  * <p>
  * The identifiers are structured as follows:
  * <ul>
@@ -31,11 +31,10 @@ import de.cuioss.tools.logging.LogRecordModel;
  * <li>200-299: ERROR level</li>
  * <li>300-399: FATAL level</li>
  * </ul>
- * </p>
+ * 
  * <p>
  * This class is designed as a utility class with static constants and cannot be instantiated.
  * It is thread-safe as it contains only static final fields and methods.
- * </p>
  *
  * @since 1.0
  */
@@ -67,7 +66,6 @@ public final class JsfApiLogMessages {
      * <p>
      * This class provides constants for all INFO level log messages used in the JSF API module.
      * Each constant is a {@link LogRecord} that can be used with the {@link de.cuioss.tools.logging.CuiLogger}.
-     * </p>
      *
      * @since 1.0
      */
@@ -116,7 +114,6 @@ public final class JsfApiLogMessages {
      * <p>
      * This class provides constants for all WARN level log messages used in the JSF API module.
      * Each constant is a {@link LogRecord} that can be used with the {@link de.cuioss.tools.logging.CuiLogger}.
-     * </p>
      *
      * @since 1.0
      */
@@ -173,7 +170,6 @@ public final class JsfApiLogMessages {
      * <p>
      * This class provides constants for all ERROR level log messages used in the JSF API module.
      * Each constant is a {@link LogRecord} that can be used with the {@link de.cuioss.tools.logging.CuiLogger}.
-     * </p>
      *
      * @since 1.0
      */

@@ -27,12 +27,33 @@ import java.io.Serial;
 import java.util.List;
 
 /**
- * Default implementation of {@link ViewMatcher} that checks the given view
- * against a given list of partial view-paths by using
- * {@link String#startsWith(String)}. If a configured String of the given
- * matchList is empty it matches to false for that String.
+ * Standard implementation of {@link ViewMatcher} that checks if a view matches 
+ * against a list of view path prefixes.
+ * <p>
+ * This implementation determines if a view matches by comparing its logical view ID
+ * against a list of path prefixes. If the logical view ID starts with any of the
+ * configured prefixes, the view is considered a match.
+ * 
+ * <p>
+ * The matcher is configured with a list of string prefixes. During initialization,
+ * empty or blank prefixes are filtered out, ensuring that only valid matching
+ * patterns are retained.
+ * 
+ * <p>
+ * Common use cases for this matcher include:
+ * <ul>
+ *   <li>Identifying views within specific application sections or modules</li>
+ *   <li>Implementing security constraints for groups of related views</li>
+ *   <li>Applying UI customizations to views in specific directories</li>
+ * </ul>
+ * 
+ * <p>
+ * This class is immutable and thread-safe.
  *
  * @author Oliver Wolff
+ * @since 1.0
+ * @see ViewMatcher
+ * @see ViewDescriptor
  */
 @EqualsAndHashCode
 @ToString
@@ -42,12 +63,19 @@ public class ViewMatcherImpl implements ViewMatcher {
     private static final long serialVersionUID = -1211279289779853076L;
 
     /**
-     * The list to be matched against
+     * The list of path prefixes to match against.
+     * This list is immutable and contains no empty or blank entries.
      */
     private final List<String> matchList;
 
     /**
-     * @param matchList
+     * Creates a new ViewMatcherImpl with the specified list of path prefixes.
+     * <p>
+     * The constructor filters out any empty or blank entries from the provided list,
+     * creating an immutable list of valid matching prefixes.
+     *
+     * @param matchList A list of path prefixes to match against, must not be null
+     * @throws NullPointerException if matchList is null
      */
     public ViewMatcherImpl(@NonNull List<String> matchList) {
         var builder = new CollectionBuilder<String>();
@@ -59,6 +87,17 @@ public class ViewMatcherImpl implements ViewMatcher {
         this.matchList = builder.toImmutableList();
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * This implementation checks if the logical view ID of the provided view descriptor
+     * starts with any of the configured path prefixes. If any prefix matches, the method
+     * returns true; otherwise, it returns false.
+     *
+     * @param viewDescriptor The view descriptor to match against, must not be null
+     * @return true if the view's logical ID starts with any of the configured prefixes,
+     *         false otherwise
+     */
     @Override
     public boolean match(final ViewDescriptor viewDescriptor) {
         for (String matcher : matchList) {

@@ -22,18 +22,43 @@ import jakarta.faces.component.html.HtmlInputText;
 import jakarta.faces.component.html.HtmlSelectOneMenu;
 
 /**
- * Include strategies to access disable attribute of UIComponent and set this
- * true.
- * UIInput doesn't provide the attribute 'disables' and because not each
- * component stores the attribute value in AttributeMap but uses StateHolder, there
- * is no common easy way to set component disabled.
+ * <p>This enum provides a strategy-based approach to disable different types of JSF UI components.
+ * It addresses the challenge of working with the disabled state across different component
+ * implementations.</p>
+ * 
+ * <p>The challenge stems from the fact that the JSF component hierarchy doesn't define a universal
+ * "disabled" property at the {@link UIComponent} level. Different component types implement the
+ * disabled state in their own ways:</p>
+ * <ul>
+ *   <li>Some components expose a specific setter like {@link HtmlInputText#setDisabled(boolean)}</li>
+ *   <li>Others might store the state in the component's attribute map</li>
+ *   <li>Some might use the JSF state management system behind the scenes</li>
+ * </ul>
+ * 
+ * <p>This enum uses the Strategy pattern to encapsulate these differences, providing a unified
+ * way to disable any supported component type.</p>
+ * 
+ * <p>Usage example:</p>
+ * <pre>
+ * // Disable a component without needing to know its specific type
+ * HtmlInputText inputText = new HtmlInputText();
+ * DisableUIComponentStrategy.disableComponent(inputText);
+ * 
+ * // Will work for different component types
+ * HtmlSelectOneMenu selectMenu = new HtmlSelectOneMenu();
+ * DisableUIComponentStrategy.disableComponent(selectMenu);
+ * </pre>
  *
  * @author Eugen Fischer
  */
 public enum DisableUIComponentStrategy {
 
     /**
-     * Strategy solve disable HtmlInputText descendants
+     * <p>Strategy implementation for disabling {@link HtmlInputText} components and
+     * any components that extend this class.</p>
+     * 
+     * <p>This strategy handles all text input components like standard text fields,
+     * password fields, and other components that inherit from {@link HtmlInputText}.</p>
      */
     INPUT_TEXT(HtmlInputText.class) {
         @Override
@@ -43,7 +68,11 @@ public enum DisableUIComponentStrategy {
     },
 
     /**
-     * Strategy solve disable HtmlSelectOneMenu descendants
+     * <p>Strategy implementation for disabling {@link HtmlSelectOneMenu} components and
+     * any components that extend this class.</p>
+     * 
+     * <p>This strategy handles dropdown selection components and other components
+     * that inherit from {@link HtmlSelectOneMenu}.</p>
      */
     SELECT_MENU(HtmlSelectOneMenu.class) {
         @Override
@@ -53,26 +82,42 @@ public enum DisableUIComponentStrategy {
     };
 
     /**
-     * indicate supported component
+     * <p>The component type this strategy supports.</p>
+     * <p>Used to determine if a given component can be handled by this strategy.</p>
      */
     private final Class<? extends UIComponent> clazz;
 
+    /**
+     * <p>Constructs a new strategy for a specific component type.</p>
+     * 
+     * @param klass The component class this strategy can handle
+     */
     DisableUIComponentStrategy(final Class<? extends UIComponent> klass) {
         clazz = klass;
     }
 
     /**
-     * @param component {@link UIComponent} to be disabled
+     * <p>Implements the specific logic to disable a component of the type
+     * supported by this strategy.</p>
+     * 
+     * <p>This is the template method that each enum constant must implement
+     * to provide component-specific disabling logic.</p>
+     *
+     * @param component The component to disable, guaranteed to be compatible with this strategy
      */
     protected abstract void disable(final UIComponent component);
 
     /**
-     * Disable the component which is passed on.
+     * <p>Disables the given component by finding and applying the appropriate strategy
+     * based on the component's type.</p>
+     * 
+     * <p>This method attempts to find a strategy that can handle the specific component type
+     * by checking if the component is assignable from any of the supported component classes.
+     * If found, it applies the corresponding disabling logic.</p>
      *
-     * @param component {@link UIComponent} must not be null.
-     * @throws NullPointerException     id parameter is null
-     * @throws IllegalArgumentException if no fitting strategy to disable the
-     *                                  component exists
+     * @param component The {@link UIComponent} to disable, must not be null
+     * @throws NullPointerException If the component parameter is null
+     * @throws IllegalArgumentException If no strategy exists for disabling the given component type
      */
     public static void disableComponent(final UIComponent component) {
         requireNonNull(component, "UIComponent must not be null");

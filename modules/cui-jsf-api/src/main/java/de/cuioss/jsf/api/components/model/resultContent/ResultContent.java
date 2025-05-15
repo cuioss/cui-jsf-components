@@ -35,11 +35,71 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Model for requestResultContent.xhtml to display a {@link ResultObject} and
- * handle its errors.
+ * Model for displaying and handling {@link ResultObject}s in JSF views.
  * <p>
- * Should be part of the view (page bean) and instantiated with the
- * {@link ResultObject} during init view action.
+ * This class implements the {@link ErrorController} interface to provide a standard
+ * mechanism for displaying notification messages and controlling content visibility
+ * in response to operation results. It is designed to be used with the composite
+ * component "requestResultContent.xhtml" to render the appropriate UI elements.
+ * </p>
+ * <p>
+ * Key features:
+ * </p>
+ * <ul>
+ *   <li>Processing of {@link ResultObject}s and their result details</li>
+ *   <li>Management of notification messages for display in the UI</li>
+ *   <li>Control over content rendering based on result status</li>
+ *   <li>Support for global faces messages</li>
+ *   <li>Integration with standard logging</li>
+ * </ul>
+ * <p>
+ * Usage pattern:
+ * </p>
+ * <pre>
+ * &#64;Named
+ * &#64;ViewScoped
+ * public class PatientEditBean implements Serializable {
+ *     
+ *     private ResultContent resultContent;
+ *     
+ *     &#64;PostConstruct
+ *     public void init() {
+ *         var result = patientService.loadPatient(patientId);
+ *         resultContent = new ResultContent(result, log);
+ *         
+ *         if (result.isValid()) {
+ *             patient = result.getResult();
+ *         }
+ *     }
+ *     
+ *     public void save() {
+ *         var saveResult = patientService.savePatient(patient);
+ *         resultContent.handleAdditionalResult(saveResult, log);
+ *     }
+ *     
+ *     public ResultContent getResultContent() {
+ *         return resultContent;
+ *     }
+ * }
+ * </pre>
+ * <p>
+ * In the corresponding view file:
+ * </p>
+ * <pre>
+ * &lt;cui:requestResultContent model="#{patientEditBean.resultContent}"&gt;
+ *     &lt;!-- Content to display when there are no blocking errors --&gt;
+ * &lt;/cui:requestResultContent&gt;
+ * </pre>
+ * <p>
+ * This class is not thread-safe and should be used in appropriate scopes
+ * (typically view or request scope).
+ * </p>
+ *
+ * @author Oliver Wolff
+ * @since 1.0
+ * @see ResultObject
+ * @see ResultErrorHandler
+ * @see NotificationBoxMessage
  */
 @NoArgsConstructor
 @ToString
@@ -49,30 +109,57 @@ public class ResultContent implements ErrorController, Serializable {
     @Serial
     private static final long serialVersionUID = -602764736457587401L;
 
+    /**
+     * Collection of notification messages to be displayed.
+     * <p>
+     * Each notification message consists of a display name provider for the message
+     * content and a context state determining its visual styling.
+     * </p>
+     */
     @Getter
     private final List<NotificationBoxMessage> notificationBoxMessages = new ArrayList<>();
 
+    /**
+     * Flag controlling whether the main content should be rendered.
+     * <p>
+     * When set to true, the content within the "requestResultContent" component will
+     * be displayed. When false, only notification messages will be shown.
+     * </p>
+     * <p>
+     * Default is true, but certain result states (like ERROR) may set this to false.
+     * </p>
+     */
     @Getter
     @Setter
     private boolean renderContent = true;
 
     /**
-     * Default constructor using {@link ResultErrorHandler}.
+     * Creates a ResultContent instance that processes the given result object using
+     * the default error handler.
+     * <p>
+     * This constructor immediately processes the result object, extracting any result
+     * details and applying appropriate notification messages and rendering decisions.
+     * </p>
      *
-     * @param resultObject the {@link ResultObject} to display.
-     * @param log          the logger of the page bean.
+     * @param resultObject the result object to process
+     * @param log the logger to use for logging any errors or warnings
      */
     public ResultContent(ResultObject<?> resultObject, CuiLogger log) {
         this(resultObject, new ResultErrorHandler(), log);
     }
 
     /**
-     * Constructor with given {@link ResultErrorHandler} implementation.
+     * Creates a ResultContent instance that processes the given result object using
+     * the specified custom error handler.
+     * <p>
+     * This constructor immediately processes the result object, extracting any result
+     * details and applying appropriate notification messages and rendering decisions
+     * based on the provided error handler's logic.
+     * </p>
      *
-     * @param resultObject the {@link ResultObject} to display.
-     * @param errorHandler a {@link ResultErrorHandler} that will be called when a
-     *                     {@link ResultDetail} is present.
-     * @param log          the logger of the page bean.
+     * @param resultObject the result object to process
+     * @param errorHandler the custom error handler to use for processing result details
+     * @param log the logger to use for logging any errors or warnings
      */
     public ResultContent(ResultObject<?> resultObject, ResultErrorHandler errorHandler, CuiLogger log) {
         var resultDetail = resultObject.getResultDetail();
@@ -81,28 +168,38 @@ public class ResultContent implements ErrorController, Serializable {
     }
 
     /**
-     * Handle (and display) an additional {@link ResultDetail} with default
-     * {@link ResultErrorHandler}.
+     * Processes an additional result object using the default error handler.
+     * <p>
+     * This method allows handling additional result objects after the initial creation
+     * of the ResultContent instance, for example, when multiple operations are performed
+     * sequentially and their results need to be accumulated.
+     * </p>
+     * <p>
+     * If the result object contains a result detail, it will be processed and may
+     * add notification messages or affect content rendering.
+     * </p>
      *
-     * @param resultObject a {@link ResultObject} that may contain a
-     *                     {@link ResultDetail}.
-     *                     If it does not contain a {@link ResultDetail}, nothing will happen.
-     * @param log          the logger of the page bean.
+     * @param resultObject the additional result object to process
+     * @param log the logger to use for logging any errors or warnings
      */
     public void handleAdditionalResult(ResultObject<?> resultObject, CuiLogger log) {
         handleAdditionalResult(resultObject, new ResultErrorHandler(), log);
     }
 
     /**
-     * Handle (and display) a additional {@link ResultDetail} with given
-     * {@link ResultErrorHandler}.
+     * Processes an additional result object using the specified custom error handler.
+     * <p>
+     * This method allows handling additional result objects with custom error handling
+     * logic, for operations performed after the initial creation of the ResultContent instance.
+     * </p>
+     * <p>
+     * If the result object contains a result detail, it will be processed according
+     * to the error handler's logic and may add notification messages or affect content rendering.
+     * </p>
      *
-     * @param resultObject a {@link ResultObject} that may contain a
-     *                     {@link ResultDetail}.
-     *                     If it does not contain a {@link ResultDetail}, nothing will happen.
-     * @param errorHandler a {@link ResultErrorHandler} that will be called when a
-     *                     {@link ResultDetail} is present.
-     * @param log          the logger of the page bean.
+     * @param resultObject the additional result object to process
+     * @param errorHandler the custom error handler to use for processing result details
+     * @param log the logger to use for logging any errors or warnings
      */
     public void handleAdditionalResult(ResultObject<?> resultObject, ResultErrorHandler errorHandler, CuiLogger log) {
         var resultDetail = resultObject.getResultDetail();
@@ -110,19 +207,48 @@ public class ResultContent implements ErrorController, Serializable {
                 resultObject.getErrorCode().orElse(null), this, log));
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Implementation adds a notification box message to the collection of messages
+     * to be displayed in the UI.
+     * </p>
+     *
+     * @param value the message content to display
+     * @param state the contextual state determining the visual styling
+     */
     @Override
     public void addNotificationBox(IDisplayNameProvider<?> value, ContextState state) {
         notificationBoxMessages.add(new NotificationBoxMessage(value, state));
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Implementation delegates to the {@link DisplayNameMessageProducer} to add
+     * a global faces message that will be displayed at the standard messages location.
+     * </p>
+     *
+     * @param value the message content to display
+     * @param severity the JSF severity level for the message
+     */
     @Override
     public void addGlobalFacesMessage(IDisplayNameProvider<?> value, FacesMessage.Severity severity) {
-
         PortalBeanManager.resolveRequiredBean(DisplayNameMessageProducer.class).showAsGlobalMessage(value, severity);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Current implementation does nothing. Future implementations may provide
+     * sticky message functionality.
+     * </p>
+     *
+     * @param value the message content to display (ignored in current implementation)
+     * @param state the contextual state (ignored in current implementation)
+     */
     @Override
     public void addStickyMessage(IDisplayNameProvider<?> value, ContextState state) {
-        //
+        // No implementation yet
     }
 }

@@ -20,70 +20,176 @@ import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
 import jakarta.faces.event.PostAddToViewEvent;
 
 /**
- * Data model for the widget component to be used at patient overview.
+ * Data model interface for widget components within the patient overview UI.
+ * <p>
+ * This interface defines the contract for data models that drive widget components
+ * in the CUI JSF component library. Widgets are self-contained UI components that
+ * display focused content with standardized interaction patterns, commonly used on
+ * dashboards and overview pages.
+ * </p>
+ * <p>
+ * The model extends {@link LazyLoadingModel} to support asynchronous data loading
+ * patterns, which helps optimize the loading of multiple widgets on a page.
+ * </p>
+ * <p>
+ * Key features supported by this model:
+ * </p>
+ * <ul>
+ *   <li>Widget identification and rendering control</li>
+ *   <li>Configurable title and icon display</li>
+ *   <li>Primary and core action navigation support</li>
+ *   <li>State-based action enablement</li>
+ *   <li>Lazy initialization capability</li>
+ * </ul>
+ * <p>
+ * Implementation classes should consider thread safety for their specific use cases.
+ * See {@link BaseWidget} for a standard implementation basis.
+ * </p>
  *
  * @author Matthias Walliczek
+ * @since 1.0
+ * @see BaseWidget
+ * @see LazyLoadingModel
+ * @see DashboardWidgetModel
  */
 public interface WidgetModel extends LazyLoadingModel {
 
     /**
-     * @return the title key of the widget.
+     * Returns the localized title of the widget.
+     * <p>
+     * This provider is used to generate the localized title text displayed in the
+     * widget header. If {@link #getTitleValue()} returns a non-null value, that 
+     * value takes precedence over this provider.
+     * </p>
+     *
+     * @return the display name provider for the widget's title, never null
      */
     IDisplayNameProvider<?> getTitle();
 
     /**
-     * @return the name of the icon or null.
+     * Returns the icon identifier for the widget's title area.
+     * <p>
+     * This icon is typically displayed alongside the title in the widget header.
+     * The returned value should be a valid icon identifier recognized by the
+     * component's rendering system.
+     * </p>
+     *
+     * @return the name/identifier of the icon, or null if no icon should be displayed
      */
     String getTitleIcon();
 
     /**
-     * @return the title of the widget.
-     * Takes precedence over {@linkplain #getTitle()}.
+     * Returns a direct title string for the widget.
+     * <p>
+     * This method allows specifying a literal title string that takes precedence
+     * over the localized title provided by {@link #getTitle()}. This is useful for
+     * dynamic titles that aren't based on a fixed resource key.
+     * </p>
+     *
+     * @return the direct title value, or null to use the localized title from {@link #getTitle()}
      */
     String getTitleValue();
 
     /**
-     * @return the action outcome of the core widget function.
+     * Returns the navigation outcome for the widget's core action.
+     * <p>
+     * The core action typically represents the main functionality of the widget,
+     * such as navigating to a detail view. This outcome will be used for navigation
+     * when the core action is activated.
+     * </p>
+     *
+     * @return the JSF navigation outcome for the core action, or null if no action is available
      */
     String getCoreAction();
 
     /**
-     * @return the action outcome of the primary widget function.
+     * Returns the navigation outcome for the widget's primary action.
+     * <p>
+     * The primary action represents an additional, prominent action available on the
+     * widget, typically displayed as a button or link. This outcome will be used for
+     * navigation when the primary action is activated.
+     * </p>
+     *
+     * @return the JSF navigation outcome for the primary action, or null if no action is available
      */
     String getPrimaryAction();
 
     /**
-     * @return the action title of the primary widget function.
+     * Returns the localized title for the primary action.
+     * <p>
+     * This provider is used to generate the localized text displayed for the
+     * widget's primary action button or link.
+     * </p>
+     *
+     * @return the display name provider for the primary action's title, or null if not applicable
      */
     IDisplayNameProvider<?> getPrimaryActionTitle();
 
     /**
-     * @return should the core action link be disabled?
+     * Determines whether the core action should be disabled.
+     * <p>
+     * When true, the core action will be rendered but not interactive. This is typically
+     * used when an action is contextually unavailable but should still be visible.
+     * </p>
+     *
+     * @return true if the core action should be disabled, false otherwise
      */
     boolean isDisableCoreAction();
 
     /**
-     * @return should the primary action link be rendered?
+     * Determines whether the primary action should be rendered.
+     * <p>
+     * Controls the visibility of the primary action button or link. When false,
+     * the primary action will not be displayed at all.
+     * </p>
+     *
+     * @return true if the primary action should be rendered, false otherwise
      */
     boolean isRenderPrimaryAction();
 
     /**
-     * @return should the primary action link be disabled?
+     * Determines whether the primary action should be disabled.
+     * <p>
+     * When true, the primary action will be rendered but not interactive. This is typically
+     * used when an action is contextually unavailable but should still be visible.
+     * </p>
+     *
+     * @return true if the primary action should be disabled, false otherwise
      */
     boolean isDisablePrimaryAction();
 
     /**
-     * @return the id used for sorting
+     * Returns a unique identifier for this widget.
+     * <p>
+     * This ID is used for sorting and identifying the widget within collections.
+     * It should be unique within the scope of widgets displayed together.
+     * </p>
+     *
+     * @return the unique identifier string for this widget, never null
      */
     String getId();
 
     /**
-     * @return should the widget be rendered?
+     * Determines whether the widget should be rendered at all.
+     * <p>
+     * Controls the overall visibility of the widget. When false, the widget
+     * will not be displayed on the page.
+     * </p>
+     *
+     * @return true if the widget should be rendered, false otherwise
      */
     boolean isRendered();
 
     /**
-     * Start the initialization during {@link PostAddToViewEvent}. Should return immediately.
+     * Initiates asynchronous initialization of the widget.
+     * <p>
+     * This method is typically called during the {@link PostAddToViewEvent} phase
+     * to begin loading the widget's data. The implementation should return immediately
+     * and perform any time-consuming operations asynchronously.
+     * </p>
+     * <p>
+     * While initialization is in progress, the widget may display a loading indicator.
+     * </p>
      */
     void startInitialize();
 }

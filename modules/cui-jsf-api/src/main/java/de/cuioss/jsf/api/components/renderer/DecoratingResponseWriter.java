@@ -36,29 +36,76 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * Used for providing additional convenience methods for a response writer.
- * The API is similar to {@link HtmlTreeBuilder}.
- * The component to be rendered is in a field of the {@link DecoratingResponseWriter} and must therefore not be
- * passed to the corresponding calls.
+ * Enhanced response writer that provides convenience methods for rendering JSF components.
+ * <p>
+ * This class extends the basic {@link ResponseWriterBase} with additional functionality
+ * specifically designed for component rendering. It uses a fluent API style similar to
+ * {@link HtmlTreeBuilder} for building HTML output.
+ * </p>
+ * <p>
+ * The key feature of this class is that it maintains a reference to the component being rendered,
+ * eliminating the need to pass the component to each method call. This simplifies renderer
+ * implementations significantly.
+ * </p>
+ * <p>
+ * Usage example:
+ * </p>
+ * <pre>
+ * protected void doEncodeBegin(FacesContext context, DecoratingResponseWriter&lt;MyComponent&gt; writer,
+ *                              MyComponent component) throws IOException {
+ *     writer.withStartElement(Node.DIV)
+ *           .withStyleClass(component.getStyleClass())
+ *           .withClientIdIfNecessary()
+ *           .withAttributeTitle(component.getTitle())
+ *           .withPassThroughAttributes()
+ *           .withTextContent("Content of my component", true);
+ * }
+ * </pre>
+ * <p>
+ * This class is typically used in conjunction with {@code BaseDecoratorRenderer} implementations
+ * to streamline the component rendering process.
+ * </p>
+ * <p>
+ * Note: This class is not thread-safe and should be used within a single request context.
+ * </p>
  *
  * @author Oliver Wolff
- * @param <T> identifying the wrapped component must be at least {@link UIComponent}
+ * @param <T> The type of the wrapped component, must be at least {@link UIComponent}
+ * @since 1.0
+ * @see ResponseWriterBase
+ * @see HtmlTreeBuilder
  */
 @SuppressWarnings({"GrazieInspection", "resource", "UnusedReturnValue"})
 public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWriterBase {
 
+    /**
+     * The faces context associated with this response writer.
+     */
     private final FacesContext facesContext;
 
+    /**
+     * The UIComponent being rendered by this response writer.
+     */
     @Getter
     @NonNull
     private final T component;
 
+    /**
+     * A wrapper around the component that provides additional utility methods.
+     */
     @Getter
     private final ComponentWrapper<T> componentWrapper;
 
     /**
-     * @param facesContext must not be null
-     * @param component    must not be null
+     * Creates a new instance of DecoratingResponseWriter.
+     * <p>
+     * The constructor initializes the writer with the given faces context and component,
+     * and sets up the internal component wrapper for convenience methods.
+     * </p>
+     *
+     * @param facesContext the current JSF context, must not be null
+     * @param component the component to be rendered, must not be null
+     * @throws NullPointerException if either parameter is null
      */
     public DecoratingResponseWriter(final FacesContext facesContext, final T component) {
         super(requireNonNull(facesContext.getResponseWriter()));
@@ -68,9 +115,14 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     }
 
     /**
-     * @param node identifying the html-Element
-     * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * {@inheritDoc}
+     * <p>
+     * Starts writing an HTML element with the specified node type.
+     * </p>
+     *
+     * @param node the HTML element type to write, must not be null
+     * @return this instance for method chaining
+     * @throws IOException if an I/O error occurs during writing
      */
     @Override
     public DecoratingResponseWriter<T> withStartElement(final Node node) throws IOException {
@@ -79,9 +131,14 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     }
 
     /**
-     * @param node identifying the html-Element
-     * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * {@inheritDoc}
+     * <p>
+     * Ends writing an HTML element with the specified node type.
+     * </p>
+     *
+     * @param node the HTML element type to close, must not be null
+     * @return this instance for method chaining
+     * @throws IOException if an I/O error occurs during writing
      */
     @Override
     public DecoratingResponseWriter<T> withEndElement(final Node node) throws IOException {
@@ -90,12 +147,15 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     }
 
     /**
-     * Write the given text either HTML-escaped or unescaped.
+     * Writes text content to the response, with optional HTML escaping.
+     * <p>
+     * If the provided text is null or empty, nothing will be written.
+     * </p>
      *
-     * @param text   to be written. If it is null or empty, nothing will be written
-     * @param escape Whether to HTML-escape the given text or not.
-     * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * @param text the text content to write
+     * @param escape whether the text should be HTML-escaped (true) or written as-is (false)
+     * @return this instance for method chaining
+     * @throws IOException if an I/O error occurs during writing
      */
     public DecoratingResponseWriter<T> withTextContent(final String text, final boolean escape) throws IOException {
         if (!MoreStrings.isEmpty(text)) {
@@ -109,11 +169,14 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     }
 
     /**
-     * Adds the "class" attribute to the current dom-element.
+     * {@inheritDoc}
+     * <p>
+     * Adds a CSS class attribute to the current element.
+     * </p>
      *
-     * @param styleClass to be set
-     * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * @param styleClass the CSS class name to add
+     * @return this instance for method chaining
+     * @throws IOException if an I/O error occurs during writing
      */
     @Override
     public DecoratingResponseWriter<T> withStyleClass(final String styleClass) throws IOException {
@@ -122,11 +185,14 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     }
 
     /**
-     * Adds the "class" attribute to the current dom-element.
+     * {@inheritDoc}
+     * <p>
+     * Adds a CSS class attribute to the current element using a StyleClassProvider.
+     * </p>
      *
-     * @param styleClass to be set
-     * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * @param styleClass the provider of CSS class names
+     * @return this instance for method chaining
+     * @throws IOException if an I/O error occurs during writing
      */
     @Override
     public DecoratingResponseWriter<T> withStyleClass(final StyleClassProvider styleClass) throws IOException {
@@ -135,11 +201,14 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     }
 
     /**
-     * Adds the "class" attribute to the current dom-element.
+     * {@inheritDoc}
+     * <p>
+     * Adds a CSS class attribute to the current element using a StyleClassBuilder.
+     * </p>
      *
-     * @param styleClass to be set
-     * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * @param styleClass the builder containing CSS class names
+     * @return this instance for method chaining
+     * @throws IOException if an I/O error occurs during writing
      */
     @Override
     public DecoratingResponseWriter<T> withStyleClass(final StyleClassBuilder styleClass) throws IOException {
@@ -148,12 +217,15 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     }
 
     /**
-     * Adds an attribute to the current dom-element.
+     * {@inheritDoc}
+     * <p>
+     * Adds an attribute with the specified name and value to the current element.
+     * </p>
      *
-     * @param attributeName  must not be null
-     * @param attributeValue to be written
-     * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * @param attributeName the name of the attribute, must not be null
+     * @param attributeValue the value of the attribute
+     * @return this instance for method chaining
+     * @throws IOException if an I/O error occurs during writing
      */
     @Override
     public DecoratingResponseWriter<T> withAttribute(final AttributeName attributeName, final String attributeValue)
@@ -163,12 +235,15 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     }
 
     /**
-     * Adds an attribute to the current dom-element.
+     * {@inheritDoc}
+     * <p>
+     * Adds an attribute with the specified name and predefined value to the current element.
+     * </p>
      *
-     * @param attributeName  must not be null
-     * @param attributeValue to be written
-     * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * @param attributeName the name of the attribute, must not be null
+     * @param attributeValue the predefined value of the attribute
+     * @return this instance for method chaining
+     * @throws IOException if an I/O error occurs during writing
      */
     @Override
     public DecoratingResponseWriter<T> withAttribute(final AttributeName attributeName,
@@ -178,11 +253,14 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     }
 
     /**
-     * Adds the titleProvider attribute to the current dom-element.
+     * {@inheritDoc}
+     * <p>
+     * Adds a title attribute to the current element.
+     * </p>
      *
-     * @param title if it is null or empty, not titleProvider will be written
-     * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * @param title the title text to add (if null or empty, no attribute is written)
+     * @return this instance for method chaining
+     * @throws IOException if an I/O error occurs during writing
      */
     @Override
     public DecoratingResponseWriter<T> withAttributeTitle(final String title) throws IOException {
@@ -191,11 +269,14 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     }
 
     /**
-     * Adds the title attribute to the current dom-element.
+     * {@inheritDoc}
+     * <p>
+     * Adds a title attribute to the current element using a TitleProvider.
+     * </p>
      *
-     * @param titleProvider if it is null or empty, not title will be written
-     * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * @param titleProvider the provider of the title text
+     * @return this instance for method chaining
+     * @throws IOException if an I/O error occurs during writing
      */
     @Override
     public DecoratingResponseWriter<T> withAttributeTitle(final TitleProvider titleProvider) throws IOException {
@@ -204,11 +285,14 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     }
 
     /**
-     * Adds the style attribute to the current dom-element.
+     * {@inheritDoc}
+     * <p>
+     * Adds a style attribute to the current element.
+     * </p>
      *
-     * @param style if it is null or empty, no style-attribute will be written
-     * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * @param style the CSS inline style to add (if null or empty, no attribute is written)
+     * @return this instance for method chaining
+     * @throws IOException if an I/O error occurs during writing
      */
     @Override
     public DecoratingResponseWriter<T> withAttributeStyle(final String style) throws IOException {
@@ -217,11 +301,14 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     }
 
     /**
-     * Adds the style attribute to the current dom-element.
+     * {@inheritDoc}
+     * <p>
+     * Adds a style attribute to the current element using a StyleAttributeProvider.
+     * </p>
      *
-     * @param style if it is null or empty, no style-attribute will be written
-     * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * @param style the provider of CSS inline styles
+     * @return this instance for method chaining
+     * @throws IOException if an I/O error occurs during writing
      */
     @Override
     public DecoratingResponseWriter<T> withAttributeStyle(final StyleAttributeProvider style) throws IOException {
@@ -229,16 +316,17 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
         return this;
     }
 
-
     /**
-     * Writes the id AND the name attribute for a given element (represented by the
-     * state of the given ResponseWriter)
+     * Writes both ID and NAME attributes for the current element using the component's client ID
+     * with an optional suffix.
+     * <p>
+     * The resulting ID will be the component's client ID followed by an underscore and the
+     * provided extension, e.g., "componentId_extension".
+     * </p>
      *
-     * @param idExtension if not null it will be appended to the derived ClientId.
-     *                    In addition there will be an underscore appended: The
-     *                    result will be component.getClientId() + "_" + idExtension
-     * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * @param idExtension the suffix to append to the client ID (null is allowed)
+     * @return this instance for method chaining
+     * @throws IOException if an I/O error occurs during writing
      */
     public DecoratingResponseWriter<T> withClientId(final String idExtension) throws IOException {
         final var idString = componentWrapper.getSuffixedClientId(idExtension);
@@ -247,11 +335,10 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     }
 
     /**
-     * Writes the id AND the name attribute for a given element (represented by the
-     * state of the given ResponseWriter)
+     * Writes both ID and NAME attributes for the current element using the component's client ID.
      *
-     * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * @return this instance for method chaining
+     * @throws IOException if an I/O error occurs during writing
      */
     public DecoratingResponseWriter<T> withClientId() throws IOException {
         withAttribute(AttributeName.ID, componentWrapper.getClientId());
@@ -259,28 +346,32 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     }
 
     /**
-     * Escape id for JavaScript selector. Escapes the following chars with a single
-     * backslash: :.[],=@
+     * Escapes special characters in a JavaScript identifier.
+     * <p>
+     * This method escapes the following characters with a backslash: :.[],=@
+     * to make them safe for use in jQuery selectors.
+     * </p>
      *
+     * @param id the identifier to escape
+     * @return the escaped identifier
      * @see <a href="http://api.jquery.com/category/selectors/">jQuery Selectors</a>
-     * @see <a href=
-     *      "https://learn.jquery.com/using-jquery-core/faq/how-do-i-select-an-element-by-an-id-that-has-characters-used-in-css-notation/">jQuery
-     *      FAQ</a>
-     *
-     * @param id to be escaped
-     * @return escaped id
+     * @see <a href="https://learn.jquery.com/using-jquery-core/faq/how-do-i-select-an-element-by-an-id-that-has-characters-used-in-css-notation/">jQuery FAQ</a>
      */
     public static String escapeJavaScriptIdentifier(final String id) {
         return id.replaceAll("(:|\\.|\\[|\\]|,|=|@)", "\\\\$1");
     }
 
     /**
-     * Writes the id AND the name attribute for a given element (represented by the
-     * state of the given ResponseWriter) if the client id is to be rendered, see
-     * {@link ComponentWrapper#shouldRenderClientId()} on the algorithm.
+     * Writes both ID and NAME attributes for the current element, but only if necessary
+     * according to the component's requirements.
+     * <p>
+     * This method uses {@link ComponentWrapper#shouldRenderClientId()} to determine
+     * if the client ID should be rendered.
+     * </p>
      *
-     * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * @return this instance for method chaining
+     * @throws IOException if an I/O error occurs during writing
+     * @see ComponentWrapper#shouldRenderClientId()
      */
     public DecoratingResponseWriter<T> withClientIdIfNecessary() throws IOException {
         if (componentWrapper.shouldRenderClientId()) {
@@ -290,12 +381,13 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     }
 
     /**
-     * Writes the pass-through-attributes to the given element (represented by the
-     * state of the given ResponseWriter). In case there are no
-     * pass-through-attributes, nothing will happen.
+     * Writes all pass-through attributes from the component to the current element.
+     * <p>
+     * If the component has no pass-through attributes, this method does nothing.
+     * </p>
      *
-     * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * @return this instance for method chaining
+     * @throws IOException if an I/O error occurs during writing
      */
     public DecoratingResponseWriter<T> withPassThroughAttributes() throws IOException {
         super.withPassThroughAttributes(facesContext, component.getPassThroughAttributes(false));
@@ -303,14 +395,16 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
     }
 
     /**
-     * Write an input with type=hidden a generated id and the given value
+     * Writes a hidden input field with a generated ID and specified value.
+     * <p>
+     * The ID will be the component's client ID followed by an underscore and the provided
+     * extension, e.g., "componentId_extension".
+     * </p>
      *
-     * @param idExtension if not null, it will be appended to the derived ClientId.
-     *                    In addition, there will be an underscore appended: The
-     *                    result will be component.getClientId() + "_" + idExtension
-     * @param value       to be written if not null.
-     * @return the {@link DecoratingResponseWriter}
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * @param idExtension the suffix to append to the client ID (null is allowed)
+     * @param value the value to set for the hidden field (if null, an empty value is used)
+     * @return this instance for method chaining
+     * @throws IOException if an I/O error occurs during writing
      */
     public DecoratingResponseWriter<T> withHiddenField(final String idExtension, final Serializable value)
             throws IOException {
@@ -324,24 +418,31 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
             withAttribute(AttributeName.VALUE, valueString);
         }
         return withEndElement(Node.INPUT);
-
     }
 
     /**
-     * Retrieve an attribute for the renderer
+     * Retrieves a transient rendering attribute stored on the component.
+     * <p>
+     * This is useful for storing temporary data during the rendering process
+     * that should not be persisted in the component state.
+     * </p>
      *
-     * @param key the key
-     * @return the value if present, otherwise null
+     * @param key the key for the attribute to retrieve
+     * @return the value of the attribute, or null if not found
      */
     public Object getRenderAttribute(final Serializable key) {
         return component.getTransientStateHelper().getTransient(key);
     }
 
     /**
-     * Store a attribute for the renderer
+     * Stores a transient rendering attribute on the component.
+     * <p>
+     * This is useful for storing temporary data during the rendering process
+     * that should not be persisted in the component state.
+     * </p>
      *
-     * @param key   the key
-     * @param value the value
+     * @param key the key for the attribute to store
+     * @param value the value to store
      */
     public void putRenderAttribute(final Serializable key, final Serializable value) {
         component.getTransientStateHelper().putTransient(key, value);

@@ -35,14 +35,55 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Mock implementation of {@link MessageProducer} that will solely store the
- * messages inside. It provides access on the messages, see
- * {@link #getComponentMessages()} and {@link #getComponentMessages()} and an
- * assert: {@link #assertSingleGlobalMessageWithKeyPresent(String)}. The keys
- * will not be resolved and can therefore be queried directly. It can be easily
- * configured as bean by using {@link JsfTestConfiguration}
+ * Mock implementation of {@link MessageProducer} for testing JSF message handling.
+ * <p>
+ * This class captures messages created during a test rather than displaying them in the UI,
+ * allowing verification of message creation behavior. Messages are stored in separate lists
+ * for global and component-specific messages and can be accessed for assertions.
+ * </p>
+ * <p>
+ * The mock preserves the original message keys without performing resource bundle resolution,
+ * making it easy to verify that specific message keys were used. It provides convenience
+ * methods for common assertion patterns.
+ * </p>
+ * <p>
+ * Usage example:
+ * <pre>
+ * {@code
+ * @EnableJSFCDIEnvironment
+ * @EnableResourceBundleSupport
+ * class MessageTest {
+ *     
+ *     @Inject
+ *     private MessageProducerMock messageProducer;
+ *     
+ *     @Inject
+ *     private ComponentUnderTest component;
+ *     
+ *     @Test
+ *     void shouldDisplayErrorOnInvalidInput() {
+ *         // Given
+ *         component.setValue("invalid");
+ *         
+ *         // When
+ *         component.validate();
+ *         
+ *         // Then
+ *         messageProducer.assertGlobalMessageWithKeyPresent(
+ *             FacesMessage.SEVERITY_ERROR, 
+ *             "validation.error.key");
+ *     }
+ * }
+ * }
+ * </pre>
+ * </p>
+ * <p>
+ * This class is thread-safe within the scope of a single request, as defined by
+ * its {@link RequestScoped} context.
+ * </p>
  *
  * @author Matthias Walliczek
+ * @since 1.0
  */
 @RequestScoped
 @EqualsAndHashCode(callSuper = false)
@@ -55,14 +96,37 @@ public class MessageProducerMock implements MessageProducer {
     @Serial
     private static final long serialVersionUID = -7244733672736029893L;
 
+    /**
+     * Collection of all global messages created during the test.
+     * <p>
+     * Global messages are those created without a specific component ID.
+     * </p>
+     * 
+     * @return unmodifiable list of global {@link FacesMessage} objects
+     */
     @Getter
     private final List<FacesMessage> globalMessages = new ArrayList<>();
 
+    /**
+     * Collection of all component-specific messages created during the test.
+     * <p>
+     * Component messages are those created with a specific component ID.
+     * </p>
+     * 
+     * @return unmodifiable list of component-specific {@link FacesMessage} objects
+     */
     @Getter
     private final List<FacesMessage> componentMessages = new ArrayList<>();
 
     /**
-     * @param expectedKey to be checked against
+     * Verifies that exactly one global message exists with the expected key.
+     * <p>
+     * This method will trigger a JUnit assertion failure if there is not exactly
+     * one global message with the given key.
+     * </p>
+     *
+     * @param expectedKey the message key to check for, must not be null
+     * @throws AssertionError if the assertion fails
      */
     public void assertSingleGlobalMessageWithKeyPresent(final String expectedKey) {
         var messagesAsString = createStringViewMessage(globalMessages);
@@ -71,10 +135,15 @@ public class MessageProducerMock implements MessageProducer {
     }
 
     /**
-     * Asserts, that the given global message is present at least once.
+     * Asserts that at least one global message exists with the given severity and key.
+     * <p>
+     * This method will trigger a JUnit assertion failure if no matching message is found.
+     * </p>
      *
-     * @param severity   of the message. required!
-     * @param messageKey of the message. required!
+     * @param severity   the expected message severity, must not be null
+     * @param messageKey the expected message key, must not be null
+     * @throws AssertionError if the assertion fails
+     * @throws IllegalArgumentException if any parameter is null
      */
     public void assertGlobalMessageWithKeyPresent(final FacesMessage.Severity severity, final String messageKey) {
         Preconditions.checkArgument(null != severity, "severity required");
@@ -85,10 +154,15 @@ public class MessageProducerMock implements MessageProducer {
     }
 
     /**
-     * Asserts, that the given component message is present at least once.
+     * Asserts that at least one component-specific message exists with the given severity and key.
+     * <p>
+     * This method will trigger a JUnit assertion failure if no matching message is found.
+     * </p>
      *
-     * @param severity   of the message. required!
-     * @param messageKey of the message. required!
+     * @param severity   the expected message severity, must not be null
+     * @param messageKey the expected message key, must not be null
+     * @throws AssertionError if the assertion fails
+     * @throws IllegalArgumentException if any parameter is null
      */
     public void assertComponentMessageWithKeyPresent(final FacesMessage.Severity severity, final String messageKey) {
         Preconditions.checkArgument(null != severity, "severity required");
@@ -99,10 +173,14 @@ public class MessageProducerMock implements MessageProducer {
     }
 
     /**
-     * @param severity   of the message. required!
-     * @param messageKey of the message. required!
+     * Retrieves all global messages with the specified severity and message key.
+     * <p>
+     * This method allows for more detailed inspection of messages beyond simple assertions.
+     * </p>
      *
-     * @return all global messages found with the given severity and message key
+     * @param severity   the message severity to filter by, must not be null
+     * @param messageKey the message key to filter by, must not be null
+     * @return a list of matching {@link FacesMessage} objects, may be empty but never null
      */
     public List<FacesMessage> getGlobalMessagesForKey(final FacesMessage.Severity severity, final String messageKey) {
         return globalMessages.stream().filter(facesMessage -> severity.equals(facesMessage.getSeverity()))
@@ -110,10 +188,14 @@ public class MessageProducerMock implements MessageProducer {
     }
 
     /**
-     * @param severity   of the message. required!
-     * @param messageKey of the message. required!
+     * Retrieves all component-specific messages with the specified severity and message key.
+     * <p>
+     * This method allows for more detailed inspection of messages beyond simple assertions.
+     * </p>
      *
-     * @return all component messages found with the given severity and message key
+     * @param severity   the message severity to filter by, must not be null
+     * @param messageKey the message key to filter by, must not be null
+     * @return a list of matching {@link FacesMessage} objects, may be empty but never null
      */
     public List<FacesMessage> getComponentMessagesForKey(final FacesMessage.Severity severity,
             final String messageKey) {
@@ -122,7 +204,14 @@ public class MessageProducerMock implements MessageProducer {
     }
 
     /**
-     * @param partialText to be checked against
+     * Asserts that at least one global message contains the specified text.
+     * <p>
+     * This is useful for verifying messages when the exact key is not important,
+     * but the content must contain some specific text.
+     * </p>
+     *
+     * @param partialText the text fragment to search for in messages
+     * @throws AssertionError if no message containing the text is found
      */
     public void assertMessagePresentContaining(final String partialText) {
         assertNotEquals(0, globalMessages.size(), "No Message present");
@@ -138,7 +227,10 @@ public class MessageProducerMock implements MessageProducer {
     }
 
     /**
-     * Clears all contained messages.
+     * Removes all stored messages from this mock.
+     * <p>
+     * This is useful for clearing the state between test cases or test phases.
+     * </p>
      */
     public void clear() {
         globalMessages.clear();
@@ -146,13 +238,27 @@ public class MessageProducerMock implements MessageProducer {
     }
 
     /**
-     * Assert that no message was added.
+     * Verifies that no messages have been added.
+     * <p>
+     * This method will trigger a JUnit assertion failure if any messages exist.
+     * </p>
+     *
+     * @throws AssertionError if any messages are present
      */
     public void assertThatNoMessageIsPresent() {
         var messagesAsString = createStringViewMessage(globalMessages);
         assertEquals(0, globalMessages.size(), "Expected no message present but found " + messagesAsString);
     }
 
+    /**
+     * Creates a human-readable string representation of a list of messages.
+     * <p>
+     * Used internally for creating informative assertion failure messages.
+     * </p>
+     *
+     * @param facesMessages the list of messages to format
+     * @return a formatted string containing message details
+     */
     private String createStringViewMessage(List<FacesMessage> facesMessages) {
         if (MoreCollections.isEmpty(facesMessages)) {
             return "no Message found";
@@ -170,6 +276,13 @@ public class MessageProducerMock implements MessageProducer {
         return builder.toString();
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * In this mock implementation, the message is stored for later verification
+     * rather than being displayed.
+     * </p>
+     */
     @Override
     public void setFacesMessage(final String messageKey, final FacesMessage.Severity severity, final String componentId,
             final Object... parameter) {
@@ -180,6 +293,13 @@ public class MessageProducerMock implements MessageProducer {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * In this mock implementation, the message is stored for later verification
+     * rather than being displayed.
+     * </p>
+     */
     @Override
     public void addMessage(final String message, final Severity severity, final String componentId,
             final Object... parameter) {
@@ -190,6 +310,14 @@ public class MessageProducerMock implements MessageProducer {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * In this mock implementation, the returned message uses the message key directly 
+     * without resource bundle resolution. This makes testing easier by allowing direct
+     * key comparison.
+     * </p>
+     */
     @Override
     public FacesMessage getMessageFor(final String messageKey, final Severity severity, final Object... parameter) {
         return new FacesMessage(severity, messageKey, messageKey);

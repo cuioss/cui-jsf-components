@@ -21,9 +21,33 @@ import de.cuioss.tools.string.Joiner;
 import de.cuioss.tools.string.Splitter;
 
 /**
- * Provides a simple way to create a correctly escaped JQuery-selector
+ * <p>Abstract base class that provides a simple way to create correctly escaped jQuery selectors
+ * for use in JavaScript code generation.</p>
+ * 
+ * <p>This class handles the escaping of special characters in JSF client IDs (particularly
+ * the colon character ':') to ensure they work properly as jQuery selectors. Concrete implementations
+ * only need to provide the raw ID string via the {@link #getIdString()} method.</p>
+ * 
+ * <p>The resulting jQuery selector follows the format {@code jQuery('#id')} where id is properly
+ * escaped. For example, a JSF client ID like "form:component" would become "jQuery('#form\\:component')".</p>
+ * 
+ * <p>Usage example:</p>
+ * <pre>
+ * {@code
+ * JQuerySelector selector = new JQuerySelector() {
+ *     @Override
+ *     protected String getIdString() {
+ *         return "form:inputField";
+ *     }
+ * };
+ * String jqueryCode = selector.script(); // Returns: jQuery('#form\\:inputField')
+ * }
+ * </pre>
  *
  * @author Oliver Wolff
+ * @see ComponentWrapperJQuerySelector
+ * @see ScriptProvider
+ * @since 1.0
  */
 public abstract class JQuerySelector implements ScriptProvider {
 
@@ -33,28 +57,34 @@ public abstract class JQuerySelector implements ScriptProvider {
     public static final String SELECTOR_TEMPLATE = "jQuery('#%s')";
 
     /**
-     * @return the corresponding jQuerySelectorString, e.g., for a given component
-     * providing the id "a:b" it returns "jQuery('#a\\\\:b')" saying it
-     * takes care on the proper masking of the clientIds.
+     * Generates a correctly formatted and escaped jQuery selector string based on
+     * the ID provided by {@link #getIdString()}.
+     *
+     * @return the corresponding jQuery selector string with proper escaping
+     * @see ScriptProvider#script()
      */
     @Override
     public String script() {
         return SELECTOR_TEMPLATE.formatted(escapeClientId(getIdString()));
     }
 
+    /**
+     * To be implemented by concrete subclasses to provide the raw ID string
+     * that will be used in the jQuery selector.
+     *
+     * @return the unescaped ID string to be used in the jQuery selector
+     */
     protected abstract String getIdString();
 
     /**
-     * Escapes a given id String to be used within javascript, e.g., for a
-     * given component providing the id "a:b" it returns "'a\\\\:b'" saying it takes
-     * care on the proper masking of the clientIds.
+     * Utility method that escapes a given ID string to be used within JavaScript.
+     * Specifically handles the colon character in JSF client IDs.
      *
-     * @param idString
-     * @return the escaped String
+     * @param idString the raw ID string to escape, can be null (will be treated as empty string)
+     * @return the escaped string with properly escaped colons for use in JavaScript
      */
     public static String escapeClientId(final String idString) {
         final Iterable<String> splitted = Splitter.on(':').splitToList(nullToEmpty(idString));
         return Joiner.on("\\\\:").join(splitted);
     }
-
 }

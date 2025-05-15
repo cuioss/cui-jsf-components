@@ -28,32 +28,90 @@ import lombok.Getter;
 import java.io.IOException;
 
 /**
- * This response writer is used for replacing certain html elements, see javadoc
- * of
- * {@link #ElementReplacingResponseWriter(ResponseWriter, String, String, boolean)}
+ * A specialized {@link ResponseWriterWrapper} that dynamically replaces one HTML element type
+ * with another during rendering.
+ * <p>
+ * This class can be used when you need to render a component with a different HTML element
+ * than originally defined, without modifying the component implementation itself. It works
+ * by intercepting calls to write start and end elements, and replacing specified element names
+ * with alternatives.
+ * </p>
+ * <p>
+ * For example, you might want to render a component that normally outputs a &lt;div&gt;
+ * element as a &lt;span&gt; element instead. This writer enables that transformation
+ * transparently during the rendering process.
+ * </p>
+ * <p>
+ * The class also supports optionally omitting the closing tag of the replaced element
+ * if needed.
+ * </p>
+ * <p>
+ * Usage example:
+ * </p>
+ * <pre>
+ * // Replace div elements with span elements
+ * ResponseWriter original = context.getResponseWriter();
+ * ElementReplacingResponseWriter writer = new ElementReplacingResponseWriter(
+ *     original, "div", "span", false);
+ *     
+ * // Use the writer normally - div elements will be rendered as span
+ * writer.startElement("div", component); // Will actually write &lt;span&gt;
+ * writer.writeText("Content", null);
+ * writer.endElement("div"); // Will actually write &lt;/span&gt;
+ * 
+ * // Alternative usage with wrapped FacesContext
+ * FacesContext wrappedContext = ElementReplacingResponseWriter.createWrappedReplacingResonseWriter(
+ *     context, "div", "span", false);
+ * // Use wrappedContext with components that will now render div as span
+ * </pre>
+ * <p>
+ * This class is not thread-safe and should be used within a single request context.
+ * </p>
  *
  * @author Oliver Wolff
- *
+ * @since 1.0
+ * @see ResponseWriterWrapper
+ * @see FacesContextWrapper
  */
 public class ElementReplacingResponseWriter extends ResponseWriterWrapper {
 
+    /**
+     * The wrapped response writer that this element-replacing writer delegates to.
+     */
     @Getter
     private final ResponseWriter wrapped;
 
+    /**
+     * The HTML element name that will be replaced during rendering.
+     */
     private final String filterElement;
+    
+    /**
+     * The HTML element name that will replace the filtered element.
+     */
     private final String replaceElement;
+    
+    /**
+     * Flag indicating whether to skip writing the closing tag for the replaced element.
+     */
     private final boolean ignoreCloseElement;
 
     /**
-     * Constructor.
+     * Creates a new ElementReplacingResponseWriter with specified element replacement settings.
+     * <p>
+     * This constructor initializes the writer with the given ResponseWriter delegate and
+     * element replacement configuration.
+     * </p>
      *
-     * @param delegate           the {@link ResponseWriter} to be delegated to
-     * @param filterElement      the Html element to be filtered, / replaced, must
-     *                           not be null nor empty.
-     * @param replaceElement     the replacement element, must not be null nor
-     *                           empty.
-     * @param ignoreCloseElement indicates whether to filter / ignore the closing of
-     *                           an element
+     * @param delegate the {@link ResponseWriter} to be delegated to, must not be null
+     * @param filterElement the HTML element name to be replaced (e.g., "div"), 
+     *                     must not be null or empty
+     * @param replaceElement the replacement HTML element name (e.g., "span"), 
+     *                      must not be null or empty
+     * @param ignoreCloseElement if true, the closing tag for the replaced element will be omitted;
+     *                         if false, the closing tag will be written with the replacement element name
+     * @throws NullPointerException if delegate, filterElement, or replaceElement is null
+     * @throws IllegalArgumentException if filterElement or replaceElement is empty
      */
     public ElementReplacingResponseWriter(final ResponseWriter delegate, final String filterElement,
             final String replaceElement, final boolean ignoreCloseElement) {
@@ -64,6 +122,17 @@ public class ElementReplacingResponseWriter extends ResponseWriterWrapper {
         this.ignoreCloseElement = ignoreCloseElement;
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Overrides the startElement method to replace the filtered element name with
+     * the replacement element name when encountered.
+     * </p>
+     *
+     * @param name the original element name
+     * @param component the UIComponent instance being rendered
+     * @throws IOException if an I/O error occurs during writing
+     */
     @Override
     public void startElement(final String name, final UIComponent component) throws IOException {
         if (filterElement.equals(name)) {
@@ -73,6 +142,17 @@ public class ElementReplacingResponseWriter extends ResponseWriterWrapper {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Overrides the endElement method to replace the filtered element name with
+     * the replacement element name when encountered, or to omit the closing tag
+     * entirely if ignoreCloseElement is true.
+     * </p>
+     *
+     * @param name the original element name
+     * @throws IOException if an I/O error occurs during writing
+     */
     @Override
     public void endElement(final String name) throws IOException {
         if (filterElement.equals(name)) {
@@ -85,15 +165,24 @@ public class ElementReplacingResponseWriter extends ResponseWriterWrapper {
     }
 
     /**
-     * @param context            to be wrapped
-     * @param filterElement      the Html element to be filtered, / replaced, must
-     *                           not be null nor empty.
-     * @param replaceElement     the replacement element, must not be null nor
-     *                           empty.
-     * @param ignoreCloseElement indicates whether to filter / ignore the closing of
-     *                           an element
-     * @return a {@link FacesContextWrapper} providing an instance of
-     *         {@link ElementReplacingResponseWriter} with the configured parameter
+     * Creates a wrapped FacesContext that provides an ElementReplacingResponseWriter.
+     * <p>
+     * This convenience method creates a FacesContextWrapper that automatically provides
+     * an ElementReplacingResponseWriter when getResponseWriter() is called. This allows
+     * components and renderers to transparently use the element replacement functionality
+     * without explicitly creating the writer.
+     * </p>
+     *
+     * @param context the original FacesContext to wrap, must not be null
+     * @param filterElement the HTML element name to be replaced (e.g., "div"),
+     *                     must not be null or empty
+     * @param replaceElement the replacement HTML element name (e.g., "span"),
+     *                      must not be null or empty
+     * @param ignoreCloseElement if true, the closing tag for the replaced element will be omitted;
+     *                         if false, the closing tag will be written with the replacement element name
+     * @return a wrapped FacesContext that provides an ElementReplacingResponseWriter
+     * @throws NullPointerException if any parameter is null
+     * @throws IllegalArgumentException if filterElement or replaceElement is empty
      */
     public static FacesContext createWrappedReplacingResonseWriter(final FacesContext context,
             final String filterElement, final String replaceElement, final boolean ignoreCloseElement) {
@@ -104,7 +193,6 @@ public class ElementReplacingResponseWriter extends ResponseWriterWrapper {
                 return new ElementReplacingResponseWriter(context.getResponseWriter(), filterElement, replaceElement,
                         ignoreCloseElement);
             }
-
         };
     }
 }

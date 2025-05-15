@@ -23,11 +23,34 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
- * Simple base class for creating JQuery-specific selectors: e.g., for a given
- * component providing the id "a:b" it returns "jQuery('#a\\\\:b')" saying it
- * takes care on the proper masking of the clientIds.
+ * <p>Specialized jQuery selector for wrapped JSF components that handles JSF client ID escaping.</p>
+ * 
+ * <p>This class creates properly escaped jQuery selectors for JSF components by handling
+ * the colon (":") character that is commonly found in JSF client IDs. For a given
+ * component providing the id "a:b", it returns "jQuery('#a\\\\:b')" with proper escaping.</p>
+ * 
+ * <p>The implementation is based on a {@link ComponentWrapper} which provides runtime
+ * access to the component's client ID. An optional ID extension can be provided to target
+ * specific parts of a component (e.g., to select a specific child element).</p>
+ * 
+ * <p>Usage example:</p>
+ * <pre>
+ * {@code
+ * // Create a jQuery selector for a component
+ * String jQuerySelector = ComponentWrapperJQuerySelector.builder()
+ *     .withComponentWrapper(componentWrapper)
+ *     .withIdExtension("input")
+ *     .build()
+ *     .getJQueryString();
+ * }
+ * </pre>
+ * 
+ * <p>This class is immutable and thread-safe once constructed.</p>
  *
  * @author Oliver Wolff
+ * @see JQuerySelector
+ * @see ComponentWrapper
+ * @since 1.0
  */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
@@ -52,9 +75,13 @@ public class ComponentWrapperJQuerySelector extends JQuerySelector {
     }
 
     /**
-     * Builder for creating instances of {@link ComponentWrapperJQuerySelector}
+     * <p>Builder for creating instances of {@link ComponentWrapperJQuerySelector}.</p>
+     * 
+     * <p>This builder provides a fluent API for constructing jQuery selectors for
+     * component wrappers, with optional ID extensions.</p>
      *
      * @author Oliver Wolff
+     * @since 1.0
      */
     public static class ComponentWrapperJQuerySelectorBuilder {
 
@@ -62,8 +89,10 @@ public class ComponentWrapperJQuerySelector extends JQuerySelector {
         private String idExtension;
 
         /**
-         * @param componentWrapper
-         * @return an instance of {@link ComponentWrapperJQuerySelectorBuilder}
+         * Sets the component wrapper for which to create a jQuery selector.
+         *
+         * @param componentWrapper the {@link ComponentWrapper} providing access to the JSF component
+         * @return this builder instance for method chaining
          */
         public ComponentWrapperJQuerySelectorBuilder withComponentWrapper(
             final ComponentWrapper<? extends UIComponent> componentWrapper) {
@@ -72,10 +101,12 @@ public class ComponentWrapperJQuerySelector extends JQuerySelector {
         }
 
         /**
+         * Sets an optional ID extension to be appended to the component's client ID.
+         *
          * @param idExtension if not null, it will be appended to the derived ClientId.
          *                    In addition, there will be an underscore appended: The
          *                    result will be component.getClientId() + "_" + idExtension
-         * @return an instance of {@link ComponentWrapperJQuerySelectorBuilder}
+         * @return this builder instance for method chaining
          */
         public ComponentWrapperJQuerySelectorBuilder withIdExtension(final String idExtension) {
             this.idExtension = idExtension;
@@ -83,7 +114,11 @@ public class ComponentWrapperJQuerySelector extends JQuerySelector {
         }
 
         /**
-         * @return the created {@link ComponentWrapperJQuerySelector}
+         * Builds and returns a new {@link ComponentWrapperJQuerySelector} instance with the
+         * configured properties.
+         *
+         * @return a new {@link ComponentWrapperJQuerySelector} instance
+         * @throws NullPointerException if componentWrapper is null
          */
         public ComponentWrapperJQuerySelector build() {
             return new ComponentWrapperJQuerySelector(componentWrapper, idExtension);
@@ -91,7 +126,9 @@ public class ComponentWrapperJQuerySelector extends JQuerySelector {
     }
 
     /**
-     * @return an instance of {@link ComponentWrapperJQuerySelectorBuilder}
+     * Creates a new builder for {@link ComponentWrapperJQuerySelector} instances.
+     *
+     * @return a new {@link ComponentWrapperJQuerySelectorBuilder} instance
      */
     public static ComponentWrapperJQuerySelectorBuilder builder() {
         return new ComponentWrapperJQuerySelectorBuilder();

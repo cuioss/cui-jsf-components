@@ -25,12 +25,33 @@ import lombok.ToString;
 import java.io.Serial;
 
 /**
- * Helper class utilized for accessing Project Stage information in a convenient
- * way. It needs to be registered as an Application Scoped bean, because the
- * Project stage does not change between startup.
+ * Implementation of {@link CuiProjectStage} that maps JSF {@link ProjectStage} information
+ * to the CUI project stage model.
+ * <p>
+ * This class provides a bridge between JSF's built-in project stage system and the CUI
+ * project stage abstraction. It maps:
+ * <ul>
+ *   <li>{@link ProjectStage#Development} to {@link #isDevelopment()}</li>
+ *   <li>{@link ProjectStage#SystemTest} to {@link #isTest()}</li>
+ *   <li>{@link ProjectStage#Production} to {@link #isProduction()}</li>
+ * </ul>
+ * Note that there is no JSF equivalent for the {@link #isConfiguration()} stage,
+ * so this always returns false.
+ * 
+ * <p>
+ * This class is package-private and is intended to be used only by {@link CuiProjectStageAccessor}.
+ * The determination of the project stage happens only once during initialization.
+ * 
+ * <p>
+ * This class is not thread-safe for initialization, but after initialization it is immutable
+ * and therefore thread-safe for reading.
  *
  * @author Oliver Wolff
  * @author Sven Haag
+ * @since 1.0
+ * @see CuiProjectStage
+ * @see ProjectStage
+ * @see CuiProjectStageAccessor
  */
 @EqualsAndHashCode
 @ToString
@@ -39,20 +60,41 @@ class CuiProjectStageImpl implements CuiProjectStage {
     @Serial
     private static final long serialVersionUID = -2464134252511225231L;
 
+    /**
+     * Flag indicating whether the application is running in development mode.
+     * Maps to {@link ProjectStage#Development}.
+     */
     @Getter
     private boolean development;
 
+    /**
+     * Flag indicating whether the application is running in test mode.
+     * Maps to {@link ProjectStage#SystemTest}.
+     */
     @Getter
     private boolean test;
 
+    /**
+     * Flag indicating whether the application is running in configuration mode.
+     * This has no JSF equivalent and always returns false.
+     */
     @Getter
     private boolean configuration;
 
+    /**
+     * Flag indicating whether the application is running in production mode.
+     * Maps to {@link ProjectStage#Production}.
+     */
     @Getter
     private boolean production;
 
     /**
-     * Initializes the bean. See class documentation for expected result.
+     * Initializes this instance by determining the current JSF project stage
+     * and setting the corresponding flags.
+     * <p>
+     * This method should be called exactly once during the lifecycle of this object,
+     * typically immediately after construction.
+     * </p>
      */
     void initBean() {
         var projectStage = FacesContext.getCurrentInstance().getApplication().getProjectStage();

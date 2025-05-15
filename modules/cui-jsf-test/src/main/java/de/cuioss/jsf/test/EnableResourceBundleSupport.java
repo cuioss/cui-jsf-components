@@ -25,11 +25,46 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * It adds the {@link LocaleProducerMock}, {@link MirrorCuiRessourcBundle} and
- * {@link MessageProducerMock}.
- *
+ * JUnit 5 annotation that enables resource bundle and internationalization support for JSF tests.
+ * <p>
+ * This annotation registers the necessary mock beans to provide localization and resource bundle
+ * capabilities in a test environment. It's particularly useful for testing components that
+ * rely on message bundles, localized content, or internationalization features.
+ * </p>
+ * <p>
+ * The annotation registers the following mock beans:
+ * <ul>
+ * <li>{@link LocaleProducerMock}: Provides locale information for the test environment</li>
+ * <li>{@link MirrorCuiRessourcBundle}: A mock resource bundle that simplifies message key resolution</li>
+ * <li>{@link MessageProducerMock}: Produces messages from resource bundles for testing</li>
+ * </ul>
+ * </p>
+ * <p>
+ * Usage example:
+ * <pre>
+ * {@code
+ * @EnableJSFCDIEnvironment
+ * @EnableResourceBundleSupport
+ * class MyLocalizedComponentTest {
+ *     
+ *     @Inject
+ *     private MessageProducer messageProducer;
+ *     
+ *     @Test
+ *     void shouldRenderLocalizedMessages() {
+ *         // Test with injected message producer
+ *     }
+ * }
+ * }
+ * </pre>
+ * </p>
+ * <p>
+ * This annotation is thread-safe and is typically used in conjunction with
+ * {@link EnableJSFCDIEnvironment} to provide a complete testing environment.
+ * </p>
  *
  * @author Oliver Wolff
+ * @since 1.0
  */
 @Documented
 @Retention(RUNTIME)

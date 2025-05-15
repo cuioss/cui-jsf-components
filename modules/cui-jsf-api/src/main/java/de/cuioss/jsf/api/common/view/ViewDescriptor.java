@@ -22,48 +22,101 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Represents a JSF-view at runtime
+ * Represents metadata about a JSF view.
+ * <p>
+ * This interface provides access to view-related information like logical name, URL,
+ * and method expressions for navigation. It's used primarily for navigation purposes
+ * within the application.
+ * </p>
  *
  * @author Oliver Wolff
- *
  */
 public interface ViewDescriptor extends Serializable {
 
     /**
-     * @return the String based identifier of the current view-id. It ends on the
-     *         real (physical) suffix, e.g. .xhtml
+     * Retrieves the physical view identifier that represents the actual view resource.
+     * <p>
+     * This identifier ends with the physical file extension, typically ".xhtml" for JSF views.
+     * It represents the actual file path within the application and is used for internal
+     * view resolution.
+     * </p>
+     * <p>
+     * For example, "/pages/user/profile.xhtml"
+     * </p>
+     *
+     * @return the String based identifier of the current view with its physical extension,
+     *         may be null or empty if no view is defined
      */
     String getViewId();
 
     /**
-     * @return the short identifier based on {@link #getViewId()} to be used as css
-     *         class
+     * Provides a simplified identifier derived from the view ID for use in CSS classes.
+     * <p>
+     * This identifier is typically a cleaned version of the view ID that follows CSS
+     * naming conventions, making it suitable for use in CSS selectors.
+     * </p>
+     * <p>
+     * For example, a view ID "/pages/user/profile.xhtml" might result in a short identifier
+     * like "pages-user-profile"
+     * </p>
+     *
+     * @return a CSS-compatible short identifier based on the view ID
      */
     String getShortIdentifier();
 
     /**
-     * @return the String based identifier of the current view-id. It ends on the
-     *         logical suffix, e.g. .jsf
+     * Retrieves the logical view identifier used for URLs and navigation.
+     * <p>
+     * This identifier ends with the logical suffix (e.g., ".jsf") that is used in URLs
+     * and for navigation rules. It represents how the view is addressed in the browser
+     * and in navigation rules.
+     * </p>
+     * <p>
+     * For example, "/pages/user/profile.jsf"
+     * </p>
+     *
+     * @return the String based identifier of the current view with its logical extension,
+     *         may be null or empty if no view is defined
      */
     String getLogicalViewId();
 
     /**
-     * @return boolean indicating whether a view is present, {@link #getViewId()} is
-     *         not null or empty
+     * Determines whether this descriptor represents an actual view.
+     * <p>
+     * This method checks whether a view ID is defined (not null and not empty),
+     * which indicates that this descriptor refers to an actual view rather than
+     * being an empty or uninitialized descriptor.
+     * </p>
+     *
+     * @return {@code true} if a view is defined (view ID is not null or empty),
+     *         {@code false} otherwise
      */
     boolean isViewDefined();
 
     /**
-     * @return the list of {@link UrlParameter} associated with this view. This list
-     *         contains every parameter, including technical
+     * Retrieves all URL parameters associated with this view.
+     * <p>
+     * The returned list includes all parameters, including technical ones that
+     * might be used by the framework or application infrastructure.
+     * </p>
+     *
+     * @return an unmodifiable list of all {@link UrlParameter} objects associated with this view,
+     *         never null but may be empty
      */
     List<UrlParameter> getUrlParameter();
 
     /**
-     * @param parameterFilter for filtering the parameter. Must not be null
-     * @return the list of {@link UrlParameter} associated with this view and
-     *         filtered regarding the given {@link ParameterFilter}
+     * Retrieves URL parameters associated with this view, filtered according to
+     * specified criteria.
+     * <p>
+     * This method allows for selective retrieval of parameters based on application-specific
+     * filtering logic.
+     * </p>
+     *
+     * @param parameterFilter for filtering the parameters, must not be null
+     * @return an unmodifiable list of {@link UrlParameter} objects that match the filter criteria,
+     *         never null but may be empty
+     * @throws NullPointerException if parameterFilter is null
      */
     List<UrlParameter> getUrlParameter(ParameterFilter parameterFilter);
-
 }
