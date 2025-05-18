@@ -38,17 +38,25 @@ import java.io.IOException;
 
 /**
  * <p>
- * Default {@link Renderer} for {@link LabeledContainerComponent}
+ * Renderer implementation for {@link LabeledContainerComponent} that handles the complex rendering logic
+ * for labeled form elements, supporting different layout modes and input types.
  * </p>
+ * <p>
+ * The renderer implements several key behaviors:
+ * </p>
+ * <ul>
+ * <li>Layout rendering for column-based and plain modes</li>
+ * <li>Special handling for checkbox/radio button inputs</li>
+ * <li>Input group support with prepend/append elements</li>
+ * <li>Integration with validation messages</li>
+ * <li>Support for static content and complex output</li>
+ * </ul>
  *
  * @author Matthias Walliczek
  */
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.LABELED_CONTAINER_COMPONENT_RENDERER)
 public class LabeledContainerRenderer extends BaseDecoratorRenderer<LabeledContainerComponent> {
 
-    /**
-     *
-     */
     public LabeledContainerRenderer() {
         super(true);
     }

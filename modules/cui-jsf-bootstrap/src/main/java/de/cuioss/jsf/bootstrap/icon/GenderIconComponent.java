@@ -25,49 +25,95 @@ import jakarta.faces.component.FacesComponent;
 
 /**
  * <p>
- * Renders an Gender Icon regarding to the cui-icon contract. The icon is
- * rendered within a span with the according classes.
+ * Specialized icon component for displaying gender-specific icons from the CUI icon library.
+ * This component extends the base {@link IconComponent} and provides simplified attribute handling
+ * for displaying gender indicators with consistent styling and localized tooltips.
  * </p>
- * <h2>Usage</h2>
- *
- * <pre>
- * &lt;cui:genderIcon genderString="male" size="xl" state="info"/&gt;
- * </pre>
- *
- * *
+ * 
+ * <h2>Features</h2>
+ * <ul>
+ *   <li>Automatic rendering of gender-specific icons (male, female, diverse, other, etc.)</li>
+ *   <li>Built-in mapping from string representations to appropriate icon CSS classes</li>
+ *   <li>Automatic tooltip generation with proper i18n support</li>
+ *   <li>Support for all standard icon styling attributes (size, state, etc.)</li>
+ *   <li>Consistent visual representation across the application</li>
+ * </ul>
+ * 
+ * <h2>Component Structure</h2>
+ * <p>
+ * The component renders a styled gender icon using the CUI icon system. It utilizes the 
+ * base {@link IconComponent} rendering logic but provides specialized handling for:
+ * </p>
+ * <ul>
+ *   <li>CSS class resolution based on gender value</li>
+ *   <li>Automatic title/tooltip resolution using gender-specific resource bundle keys</li>
+ * </ul>
+ * 
+ * <h2>Gender Resolution</h2>
+ * <p>
+ * Gender is resolved in the following order:
+ * </p>
+ * <ol>
+ *   <li>If the <code>gender</code> attribute is set with a {@link Gender} enum value, that is used</li>
+ *   <li>Otherwise, the <code>genderString</code> attribute is resolved to a {@link Gender} enum value</li>
+ *   <li>If neither is available, or if an unrecognized string is provided, {@link Gender#UNKNOWN} is used</li>
+ * </ol>
+ * 
  * <h2>Attributes</h2>
  * <ul>
- * <li>{@link TitleProvider}</li>
- * <li>{@link ContextSizeProvider}</li>
- * <li>{@link ComponentStyleClassProvider}</li>
- * <li>{@link StyleAttributeProvider}</li>
- * <li>{@link ContextStateProvider}</li>
- * <li>genderString: String representation of a gender:
+ *   <li>{@link TitleProvider} - For tooltip/title support (automatically populated)</li>
+ *   <li>{@link ContextSizeProvider} - For icon size configuration (xs, sm, md, lg, xl)</li>
+ *   <li>{@link ComponentStyleClassProvider} - For additional CSS styling</li>
+ *   <li>{@link StyleAttributeProvider} - For inline CSS styling</li>
+ *   <li>{@link ContextStateProvider} - For contextual styling (info, warning, danger, etc.)</li>
+ *   <li><b>gender</b> - A {@link Gender} enum value that determines which icon to display</li>
+ *   <li><b>genderString</b> - String representation of gender (alternative to gender attribute)</li>
+ * </ul>
+ * 
+ * <h2>String Mappings</h2>
+ * The <code>genderString</code> attribute accepts the following values:
  * <ul>
- * <li>if String is null or empty: {@link Gender#UNKNOWN}</li>
- * <li>if String is "m" or "male": {@link Gender#MALE}</li>
- * <li>if String is "f" or "female": {@link Gender#FEMALE}</li>
- * <li>if String is "o" or "other": {@link Gender#OTHER}</li>
- * <li>if String is "d" or "diverse": {@link Gender#DIVERSE}</li>
- * <li>if String is "x" or "undefined": {@link Gender#UNDEFINED}</li>
- * <li>For all other strings it returns {@link Gender#UNKNOWN}</li>
+ *   <li>"m" or "male": Maps to {@link Gender#MALE}</li>
+ *   <li>"f" or "female": Maps to {@link Gender#FEMALE}</li>
+ *   <li>"o" or "other": Maps to {@link Gender#OTHER}</li>
+ *   <li>"d" or "diverse": Maps to {@link Gender#DIVERSE}</li>
+ *   <li>"x" or "undefined": Maps to {@link Gender#UNDEFINED}</li>
+ *   <li>null or empty or any other value: Maps to {@link Gender#UNKNOWN}</li>
  * </ul>
- * In case #gender and #genderString is defined #gender takes precedence</li>
- * <li>gender: A representation on a concrete gender icon. In case #gender and
- * #genderString is defined #gender takes precedence.</li>
- * </ul>
- * <h2>Translation</h2> The keys for the title are implicitly defined:
+ * 
+ * <h2>Resource Bundle Integration</h2>
+ * <p>
+ * Tooltips are automatically resolved from the resource bundle using the following keys:
+ * </p>
  * <ul>
- * <li>cui.model.gender.male.title</li>
- * <li>cui.model.gender.female.title</li>
- * <li>cui.model.gender.undefined.title</li>
- * <li>cui.model.gender.other.title</li>
- * <li>cui.model.gender.diverse.title</li>
- * <li>cui.model.gender.unknown.title</li>
+ *   <li>cui.model.gender.male.title</li>
+ *   <li>cui.model.gender.female.title</li>
+ *   <li>cui.model.gender.undefined.title</li>
+ *   <li>cui.model.gender.other.title</li>
+ *   <li>cui.model.gender.diverse.title</li>
+ *   <li>cui.model.gender.unknown.title</li>
  * </ul>
+ * 
+ * <h2>Usage Examples</h2>
+ * 
+ * <p><b>Basic usage with string representation:</b></p>
+ * <pre>
+ * &lt;cui:genderIcon genderString="male" size="md" /&gt;
+ * </pre>
+ * 
+ * <p><b>Using enum in backing bean:</b></p>
+ * <pre>
+ * &lt;cui:genderIcon gender="#{backingBean.gender}" state="info" size="lg" /&gt;
+ * </pre>
+ * 
+ * <p><b>With custom styling:</b></p>
+ * <pre>
+ * &lt;cui:genderIcon genderString="female" styleClass="custom-style" style="margin: 4px;" /&gt;
+ * </pre>
  *
  * @author Oliver Wolff
- *
+ * @see Gender
+ * @see IconComponent
  */
 @FacesComponent(BootstrapFamily.GENDER_ICON_COMPONENT)
 public class GenderIconComponent extends IconComponent {
@@ -77,9 +123,6 @@ public class GenderIconComponent extends IconComponent {
 
     private final CuiState state;
 
-    /**
-     *
-     */
     public GenderIconComponent() {
         state = new CuiState(getStateHelper());
     }

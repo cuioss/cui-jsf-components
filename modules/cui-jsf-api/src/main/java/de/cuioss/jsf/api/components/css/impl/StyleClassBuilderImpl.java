@@ -82,10 +82,10 @@ public class StyleClassBuilderImpl implements StyleClassBuilder, Serializable {
      * Character used to separate CSS classes.
      */
     private static final char SEPARATOR = ' ';
-    
+
     @Serial
     private static final long serialVersionUID = 8303808310618200785L;
-    
+
     /**
      * Internal storage for CSS class names.
      * <p>

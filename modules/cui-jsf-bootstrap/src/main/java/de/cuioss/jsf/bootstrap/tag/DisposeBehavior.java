@@ -19,15 +19,39 @@ import jakarta.faces.component.behavior.ClientBehaviorBase;
 import jakarta.faces.component.behavior.ClientBehaviorContext;
 
 /**
+ * Client behavior that handles disposal of {@link TagComponent}s when triggered.
+ * Generates JavaScript to call cui_tag_dispose() function, marking the tag as
+ * disposed via a hidden input field.
+ *
+ * <p>This behavior is automatically added to the close button of disposable tags
+ * by the {@link TagComponent#accessCloseButton()} method.</p>
+ *
+ *
  * @author Oliver Wolff
+ * @since 1.0
+ * @see TagComponent
  */
 public class DisposeBehavior extends ClientBehaviorBase {
 
     /**
-     * The javaScript to be called if dispose is clicked: cui_tag_dispose('%s').
+     * The JavaScript template to be used when the dispose action is triggered.
+     * The format parameter will be replaced with the client ID of the hidden field
+     * that tracks the disposed state.
+     * <p>
+     * Format: cui_tag_dispose('%s')
+     * </p>
      */
     public static final String ON_CLICK_TEMPLATE = "cui_tag_dispose('%s')";
 
+    /**
+     * Generates the JavaScript code needed to trigger the tag disposal function.
+     * The generated script calls the cui_tag_dispose() function with the client ID
+     * of the hidden input field that will be set to indicate the tag's disposed state.
+     *
+     * @param behaviorContext the context containing information about the component
+     *                        and event that triggered this behavior
+     * @return a JavaScript snippet that triggers the tag disposal function
+     */
     @Override
     public String getScript(final ClientBehaviorContext behaviorContext) {
         final var parent = behaviorContext.getComponent().getParent();
@@ -35,5 +59,4 @@ public class DisposeBehavior extends ClientBehaviorBase {
         final var clientId = parent.getClientId();
         return ON_CLICK_TEMPLATE.formatted(clientId.replace(id, TagComponent.DISPOSE_INFO_SUFFIX));
     }
-
 }

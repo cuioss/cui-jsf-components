@@ -32,29 +32,54 @@ import java.util.List;
 
 /**
  * <p>
- * Replaces the HtmlMessage and integrates with the bootstrap based theme. In
- * addition to the usual behavior you can attach multiple ids to one message
- * element, see attribute forIdentifier. In opposite to HtmlMessage the styling
- * is to be done using styleClass attribute, not one of the attributes
- * errorClass, infoClass, etc. Depending on the severity of the FacesMessages,
- * the surrounding will get the class: "cui_msg_info", "cui_msg_warn",
- * "cui_msg_error" or "cui_msg_fatal".
+ * Bootstrap-styled message component that displays validation messages and other feedback.
+ * This component enhances the standard JSF message functionality with Bootstrap styling
+ * and additional features.
  * </p>
+ *
+ * <h2>Features</h2>
+ * <ul>
+ * <li>Bootstrap-styled message presentation with contextual styling based on message severity</li>
+ * <li>Support for multiple component IDs in a single message display</li>
+ * <li>Configurable display of summary and detail portions</li>
+ * <li>Automatic styling based on message severity (info, warning, error, fatal)</li>
+ * <li>Only renders when messages are present</li>
+ * </ul>
+ *
+ * <h2>Message Styling</h2>
+ * <p>
+ * The component applies the following CSS classes based on message severity:
+ * </p>
+ * <ul>
+ * <li>Info messages: "cui_msg_info"</li>
+ * <li>Warning messages: "cui_msg_warn"</li>
+ * <li>Error messages: "cui_msg_error"</li>
+ * <li>Fatal messages: "cui_msg_fatal"</li>
+ * </ul>
+ *
  * <h2>Attributes</h2>
  * <ul>
- * <li>{@link ForIdentifierProvider}</li>
- * <li>showDetail: Flag indicating whether the detail portion of displayed
- * messages should be included. Default value is "false". If false, it is
- * displayed as tooltip.</li>
- * <li>showSummary: Flag indicating wether the summary portion of the
- * FacesMessage should be displayed. Default value is "true".</li>
- * <li>escape: Flag indicating that characters that are sensitive in HTML and
- * XML markup must be escaped. If omitted, this flag is assumed to be
- * "true".</li>
- * <li>rendered: Flag indicating whether or not this component should be
- * rendered (during Render Response Phase), or processed on any subsequent form
- * submit. The default value for this property is true.</li>
+ * <li>{@link ForIdentifierProvider} - Target component ID(s) to display messages for</li>
+ * <li>showDetail - Whether to show message details (default: false, shown as tooltip)</li>
+ * <li>showSummary - Whether to show message summary (default: true)</li>
+ * <li>escape - Whether to escape HTML in messages (default: true)</li>
  * </ul>
+ *
+ * <h2>Usage</h2>
+ *
+ * <pre>
+ * &lt;!-- Basic usage for a single input --&gt;
+ * &lt;cui:message forIdentifier="inputId" /&gt;
+ *
+ * &lt;!-- With multiple inputs --&gt;
+ * &lt;cui:message forIdentifier="firstName secondName email" /&gt;
+ *
+ * &lt;!-- With customized display options --&gt;
+ * &lt;cui:message forIdentifier="inputId"
+ *             showDetail="true"
+ *             showSummary="true"
+ *             escape="false" /&gt;
+ * </pre>
  *
  * @author Matthias Walliczek
  */
@@ -74,9 +99,6 @@ public class CuiMessageComponent extends BasicBootstrapPanelComponent {
 
     private final CuiState state;
 
-    /**
-     *
-     */
     public CuiMessageComponent() {
         super.setRendererType(BootstrapFamily.CUI_MESSAGE_COMPONENT_RENDERER);
         forIdentifierProvider = new ForIdentifierProvider(this, ForIdentifierProvider.DEFAULT_FOR_IDENTIFIER);

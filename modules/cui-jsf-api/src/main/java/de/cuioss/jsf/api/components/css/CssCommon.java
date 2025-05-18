@@ -64,7 +64,7 @@ public enum CssCommon implements StyleClassProvider {
      * </p>
      */
     DISABLED("disabled"),
-    
+
     /**
      * Shorthand for Bootstrap-style float:right.
      * <p>
@@ -73,7 +73,7 @@ public enum CssCommon implements StyleClassProvider {
      * </p>
      */
     PULL_RIGHT("pull-right"),
-    
+
     /**
      * Shorthand for Bootstrap-style float:left.
      * <p>

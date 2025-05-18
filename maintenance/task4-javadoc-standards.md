@@ -129,6 +129,45 @@ public String getName() { return name; }
 public void setValue(String value) { this.value = value; }
 ```
 
+### Avoiding Excessive Verbosity
+
+When documenting classes and methods, strive for conciseness while maintaining clarity. Common issues to avoid include:
+
+1. **Documenting Component Hierarchy**: Do not document the entire inheritance tree or component hierarchy unless it provides critical information. This can be determined by looking at the class declaration.
+
+2. **Excessive Method Documentation**: Documentation should focus on intent, edge cases, and non-obvious behavior rather than step-by-step processes. For example:
+
+   Too verbose:
+   ```java
+   /**
+    * Converts a string to an object by:
+    * 1. Validating the input parameters
+    * 2. Checking if the string is empty
+    * 3. Splitting the string by delimiter
+    * 4. Converting each part to an object
+    * 5. Returning the collection of objects
+    */
+   ```
+
+   More appropriate:
+   ```java
+   /**
+    * Converts a delimited string to a collection of objects.
+    * Handles empty inputs by returning an empty collection.
+    * @throws IllegalArgumentException if the delimiter is invalid
+    */
+   ```
+
+3. **Documenting @Override Methods**: Methods that override parent class functionality generally don't need documentation unless they:
+   - Change the contract of the parent method
+   - Add additional restrictions or guarantees
+   - Have side effects not present in the parent method
+   - Fix issues or provide specific implementations for abstract methods
+
+4. **Detailed Procedural Documentation**: Avoid documenting algorithms step-by-step in JavaDoc. Focus on the intent, constraints, and guarantees rather than implementation details.
+
+5. **Section Headers**: Use section headers sparingly. They're useful for grouping related information in large classes, but can add unnecessary verbosity to simple components.
+
 ### Special Documentation Cases
 
 #### Builder Classes

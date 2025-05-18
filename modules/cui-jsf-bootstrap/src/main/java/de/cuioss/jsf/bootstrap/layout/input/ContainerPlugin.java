@@ -22,10 +22,19 @@ import jakarta.faces.event.PreRenderComponentEvent;
 import java.util.Optional;
 
 /**
- * A container plugin is used for extending the functionality of
- * {@link LabeledContainerComponent}. It defines an Event-based interface. In
- * essence it streamlines the communication of lifecycle-events. The plugins can
- * be placed as direct child an / or facet
+ * Interface for extending the functionality of {@link LabeledContainerComponent} through a plugin architecture.
+ * <p>
+ * Container plugins provide a standardized way to:
+ * </p>
+ * <ul>
+ * <li>Hook into component lifecycle events without direct event listeners</li>
+ * <li>Add dynamic facet content to containers</li>
+ * <li>Contribute state information that affects container rendering</li>
+ * </ul>
+ * <p>
+ * Plugins can be placed as direct children and/or facets of a LabeledContainer and will be
+ * automatically detected and integrated by the container component.
+ * </p>
  *
  * @author Oliver Wolff
  *

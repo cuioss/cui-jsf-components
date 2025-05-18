@@ -21,47 +21,37 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Provides the css-classes for mimetype-icon
+ * CSS classes for mime-type icons.
  *
  * @author Oliver Wolff
  */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum CssMimeTypeIcon implements StyleClassProvider {
 
-    /**
-     * Base class for mime-type icons: "cui-mime-type"
-     */
+    /** Base class for mime-type icons */
     CUI_MIME_TYPE("cui-mime-type"),
-    /**
-     * The folder base class for mime-type-icon: "cui-mime-type-folder"
-     */
+
+    /** Folder mime-type icon */
     CUI_MIME_TYPE_FOLDER("cui-mime-type-folder"),
-    /**
-     * The placeholder base class for mime-type-icon: "cui-mime-type-placeholder"
-     */
+
+    /** Placeholder mime-type icon */
     CUI_MIME_TYPE_PLACEHOLDER("cui-mime-type-placeholder"),
-    /**
-     * The default mime-type icon class: "cui-mime-type-default"
-     */
+
+    /** Default mime-type icon */
     CUI_MIME_TYPE_DEFAULT("cui-mime-type-default"),
-    /**
-     * Base class for Stacked Icon: "cui-icon-stack"
-     */
+
+    /** Base class for stacked icons */
     CUI_STACKED_ICON("cui-icon-stack"),
-    /**
-     * 1x variant of CUI_STACKED_ICON: "cui-icon-stack-1x"
-     */
+
+    /** 1x variant of stacked icon */
     CUI_STACKED_ICON_1("cui-icon-stack-1x"),
-    /**
-     * Starting point for the layers: "cui-mime-type cui-icon-stack-1x"
-     */
+
+    /** Base layer for stacked mime-type icons */
     CUI_STACKED_BASE_STRING("cui-mime-type cui-icon-stack-1x"),
-    /**
-     * The default decorator is the no-decorator: "cui-mime-type-no-decorator".
-     */
+
+    /** No-decorator variant */
     CUI_STACKED_ICON_NO_DECORATOR("cui-mime-type-no-decorator");
 
     @Getter
     private final String styleClass;
-
 }

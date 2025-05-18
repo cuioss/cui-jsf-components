@@ -22,22 +22,38 @@ import jakarta.faces.component.StateHelper;
 import lombok.NonNull;
 
 /**
- * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of the bootstrap
- * column-css. It is computed out of the given attributes.
+ * Provides Bootstrap grid system column configuration for JSF components. This partial
+ * component can be mixed into other components to add Bootstrap column sizing and
+ * offset capabilities.
  * </p>
- * <h2>offsetSize</h2>
+ * 
+ * <h2>Bootstrap Grid Integration</h2>
  * <p>
- * The offset-size of the column. Must be between 1-12. if it is not set, there
- * will be no offset at all.
+ * This provider handles the resolution of Bootstrap grid classes like "col-md-6" and
+ * "offset-md-3" to create responsive layouts with properly sized columns. Components
+ * using this provider can be easily integrated into Bootstrap's 12-column grid system.
  * </p>
- * <h2>size</h2>
+ * 
+ * <h2>Attributes</h2>
+ * <ul>
+ *   <li><b>size</b> - The column width (1-12) within Bootstrap's grid system. A value of 6 
+ *       would result in a column taking up half the container width (col-md-6).</li>
+ *   <li><b>offsetSize</b> - Optional offset width (1-12) to push the column from the left.
+ *       An offsetSize of 3 would result in a left margin of 3 columns (offset-md-3).</li>
+ * </ul>
+ * 
+ * <h2>Usage</h2>
  * <p>
- * The size of the column. Must be between 1-12. Is required.
+ * Components using this provider typically delegate to it for column-related state management
+ * and CSS class resolution. The provider handles both the state storage and the generation
+ * of the correct CSS classes for Bootstrap's grid system.
  * </p>
  *
  * @author Oliver Wolff
+ * @see ColumnCssResolver
+ * @see ContentColumnProvider
+ * @see LabelColumnProvider
  */
 public class ColumnProvider {
 

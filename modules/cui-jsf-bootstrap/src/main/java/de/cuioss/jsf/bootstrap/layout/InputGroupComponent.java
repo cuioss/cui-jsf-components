@@ -22,12 +22,14 @@ import jakarta.faces.component.FacesComponent;
 
 /**
  * <p>
- * Renders a bootstrap conform div with the styleClass 'input-group'. An input
- * group groups a number of input elements to be displayed as one element.
+ * Renders a Bootstrap input-group container that combines form controls with additional text,
+ * buttons, or button groups on either side of the input. This component helps create
+ * cohesive form control extensions with custom prepended or appended elements.
  * </p>
  * <p>
- * The layout relies completely on the grid-system of twitter-bootstrap, see
- * <a href="http://getbootstrap.com/css/#grid">Bootstrap Documentation</a>
+ * Input groups extend form controls by adding text, buttons, or button groups on either side of textual inputs.
+ * They're useful for adding common elements like currency symbols, search icons, or action buttons
+ * directly attached to form inputs.
  * </p>
  * <p>
  * More information and examples can be found in the <a href=
@@ -37,7 +39,10 @@ import jakarta.faces.component.FacesComponent;
  * <h2>Usage</h2>
  *
  * <pre>
- *  {@code <cui:inputGroup />}
+ *  {@code <cui:inputGroup>
+ *    <cui:inputGroupAddon position="prepend">@</cui:inputGroupAddon>
+ *    <h:inputText styleClass="form-control" />
+ *  </cui:inputGroup>}
  * </pre>
  *
  * <h2>Styling</h2>
@@ -52,9 +57,6 @@ import jakarta.faces.component.FacesComponent;
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
 public class InputGroupComponent extends AbstractLayoutComponent {
 
-    /**
-     *
-     */
     public InputGroupComponent() {
         super.setRendererType(BootstrapFamily.LAYOUT_RENDERER);
     }

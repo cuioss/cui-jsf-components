@@ -22,21 +22,51 @@ import jakarta.faces.component.StateHelper;
 import lombok.NonNull;
 
 /**
- * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of the bootstrap
- * column-css. It is computed out of the given attributes.
- * </p>
- * <h2>contentSize</h2>
- * <p>
- * The size of the column. Must be between 1-12. Is required.
- * </p>
- * <h2>contentStyleClass</h2>
- * <p>
- * Additional styleClass attributes for the column. Is not required.
+ * Specialized provider for Bootstrap content column configuration. This class manages the state
+ * and CSS class resolution for content areas within a component that follows Bootstrap's
+ * grid system layout.
  * </p>
  *
+ * <h2>Purpose and Usage</h2>
+ * <p>
+ * While {@link ColumnProvider} is a general-purpose column provider, ContentColumnProvider is
+ * specifically designed for the content portion of components that have multiple column sections
+ * (e.g., a labeled input field with separate columns for label and content).
+ * </p>
+ *
+ * <h2>Attributes</h2>
+ * <ul>
+ *   <li><b>contentSize</b> - The width (1-12) of the content column within Bootstrap's grid.
+ *       This provider always uses a configured default size if no specific size is set.</li>
+ *   <li><b>contentStyleClass</b> - Additional CSS classes to apply to the content column.</li>
+ * </ul>
+ *
+ * <h2>Integration with Bootstrap Grid</h2>
+ * <p>
+ * This provider generates appropriate Bootstrap column classes (e.g., "col-md-8") for content
+ * areas, allowing components to create responsive layouts with properly sized content sections.
+ * Unlike the base ColumnProvider, this class does not support column offsets as content
+ * columns typically don't need offsetting within their parent containers.
+ * </p>
+ *
+ * <h2>Usage Pattern</h2>
+ * <p>
+ * Components using this provider typically delegate to it for content column state management
+ * and CSS class resolution:
+ * </p>
+ * <pre>
+ * // In component initialization
+ * contentColumnProvider = new ContentColumnProvider(this, 8); // Default size of 8 units
+ *
+ * // When rendering
+ * StyleClassBuilder contentClasses = contentColumnProvider.resolveContentCss(true);
+ * </pre>
+ *
  * @author Oliver Wolff
+ * @see ColumnProvider
+ * @see LabelColumnProvider
+ * @see ColumnCssResolver
  */
 public class ContentColumnProvider {
 

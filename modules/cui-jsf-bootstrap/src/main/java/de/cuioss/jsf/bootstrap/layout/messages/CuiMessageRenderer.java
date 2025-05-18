@@ -37,8 +37,28 @@ import java.util.Map;
 
 /**
  * <p>
- * Default {@link Renderer} for {@link CuiMessageComponent}
+ * Renderer implementation for {@link CuiMessageComponent} that handles the display
+ * of Bootstrap-styled JSF messages with appropriate contextual styling and structure.
  * </p>
+ * 
+ * <p>
+ * This renderer is responsible for:
+ * </p>
+ * <ul>
+ * <li>Applying appropriate Bootstrap CSS classes based on message severity</li>
+ * <li>Rendering message summaries and details according to component configuration</li>
+ * <li>Handling single message vs. multiple message scenarios</li>
+ * <li>Supporting HTML escaping options</li>
+ * <li>Managing tooltip integration for detail information</li>
+ * </ul>
+ * 
+ * <p>
+ * The renderer uses the following structure:
+ * </p>
+ * <ul>
+ * <li>Single message: &lt;div class="cui_message"&gt;&lt;span class="cui_msg_[severity]"&gt;message content&lt;/span&gt;&lt;/div&gt;</li>
+ * <li>Multiple messages: &lt;div class="cui_message"&gt;&lt;ul class="cui_message_list"&gt;&lt;li&gt;&lt;span...&gt;...&lt;/span&gt;&lt;/li&gt;...&lt;/ul&gt;&lt;/div&gt;</li>
+ * </ul>
  *
  * @author Matthias Walliczek
  */
@@ -47,9 +67,6 @@ public class CuiMessageRenderer extends BaseDecoratorRenderer<CuiMessageComponen
 
     private static final Map<Severity, StyleClassProvider> SEVERITIES = createSeverities();
 
-    /**
-     *
-     */
     public CuiMessageRenderer() {
         super(true);
     }

@@ -29,13 +29,35 @@ import lombok.experimental.Delegate;
 
 /**
  * <p>
- * Renders an Label for input elements. The label and title is resolved using
- * the cui standard label-resolving mechanism.
+ * A Bootstrap-styled label component for form elements that integrates with CUI's
+ * standardized label resolution mechanism, providing consistent labeling across the application.
  * </p>
+ * 
+ * <h2>Features</h2>
+ * <ul>
+ * <li>Extends the standard JSF {@link HtmlOutputLabel} with CUI label resolution</li>
+ * <li>Supports label text from resource bundles through labelKey/labelValue attributes</li>
+ * <li>Provides tooltip/title support with consistent resolution patterns</li>
+ * <li>Automatic integration with form validation states</li>
+ * </ul>
+ * 
+ * <h2>Usage</h2>
+ * <pre>
+ * &lt;!-- Basic usage with direct value --&gt;
+ * &lt;cui:outputLabel for="inputId" labelValue="First Name" /&gt;
+ * 
+ * &lt;!-- With resource bundle key --&gt;
+ * &lt;cui:outputLabel for="inputId" labelKey="label.firstName" /&gt;
+ * 
+ * &lt;!-- With title/tooltip --&gt;
+ * &lt;cui:outputLabel for="inputId" labelKey="label.firstName" titleKey="title.firstName" /&gt;
+ * </pre>
+ * 
  * <h2>Attributes</h2>
  * <ul>
- * <li>{@link LabelProvider}</li>
- * <li>{@link TitleProvider}</li>
+ * <li>{@link LabelProvider} - Provides label text resolution (labelKey/labelValue)</li>
+ * <li>{@link TitleProvider} - Provides title/tooltip resolution (titleKey/titleValue)</li>
+ * <li>All standard attributes from {@link HtmlOutputLabel}</li>
  * </ul>
  *
  * @author Matthias Walliczek

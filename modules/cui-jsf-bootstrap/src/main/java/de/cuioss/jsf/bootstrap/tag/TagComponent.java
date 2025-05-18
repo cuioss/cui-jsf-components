@@ -41,34 +41,42 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * <p>
- * Renders an Tag similar to a JIRA Tag. The tag is rendered within a span with
- * the according classes. The content and title are resolved using the cui
- * standard label-resolving mechanism.
- * </p>
+ * Renders a styled tag component similar to tags in applications like JIRA.
+ * Supports various states, sizes, and can be configured as disposable.
+ * 
  * <h2>Attributes</h2>
  * <ul>
- * <li>{@link TitleProvider}</li>
- * <li>{@link ContextSizeProvider}</li>
- * <li>{@link ComponentStyleClassProvider}</li>
- * <li>{@link StyleAttributeProvider}</li>
- * <li>{@link ContextStateProvider}</li>
- * <li>{@link ContentProvider}</li>
- * <li>{@link ModelProvider}</li>
- * <li>disposable: Indicates whether the tag can be disposed.
- * <li>disposeListener: Method expression to listen to dispose events. The
- * listener must be in the form of
- * {@code void methodName(de.cuioss.jsf.api.components.events.ModelPayloadEvent)}.
- * In case you set it to <code>true</code> you must provide the according model.
- * If not it falls back to #contentValue</li>
+ * <li>{@link TitleProvider} - Title/tooltip capabilities</li>
+ * <li>{@link ContextSizeProvider} - Tag size control</li>
+ * <li>{@link ComponentStyleClassProvider} - Custom CSS classes</li>
+ * <li>{@link StyleAttributeProvider} - Custom inline styles</li>
+ * <li>{@link ContextStateProvider} - Visual state/appearance</li>
+ * <li>{@link ContentProvider} - Text content</li>
+ * <li>{@link ModelProvider} - Attached model object</li>
+ * <li>disposable: Whether the tag can be removed</li>
+ * <li>disposeListener: Method to handle tag removal events</li>
  * </ul>
- * <h2>Usage</h2>
- *
+ * 
+ * <h2>Usage Examples</h2>
+ * 
+ * <p>Basic tag:</p>
  * <pre>
- * &lt;cui:tag contentValue="Some Value" /&gt;
+ * &lt;cui:tag contentValue="Feature" /&gt;
+ * </pre>
+ * 
+ * <p>Tag with state and size:</p>
+ * <pre>
+ * &lt;cui:tag contentValue="Critical Bug" state="DANGER" size="LG" /&gt;
+ * </pre>
+ * 
+ * <p>Disposable tag with listener:</p>
+ * <pre>
+ * &lt;cui:tag contentValue="#{item.name}" model="#{item}"
+ *         disposable="true" disposeListener="#{bean.handleTagRemoved}" /&gt;
  * </pre>
  *
  * @author Oliver Wolff
+ * @since 1.0
  */
 @FacesComponent(BootstrapFamily.TAG_COMPONENT)
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
@@ -117,7 +125,8 @@ public class TagComponent extends BaseCuiInputComponent
     private final CuiState state;
 
     /**
-     * TagComponent constructor
+     * Constructs a new TagComponent and initializes all required providers.
+     * Sets the appropriate renderer type and initializes the component state.
      */
     public TagComponent() {
         super.setRendererType(BootstrapFamily.TAG_COMPONENT_RENDERER);
@@ -129,6 +138,12 @@ public class TagComponent extends BaseCuiInputComponent
         state = new CuiState(getStateHelper());
     }
 
+    /**
+     * Processes component system events. For {@link PostAddToViewEvent}, ensures that
+     * the close button and dispose value holder are properly initialized.
+     *
+     * @param event the component system event being processed
+     */
     @Override
     public void processEvent(final ComponentSystemEvent event) {
         if (event instanceof PostAddToViewEvent) {
@@ -138,6 +153,12 @@ public class TagComponent extends BaseCuiInputComponent
         super.processEvent(event);
     }
 
+    /**
+     * Accesses or creates the hidden input component used to track the disposed state.
+     * This input is only created if the tag is disposable.
+     *
+     * @return an Optional containing the UIInput if the tag is disposable, or empty Optional otherwise
+     */
     private Optional<UIInput> accessDisposeValueHolder() {
 
         if (!isDisposable()) {
@@ -160,6 +181,12 @@ public class TagComponent extends BaseCuiInputComponent
         return Optional.of(newCreatedHiddenInput);
     }
 
+    /**
+     * Accesses or creates the close button component for disposable tags.
+     * This button is only created if the tag is disposable.
+     *
+     * @return an Optional containing the CloseCommandButton if the tag is disposable, or empty Optional otherwise
+     */
     private Optional<CloseCommandButton> accessCloseButton() {
 
         if (!isDisposable()) {
@@ -181,6 +208,13 @@ public class TagComponent extends BaseCuiInputComponent
         return Optional.of(button);
     }
 
+    /**
+     * Adds a client behavior to the tag's close button. This is only applicable
+     * if the tag is disposable.
+     *
+     * @param eventName the name of the client event to attach the behavior to
+     * @param behavior the ClientBehavior to add
+     */
     @Override
     public void addClientBehavior(final String eventName, final ClientBehavior behavior) {
         final var button = accessCloseButton();
@@ -195,22 +229,27 @@ public class TagComponent extends BaseCuiInputComponent
     }
 
     /**
-     * @return the disposable
+     * Determines whether the tag is configured to be disposable.
+     *
+     * @return true if the tag can be disposed, false otherwise
      */
     public boolean isDisposable() {
         return state.getBoolean(DISPOSABLE_KEY, false);
     }
 
     /**
-     * @param disposable the disposable to set
+     * Sets whether the tag should be disposable.
+     *
+     * @param disposable true to make the tag disposable, false otherwise
      */
     public void setDisposable(final boolean disposable) {
         state.put(DISPOSABLE_KEY, disposable);
     }
 
     /**
-     * @return boolean indicating whether the component has been disposed. Defaults
-     * to <code>false</code>
+     * Checks the internal state to determine if this tag has been disposed.
+     *
+     * @return boolean indicating whether the component has been disposed (true) or not (false)
      */
     private boolean isDisposed() {
         final var inputOption = accessDisposeValueHolder();
@@ -218,8 +257,11 @@ public class TagComponent extends BaseCuiInputComponent
     }
 
     /**
-     * In addition to {@link UIComponent#isRendered()} it checks whether the
-     * component was disposed: Disposed tags should not be rendered.
+     * Extends the standard {@link UIComponent#isRendered()} check to account for the tag's
+     * disposed state. If the tag has been disposed, it will not be rendered.
+     *
+     * @return true if the component should be rendered (not disposed and parent check passes),
+     *         false otherwise
      */
     @Override
     public boolean isRendered() {
@@ -227,35 +269,53 @@ public class TagComponent extends BaseCuiInputComponent
     }
 
     /**
-     * ATTENTION: Evaluation the MethodExpression may already trigger executing the
-     * method!
+     * Returns the configured dispose listener method expression, if any.
+     * <p>
+     * <strong>Warning:</strong> Evaluating the returned MethodExpression may trigger
+     * method execution.
      *
-     * @return the disposeListener
+     * @return the dispose listener MethodExpression, or null if none is configured
      */
     public MethodExpression getDisposeListener() {
         return (MethodExpression) getStateHelper().eval(TagHandler.DISPOSE_LISTENER_NAME);
     }
 
     /**
-     * @param disposeListener the disposeListener to set
+     * Sets the dispose listener method expression that will be called when the tag
+     * is disposed.
+     *
+     * @param disposeListener the MethodExpression to call on tag disposal
      */
     public void setDisposeListener(final MethodExpression disposeListener) {
         getStateHelper().put(TagHandler.DISPOSE_LISTENER_NAME, disposeListener);
     }
 
     /**
-     * @return the eventNames
+     * {@inheritDoc}
+     * 
+     * @return the list of supported event names for client behaviors
      */
     @Override
     public Collection<String> getEventNames() {
         return EVENT_NAMES;
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @return "click" as the default event name
+     */
     @Override
     public String getDefaultEventName() {
         return CLICK;
     }
 
+    /**
+     * Broadcasts the given FacesEvent to registered listeners. For {@link ModelPayloadEvent}s,
+     * if a dispose listener is configured, it will be invoked with the event.
+     *
+     * @param event the FacesEvent to broadcast
+     */
     @Override
     public void broadcast(final FacesEvent event) {
         super.broadcast(event);
@@ -265,11 +325,24 @@ public class TagComponent extends BaseCuiInputComponent
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @return the component family identifier
+     */
     @Override
     public String getFamily() {
         return BootstrapFamily.COMPONENT_FAMILY;
     }
 
+    /**
+     * Processes value change events from the hidden input that tracks the tag's disposed state.
+     * When the value changes, a {@link ModelPayloadEvent} is queued with either the tag's model
+     * or content as payload.
+     *
+     * @param event the ValueChangeEvent to process
+     * @throws AbortProcessingException if an error occurs during processing
+     */
     @Override
     public void processValueChange(final ValueChangeEvent event) throws AbortProcessingException {
         var payload = getModel();

@@ -15,8 +15,6 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
-import jakarta.faces.component.UIComponent;
-
 /**
  * Provider interface for component styling through CSS inline styles.
  * <p>

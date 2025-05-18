@@ -33,23 +33,23 @@ import jakarta.faces.render.Renderer;
 import java.io.IOException;
 
 /**
- * <h2>Rendering</h2>
- * <p>
- * This {@link Renderer} uses the concrete implementation specific Renderer for
- * {@code h:button} accessed by {@link JsfHtmlComponent#BUTTON}. This is used
- * for creating the start element of the element including all attributes like
- * onclick,.. . On the fly the {@code input} element will be replaced by
- * {@code button}. This is done by passing an instance of
- * {@link ElementReplacingResponseWriter}. The
- * {@link Renderer#decode(FacesContext, UIComponent)} will be passed to the
- * specific renderer as well.
- * </p>
- * <h2>Styling</h2>
- * <ul>
- * <li>The marker css class is btn</li>
- * </ul>
+ * Renderer for the {@link Button} component that produces Bootstrap-compliant button markup.
+ * Enhances standard button rendering with Bootstrap styling, icons, and formatted text.
+ * 
+ * <h3>Generated HTML Structure</h3>
+ * <pre>
+ * &lt;button class="btn btn-[state] btn-[size] [custom-classes]" id="..." type="button"&gt;
+ *   &lt;!-- Left icon if configured --&gt;
+ *   &lt;span class="glyphicon glyphicon-[icon]"&gt;&lt;/span&gt;
+ *   &lt;span class="button-text"&gt;Button Label&lt;/span&gt;
+ *   &lt;!-- Right icon if configured --&gt;
+ *   &lt;span class="glyphicon glyphicon-[icon]"&gt;&lt;/span&gt;
+ * &lt;/button&gt;
+ * </pre>
  *
  * @author Oliver Wolff
+ * @since 1.0
+ * @see Button
  */
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.BUTTON_RENDERER)
 public class ButtonRenderer extends BaseDecoratorRenderer<Button> {
@@ -58,6 +58,26 @@ public class ButtonRenderer extends BaseDecoratorRenderer<Button> {
         super(false);
     }
 
+    /**
+     * Renders the beginning of the button component, including any left-aligned icon
+     * and the button text. 
+     * <p>
+     * The process includes:
+     * <ol>
+     *   <li>Creating a wrapped response writer that changes 'input' to 'button'</li>
+     *   <li>Resolving and storing the component title</li>
+     *   <li>Computing final CSS classes with Bootstrap styling</li>
+     *   <li>Delegating the basic element rendering to the standard button renderer</li>
+     *   <li>Rendering left icon if configured</li>
+     *   <li>Rendering button text</li>
+     *   <li>Rendering right icon if configured</li>
+     * </ol>
+     * 
+     * @param context the FacesContext
+     * @param writer the decorating response writer
+     * @param component the Button component being rendered
+     * @throws IOException if an error occurs during writing to the response
+     */
     @Override
     protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<Button> writer,
             final Button component) throws IOException {
@@ -94,11 +114,25 @@ public class ButtonRenderer extends BaseDecoratorRenderer<Button> {
         }
     }
 
+    /**
+     * Delegates the decode process to the standard button renderer.
+     * 
+     * @param context the FacesContext
+     * @param component the UIComponent being decoded
+     */
     @Override
     public void decode(final FacesContext context, final UIComponent component) {
         JsfHtmlComponent.BUTTON.renderer(context).decode(context, component);
     }
 
+    /**
+     * Renders the closing button tag to complete the component rendering.
+     * 
+     * @param context the FacesContext
+     * @param writer the decorating response writer
+     * @param component the Button component being rendered
+     * @throws IOException if an error occurs during writing to the response
+     */
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<Button> writer,
             final Button component) throws IOException {

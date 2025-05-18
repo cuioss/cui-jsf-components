@@ -87,7 +87,7 @@ public class LabeledKeyConverter extends AbstractConverter<LabeledKey> {
         String result;
         // Resolve the resource bundle wrapper from the CDI context
         var bundle = PortalBeanManager.resolveRequiredBean(ResourceBundleWrapper.class);
-        
+
         // Format the message, with or without parameters
         if (value.getParameter().isEmpty()) {
             result = bundle.getString(value.getContent());
@@ -95,7 +95,7 @@ public class LabeledKeyConverter extends AbstractConverter<LabeledKey> {
             result = MessageFormat.format(bundle.getString(value.getContent()),
                     value.getParameter().toArray(new Object[0]));
         }
-        
+
         // Apply sanitization for safe HTML rendering
         return CuiSanitizer.COMPLEX_HTML_PRESERVE_ENTITIES.apply(result);
     }

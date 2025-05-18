@@ -16,7 +16,6 @@
 package de.cuioss.jsf.jqplot.js.types;
 
 import de.cuioss.jsf.jqplot.js.support.JsValue;
-import lombok.*;
 
 import java.io.Serial;
 import java.time.temporal.Temporal;

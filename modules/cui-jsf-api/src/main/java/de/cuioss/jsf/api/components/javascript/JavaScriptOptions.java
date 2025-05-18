@@ -174,7 +174,7 @@ public class JavaScriptOptions implements ScriptProvider {
          * Map of option key-value pairs being built.
          */
         private final Map<String, Serializable> options;
-        
+
         /**
          * Flag controlling whether the options are wrapped in curly brackets.
          */

@@ -38,6 +38,47 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
+ * <p>
+ * A Bootstrap-styled toggle switch component that enhances the standard JSF boolean checkbox
+ * with a sliding switch UI metaphor. This component provides a more visually appealing
+ * and intuitive way to represent boolean on/off states.
+ * </p>
+ * 
+ * <h2>Features</h2>
+ * <ul>
+ *   <li>Toggle switch interface with customizable on/off text labels</li>
+ *   <li>Resource bundle integration for internationalized labels</li>
+ *   <li>Support for Bootstrap's responsive grid layout</li>
+ *   <li>AJAX support with automatic container targeting</li>
+ *   <li>Tooltip support via title attributes</li>
+ * </ul>
+ * 
+ * <h2>Attributes</h2>
+ * <ul>
+ *   <li>{@link TitleProvider} - For tooltip/title support</li>
+ *   <li>{@link ColumnProvider} - For responsive layout control (default size: 6)</li>
+ *   <li>onTextKey/onTextValue - For the "on" position label</li>
+ *   <li>offTextKey/offTextValue - For the "off" position label</li>
+ *   <li>onTextConverter/offTextConverter - Optional converters for label values</li>
+ *   <li>All standard attributes from {@link BaseCuiHtmlSelectBooleanCheckboxComponent}</li>
+ * </ul>
+ * 
+ * <h2>Usage</h2>
+ * <pre>
+ * &lt;!-- Basic usage --&gt;
+ * &lt;cui:switch value="#{bean.enabled}" /&gt;
+ * 
+ * &lt;!-- With custom labels --&gt;
+ * &lt;cui:switch value="#{bean.enabled}"
+ *            onTextValue="YES" 
+ *            offTextValue="NO" /&gt;
+ * 
+ * &lt;!-- With resource bundle keys --&gt;
+ * &lt;cui:switch value="#{bean.enabled}"
+ *            onTextKey="switch.enabled" 
+ *            offTextKey="switch.disabled" /&gt;
+ * </pre>
+ *
  * @author Oliver Wolff
  * @author Sven Haag
  */

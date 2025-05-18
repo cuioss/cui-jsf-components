@@ -21,9 +21,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Provides the bootstrap specific css-classes
+ * Enum providing standard Bootstrap CSS class names as constants.
+ * Implements {@link StyleClassProvider} for easy integration with components.
  *
  * @author Oliver Wolff
+ * @since 1.0
  */
 @SuppressWarnings("LombokGetterMayBeUsed")
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)

@@ -28,25 +28,36 @@ import jakarta.faces.event.PreRenderComponentEvent;
 import lombok.experimental.Delegate;
 
 /**
- * <p>
- * An extension to h:commandButton that conforms to Bootstrap styling and
- * incorporates the display of icons. Caution: do not use the value attribute
- * but the corresponding labelKey / labelValue. The same goes for the title
- * element: use titleKey or titleValue.
- * </p>
- * <h2>Attributes</h2>
+ * Bootstrap styled command button for form submissions and server-side actions.
+ * Extends {@link BaseCuiCommandButton} with icons, contextual styling, and internationalization.
+ * 
+ * <h2>Features</h2>
  * <ul>
- * <li>{@link TitleProvider}</li>
- * <li>{@link ContextSizeProvider}</li>
- * <li>{@link ContextStateProvider}</li>
- * <li>{@link IconProvider}</li>
- * <li>{@link IconAlignProvider}</li>
- * <li>{@link LabelProvider}</li>
- * <li>{@link KeyBindingProvider}</li>
- * <li>All attributes from {@link HtmlCommandButton}</li>
+ * <li>Internationalized titles and labels</li>
+ * <li>Size options (lg, sm, xs)</li>
+ * <li>State styling (primary, success, warning, danger)</li>
+ * <li>Icon integration with alignment options</li>
+ * <li>Keyboard shortcuts</li>
+ * <li>Ajax integration</li>
  * </ul>
  *
+ * <h2>Usage Examples</h2>
+ * <pre>
+ * &lt;cui:commandButton action="#{bean.save}" labelValue="Save" icon="cui-icon-floppy-disk"/&gt;
+ * 
+ * &lt;cui:commandButton action="#{bean.delete}" labelKey="button.delete" state="danger"&gt;
+ *   &lt;f:ajax execute="@form" render="resultPanel"/&gt;
+ * &lt;/cui:commandButton&gt;
+ * 
+ * &lt;cui:commandButton action="#{bean.next}" labelKey="button.next" 
+ *                  icon="cui-icon-chevron-right" iconAlign="right"/&gt;
+ * </pre>
+ * 
+ * <strong>Note:</strong> Use labelKey/labelValue instead of value attribute.
+ *
  * @author Oliver Wolff
+ * @since 1.0
+ * @see Button
  */
 @FacesComponent(BootstrapFamily.COMMAND_BUTTON_COMPONENT)
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
@@ -73,7 +84,8 @@ public class CommandButton extends BaseCuiCommandButton implements ComponentStyl
 
 
     /**
-     * Constructor.
+     * Default constructor that initializes all delegate providers and sets the
+     * renderer type to {@link BootstrapFamily#COMMAND_BUTTON_RENDERER}.
      */
     public CommandButton() {
         super.setRendererType(BootstrapFamily.COMMAND_BUTTON_RENDERER);
@@ -86,6 +98,12 @@ public class CommandButton extends BaseCuiCommandButton implements ComponentStyl
     }
 
 
+    /**
+     * Processes component events, specifically handling the {@link PreRenderComponentEvent}
+     * to write keyboard bindings to pass-through attributes before rendering.
+     * 
+     * @param event The component system event to be processed
+     */
     @Override
     public void processEvent(final ComponentSystemEvent event) {
         if (event instanceof PreRenderComponentEvent) {
@@ -94,32 +112,56 @@ public class CommandButton extends BaseCuiCommandButton implements ComponentStyl
     }
 
 
+    /**
+     * Returns the component family, which is {@link BootstrapFamily#COMPONENT_FAMILY}.
+     * 
+     * @return {@link BootstrapFamily#COMPONENT_FAMILY}
+     */
     @Override
     public String getFamily() {
         return BootstrapFamily.COMPONENT_FAMILY;
     }
 
+    /**
+     * Overridden to prevent direct setting of the value attribute since it
+     * would interfere with the label provider mechanism.
+     * 
+     * @param value The value to set (not supported)
+     * @throws IllegalArgumentException if called, use labelKey or labelValue instead
+     */
     @Override
     public void setValue(final Object value) {
         throw new IllegalArgumentException("element 'value' not permitted, use labelKey or labelValue instead");
     }
 
+    /**
+     * Overridden to return the resolved label from the label provider instead
+     * of the component's value attribute.
+     * 
+     * @return The resolved label from {@link LabelProvider#resolveLabel()}
+     */
     @Override
     public Object getValue() {
         return labelProvider.resolveLabel();
     }
 
     /**
-     * @return boolean indicating whether to display an icon on the right side of
-     * the button text
+     * Determines if an icon should be displayed on the right side of the button text.
+     * This is true when an icon is set and the icon alignment is explicitly set to RIGHT.
+     *
+     * @return {@code true} if an icon should be displayed on the right side of the button text,
+     *         {@code false} otherwise
      */
     public boolean isDisplayIconRight() {
         return iconProvider.isIconSet() && AlignHolder.RIGHT.equals(iconAlignProvider.resolveIconAlign());
     }
 
     /**
-     * @return boolean indicating whether to display an icon on the left side of the
-     * button text
+     * Determines if an icon should be displayed on the left side of the button text.
+     * This is true when an icon is set and the icon alignment is not set to RIGHT.
+     *
+     * @return {@code true} if an icon should be displayed on the left side of the button text,
+     *         {@code false} otherwise
      */
     public boolean isDisplayIconLeft() {
         return iconProvider.isIconSet() && !AlignHolder.RIGHT.equals(iconAlignProvider.resolveIconAlign());
@@ -129,7 +171,7 @@ public class CommandButton extends BaseCuiCommandButton implements ComponentStyl
      * Factory method to instantiate a concrete instance of {@link CommandButton},
      * usually used if you programmatically add it as a child.
      *
-     * @param facesContext must not be null
+     * @param facesContext The current FacesContext, must not be null
      * @return concrete instance of {@link CommandButton}
      */
     public static CommandButton create(final FacesContext facesContext) {

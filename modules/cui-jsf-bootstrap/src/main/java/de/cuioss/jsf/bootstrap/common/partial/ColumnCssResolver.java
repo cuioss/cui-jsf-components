@@ -22,23 +22,55 @@ import de.cuioss.jsf.api.components.css.impl.StyleClassBuilderImpl;
 import lombok.RequiredArgsConstructor;
 
 /**
- * This class simplifies the accessing /creation / interacting with css styles
- * related to bootstrap grid layout.
- * <h3>Design</h3> The general design assumes that the consuming component
- * defines four attributes in order to be used properly:
+ * <p>
+ * Utility class that resolves Bootstrap grid system CSS classes based on column configuration
+ * parameters. This class generates the appropriate Bootstrap CSS classes for responsive grid
+ * layouts following the 12-column system.
+ * </p>
+ * 
+ * <h2>Bootstrap Grid System Integration</h2>
+ * <p>
+ * This resolver creates the proper CSS classes for Bootstrap's grid system, such as:
+ * </p>
  * <ul>
- * <li>size: Integer: The size of the appropriate column. Must be between
- * 1-12</li>
- * <li>styleClass: String: Additional styleClasses to be added</li>
- * <li>offsetSize: Integer: Optional attribute resulting in an corresponding
- * bootstrap-offset class with the given classPrefix</li>
- * <li>renderAsColumn: Boolean: If column classes should be rendered. Otherwise
- * only styleClass is passed through</li>
+ *   <li><code>col-md-6</code> - For a column taking up half the container width</li>
+ *   <li><code>col-md-offset-3</code> - For a column offset by 3 grid units from the left</li>
  * </ul>
- * With these attribute set / defined properly this class always creates a
- * proper css class String.
+ * 
+ * <h2>Input Parameters</h2>
+ * <p>
+ * The class requires the following configuration to generate appropriate column classes:
+ * </p>
+ * <ul>
+ *   <li><b>size</b>: Integer (1-12) - Required when renderAsColumn=true. Defines the width of the column.</li>
+ *   <li><b>offsetSize</b>: Integer (1-12) - Optional. Creates an offset for the column.</li>
+ *   <li><b>renderAsColumn</b>: Boolean - Determines whether to generate column classes.</li>
+ *   <li><b>styleClass</b>: String - Additional CSS classes to be appended to the result.</li>
+ * </ul>
+ * 
+ * <h2>Validation</h2>
+ * <p>
+ * The resolver performs validation on the input parameters:
+ * </p>
+ * <ul>
+ *   <li>When renderAsColumn=true, size is required and must be between 1-12</li>
+ *   <li>When offsetSize is provided, it must be between 1-12</li>
+ * </ul>
+ * 
+ * <h2>Usage Pattern</h2>
+ * <p>
+ * This class is typically used by components or providers that need to generate
+ * Bootstrap grid system classes:
+ * </p>
+ * <pre>
+ * // Create a half-width column with 2-column offset
+ * StyleClassBuilder css = new ColumnCssResolver(6, 2, true, "my-custom-class").resolveColumnCss();
+ * // Result: "col-md-6 col-md-offset-2 my-custom-class"
+ * </pre>
  *
  * @author Matthias Walliczek
+ * @see ColumnProvider
+ * @see StyleClassBuilder
  */
 @RequiredArgsConstructor
 public class ColumnCssResolver {

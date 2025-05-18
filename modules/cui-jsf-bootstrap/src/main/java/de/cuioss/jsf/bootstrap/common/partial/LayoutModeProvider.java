@@ -22,20 +22,64 @@ import jakarta.faces.component.StateHelper;
 import lombok.NonNull;
 
 /**
- * <h2>Summary</h2>
  * <p>
- * Implementors of this class manage the state and resolving of the
- * {@link LayoutMode}. It is computed out of the given attribute 'layoutMode'.
+ * Provider component that manages the layout mode configuration for JSF components that
+ * can be rendered in different visual styles. This provider enables components to switch
+ * between different layout strategies based on the context in which they're used.
  * </p>
- * <h2>layoutMode</h2>
+ * 
+ * <h2>Purpose and Functionality</h2>
  * <p>
- * The String representation of the layout mode. If not set it uses the
- * configured default. Supported values are {@linkplain LayoutMode#PLAIN},
- * {@linkplain LayoutMode#FORMGROUP}, {@linkplain LayoutMode#LABEL_SR_ONLY} and
- * {@linkplain LayoutMode#COLUMN}
+ * Many Bootstrap components need to adapt their rendering based on where they appear in
+ * an application. The LayoutModeProvider allows components to:
  * </p>
+ * <ul>
+ *   <li>Switch between different structural layouts (plain, form group, column-based)</li>
+ *   <li>Handle accessibility features like screen-reader-only labels</li>
+ *   <li>Apply appropriate Bootstrap CSS classes based on the selected mode</li>
+ *   <li>Store and retrieve the layout mode configuration from component state</li>
+ * </ul>
+ * 
+ * <h2>Available Layout Modes</h2>
+ * <p>
+ * The provider supports the following layout modes:
+ * </p>
+ * <ul>
+ *   <li>{@link LayoutMode#PLAIN} - Simple layout with minimal structure</li>
+ *   <li>{@link LayoutMode#FORMGROUP} - Renders as a Bootstrap form-group</li>
+ *   <li>{@link LayoutMode#LABEL_SR_ONLY} - Like FORMGROUP but with screen-reader-only labels</li>
+ *   <li>{@link LayoutMode#COLUMN} - Column-based layout for grid structures</li>
+ * </ul>
+ * 
+ * <h2>Attributes</h2>
+ * <ul>
+ *   <li><b>layoutMode</b> - String representation of the layout mode. If not set, uses the
+ *       configured default mode. Valid values match the enum names in {@link LayoutMode}.</li>
+ * </ul>
+ * 
+ * <h2>Usage Pattern</h2>
+ * <p>
+ * Components that require layout flexibility typically instantiate this provider during
+ * initialization with a default mode, then delegate to it for layout-related decisions:
+ * </p>
+ * <pre>
+ * // In component initialization
+ * layoutModeProvider = new LayoutModeProvider(this, LayoutMode.FORMGROUP);
+ * 
+ * // When rendering
+ * switch(layoutModeProvider.resolveLayoutMode()) {
+ *     case PLAIN:
+ *         // Render plain layout
+ *         break;
+ *     case FORMGROUP:
+ *         // Render form-group layout
+ *         break;
+ *     // Handle other modes...
+ * }
+ * </pre>
  *
  * @author Oliver Wolff
+ * @see LayoutMode
  */
 public class LayoutModeProvider {
 

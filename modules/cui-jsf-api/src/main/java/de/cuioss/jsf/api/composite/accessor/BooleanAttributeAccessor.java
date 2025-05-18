@@ -77,7 +77,7 @@ public class BooleanAttributeAccessor extends AttributeAccessorImpl<Boolean> {
         super(name, Boolean.class, alwaysResolve);
         invert = invertBoolean;
     }
-    
+
     /**
      * Simplified constructor creating a new {@link BooleanAttributeAccessor} without inversion.
      * 

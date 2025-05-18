@@ -34,7 +34,8 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.validator.ValidatorException;
 
 /**
- * Backing-class for cui-composite/editableDataList.xhtml
+ * Component for cui-composite/editableDataList.xhtml that provides an editable list
+ * with add, edit, delete and undo functionality.
  *
  * @author Oliver Wolff
  * @author Sven Haag
@@ -44,9 +45,7 @@ public class EditableDataListComponent extends BaseCuiNamingContainer {
 
     private static final CuiLogger log = new CuiLogger(EditableDataListComponent.class);
 
-    /**
-     * The componentId for this component.
-     */
+    /** The componentId for this component. */
     public static final String DATA_LIST_COMPONENT = "de.cuioss.cui.bootstrap.editableDataList";
 
     private final BooleanAttributeAccessor doubleClickEnabledAccesor = new BooleanAttributeAccessor(
@@ -83,9 +82,7 @@ public class EditableDataListComponent extends BaseCuiNamingContainer {
     private final BooleanAttributeAccessor requiredAccessor = new BooleanAttributeAccessor("required", false, false);
 
     /**
-     * @return the combined styleClass computed from the constants
-     *         {@link CssBootstrap#LIST_GROUP}, and the configured
-     *         styleClass-Attribute
+     * @return Combined styleClass with list group and optional required marker
      */
     public String getWrapperStyleClass() {
         var styleClassBuilder = CssBootstrap.LIST_GROUP.getStyleClassBuilder().append(super.getStyleClass());
@@ -96,47 +93,39 @@ public class EditableDataListComponent extends BaseCuiNamingContainer {
     }
 
     /**
-     * @return boolean indicating whether double click to edit is enabled
+     * @return Whether double click editing is disabled
      */
     public boolean isEditOnDoubleClickDisabled() {
         return !doubleClickEnabledAccesor.value(getAttributes()) || !getModel().isEveryItemSavedOrCanceled();
     }
 
     /**
-     * @param item
-     *
-     * @return boolean indicating whether the delete button should be rendered for
-     *         this item
+     * @param item The item to check
+     * @return Whether delete button should be rendered for this item
      */
     public boolean isDeleteButtonVisibleForItem(ItemWrapper<?> item) {
         return enableDeleteAccesor.value(getAttributes()) && !item.isMarkedForDelete();
     }
 
     /**
-     * @param item
-     *
-     * @return boolean indicating whether the undo button should be rendered for
-     *         this item
+     * @param item The item to check
+     * @return Whether undo button should be rendered for this item
      */
     public boolean isUndoButtonVisibleForItem(ItemWrapper<?> item) {
         return enableDeleteAccesor.value(getAttributes()) && item.isMarkedForDelete();
     }
 
     /**
-     * @param item
-     *
-     * @return boolean indicating whether to render the addon-buttons group (add,
-     *         cancel) in add-mode or not.
+     * @param item The item to check
+     * @return Whether addon buttons should be rendered in add mode
      */
     public boolean isAddonButtonsInAddModeRendered(ItemWrapper<?> item) {
         return CREATED.equals(item.getAddStatus()) && renderAddonButtonsAddMode.value(getAttributes());
     }
 
     /**
-     * @param item
-     *
-     * @return boolean indicating whether to render the addon-buttons group (save,
-     *         cancel) in edit-mode or not.
+     * @param item The item to check
+     * @return Whether addon buttons should be rendered in edit mode
      */
     public boolean isAddonButtonsInEditModeRendered(ItemWrapper<?> item) {
         return !CREATED.equals(item.getAddStatus()) && renderAddonButtonsEditMode.value(getAttributes());
@@ -159,7 +148,7 @@ public class EditableDataListComponent extends BaseCuiNamingContainer {
     }
 
     /**
-     * @return String representation of the resolved error message
+     * @return Resolved error message for required validation
      */
     public String getResolvedErrorMessage() {
         return LabelResolver.builder().withLabelKey(getErrorMessageKey()).withLabelValue(getErrorMessageValue()).build()
@@ -171,7 +160,7 @@ public class EditableDataListComponent extends BaseCuiNamingContainer {
     }
 
     /**
-     * @return Flag indicating whether the empty-message should be rendered
+     * @return Whether empty message should be rendered
      */
     public boolean isEmptyMessageRendered() {
         final EditableDataListModel<?> model = getModel();
@@ -179,7 +168,7 @@ public class EditableDataListComponent extends BaseCuiNamingContainer {
     }
 
     /**
-     * @return String representation of the resolved empty-elements message
+     * @return Resolved message for empty data list
      */
     public String getResolvedEmptyMessage() {
         return LabelResolver.builder().withLabelKey(getEmptyMessageKey()).withLabelValue(getEmptyMessageValue()).build()
@@ -192,9 +181,12 @@ public class EditableDataListComponent extends BaseCuiNamingContainer {
     }
 
     /**
-     * @param facesContext
-     * @param component    helper UIInput component
-     * @param value        irrelevant
+     * Validates both required state and model rules.
+     * 
+     * @param facesContext Current faces context
+     * @param component Helper input component
+     * @param value Ignored
+     * @throws ValidatorException If validation fails
      */
     public void validate(final FacesContext facesContext, UIComponent component, Object value) {
         validateRequired();
@@ -209,10 +201,10 @@ public class EditableDataListComponent extends BaseCuiNamingContainer {
     }
 
     /**
-     * Go through the given validators and feed them with the model.
+     * Executes model validators.
      *
-     * @param facesContext
-     * @param component
+     * @param facesContext Current faces context
+     * @param component Current component
      */
     private void validateModel(final FacesContext facesContext, UIComponent component) {
         final var validators = validatorsAccessor.value(getAttributes());
@@ -230,6 +222,9 @@ public class EditableDataListComponent extends BaseCuiNamingContainer {
         return modelAccessor.value(getAttributes());
     }
 
+    /**
+     * @return Whether this component is required
+     */
     public boolean evaluateRequired() {
         var result = requiredAccessor.value(getAttributes());
         return null != result && result;

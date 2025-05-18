@@ -18,8 +18,6 @@ package de.cuioss.jsf.api.common.accessor;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 
-import jakarta.faces.context.FacesContext;
-
 /**
  * Defines a pattern for accessing transient values in a serialization-safe manner within JSF.
  * <p>

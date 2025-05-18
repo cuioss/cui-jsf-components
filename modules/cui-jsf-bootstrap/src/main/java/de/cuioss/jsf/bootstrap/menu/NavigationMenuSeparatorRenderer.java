@@ -26,25 +26,50 @@ import lombok.NoArgsConstructor;
 import java.io.IOException;
 
 /**
- * {@link Renderer} utility for the {@link NavigationMenuItemSeparator} model.
- *
+ * <p>A utility class responsible for rendering {@link NavigationMenuItemSeparator} models as
+ * Bootstrap-compatible menu divider lines. This renderer creates visual separators between
+ * menu items in a dropdown menu.</p>
+ * 
+ * <p>The separator is rendered as a simple list item with the Bootstrap "divider" CSS class,
+ * which displays as a horizontal dividing line in dropdown menus. This is typically used to
+ * group related menu items visually, separating different functional sections within a menu.</p>
+ * 
+ * <h2>Features</h2>
+ * <ul>
+ *   <li>Lightweight rendering of horizontal divider lines in menus</li>
+ *   <li>Bootstrap-compatible styling with the list-divider class</li>
+ *   <li>Proper ID generation and style handling</li>
+ *   <li>Conditional rendering based on the model's rendered property</li>
+ * </ul>
+ * 
  * <h2>HTML structure</h2>
+ * <p>The renderer produces the following minimal HTML structure:</p>
  *
  * <pre>
- * &lt;li class="divider"&gt;
+ * &lt;li class="divider"&gt;&lt;/li&gt;
  * </pre>
  *
  * @author Sven Haag
+ * @see NavigationMenuItemSeparator
+ * @see NavigationMenuComponent
+ * @see NavigationMenuRenderer
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class NavigationMenuSeparatorRenderer {
 
     /**
-     * @param writer
-     * @param model
-     * @param component
-     * @param idExtension
-     * @throws IOException
+     * <p>Renders a menu separator item based on a {@link NavigationMenuItemSeparator} model.</p>
+     * 
+     * <p>This method generates a simple list item with the Bootstrap divider class that
+     * displays as a horizontal line separating groups of menu items in a dropdown menu.</p>
+     * 
+     * <p>The separator will not be rendered if the model's rendered property is false.</p>
+     *
+     * @param writer the decorating response writer for generating HTML output
+     * @param model the navigation menu separator model to render
+     * @param component the parent navigation menu component
+     * @param idExtension string to append to the generated component ID for uniqueness
+     * @throws IOException if an error occurs during the rendering process
      */
     static void render(DecoratingResponseWriter<NavigationMenuComponent> writer, NavigationMenuItemSeparator model,
             NavigationMenuComponent component, final String idExtension) throws IOException {

@@ -21,24 +21,57 @@ import de.cuioss.tools.string.MoreStrings;
 import lombok.Getter;
 
 /**
+ * Represents Bootstrap button sizes and maps them to corresponding CSS classes.
+ * Implements {@link StyleClassProvider} for easy CSS class retrieval.
+ * 
+ * <h3>Available Sizes</h3>
+ * <ul>
+ *   <li>{@link #DEFAULT} - Standard size (no specific class)</li>
+ *   <li>{@link #LG} - Large size ("btn-lg")</li>
+ *   <li>{@link #SM} - Small size ("btn-sm")</li>
+ * </ul>
+ *
  * @author Oliver Wolff
+ * @since 1.0
+ * @see ContextSize
  */
 @Getter
 public enum ButtonSize implements StyleClassProvider {
 
     /**
-     * The default.
+     * The default button size.
+     * <p>Does not add any specific size-related CSS class.</p>
      */
     DEFAULT(""),
+
     /**
-     * Large.
+     * Large button size.
+     * <p>Applies the "btn-lg" CSS class to create a larger button.</p>
      */
     LG("lg"),
+
     /**
-     * SM.
+     * Small button size.
+     * <p>Applies the "btn-sm" CSS class to create a smaller button.</p>
      */
     SM("sm");
 
+    /**
+     * The CSS class prefix for all button size classes.
+     */
+    private static final String PREFIX = "btn-";
+
+    /**
+     * The CSS class corresponding to this button size.
+     */
+    private final String styleClass;
+
+    /**
+     * Constructor.
+     *
+     * @param suffix The size suffix to be appended to the "btn-" prefix.
+     *               If empty, an empty string will be used as the style class.
+     */
     ButtonSize(final String suffix) {
         if (MoreStrings.isEmpty(suffix)) {
             styleClass = "";
@@ -47,18 +80,20 @@ public enum ButtonSize implements StyleClassProvider {
         }
     }
 
-    private static final String PREFIX = "btn-";
-
-    private final String styleClass;
-
     /**
-     * @param contextSize Maybe null, otherwise must be one of
+     * Maps from the generic {@link ContextSize} to the specific {@link ButtonSize}.
+     * <p>
+     * This method allows button components to use the application's context size 
+     * system and convert it to the appropriate button-specific size.
+     * 
+     * @param contextSize The generic context size to map from. Can be null, or one of
      *                    {@link ContextSize#LG}, {@link ContextSize#DEFAULT} or
      *                    {@link ContextSize#SM}
-     * @return the corresponding {@link ButtonSize} derived by the given
-     * {@link ContextSize}. In case of <code>contextSize==null</code> it
-     * will return {@link ButtonSize#DEFAULT}. In case it is none of the
-     * supported sizes it will throw an {@link IllegalArgumentException}
+     * @return the corresponding {@link ButtonSize} derived from the given
+     *         {@link ContextSize}. If {@code contextSize} is {@code null}, returns
+     *         {@link ButtonSize#DEFAULT}.
+     * @throws IllegalArgumentException if {@code contextSize} is not one of the
+     *         supported sizes (LG, DEFAULT, or SM)
      */
     public static ButtonSize getForContextSize(final ContextSize contextSize) {
         if (null != contextSize) {

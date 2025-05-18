@@ -24,7 +24,18 @@ import jakarta.faces.context.FacesContext;
 import lombok.experimental.Delegate;
 
 /**
- * Displays a waiting indicator.
+ * Component that displays a visual waiting indicator (spinner) for loading or processing states.
+ * Can be sized using Bootstrap sizing options (xs, sm, md, lg), with default size "md".
+ * 
+ * <h2>Usage</h2>
+ * <pre>
+ * &lt;cui:waitingIndicator /&gt;
+ * &lt;cui:waitingIndicator size="lg" /&gt;
+ * </pre>
+ * 
+ * @author Oliver Wolff
+ * @since 1.0
+ * @see WaitingIndicatorRenderer
  */
 @FacesComponent(BootstrapFamily.WAITING_INDICATOR_COMPONENT)
 public class WaitingIndicatorComponent extends AbstractBaseCuiComponent {
@@ -32,21 +43,32 @@ public class WaitingIndicatorComponent extends AbstractBaseCuiComponent {
     @Delegate
     private final ContextSizeProvider contextSizeProvider;
 
+    /**
+     * Default constructor that initializes the renderer type to
+     * {@link BootstrapFamily#WAITING_INDICATOR_RENDERER} and sets up the
+     * {@link ContextSizeProvider} with a default size of "md".
+     */
     public WaitingIndicatorComponent() {
         super.setRendererType(BootstrapFamily.WAITING_INDICATOR_RENDERER);
         contextSizeProvider = new ContextSizeProvider(this, "md");
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @return {@link BootstrapFamily#COMPONENT_FAMILY}
+     */
     @Override
     public String getFamily() {
         return BootstrapFamily.COMPONENT_FAMILY;
     }
 
     /**
-     * Create a new instance using the facesContext.
+     * Factory method to create a new instance of the component using the 
+     * current faces context.
      *
-     * @param facesContext the current faces context
-     * @return a new instance
+     * @param facesContext the current faces context, must not be null
+     * @return a new {@link WaitingIndicatorComponent} instance
      */
     public static WaitingIndicatorComponent createComponent(final FacesContext facesContext) {
         return ComponentUtility.createComponent(facesContext, BootstrapFamily.WAITING_INDICATOR_COMPONENT);

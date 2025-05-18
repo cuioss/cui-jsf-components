@@ -23,14 +23,31 @@ import jakarta.faces.component.UIComponent;
 import java.util.Optional;
 
 /**
- * Resolves bootstrap-specific components, currently the
- * {@link EditableDataListComponent}
+ * Implementation of {@link ComponentModifierResolver} for Bootstrap-specific
+ * components. Currently handles:
+ * <ul>
+ *   <li>{@link EditableDataListComponent} - Using {@link EditableDataListComponentWrapper}</li>
+ * </ul>
  *
  * @author Oliver Wolff
+ * @since 1.0
  *
+ * @see ComponentModifierResolver
+ * @see EditableDataListComponentWrapper
  */
 public class BootstrapComponentModifierResolver implements ComponentModifierResolver {
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation checks if the provided component is a Bootstrap-specific
+     * component that can be wrapped with a suitable {@link ComponentModifier}. Currently,
+     * it supports wrapping {@link EditableDataListComponent} instances.</p>
+     *
+     * @param toBeWrapped the component to be wrapped, must not be null
+     * @return an {@link Optional} containing the appropriate {@link ComponentModifier}
+     *         if the component is supported, or an empty Optional otherwise
+     */
     @Override
     public Optional<ComponentModifier> wrap(UIComponent toBeWrapped) {
         if (toBeWrapped instanceof EditableDataListComponent component) {
@@ -38,5 +55,4 @@ public class BootstrapComponentModifierResolver implements ComponentModifierReso
         }
         return Optional.empty();
     }
-
 }

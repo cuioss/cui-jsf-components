@@ -21,11 +21,6 @@ import de.cuioss.jsf.jqplot.js.support.JsArray;
 import de.cuioss.jsf.jqplot.js.types.JsString;
 import de.cuioss.tools.string.MoreStrings;
 import de.cuioss.tools.string.Splitter;
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 
 import java.io.Serial;
 import java.io.Serializable;

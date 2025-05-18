@@ -32,45 +32,49 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * <p>
- * Default {@link Renderer} for {@link TagListComponent}
- * </p>
- * <h2>Summary</h2>
- * <p>
- * Renders a number of {@link Tag}s as a a list. The tags are created from the
- * the given {@link Collection} of {@link ConceptKeyType}, see attributes
- * #value. If you need fine grained control use {@link TagComponent} directly.
- * The attributes #state, #size and #contentEscape will be passed through to the
- * used {@link TagComponent}. More information and examples can be found in the
- * <a href=
- * "https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/tag.jsf"
- * >Reference Documentation</a>
- * </p>
- * <h2>Rendering</h2>
- * <p>
- * The tags will be created as list in a {@code
- *
-<ul class="list-inline">
- * }
- * <h2>Styling</h2>
- * <ul>
- * <li>The marker css class is "list-inline" for the surrounding ul</li>
- * <li>Sizing: Will be passed through to {@link TagComponent}</li>
- * <li>State: Will be passed through to {@link TagComponent}</li>
- * </ul>
+ * Renderer for the {@link TagListComponent} that creates and renders multiple
+ * {@link TagComponent} instances as an HTML unordered list.
+ * 
+ * <h2>Generated Markup</h2>
+ * <pre>
+ * &lt;ul class="list-inline [additional-classes]"&gt;
+ *   &lt;li&gt;[Tag 1]&lt;/li&gt;
+ *   &lt;li&gt;[Tag 2]&lt;/li&gt;
+ * &lt;/ul&gt;
+ * </pre>
+ * 
+ * <p>Passes component configuration (state, size, contentEscape) to each created tag.</p>
  *
  * @author Oliver Wolff
+ * @since 1.0
+ * @see TagListComponent
+ * @see TagComponent
  */
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.TAG_LIST_COMPONENT_RENDERER)
 public class TagListRenderer extends BaseDecoratorRenderer<TagListComponent> {
 
     /**
-     *
+     * Constructor that configures the renderer to allow rendering of children.
+     * This is necessary as the tag list dynamically creates and renders child
+     * components for each tag.
      */
     public TagListRenderer() {
         super(true);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>
+     * Handles the rendering of the tag list by creating tag components from the
+     * value and rendering them as a list.
+     * </p>
+     * 
+     * @param context the current FacesContext
+     * @param writer the response writer wrapper providing access to the component
+     * @param component the TagListComponent being rendered
+     * @throws IOException if an error occurs during writing to the response
+     */
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<TagListComponent> writer,
             final TagListComponent component) throws IOException {
@@ -79,8 +83,11 @@ public class TagListRenderer extends BaseDecoratorRenderer<TagListComponent> {
     }
 
     /**
-     * @param component
-     * @return
+     * Creates a list of TagComponent instances based on the TagListComponent's
+     * value, applying consistent styling and configuration to all tags.
+     *
+     * @param component the source TagListComponent
+     * @return a List of TagComponent instances ready for rendering
      */
     private static List<TagComponent> createTagChildren(final TagListComponent component) {
         final var contextSize = component.getSize();

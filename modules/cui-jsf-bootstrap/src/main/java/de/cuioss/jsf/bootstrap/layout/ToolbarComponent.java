@@ -28,11 +28,9 @@ import lombok.experimental.Delegate;
 
 /**
  * <p>
- * Renders a bootstrap conform div with the styleClass 'toolbar'.
+ * Renders a Bootstrap toolbar that can be optionally fixed to the top or bottom of the viewport.
+ * Uses Bootstrap's affix plugin for positioning.
  * </p>
- * <p>
- * It uses the affix plugin for positioning the toolbar, see Attributes for
- * details
  * <p>
  * More information and examples can be found in the <a href=
  * "https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/layout.jsf">Reference
@@ -40,25 +38,23 @@ import lombok.experimental.Delegate;
  * </p>
  * <h2>Attributes</h2>
  * <ul>
- * <li>{@link ContextSizeProvider}</li>
- * <li>pinToTop: Indicates whether to pin this component to the top. The default
- * value for this property is false.</li>
- * <li>pinTopOffset: Defines the offset of this component when pinned to top.
- * The default value for this property is 5.</li>
- * <li>pinToBottom: Indicates whether to pin this component to the bottom. The
- * default value for this property is false.</li>
- * <li>pinBottomOffset: Defines the offset of this component when pinned to
- * bottom. The default value for this property is 5.</li>
+ * <li>{@link ContextSizeProvider} - Controls contextual sizing</li>
+ * <li>pinToTop - Whether to pin to the top of viewport (default: false)</li>
+ * <li>pinTopOffset - Offset when pinned to top (default: 5px)</li>
+ * <li>pinToBottom - Whether to pin to the bottom of viewport (default: false)</li>
+ * <li>pinBottomOffset - Offset when pinned to bottom (default: 5px)</li>
  * </ul>
  * <h2>Usage</h2>
  *
  * <pre>
- *  {@code <cui:toolbar />}
+ *  {@code <cui:toolbar pinToTop="true" pinTopOffset="10" />}
  * </pre>
  *
  * <h2>Styling</h2>
  * <ul>
- * <li>The marker css class is 'toolbar'</li>
+ * <li>Base css class: 'toolbar'</li>
+ * <li>When pinned: 'toolbar-pinned'</li>
+ * <li>Context size: 'toolbar-[size]'</li>
  * </ul>
  *
  * @author Oliver Wolff

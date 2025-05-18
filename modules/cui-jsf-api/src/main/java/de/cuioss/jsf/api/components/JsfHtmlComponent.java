@@ -185,31 +185,31 @@ public class JsfHtmlComponent<T extends UIComponent> {
     public static final Collection<JsfHtmlComponent<? extends UIComponentBase>> VALUES = CollectionLiterals
             .immutableList(BUTTON, COMMAND_BUTTON, FORM, PANEL_GROUP, SPAN, CHECKBOX, INPUT, HIDDEN, HTML_INPUT,
                     HTML_OUTPUT_TEXT, HTML_OUTPUT_LINK);
-                    
+
     /**
      * The component family used for component creation.
      */
     @Getter
     private final String family;
-    
+
     /**
      * The component type identifier used for component creation.
      */
     @Getter
     private final String componentType;
-    
+
     /**
      * The renderer type used for renderer creation.
      */
     @Getter
     private final String rendererType;
-    
+
     /**
      * The class type of the component being represented.
      */
     @Getter
     private final Class<T> componentClass;
-    
+
     /**
      * The default HTML element used for rendering this component.
      */

@@ -34,7 +34,29 @@ import jakarta.faces.render.FacesRenderer;
 import java.io.IOException;
 
 /**
- * Renderer for {@linkplain LazyLoadingComponent}.
+ * Renderer for {@link LazyLoadingComponent} that handles component lifecycle
+ * and produces the HTML structure based on the component's state.
+ *
+ * <h3>Rendering States</h3>
+ * <ul>
+ *   <li>Initial: Shows waiting indicator with JavaScript to trigger loading</li>
+ *   <li>Loading: Handles AJAX updates and processes content loading</li>
+ *   <li>Error: Displays notification messages</li>
+ *   <li>Complete: Renders child components according to configuration</li>
+ * </ul>
+ *
+ * <h3>Generated Structure</h3>
+ * <pre>
+ * &lt;div class="cui-lazy-loading" data-async="..." data-initialized="..."&gt;
+ *   &lt;!-- Optional notification box for messages --&gt;
+ *   &lt;!-- Optional waiting indicator during loading --&gt;
+ *   &lt;!-- Content area for lazy-loaded components --&gt;
+ * &lt;/div&gt;
+ * </pre>
+ *
+ * @author Oliver Wolff
+ * @since 1.0
+ * @see LazyLoadingComponent
  */
 @FacesRenderer(rendererType = BootstrapFamily.LAZYLOADING_RENDERER, componentFamily = BootstrapFamily.COMPONENT_FAMILY)
 public class LazyLoadingRenderer extends BaseDecoratorRenderer<LazyLoadingComponent> {

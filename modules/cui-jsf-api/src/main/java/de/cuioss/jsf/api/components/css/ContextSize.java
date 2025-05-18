@@ -51,39 +51,39 @@ public enum ContextSize implements StyleClassProvider {
      * The default size. Will usually be ignored in style class generation.
      */
     DEFAULT,
-    
+
     /**
      * Extra Small size. Represents the smallest size option, typically used for compact UI elements.
      */
     XS,
-    
+
     /**
      * Small size. Represents a size smaller than the default, commonly used for secondary UI elements.
      */
     SM,
-    
+
     /**
      * Medium size. Represents a moderate size, commonly used as an alternative to the default size.
      */
     MD,
-    
+
     /**
      * Large size. Represents a size larger than the default, commonly used for emphasized UI elements.
      */
     LG,
-    
+
     /**
      * Extra Large size. An extension to the standard Bootstrap sizing, providing an additional
      * larger option.
      */
     XL,
-    
+
     /**
      * Extra Extra Large size. An extension to the standard Bootstrap sizing, providing an even
      * larger option than XL.
      */
     XXL,
-    
+
     /**
      * Extra Extra Extra Large size. An extension to the standard Bootstrap sizing, providing the
      * largest size option available in the framework.
@@ -110,7 +110,7 @@ public enum ContextSize implements StyleClassProvider {
         }
         return DEFAULT;
     }
-    
+
     /**
      * Returns the style class specific for this context size.
      * <p>
@@ -131,7 +131,7 @@ public enum ContextSize implements StyleClassProvider {
         }
         return name().toLowerCase();
     }
-    
+
     /**
      * Returns the style class with a specified prefix.
      * <p>
@@ -155,7 +155,7 @@ public enum ContextSize implements StyleClassProvider {
         }
         return prefix + "-" + name().toLowerCase();
     }
-    
+
     /**
      * Returns a {@link StyleClassBuilder} initialized with the prefixed style class.
      * <p>

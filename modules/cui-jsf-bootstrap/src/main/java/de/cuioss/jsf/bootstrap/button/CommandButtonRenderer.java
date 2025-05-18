@@ -33,34 +33,50 @@ import jakarta.faces.render.Renderer;
 import java.io.IOException;
 
 /**
- * <h2>Rendering</h2>
- * <p>
- * This {@link Renderer} uses the concrete implementation specific Renderer for
- * {@code h:commandButton} accessed by accessed by
- * {@link JsfHtmlComponent#BUTTON}. This is used for creating the start element
- * of the element including all attributes like onclick,.. . On the fly the
- * {@code input} element will be replaced by {@code button}. This is done by
- * passing an instance of {@link ElementReplacingResponseWriter}. The
- * {@link Renderer#decode(FacesContext, UIComponent)} will be passed to the
- * specific renderer as well.
- * </p>
- * <h2>Styling</h2>
- * <ul>
- * <li>The marker css class is btn</li>
- * </ul>
+ * Renderer for {@link CommandButton} that produces Bootstrap-styled command buttons.
+ * Transforms standard JSF inputs into HTML5 button elements with proper styling and icons.
+ * 
+ * <h3>Generated HTML Structure</h3>
+ * <pre>
+ * &lt;button type="submit" class="btn btn-[state] btn-[size] [additional-classes]" id="..."&gt;
+ *   [optional left icon component]
+ *   &lt;span class="button-text"&gt;Button Label&lt;/span&gt;
+ *   [optional right icon component]
+ * &lt;/button&gt;
+ * </pre>
  *
  * @author Oliver Wolff
+ * @since 1.0
+ * @see CommandButton
+ * @see ButtonState
+ * @see ButtonSize
  */
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.COMMAND_BUTTON_RENDERER)
 public class CommandButtonRenderer extends BaseDecoratorRenderer<CommandButton> {
 
     /**
-     *
+     * Default constructor that configures the renderer to not handle 
+     * the children of the component.
      */
     public CommandButtonRenderer() {
         super(false);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>Renders the command button by:</p>
+     * <ol>
+     *   <li>Creating an element-replacing response writer that transforms "input" to "button"</li>
+     *   <li>Resolving and applying button styling classes (state and size)</li>
+     *   <li>Rendering the button content: left icon (if applicable), label text, right icon (if applicable)</li>
+     * </ol>
+     * 
+     * @param context the FacesContext
+     * @param writer the response writer wrapped for the CommandButton
+     * @param component the CommandButton being rendered
+     * @throws IOException if an error occurs during writing to the response
+     */
     @Override
     protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<CommandButton> writer,
             final CommandButton component) throws IOException {
@@ -98,11 +114,29 @@ public class CommandButtonRenderer extends BaseDecoratorRenderer<CommandButton> 
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>Delegates to the standard command button renderer for handling form submissions.</p>
+     * 
+     * @param context the FacesContext
+     * @param component the CommandButton component
+     */
     @Override
     public void decode(final FacesContext context, final UIComponent component) {
         JsfHtmlComponent.COMMAND_BUTTON.renderer(context).decode(context, component);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>Completes the button element by writing the closing tag.</p>
+     * 
+     * @param context the FacesContext
+     * @param writer the response writer wrapped for the CommandButton
+     * @param component the CommandButton being rendered
+     * @throws IOException if an error occurs during writing to the response
+     */
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<CommandButton> writer,
             final CommandButton component) throws IOException {

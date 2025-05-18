@@ -18,11 +18,6 @@ package de.cuioss.jsf.api.components.model.menu;
 import de.cuioss.jsf.api.application.navigation.NavigationUtils;
 import de.cuioss.jsf.api.components.support.LabelResolver;
 import jakarta.faces.context.FacesContext;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 import java.io.Serial;
 import java.util.ArrayList;

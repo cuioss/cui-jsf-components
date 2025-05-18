@@ -58,12 +58,12 @@ public final class MethodRule extends MetaRule {
      * <p>The name of the method property to which this rule applies.</p>
      */
     private final String methodName;
-    
+
     /**
      * <p>The expected return type of the method expression.</p>
      */
     private final Class<?> returnTypeClass;
-    
+
     /**
      * <p>The expected parameter types of the method expression.</p>
      */

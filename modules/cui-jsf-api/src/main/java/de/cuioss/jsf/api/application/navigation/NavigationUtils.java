@@ -15,6 +15,14 @@
  */
 package de.cuioss.jsf.api.application.navigation;
 
+import static de.cuioss.jsf.api.common.logging.JsfApiLogMessages.WARN;
+import static de.cuioss.jsf.api.servlet.ServletAdapterUtil.getRequest;
+import static de.cuioss.jsf.api.servlet.ServletAdapterUtil.getResponse;
+import static de.cuioss.tools.net.UrlParameter.createParameterString;
+import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
+import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
+import static java.util.Objects.requireNonNull;
+
 import de.cuioss.jsf.api.common.view.ViewDescriptor;
 import de.cuioss.jsf.api.common.view.ViewDescriptorImpl;
 import de.cuioss.jsf.api.servlet.ServletAdapterUtil;
@@ -33,14 +41,6 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
-
-import static de.cuioss.jsf.api.common.logging.JsfApiLogMessages.WARN;
-import static de.cuioss.jsf.api.servlet.ServletAdapterUtil.getRequest;
-import static de.cuioss.jsf.api.servlet.ServletAdapterUtil.getResponse;
-import static de.cuioss.tools.net.UrlParameter.createParameterString;
-import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
-import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
-import static java.util.Objects.requireNonNull;
 
 /**
  * Utility class that provides navigation functionality for JSF applications.

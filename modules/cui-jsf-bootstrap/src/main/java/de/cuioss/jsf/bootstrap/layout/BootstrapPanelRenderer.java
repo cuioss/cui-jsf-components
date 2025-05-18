@@ -33,10 +33,55 @@ import jakarta.faces.render.FacesRenderer;
 import java.io.IOException;
 
 /**
- * Bootstrap panel component
+ * <p>Renderer for the {@link BootstrapPanelComponent} that generates Bootstrap-compatible panel HTML.
+ * This renderer handles the complete rendering lifecycle for panel components including:
+ * header/footer rendering, collapse/expand states, contextual styling, and deferred content loading.</p>
+ * 
+ * <h2>Generated HTML Structure</h2>
+ * <pre>
+ * &lt;div class="panel panel-[state] cui-panel" id="[clientId]"&gt;
+ *   &lt;!-- State holder for collapse state --&gt;
+ *   &lt;input type="hidden" value="[expanded]" id="[clientId]_isexpanded" /&gt;
+ *   
+ *   &lt;!-- Header (if applicable) --&gt;
+ *   &lt;div class="panel-heading [collapsible-class]" id="[clientId]_toggler"&gt;
+ *     &lt;h4 class="panel-title"&gt;
+ *       &lt;span class="cui-collapsible-icon" id="[clientId]_icon"&gt;&lt;/span&gt;
+ *       Panel Title
+ *     &lt;/h4&gt;
+ *   &lt;/div&gt;
+ *   
+ *   &lt;!-- Panel body with collapse container --&gt;
+ *   &lt;div class="panel-collapse collapse [in]" id="[clientId]_body"&gt;
+ *     &lt;div class="panel-body"&gt;
+ *       &lt;!-- Panel content or loading indicator --&gt;
+ *     &lt;/div&gt;
+ *   &lt;/div&gt;
+ *   
+ *   &lt;!-- Footer (if applicable) --&gt;
+ *   &lt;div class="panel-footer" id="[clientId]_footer"&gt;
+ *     Footer content
+ *   &lt;/div&gt;
+ * &lt;/div&gt;
+ * </pre>
+ * 
+ * <h2>Rendering Features</h2>
+ * <ul>
+ *   <li><b>Header/Title Rendering:</b> Renders panel headers with or without facets</li>
+ *   <li><b>Collapse/Expand:</b> Handles toggling visibility of panel content</li>
+ *   <li><b>Contextual Styling:</b> Applies Bootstrap contextual classes based on state</li>
+ *   <li><b>Deferred Content:</b> Shows loading indicators for deferred content</li>
+ *   <li><b>AJAX Support:</b> Maintains component state during AJAX updates</li>
+ *   <li><b>Accessibility:</b> Adds appropriate ARIA attributes for screen readers</li>
+ * </ul>
+ * 
+ * <h2>JavaScript Integration</h2>
+ * <p>The renderer uses data-* attributes to integrate with the Bootstrap 
+ * JavaScript components and CUI's custom panel enablers.</p>
  *
  * @author Matthias Walliczek
  * @author Sven Haag
+ * @see BootstrapPanelComponent
  */
 @FacesRenderer(rendererType = BootstrapFamily.PANEL_RENDERER, componentFamily = BootstrapFamily.COMPONENT_FAMILY)
 public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanelComponent> {
@@ -53,6 +98,22 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
         super(false);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * Renders the opening parts of the Bootstrap panel:
+     * <ol>
+     *   <li>The panel's outer container element with appropriate styling</li>
+     *   <li>The hidden state holder input for tracking collapse state</li>
+     *   <li>The panel header/title section if applicable</li>
+     *   <li>The beginning of the panel body</li>
+     * </ol>
+     * 
+     * @param context the current faces context
+     * @param writer the response writer for generating HTML
+     * @param component the panel component being rendered
+     * @throws IOException if an I/O error occurs during writing
+     */
     @Override
     protected void doEncodeBegin(final FacesContext context,
             final DecoratingResponseWriter<BootstrapPanelComponent> writer, final BootstrapPanelComponent component)
@@ -63,6 +124,20 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
         writeBodyBegin(writer, component);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * Renders the panel's content based on its state:
+     * <ul>
+     *   <li>If deferred loading is active and content isn't loaded yet - renders a spinner</li>
+     *   <li>Otherwise - renders all child components and marks content as loaded</li>
+     * </ul>
+     * 
+     * @param context the current faces context
+     * @param writer the response writer for generating HTML
+     * @param component the panel component being rendered
+     * @throws IOException if an I/O error occurs during writing
+     */
     @Override
     protected void doEncodeChildren(final FacesContext context,
             final DecoratingResponseWriter<BootstrapPanelComponent> writer, final BootstrapPanelComponent component)
@@ -75,6 +150,21 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * Renders the closing parts of the Bootstrap panel:
+     * <ol>
+     *   <li>The closing tags for the panel body</li>
+     *   <li>The panel footer if applicable</li>
+     *   <li>The closing tag for the panel container</li>
+     * </ol>
+     * 
+     * @param context the current faces context
+     * @param writer the response writer for generating HTML
+     * @param component the panel component being rendered
+     * @throws IOException if an I/O error occurs during writing
+     */
     @Override
     protected void doEncodeEnd(final FacesContext context,
             final DecoratingResponseWriter<BootstrapPanelComponent> writer, final BootstrapPanelComponent component)
@@ -84,13 +174,31 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
         writePanelEnd(writer);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * This renderer handles rendering of all children directly, 
+     * rather than delegating to child renderers.
+     * 
+     * @return true, indicating this renderer renders its children
+     */
     @Override
     public boolean getRendersChildren() {
         return true;
     }
 
     /**
-     * Update collapse state from request.
+     * {@inheritDoc}
+     * <p>
+     * Decodes request parameters to update panel state:
+     * <ul>
+     *   <li>Checks for collapse/expand state changes from client</li>
+     *   <li>Updates component state based on request parameters</li>
+     *   <li>Marks content as loaded when expanded</li>
+     * </ul>
+     * 
+     * @param context the current faces context
+     * @param componentWrapper wrapper containing the panel component
      */
     @Override
     protected void doDecode(final FacesContext context,
@@ -108,16 +216,39 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
         }
     }
 
+    /**
+     * Generates the client ID for the panel body element.
+     * 
+     * @param component the panel component
+     * @return the client ID for the panel body
+     */
     private static String getPanelBodyId(final BootstrapPanelComponent component) {
         return component.getClientId() + "_" + ID_SUFFIX_BODY;
     }
 
+    /**
+     * Determines the appropriate Bootstrap collapse CSS class based on panel state.
+     * 
+     * @param component the panel component
+     * @return StyleClassProvider with either "collapse" or "collapse in" class
+     */
     private static StyleClassProvider getBootstrapCollapseStateClass(final BootstrapPanelComponent component) {
         return component.resolveCollapsed() ? CssBootstrap.COLLAPSE : CssBootstrap.COLLAPSE_IN;
     }
 
     /**
-     * Panel header / toggle element
+     * Writes the panel header/toggle element if applicable.
+     * Handles different cases:
+     * <ul>
+     *   <li>Header facet if provided</li>
+     *   <li>Header title with collapse icon if collapsible</li>
+     *   <li>Simple header title if not collapsible</li>
+     * </ul>
+     * 
+     * @param writer the response writer
+     * @param component the panel component
+     * @param context the faces context
+     * @throws IOException if an I/O error occurs during writing
      */
     private static void writeHeader(final DecoratingResponseWriter<BootstrapPanelComponent> writer,
             final BootstrapPanelComponent component, final FacesContext context) throws IOException {
@@ -150,8 +281,17 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
     }
 
     /**
-     * Write heading for panel header. A header facet takes precedence over set
-     * header values/keys.
+     * Writes the heading content for the panel header.
+     * Handles different heading types:
+     * <ul>
+     *   <li>Custom header facet</li>
+     *   <li>Title text with optional collapse icon</li>
+     * </ul>
+     * 
+     * @param writer the response writer
+     * @param component the panel component
+     * @param context the faces context
+     * @throws IOException if an I/O error occurs during writing
      */
     private static void writeHeading(final DecoratingResponseWriter<BootstrapPanelComponent> writer,
             final BootstrapPanelComponent component, final FacesContext context) throws IOException {
@@ -178,8 +318,17 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
     }
 
     /**
-     * Write footer if necessary. A footer facet takes precedence over set footer
-     * values/keys.
+     * Writes the footer element if applicable.
+     * Handles different footer types:
+     * <ul>
+     *   <li>Custom footer facet</li>
+     *   <li>Footer text</li>
+     * </ul>
+     * 
+     * @param writer the response writer
+     * @param component the panel component
+     * @param context the faces context
+     * @throws IOException if an I/O error occurs during writing
      */
     private static void writeFooter(final DecoratingResponseWriter<BootstrapPanelComponent> writer,
             final BootstrapPanelComponent component, final FacesContext context) throws IOException {
@@ -197,15 +346,27 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
     }
 
     /**
-     * @param component {@link BootstrapPanelComponent} must not be {@code null}
-     * @return CSS state style class with panel prefix
+     * Determines the appropriate Bootstrap panel contextual class based on the component's state.
+     * 
+     * @param component the panel component
+     * @return CSS class string for the panel's contextual state (panel-success, panel-warning, etc.)
      */
     private static String getPanelClassForState(final BootstrapPanelComponent component) {
         return component.resolveContextState().getStyleClassWithPrefix("panel");
     }
 
     /**
-     * Start panel HTML.
+     * Writes the opening markup for the panel container.
+     * Includes:
+     * <ul>
+     *   <li>The outer div with appropriate styling</li>
+     *   <li>Data attributes for JavaScript functionality</li>
+     *   <li>Accessibility attributes</li>
+     * </ul>
+     * 
+     * @param writer the response writer
+     * @param component the panel component
+     * @throws IOException if an I/O error occurs during writing
      */
     private static void writePanelBegin(final DecoratingResponseWriter<BootstrapPanelComponent> writer,
             final BootstrapPanelComponent component) throws IOException {
@@ -232,7 +393,12 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
     }
 
     /**
-     * Start panel HTML body.
+     * Writes the opening markup for the panel body.
+     * Creates the collapsible container and panel-body elements.
+     * 
+     * @param writer the response writer
+     * @param component the panel component
+     * @throws IOException if an I/O error occurs during writing
      */
     private static void writeBodyBegin(final DecoratingResponseWriter<BootstrapPanelComponent> writer,
             final BootstrapPanelComponent component) throws IOException {
@@ -251,7 +417,11 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
     }
 
     /**
-     * Close panel HTML body.
+     * Writes the closing tags for the panel body elements.
+     * Closes both the panel-body div and its containing collapse div.
+     * 
+     * @param writer the response writer
+     * @throws IOException if an I/O error occurs during writing
      */
     private static void writePanelBodyEnd(final ResponseWriterBase writer) throws IOException {
         writer.withEndElement(Node.DIV);
@@ -259,15 +429,22 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
     }
 
     /**
-     * Close panel HTML
+     * Writes the closing tag for the panel container.
+     * 
+     * @param writer the response writer
+     * @throws IOException if an I/O error occurs during writing
      */
     private static void writePanelEnd(final ResponseWriterBase writer) throws IOException {
         writer.withEndElement(Node.DIV);
     }
 
     /**
-     * Write element to keep track of current collapse state - necessary for AJAX
-     * request.
+     * Writes a hidden input element to track the panel's expand/collapse state.
+     * This input is used during AJAX requests to maintain panel state.
+     * 
+     * @param writer the response writer
+     * @param component the panel component
+     * @throws IOException if an I/O error occurs during writing
      */
     private static void writeStateHolder(final DecoratingResponseWriter<BootstrapPanelComponent> writer,
             final BootstrapPanelComponent component) throws IOException {
@@ -279,7 +456,12 @@ public class BootstrapPanelRenderer extends BaseDecoratorRenderer<BootstrapPanel
     }
 
     /**
-     * Write element to indicate ongoing deferred content retrieval.
+     * Writes a loading spinner indicator for deferred content loading.
+     * Used when a panel is configured for deferred loading and content
+     * hasn't been loaded yet.
+     * 
+     * @param facesContext the faces context
+     * @throws IOException if an I/O error occurs during writing
      */
     private static void writeSpinnerIcon(final FacesContext facesContext) throws IOException {
         var indicator = WaitingIndicatorComponent.createComponent(facesContext);

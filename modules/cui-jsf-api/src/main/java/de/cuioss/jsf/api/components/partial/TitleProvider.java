@@ -17,9 +17,6 @@ package de.cuioss.jsf.api.components.partial;
 
 import java.io.Serializable;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.render.Renderer;
-
 /**
  * Provider interface for components that need to support HTML title attributes.
  * <p>

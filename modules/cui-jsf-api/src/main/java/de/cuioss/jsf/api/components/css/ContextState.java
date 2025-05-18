@@ -63,7 +63,7 @@ public enum ContextState implements StyleClassProvider {
      * </p>
      */
     DEFAULT,
-    
+
     /**
      * The primary state.
      * <p>
@@ -72,7 +72,7 @@ public enum ContextState implements StyleClassProvider {
      * </p>
      */
     PRIMARY,
-    
+
     /**
      * The success state.
      * <p>
@@ -81,7 +81,7 @@ public enum ContextState implements StyleClassProvider {
      * </p>
      */
     SUCCESS,
-    
+
     /**
      * The info state.
      * <p>
@@ -90,7 +90,7 @@ public enum ContextState implements StyleClassProvider {
      * </p>
      */
     INFO,
-    
+
     /**
      * The warning state.
      * <p>
@@ -99,7 +99,7 @@ public enum ContextState implements StyleClassProvider {
      * </p>
      */
     WARNING,
-    
+
     /**
      * The light state.
      * <p>
@@ -108,7 +108,7 @@ public enum ContextState implements StyleClassProvider {
      * </p>
      */
     LIGHT,
-    
+
     /**
      * The danger state.
      * <p>

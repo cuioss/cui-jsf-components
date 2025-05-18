@@ -62,10 +62,10 @@ public class ViewDescriptorImpl implements ViewDescriptor {
 
     /** Pattern for identifying non-Latin characters to be replaced in short identifiers. */
     private static final Pattern NON_LATIN = Pattern.compile("[^A-Za-z ]");
-    
+
     /** Pattern for removing "_xhtml" suffix in short identifiers. */
     private static final Pattern XHTML = Pattern.compile("_xhtml$");
-    
+
     /** Pattern for removing "_jsf" suffix in short identifiers. */
     private static final Pattern JSF = Pattern.compile("_jsf$");
 

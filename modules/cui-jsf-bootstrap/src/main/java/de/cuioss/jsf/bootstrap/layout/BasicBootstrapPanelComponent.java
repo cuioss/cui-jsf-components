@@ -20,12 +20,33 @@ import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import jakarta.faces.component.UIComponent;
 
 /**
- * Base class for our layout components. It extends {@link BaseCuiPanel} and
- * provides {@link UIComponent#getFamily()} returning
- * {@link BootstrapFamily#COMPONENT_FAMILY}
+ * <p>Foundation class for Bootstrap layout components in the CUI JSF framework.
+ * This abstract class provides the common structure and behavior needed by all
+ * Bootstrap-styled panel and layout components.</p>
+ * 
+ * <h2>Purpose and Functionality</h2>
+ * <ul>
+ *   <li>Extends {@link BaseCuiPanel} to inherit CUI panel functionality</li>
+ *   <li>Establishes the component family as {@link BootstrapFamily#COMPONENT_FAMILY}
+ *       for all derived components</li>
+ *   <li>Serves as a base class for more specialized Bootstrap components like
+ *       {@link AbstractLayoutComponent} and {@link BootstrapPanelComponent}</li>
+ *   <li>Provides consistent component identification and inheritance for Bootstrap UI elements</li>
+ * </ul>
+ * 
+ * <h2>Usage</h2>
+ * <p>This class is not intended to be used directly in views but serves as a parent
+ * for concrete Bootstrap components. Direct subclasses include:</p>
+ * <ul>
+ *   <li>{@link AbstractLayoutComponent} - Base for layout-specific components</li>
+ *   <li>{@link BootstrapPanelComponent} - Implementation of Bootstrap panels/cards</li>
+ *   <li>Other Bootstrap-specific components</li>
+ * </ul>
  *
  * @author Oliver Wolff
- *
+ * @see AbstractLayoutComponent
+ * @see BootstrapPanelComponent
+ * @see BaseCuiPanel
  */
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
 public abstract class BasicBootstrapPanelComponent extends BaseCuiPanel {

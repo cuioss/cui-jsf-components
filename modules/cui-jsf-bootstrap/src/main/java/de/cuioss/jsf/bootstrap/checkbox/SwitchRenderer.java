@@ -33,20 +33,48 @@ import jakarta.faces.render.FacesRenderer;
 import java.io.IOException;
 
 /**
- * Renders a switch input like:
- *
+ * <p>
+ * Renderer implementation for the {@link SwitchComponent} that creates a Bootstrap-styled
+ * toggle switch interface. This renderer transforms a standard boolean checkbox into a
+ * sliding switch control with on/off text labels.
+ * </p>
+ * 
+ * <h2>Rendered HTML Structure</h2>
  * <pre>
- * &lt;div&gt;
- *   &lt;cui:column&gt;
- *       &lt;label&gt;
- *           &lt;h:selectBooleanCheckbox/&gt;
- *           &lt;span class="slider round"/&gt;
- *       &lt;/label&gt;
- *       &lt;span&gt;onText&lt;/span&gt;
- *       &lt;span&gt;offText&lt;/span&gt;
- *   &lt;/cui:column&gt;
+ * &lt;div id="componentId_container" class="[component-classes]" style="[component-style]"&gt;
+ *   &lt;div class="col-md-[size] switch-placing"&gt;
+ *     &lt;label class="switch" title="[title]"&gt;
+ *       &lt;input type="checkbox" id="componentId" name="componentId" [standard-checkbox-attributes]/&gt;
+ *       &lt;span class="slider round"&gt;&lt;/span&gt;
+ *     &lt;/label&gt;
+ *     &lt;span class="switch-text [hidden?]" data-item-active="true"&gt;ON Text&lt;/span&gt;
+ *     &lt;span class="switch-text [hidden?]" data-item-active="false"&gt;OFF Text&lt;/span&gt;
+ *   &lt;/div&gt;
  * &lt;/div&gt;
  * </pre>
+ * 
+ * <h2>Resource Dependencies</h2>
+ * <p>
+ * This renderer includes a JavaScript resource dependency on "enabler.switch.js" which
+ * provides the client-side behavior for the switch component.
+ * </p>
+ * 
+ * <h2>CSS Classes</h2>
+ * <ul>
+ *   <li>"switch-placing" - Applied to the column container</li>
+ *   <li>"switch" - Applied to the label element that wraps the checkbox</li>
+ *   <li>"slider round" - Applied to the visual sliding element</li>
+ *   <li>"switch-text" - Applied to the text labels for on/off states</li>
+ * </ul>
+ * 
+ * <p>
+ * The renderer automatically handles AJAX updates by redirecting render targets from the
+ * checkbox itself to its container element, ensuring the entire switch is updated correctly.
+ * </p>
+ * 
+ * @author Oliver Wolff
+ * @author Sven Haag
+ * @see SwitchComponent
  */
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.SWITCH_RENDERER)
 @ResourceDependency(library = "javascript.enabler", name = "enabler.switch.js", target = "head")

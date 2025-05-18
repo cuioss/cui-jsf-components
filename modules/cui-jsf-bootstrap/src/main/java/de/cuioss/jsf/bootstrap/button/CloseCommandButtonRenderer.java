@@ -31,11 +31,19 @@ import jakarta.faces.render.FacesRenderer;
 import java.io.IOException;
 
 /**
- * <h2>Rendering</h2>
- * <p>
- * See {@link CommandButtonRenderer} for details
+ * Renderer for {@link CloseCommandButton} that produces a Bootstrap-styled close button.
+ * Adds proper styling and accessibility attributes to the standard JSF command button.
+ * 
+ * <h3>Generated HTML Structure</h3>
+ * <pre>
+ * &lt;button type="submit" class="close" aria-label="Close"&gt;
+ *   &lt;span aria-hidden="true" class="button-text"&gt;×&lt;/span&gt;
+ * &lt;/button&gt;
+ * </pre>
  *
  * @author Oliver Wolff
+ * @since 1.0
+ * @see CloseCommandButton
  */
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.CLOSE_COMMAND_BUTTON_RENDERER)
 public class CloseCommandButtonRenderer extends BaseDecoratorRenderer<CloseCommandButton> {
@@ -44,6 +52,21 @@ public class CloseCommandButtonRenderer extends BaseDecoratorRenderer<CloseComma
         super(false);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>Renders the close button by:</p>
+     * <ol>
+     *   <li>Creating an element-replacing response writer that transforms "input" to "button"</li>
+     *   <li>Applying Bootstrap close button styling</li>
+     *   <li>Adding a span element containing the close icon ("×") with proper accessibility attributes</li>
+     * </ol>
+     * 
+     * @param context the FacesContext
+     * @param writer the response writer wrapped for the CloseCommandButton
+     * @param component the CloseCommandButton being rendered
+     * @throws IOException if an error occurs during writing to the response
+     */
     @Override
     protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<CloseCommandButton> writer,
             final CloseCommandButton component) throws IOException {
@@ -71,11 +94,29 @@ public class CloseCommandButtonRenderer extends BaseDecoratorRenderer<CloseComma
         output.encodeAll(context);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>Delegates to the standard command button renderer for handling form submissions.</p>
+     * 
+     * @param context the FacesContext
+     * @param component the CloseCommandButton component
+     */
     @Override
     public void decode(final FacesContext context, final UIComponent component) {
         JsfHtmlComponent.COMMAND_BUTTON.renderer(context).decode(context, component);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>Completes the button element by writing the closing tag.</p>
+     * 
+     * @param context the FacesContext
+     * @param writer the response writer wrapped for the CloseCommandButton
+     * @param component the CloseCommandButton being rendered
+     * @throws IOException if an error occurs during writing to the response
+     */
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<CloseCommandButton> writer,
             final CloseCommandButton component) throws IOException {

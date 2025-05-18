@@ -25,15 +25,28 @@ import jakarta.faces.component.html.HtmlCommandButton;
 import jakarta.faces.context.FacesContext;
 
 /**
- * Variant of {@link HtmlCommandButton} that can be directly used as a 'Close'
- * button within a form context.
+ * Specialized button component that functions as a "close" button with proper accessibility attributes.
+ * Extends {@link BaseCuiCommandButton} with preconfigured ARIA labels.
+ * 
+ * <h3>Usage</h3>
+ * <pre>
+ * &lt;cui:closeCommandButton id="closeBtn" action="#{bean.close}" /&gt;
+ * &lt;cui:closeCommandButton id="customCloseBtn" action="#{bean.closeAndSave}" styleClass="my-close-button" /&gt;
+ * </pre>
  *
  * @author Oliver Wolff
+ * @since 1.0
+ * @see CloseCommandButtonRenderer
  */
 @FacesComponent(BootstrapFamily.CLOSE_COMMAND_BUTTON_COMPONENT)
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
 public class CloseCommandButton extends BaseCuiCommandButton {
 
+    /**
+     * Default constructor that initializes the renderer type to
+     * {@link BootstrapFamily#CLOSE_COMMAND_BUTTON_RENDERER} and sets
+     * appropriate accessibility attributes.
+     */
     public CloseCommandButton() {
         super.setRendererType(BootstrapFamily.CLOSE_COMMAND_BUTTON_RENDERER);
         getPassThroughAttributes(true).put(AttributeName.ARIA_LABEL.getContent(),
@@ -46,11 +59,14 @@ public class CloseCommandButton extends BaseCuiCommandButton {
     }
 
     /**
-     * Shortcut for creating and casting a component of type
-     * {@link CloseCommandButton}.
+     * Factory method to create a new instance of the component using the 
+     * current faces context.
+     * <p>
+     * This method provides a convenient way to programmatically create
+     * a close button component.
      *
-     * @param facesContext to be set
-     * @return a newly created {@link CloseCommandButton}
+     * @param facesContext the current faces context, must not be null
+     * @return a new {@link CloseCommandButton} instance
      */
     public static CloseCommandButton createComponent(final FacesContext facesContext) {
         return ComponentUtility.createComponent(facesContext, BootstrapFamily.CLOSE_COMMAND_BUTTON_COMPONENT);

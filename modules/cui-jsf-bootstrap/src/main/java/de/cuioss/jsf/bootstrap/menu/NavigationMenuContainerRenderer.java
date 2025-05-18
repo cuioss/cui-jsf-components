@@ -33,11 +33,24 @@ import lombok.NoArgsConstructor;
 import java.io.IOException;
 
 /**
- * {@link Renderer} utility for the {@link NavigationMenuItemContainer} model.
- * <p>
- * Renders a bootstrap conform navigation menu structure.
- *
+ * <p>Renderer utility for {@link NavigationMenuItemContainer} models, responsible for creating
+ * Bootstrap-compatible dropdown menu structures. This class generates the necessary HTML markup
+ * for dropdown menus that can contain other navigation items.</p>
+ * 
+ * <p>This utility class supports both top-level dropdown menus and nested submenu dropdowns
+ * with appropriate styling and behavior configurations for each case.</p>
+ * 
+ * <h2>Features</h2>
+ * <ul>
+ *   <li>Renders complete dropdown menu structures with toggle controls</li>
+ *   <li>Supports both top-level menus and nested submenus</li>
+ *   <li>Includes proper Bootstrap data attributes for JavaScript functionality</li>
+ *   <li>Renders menu icons, labels, and dropdown indicators</li>
+ *   <li>Handles active state styling via data attributes</li>
+ * </ul>
+ * 
  * <h2>HTML structure</h2>
+ * <p>The renderer produces the following HTML structure for dropdown menus:</p>
  *
  * <pre>
  * &lt;li class="dropdown"&gt;
@@ -51,8 +64,19 @@ import java.io.IOException;
  *   &lt;/ul&gt;
  * &lt;/li&gt;
  * </pre>
+ * 
+ * <p>For submenus (nested dropdowns), additional CSS classes are applied to enable
+ * proper positioning and behavior:</p>
+ * 
+ * <pre>
+ * &lt;li class="dropdown dropdown-submenu"&gt;
+ *   ...
+ * </pre>
  *
  * @author Sven Haag
+ * @see NavigationMenuItemContainer
+ * @see NavigationMenuComponent
+ * @see NavigationMenuRenderer
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class NavigationMenuContainerRenderer {
@@ -61,15 +85,25 @@ public class NavigationMenuContainerRenderer {
     private static final String ICON_SUB_MENU = "cui-icon-triangle_e";
 
     /**
-     * Write beginning tags.
+     * <p>Renders the beginning tags of a dropdown menu structure based on a
+     * {@link NavigationMenuItemContainer} model.</p>
+     * 
+     * <p>This method generates:</p>
+     * <ul>
+     *   <li>The list item container with appropriate dropdown classes</li>
+     *   <li>The toggle link with icon, label and dropdown indicator</li>
+     *   <li>The opening tag for the dropdown menu container</li>
+     * </ul>
+     * 
+     * <p>The container will not be rendered if the model's rendered property is false.</p>
      *
-     * @param context           must not be null
-     * @param writer            must not be null
-     * @param model             must not be null
-     * @param component         must not be null
-     * @param parentIsContainer flag
-     * @param idExtension       for creating ids
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * @param context the current FacesContext
+     * @param writer the decorating response writer
+     * @param model the navigation menu item container model to render
+     * @param component the parent navigation menu component
+     * @param parentIsContainer flag indicating whether this menu is within another container (submenu)
+     * @param idExtension string to append to the generated component ID for uniqueness
+     * @throws IOException if an error occurs during the rendering process
      */
     static void renderBegin(final FacesContext context, final DecoratingResponseWriter<NavigationMenuComponent> writer,
             final NavigationMenuItemContainer model, final NavigationMenuComponent component,
@@ -96,11 +130,19 @@ public class NavigationMenuContainerRenderer {
     }
 
     /**
-     * Write closing tags.
+     * <p>Renders the closing tags for a dropdown menu structure.</p>
+     * 
+     * <p>This method generates:</p>
+     * <ul>
+     *   <li>The closing tag for the dropdown menu container (&lt;/ul&gt;)</li>
+     *   <li>The closing tag for the list item container (&lt;/li&gt;)</li>
+     * </ul>
+     * 
+     * <p>The closing tags will not be rendered if the model's rendered property is false.</p>
      *
-     * @param writer must not be null
-     * @param model  must not be null
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * @param writer the decorating response writer
+     * @param model the navigation menu item container model
+     * @throws IOException if an error occurs during the rendering process
      */
     static void renderEnd(final DecoratingResponseWriter<NavigationMenuComponent> writer,
             final NavigationMenuItemContainer model) throws IOException {
@@ -111,6 +153,24 @@ public class NavigationMenuContainerRenderer {
         writer.withEndElement(Node.LI);
     }
 
+    /**
+     * <p>Renders the dropdown toggle link with appropriate styling, icon, label and
+     * dropdown indicator.</p>
+     * 
+     * <p>The link is rendered with:</p>
+     * <ul>
+     *   <li>dropdown-toggle CSS class</li>
+     *   <li>data-toggle="dropdown" attribute for Bootstrap JavaScript</li>
+     *   <li>Optional icon if specified in the model</li>
+     *   <li>Text label from the model</li>
+     *   <li>Dropdown indicator icon (triangle pointing down for top menus, right for submenus)</li>
+     * </ul>
+     *
+     * @param context the current FacesContext
+     * @param model the navigation menu item container model
+     * @param parentIsContainer flag indicating whether this menu is within another container (submenu)
+     * @throws IOException if an error occurs during the rendering process
+     */
     private static void renderCmdLink(final FacesContext context, final NavigationMenuItemContainer model,
             final boolean parentIsContainer) throws IOException {
 

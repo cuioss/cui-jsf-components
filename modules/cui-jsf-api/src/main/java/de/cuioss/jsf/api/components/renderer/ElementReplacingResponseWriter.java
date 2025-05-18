@@ -85,12 +85,12 @@ public class ElementReplacingResponseWriter extends ResponseWriterWrapper {
      * The HTML element name that will be replaced during rendering.
      */
     private final String filterElement;
-    
+
     /**
      * The HTML element name that will replace the filtered element.
      */
     private final String replaceElement;
-    
+
     /**
      * Flag indicating whether to skip writing the closing tag for the replaced element.
      */

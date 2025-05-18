@@ -40,26 +40,49 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Helper / Decorator component used for input-elements within
- * {@link LabeledContainerComponent}.
  * <p>
- * Renders an info button beside its input component. After clicking an
- * additional information block will be displayed under the component.
+ * Provides contextual help functionality for form inputs within {@link LabeledContainerComponent}.
+ * This component adds a help icon next to a form field that, when clicked, reveals
+ * additional explanatory content below the field.
  * </p>
+ * <p>
+ * The component implements {@link ContainerPlugin}, allowing it to seamlessly integrate
+ * with labeled containers while maintaining proper positioning and styling.
+ * </p>
+ * 
+ * <h2>Features</h2>
+ * <ul>
+ * <li>Progressive disclosure of help content - initially hidden until needed</li>
+ * <li>Supports both static text and complex content via child components</li>
+ * <li>Configurable button position (append/prepend)</li>
+ * <li>Preserves form layout integrity</li>
+ * </ul>
  *
  * <h2>Attributes</h2>
  * <ul>
- * <li>{@link TitleProvider}</li>
- * <li>{@link ContentProvider}</li>
- * <li>buttonAlign: The alignment of the button relative to the wrapped input,
- * defaults to 'append'</li>
+ * <li>{@link TitleProvider} - Tooltip for the help icon</li>
+ * <li>{@link ContentProvider} - Simple text content (alternative to child components)</li>
+ * <li>buttonAlign - Position of the help icon ('append'/'prepend', defaults to 'prepend')</li>
+ * <li>renderButton - Whether to display the help button/icon (default: false)</li>
  * </ul>
+ * 
  * <h2>Usage</h2>
  *
  * <pre>
- * &lt;boot:labeledContainer&gt;
- *   &lt;h:inputText /&gt;
- *   &lt;cui:helpText contentKey="xy" /&gt;
+ * &lt;boot:labeledContainer label="Field Name"&gt;
+ *   &lt;h:inputText id="input" /&gt;
+ *   &lt;cui:helpText contentValue="This is help text" titleValue="Help Information" renderButton="true" /&gt;
+ * &lt;/boot:labeledContainer&gt;
+ * 
+ * &lt;!-- With complex content --&gt;
+ * &lt;boot:labeledContainer label="Field Name"&gt;
+ *   &lt;h:inputText id="input" /&gt;
+ *   &lt;cui:helpText renderButton="true"&gt;
+ *     &lt;h:panelGroup&gt;
+ *       &lt;h5&gt;Important Information&lt;/h5&gt;
+ *       &lt;p&gt;Detailed explanation...&lt;/p&gt;
+ *     &lt;/h:panelGroup&gt;
+ *   &lt;/cui:helpText&gt;
  * &lt;/boot:labeledContainer&gt;
  * </pre>
  *

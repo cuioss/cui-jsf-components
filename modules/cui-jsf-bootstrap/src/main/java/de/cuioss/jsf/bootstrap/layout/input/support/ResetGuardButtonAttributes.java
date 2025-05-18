@@ -25,37 +25,39 @@ import lombok.NonNull;
 import java.io.Serializable;
 
 /**
- * <h2>Summary</h2>
  * <p>
- * This class manages the state and resolving of the information needed for
- * creating the guard- / unguard Button in context of
- * {@link InputGuardComponent}
+ * Component attribute provider that encapsulates the reset guard button configuration for
+ * {@link InputGuardComponent}. This class manages the appearance and behavior of the
+ * button that re-locks previously unlocked input fields.
  * </p>
- * <h2>resetGuardButtonTitleKey</h2>
+ * 
+ * <h2>Features</h2>
+ * <ul>
+ *   <li>Manages icon selection for the lock/reset button</li>
+ *   <li>Provides internationalized title/tooltip text for the button</li>
+ *   <li>Supports both resource bundle keys and direct values</li>
+ *   <li>Handles conversion and escaping options</li>
+ * </ul>
+ * 
+ * <h2>Attributes</h2>
+ * <ul>
+ *   <li><b>resetGuardIcon</b> - Icon to display on the reset/lock button (default: "cui-icon-restart")</li>
+ *   <li><b>resetGuardButtonTitleKey</b> - Resource bundle key for button tooltip (default: "input_guard.lock.default.title")</li>
+ *   <li><b>resetGuardButtonTitleValue</b> - Direct value for button tooltip (takes precedence over titleKey if both are present)</li>
+ *   <li><b>resetGuardButtonTitleConverter</b> - Optional converter for title value</li>
+ *   <li><b>resetGuardButtonTitleEscape</b> - Whether to escape HTML in title (default: true)</li>
+ * </ul>
+ * 
+ * <h2>Usage</h2>
  * <p>
- * The key for looking up the text to be displayed as the title. Although this
- * attribute is not required the developer must provide either this or
- * #resetGuardButtonTitleValue if you want a title to be displayed. Defaults to
- * 'cc.unlockableField.lock.title', resulting in 'Revert changes'
+ * This class is used internally by {@link InputGuardComponent} and is not typically
+ * instantiated directly by application code. The attributes it manages are exposed
+ * as properties on the InputGuardComponent.
  * </p>
- * <h2>resetGuardButtonTitleValue</h2>
- * <p>
- * The Object representing the title to be displayed. This is a replacement for
- * #resetGuardButtonTitleKey. If both are present resetGuardButtonTitleValue
- * takes precedence.
- * </p>
- * <h2>resetGuardButtonTitleConverter</h2>
- * <p>
- * The optional converterId to be used in case of resetGuardButtonTitleValue is
- * set and needs conversion.
- * </p>
- * <h2>resetGuardButtonTitleEscape</h2>
- * <p>
- * Indicates whether the title is to be escaped on output or not. Default is
- * <code>true</code>.
- * </p>
- *
+ * 
  * @author Oliver Wolff
+ * @see InputGuardComponent
+ * @see GuardButtonAttributes
  */
 public class ResetGuardButtonAttributes {
 
@@ -82,7 +84,7 @@ public class ResetGuardButtonAttributes {
     }
 
     /**
-     * The icon to be displayed on the button reenabling the guard and
+     * The icon to be displayed on the button re-enabling the guard and
      *
      * @return the guardIcon, defaults to 'cui-icon-unlock'
      */

@@ -25,31 +25,65 @@ import lombok.experimental.Delegate;
 
 /**
  * <p>
- * Renders an Icon according to the cui-icon contract. The icon is rendered as a
- * span with the according classes. The title is resolved using the cui standard
- * label-resolving mechanism.
+ * Renders an icon component following the CUI icon standards and Bootstrap styling patterns.
+ * This component outputs an HTML span element with the appropriate CSS classes to display
+ * a vector icon from the CUI icon library.
  * </p>
+ * 
+ * <h2>Features</h2>
+ * <ul>
+ *   <li>Consistent icon rendering across the application</li>
+ *   <li>Support for different icon sizes (xs, sm, md, lg, xl)</li>
+ *   <li>Support for contextual states (default, danger, warning, info, etc.)</li>
+ *   <li>Tooltip/title support with resource bundle integration</li>
+ *   <li>Customizable styling through additional CSS classes and styles</li>
+ * </ul>
+ * 
+ * <h2>Icon Library</h2>
  * <p>
- * A list of all available icons can be found at the <a href=
- * "https://cuioss.de/cui-reference-documentation/pages/documentation/icons/cui_icons.jsf">
- * Reference Documentation</a>
+ * The component uses the CUI icon library, which provides a comprehensive set of
+ * vector icons for application interfaces. Available icons can be viewed in the
+ * <a href="https://cuioss.de/cui-reference-documentation/pages/documentation/icons/cui_icons.jsf">
+ * CUI Reference Documentation</a>.
  * </p>
+ * 
  * <h2>Attributes</h2>
  * <ul>
- * <li>{@link TitleProvider}</li>
- * <li>{@link ContextSizeProvider}</li>
- * <li>{@link ComponentStyleClassProvider}</li>
- * <li>{@link StyleAttributeProvider}</li>
- * <li>{@link ContextStateProvider}</li>
- * <li>{@link IconProvider}</li>
+ *   <li>{@link TitleProvider} - For tooltip/title support with resource bundle integration</li>
+ *   <li>{@link ContextSizeProvider} - For icon size configuration (xs, sm, md, lg, xl)</li>
+ *   <li>{@link ComponentStyleClassProvider} - For additional CSS styling</li>
+ *   <li>{@link StyleAttributeProvider} - For inline CSS styling</li>
+ *   <li>{@link ContextStateProvider} - For contextual states (default, primary, danger, etc.)</li>
+ *   <li>{@link IconProvider} - For specifying which icon to display from the CUI icon library</li>
  * </ul>
- * <h2>Usage</h2>
- *
+ * 
+ * <h2>Usage Examples</h2>
+ * 
+ * <p><b>Basic usage:</b></p>
  * <pre>
- * &lt;cui:icon icon="cui-icon-drink" size="xl" /&gt;
+ * &lt;cui:icon icon="cui-icon-drink" /&gt;
+ * </pre>
+ * 
+ * <p><b>With size and state:</b></p>
+ * <pre>
+ * &lt;cui:icon icon="cui-icon-warning" size="xl" state="danger" /&gt;
+ * </pre>
+ * 
+ * <p><b>With tooltip:</b></p>
+ * <pre>
+ * &lt;cui:icon icon="cui-icon-info" titleKey="info.tooltip" /&gt;
+ * </pre>
+ * 
+ * <p><b>With custom styling:</b></p>
+ * <pre>
+ * &lt;cui:icon icon="cui-icon-home" styleClass="my-custom-icon" style="margin-right: 5px;" /&gt;
  * </pre>
  *
  * @author Oliver Wolff
+ * @see IconRenderer
+ * @see LabeledIconComponent
+ * @see MimeTypeIconComponent
+ * @see GenderIconComponent
  */
 @FacesComponent(BootstrapFamily.ICON_COMPONENT)
 public class IconComponent extends AbstractBaseCuiComponent implements TitleProvider {
