@@ -61,17 +61,17 @@ import java.util.Optional;
  * 
  * <p>Basic tag:</p>
  * <pre>
- * &lt;cui:tag contentValue="Feature" /&gt;
+ * &lt;boot:tag contentValue="Feature" /&gt;
  * </pre>
  * 
  * <p>Tag with state and size:</p>
  * <pre>
- * &lt;cui:tag contentValue="Critical Bug" state="DANGER" size="LG" /&gt;
+ * &lt;boot:tag contentValue="Critical Bug" state="DANGER" size="LG" /&gt;
  * </pre>
  * 
  * <p>Disposable tag with listener:</p>
  * <pre>
- * &lt;cui:tag contentValue="#{item.name}" model="#{item}"
+ * &lt;boot:tag contentValue="#{item.name}" model="#{item}"
  *         disposable="true" disposeListener="#{bean.handleTagRemoved}" /&gt;
  * </pre>
  *

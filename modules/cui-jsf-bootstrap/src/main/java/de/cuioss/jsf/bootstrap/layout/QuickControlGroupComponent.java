@@ -41,16 +41,16 @@ import lombok.experimental.Delegate;
  * <h2>Usage</h2>
  * <pre>
  * &lt;!-- Default left-aligned button group --&gt;
- * &lt;cui:quickControlGroup&gt;
- *   &lt;cui:button labelValue="Save" /&gt;
- *   &lt;cui:button labelValue="Cancel" /&gt;
- * &lt;/cui:quickControlGroup&gt;
+ * &lt;boot:quickControlGroup&gt;
+ *   &lt;boot:button labelValue="Save" /&gt;
+ *   &lt;boot:button labelValue="Cancel" /&gt;
+ * &lt;/boot:quickControlGroup&gt;
  * 
  * &lt;!-- Right-aligned button group --&gt;
- * &lt;cui:quickControlGroup align="RIGHT"&gt;
- *   &lt;cui:button labelValue="Back" /&gt;
- *   &lt;cui:button labelValue="Next" /&gt;
- * &lt;/cui:quickControlGroup&gt;
+ * &lt;boot:quickControlGroup align="RIGHT"&gt;
+ *   &lt;boot:button labelValue="Back" /&gt;
+ *   &lt;boot:button labelValue="Next" /&gt;
+ * &lt;/boot:quickControlGroup&gt;
  * </pre>
  * 
  * <h2>Attributes</h2>

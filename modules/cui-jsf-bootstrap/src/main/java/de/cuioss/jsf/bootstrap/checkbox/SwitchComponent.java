@@ -66,15 +66,15 @@ import java.util.*;
  * <h2>Usage</h2>
  * <pre>
  * &lt;!-- Basic usage --&gt;
- * &lt;cui:switch value="#{bean.enabled}" /&gt;
+ * &lt;boot:switch value="#{bean.enabled}" /&gt;
  * 
  * &lt;!-- With custom labels --&gt;
- * &lt;cui:switch value="#{bean.enabled}"
+ * &lt;boot:switch value="#{bean.enabled}"
  *            onTextValue="YES" 
  *            offTextValue="NO" /&gt;
  * 
  * &lt;!-- With resource bundle keys --&gt;
- * &lt;cui:switch value="#{bean.enabled}"
+ * &lt;boot:switch value="#{bean.enabled}"
  *            onTextKey="switch.enabled" 
  *            offTextKey="switch.disabled" /&gt;
  * </pre>

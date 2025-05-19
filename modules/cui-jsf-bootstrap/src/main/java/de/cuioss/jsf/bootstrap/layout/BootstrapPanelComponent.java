@@ -47,17 +47,17 @@ import lombok.experimental.Delegate;
  *
  * <h2>Usage</h2>
  * <pre>
- * &lt;cui:panel header="Panel Title"
+ * &lt;boot:panel header="Panel Title"
  *          state="INFO"
  *          collapsible="true"
  *          collapsed="false"&gt;
  *   Panel content goes here
- * &lt;/cui:panel&gt;
+ * &lt;/boot:panel&gt;
  * </pre>
  *
  * <h2>Advanced Usage with Facets</h2>
  * <pre>
- * &lt;cui:panel collapsible="true"&gt;
+ * &lt;boot:panel collapsible="true"&gt;
  *   &lt;f:facet name="header"&gt;
  *     Custom header content
  *   &lt;/f:facet&gt;
@@ -67,18 +67,18 @@ import lombok.experimental.Delegate;
  *   &lt;f:facet name="footer"&gt;
  *     Custom footer content
  *   &lt;/f:facet&gt;
- * &lt;/cui:panel&gt;
+ * &lt;/boot:panel&gt;
  * </pre>
  *
  * <h2>Deferred Loading Example</h2>
  * <pre>
- * &lt;cui:panel header="Deferred Content"
+ * &lt;boot:panel header="Deferred Content"
  *          collapsible="true"
  *          collapsed="true"
  *          deferred="true"&gt;
  *   &lt;!-- Content loaded only when panel is expanded --&gt;
  *   Heavy content here
- * &lt;/cui:panel&gt;
+ * &lt;/boot:panel&gt;
  * </pre>
  *
  * <h2>Attributes</h2>

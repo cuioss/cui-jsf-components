@@ -39,9 +39,9 @@ import lombok.Getter;
  * and can be set directly on modal dialog components:</p>
  * 
  * <pre>
- * &lt;cui:modalDialog id="largeDialog" size="lg"&gt;
+ * &lt;boot:modalDialog id="largeDialog" size="lg"&gt;
  *   &lt;!-- dialog content --&gt;
- * &lt;/cui:modalDialog&gt;
+ * &lt;/boot:modalDialog&gt;
  * </pre>
  * 
  * <p>Or programmatically:</p>

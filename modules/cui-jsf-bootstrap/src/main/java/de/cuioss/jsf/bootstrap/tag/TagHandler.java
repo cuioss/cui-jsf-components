@@ -31,7 +31,7 @@ import jakarta.faces.view.facelets.MetaRuleset;
  * 
  * <h2>Usage Example</h2>
  * <pre>
- * &lt;cui:tag contentValue="Status" 
+ * &lt;boot:tag contentValue="Status" 
  *         disposable="true" 
  *         disposeListener="#{bean.handleTagDisposed}" /&gt;
  * </pre>

@@ -53,7 +53,7 @@ import org.omnifaces.util.State;
  *
  * <pre>
  * &lt;boot:button labelValue="Open"&gt;
- *   &lt;cui:modalControl for="dialogId"/&gt;
+ *   &lt;boot:modalControl for="dialogId"/&gt;
  * &lt;/boot:button&gt;
  * &lt;boot:modalDialog id="dialogId" headerValue="Dialog-Header"&gt;
  *   Some Dialog Content
@@ -65,7 +65,7 @@ import org.omnifaces.util.State;
  * 
  * <pre>
  * &lt;boot:button labelValue="Hide Dialog" primary="true"&gt;
- *   &lt;cui:modalControl for="dialogId" action="hide" event="mouseover"/&gt;
+ *   &lt;boot:modalControl for="dialogId" action="hide" event="mouseover"/&gt;
  * &lt;/boot:button&gt;
  * </pre>
  * 

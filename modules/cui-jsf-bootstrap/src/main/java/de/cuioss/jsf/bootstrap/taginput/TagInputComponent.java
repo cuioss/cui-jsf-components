@@ -79,7 +79,7 @@ import java.util.stream.Collectors;
  * 
  * <h2>Usage Example</h2>
  * <pre>
- * &lt;cui:tagInput value="#{bean.selectedTags}" sourceSet="#{bean.availableTags}" /&gt;
+ * &lt;boot:tagInput value="#{bean.selectedTags}" sourceSet="#{bean.availableTags}" /&gt;
  * </pre>
  *
  * @author Oliver Wolff

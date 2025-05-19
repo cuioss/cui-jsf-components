@@ -69,13 +69,13 @@ import java.util.List;
  *
  * <pre>
  * &lt;!-- Basic usage for a single input --&gt;
- * &lt;cui:message forIdentifier="inputId" /&gt;
+ * &lt;boot:message forIdentifier="inputId" /&gt;
  *
  * &lt;!-- With multiple inputs --&gt;
- * &lt;cui:message forIdentifier="firstName secondName email" /&gt;
+ * &lt;boot:message forIdentifier="firstName secondName email" /&gt;
  *
  * &lt;!-- With customized display options --&gt;
- * &lt;cui:message forIdentifier="inputId"
+ * &lt;boot:message forIdentifier="inputId"
  *             showDetail="true"
  *             showSummary="true"
  *             escape="false" /&gt;

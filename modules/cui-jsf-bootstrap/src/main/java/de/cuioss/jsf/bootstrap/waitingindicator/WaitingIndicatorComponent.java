@@ -29,8 +29,8 @@ import lombok.experimental.Delegate;
  * 
  * <h2>Usage</h2>
  * <pre>
- * &lt;cui:waitingIndicator /&gt;
- * &lt;cui:waitingIndicator size="lg" /&gt;
+ * &lt;boot:waitingIndicator /&gt;
+ * &lt;boot:waitingIndicator size="lg" /&gt;
  * </pre>
  * 
  * @author Oliver Wolff

@@ -76,17 +76,17 @@ import lombok.experimental.Delegate;
  * 
  * <p><b>Using enum constant name as string:</b></p>
  * <pre>
- * &lt;cui:mimeTypeIcon mimeTypeString="AUDIO_MPEG" titleValue="Audio file" /&gt;
+ * &lt;boot:mimeTypeIcon mimeTypeString="AUDIO_MPEG" titleValue="Audio file" /&gt;
  * </pre>
  * 
  * <p><b>Using the enum directly (in backing bean):</b></p>
  * <pre>
- * &lt;cui:mimeTypeIcon mimeTypeIcon="#{backingBean.mimeType}" size="lg" /&gt;
+ * &lt;boot:mimeTypeIcon mimeTypeIcon="#{backingBean.mimeType}" size="lg" /&gt;
  * </pre>
  * 
  * <p><b>With custom decorator:</b></p>
  * <pre>
- * &lt;cui:mimeTypeIcon mimeTypeString="PDF" decoratorClass="my-pdf-decorator" /&gt;
+ * &lt;boot:mimeTypeIcon mimeTypeString="PDF" decoratorClass="my-pdf-decorator" /&gt;
  * </pre>
  *
  * @author Oliver Wolff

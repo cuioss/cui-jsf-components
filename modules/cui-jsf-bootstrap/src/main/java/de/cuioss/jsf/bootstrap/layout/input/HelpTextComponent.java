@@ -71,18 +71,18 @@ import java.util.Optional;
  * <pre>
  * &lt;boot:labeledContainer label="Field Name"&gt;
  *   &lt;h:inputText id="input" /&gt;
- *   &lt;cui:helpText contentValue="This is help text" titleValue="Help Information" renderButton="true" /&gt;
+ *   &lt;boot:helpText contentValue="This is help text" titleValue="Help Information" renderButton="true" /&gt;
  * &lt;/boot:labeledContainer&gt;
  * 
  * &lt;!-- With complex content --&gt;
  * &lt;boot:labeledContainer label="Field Name"&gt;
  *   &lt;h:inputText id="input" /&gt;
- *   &lt;cui:helpText renderButton="true"&gt;
+ *   &lt;boot:helpText renderButton="true"&gt;
  *     &lt;h:panelGroup&gt;
  *       &lt;h5&gt;Important Information&lt;/h5&gt;
  *       &lt;p&gt;Detailed explanation...&lt;/p&gt;
  *     &lt;/h:panelGroup&gt;
- *   &lt;/cui:helpText&gt;
+ *   &lt;/boot:helpText&gt;
  * &lt;/boot:labeledContainer&gt;
  * </pre>
  *

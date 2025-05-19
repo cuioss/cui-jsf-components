@@ -43,14 +43,14 @@ import lombok.experimental.Delegate;
  *
  * <h2>Usage Examples</h2>
  * <pre>
- * &lt;cui:commandButton action="#{bean.save}" labelValue="Save" icon="cui-icon-floppy-disk"/&gt;
+ * &lt;boot:commandButton action="#{bean.save}" labelValue="Save" icon="cui-icon-floppy-disk"/&gt;
  * 
- * &lt;cui:commandButton action="#{bean.delete}" labelKey="button.delete" state="danger"&gt;
- *   &lt;f:ajax execute="@form" render="resultPanel"/&gt;
- * &lt;/cui:commandButton&gt;
+ * &lt;boot:commandButton action="#{bean.delete}" labelKey="button.delete" state="danger"&gt;
+ *   &lt;f:ajax execute="@this" render="@form" /&gt;
+ * &lt;/boot:commandButton&gt;
  * 
- * &lt;cui:commandButton action="#{bean.next}" labelKey="button.next" 
- *                  icon="cui-icon-chevron-right" iconAlign="right"/&gt;
+ * &lt;boot:commandButton action="#{bean.next}" labelKey="button.next" 
+ *                   icon="cui-icon-chevron-right" iconAlign="right"/&gt;
  * </pre>
  * 
  * <strong>Note:</strong> Use labelKey/labelValue instead of value attribute.

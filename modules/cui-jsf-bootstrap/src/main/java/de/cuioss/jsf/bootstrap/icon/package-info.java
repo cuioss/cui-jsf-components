@@ -41,17 +41,17 @@
  * <h2>Usage Examples</h2>
  * <p>Basic icon:</p>
  * <pre>
- * &lt;cui:icon icon="cui-icon-info" /&gt;
+ * &lt;boot:icon icon="cui-icon-info" /&gt;
  * </pre>
  * 
  * <p>Labeled icon:</p>
  * <pre>
- * &lt;cui:labeledIcon icon="cui-icon-warning" labelValue="Warning" iconAlign="left" /&gt;
+ * &lt;boot:labeledIcon icon="cui-icon-warning" labelValue="Warning" iconAlign="left" /&gt;
  * </pre>
  * 
  * <p>MIME type icon:</p>
  * <pre>
- * &lt;cui:mimeTypeIcon mimeTypeString="PDF" size="lg" titleValue="PDF Document" /&gt;
+ * &lt;boot:mimeTypeIcon mimeTypeString="PDF" size="lg" titleValue="PDF Document" /&gt;
  * </pre>
  *
  * @author Oliver Wolff

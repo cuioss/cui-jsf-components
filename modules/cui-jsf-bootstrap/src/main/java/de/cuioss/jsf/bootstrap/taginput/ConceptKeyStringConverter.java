@@ -58,12 +58,12 @@ import java.util.*;
  * 
  * <h2>Usage Example</h2>
  * <pre>
- * &lt;cui:tagInput id="tags" 
+ * &lt;boot:tagInput id="tags" 
  *               value="#{bean.selectedTags}"
  *               sourceSet="#{bean.availableTags}" 
  *               allowUserValues="true"&gt;
  *     &lt;f:converter converterId="ConceptKeyStringConverter" /&gt;
- * &lt;/cui:tagInput&gt;
+ * &lt;/boot:tagInput&gt;
  * </pre>
  *
  * @author Sven Haag

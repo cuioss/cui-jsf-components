@@ -36,9 +36,9 @@ import lombok.experimental.Delegate;
  * 
  * <h2>Usage</h2>
  * <pre>
- * &lt;cui:tabPanel id="firstTab" titleValue="First Tab"&gt;
+ * &lt;boot:tabPanel id="firstTab" titleValue="First Tab"&gt;
  *   &lt;p&gt;Content for the first tab&lt;/p&gt;
- * &lt;/cui:tabPanel&gt;
+ * &lt;/boot:tabPanel&gt;
  * </pre>
  *
  * @author Oliver Wolff

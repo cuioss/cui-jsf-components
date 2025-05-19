@@ -45,9 +45,9 @@ import lombok.experimental.Delegate;
  *
  * <h2>Usage Examples</h2>
  * <pre>
- * &lt;cui:button outcome="details" labelValue="View Details" icon="cui-icon-search"/&gt;
- * &lt;cui:button outcome="create" labelKey="button.create" state="primary" icon="cui-icon-plus"/&gt;
- * &lt;cui:button outcome="next" labelKey="button.next" icon="cui-icon-chevron-right" iconAlign="right"/&gt;
+ * &lt;boot:button outcome="details" labelValue="View Details" icon="cui-icon-search"/&gt;
+ * &lt;boot:button outcome="create" labelKey="button.create" state="primary" icon="cui-icon-plus"/&gt;
+ * &lt;boot:button outcome="next" labelKey="button.next" icon="cui-icon-chevron-right" iconAlign="right"/&gt;
  * </pre>
  *
  * <strong>Note:</strong> Use labelKey/labelValue instead of value, and titleKey/titleValue instead of title.

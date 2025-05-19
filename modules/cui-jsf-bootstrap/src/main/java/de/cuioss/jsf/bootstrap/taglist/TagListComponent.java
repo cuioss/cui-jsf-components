@@ -42,7 +42,7 @@ import java.util.Collection;
  * 
  * <h2>Usage Example</h2>
  * <pre>
- * &lt;cui:tagList value="#{bean.tagCollection}" 
+ * &lt;boot:tagList value="#{bean.tagCollection}" 
  *            state="INFO" size="SM" /&gt;
  * </pre>
  *

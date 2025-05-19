@@ -61,22 +61,22 @@ import lombok.experimental.Delegate;
  * 
  * <p><b>Basic usage:</b></p>
  * <pre>
- * &lt;cui:icon icon="cui-icon-drink" /&gt;
+ * &lt;boot:icon icon="cui-icon-drink" /&gt;
  * </pre>
  * 
  * <p><b>With size and state:</b></p>
  * <pre>
- * &lt;cui:icon icon="cui-icon-warning" size="xl" state="danger" /&gt;
+ * &lt;boot:icon icon="cui-icon-warning" size="xl" state="danger" /&gt;
  * </pre>
  * 
  * <p><b>With tooltip:</b></p>
  * <pre>
- * &lt;cui:icon icon="cui-icon-info" titleKey="info.tooltip" /&gt;
+ * &lt;boot:icon icon="cui-icon-info" titleKey="info.tooltip" /&gt;
  * </pre>
  * 
  * <p><b>With custom styling:</b></p>
  * <pre>
- * &lt;cui:icon icon="cui-icon-home" styleClass="my-custom-icon" style="margin-right: 5px;" /&gt;
+ * &lt;boot:icon icon="cui-icon-home" styleClass="my-custom-icon" style="margin-right: 5px;" /&gt;
  * </pre>
  *
  * @author Oliver Wolff

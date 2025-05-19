@@ -12,7 +12,7 @@
  * 
  * <h2>Usage Example</h2>
  * <pre>
- * &lt;cui:tagInput id="tags" 
+ * &lt;boot:tagInput id="tags" 
  *               value="#{bean.selectedTags}" 
  *               sourceSet="#{bean.availableTags}"
  *               allowUserValues="true" /&gt;

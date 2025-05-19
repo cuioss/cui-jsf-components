@@ -42,7 +42,7 @@ import lombok.experimental.Delegate;
  * 
  * <h3>Example</h3>
  * <pre>
- * &lt;cui:outputLinkButton value="https://example.com" 
+ * &lt;boot:outputLinkButton value="https://example.com" 
  *                      labelValue="Visit Example"
  *                      icon="cui-icon-info"
  *                      state="primary"

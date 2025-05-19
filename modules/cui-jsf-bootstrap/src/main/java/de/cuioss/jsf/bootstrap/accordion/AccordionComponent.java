@@ -28,10 +28,10 @@ import lombok.experimental.Delegate;
  * 
  * <h3>Usage:</h3>
  * <pre>
- * &lt;cui:accordion id="myAccordion" multiselectable="false"&gt;
- *   &lt;cui:panel title="Panel 1"&gt;Content for panel 1&lt;/cui:panel&gt;
- *   &lt;cui:panel title="Panel 2"&gt;Content for panel 2&lt;/cui:panel&gt;
- * &lt;/cui:accordion&gt;
+ * &lt;boot:accordion id="myAccordion" multiselectable="false"&gt;
+ *   &lt;boot:panel title="Panel 1"&gt;Content for panel 1&lt;/boot:panel&gt;
+ *   &lt;boot:panel title="Panel 2"&gt;Content for panel 2&lt;/boot:panel&gt;
+ * &lt;/boot:accordion&gt;
  * </pre>
  * 
  * @author Matthias Walliczek

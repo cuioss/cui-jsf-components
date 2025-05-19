@@ -77,7 +77,7 @@ import java.util.Optional;
  * <pre>
  * &lt;boot:labeledContainer label="Protected Field"&gt;
  *   &lt;h:inputText id="input" /&gt;
- *   &lt;cui:inputGuard guardIcon="cui-icon-lock" 
+ *   &lt;boot:inputGuard guardIcon="cui-icon-lock" 
  *                   resetGuardIcon="cui-icon-unlock" 
  *                   resetInputValue="true" /&gt;
  * &lt;/boot:labeledContainer&gt;

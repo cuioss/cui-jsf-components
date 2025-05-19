@@ -44,13 +44,13 @@ import lombok.experimental.Delegate;
  * <h2>Usage</h2>
  * <pre>
  * &lt;!-- Basic usage with direct value --&gt;
- * &lt;cui:outputLabel for="inputId" labelValue="First Name" /&gt;
+ * &lt;boot:outputLabel for="inputId" labelValue="First Name" /&gt;
  * 
  * &lt;!-- With resource bundle key --&gt;
- * &lt;cui:outputLabel for="inputId" labelKey="label.firstName" /&gt;
+ * &lt;boot:outputLabel for="inputId" labelKey="label.firstName" /&gt;
  * 
  * &lt;!-- With title/tooltip --&gt;
- * &lt;cui:outputLabel for="inputId" labelKey="label.firstName" titleKey="title.firstName" /&gt;
+ * &lt;boot:outputLabel for="inputId" labelKey="label.firstName" titleKey="title.firstName" /&gt;
  * </pre>
  * 
  * <h2>Attributes</h2>
@@ -72,9 +72,6 @@ public class OutputLabelComponent extends HtmlOutputLabel implements ComponentBr
     @Delegate
     private final TitleProvider titleProvider;
 
-    /**
-     *
-     */
     public OutputLabelComponent() {
         labelProvider = new LabelProvider(this);
         titleProvider = new TitleProviderImpl(this);

@@ -42,10 +42,10 @@ import jakarta.faces.component.html.HtmlMessages;
  * <h2>Usage</h2>
  * <pre>
  * &lt;!-- Basic usage --&gt;
- * &lt;cui:messages /&gt;
+ * &lt;boot:messages /&gt;
  * 
  * &lt;!-- With customized display options --&gt;
- * &lt;cui:messages showDetail="true" showSummary="true" globalOnly="true" /&gt;
+ * &lt;boot:messages showDetail="true" showSummary="true" globalOnly="true" /&gt;
  * </pre>
  *
  * @author Matthias Walliczek

@@ -27,9 +27,9 @@ import jakarta.faces.component.FacesComponent;
  * 
  * <h3>Usage:</h3>
  * <pre>
- * &lt;cui:badge value="42"/&gt;
- * &lt;cui:badge value="New!" styleClass="badge-primary"/&gt;
- * &lt;h3&gt;Example Heading &lt;cui:badge value="New"/&gt;&lt;/h3&gt;
+ * &lt;boot:badge value="42"/&gt;
+ * &lt;boot:badge value="New!" styleClass="badge-primary"/&gt;
+ * &lt;h3&gt;Example Heading &lt;boot:badge value="New"/&gt;&lt;/h3&gt;
  * </pre>
  *
  * @author Oliver Wolff

@@ -98,17 +98,17 @@ import jakarta.faces.component.FacesComponent;
  * 
  * <p><b>Basic usage with string representation:</b></p>
  * <pre>
- * &lt;cui:genderIcon genderString="male" size="md" /&gt;
+ * &lt;boot:genderIcon genderString="male" size="md" /&gt;
  * </pre>
  * 
  * <p><b>Using enum in backing bean:</b></p>
  * <pre>
- * &lt;cui:genderIcon gender="#{backingBean.gender}" state="info" size="lg" /&gt;
+ * &lt;boot:genderIcon gender="#{backingBean.gender}" state="info" size="lg" /&gt;
  * </pre>
  * 
  * <p><b>With custom styling:</b></p>
  * <pre>
- * &lt;cui:genderIcon genderString="female" styleClass="custom-style" style="margin: 4px;" /&gt;
+ * &lt;boot:genderIcon genderString="female" styleClass="custom-style" style="margin: 4px;" /&gt;
  * </pre>
  *
  * @author Oliver Wolff

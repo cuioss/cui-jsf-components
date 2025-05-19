@@ -30,8 +30,8 @@ import jakarta.faces.context.FacesContext;
  * 
  * <h3>Usage</h3>
  * <pre>
- * &lt;cui:closeCommandButton id="closeBtn" action="#{bean.close}" /&gt;
- * &lt;cui:closeCommandButton id="customCloseBtn" action="#{bean.closeAndSave}" styleClass="my-close-button" /&gt;
+ * &lt;boot:closeCommandButton id="closeBtn" action="#{bean.close}" /&gt;
+ * &lt;boot:closeCommandButton id="customCloseBtn" action="#{bean.closeAndSave}" styleClass="my-close-button" /&gt;
  * </pre>
  *
  * @author Oliver Wolff

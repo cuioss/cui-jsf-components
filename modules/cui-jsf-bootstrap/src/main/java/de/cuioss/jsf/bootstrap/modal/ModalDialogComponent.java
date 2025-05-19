@@ -64,7 +64,7 @@ import org.omnifaces.util.State;
  *
  * <pre>
  * &lt;boot:button labelValue="Open"&gt;
- *   &lt;cui:modalControl for="dialogId"/&gt;
+ *   &lt;boot:modalControl for="dialogId"/&gt;
  * &lt;/boot:button&gt;
  * &lt;boot:modalDialog id="dialogId" headerValue="Dialog-Header"&gt;
  *   Some Dialog Content

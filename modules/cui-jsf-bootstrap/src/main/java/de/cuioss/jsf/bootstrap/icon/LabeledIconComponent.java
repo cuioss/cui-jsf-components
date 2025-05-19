@@ -62,22 +62,22 @@ import lombok.experimental.Delegate;
  * 
  * <p><b>Basic usage with explicit label:</b></p>
  * <pre>
- * &lt;cui:labeledIcon icon="cui-icon-alarm" labelValue="Rrrring" /&gt;
+ * &lt;boot:labeledIcon icon="cui-icon-alarm" labelValue="Rrrring" /&gt;
  * </pre>
  * 
  * <p><b>With localized label from resource bundle:</b></p>
  * <pre>
- * &lt;cui:labeledIcon icon="cui-icon-info" labelKey="info.message" /&gt;
+ * &lt;boot:labeledIcon icon="cui-icon-info" labelKey="info.message" /&gt;
  * </pre>
  * 
  * <p><b>With right-aligned icon:</b></p>
  * <pre>
- * &lt;cui:labeledIcon icon="cui-icon-arrow-right" labelValue="Continue" iconAlign="right" /&gt;
+ * &lt;boot:labeledIcon icon="cui-icon-arrow-right" labelValue="Continue" iconAlign="right" /&gt;
  * </pre>
  * 
  * <p><b>With tooltip and custom styling:</b></p>
  * <pre>
- * &lt;cui:labeledIcon icon="cui-icon-warning" labelValue="Attention required" 
+ * &lt;boot:labeledIcon icon="cui-icon-warning" labelValue="Attention required" 
  *                 titleValue="Important notice" styleClass="warning-message" /&gt;
  * </pre>
  *

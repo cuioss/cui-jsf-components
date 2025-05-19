@@ -18,7 +18,7 @@
  * 
  * <h2>Usage Example</h2>
  * <pre>
- * &lt;cui:tag contentValue="Critical" state="DANGER" disposable="true" /&gt;
+ * &lt;boot:tag contentValue="Critical" state="DANGER" disposable="true" /&gt;
  * </pre>
  * 
  * @author Oliver Wolff
