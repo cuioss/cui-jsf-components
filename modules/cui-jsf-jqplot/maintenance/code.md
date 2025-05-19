@@ -4,11 +4,11 @@ This document tracks the status of Java files in the cui-jsf-jqplot module for v
 
 ## Progress Summary
 - Total Java Files: 82
-- Analyzed: 0
+- Analyzed: 2
 - logging-standards: 0
 - javadoc: 0
-- refactoring: 0
-- Remaining: 82
+- refactoring
+- Remaining: 81
 
 ## Status Legend
 - **Analyzed**: The code has been reviewed
@@ -16,143 +16,134 @@ This document tracks the status of Java files in the cui-jsf-jqplot module for v
 - **javadoc**: The code follows CUI Javadoc standards
 - **refactoring**: The code has been analyzed for refactoring opportunities
 
-## Package-Specific Code Status Files
-
-The detailed code status has been split into the following files for better organization:
-
-1. [Core Components](code-core.md) - Root, Axes, Hook, JS packages
-2. [Layout and Model Components](code-layout-model.md) - Layout, Model packages
-3. [Options Components](code-options.md) - Options packages
-4. [Plugin Components](code-plugin.md) - Plugin, Portal Theme packages
-5. [Renderer Components](code-renderer.md) - Renderer packages
 
 ## Java Files
 
 ### Root Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JqPlot.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - package-info.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JqPlot.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - package-info.java
 
 ### Axes Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Axes.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Axis.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - AxisType.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Axes.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Axis.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - AxisType.java
 
 ### Hook Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - HookFunctionsManager.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JqPlotFunctionHook.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JqPlotMouseEventBinding.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - PlotHookFunctionProvider.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - PlotHookFunctionProviderImpl.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - HookFunctionsManager.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JqPlotFunctionHook.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JqPlotMouseEventBinding.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - PlotHookFunctionProvider.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - PlotHookFunctionProviderImpl.java
 
 ### JS Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - package-info.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - package-info.java
 
 ### JS Support Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - IPropertyProvider.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JavaScriptSupport.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsArray.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsObject.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsProperty.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsValue.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - PropertyProvider.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - IPropertyProvider.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JavaScriptSupport.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsArray.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsObject.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsProperty.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsValue.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - PropertyProvider.java
 
 ### JS Types Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsBoolean.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsDate.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsDateTime.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsDateTimeFormat.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsDouble.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsInteger.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsNumber.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsNumberFactory.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsString.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - package-info.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsBoolean.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsDate.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsDateTime.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsDateTimeFormat.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsDouble.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsInteger.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsNumber.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsNumberFactory.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsString.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - package-info.java
 
 ### Layout Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Grid.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Location.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Series.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Title.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Grid.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Location.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Series.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Title.java
 
 ### Layout Shadow Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - IShadowDecoration.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Shadow.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - IShadowDecoration.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Shadow.java
 
 ### Model Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsArrayContainer.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - NoDataIndicator.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Seria.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - SeriaTupelItem.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - SeriesData.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Ticks.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - TimeLineSeria.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - JsArrayContainer.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - NoDataIndicator.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Seria.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - SeriaTupelItem.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - SeriesData.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Ticks.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - TimeLineSeria.java
 
 ### Options Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - DataRendererOptions.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - DateFormatConverter.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - FillOptions.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - LabelOptions.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Options.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - TickOptions.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - DataRendererOptions.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - DateFormatConverter.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - FillOptions.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - LabelOptions.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Options.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - TickOptions.java
 
 ### Options Color Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Color.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - ColorProperty.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Color.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - ColorProperty.java
 
 ### Options Label Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - ILabelDecorator.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Label.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - ILabelDecorator.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Label.java
 
 ### Options Legend Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Legend.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Placement.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - RendererOptions.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - TableLegendRenderer.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Legend.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Placement.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - RendererOptions.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - TableLegendRenderer.java
 
 ### Plugin Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - IPluginConsumer.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - PluginSupport.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - IPluginConsumer.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - PluginSupport.java
 
 ### Plugin Cursor Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Cursor.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - ZoomToConstrain.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Cursor.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - ZoomToConstrain.java
 
 ### Plugin Highlighter Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - FadeSpeed.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Highlighter.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - TooltipAxes.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - TooltipContentEditor.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - FadeSpeed.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Highlighter.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - TooltipAxes.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - TooltipContentEditor.java
 
 ### Portal Theme Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - CssRule.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - GridTheme.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - SeriesColors.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - CssRule.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - GridTheme.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - SeriesColors.java
 
 ### Renderer Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - AxisTickRenderer.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - CanvasGridRenderer.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - DataRenderer.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - DateAxisRenderer.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - DivTitleRenderer.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - LabelRenderer.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Renderer.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - RendererOptions.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - SeriaRenderer.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - TitleRenderer.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - AxisTickRenderer.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - CanvasGridRenderer.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - DataRenderer.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - DateAxisRenderer.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - DivTitleRenderer.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - LabelRenderer.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Renderer.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - RendererOptions.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - SeriaRenderer.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - TitleRenderer.java
 
 ### Renderer Highlight Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Highlighting.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - IHighlightDecoration.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - Highlighting.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - IHighlightDecoration.java
 
 ### Renderer Marker Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - MarkerRenderer.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - MarkerRendererOptions.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - PointStyle.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - MarkerRenderer.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - MarkerRendererOptions.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - PointStyle.java
 
 ### Renderer Series Package
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - BarDirection.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - BarRendererOptions.java
-- [ ] **Analyzed** [ ] **logging-standards** [ ] **javadoc** [ ] **refactoring** - LineRendererOptions.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - BarDirection.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - BarRendererOptions.java
+- [x] **Analyzed** [x] **logging-standards** [ ] **javadoc** [ ] **refactoring** - LineRendererOptions.java
 
 ## Notes
 - This file tracks the status of Java files in the main source directory
