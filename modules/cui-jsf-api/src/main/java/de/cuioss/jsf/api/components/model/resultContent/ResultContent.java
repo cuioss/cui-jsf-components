@@ -20,9 +20,13 @@ import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.portal.common.cdi.PortalBeanManager;
 import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
-import de.cuioss.uimodel.result.ResultDetail;
 import de.cuioss.uimodel.result.ResultObject;
 import jakarta.faces.application.FacesMessage;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -34,7 +38,8 @@ import java.util.List;
  * <p>
  * This class implements the {@link ErrorController} interface to provide a standard
  * mechanism for displaying notification messages and controlling content visibility
- * in response to operation results. It is designed to be used with the composite
+ * in response-to-operation results.
+ * It is designed to be used with the composite
  * component "requestResultContent.xhtml" to render the appropriate UI elements.
  * </p>
  * <p>

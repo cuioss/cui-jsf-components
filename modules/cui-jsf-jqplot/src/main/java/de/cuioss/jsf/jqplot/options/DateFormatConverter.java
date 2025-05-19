@@ -15,9 +15,6 @@
  */
 package de.cuioss.jsf.jqplot.options;
 
-import static de.cuioss.tools.collect.CollectionLiterals.*;
-import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
-
 import de.cuioss.tools.string.MoreStrings;
 import lombok.Getter;
 import lombok.ToString;
@@ -25,6 +22,11 @@ import lombok.ToString;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
+import static de.cuioss.tools.collect.CollectionLiterals.immutableSortedSet;
+import static de.cuioss.tools.collect.CollectionLiterals.mutableList;
+import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
 
 /**
  * Supported java keys :

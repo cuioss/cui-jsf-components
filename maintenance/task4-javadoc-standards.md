@@ -36,8 +36,6 @@ The following standards should be applied to all Javadoc:
 
 - Every public and protected class/interface must be documented
 - Include clear purpose statement
-- Document inheritance relationships
-- Specify thread-safety guarantees
 - Include @since tag with version information
 - Document serialization if applicable
 - Include usage examples for complex classes
@@ -49,7 +47,7 @@ The following standards should be applied to all Javadoc:
 - Document return values with @return tags
 - Document exceptions with @throws tags
 - Include usage examples for complex methods
-- Document thread-safety considerations
+- Document thread-safety considerations only if they are not obvious
 - Use @see for related methods
 - Use @deprecated with migration path if applicable
 

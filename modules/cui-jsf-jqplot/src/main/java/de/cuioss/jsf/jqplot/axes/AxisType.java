@@ -15,12 +15,12 @@
  */
 package de.cuioss.jsf.jqplot.axes;
 
-import static de.cuioss.tools.collect.CollectionLiterals.immutableSet;
-
 import lombok.Getter;
 
 import java.util.EnumSet;
 import java.util.Set;
+
+import static de.cuioss.tools.collect.CollectionLiterals.immutableSet;
 
 /**
  * There are 2 x axes, 'xaxis' and 'x2axis', and 9 y axes, 'yaxis', ‘y2axis’.

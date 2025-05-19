@@ -15,12 +15,12 @@
  */
 package de.cuioss.jsf.jqplot.js.types;
 
-import static java.util.Objects.requireNonNull;
-
 import lombok.Getter;
 
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * To be able to work with JavaScript date time the date need to be fit's to

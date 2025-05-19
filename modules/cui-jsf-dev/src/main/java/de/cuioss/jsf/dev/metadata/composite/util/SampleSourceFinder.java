@@ -31,56 +31,222 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 /**
- * Finds the source for the samples.
+ * <p>
+ * Utility class responsible for finding and extracting sample source code from XHTML files
+ * that demonstrate the usage of JSF components in the CUI component library. This class
+ * specifically searches for facets with the name "sample" within component metadata sections.
+ * </p>
+ * 
+ * <p>
+ * The class uses XML parsing and XPath expressions to locate and extract the sample source code
+ * from the specified component's facet. It handles namespace issues and entity escaping to ensure
+ * proper XML parsing.
+ * </p>
+ * 
+ * <p>
+ * This is primarily used in developer tools and documentation to:
+ * </p>
+ * <ul>
+ *   <li>Extract live code examples from demonstration pages</li>
+ *   <li>Display the source code alongside working examples</li>
+ *   <li>Allow developers to see how components should be implemented</li>
+ * </ul>
+ * 
+ * <p>
+ * Sample usage:
+ * </p>
+ * <pre>{@code
+ * File xhtmlFile = new File("/path/to/demo-page.xhtml");
+ * String componentId = "myButtonDemo";
+ * SampleSourceFinder finder = new SampleSourceFinder(xhtmlFile, componentId);
+ * String sourceCode = finder.getSampleSource();
+ * 
+ * // The sourceCode can then be displayed in documentation or development tools
+ * }</pre>
  *
- * @author e0623
+ * @since 1.0
  */
 public class SampleSourceFinder {
 
+    /**
+     * <p>
+     * Logger instance for this class.
+     * </p>
+     * <p>
+     * Used for logging errors during source code extraction and debugging information.
+     * </p>
+     */
     private static final CuiLogger log = new CuiLogger(SampleSourceFinder.class);
 
+    /**
+     * <p>
+     * String constant representing the opening facet tag for samples.
+     * </p>
+     * <p>
+     * This is used to identify and replace the opening tag when extracting the sample source.
+     * </p>
+     */
     private static final String F_FACET_NAME_SAMPLE = "<f:facet name=\"sample\">";
 
+    /**
+     * <p>
+     * Constant representing an empty string.
+     * </p>
+     * <p>
+     * Used in replacement operations and as a default return value.
+     * </p>
+     */
     private static final String EMPTY = "";
 
+    /**
+     * <p>
+     * Parameter name for configuring pretty printing in XML serialization.
+     * </p>
+     */
     private static final String FORMAT_PRETTY_PRINT_PARAM = "format-pretty-print";
 
+    /**
+     * <p>
+     * Parameter name for controlling XML declaration output in serialization.
+     * </p>
+     */
     private static final String XML_DECLARATION_PARAM = "xml-declaration";
 
+    /**
+     * <p>
+     * XPath fragment used to locate the sample facet by component ID.
+     * </p>
+     * <p>
+     * Contains "Q_Q" as a placeholder for colons to avoid namespace issues during parsing.
+     * </p>
+     */
     private static final String F_Q_QFACET_NAME_SAMPLE = "']/fQ_Qfacet[@name='sample']";
 
+    /**
+     * <p>
+     * XPath fragment used to locate the development metadata section by component ID.
+     * </p>
+     * <p>
+     * Contains "Q_Q" as a placeholder for colons to avoid namespace issues during parsing.
+     * </p>
+     */
     private static final String DEVELOPMENT_Q_QPRINT_METADATA_ID = "//developmentQ_QprintMetadata[@id='";
 
+    /**
+     * <p>
+     * String constant for the namespace delimiter (colon).
+     * </p>
+     * <p>
+     * Used in string replacement operations for handling XML namespace issues.
+     * </p>
+     */
     private static final String NAMESPACE_DELIM = ":";
 
+    /**
+     * <p>
+     * String constant for the ampersand character.
+     * </p>
+     * <p>
+     * Used in string replacement operations to handle XML entity issues.
+     * </p>
+     */
     private static final String AND = "&";
 
+    /**
+     * <p>
+     * Closing tag for the fake root element used during parsing.
+     * </p>
+     */
     private static final String FAKE_ROOT_END = "</Q_Q>";
 
+    /**
+     * <p>
+     * Opening tag for the fake root element used during parsing.
+     * </p>
+     * <p>
+     * A fake root element is added to ensure the XML fragment is well-formed for parsing.
+     * </p>
+     */
     private static final String FAKE_ROOT = "<Q_Q>";
 
+    /**
+     * <p>
+     * Placeholder used to replace colons in namespace prefixes during parsing.
+     * </p>
+     * <p>
+     * This avoids namespace resolution issues during XML processing.
+     * </p>
+     */
     private static final String REPLACER = "Q_Q";
 
+    /**
+     * <p>
+     * Placeholder used to replace ampersands during parsing.
+     * </p>
+     * <p>
+     * This avoids entity resolution issues during XML processing.
+     * </p>
+     */
     private static final String AND_REPLACER = "QandQ";
 
+    /**
+     * <p>
+     * String constant representing the closing UI define tag.
+     * </p>
+     * <p>
+     * Used to extract content section from XHTML files.
+     * </p>
+     */
     private static final String UI_DEFINE = "</ui:define>";
 
+    /**
+     * <p>
+     * String constant representing the opening UI define tag for content.
+     * </p>
+     * <p>
+     * Used to extract content section from XHTML files.
+     * </p>
+     */
     private static final String UI_DEFINE_NAME_CONTENT = "<ui:define name=\"content\">";
 
+    /**
+     * <p>
+     * The XHTML file to extract sample source code from.
+     * </p>
+     */
     private File file = null;
 
+    /**
+     * <p>
+     * The ID of the component whose sample code is to be extracted.
+     * </p>
+     */
     private String id = null;
 
+    /**
+     * <p>
+     * Private default constructor to prevent instantiation without parameters.
+     * </p>
+     * <p>
+     * This class requires a file and component ID to function properly.
+     * </p>
+     */
     @SuppressWarnings("unused")
     private SampleSourceFinder() {
-
+        // Private constructor to prevent instantiation without parameters
     }
 
     /**
-     * Constructor
+     * <p>
+     * Creates a new SampleSourceFinder with the specified XHTML file and component ID.
+     * </p>
+     * <p>
+     * This constructor initializes the finder with the necessary information to locate
+     * and extract the sample source code for a specific component.
+     * </p>
      *
-     * @param file        xhtml file
-     * @param componentId id of the component
+     * @param file        The XHTML file containing the component sample, must not be null
+     * @param componentId The ID of the component whose sample code is to be extracted, must not be null
      */
     public SampleSourceFinder(final File file, final String componentId) {
         this.file = file;
@@ -88,9 +254,30 @@ public class SampleSourceFinder {
     }
 
     /**
-     * Search for sample facet in xhtml file and return sample source
+     * <p>
+     * Searches for the sample facet in the XHTML file and extracts its content.
+     * </p>
+     * 
+     * <p>
+     * This method performs the following steps:
+     * </p>
+     * <ol>
+     *   <li>Reads the XHTML file into a string</li>
+     *   <li>Extracts only the content section (between ui:define tags)</li>
+     *   <li>Escapes namespace colons and ampersands to avoid parsing issues</li>
+     *   <li>Adds a fake root element to ensure well-formed XML</li>
+     *   <li>Parses the XML and uses XPath to locate the sample facet</li>
+     *   <li>Serializes the facet content with proper formatting</li>
+     *   <li>Restores the original syntax by removing the escaping</li>
+     * </ol>
+     * 
+     * <p>
+     * If any exception occurs during processing, an empty string is returned and the error
+     * is logged.
+     * </p>
      *
-     * @return String with sample source
+     * @return The extracted sample source code as a string, or an empty string if the sample
+     *         cannot be found or an error occurs during extraction
      */
     public String getSampleSource() {
         var result = EMPTY;

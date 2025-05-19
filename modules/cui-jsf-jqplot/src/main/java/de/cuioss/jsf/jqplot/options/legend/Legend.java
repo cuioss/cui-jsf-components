@@ -15,8 +15,6 @@
  */
 package de.cuioss.jsf.jqplot.options.legend;
 
-import static java.lang.Boolean.TRUE;
-
 import de.cuioss.jsf.jqplot.js.support.JsArray;
 import de.cuioss.jsf.jqplot.js.support.JsObject;
 import de.cuioss.jsf.jqplot.js.types.JsBoolean;
@@ -31,6 +29,8 @@ import lombok.ToString;
 
 import java.io.Serial;
 import java.util.List;
+
+import static java.lang.Boolean.TRUE;
 
 /**
  * @author Eugen Fischer

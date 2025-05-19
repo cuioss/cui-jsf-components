@@ -18,7 +18,7 @@ The goal of this task is to ensure each module in the CUI JSF Components project
 - Each module has a README file following the CUI README structure
 - README provides clear information about the module's purpose, usage, and features
 - Documentation is comprehensive and user-friendly
-- No code changes have been made during this task
+- No code changes should be made during this task
 
 ## README Standards
 
@@ -29,34 +29,67 @@ The following standards should be applied to all README files:
 README files should follow this basic structure:
 
 1. **Title and Description**: Clear module name and concise description
-2. **Status Badges**: Build status, test coverage, etc. (if applicable)
-3. **Motivation**: Why the module exists and what problem it solves
-4. **Installation**: How to add the module as a dependency
-5. **Usage**: How to use the module with examples
-6. **API Documentation**: Overview of key classes and methods
-7. **Configuration**: Configuration options and defaults
-8. **Dependencies**: Major dependencies and version requirements
-9. **Contributing**: Guidelines for contributing (if applicable)
-10. **License**: License information
+2. **Motivation**: Why the module exists and what problem it solves
+3. **Usage**: How to use the module with examples
 
 ### Content Guidelines
 
 - Use clear, concise language
+- Avoid verbosity - for details always provide links to the source code
 - Include code examples for common use cases
 - Provide links to more detailed documentation
-- Use proper Markdown formatting
+- Use proper AsciiDoc formatting
 - Include screenshots or diagrams where helpful
 - Keep information up-to-date with the current version
 
 ### Module-Specific Requirements
 
-For JSF component modules, also include:
+For JSF component modules, include the following sections:
 
-- Component usage examples with code snippets
-- Available attributes and their descriptions
-- Client-side behavior documentation
-- Styling and CSS information
-- Browser compatibility notes
+#### Title and Brief Description
+- Module name as title (level 1 heading)
+- Concise description of purpose and key functionality
+- High-level overview of module's role in the system
+
+#### Maven Coordinates
+- Must be placed immediately after description
+- Complete dependency block in XML format
+- Include group and artifact IDs
+
+```asciidoc
+[source, xml]
+----
+<dependency>
+    <groupId>group.id</groupId>
+    <artifactId>artifact-id</artifactId>
+</dependency>
+----
+```
+
+#### Core Concepts
+- Key architectural components
+- Main features and capabilities
+- Integration points
+- Each concept with bullet points for details
+- Links to source files where appropriate
+
+#### Detailed Component Documentation
+- Each major component with its own section
+- Links to source files using AsciiDoc format: `link:path/to/file[ComponentName]`
+- Feature lists and capabilities
+- Technical details and requirements
+- Implementation considerations
+
+#### Usage Examples
+- Complete, working code examples
+- Common use cases
+- Configuration examples
+- Best practice implementations
+- Each example must have:
+  - Clear purpose explanation
+  - Complete code snippet
+  - Configuration if required
+  - Expected outcome
 
 ## Implementation Process
 
@@ -86,6 +119,7 @@ For implementing this task, follow the refactoring process:
 - Review the README for completeness and accuracy
 - Verify that standards are now being followed
 - Document any remaining issues
+- Verify the AsciiDoc grammar thoroughly
 
 ## Progress Tracking
 

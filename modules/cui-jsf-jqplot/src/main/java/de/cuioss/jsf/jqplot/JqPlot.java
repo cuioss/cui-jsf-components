@@ -15,10 +15,6 @@
  */
 package de.cuioss.jsf.jqplot;
 
-import static de.cuioss.tools.base.Preconditions.checkState;
-import static de.cuioss.tools.string.MoreStrings.emptyToNull;
-import static java.util.Objects.requireNonNull;
-
 import de.cuioss.jsf.jqplot.hook.HookFunctionsManager;
 import de.cuioss.jsf.jqplot.hook.PlotHookFunctionProvider;
 import de.cuioss.jsf.jqplot.js.support.JsObject;
@@ -34,6 +30,10 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import static de.cuioss.tools.base.Preconditions.checkState;
+import static de.cuioss.tools.string.MoreStrings.emptyToNull;
+import static java.util.Objects.requireNonNull;
 
 /**
  * jqPlot-| |-seriesColors |-textColor |-fontFamily |-fontSize |-stackSeries
