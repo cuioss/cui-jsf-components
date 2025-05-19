@@ -15,15 +15,19 @@
  */
 package de.cuioss.jsf.dev.metadata.model;
 
-import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
+
+import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
 
 /**
  * <p>
@@ -45,7 +49,7 @@ import java.util.*;
  * TagStorage&lt;UIComponentMetadata&gt; componentStorage = new TagStorage&lt;&gt;();
  *
  * // Add components
- * componentStorage.add(new UIComponentMetadata("button", attributes, "Button component", "javax.faces.Button", null, null));
+ * componentStorage.add(new UIComponentMetadata("button", attributes, "Button component", "jakarta.faces.Button", null, null));
  *
  * // Sort by name
  * componentStorage.sortCollected();

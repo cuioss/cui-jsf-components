@@ -39,8 +39,8 @@ import java.util.List;
  * &lt;tag&gt;
  *   &lt;tag-name&gt;button&lt;/tag-name&gt;
  *   &lt;component&gt;
- *     &lt;component-type&gt;javax.faces.Button&lt;/component-type&gt;
- *     &lt;renderer-type&gt;javax.faces.Button&lt;/renderer-type&gt;
+ *     &lt;component-type&gt;jakarta.faces.Button&lt;/component-type&gt;
+ *     &lt;renderer-type&gt;jakarta.faces.Button&lt;/renderer-type&gt;
  *   &lt;/component&gt;
  *   &lt;description&gt;...&lt;/description&gt;
  *   &lt;attribute&gt;...&lt;/attribute&gt;
@@ -62,8 +62,8 @@ import java.util.List;
  *     "button",
  *     attributesList,
  *     "Button component for performing actions",
- *     "javax.faces.Button",
- *     "javax.faces.Button",
+ *     "jakarta.faces.Button",
+ *     "jakarta.faces.Button",
  *     null);
  *     
  * // Access component-specific information

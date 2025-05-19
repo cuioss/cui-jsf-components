@@ -37,7 +37,7 @@ import java.io.Serial;
  * Usage example:
  * <pre>
  * private final ConverterAccessor converterAccessor = 
- *   new ConverterAccessor("javax.faces.Number");
+ *   new ConverterAccessor("jakarta.faces.Number");
  * 
  * public Converter&lt;Number&gt; getNumberConverter() {
  *     return converterAccessor.getValue();

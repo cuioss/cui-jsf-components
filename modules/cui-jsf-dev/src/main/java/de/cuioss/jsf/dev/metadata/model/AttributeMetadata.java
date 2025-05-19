@@ -97,7 +97,7 @@ public class AttributeMetadata implements Serializable {
      * This corresponds to the &lt;type&gt; element in the attribute definition, or
      * if it's a method expression, to the &lt;method-signature&gt; element. 
      * Examples include {@code java.lang.String}, {@code java.lang.Boolean}, or 
-     * method signatures like {@code void method(javax.faces.event.ActionEvent)}.
+     * method signatures like {@code void method(jakarta.faces.event.ActionEvent)}.
      * </p>
      */
     private final String type;

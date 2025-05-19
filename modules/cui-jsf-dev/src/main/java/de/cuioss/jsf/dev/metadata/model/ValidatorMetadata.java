@@ -38,7 +38,7 @@ import java.util.List;
  * &lt;tag&gt;
  *   &lt;tag-name&gt;validateLength&lt;/tag-name&gt;
  *   &lt;validator&gt;
- *     &lt;validator-id&gt;javax.faces.Length&lt;/validator-id&gt;
+ *     &lt;validator-id&gt;jakarta.faces.Length&lt;/validator-id&gt;
  *   &lt;/validator&gt;
  *   &lt;description&gt;...&lt;/description&gt;
  *   &lt;attribute&gt;...&lt;/attribute&gt;
@@ -54,7 +54,7 @@ import java.util.List;
  *     "validateLength",
  *     "Validates that the string length of the component is within a specified range",
  *     attributesList,
- *     "javax.faces.Length");
+ *     "jakarta.faces.Length");
  *     
  * // Access validator-specific information
  * String validatorId = validatorMetadata.getValidatorId();
@@ -84,7 +84,7 @@ public class ValidatorMetadata extends Tag {
      * element in the taglib XML.
      * </p>
      * <p>
-     * Example values include {@code "javax.faces.Length"}, {@code "javax.faces.Required"},
+     * Example values include {@code "jakarta.faces.Length"}, {@code "jakarta.faces.Required"},
      * or custom validator IDs like {@code "de.cuioss.jsf.components.validator.EmailValidator"}.
      * </p>
      */

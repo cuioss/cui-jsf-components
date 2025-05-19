@@ -38,7 +38,7 @@ import java.util.List;
  * &lt;tag&gt;
  *   &lt;tag-name&gt;ajax&lt;/tag-name&gt;
  *   &lt;behavior&gt;
- *     &lt;behavior-id&gt;javax.faces.behavior.Ajax&lt;/behavior-id&gt;
+ *     &lt;behavior-id&gt;jakarta.faces.behavior.Ajax&lt;/behavior-id&gt;
  *   &lt;/behavior&gt;
  *   &lt;description&gt;...&lt;/description&gt;
  *   &lt;attribute&gt;...&lt;/attribute&gt;
@@ -54,7 +54,7 @@ import java.util.List;
  *     "ajax",
  *     "Adds AJAX support to a component",
  *     attributesList,
- *     "javax.faces.behavior.Ajax");
+ *     "jakarta.faces.behavior.Ajax");
  *     
  * // Access behavior-specific information
  * String behaviorId = behaviorMetadata.getBehaviorId();
@@ -84,7 +84,7 @@ public class BehaviorMetadata extends Tag {
      * element in the taglib XML.
      * </p>
      * <p>
-     * Example values include {@code "javax.faces.behavior.Ajax"} for the standard Ajax behavior
+     * Example values include {@code "jakarta.faces.behavior.Ajax"} for the standard Ajax behavior
      * or custom behavior IDs like {@code "de.cuioss.jsf.components.behavior.FocusBehavior"}.
      * </p>
      */

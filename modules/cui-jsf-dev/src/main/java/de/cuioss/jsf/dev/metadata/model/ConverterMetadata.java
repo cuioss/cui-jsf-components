@@ -38,7 +38,7 @@ import java.util.List;
  * &lt;tag&gt;
  *   &lt;tag-name&gt;dateTimeConverter&lt;/tag-name&gt;
  *   &lt;converter&gt;
- *     &lt;converter-id&gt;javax.faces.DateTime&lt;/converter-id&gt;
+ *     &lt;converter-id&gt;jakarta.faces.DateTime&lt;/converter-id&gt;
  *   &lt;/converter&gt;
  *   &lt;description&gt;...&lt;/description&gt;
  *   &lt;attribute&gt;...&lt;/attribute&gt;
@@ -54,7 +54,7 @@ import java.util.List;
  *     "dateTimeConverter",
  *     "Converts between String and java.util.Date",
  *     attributesList,
- *     "javax.faces.DateTime");
+ *     "jakarta.faces.DateTime");
  *     
  * // Access converter-specific information
  * String converterId = converterMetadata.getConverterId();
@@ -84,7 +84,7 @@ public class ConverterMetadata extends Tag {
      * element in the taglib XML.
      * </p>
      * <p>
-     * Example values include {@code "javax.faces.DateTime"}, {@code "javax.faces.Number"},
+     * Example values include {@code "jakarta.faces.DateTime"}, {@code "jakarta.faces.Number"},
      * or custom converter IDs like {@code "de.cuioss.jsf.components.converter.StringTrimConverter"}.
      * </p>
      */
