@@ -25,19 +25,54 @@ import jakarta.faces.render.FacesRenderer;
 import java.io.IOException;
 
 /**
+ * <p>Renderer responsible for rendering the {@link FieldsetComponent} as HTML5 fieldset
+ * element. This renderer handles the generation of HTML markup for the fieldset and its
+ * associated legend element.</p>
+ * 
+ * <p>The renderer produces a standard HTML5 fieldset structure:</p>
+ * <pre>
+ * &lt;fieldset [attributes]&gt;
+ *   &lt;legend&gt;Legend text (if provided)&lt;/legend&gt;
+ *   [component children]
+ * &lt;/fieldset&gt;
+ * </pre>
+ * 
+ * <p>It handles various component attributes including:</p>
+ * <ul>
+ *   <li>Style and styleClass for CSS styling</li>
+ *   <li>Pass-through attributes for additional HTML attributes</li>
+ *   <li>Legend text with optional escaping</li>
+ * </ul>
+ * 
+ * <p>This renderer is thread-safe as it maintains no state between requests.</p>
+ * 
  * @author Oliver Wolff
- *
+ * @see FieldsetComponent The component this renderer is associated with
+ * @since 1.0
  */
 @FacesRenderer(rendererType = CuiFamily.FIELDSET_RENDERER, componentFamily = CuiFamily.COMPONENT_FAMILY)
 public class FieldsetRenderer extends BaseDecoratorRenderer<FieldsetComponent> {
 
     /**
-     *
+     * Default constructor that initializes the renderer.
+     * Setting the parameter for deferredWriting to false as the component doesn't
+     * need deferred writing capabilities.
      */
     public FieldsetRenderer() {
         super(false);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>Renders the opening fieldset tag with all attributes and the legend element
+     * if a legend text is provided by the component.</p>
+     * 
+     * @param context the FacesContext for the current request
+     * @param writer the decorator writer to use for output
+     * @param component the fieldset component being rendered
+     * @throws IOException if an error occurs while writing to the response
+     */
     @Override
     protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<FieldsetComponent> writer,
             final FieldsetComponent component) throws IOException {
@@ -56,6 +91,16 @@ public class FieldsetRenderer extends BaseDecoratorRenderer<FieldsetComponent> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>Renders the closing fieldset tag.</p>
+     * 
+     * @param context the FacesContext for the current request
+     * @param writer the decorator writer to use for output
+     * @param component the fieldset component being rendered
+     * @throws IOException if an error occurs while writing to the response
+     */
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<FieldsetComponent> writer,
             final FieldsetComponent component) throws IOException {

@@ -28,7 +28,31 @@ import jakarta.faces.render.FacesRenderer;
 import java.io.IOException;
 
 /**
+ * <p>Renderer responsible for rendering the {@link InlineConfirmComponent} with its two-step
+ * confirmation mechanism. This renderer works by initially rendering only the 'initial' facet
+ * while keeping the confirmation child hidden with CSS.</p>
+ * 
+ * <p>The renderer applies specific data attributes to both the initial element and the confirmation
+ * element. These data attributes are then used by the associated JavaScript to handle the toggle
+ * behavior when the user interacts with the initial element.</p>
+ * 
+ * <p>The key features of this renderer include:</p>
+ * <ul>
+ *   <li>Ensuring the initial facet is displayed by default</li>
+ *   <li>Setting the confirmation element to be hidden initially</li>
+ *   <li>Adding the required data attributes for JavaScript interaction</li>
+ *   <li>Validating that the child component properly supports styling requirements</li>
+ * </ul>
+ * 
+ * <p>The renderer delegates the actual rendering of both the initial facet and the confirmation
+ * child to their respective renderers, focusing only on adding the necessary structure and
+ * attributes for the toggle behavior.</p>
+ * 
+ * <p>This renderer is thread-safe as it maintains no state between requests.</p>
+ * 
  * @author Oliver Wolff
+ * @see InlineConfirmComponent The component this renderer is associated with
+ * @since 1.0
  */
 @FacesRenderer(rendererType = INLINE_CONFIRM_RENDERER, componentFamily = COMPONENT_FAMILY)
 public class InlineConfirmRenderer extends BaseDecoratorRenderer<InlineConfirmComponent> {
@@ -37,12 +61,28 @@ public class InlineConfirmRenderer extends BaseDecoratorRenderer<InlineConfirmCo
     static final String DATA_TARGET_IDENTIFIER = "data-inline-confirm-target";
 
     /**
-     *
+     * Default constructor that initializes the renderer.
+     * Setting the parameter for deferredWriting to false as the component doesn't
+     * need deferred writing capabilities.
      */
     public InlineConfirmRenderer() {
         super(false);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>Renders the initial facet as visible and the confirmation child as hidden,
+     * applying the necessary data attributes for JavaScript interaction. The renderer
+     * validates that the child component supports styling, which is required for the
+     * hide/show functionality.</p>
+     * 
+     * @param context the FacesContext for the current request
+     * @param writer the decorator writer to use for output
+     * @param component the inline confirm component being rendered
+     * @throws IOException if an error occurs while writing to the response
+     * @throws IllegalArgumentException if the child component doesn't support the style attribute
+     */
     @Override
     protected void doEncodeBegin(final FacesContext context,
             final DecoratingResponseWriter<InlineConfirmComponent> writer, final InlineConfirmComponent component)

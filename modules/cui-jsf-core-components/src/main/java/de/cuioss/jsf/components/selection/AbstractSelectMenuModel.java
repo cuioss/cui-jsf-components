@@ -30,11 +30,28 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Base implementation for {@link SelectMenuModel} providing some convenient
- * methods.
+ * <p>Base implementation for {@link SelectMenuModel} providing common functionality
+ * for JSF select menu components. This abstract class combines model capabilities with
+ * converter functionality, simplifying the implementation of selection components.</p>
+ * 
+ * <p>The model provides:</p>
+ * <ul>
+ *   <li>Storage and access to available selection options as {@link SelectItem} instances</li>
+ *   <li>Storage and access to the currently selected value</li>
+ *   <li>Conversion between the object model and string representation</li>
+ *   <li>Handling of value change events</li>
+ *   <li>Support for the disabled state</li>
+ * </ul>
+ * 
+ * <p>Concrete implementations need to provide the specific logic for converting
+ * between the string representation and the model type.</p>
+ * 
+ * <p>This class is designed to be used with JSF selection components such as
+ * h:selectOneMenu, h:selectManyMenu, etc.</p>
  *
  * @author Oliver Wolff
- * @param <T> model item type
+ * @param <T> The type of the model items, must implement {@link Serializable}
+ * @since 1.0
  */
 public abstract class AbstractSelectMenuModel<T extends Serializable> extends AbstractConverter<T>
         implements SelectMenuModel<T> {
@@ -50,30 +67,44 @@ public abstract class AbstractSelectMenuModel<T extends Serializable> extends Ab
     private T selectedValue;
 
     /**
-     * flag indication whether the menu model is disabled.
+     * Flag indicating whether the menu model is disabled.
+     * When disabled, the corresponding UI component should be rendered in a disabled state.
      */
     @Getter
     @Setter
     public boolean disabled = false;
 
     /**
-     * @param values must not be <code>null</code> but may be empty, what is rather
-     *               useless for a dropdown
+     * Constructor that initializes the model with the available selection options.
+     * 
+     * @param values The list of {@link SelectItem} objects representing the available selection options.
+     *               Must not be {@code null} but may be empty (though an empty list would be impractical for a dropdown).
+     * @throws NullPointerException if values is {@code null}
      */
     protected AbstractSelectMenuModel(final List<SelectItem> values) {
         selectableValues = requireNonNull(values, "values");
     }
 
     /**
-     * Returns true if value is selected for this unit and false otherwise.
-     *
-     * @return is value selected status.
+     * {@inheritDoc}
+     * 
+     * <p>Determines if a value is currently selected by checking if the selectedValue is non-null.</p>
+     * 
+     * @return {@code true} if a value is currently selected, {@code false} otherwise
      */
     @Override
     public boolean isValueSelected() {
         return null != getSelectedValue();
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>Processes a value change event by updating the selectedValue with the new value from the event.</p>
+     * 
+     * @param event The value change event containing the new selected value
+     * @throws AbortProcessingException if processing should be aborted
+     */
     @SuppressWarnings("unchecked")
     // Implicitly safe because of typing
     @Override

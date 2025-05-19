@@ -19,12 +19,40 @@ import jakarta.faces.component.behavior.AjaxBehavior;
 import jakarta.faces.component.behavior.ClientBehaviorContext;
 
 /**
- * An {@link AjaxBehavior} that does not write a script block into the html page
- * (like onclick="jsf.ajax...") but only registers to handle such requests at
- * server side and allows to trigger the ajax request manually.
+ * <p>A specialized {@link AjaxBehavior} implementation that prevents the automatic generation
+ * of JavaScript code in the rendered HTML output. Unlike the standard AjaxBehavior which
+ * writes script blocks (e.g., onclick="jsf.ajax...") into the HTML, this implementation
+ * returns null from {@link #getScript(ClientBehaviorContext)}.</p>
+ * 
+ * <p>This behavior is particularly useful in scenarios where:</p>
+ * <ul>
+ *   <li>The Ajax functionality needs to be triggered programmatically via JavaScript rather
+ *       than through the standard event mechanism</li>
+ *   <li>Custom JavaScript code needs to handle when and how the Ajax requests are sent</li>
+ *   <li>The component requires full control over the client-side behavior</li>
+ * </ul>
+ * 
+ * <p>While this behavior doesn't generate client-side script, it still registers server-side
+ * handlers for Ajax requests, allowing them to be processed properly when manually triggered.</p>
+ * 
+ * <p>This class is primarily used by the {@link TypewatchComponent} to enable delayed Ajax
+ * requests based on user typing patterns.</p>
+ * 
+ * @author Oliver Wolff
+ * @since 1.0
  */
 public class NoScriptAjaxBehavior extends AjaxBehavior {
 
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>Overridden to return null, preventing the automatic generation of JavaScript
+     * code in the rendered HTML. This allows the component to manually control when
+     * and how Ajax requests are triggered.</p>
+     * 
+     * @param behaviorContext The client behavior context for this behavior
+     * @return Always returns null to prevent automatic script generation
+     */
     @Override
     public String getScript(final ClientBehaviorContext behaviorContext) {
         return null;

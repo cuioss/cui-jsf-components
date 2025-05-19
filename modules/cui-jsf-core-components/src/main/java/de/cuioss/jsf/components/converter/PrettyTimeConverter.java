@@ -31,27 +31,65 @@ import java.time.ZonedDateTime;
 import java.util.*;
 
 /**
- * Converter to display a {@link Date}, {@link Calendar}, {@link LocalDateTime},
- * {@link ZonedDateTime} or {@link LocalDate} as pretty time. If it detects a
- * {@link LocalDate} it uses {@link LocalDate#atStartOfDay()} in order to set a
- * defined point in time. It loads the current {@link Locale} using the
- * {@link LocaleAccessor}. If you want to use it you need the dependency at
- * runtime
+ * <p>JSF converter that transforms date/time objects into human-readable, localized
+ * relative time expressions using the PrettyTime library. Examples include phrases
+ * like "5 minutes ago", "in 2 days", "moments ago", or "last week".</p>
+ * 
+ * <p>This converter supports a wide range of date/time types:</p>
+ * <ul>
+ *   <li>{@link Date} - Standard Java legacy date</li>
+ *   <li>{@link Calendar} - Java legacy calendar</li>
+ *   <li>{@link ZonedDateTime} - Java 8+ date-time with timezone</li>
+ *   <li>{@link LocalDateTime} - Java 8+ date-time without timezone (uses system default)</li>
+ *   <li>{@link LocalDate} - Java 8+ date-only (converts to start of day in system default timezone)</li>
+ * </ul>
+ * 
+ * <p>The conversion is performed relative to the current time and uses the current
+ * {@link Locale} from the JSF context via {@link LocaleAccessor} to ensure proper
+ * localization of the resulting phrases.</p>
+ * 
+ * <p>The converter maintains an LRU cache of {@link PrettyTime} instances for different
+ * locales to improve performance when the same locale is used repeatedly.</p>
+ * 
+ * <h2>Usage Example</h2>
+ * 
+ * <pre>
+ * &lt;h:outputText value="#{bean.creationDate}"&gt;
+ *     &lt;f:converter converterId="de.cuioss.cui.converter.PrettyTimeConverter" /&gt;
+ * &lt;/h:outputText&gt;
+ * </pre>
+ *
+ * <p><strong>Dependency Requirement:</strong> This converter requires the following
+ * dependency at runtime:</p>
  *
  * <pre>
  * {@code
-	<groupId>org.ocpsoft.prettytime</groupId>
-	<artifactId>prettytime</artifactId>}
+ * <groupId>org.ocpsoft.prettytime</groupId>
+ * <artifactId>prettytime</artifactId>
+ * }
  * </pre>
+ * 
+ * <p>This converter is thread-safe. The backing {@link PrettyTime} instances are
+ * cached and accessed in a thread-safe manner.</p>
  *
  * @author Matthias Walliczek
+ * @see PrettyTime The underlying library for generating human-readable time expressions
+ * @see LocaleAccessor Used to access the current locale from the JSF context
+ * @since 1.0
  */
 @FacesConverter(value = "de.cuioss.cui.converter.PrettyTimeConverter")
 public class PrettyTimeConverter extends AbstractConverter<Object> {
 
-    // See
-    // https://github.com/ocpsoft/prettytime/blob/master/jsf/src/main/java/org/ocpsoft/prettytime/jsf/PrettyTimeConverter.java
+    /**
+     * Maximum size of the PrettyTime instance cache to prevent memory leaks.
+     * Once this limit is reached, the least recently used entries are removed.
+     */
     private static final int CACHE_SIZE = 20;
+    
+    /**
+     * Thread-safe LRU (Least Recently Used) cache of PrettyTime instances by locale.
+     * This improves performance by reusing instances for frequently used locales.
+     */
     private static final Map<Locale, PrettyTime> PRETTY_TIME_MAP = new LinkedHashMap<>(CACHE_SIZE + 1, 1.1F, true) {
 
         @Serial
@@ -63,10 +101,16 @@ public class PrettyTimeConverter extends AbstractConverter<Object> {
         }
     };
 
+    /**
+     * Accessor for retrieving the current locale from the JSF context.
+     */
     private final LocaleAccessor localeProducerAccessor = new LocaleAccessor();
 
     /**
-     * @return the instance of {@link PrettyTime} for the current {@link Locale}
+     * Retrieves or creates a PrettyTime instance for the current locale.
+     * This method uses a thread-safe cache of PrettyTime instances to improve performance.
+     *
+     * @return A PrettyTime instance configured for the current locale
      */
     private PrettyTime getPrettyTime() {
         var current = localeProducerAccessor.getValue();
@@ -77,6 +121,21 @@ public class PrettyTimeConverter extends AbstractConverter<Object> {
         return prettyTime;
     }
 
+    /**
+     * <p>Converts a date/time object to a human-readable, relative time expression.
+     * The method supports multiple date/time types and converts them to a {@link Date}
+     * before passing to the PrettyTime library for formatting.</p>
+     * 
+     * <p>For {@link LocalDate} objects, the method uses the start of day (midnight)
+     * in the system default timezone to ensure consistent behavior.</p>
+     *
+     * @param context The FacesContext for the current request, not null
+     * @param component The component associated with this converter, not null
+     * @param value The date/time object to be converted (supported types: {@link Date},
+     *              {@link Calendar}, {@link ZonedDateTime}, {@link LocalDateTime}, {@link LocalDate})
+     * @return A localized, human-readable string representing the relative time
+     * @throws ConverterException If the value is null or not one of the supported date/time types
+     */
     @Override
     protected String convertToString(final FacesContext context, final UIComponent component, final Object value)
             throws ConverterException {
