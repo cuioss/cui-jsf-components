@@ -15,7 +15,7 @@
  * <ul>
  *   <li>{@code widget} - Models for widget-based components used in dashboards and content areas</li>
  *   <li>{@code lazyloading} - Support for deferred content loading to improve performance</li>
- *   <li>{@code resultContent} - Handling of operation results and notifications</li>
+ *   <li>{@code result_content} - Handling of operation results and notifications</li>
  *   <li>{@code selection} - Support for selection operations in list-based components</li>
  * </ul>
  * 

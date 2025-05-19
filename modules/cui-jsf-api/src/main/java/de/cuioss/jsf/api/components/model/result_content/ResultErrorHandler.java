@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.cuioss.jsf.api.components.model.resultContent;
+package de.cuioss.jsf.api.components.model.result_content;
 
 import static de.cuioss.jsf.api.common.logging.JsfApiLogMessages.ERROR;
 import static de.cuioss.jsf.api.common.logging.JsfApiLogMessages.INFO;

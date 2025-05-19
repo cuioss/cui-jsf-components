@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.cuioss.jsf.api.components.model.resultContent;
+package de.cuioss.jsf.api.components.model.result_content;
 
 import de.cuioss.jsf.api.composite.AttributeAccessorImpl;
 import de.cuioss.tools.logging.CuiLogger;
@@ -44,7 +44,7 @@ import jakarta.faces.component.UINamingContainer;
  * <pre>
  * &lt;cc:implementation&gt;
  *   &lt;ui:component&gt;
- *     &lt;h:panelGroup rendered="#{cc.resultContent.hasErrorMessages}"&gt;
+ *     &lt;h:panelGroup rendered="#{cc.result_content.hasErrorMessages}"&gt;
  *       &lt;!-- Error message display --&gt;
  *     &lt;/h:panelGroup&gt;
  *   &lt;/ui:component&gt;

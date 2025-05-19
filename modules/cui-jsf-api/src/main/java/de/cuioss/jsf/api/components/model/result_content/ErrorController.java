@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.cuioss.jsf.api.components.model.resultContent;
+package de.cuioss.jsf.api.components.model.result_content;
 
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
@@ -59,9 +59,9 @@ public interface ErrorController {
     /**
      * Adds a notification message to be displayed in a notification box.
      * <p>
-     * Notification boxes typically appear in close proximity to the component they
-     * relate to and provide context-specific feedback. The appearance of the notification
-     * box is determined by the provided state.
+     * Notification boxes typically appear close to the component they
+     * relate to and provide context-specific feedback.
+     * The provided state determines the appearance of the notification box.
      * </p>
      * <p>
      * If the value is null, no notification box will be rendered.

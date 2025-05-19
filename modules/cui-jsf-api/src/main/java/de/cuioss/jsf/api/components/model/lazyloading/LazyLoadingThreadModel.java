@@ -15,7 +15,7 @@
  */
 package de.cuioss.jsf.api.components.model.lazyloading;
 
-import de.cuioss.jsf.api.components.model.resultContent.ResultErrorHandler;
+import de.cuioss.jsf.api.components.model.result_content.ResultErrorHandler;
 import de.cuioss.uimodel.result.ResultObject;
 
 /**

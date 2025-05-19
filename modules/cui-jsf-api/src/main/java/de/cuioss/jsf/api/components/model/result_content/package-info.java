@@ -8,10 +8,10 @@
  * 
  * <h3>Key Components</h3>
  * <ul>
- *   <li>{@link de.cuioss.jsf.api.components.model.resultContent.ErrorController} - Interface for controlling message display and content rendering</li>
- *   <li>{@link de.cuioss.jsf.api.components.model.resultContent.ResultErrorHandler} - Handler for processing result objects</li>
- *   <li>{@link de.cuioss.jsf.api.components.model.resultContent.ResultContent} - Interface for components that render result content</li>
- *   <li>{@link de.cuioss.jsf.api.components.model.resultContent.NotificationBoxMessage} - Model for notification messages</li>
+ *   <li>{@link de.cuioss.jsf.api.components.model.result_content.ErrorController} - Interface for controlling message display and content rendering</li>
+ *   <li>{@link de.cuioss.jsf.api.components.model.result_content.ResultErrorHandler} - Handler for processing result objects</li>
+ *   <li>{@link de.cuioss.jsf.api.components.model.result_content.ResultContent} - Interface for components that render result content</li>
+ *   <li>{@link de.cuioss.jsf.api.components.model.result_content.NotificationBoxMessage} - Model for notification messages</li>
  * </ul>
  * 
  * <h3>Integration with Result Objects</h3>
@@ -37,8 +37,8 @@
  * </p>
  * <ol>
  *   <li>Performing an operation that returns a {@link de.cuioss.uimodel.result.ResultObject}</li>
- *   <li>Using {@link de.cuioss.jsf.api.components.model.resultContent.ResultErrorHandler} to process the result</li>
- *   <li>Leveraging an {@link de.cuioss.jsf.api.components.model.resultContent.ErrorController} implementation to display appropriate messages</li>
+ *   <li>Using {@link de.cuioss.jsf.api.components.model.result_content.ResultErrorHandler} to process the result</li>
+ *   <li>Leveraging an {@link de.cuioss.jsf.api.components.model.result_content.ErrorController} implementation to display appropriate messages</li>
  *   <li>Conditionally rendering content based on the operation result</li>
  * </ol>
  * 
@@ -53,4 +53,4 @@
  * @see de.cuioss.uimodel.result.ResultObject
  * @see de.cuioss.jsf.api.components.css.ContextState
  */
-package de.cuioss.jsf.api.components.model.resultContent;
+package de.cuioss.jsf.api.components.model.result_content;

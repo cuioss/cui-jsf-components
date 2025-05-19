@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.cuioss.jsf.api.components.model.resultContent;
+package de.cuioss.jsf.api.components.model.result_content;
 
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;

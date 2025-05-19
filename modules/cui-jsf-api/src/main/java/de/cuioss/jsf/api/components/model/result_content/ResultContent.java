@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.cuioss.jsf.api.components.model.resultContent;
+package de.cuioss.jsf.api.components.model.result_content;
 
 import de.cuioss.jsf.api.application.message.DisplayNameMessageProducer;
 import de.cuioss.jsf.api.components.css.ContextState;
@@ -60,12 +60,12 @@ import java.util.List;
  * &#64;ViewScoped
  * public class PatientEditBean implements Serializable {
  *     
- *     private ResultContent resultContent;
+ *     private ResultContent result_content;
  *     
  *     &#64;PostConstruct
  *     public void init() {
  *         var result = patientService.loadPatient(patientId);
- *         resultContent = new ResultContent(result, log);
+ *         result_content = new ResultContent(result, log);
  *         
  *         if (result.isValid()) {
  *             patient = result.getResult();
@@ -74,11 +74,11 @@ import java.util.List;
  *     
  *     public void save() {
  *         var saveResult = patientService.savePatient(patient);
- *         resultContent.handleAdditionalResult(saveResult, log);
+ *         result_content.handleAdditionalResult(saveResult, log);
  *     }
  *     
  *     public ResultContent getResultContent() {
- *         return resultContent;
+ *         return result_content;
  *     }
  * }
  * </pre>
@@ -86,7 +86,7 @@ import java.util.List;
  * In the corresponding view file:
  * </p>
  * <pre>
- * &lt;cui:requestResultContent model="#{patientEditBean.resultContent}"&gt;
+ * &lt;cui:requestResultContent model="#{patientEditBean.result_content}"&gt;
  *     &lt;!-- Content to display when there are no blocking errors --&gt;
  * &lt;/cui:requestResultContent&gt;
  * </pre>
