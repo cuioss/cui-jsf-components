@@ -57,7 +57,6 @@ import lombok.Setter;
  * }
  * }
  * </pre>
- * </p>
  * <p>
  * This class is conditionally thread-safe. Thread safety depends on clients
  * properly synchronizing access when modifying the project stage.

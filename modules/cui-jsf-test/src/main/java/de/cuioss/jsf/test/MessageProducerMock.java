@@ -76,7 +76,6 @@ import java.util.List;
  * }
  * }
  * </pre>
- * </p>
  * <p>
  * This class is thread-safe within the scope of a single request, as defined by
  * its {@link RequestScoped} context.
@@ -101,8 +100,6 @@ public class MessageProducerMock implements MessageProducer {
      * <p>
      * Global messages are those created without a specific component ID.
      * </p>
-     * 
-     * @return unmodifiable list of global {@link FacesMessage} objects
      */
     @Getter
     private final List<FacesMessage> globalMessages = new ArrayList<>();
@@ -112,8 +109,6 @@ public class MessageProducerMock implements MessageProducer {
      * <p>
      * Component messages are those created with a specific component ID.
      * </p>
-     * 
-     * @return unmodifiable list of component-specific {@link FacesMessage} objects
      */
     @Getter
     private final List<FacesMessage> componentMessages = new ArrayList<>();

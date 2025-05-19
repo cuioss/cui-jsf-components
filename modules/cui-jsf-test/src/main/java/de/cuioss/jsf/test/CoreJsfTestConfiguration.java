@@ -23,7 +23,6 @@ import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.defaults.BasicApplicationConfiguration;
 import de.cuioss.test.jsf.mocks.CuiMockRenderer;
 import jakarta.faces.convert.NumberConverter;
-import jakarta.faces.render.Renderer;
 
 /**
  * Defines a base setup for JSF testing that provides standard CUI configuration elements.
@@ -40,7 +39,6 @@ import jakarta.faces.render.Renderer;
  * <li>Sets up appropriate mock renderers for each component</li>
  * <li>Provides access to test and core resource bundles</li>
  * </ul>
- * </p>
  * <p>
  * Usage example:
  * <pre>
@@ -51,7 +49,6 @@ import jakarta.faces.render.Renderer;
  * }
  * }
  * </pre>
- * </p>
  * <p>
  * This class is thread-safe as it contains no mutable state.
  * </p>

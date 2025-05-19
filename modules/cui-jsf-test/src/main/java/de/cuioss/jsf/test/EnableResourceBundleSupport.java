@@ -33,14 +33,15 @@ import java.lang.annotation.Target;
  * </p>
  * <p>
  * The annotation registers the following mock beans:
+ * </p>
  * <ul>
  * <li>{@link LocaleProducerMock}: Provides locale information for the test environment</li>
  * <li>{@link MirrorCuiRessourcBundle}: A mock resource bundle that simplifies message key resolution</li>
  * <li>{@link MessageProducerMock}: Produces messages from resource bundles for testing</li>
  * </ul>
- * </p>
  * <p>
  * Usage example:
+ * </p>
  * <pre>
  * {@code
  * @EnableJSFCDIEnvironment
@@ -57,7 +58,6 @@ import java.lang.annotation.Target;
  * }
  * }
  * </pre>
- * </p>
  * <p>
  * This annotation is thread-safe and is typically used in conjunction with
  * {@link EnableJSFCDIEnvironment} to provide a complete testing environment.

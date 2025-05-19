@@ -34,18 +34,19 @@ import java.util.Set;
  * </p>
  * <p>
  * The implementation is minimal and stateless, returning:
+ * </p>
  * <ul>
  * <li>The key itself when {@link #getString(String)} is called</li>
  * <li>An empty set for {@link #keySet()}</li>
  * <li>A fixed string "mirror" for {@link #getBundleContent()}</li>
  * </ul>
- * </p>
  * <p>
  * This class is typically used in conjunction with {@link EnableResourceBundleSupport}
  * to provide resource bundle capabilities in a test environment.
  * </p>
  * <p>
  * Usage example:
+ * </p>
  * <pre>
  * {@code
  * @EnableJSFCDIEnvironment
@@ -63,7 +64,6 @@ import java.util.Set;
  * }
  * }
  * </pre>
- * </p>
  * <p>
  * This class is thread-safe as it contains no mutable state.
  * </p>

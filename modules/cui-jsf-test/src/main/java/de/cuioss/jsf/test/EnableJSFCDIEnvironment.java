@@ -46,7 +46,6 @@ import java.lang.annotation.Target;
  * <li>Registers essential producers: {@link ProjectStageProducerMock} and {@link JsfObjectsProducer}</li>
  * <li>Activates common CDI scopes: {@link RequestScoped}, {@link SessionScoped}, and {@link ViewScoped}</li>
  * </ul>
- * </p>
  * <p>
  * Usage example:
  * <pre>
@@ -64,7 +63,6 @@ import java.lang.annotation.Target;
  * }
  * }
  * </pre>
- * </p>
  * <p>
  * This annotation is thread-safe and can be applied to any JUnit 5 test class.
  * </p>

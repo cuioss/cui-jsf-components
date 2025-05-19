@@ -42,32 +42,32 @@ import java.util.Locale;
  * It provides configurable locale settings and simulates locale change events.
  * </p>
  * <p>
- * By default, the mock provides {@link Locale#ENGLISH} as the current locale and 
+ * By default, the mock provides {@link Locale#ENGLISH} as the current locale and
  * supports both {@link Locale#GERMAN} and {@link Locale#ENGLISH} as available locales.
  * These defaults can be modified for test-specific scenarios.
  * </p>
  * <p>
  * Usage example:
+ * </p>
  * <pre>
  * {@code
  * @EnableJSFCDIEnvironment
  * @EnableResourceBundleSupport
  * class LocalizedComponentTest {
- *     
+ *
  *     @Inject
  *     private LocaleProducerMock localeProducer;
- *     
+ *
  *     @Test
  *     void shouldRenderGermanContent() {
  *         // Switch to German locale for testing
  *         localeProducer.setLocale(Locale.GERMAN);
- *         
+ *
  *         // Test locale-specific behavior
  *     }
  * }
  * }
  * </pre>
- * </p>
  * <p>
  * This class is conditionally thread-safe. Thread safety depends on clients
  * properly synchronizing access when modifying locale properties.
