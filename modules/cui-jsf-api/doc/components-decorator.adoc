@@ -1,0 +1,285 @@
+= Component Decorator Pattern
+:toc: macro
+:toclevels: 3
+:sectnumlevels: 4
+:numbered:
+
+link:../README.adoc[Back to README]
+
+This document describes the concept and members of the `de.cuioss.jsf.api.components.decorator` package, which provides a framework for decorating JSF components using the decorator pattern.
+
+toc::[]
+
+== Overview
+
+The decorator pattern is a structural design pattern that allows behavior to be added to individual objects, either statically or dynamically, without affecting the behavior of other objects from the same class. In the context of JSF components, decorators are a specialized type of attached objects that enhance or modify other components in the component tree, typically their parent component.
+
+The key difference from `ClientBehavior` is that decorators don't react to client interactions but instead enhance or modify other components in the component tree, typically their parent component.
+
+== AbstractParentDecorator
+
+The core class in the decorator package is `AbstractParentDecorator`, which serves as the base class for creating decorators that modify their parent component.
+
+[source,java]
+----
+public abstract class AbstractParentDecorator extends UIComponentBase implements ComponentBridge {
+
+    /**
+     * Decorates the parent component.
+     * This method is called during the component tree building phase.
+     * 
+     * @param parent the parent component to decorate
+     */
+    protected abstract void decorate(UIComponent parent);
+
+    /**
+     * Called by the JSF lifecycle when the component is added to the view.
+     * This method triggers the decoration process.
+     */
+    @Override
+    public void setParent(UIComponent parent) {
+        if (null != parent) {
+            decorate(parent);
+        }
+        super.setParent(parent);
+    }
+
+    // Other methods...
+}
+----
+
+The key method is `decorate(UIComponent parent)`, which subclasses must implement to apply their specific modifications to the parent component. The decoration is automatically applied when the component is added to the view through the `setParent` method.
+
+== Integration with Component Modifiers
+
+The decorator pattern integrates with the component modifier framework through the `ComponentModifier` interface. This allows decorators to use the same modification mechanisms as other parts of the framework.
+
+[source,java]
+----
+protected void decorate(UIComponent parent) {
+    ComponentModifier modifier = ComponentModifierFactory.findFittingWrapper(parent);
+    if (null != modifier) {
+        // Apply modifications using the modifier
+        modifier.addStyleClass(parent, "decorated-component");
+    }
+}
+----
+
+This integration ensures consistent behavior across the framework and simplifies the implementation of decorators.
+
+== Usage Pattern
+
+Decorators are typically placed inside the component they should decorate:
+
+[source,xml]
+----
+<h:panelGroup>
+    <cui:styleClassDecorator styleClass="panel panel-default"/>
+    Panel content here...
+</h:panelGroup>
+----
+
+When the view is rendered, the decorator modifies its parent component (in this case, adding CSS classes to the `panelGroup`).
+
+== Common Decorator Types
+
+=== Style Class Decorators
+
+Add CSS classes to the parent component:
+
+[source,java]
+----
+public class StyleClassDecorator extends AbstractParentDecorator {
+
+    private String styleClass;
+
+    @Override
+    protected void decorate(UIComponent parent) {
+        ComponentModifier modifier = ComponentModifierFactory.findFittingWrapper(parent);
+        if (null != modifier) {
+            modifier.addStyleClass(parent, styleClass);
+        }
+    }
+
+    // Getters and setters...
+}
+----
+
+=== Attribute Decorators
+
+Set attributes on the parent component:
+
+[source,java]
+----
+public class AttributeDecorator extends AbstractParentDecorator {
+
+    private String name;
+    private Object value;
+
+    @Override
+    protected void decorate(UIComponent parent) {
+        parent.getAttributes().put(name, value);
+    }
+
+    // Getters and setters...
+}
+----
+
+=== Behavior Decorators
+
+Add behaviors to the parent component:
+
+[source,java]
+----
+public class AjaxDecorator extends AbstractParentDecorator {
+
+    private String event;
+    private String execute;
+    private String render;
+
+    @Override
+    protected void decorate(UIComponent parent) {
+        if (parent instanceof ClientBehaviorHolder) {
+            ClientBehaviorHolder behaviorHolder = (ClientBehaviorHolder) parent;
+            AjaxBehavior behavior = createAjaxBehavior();
+            behaviorHolder.addClientBehavior(event, behavior);
+        }
+    }
+
+    private AjaxBehavior createAjaxBehavior() {
+        // Create and configure the behavior
+        // ...
+    }
+
+    // Getters and setters...
+}
+----
+
+== Examples from the Framework
+
+=== TooltipComponent (Bootstrap Module)
+
+The link:https://github.com/cuioss/cui-jsf-components/blob/main/modules/cui-jsf-bootstrap/src/main/java/de/cuioss/jsf/bootstrap/tooltip/TooltipComponent.java[TooltipComponent] in the Bootstrap module is an example of a decorator that adds tooltip functionality to its parent component:
+
+[source,java]
+----
+public class TooltipComponent extends AbstractParentDecorator {
+
+    // Tooltip configuration properties...
+
+    @Override
+    protected void decorate(UIComponent parent) {
+        // Add tooltip-related attributes and behaviors to the parent
+        parent.getAttributes().put("data-toggle", "tooltip");
+        parent.getAttributes().put("data-placement", getPlacement());
+        parent.getAttributes().put("title", getTitle());
+
+        // Add necessary CSS classes
+        ComponentModifier modifier = ComponentModifierFactory.findFittingWrapper(parent);
+        if (null != modifier) {
+            modifier.addStyleClass(parent, "tooltip-enabled");
+        }
+    }
+}
+----
+
+Usage:
+
+[source,xml]
+----
+<h:commandButton value="Click Me">
+    <cui:tooltip title="Click this button to submit the form" placement="top"/>
+</h:commandButton>
+----
+
+=== ModalControl (Bootstrap Module)
+
+The link:https://github.com/cuioss/cui-jsf-components/blob/main/modules/cui-jsf-bootstrap/src/main/java/de/cuioss/jsf/bootstrap/modal/ModalControl.java[ModalControl] decorator adds modal dialog control functionality to buttons:
+
+[source,java]
+----
+public class ModalControl extends AbstractParentDecorator {
+
+    private String target;
+
+    @Override
+    protected void decorate(UIComponent parent) {
+        // Add modal control attributes
+        parent.getAttributes().put("data-toggle", "modal");
+        parent.getAttributes().put("data-target", "#" + target);
+    }
+}
+----
+
+Usage:
+
+[source,xml]
+----
+<h:commandButton value="Open Modal">
+    <cui:modalControl target="myModalId"/>
+</h:commandButton>
+----
+
+== Implementation Guidelines
+
+When implementing custom decorators, follow these guidelines:
+
+1. **Extend AbstractParentDecorator**: Always extend the `AbstractParentDecorator` base class.
+2. **Implement decorate() Method**: Provide a clear implementation of the `decorate(UIComponent parent)` method.
+3. **Use Component Modifiers**: Leverage the component modifier framework for consistent behavior.
+4. **Handle Null Cases**: Be defensive in your implementation, checking for null values and appropriate component types.
+5. **Document Decorator Behavior**: Clearly document what modifications your decorator applies.
+6. **Consider Performance**: Decorators are executed during view building, so keep performance in mind.
+
+== Best Practices
+
+=== When to Use Decorators
+
+Decorators are ideal for:
+
+* Adding CSS classes or styles to components
+* Setting HTML attributes on components
+* Adding client behaviors (like AJAX) to components
+* Configuring component properties in a reusable way
+
+=== When Not to Use Decorators
+
+Decorators may not be appropriate for:
+
+* Complex component transformations that require access to the component's children
+* Modifications that need to happen at render time rather than view build time
+* Changes that depend on the component's state during the JSF lifecycle
+
+=== Decorator vs. Component Wrapper
+
+Consider the differences between decorators and component wrappers:
+
+* **Decorators**: Modify existing components without changing their type or core behavior
+* **Wrappers**: Replace components with enhanced versions that may change behavior significantly
+
+Choose the appropriate pattern based on your requirements.
+
+== Lifecycle Considerations
+
+Decorators operate during the view building phase of the JSF lifecycle, specifically when components are added to the component tree. This means:
+
+1. Decorations are applied before the component is rendered
+2. Decorations persist for the lifetime of the view
+3. Decorations are not re-applied during AJAX requests unless the component is rebuilt
+
+Be aware of these lifecycle implications when designing decorators.
+
+== Thread Safety
+
+Classes in the decorator package generally depend on the JSF lifecycle and are therefore not thread-safe by design, as they are intended to be used within the context of a single request.
+
+== Conclusion
+
+The decorator pattern provides a powerful way to enhance JSF components without requiring complex inheritance hierarchies or custom component implementations. By using decorators, you can:
+
+* Keep component implementations focused on core functionality
+* Apply cross-cutting concerns in a modular way
+* Create reusable enhancements that can be applied to multiple component types
+* Maintain a clean separation between component behavior and presentation details
+
+The `de.cuioss.jsf.api.components.decorator` package in the CUI JSF API provides the foundation for implementing this pattern in a consistent and maintainable way.

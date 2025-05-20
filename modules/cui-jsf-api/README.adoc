@@ -1,0 +1,44 @@
+= CUI JSF API
+:toc: macro
+:toclevels: 3
+:sectnumlevels: 1
+
+The CUI JSF API module provides the fundamental interfaces, classes, and utilities that form the foundation of the CUI JSF Components framework. It contains core structures needed for creating JSF UI components with consistent behavior and styling.
+
+== Maven Coordinates
+
+[source, xml]
+----
+<dependency>
+    <groupId>de.cuioss.jsf</groupId>
+    <artifactId>cui-jsf-api</artifactId>
+</dependency>
+----
+
+toc::[]
+
+== Module Documentation
+
+=== General Features
+
+* link:doc/message-i18n-handling.adoc[Message Internationalization Handling] - Message i18n handling relying on ResourceBundleLocator with MessageProducer
+* link:doc/accessor-pattern.adoc[Accessor Pattern] - Concept and members of the accessor package
+* link:doc/security-sanitization.adoc[Security: HTML Sanitization] - CuiSanitizer and corresponding converters
+
+=== Component APIs
+
+* link:doc/components-partial.adoc[Component Partial Implementation Pattern] - Partial component implementations
+* link:doc/components-decorator.adoc[Component Decorator Pattern] - Decorator components
+* link:doc/components-renderer.adoc[Component Renderer Framework] - Renderer components
+* link:doc/component-factories.adoc[Component Factories] - JsfHtmlComponent and JsfBehaviorComponent
+* link:doc/css-utilities.adoc[CSS Utilities] - CSS styling utilities
+* link:doc/component-models.adoc[Component Models] - Model interfaces and implementations
+* link:doc/component-utilities.adoc[Component Utilities] - Utility classes for components
+
+=== Reference Documentation
+
+* link:doc/LogMessages.adoc[Log Messages] - Documentation of log messages used in the JSF API module
+
+== Related Documentation
+* link:https://jakarta.ee/specifications/faces/[Jakarta Faces Specification]
+* link:https://github.com/cuioss/cui-jsf-components[CUI JSF Components Project]

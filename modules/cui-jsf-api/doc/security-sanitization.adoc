@@ -1,0 +1,272 @@
+= Security: HTML Sanitization
+:toc: macro
+:toclevels: 3
+:sectnumlevels: 4
+:numbered:
+
+link:../README.adoc[Back to README]
+
+This document describes the security features in the CUI JSF API, focusing on `de.cuioss.jsf.api.security.CuiSanitizer` and corresponding converters within `de.cuioss.jsf.api.converter`.
+
+toc::[]
+
+== Overview
+
+Web applications are vulnerable to Cross-Site Scripting (XSS) attacks when they display user-provided content without proper sanitization. The CUI JSF API provides a comprehensive set of tools to sanitize HTML content, preventing XSS vulnerabilities while allowing legitimate HTML formatting when needed.
+
+== CuiSanitizer
+
+The `CuiSanitizer` enum is the core component of the security framework. It provides predefined sanitization policies based on the OWASP HTML Sanitizer library, offering different levels of HTML element and attribute filtering.
+
+=== Design and Implementation
+
+`CuiSanitizer` implements `UnaryOperator<String>`, making it easy to use as a function:
+
+[source,java]
+----
+String sanitizedContent = CuiSanitizer.PLAIN_TEXT.apply(userInput);
+----
+
+Each enum constant represents a different sanitization policy with varying levels of strictness:
+
+[source,java]
+----
+public enum CuiSanitizer implements UnaryOperator<String> {
+    PLAIN_TEXT(...),
+    PLAIN_TEXT_PRESERVE_ENTITIES(...),
+    SIMPLE_HTML(...),
+    COMPLEX_HTML(...),
+    MORE_COMPLEX_HTML(...),
+    COMPLEX_HTML_PRESERVE_ENTITIES(...),
+    PASSTHROUGH(...)
+}
+----
+
+=== Sanitization Levels
+
+The framework provides several sanitization levels to balance security and functionality:
+
+==== PLAIN_TEXT
+
+The most restrictive option that removes all HTML tags and structure, resulting in plain text output.
+
+[source,java]
+----
+String input = "<p>Hello <script>alert('XSS')</script> World</p>";
+String output = CuiSanitizer.PLAIN_TEXT.apply(input);
+// Result: "Hello World"
+----
+
+==== PLAIN_TEXT_PRESERVE_ENTITIES
+
+Similar to PLAIN_TEXT but preserves HTML entities like `&amp;`, `&lt;`, etc.
+
+[source,java]
+----
+String input = "Hello &amp; World";
+String output = CuiSanitizer.PLAIN_TEXT_PRESERVE_ENTITIES.apply(input);
+// Result: "Hello & World"
+----
+
+==== SIMPLE_HTML
+
+Allows basic document structure elements like paragraphs, headings, and lists.
+
+[source,java]
+----
+String input = "<p>Hello <script>alert('XSS')</script> <b>World</b></p>";
+String output = CuiSanitizer.SIMPLE_HTML.apply(input);
+// Result: "<p>Hello World</p>"
+----
+
+==== COMPLEX_HTML
+
+Extends SIMPLE_HTML to allow common text formatting elements like bold, italic, span, etc.
+
+[source,java]
+----
+String input = "<p>Hello <script>alert('XSS')</script> <b>World</b></p>";
+String output = CuiSanitizer.COMPLEX_HTML.apply(input);
+// Result: "<p>Hello <b>World</b></p>"
+----
+
+==== MORE_COMPLEX_HTML
+
+Extends COMPLEX_HTML to allow table elements and class attributes.
+
+[source,java]
+----
+String input = "<table><tr><td class='highlight'>Data</td></tr></table>";
+String output = CuiSanitizer.MORE_COMPLEX_HTML.apply(input);
+// Result: "<table><tr><td class='highlight'>Data</td></tr></table>"
+----
+
+==== COMPLEX_HTML_PRESERVE_ENTITIES
+
+Similar to COMPLEX_HTML but preserves HTML entities.
+
+==== PASSTHROUGH
+
+Performs no sanitization. This should only be used for content from trusted sources.
+
+[WARNING]
+====
+The PASSTHROUGH sanitizer should be used with extreme caution, as it provides no protection against XSS attacks. Only use it when you have complete control over the input content or when the content has been sanitized earlier in the process.
+====
+
+== Sanitizing Converters
+
+The CUI JSF API provides several JSF converters that integrate with the `CuiSanitizer` to sanitize input and output values.
+
+=== HtmlSanitizingConverter
+
+The base converter for HTML sanitization, which uses `CuiSanitizer.SIMPLE_HTML` by default.
+
+[source,java]
+----
+<h:inputTextarea value="#{bean.htmlContent}">
+    <cui:sanitizer strategy="SIMPLE_HTML" />
+</h:inputTextarea>
+----
+
+=== ComplexHtmlSanitizingConverter
+
+A specialized converter that uses `CuiSanitizer.COMPLEX_HTML` for more permissive HTML formatting.
+
+[source,java]
+----
+<h:inputTextarea value="#{bean.richTextContent}">
+    <cui:sanitizer strategy="COMPLEX_HTML" />
+</h:inputTextarea>
+----
+
+=== PlainTextSanitizerConverter
+
+A converter that uses `CuiSanitizer.PLAIN_TEXT` to strip all HTML tags and structure.
+
+[source,java]
+----
+<h:inputText value="#{bean.plainTextContent}">
+    <cui:sanitizer strategy="PLAIN_TEXT" />
+</h:inputText>
+----
+
+=== FallbackSanitizingConverter
+
+A special converter that applies sanitization only in production environments, making development and testing easier while ensuring security in production.
+
+[source,java]
+----
+<h:inputTextarea value="#{bean.htmlContent}">
+    <cui:sanitizer strategy="PASSTHROUGH" />
+</h:inputTextarea>
+----
+
+== Integration with Display Name Converters
+
+The sanitization framework also integrates with display name converters to ensure that displayed names are properly sanitized:
+
+=== DisplayNameConverter
+
+Converts `DisplayName` objects to strings with proper sanitization.
+
+=== CodeTypeDisplayNameProviderConverter
+
+Converts `CodeTypeDisplayNameProvider` objects to strings with sanitization.
+
+=== I18nDisplayNameProviderConverter
+
+Converts `I18nDisplayNameProvider` objects to strings with sanitization.
+
+=== LabeledKeyConverter
+
+Converts `LabeledKey` objects to strings with sanitization.
+
+== Usage Examples
+
+=== Basic Sanitization
+
+[source,java]
+----
+// Direct use of CuiSanitizer
+String userInput = request.getParameter("comment");
+String sanitizedInput = CuiSanitizer.COMPLEX_HTML.apply(userInput);
+----
+
+=== Using Converters in JSF Components
+
+[source,xml]
+----
+<!-- Simple HTML sanitization -->
+<h:inputTextarea value="#{commentBean.comment}">
+    <cui:sanitizer strategy="SIMPLE_HTML" />
+</h:inputTextarea>
+
+<!-- Complex HTML sanitization for rich text -->
+<h:inputTextarea value="#{articleBean.content}">
+    <cui:sanitizer strategy="COMPLEX_HTML" />
+</h:inputTextarea>
+
+<!-- Plain text sanitization for user names -->
+<h:inputText value="#{userBean.username}">
+    <cui:sanitizer strategy="PLAIN_TEXT" />
+</h:inputText>
+----
+
+=== Programmatic Converter Usage
+
+[source,java]
+----
+@ManagedBean
+@RequestScoped
+public class CommentBean {
+
+    @ManagedProperty("#{facesContext}")
+    private FacesContext facesContext;
+
+    private String comment;
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        // Get the converter from the application
+        HtmlSanitizingConverter converter = (HtmlSanitizingConverter)
+            facesContext.getApplication().createConverter(
+                "de.cuioss.jsf.api.converter.HtmlSanitizingConverter");
+
+        // Apply sanitization
+        this.comment = converter.getAsString(facesContext, null, comment);
+    }
+}
+----
+
+== Best Practices
+
+1. **Choose the Appropriate Sanitization Level**: Select the least permissive sanitizer that meets your requirements.
+2. **Never Use PASSTHROUGH for User Input**: Always sanitize user-provided content.
+3. **Apply Sanitization at Input Time**: Sanitize data as soon as it enters your application.
+4. **Consider Context**: Use different sanitization levels based on where the content will be displayed.
+5. **Test Sanitization**: Verify that your sanitization correctly handles malicious input.
+6. **Document Sanitization Choices**: Make it clear which sanitization level is used for each input.
+
+== Security Considerations
+
+=== XSS Protection
+
+The sanitizers provide protection against XSS attacks by removing potentially dangerous HTML elements and attributes. However, they are not a substitute for proper input validation and output encoding.
+
+=== HTML Entity Handling
+
+Some sanitizers preserve HTML entities, which can be useful for displaying special characters. However, this can also be a vector for attacks if not used carefully.
+
+=== Performance Impact
+
+Sanitization adds some processing overhead. For high-performance applications, consider caching sanitized content when appropriate.
+
+== Conclusion
+
+The CUI JSF API provides a comprehensive framework for HTML sanitization through the `CuiSanitizer` enum and corresponding converters. By using these tools consistently, you can protect your application from XSS attacks while still allowing rich HTML content when needed.
+
+The different sanitization levels offer flexibility to balance security and functionality, making it easy to apply the appropriate level of protection for each use case.

@@ -1,0 +1,752 @@
+= Component Utilities
+:toc: macro
+:toclevels: 3
+:sectnumlevels: 4
+:numbered:
+
+link:../README.adoc[Back to README]
+
+This document describes the component utilities in the CUI JSF API, focusing on the classes and interfaces in the `de.cuioss.jsf.api.components.util` package and its subpackages.
+
+toc::[]
+
+== Overview
+
+The component utilities package provides a collection of helper classes and utilities that simplify working with JSF components and the component tree. The utilities focus on common tasks related to component manipulation, state management, tree traversal, and component property access.
+
+These utilities form an essential part of the CUI JSF API, providing the foundation for many of the higher-level abstractions and patterns used throughout the framework.
+
+== Core Utility Classes
+
+=== ComponentUtility
+
+The `ComponentUtility` class is a central utility class for component tree operations like finding parent forms, naming containers, handling AJAX requests, and manipulating `EditableValueHolder` components.
+
+[source,java]
+----
+public final class ComponentUtility {
+
+    /**
+     * Finds the parent form for a component.
+     * 
+     * @param component the component to find the form for
+     * @return the parent form, or null if not found
+     */
+    public static UIForm findCorrespondingForm(UIComponent component) {
+        if (null == component) {
+            return null;
+        }
+
+        UIComponent parent = component.getParent();
+        while (parent != null) {
+            if (parent instanceof UIForm) {
+                return (UIForm) parent;
+            }
+            parent = parent.getParent();
+        }
+
+        return null;
+    }
+
+    /**
+     * Resets all EditableValueHolder components in a component tree.
+     * 
+     * @param component the root component
+     * @param context the faces context
+     */
+    public static void resetEditableValueHolder(UIComponent component, FacesContext context) {
+        if (null == component || null == context) {
+            return;
+        }
+
+        if (component instanceof EditableValueHolder) {
+            ((EditableValueHolder) component).resetValue();
+        }
+
+        // Process children recursively
+        for (UIComponent child : component.getChildren()) {
+            resetEditableValueHolder(child, context);
+        }
+
+        // Process facets recursively
+        for (UIComponent facet : component.getFacets().values()) {
+            resetEditableValueHolder(facet, context);
+        }
+    }
+
+    /**
+     * Creates a component of the specified type.
+     * 
+     * @param context the faces context
+     * @param componentType the component type
+     * @return the created component
+     */
+    public static <T extends UIComponent> T createComponent(FacesContext context, String componentType) {
+        @SuppressWarnings("unchecked")
+        T component = (T) context.getApplication().createComponent(componentType);
+        return component;
+    }
+
+    /**
+     * Creates a renderer of the specified type.
+     * 
+     * @param context the faces context
+     * @param family the component family
+     * @param rendererType the renderer type
+     * @return the created renderer
+     */
+    public static <T extends Renderer> T createRenderer(FacesContext context, String family, String rendererType) {
+        RenderKit renderKit = context.getRenderKit();
+        @SuppressWarnings("unchecked")
+        T renderer = (T) renderKit.getRenderer(family, rendererType);
+        return renderer;
+    }
+
+    /**
+     * Checks if the current request is an AJAX request.
+     * 
+     * @param context the faces context
+     * @return true if the current request is an AJAX request
+     */
+    public static boolean isAjaxRequest(FacesContext context) {
+        return context.getPartialViewContext().isAjaxRequest();
+    }
+
+    // Many other utility methods...
+}
+----
+
+This class provides a wide range of utility methods for working with JSF components, making it easier to perform common tasks without writing boilerplate code.
+
+=== CuiState
+
+The `CuiState` class is an extension to OmniFaces State helper that provides additional convenience methods for working with JSF component state.
+
+[source,java]
+----
+public class CuiState {
+
+    private final StateHelper stateHelper;
+
+    /**
+     * Creates a new CuiState with the given state helper.
+     * 
+     * @param stateHelper the state helper to use
+     */
+    public CuiState(StateHelper stateHelper) {
+        this.stateHelper = stateHelper;
+    }
+
+    /**
+     * Gets a value from the state.
+     * 
+     * @param key the key to get
+     * @return the value, or null if not found
+     */
+    public <T> T get(String key) {
+        @SuppressWarnings("unchecked")
+        T value = (T) stateHelper.eval(key);
+        return value;
+    }
+
+    /**
+     * Gets a value from the state with a default value.
+     * 
+     * @param key the key to get
+     * @param defaultValue the default value
+     * @return the value, or the default value if not found
+     */
+    public <T> T get(String key, T defaultValue) {
+        @SuppressWarnings("unchecked")
+        T value = (T) stateHelper.eval(key, defaultValue);
+        return value;
+    }
+
+    /**
+     * Gets a boolean value from the state.
+     * 
+     * @param key the key to get
+     * @return the boolean value, or false if not found
+     */
+    public boolean getBoolean(String key) {
+        return getBoolean(key, false);
+    }
+
+    /**
+     * Gets a boolean value from the state with a default value.
+     * 
+     * @param key the key to get
+     * @param defaultValue the default value
+     * @return the boolean value, or the default value if not found
+     */
+    public boolean getBoolean(String key, boolean defaultValue) {
+        Object value = get(key);
+        if (value instanceof Boolean) {
+            return (Boolean) value;
+        }
+        return defaultValue;
+    }
+
+    /**
+     * Puts a value in the state.
+     * 
+     * @param key the key to put
+     * @param value the value to put
+     */
+    public void put(String key, Object value) {
+        stateHelper.put(key, value);
+    }
+
+    // Other convenience methods...
+}
+----
+
+This class is used extensively in the partial implementation pattern to manage component state in a JSF-friendly way.
+
+=== KeyMappingUtility
+
+The `KeyMappingUtility` class provides helper methods for creating composite key strings, which is useful for unique component identifiers.
+
+[source,java]
+----
+public final class KeyMappingUtility {
+
+    /**
+     * Maps a key with an extension.
+     * 
+     * @param key the base key
+     * @param extension the extension
+     * @return the mapped key
+     */
+    public static String mapKeyWithExtension(String key, String extension) {
+        if (null == key) {
+            return extension;
+        }
+        if (null == extension) {
+            return key;
+        }
+        return key + "_" + extension;
+    }
+
+    // Other key mapping methods...
+}
+----
+
+This utility is particularly useful for creating unique keys for component state when a component needs to store multiple related values.
+
+=== MethodRule
+
+The `MethodRule` class provides helper methods for working with JSF method expressions.
+
+[source,java]
+----
+public class MethodRule {
+
+    /**
+     * Creates a method expression from a string expression.
+     * 
+     * @param context the faces context
+     * @param expression the expression string
+     * @param returnType the return type
+     * @param paramTypes the parameter types
+     * @return the method expression
+     */
+    public static MethodExpression createMethodExpression(FacesContext context, 
+                                                        String expression, 
+                                                        Class<?> returnType, 
+                                                        Class<?>... paramTypes) {
+        ExpressionFactory factory = context.getApplication().getExpressionFactory();
+        return factory.createMethodExpression(context.getELContext(), 
+                                            expression, 
+                                            returnType, 
+                                            paramTypes);
+    }
+
+    /**
+     * Invokes a method expression.
+     * 
+     * @param context the faces context
+     * @param expression the method expression
+     * @param params the parameters
+     * @return the result of the method invocation
+     */
+    public static Object invokeMethodExpression(FacesContext context, 
+                                              MethodExpression expression, 
+                                              Object... params) {
+        return expression.invoke(context.getELContext(), params);
+    }
+
+    // Other method expression utilities...
+}
+----
+
+This class simplifies working with method expressions, which are commonly used in JSF for event handling and action methods.
+
+== Component Modifiers
+
+The `modifier` subpackage provides a framework for modifying components in a consistent way. The core interface is `ComponentModifier`, which defines common operations for manipulating JSF component properties.
+
+[source,java]
+----
+public interface ComponentModifier {
+
+    /**
+     * Modifies a component.
+     * 
+     * @param component the component to modify
+     */
+    void modifyComponent(UIComponent component);
+
+    /**
+     * Adds a style class to a component.
+     * 
+     * @param component the component to modify
+     * @param styleClass the style class to add
+     */
+    void addStyleClass(UIComponent component, String styleClass);
+
+    /**
+     * Sets a style attribute on a component.
+     * 
+     * @param component the component to modify
+     * @param style the style to set
+     */
+    void setStyle(UIComponent component, String style);
+
+    /**
+     * Sets a title on a component.
+     * 
+     * @param component the component to modify
+     * @param title the title to set
+     */
+    void setTitle(UIComponent component, String title);
+
+    // Other modification methods...
+}
+----
+
+The `ComponentModifierFactory` class provides a way to find the appropriate modifier for a given component:
+
+[source,java]
+----
+public final class ComponentModifierFactory {
+
+    /**
+     * Finds a fitting wrapper for a component.
+     * 
+     * @param component the component to find a wrapper for
+     * @return the wrapper, or null if none found
+     */
+    public static ComponentModifier findFittingWrapper(UIComponent component) {
+        if (null == component) {
+            return null;
+        }
+
+        // Try to find a resolver that can handle this component
+        for (ComponentModifierResolver resolver : getResolvers()) {
+            ComponentModifier modifier = resolver.resolve(component);
+            if (null != modifier) {
+                return modifier;
+            }
+        }
+
+        // Fall back to a generic wrapper
+        return new GenericUiInputComponentWrapper(component);
+    }
+
+    // Other factory methods...
+}
+----
+
+The package includes several implementations of `ComponentModifier` for different types of components:
+
+* `GenericUiInputComponentWrapper`: A generic wrapper for UIInput components
+* `BootstrapInputComponentWrapper`: A wrapper for Bootstrap input components
+* `CuiInterfaceBasedModifier`: A modifier that works with components implementing specific interfaces
+
+=== Style Class Modifiers
+
+The `styleclass` subpackage provides modifiers specifically for CSS styling:
+
+[source,java]
+----
+public class StyleClassModifier implements ComponentModifier {
+
+    private final String styleClass;
+
+    /**
+     * Creates a new style class modifier.
+     * 
+     * @param styleClass the style class to add
+     */
+    public StyleClassModifier(String styleClass) {
+        this.styleClass = styleClass;
+    }
+
+    @Override
+    public void modifyComponent(UIComponent component) {
+        addStyleClass(component, styleClass);
+    }
+
+    @Override
+    public void addStyleClass(UIComponent component, String additionalStyleClass) {
+        if (component instanceof StyleClassProvider) {
+            StyleClassProvider provider = (StyleClassProvider) component;
+            StyleClassBuilder builder = new StyleClassBuilderImpl(provider.getStyleClass());
+            builder.append(additionalStyleClass);
+            ((ComponentStyleClassProvider) provider).setStyleClass(builder.getStyleClass());
+        } else {
+            // Handle non-StyleClassProvider components
+            String existingClass = (String) component.getAttributes().get("styleClass");
+            StyleClassBuilder builder = new StyleClassBuilderImpl(existingClass);
+            builder.append(additionalStyleClass);
+            component.getAttributes().put("styleClass", builder.getStyleClass());
+        }
+    }
+
+    // Other methods...
+}
+----
+
+These modifiers make it easy to apply consistent styling to components programmatically.
+
+== Component Wrappers
+
+The `ComponentWrapper` interface provides a simplified API for accessing common component properties:
+
+[source,java]
+----
+public interface ComponentWrapper {
+
+    /**
+     * @return the wrapped component
+     */
+    UIComponent getWrapped();
+
+    /**
+     * @return the component ID
+     */
+    String getId();
+
+    /**
+     * @return the client ID
+     */
+    String getClientId();
+
+    /**
+     * @return the style class
+     */
+    String getStyleClass();
+
+    /**
+     * @return the style
+     */
+    String getStyle();
+
+    /**
+     * @return the title
+     */
+    String getTitle();
+
+    /**
+     * @return whether the component is rendered
+     */
+    boolean isRendered();
+
+    // Setter methods...
+}
+----
+
+This interface simplifies working with components by providing a more intuitive API for common properties.
+
+== Tree Traversal
+
+=== EditableValueHoldersVisitCallback
+
+The `EditableValueHoldersVisitCallback` class is a `VisitCallback` implementation that collects all `EditableValueHolder` components during tree traversal:
+
+[source,java]
+----
+public class EditableValueHoldersVisitCallback implements VisitCallback {
+
+    private final List<EditableValueHolder> editableValueHolders = new ArrayList<>();
+
+    @Override
+    public VisitResult visit(VisitContext context, UIComponent target) {
+        if (target instanceof EditableValueHolder) {
+            editableValueHolders.add((EditableValueHolder) target);
+        }
+        return VisitResult.ACCEPT;
+    }
+
+    /**
+     * @return the collected editable value holders
+     */
+    public List<EditableValueHolder> getEditableValueHolders() {
+        return Collections.unmodifiableList(editableValueHolders);
+    }
+}
+----
+
+This class is useful for operations that need to work with all input components in a form, such as validation or resetting values.
+
+=== DisableUIComponentStrategy
+
+The `DisableUIComponentStrategy` interface defines a strategy for disabling components:
+
+[source,java]
+----
+public interface DisableUIComponentStrategy {
+
+    /**
+     * Disables a component.
+     * 
+     * @param component the component to disable
+     */
+    void disable(UIComponent component);
+
+    /**
+     * Enables a component.
+     * 
+     * @param component the component to enable
+     */
+    void enable(UIComponent component);
+}
+----
+
+This interface allows for different strategies for disabling components, which can vary depending on the component type and the desired behavior.
+
+== Usage Examples
+
+=== Finding and Manipulating Components
+
+[source,java]
+----
+// Find the parent form of a component
+UIForm form = ComponentUtility.findCorrespondingForm(component);
+
+// Reset all input fields in a form
+ComponentUtility.resetEditableValueHolder(form, facesContext);
+
+// Create a new component
+UICommand button = ComponentUtility.createComponent(facesContext, "jakarta.faces.HtmlCommandButton");
+button.setValue("Submit");
+
+// Check if the current request is an AJAX request
+if (ComponentUtility.isAjaxRequest(facesContext)) {
+    // Handle AJAX request
+}
+----
+
+=== Managing Component State
+
+[source,java]
+----
+// Create a state helper for a component
+CuiState state = new CuiState(component.getStateHelper());
+
+// Store and retrieve values
+state.put("disabled", true);
+boolean isDisabled = state.getBoolean("disabled");
+
+// Store and retrieve complex objects
+state.put("configuration", config);
+Configuration storedConfig = state.get("configuration");
+
+// Use composite keys
+String key = KeyMappingUtility.mapKeyWithExtension("item", "selected");
+state.put(key, true);
+----
+
+=== Modifying Components
+
+[source,java]
+----
+// Find a suitable modifier for a component
+ComponentModifier modifier = ComponentModifierFactory.findFittingWrapper(component);
+
+// Modify the component
+modifier.addStyleClass(component, "highlight");
+modifier.setTitle(component, "Click to submit");
+modifier.setStyle(component, "margin-top: 10px");
+
+// Create a style class modifier
+StyleClassModifier styleModifier = new StyleClassModifier("btn btn-primary");
+styleModifier.modifyComponent(component);
+----
+
+=== Working with Method Expressions
+
+[source,java]
+----
+// Create a method expression
+MethodExpression expression = MethodRule.createMethodExpression(
+    facesContext,
+    "#{bean.submit}",
+    Void.class,
+    new Class<?>[] { ActionEvent.class }
+);
+
+// Set the method expression on a component
+UICommand button = ComponentUtility.createComponent(facesContext, "jakarta.faces.HtmlCommandButton");
+button.setActionExpression(expression);
+
+// Invoke a method expression
+Object result = MethodRule.invokeMethodExpression(
+    facesContext,
+    expression,
+    new ActionEvent(button)
+);
+----
+
+=== Traversing the Component Tree
+
+[source,java]
+----
+// Create a visit callback to collect editable value holders
+EditableValueHoldersVisitCallback callback = new EditableValueHoldersVisitCallback();
+
+// Visit the component tree
+VisitContext visitContext = VisitContext.createVisitContext(facesContext);
+form.visitTree(visitContext, callback);
+
+// Get the collected components
+List<EditableValueHolder> inputs = callback.getEditableValueHolders();
+
+// Process the inputs
+for (EditableValueHolder input : inputs) {
+    // Do something with each input
+}
+----
+
+== Integration with Other Framework Components
+
+The component utilities integrate seamlessly with other parts of the CUI JSF API:
+
+=== Integration with Partial Implementation Pattern
+
+The `CuiState` class is used extensively in the partial implementation pattern to manage component state:
+
+[source,java]
+----
+public class TitleProviderImpl implements TitleProvider {
+
+    private static final String KEY = "title";
+
+    private final CuiState state;
+
+    public TitleProviderImpl(ComponentBridge componentBridge) {
+        state = new CuiState(componentBridge.stateHelper());
+    }
+
+    @Override
+    public String getTitle() {
+        return state.get(KEY);
+    }
+
+    @Override
+    public void setTitle(String title) {
+        state.put(KEY, title);
+    }
+}
+----
+
+=== Integration with Component Modifiers
+
+The component modifiers are used in the decorator pattern to apply modifications to parent components:
+
+[source,java]
+----
+public class StyleClassDecorator extends AbstractParentDecorator {
+
+    private String styleClass;
+
+    @Override
+    protected void decorate(UIComponent parent) {
+        ComponentModifier modifier = ComponentModifierFactory.findFittingWrapper(parent);
+        if (null != modifier) {
+            modifier.addStyleClass(parent, styleClass);
+        }
+    }
+
+    // Getters and setters...
+}
+----
+
+=== Integration with Renderers
+
+The component utilities are used in renderers to simplify component rendering:
+
+[source,java]
+----
+public class ButtonRenderer extends BaseDecoratorRenderer<UICommand> {
+
+    @Override
+    protected void doEncodeBegin(FacesContext context, 
+                               DecoratingResponseWriter<UICommand> writer, 
+                               UICommand component) throws IOException {
+
+        // Use ComponentUtility to check if it's an AJAX request
+        boolean isAjax = ComponentUtility.isAjaxRequest(context);
+
+        // Use ComponentWrapper to access component properties
+        ComponentWrapper wrapper = new ComponentWrapperImpl(component);
+
+        // Render the button
+        writer.withStartElement("button");
+        writer.writeAttribute("id", wrapper.getClientId(), null);
+        writer.writeAttribute("class", wrapper.getStyleClass(), null);
+        writer.writeAttribute("style", wrapper.getStyle(), null);
+        writer.writeAttribute("title", wrapper.getTitle(), null);
+
+        // Write the button content
+        writer.write(component.getValue().toString());
+    }
+
+    @Override
+    protected void doEncodeEnd(FacesContext context, 
+                             DecoratingResponseWriter<UICommand> writer, 
+                             UICommand component) throws IOException {
+
+        writer.withEndElement("button");
+    }
+}
+----
+
+== Best Practices
+
+=== Using ComponentUtility
+
+1. **Prefer ComponentUtility Methods**: Use the methods provided by `ComponentUtility` instead of writing your own component traversal or manipulation code.
+2. **Check for Null**: Always check for null components when using utility methods to avoid `NullPointerException`.
+3. **Consider Performance**: Be mindful of performance when traversing large component trees.
+
+=== Managing State
+
+1. **Use CuiState**: Always use `CuiState` for managing component state to ensure proper serialization and deserialization.
+2. **Use Composite Keys**: Use `KeyMappingUtility` to create composite keys when storing multiple related values.
+3. **Default Values**: Provide default values when retrieving state to handle the case where the value is not yet set.
+
+=== Component Modification
+
+1. **Use ComponentModifier**: Use the `ComponentModifier` framework for consistent component modification.
+2. **Find Appropriate Modifier**: Use `ComponentModifierFactory.findFittingWrapper()` to get the appropriate modifier for a component.
+3. **Create Custom Modifiers**: Create custom modifiers for specialized component types or modification patterns.
+
+=== Method Expressions
+
+1. **Use MethodRule**: Use the `MethodRule` class for creating and invoking method expressions.
+2. **Specify Return Type**: Always specify the correct return type when creating method expressions.
+3. **Handle Exceptions**: Handle exceptions that may occur when invoking method expressions.
+
+== Conclusion
+
+The component utilities in the CUI JSF API provide a powerful set of tools for working with JSF components. By using these utilities, you can:
+
+* Simplify common component operations
+* Manage component state in a consistent way
+* Modify components with a unified API
+* Traverse component trees efficiently
+* Work with method expressions more easily
+
+These utilities form the foundation of many of the higher-level abstractions and patterns in the CUI JSF API, making it easier to create and maintain JSF components and applications.

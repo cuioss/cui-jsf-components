@@ -1,0 +1,525 @@
+= CSS Utilities
+:toc: macro
+:toclevels: 3
+:sectnumlevels: 4
+:numbered:
+
+link:../README.adoc[Back to README]
+
+This document describes the CSS utilities in the CUI JSF API, focusing on the classes and interfaces in the `de.cuioss.jsf.api.components.css` package.
+
+toc::[]
+
+== Overview
+
+The CSS utilities package provides a comprehensive set of tools for managing CSS styling in JSF components. It includes classes for building style strings, defining contextual states, resolving style classes, and working with icon libraries. These utilities ensure consistent styling across components and simplify the management of CSS classes.
+
+== Core Interfaces and Classes
+
+=== StyleClassProvider
+
+The `StyleClassProvider` interface defines a contract for components or objects that can provide CSS class strings. It's a fundamental interface used throughout the framework.
+
+[source,java]
+----
+public interface StyleClassProvider {
+    /**
+     * @return the CSS class string, may be null or empty
+     */
+    String getStyleClass();
+}
+----
+
+Many enums and components implement this interface to provide consistent access to CSS classes.
+
+=== StyleClassBuilder
+
+The `StyleClassBuilder` interface provides a fluent API for building CSS class strings with proper spacing and conditional addition. It handles the common tasks of combining multiple CSS classes while avoiding duplicates and ensuring proper formatting.
+
+[source,java]
+----
+public interface StyleClassBuilder {
+    /**
+     * Appends the given styleClass if it is not null or empty.
+     * 
+     * @param styleClass to be appended
+     * @return the builder for method chaining
+     */
+    StyleClassBuilder append(String styleClass);
+
+    /**
+     * Appends the given styleClass if the condition is true.
+     * 
+     * @param styleClass to be appended
+     * @param condition determining whether to append
+     * @return the builder for method chaining
+     */
+    StyleClassBuilder appendIfTrue(String styleClass, boolean condition);
+
+    /**
+     * Appends the given styleClass if it is not null or empty and the condition is true.
+     * 
+     * @param styleClass to be appended
+     * @param condition determining whether to append
+     * @return the builder for method chaining
+     */
+    StyleClassBuilder appendIfNotEmpty(String styleClass, boolean condition);
+
+    /**
+     * @return the built style class string
+     */
+    String getStyleClass();
+}
+----
+
+The implementation, `StyleClassBuilderImpl`, handles the details of combining classes with proper spacing.
+
+=== StyleClassResolver
+
+The `StyleClassResolver` class provides utility methods for resolving style classes from various inputs, including strings and `StyleClassProvider` objects.
+
+[source,java]
+----
+public final class StyleClassResolver {
+
+    /**
+     * Resolves a style class from a component.
+     * 
+     * @param component the component to resolve from
+     * @return the resolved style class or empty string
+     */
+    public static String resolveStyleClass(UIComponent component) {
+        if (component instanceof StyleClassProvider) {
+            return ((StyleClassProvider) component).getStyleClass();
+        }
+        // Other resolution logic...
+        return "";
+    }
+
+    /**
+     * Combines multiple style classes.
+     * 
+     * @param classes the classes to combine
+     * @return the combined style class string
+     */
+    public static String combineStyleClasses(String... classes) {
+        StyleClassBuilder builder = new StyleClassBuilderImpl();
+        for (String styleClass : classes) {
+            builder.append(styleClass);
+        }
+        return builder.getStyleClass();
+    }
+
+    // Other utility methods...
+}
+----
+
+This class simplifies the task of extracting and combining style classes from different sources.
+
+== Contextual Styling
+
+The package provides several enums that map to Bootstrap's contextual styling system, making it easy to apply consistent styling based on semantic meaning.
+
+=== ContextState
+
+The `ContextState` enum represents semantic states like SUCCESS, WARNING, DANGER for color-based contextual styling.
+
+[source,java]
+----
+public enum ContextState implements StyleClassProvider {
+    DEFAULT("default"),
+    PRIMARY("primary"),
+    SUCCESS("success"),
+    INFO("info"),
+    WARNING("warning"),
+    DANGER("danger");
+
+    private final String suffix;
+
+    ContextState(String suffix) {
+        this.suffix = suffix;
+    }
+
+    /**
+     * @return the style class for this state
+     */
+    @Override
+    public String getStyleClass() {
+        return suffix;
+    }
+
+    /**
+     * @param prefix the prefix to add to the style class
+     * @return the style class with the given prefix
+     */
+    public String getStyleClassWithPrefix(String prefix) {
+        return prefix + "-" + suffix;
+    }
+}
+----
+
+This enum is used for components that have different visual states, such as alerts, buttons, and badges.
+
+=== ContextSize
+
+The `ContextSize` enum represents size modifiers like LG, SM, XS for component sizing.
+
+[source,java]
+----
+public enum ContextSize implements StyleClassProvider {
+    DEFAULT(""),
+    LARGE("lg"),
+    SMALL("sm"),
+    EXTRA_SMALL("xs");
+
+    private final String suffix;
+
+    ContextSize(String suffix) {
+        this.suffix = suffix;
+    }
+
+    /**
+     * @return the style class for this size
+     */
+    @Override
+    public String getStyleClass() {
+        return suffix;
+    }
+
+    /**
+     * @param prefix the prefix to add to the style class
+     * @return the style class with the given prefix
+     */
+    public String getStyleClassWithPrefix(String prefix) {
+        if (this == DEFAULT || suffix.isEmpty()) {
+            return prefix;
+        }
+        return prefix + "-" + suffix;
+    }
+}
+----
+
+This enum is used for components that can have different sizes, such as buttons, inputs, and modals.
+
+=== AlignHolder
+
+The `AlignHolder` enum represents alignment options like LEFT, RIGHT, CENTER for text and component alignment.
+
+[source,java]
+----
+public enum AlignHolder implements StyleClassProvider {
+    DEFAULT(""),
+    LEFT("left"),
+    RIGHT("right"),
+    CENTER("center");
+
+    private final String styleClass;
+
+    AlignHolder(String styleClass) {
+        this.styleClass = styleClass;
+    }
+
+    /**
+     * @return the style class for this alignment
+     */
+    @Override
+    public String getStyleClass() {
+        return styleClass;
+    }
+}
+----
+
+This enum is used for components that can have different alignments, such as text, buttons, and icons.
+
+== Icon Support
+
+=== IconLibrary
+
+The `IconLibrary` class provides an abstraction for icon libraries, enabling components to work with different icon sets like Font Awesome or Bootstrap Icons through a consistent API.
+
+[source,java]
+----
+public final class IconLibrary {
+
+    /**
+     * Font Awesome icon library.
+     */
+    public static final IconLibrary FONT_AWESOME = new IconLibrary("fa fa-", "");
+
+    /**
+     * Bootstrap Glyphicons icon library.
+     */
+    public static final IconLibrary GLYPHICONS = new IconLibrary("glyphicon glyphicon-", "");
+
+    private final String prefix;
+    private final String suffix;
+
+    /**
+     * Creates a new icon library with the given prefix and suffix.
+     */
+    public IconLibrary(String prefix, String suffix) {
+        this.prefix = prefix;
+        this.suffix = suffix;
+    }
+
+    /**
+     * Gets the CSS class for an icon.
+     * 
+     * @param iconName the name of the icon
+     * @return the CSS class for the icon
+     */
+    public String getIconClass(String iconName) {
+        if (null == iconName || iconName.isEmpty()) {
+            return "";
+        }
+        return prefix + iconName + suffix;
+    }
+
+    /**
+     * Resolves a CSS class string for an icon.
+     * 
+     * @param iconClass the icon class to resolve
+     * @return the resolved CSS class string
+     */
+    public static String resolveCssString(String iconClass) {
+        if (null == iconClass || iconClass.isEmpty()) {
+            return "";
+        }
+
+        // Check if it's already a full CSS class
+        if (iconClass.contains(" ")) {
+            return iconClass;
+        }
+
+        // Try to resolve using known libraries
+        if (iconClass.startsWith("fa-")) {
+            return "fa " + iconClass;
+        }
+        if (iconClass.startsWith("glyphicon-")) {
+            return "glyphicon " + iconClass;
+        }
+
+        // Default to Font Awesome
+        return FONT_AWESOME.getIconClass(iconClass);
+    }
+}
+----
+
+This class makes it easy to work with different icon libraries in a consistent way, allowing components to support multiple icon sets without changing their implementation.
+
+== Common CSS Classes
+
+=== CssCommon
+
+The `CssCommon` enum provides constants for common CSS classes used throughout the framework.
+
+[source,java]
+----
+public enum CssCommon implements StyleClassProvider {
+    /**
+     * Represents the "hidden" CSS class.
+     */
+    HIDDEN("hidden"),
+
+    /**
+     * Represents the "disabled" CSS class.
+     */
+    DISABLED("disabled"),
+
+    /**
+     * Represents the "active" CSS class.
+     */
+    ACTIVE("active"),
+
+    /**
+     * Represents the "pull-right" CSS class.
+     */
+    PULL_RIGHT("pull-right"),
+
+    /**
+     * Represents the "pull-left" CSS class.
+     */
+    PULL_LEFT("pull-left");
+
+    private final String styleClass;
+
+    CssCommon(String styleClass) {
+        this.styleClass = styleClass;
+    }
+
+    @Override
+    public String getStyleClass() {
+        return styleClass;
+    }
+}
+----
+
+This enum provides a type-safe way to reference commonly used CSS classes, reducing the risk of typos and ensuring consistency.
+
+== Usage Examples
+
+=== Building Style Classes
+
+[source,java]
+----
+// Create a button style class with contextual state and size
+StyleClassBuilder builder = new StyleClassBuilderImpl("btn");
+builder.append(ContextState.PRIMARY.getStyleClassWithPrefix("btn"));
+builder.appendIfNotEmpty(ContextSize.LARGE.getStyleClassWithPrefix("btn"), true);
+
+// Add an icon
+String iconClass = IconLibrary.FONT_AWESOME.getIconClass("user");
+builder.append(iconClass);
+
+String buttonClass = builder.getStyleClass(); // "btn btn-primary btn-lg fa fa-user"
+----
+
+=== Using Contextual States
+
+[source,java]
+----
+// Create an alert with a warning state
+UIComponent alert = createComponent(context, "div");
+alert.getAttributes().put("class", 
+    StyleClassResolver.combineStyleClasses("alert", 
+        ContextState.WARNING.getStyleClassWithPrefix("alert")));
+----
+
+=== Working with Icons
+
+[source,java]
+----
+// Create an icon component
+UIComponent icon = createComponent(context, "span");
+icon.getAttributes().put("class", 
+    IconLibrary.FONT_AWESOME.getIconClass("warning"));
+
+// Or using the static resolver
+String iconClass = IconLibrary.resolveCssString("warning");
+icon.getAttributes().put("class", iconClass);
+----
+
+=== Component Implementation
+
+[source,java]
+----
+public class MyButton extends UIComponentBase implements StyleClassProvider {
+
+    private String styleClass;
+    private ContextState state = ContextState.DEFAULT;
+    private ContextSize size = ContextSize.DEFAULT;
+
+    @Override
+    public String getStyleClass() {
+        StyleClassBuilder builder = new StyleClassBuilderImpl("btn");
+        builder.append(state.getStyleClassWithPrefix("btn"));
+        builder.append(size.getStyleClassWithPrefix("btn"));
+        builder.append(styleClass);
+        return builder.getStyleClass();
+    }
+
+    public void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
+    }
+
+    public ContextState getState() {
+        return state;
+    }
+
+    public void setState(ContextState state) {
+        this.state = state != null ? state : ContextState.DEFAULT;
+    }
+
+    public ContextSize getSize() {
+        return size;
+    }
+
+    public void setSize(ContextSize size) {
+        this.size = size != null ? size : ContextSize.DEFAULT;
+    }
+}
+----
+
+== Integration with Component Framework
+
+The CSS utilities integrate seamlessly with the component framework, particularly with the partial implementation pattern.
+
+=== ComponentStyleClassProvider
+
+The `ComponentStyleClassProvider` interface in the partial package extends `StyleClassProvider` to provide a setter method, making it suitable for use in components.
+
+[source,java]
+----
+public interface ComponentStyleClassProvider extends StyleClassProvider {
+    /**
+     * @param styleClass the style class to set
+     */
+    void setStyleClass(String styleClass);
+}
+----
+
+=== StyleClassModifiers
+
+The `styleclass` subpackage in the `util` package provides modifiers that can apply CSS classes to components:
+
+[source,java]
+----
+public class StyleClassModifier implements ComponentModifier {
+
+    private final String styleClass;
+
+    public StyleClassModifier(String styleClass) {
+        this.styleClass = styleClass;
+    }
+
+    @Override
+    public void modifyComponent(UIComponent component) {
+        if (component instanceof StyleClassProvider) {
+            StyleClassProvider provider = (StyleClassProvider) component;
+            StyleClassBuilder builder = new StyleClassBuilderImpl(provider.getStyleClass());
+            builder.append(styleClass);
+            ((ComponentStyleClassProvider) provider).setStyleClass(builder.getStyleClass());
+        } else {
+            // Handle non-StyleClassProvider components
+            String existingClass = (String) component.getAttributes().get("styleClass");
+            StyleClassBuilder builder = new StyleClassBuilderImpl(existingClass);
+            builder.append(styleClass);
+            component.getAttributes().put("styleClass", builder.getStyleClass());
+        }
+    }
+}
+----
+
+== Best Practices
+
+=== Use StyleClassBuilder
+
+Always use `StyleClassBuilder` when combining multiple CSS classes to ensure proper spacing and avoid duplicates.
+
+=== Leverage Contextual Enums
+
+Use the contextual enums (`ContextState`, `ContextSize`, `AlignHolder`) to create consistent styling based on semantic meaning.
+
+=== Implement StyleClassProvider
+
+Implement `StyleClassProvider` in components that provide CSS classes to ensure consistent access to style information.
+
+=== Use IconLibrary
+
+Use `IconLibrary` for working with icons to ensure consistent icon rendering and support for multiple icon libraries.
+
+=== Combine with Component Modifiers
+
+Use the CSS utilities with component modifiers to apply consistent styling to components programmatically.
+
+== Conclusion
+
+The CSS utilities in the CUI JSF API provide a comprehensive set of tools for managing CSS styling in JSF components. By using these utilities, you can:
+
+* Create consistent styling across components
+* Apply contextual styling based on semantic meaning
+* Work with different icon libraries in a consistent way
+* Build complex style class strings with proper formatting
+* Integrate styling with the component framework
+
+These utilities form an essential part of the component framework, ensuring that components not only behave consistently but also look consistent across the application.

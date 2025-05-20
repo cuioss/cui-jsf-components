@@ -1,0 +1,555 @@
+= Component Renderer Framework
+:toc: macro
+:toclevels: 3
+:sectnumlevels: 4
+:numbered:
+
+link:../README.adoc[Back to README]
+
+This document describes the concept and members of the `de.cuioss.jsf.api.components.renderer` package, which provides helper classes and utilities for creating JSF renderers.
+
+toc::[]
+
+== Overview
+
+Renderers in JSF are responsible for converting components into markup that can be displayed in a browser. The `de.cuioss.jsf.api.components.renderer` package provides a set of utilities and base classes that simplify the creation of renderers by handling common tasks and providing a more declarative approach to rendering.
+
+The package addresses the procedural nature of the standard JSF renderer API by providing higher-level abstractions that make renderers more maintainable and consistent.
+
+== Core Components
+
+=== BaseDecoratorRenderer
+
+The `BaseDecoratorRenderer<T extends UIComponent>` class is a base class for renderers that simplifies the implementation of the standard renderer methods. It handles the default API contract of `Renderer` and creates an instance of `DecoratingResponseWriter` to provide additional convenience methods.
+
+[source,java]
+----
+public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
+
+    /**
+     * Called by the JSF framework during the render response phase.
+     * This method delegates to doEncodeBegin for actual rendering.
+     */
+    @Override
+    public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
+        // Type checking and preparation
+        @SuppressWarnings("unchecked")
+        final T typedComponent = (T) component;
+
+        // Create a decorating response writer
+        final DecoratingResponseWriter<T> writer = 
+            new DecoratingResponseWriter<>(context.getResponseWriter(), typedComponent);
+
+        // Delegate to the template method
+        doEncodeBegin(context, writer, typedComponent);
+    }
+
+    /**
+     * Template method to be implemented by subclasses.
+     * This method is called during the encodeBegin phase.
+     */
+    protected void doEncodeBegin(FacesContext context, 
+                                DecoratingResponseWriter<T> writer, 
+                                T component) throws IOException {
+        // Default implementation does nothing
+    }
+
+    // Similar methods for encodeEnd and encodeChildren
+}
+----
+
+By using this base class, renderer implementations only need to implement the `doEncodeBegin` and/or `doEncodeEnd` methods, which receive a typed component and a `DecoratingResponseWriter` for easier rendering.
+
+=== DecoratingResponseWriter
+
+The `DecoratingResponseWriter<T extends UIComponent>` class extends the standard JSF `ResponseWriter` with additional convenience methods for common rendering tasks. It holds a reference to the component being rendered, eliminating the need to pass it to every method call.
+
+[source,java]
+----
+public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWriterBase {
+
+    private final T component;
+
+    /**
+     * Creates a new instance wrapping the given response writer and component.
+     */
+    public DecoratingResponseWriter(ResponseWriter wrapped, T component) {
+        super(wrapped);
+        this.component = component;
+    }
+
+    /**
+     * Writes an HTML element start tag with common attributes.
+     */
+    public void withStartElement(String elementName) throws IOException {
+        startElement(elementName, component);
+        writeIdAttributeIfNecessary(component);
+        writeStyleClassAttribute(component);
+        writeAttributesFromComponent(component);
+    }
+
+    /**
+     * Writes a complete HTML element with content.
+     */
+    public void withElement(String elementName, String content) throws IOException {
+        withStartElement(elementName);
+        write(content);
+        withEndElement(elementName);
+    }
+
+    // Many other convenience methods...
+}
+----
+
+The `DecoratingResponseWriter` provides methods for writing HTML elements with proper attributes, handling CSS classes, writing conditional content, and more. This makes renderer implementations more concise and less error-prone.
+
+=== ConditionalResponseWriter
+
+The `ConditionalResponseWriter` helps integrate the procedural view of `Renderer` (encodeBegin, encodeChildren, encodeEnd) with the tree-based approach of `HtmlTreeBuilder`. It allows renderers to write parts of the HTML before and after the component's children.
+
+[source,java]
+----
+public class ConditionalResponseWriter extends ResponseWriterBase {
+
+    private boolean writeContent = true;
+    private boolean childBreakpointReached = false;
+
+    /**
+     * Creates a new instance wrapping the given response writer.
+     */
+    public ConditionalResponseWriter(ResponseWriter wrapped) {
+        super(wrapped);
+    }
+
+    /**
+     * Marks the point where child rendering should occur.
+     * Content before this point is written during encodeBegin,
+     * content after this point is written during encodeEnd.
+     */
+    public void setChildBreakpoint() {
+        childBreakpointReached = true;
+        writeContent = false;
+    }
+
+    /**
+     * Enables writing content after the child breakpoint.
+     * Called during encodeEnd to continue rendering.
+     */
+    public void startAfterChildBreakpoint() {
+        if (childBreakpointReached) {
+            writeContent = true;
+        }
+    }
+
+    // Overridden methods that check writeContent flag
+}
+----
+
+This class is particularly useful when using `HtmlTreeBuilder` to create a complete HTML tree but needing to insert the component's children at a specific point in that tree.
+
+=== ElementReplacingResponseWriter
+
+The `ElementReplacingResponseWriter` is a specialized response writer that replaces one HTML element with another. This is useful for adapting components to different HTML structures.
+
+[source,java]
+----
+public class ElementReplacingResponseWriter extends ResponseWriterBase {
+
+    private final String sourceElement;
+    private final String targetElement;
+
+    /**
+     * Creates a new instance that replaces sourceElement with targetElement.
+     */
+    public ElementReplacingResponseWriter(ResponseWriter wrapped, 
+                                         String sourceElement, 
+                                         String targetElement) {
+        super(wrapped);
+        this.sourceElement = sourceElement;
+        this.targetElement = targetElement;
+    }
+
+    @Override
+    public void startElement(String name, UIComponent component) throws IOException {
+        if (sourceElement.equals(name)) {
+            super.startElement(targetElement, component);
+        } else {
+            super.startElement(name, component);
+        }
+    }
+
+    @Override
+    public void endElement(String name) throws IOException {
+        if (sourceElement.equals(name)) {
+            super.endElement(targetElement);
+        } else {
+            super.endElement(name);
+        }
+    }
+}
+----
+
+This writer is often used to adapt standard JSF components to Bootstrap or other CSS frameworks that require specific HTML structures.
+
+=== ResponseWriterBase
+
+The `ResponseWriterBase` is an abstract base class for custom response writers that delegates most methods to a wrapped response writer. It simplifies the creation of custom response writers by requiring only the relevant methods to be overridden.
+
+[source,java]
+----
+public abstract class ResponseWriterBase extends ResponseWriter {
+
+    private final ResponseWriter wrapped;
+
+    protected ResponseWriterBase(ResponseWriter wrapped) {
+        this.wrapped = wrapped;
+    }
+
+    // Delegate all methods to wrapped by default
+
+    @Override
+    public void startElement(String name, UIComponent component) throws IOException {
+        wrapped.startElement(name, component);
+    }
+
+    // Many other delegating methods...
+
+    // Convenience methods for common rendering tasks
+
+    /**
+     * Writes a style class attribute if the component has a style class.
+     */
+    protected void writeStyleClassAttribute(UIComponent component) throws IOException {
+        if (component instanceof StyleClassProvider) {
+            StyleClassProvider provider = (StyleClassProvider) component;
+            String styleClass = provider.getStyleClass();
+            if (null != styleClass && !styleClass.isEmpty()) {
+                writeAttribute("class", styleClass, "styleClass");
+            }
+        }
+    }
+
+    // Other convenience methods...
+}
+----
+
+This base class makes it easier to create specialized response writers by providing a solid foundation and common utility methods.
+
+== Partial Renderers
+
+The `de.cuioss.jsf.api.components.renderer.partial` package contains renderer implementations for specific component parts or behaviors. These can be composed to create complete renderers.
+
+=== CodeTypeOptionRenderer
+
+The `CodeTypeOptionRenderer` is an example of a partial renderer that renders options for select components based on code types.
+
+[source,java]
+----
+public class CodeTypeOptionRenderer {
+
+    /**
+     * Renders select options for a code type.
+     */
+    public static <T extends Enum<T> & DisplayNameProvider> void renderOptions(
+            FacesContext context,
+            UIComponent component,
+            Class<T> codeType,
+            Locale locale) throws IOException {
+
+        ResponseWriter writer = context.getResponseWriter();
+
+        for (T code : codeType.getEnumConstants()) {
+            writer.startElement("option", component);
+            writer.writeAttribute("value", code.name(), null);
+            writer.write(code.getDisplayName(locale));
+            writer.endElement("option");
+        }
+    }
+}
+----
+
+This partial renderer can be used by multiple select component renderers to provide consistent rendering of code type options.
+
+== Integration with HtmlTreeBuilder
+
+The renderer framework integrates with the `HtmlTreeBuilder` class to provide a more declarative approach to HTML generation. This integration is facilitated by the `ConditionalResponseWriter`.
+
+[source,java]
+----
+public void doEncodeBegin(FacesContext context, 
+                         DecoratingResponseWriter<MyComponent> writer, 
+                         MyComponent component) throws IOException {
+
+    // Create an HTML tree
+    HtmlTreeBuilder tree = new HtmlTreeBuilder();
+    tree.withNode(Node.DIV).withStyleClass("container")
+        .withNode(Node.H3).withTextContent("Header").currentHierarchyUp()
+        .withNodeChildBreakpoint() // Mark where children should be rendered
+        .withNode(Node.DIV).withStyleClass("footer")
+        .withTextContent("Footer");
+
+    // Render the tree using a conditional writer
+    ConditionalResponseWriter conditionalWriter = 
+        new ConditionalResponseWriter(writer);
+    tree.writeToResponseWriter(conditionalWriter);
+}
+
+public void doEncodeEnd(FacesContext context, 
+                       DecoratingResponseWriter<MyComponent> writer, 
+                       MyComponent component) throws IOException {
+
+    // Continue rendering after the child breakpoint
+    ConditionalResponseWriter conditionalWriter = 
+        new ConditionalResponseWriter(writer);
+    conditionalWriter.startAfterChildBreakpoint();
+    // The remaining part of the tree will be rendered
+}
+----
+
+This approach allows renderers to define a complete HTML structure while still accommodating the JSF component lifecycle.
+
+== Usage Examples
+
+=== Basic Renderer
+
+The link:https://github.com/cuioss/cui-jsf-components/blob/main/modules/cui-jsf-bootstrap/src/main/java/de/cuioss/jsf/bootstrap/button/ButtonRenderer.java[ButtonRenderer] from cui-jsf-bootstrap is an excellent example of a renderer that uses the BaseDecoratorRenderer class:
+
+[source,java]
+----
+@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, 
+               rendererType = BootstrapFamily.BUTTON_RENDERER)
+public class ButtonRenderer extends BaseDecoratorRenderer<Button> {
+
+    public ButtonRenderer() {
+        super(false);
+    }
+
+    @Override
+    protected void doEncodeBegin(final FacesContext context, 
+                               final DecoratingResponseWriter<Button> writer,
+                               final Button component) throws IOException {
+        // Create a wrapped response writer that changes 'input' to 'button'
+        var wrapped = ElementReplacingResponseWriter.createWrappedReplacingResonseWriter(
+                context, "input", "button", true);
+
+        // Resolve and store component title
+        component.resolveAndStoreTitle();
+
+        // Compute final CSS classes with Bootstrap styling
+        component.computeAndStoreFinalStyleClass(CssBootstrap.BUTTON.getStyleClassBuilder()
+                .append(ButtonState.getForContextState(component.getState()))
+                .append(ButtonSize.getForContextSize(component.resolveContextSize())));
+        component.writeStyleClassToParent();
+
+        // Delegate to standard button renderer
+        JsfHtmlComponent.BUTTON.renderer(context).encodeBegin(wrapped, component);
+
+        // Render left icon if configured
+        if (component.isDisplayIconLeft()) {
+            var icon = IconComponent.createComponent(context);
+            icon.setIcon(component.getIcon());
+            icon.encodeAll(context);
+        }
+
+        // Render button text
+        var label = component.resolveLabel();
+        if (null != label) {
+            var output = JsfHtmlComponent.SPAN.component(context);
+            output.setValue(label);
+            output.setEscape(component.isLabelEscape());
+            output.setStyleClass(CssBootstrap.BUTTON_TEXT.getStyleClass());
+            output.encodeAll(context);
+        }
+
+        // Render right icon if configured
+        if (component.isDisplayIconRight()) {
+            var icon = IconComponent.createComponent(context);
+            icon.setIcon(component.getIcon());
+            icon.encodeAll(context);
+        }
+    }
+
+    @Override
+    protected void doEncodeEnd(final FacesContext context, 
+                             final DecoratingResponseWriter<Button> writer,
+                             final Button component) throws IOException {
+        writer.withEndElement(Node.BUTTON);
+    }
+}
+----
+
+=== Using ElementReplacingResponseWriter
+
+The link:https://github.com/cuioss/cui-jsf-components/blob/main/modules/cui-jsf-bootstrap/src/main/java/de/cuioss/jsf/bootstrap/button/CommandButtonRenderer.java[CommandButtonRenderer] from cui-jsf-bootstrap demonstrates how to use ElementReplacingResponseWriter to transform HTML elements:
+
+[source,java]
+----
+@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, 
+               rendererType = BootstrapFamily.COMMAND_BUTTON_RENDERER)
+public class CommandButtonRenderer extends BaseDecoratorRenderer<CommandButton> {
+
+    public CommandButtonRenderer() {
+        super(false);
+    }
+
+    @Override
+    protected void doEncodeBegin(final FacesContext context, 
+                               final DecoratingResponseWriter<CommandButton> writer,
+                               final CommandButton component) throws IOException {
+        // Create a wrapped response writer that transforms "input" to "button"
+        var wrapped = ElementReplacingResponseWriter.createWrappedReplacingResonseWriter(
+                context, "input", "button", true);
+
+        // Resolve and store component properties
+        component.resolveAndStoreTitle();
+        component.writeTitleToParent();
+
+        // Apply Bootstrap styling
+        component.computeAndStoreFinalStyleClass(CssBootstrap.BUTTON.getStyleClassBuilder()
+                .append(ButtonState.getForContextState(component.getState()))
+                .append(ButtonSize.getForContextSize(component.resolveContextSize())));
+        component.writeStyleClassToParent();
+
+        // Delegate to standard command button renderer with the element-replacing writer
+        JsfHtmlComponent.COMMAND_BUTTON.renderer(context).encodeBegin(wrapped, component);
+
+        // Render button content (icons and text)
+        if (component.isDisplayIconLeft()) {
+            var icon = IconComponent.createComponent(context);
+            icon.setIcon(component.getIcon());
+            icon.encodeAll(context);
+        }
+
+        var label = component.resolveLabel();
+        if (null != label) {
+            var output = JsfHtmlComponent.SPAN.component(context);
+            output.setValue(label);
+            output.setEscape(component.isLabelEscape());
+            output.setStyleClass(CssBootstrap.BUTTON_TEXT.getStyleClass());
+            output.encodeAll(context);
+        }
+
+        if (component.isDisplayIconRight()) {
+            var icon = IconComponent.createComponent(context);
+            icon.setIcon(component.getIcon());
+            icon.encodeAll(context);
+        }
+    }
+
+    // Other methods...
+}
+----
+
+=== Declarative HTML Generation
+
+The link:https://github.com/cuioss/cui-jsf-components/blob/main/modules/cui-jsf-bootstrap/src/main/java/de/cuioss/jsf/bootstrap/modal/ModalDialogRenderer.java[ModalDialogRenderer] from cui-jsf-bootstrap demonstrates how to create complex HTML structures using a declarative approach with DecoratingResponseWriter:
+
+[source,java]
+----
+@FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, 
+               rendererType = BootstrapFamily.MODAL_DIALOG_COMPONENT_RENDERER)
+public class ModalDialogRenderer extends BaseDecoratorRenderer<ModalDialogComponent> {
+
+    public ModalDialogRenderer() {
+        super(false);
+    }
+
+    @Override
+    protected void doEncodeBegin(final FacesContext context,
+            final DecoratingResponseWriter<ModalDialogComponent> writer, 
+            final ModalDialogComponent component)
+            throws IOException {
+        // Outer wrapper element
+        writer.withStartElement(DIV)
+              .withClientIdIfNecessary()
+              .withStyleClass(component.getStyleClass())
+              .withAttributeStyle(component.getStyle())
+              .withPassThroughAttributes()
+              .withAttribute(DATA_MODAL_ID, component.resolveDialogId())
+              .withAttribute(TABINDEX, "-1")
+              .withAttribute(ROLE, ROLE_DIALOG);
+
+        // Static backdrop for non-closable dialogs
+        if (!component.isClosable()) {
+            writer.withAttribute(DATA_BACKDROP, "static");
+        }
+
+        // Inner wrapper
+        writer.withStartElement(DIV)
+              .withStyleClass(CssBootstrap.MODAL_DIALOG.getStyleClassBuilder()
+                    .append(ModalDialogSize.getFromString(component.getSize())))
+              .withAttribute(ROLE, "document");
+
+        // Modal content container
+        writer.withStartElement(DIV)
+              .withStyleClass(CssBootstrap.MODAL_CONTENT);
+
+        // Render header section
+        writeHeader(context, writer, component);
+
+        // Start body section
+        writer.withStartElement(DIV)
+              .withStyleClass(MODAL_DIALOG_BODY);
+    }
+
+    @Override
+    protected void doEncodeEnd(final FacesContext context, 
+            final DecoratingResponseWriter<ModalDialogComponent> writer,
+            final ModalDialogComponent component) throws IOException {
+        // Close body section
+        writer.withEndElement(DIV);
+
+        // Render footer if needed
+        writeFooter(context, writer, component);
+
+        // Close all container elements
+        writer.withEndElement(DIV); // End modal content
+        writer.withEndElement(DIV); // End inner wrapper
+        writer.withEndElement(DIV); // End outer wrapper
+    }
+
+    // Helper methods for header and footer rendering...
+}
+----
+
+While this example uses DecoratingResponseWriter directly rather than HtmlTreeBuilder, it demonstrates the same concept of declarative HTML generation. The fluent API style makes the code readable and maintainable, clearly showing the HTML structure being created.
+
+For more complex structures, you can use HtmlTreeBuilder with ConditionalResponseWriter as shown in the previous examples.
+
+== Best Practices
+
+=== Use BaseDecoratorRenderer
+
+Always extend `BaseDecoratorRenderer` for new renderers to benefit from its type safety and convenience methods.
+
+=== Leverage DecoratingResponseWriter
+
+Use the methods provided by `DecoratingResponseWriter` instead of directly calling the standard ResponseWriter methods to reduce boilerplate code.
+
+=== Consider HtmlTreeBuilder for Complex Structures
+
+For complex HTML structures, use `HtmlTreeBuilder` with `ConditionalResponseWriter` to create a more declarative and maintainable renderer.
+
+=== Handle Null and Empty Values
+
+Always check for null or empty values before rendering attributes or content to avoid rendering errors.
+
+=== Document Renderer Behavior
+
+Clearly document what HTML structure your renderer generates and what attributes it supports to make it easier for others to use your components.
+
+=== Test Renderers Thoroughly
+
+Use the JSF test framework to verify that your renderers produce the expected HTML output under various conditions.
+
+== Conclusion
+
+The renderer framework in the CUI JSF API provides a powerful set of tools for creating JSF renderers that are more maintainable, type-safe, and declarative. By using these tools, you can:
+
+* Reduce boilerplate code in renderer implementations
+* Create more consistent HTML output across components
+* Handle common rendering tasks with less error-prone code
+* Integrate procedural and declarative rendering approaches
+* Adapt components to different HTML structures as needed
+
+These benefits make it easier to create and maintain JSF components with rich rendering capabilities while ensuring consistency across the component library.

@@ -1,0 +1,717 @@
+= Component Models
+:toc: macro
+:toclevels: 3
+:sectnumlevels: 4
+:numbered:
+
+link:../README.adoc[Back to README]
+
+This document describes the component models in the CUI JSF API, focusing on the classes and interfaces in the `de.cuioss.jsf.api.components.model` package and its subpackages.
+
+toc::[]
+
+== Overview
+
+The component model package provides the model interfaces and implementations for the CUI JSF component system. It forms the foundation of the component model architecture, defining the core abstractions, contracts, and implementations that enable the creation of reusable, composable UI components.
+
+The package follows several key design principles:
+
+* **Separation of Concerns**: Clear distinction between model, view, and controller aspects
+* **Composability**: Models can be combined to create complex component behaviors
+* **Consistent Patterns**: Similar components share common patterns and interfaces
+* **JSF Integration**: Models work seamlessly with the JSF lifecycle and component model
+
+== Package Structure
+
+The component model package is organized into several sub-packages, each focusing on a specific aspect of the component model system:
+
+=== datalist
+
+Models for editable data lists, providing a framework for components that display and edit collections of data.
+
+=== lazyloading
+
+Support for deferred content loading to improve performance, particularly for components that display large amounts of data or perform expensive operations.
+
+=== menu
+
+Models for navigation menus, including different types of menu items and containers.
+
+=== result_content
+
+Handling of operation results and notifications, providing a consistent way to display success, warning, and error messages.
+
+=== widget
+
+Models for widget-based components used in dashboards and content areas, providing a flexible framework for creating rich UI components.
+
+== Core Models
+
+=== datalist Package
+
+The `datalist` package provides models for components that display and edit collections of data. The core interface is `EditableDataListModel<T>`, which defines the contract for models that support adding, editing, and removing items from a list.
+
+[source,java]
+----
+public interface EditableDataListModel<T extends Serializable> extends Serializable {
+
+    /**
+     * @return the list of items wrapped in ItemWrapper objects
+     */
+    List<ItemWrapper<T>> getItems();
+
+    /**
+     * Adds a new item to the list.
+     * 
+     * @return the wrapper for the new item
+     */
+    ItemWrapper<T> addItem();
+
+    /**
+     * Removes an item from the list.
+     * 
+     * @param wrapper the wrapper for the item to remove
+     */
+    void removeItem(ItemWrapper<T> wrapper);
+
+    /**
+     * Saves changes to an item.
+     * 
+     * @param wrapper the wrapper for the item to save
+     * @param event the edit event
+     * @return the edit status
+     */
+    EditStatus saveItem(ItemWrapper<T> wrapper, EditEvent event);
+
+    // Other methods...
+}
+----
+
+The `AbstractEditableDataListModel<T>` class provides a base implementation of this interface, handling common tasks like item management and event processing.
+
+The `ItemWrapper<T>` interface represents a wrapper around an item in the list, providing additional metadata and state information:
+
+[source,java]
+----
+public interface ItemWrapper<T extends Serializable> extends Serializable {
+
+    /**
+     * @return the wrapped item
+     */
+    T getWrapped();
+
+    /**
+     * @return the edit status of the item
+     */
+    EditStatus getEditStatus();
+
+    /**
+     * @return the add status of the item
+     */
+    AddStatus getAddStatus();
+
+    /**
+     * Sets the edit status of the item.
+     * 
+     * @param editStatus the new edit status
+     */
+    void setEditStatus(EditStatus editStatus);
+
+    // Other methods...
+}
+----
+
+The `ItemWrapperImpl<T>` class provides a concrete implementation of this interface.
+
+=== lazyloading Package
+
+The `lazyloading` package provides models for components that load their content asynchronously, improving the perceived performance of the application. The core interface is `LazyLoadingModel`, which defines the contract for models that support lazy loading:
+
+[source,java]
+----
+public interface LazyLoadingModel extends ActionListener, Serializable {
+
+    /**
+     * @return the current loading state
+     */
+    ContextState getLoadingState();
+
+    /**
+     * @return whether the content is currently loading
+     */
+    boolean isLoading();
+
+    /**
+     * @return whether the content has been loaded
+     */
+    boolean isLoaded();
+
+    /**
+     * @return whether the content failed to load
+     */
+    boolean isFailed();
+
+    /**
+     * Triggers the loading process.
+     */
+    void load();
+
+    /**
+     * Resets the loading state.
+     */
+    void reset();
+
+    // Other methods...
+}
+----
+
+The `LazyLoadingThreadModel<T>` interface extends `LazyLoadingModel` to provide support for background thread loading:
+
+[source,java]
+----
+public interface LazyLoadingThreadModel<T> extends LazyLoadingModel {
+
+    /**
+     * @return the result of the loading operation
+     */
+    T getLoadResult();
+
+    /**
+     * Sets the result of the loading operation.
+     * 
+     * @param result the loading result
+     */
+    void setLoadResult(T result);
+
+    /**
+     * @return the exception that occurred during loading, if any
+     */
+    Throwable getLoadingError();
+
+    /**
+     * Sets the exception that occurred during loading.
+     * 
+     * @param throwable the loading error
+     */
+    void setLoadingError(Throwable throwable);
+
+    // Other methods...
+}
+----
+
+=== menu Package
+
+The `menu` package provides models for navigation menus, including different types of menu items and containers. The core interface is `NavigationMenuItem`, which defines the common properties of all menu items:
+
+[source,java]
+----
+public interface NavigationMenuItem extends Serializable {
+
+    /**
+     * @return the label for the menu item
+     */
+    String getLabel();
+
+    /**
+     * @return the icon for the menu item
+     */
+    String getIcon();
+
+    /**
+     * @return the title for the menu item
+     */
+    String getTitle();
+
+    /**
+     * @return the style class for the menu item
+     */
+    String getStyleClass();
+
+    /**
+     * @return whether the menu item is disabled
+     */
+    boolean isDisabled();
+
+    /**
+     * @return whether the menu item is rendered
+     */
+    boolean isRendered();
+
+    // Other methods...
+}
+----
+
+The package includes several specialized interfaces and implementations:
+
+* `NavigationMenuItemSingle`: A simple menu item that navigates to a specific outcome
+* `NavigationMenuItemExternalSingle`: A menu item that links to an external URL
+* `NavigationMenuItemContainer`: A container for other menu items, used for dropdown menus
+* `NavigationMenuItemSeparator`: A separator between menu items
+
+=== result_content Package
+
+The `result_content` package provides models for handling operation results and notifications. The core class is `ResultContent`, which represents the result of an operation:
+
+[source,java]
+----
+public class ResultContent implements Serializable {
+
+    private final ContextState state;
+    private final String title;
+    private final String message;
+    private final String detail;
+
+    /**
+     * Creates a new result content with the given state, title, and message.
+     */
+    public ResultContent(ContextState state, String title, String message) {
+        this(state, title, message, null);
+    }
+
+    /**
+     * Creates a new result content with the given state, title, message, and detail.
+     */
+    public ResultContent(ContextState state, String title, String message, String detail) {
+        this.state = state;
+        this.title = title;
+        this.message = message;
+        this.detail = detail;
+    }
+
+    // Getters...
+
+    /**
+     * @return whether this result represents a success
+     */
+    public boolean isSuccess() {
+        return ContextState.SUCCESS.equals(state) || ContextState.INFO.equals(state);
+    }
+
+    /**
+     * @return whether this result represents a warning
+     */
+    public boolean isWarning() {
+        return ContextState.WARNING.equals(state);
+    }
+
+    /**
+     * @return whether this result represents an error
+     */
+    public boolean isError() {
+        return ContextState.DANGER.equals(state);
+    }
+}
+----
+
+The package also includes the `ErrorController` class, which provides a consistent way to handle and display errors:
+
+[source,java]
+----
+public class ErrorController implements Serializable {
+
+    private final ResultErrorHandler errorHandler;
+
+    /**
+     * Creates a new error controller with the given error handler.
+     */
+    public ErrorController(ResultErrorHandler errorHandler) {
+        this.errorHandler = errorHandler;
+    }
+
+    /**
+     * Handles an exception and returns a result content.
+     * 
+     * @param throwable the exception to handle
+     * @return the result content
+     */
+    public ResultContent handleException(Throwable throwable) {
+        return errorHandler.handleException(throwable);
+    }
+
+    // Other methods...
+}
+----
+
+=== widget Package
+
+The `widget` package provides models for widget-based components used in dashboards and content areas. The core interface is `WidgetModel`, which extends `LazyLoadingModel` to provide additional widget-specific functionality:
+
+[source,java]
+----
+public interface WidgetModel extends LazyLoadingModel {
+
+    /**
+     * @return the title of the widget
+     */
+    String getTitle();
+
+    /**
+     * @return the icon of the widget
+     */
+    String getIcon();
+
+    /**
+     * @return the style class of the widget
+     */
+    String getStyleClass();
+
+    /**
+     * @return the state of the widget
+     */
+    ContextState getState();
+
+    /**
+     * @return whether the widget is collapsed
+     */
+    boolean isCollapsed();
+
+    /**
+     * Sets whether the widget is collapsed.
+     * 
+     * @param collapsed the collapsed state
+     */
+    void setCollapsed(boolean collapsed);
+
+    // Other methods...
+}
+----
+
+The package includes several specialized interfaces and implementations:
+
+* `DashboardWidgetModel`: A widget model for dashboard components
+* `ListItemWidgetModel`: A widget model that displays a list of items
+* `BaseWidget`: A base implementation of `WidgetModel`
+* `BaseDeferredLoadingWidget`: A base implementation of `WidgetModel` with deferred loading support
+
+== Usage Examples
+
+=== Editable Data List
+
+[source,java]
+----
+// Create a model for a list of Person objects
+EditableDataListModel<Person> model = new AbstractEditableDataListModel<Person>() {
+
+    @Override
+    protected Person createNewInstance() {
+        return new Person();
+    }
+
+    @Override
+    protected Person copy(Person source) {
+        Person copy = new Person();
+        copy.setFirstName(source.getFirstName());
+        copy.setLastName(source.getLastName());
+        copy.setEmail(source.getEmail());
+        return copy;
+    }
+
+    @Override
+    public EditStatus saveItem(ItemWrapper<Person> wrapper, EditEvent event) {
+        // Validate the item
+        Person person = wrapper.getWrapped();
+        if (person.getFirstName() == null || person.getFirstName().isEmpty()) {
+            return EditStatus.INVALID;
+        }
+
+        // Save the item (in a real application, this would persist to a database)
+        return EditStatus.VALID;
+    }
+};
+
+// Add a new item
+ItemWrapper<Person> newItem = model.addItem();
+Person person = newItem.getWrapped();
+person.setFirstName("John");
+person.setLastName("Doe");
+person.setEmail("john.doe@example.com");
+
+// Save the item
+EditStatus status = model.saveItem(newItem, EditEvent.SAVE);
+if (status == EditStatus.VALID) {
+    // Item saved successfully
+} else {
+    // Item validation failed
+}
+----
+
+=== Lazy Loading
+
+[source,java]
+----
+// Create a lazy loading model
+LazyLoadingThreadModel<List<Product>> model = new AbstractLazyLoadingThreadModel<List<Product>>() {
+
+    @Override
+    protected List<Product> loadData() throws Exception {
+        // Simulate a long-running operation
+        Thread.sleep(2000);
+
+        // Load data from a service
+        return productService.findAll();
+    }
+
+    @Override
+    protected void handleLoadingError(Throwable throwable) {
+        // Log the error
+        logger.error("Error loading products", throwable);
+
+        // Set a user-friendly error message
+        setErrorMessage("Failed to load products. Please try again later.");
+    }
+};
+
+// Trigger the loading process
+model.load();
+
+// Check the loading state
+if (model.isLoading()) {
+    // Show a loading indicator
+} else if (model.isLoaded()) {
+    // Display the data
+    List<Product> products = model.getLoadResult();
+    // ...
+} else if (model.isFailed()) {
+    // Display the error message
+    String errorMessage = model.getErrorMessage();
+    // ...
+}
+----
+
+=== Navigation Menu
+
+[source,java]
+----
+// Create a menu container
+NavigationMenuItemContainer menu = new NavigationMenuItemContainerImpl();
+menu.setLabel("Main Menu");
+menu.setIcon("bars");
+
+// Add menu items
+NavigationMenuItemSingle homeItem = new NavigationMenuItemSingleImpl();
+homeItem.setLabel("Home");
+homeItem.setIcon("home");
+homeItem.setOutcome("home");
+menu.addMenuItem(homeItem);
+
+NavigationMenuItemSingle productsItem = new NavigationMenuItemSingleImpl();
+productsItem.setLabel("Products");
+productsItem.setIcon("shopping-cart");
+productsItem.setOutcome("products");
+menu.addMenuItem(productsItem);
+
+// Add a separator
+NavigationMenuItemSeparator separator = new NavigationMenuItemSeparatorImpl();
+menu.addMenuItem(separator);
+
+// Add an external link
+NavigationMenuItemExternalSingle externalItem = new NavigationMenuItemExternalSingleImpl();
+externalItem.setLabel("Documentation");
+externalItem.setIcon("book");
+externalItem.setUrl("https://example.com/docs");
+externalItem.setTarget("_blank");
+menu.addMenuItem(externalItem);
+
+// Render the menu
+// ...
+----
+
+=== Result Content
+
+[source,java]
+----
+// Create a success result
+ResultContent successResult = new ResultContent(
+    ContextState.SUCCESS,
+    "Operation Successful",
+    "The operation completed successfully."
+);
+
+// Create an error result
+ResultContent errorResult = new ResultContent(
+    ContextState.DANGER,
+    "Operation Failed",
+    "The operation failed due to an error.",
+    "Error details: Connection timeout"
+);
+
+// Use an error controller to handle exceptions
+ResultErrorHandler errorHandler = new ResultErrorHandler() {
+    @Override
+    public ResultContent handleException(Throwable throwable) {
+        if (throwable instanceof ConnectionException) {
+            return new ResultContent(
+                ContextState.DANGER,
+                "Connection Error",
+                "Failed to connect to the server.",
+                throwable.getMessage()
+            );
+        }
+        // Handle other exception types...
+        return new ResultContent(
+            ContextState.DANGER,
+            "Error",
+            "An unexpected error occurred.",
+            throwable.getMessage()
+        );
+    }
+};
+
+ErrorController errorController = new ErrorController(errorHandler);
+
+try {
+    // Perform an operation that might throw an exception
+    service.performOperation();
+} catch (Exception e) {
+    // Handle the exception
+    ResultContent result = errorController.handleException(e);
+    // Display the result
+    // ...
+}
+----
+
+=== Widget Model
+
+[source,java]
+----
+// Create a dashboard widget
+DashboardWidgetModel widget = new BaseDeferredLoadingWidget() {
+
+    @Override
+    protected void loadInternal() {
+        try {
+            // Load widget data
+            List<SalesData> salesData = salesService.getRecentSales();
+            setLoadResult(salesData);
+            setState(ContextState.SUCCESS);
+        } catch (Exception e) {
+            setLoadingError(e);
+            setState(ContextState.DANGER);
+        }
+    }
+};
+
+// Configure the widget
+widget.setTitle("Recent Sales");
+widget.setIcon("chart-bar");
+widget.setStyleClass("sales-widget");
+
+// Load the widget data
+widget.load();
+
+// Use the widget in a component
+// ...
+----
+
+== Integration with JSF Components
+
+The component models are designed to integrate seamlessly with JSF components. Here are some examples of how they can be used:
+
+=== Using Models in Components
+
+[source,java]
+----
+@FacesComponent("com.example.EditableDataListComponent")
+public class EditableDataListComponent extends UIComponentBase implements ModelProvider {
+
+    private EditableDataListModel<?> model;
+
+    @Override
+    public Serializable getModel() {
+        return model;
+    }
+
+    @Override
+    public void setModel(Serializable model) {
+        if (model instanceof EditableDataListModel) {
+            this.model = (EditableDataListModel<?>) model;
+        } else {
+            throw new IllegalArgumentException("Model must be an EditableDataListModel");
+        }
+    }
+
+    // Component implementation...
+}
+----
+
+=== Using Models in Backing Beans
+
+[source,java]
+----
+@Named
+@ViewScoped
+public class ProductListBean implements Serializable {
+
+    private EditableDataListModel<Product> productModel;
+
+    @PostConstruct
+    public void init() {
+        productModel = new AbstractEditableDataListModel<Product>() {
+            // Implementation...
+        };
+
+        // Load initial data
+        List<Product> products = productService.findAll();
+        for (Product product : products) {
+            ItemWrapper<Product> wrapper = productModel.addItem();
+            wrapper.setWrapped(product);
+            wrapper.setAddStatus(AddStatus.PERSISTED);
+        }
+    }
+
+    public EditableDataListModel<Product> getProductModel() {
+        return productModel;
+    }
+
+    // Other methods...
+}
+----
+
+=== Using Models in Facelets
+
+[source,xml]
+----
+<cui:editableDataList id="productList" model="#{productListBean.productModel}">
+    <f:facet name="item">
+        <h:panelGrid columns="2">
+            <h:outputLabel for="name" value="Name:" />
+            <h:inputText id="name" value="#{item.wrapped.name}" />
+
+            <h:outputLabel for="price" value="Price:" />
+            <h:inputText id="price" value="#{item.wrapped.price}" />
+
+            <h:outputLabel for="description" value="Description:" />
+            <h:inputTextarea id="description" value="#{item.wrapped.description}" />
+        </h:panelGrid>
+    </f:facet>
+</cui:editableDataList>
+----
+
+== Best Practices
+
+=== Model Design
+
+1. **Keep Models Focused**: Each model should have a single responsibility and represent a specific aspect of component behavior.
+2. **Use Interfaces**: Define clear interfaces for models to ensure consistent behavior across implementations.
+3. **Consider Serialization**: Models should be serializable to work properly with the JSF lifecycle.
+4. **Document State Transitions**: Clearly document how model states change in response to events.
+
+=== Model Implementation
+
+1. **Immutable Where Possible**: Make models immutable where appropriate to simplify reasoning about state.
+2. **Validate Input**: Validate input data to ensure models remain in a consistent state.
+3. **Handle Errors Gracefully**: Provide clear error messages and handle exceptions appropriately.
+4. **Consider Thread Safety**: Document thread safety guarantees, especially for models that support asynchronous operations.
+
+=== Model Usage
+
+1. **Choose the Right Model**: Select the appropriate model type for your component's needs.
+2. **Combine Models**: Use multiple models together to create complex component behaviors.
+3. **Separate Model and View**: Keep model logic separate from view rendering logic.
+4. **Test Models Thoroughly**: Write unit tests for models to ensure they behave as expected.
+
+== Conclusion
+
+The component models in the CUI JSF API provide a powerful foundation for building reusable, composable UI components. By separating model concerns from view rendering, they enable a more maintainable and flexible component architecture.
+
+Whether you're building simple input components or complex interactive widgets, the component model framework provides the abstractions and implementations you need to create robust, user-friendly interfaces.

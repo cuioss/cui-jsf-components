@@ -1,0 +1,395 @@
+= Component Partial Implementation Pattern
+:toc: macro
+:toclevels: 3
+:sectnumlevels: 4
+:numbered:
+
+link:../README.adoc[Back to README]
+
+This document describes the concept and members of the `de.cuioss.jsf.api.components.partial` package, which provides a collection of reusable component traits that implement specific aspects of UI component functionality.
+
+toc::[]
+
+== Overview
+
+The partial implementation pattern is a design approach that follows the composite pattern to create flexible and reusable JSF components. Instead of relying heavily on inheritance, which can lead to complex class hierarchies, this pattern uses composition to combine specific behaviors into complete components.
+
+The `de.cuioss.jsf.api.components.partial` package contains provider interfaces and their implementations for common component attributes and behaviors. Many component implementations in the CUI JSF framework use these partial implementations to reduce code duplication and maintain consistency across the component library.
+
+== Key Concepts
+
+=== Provider Interfaces
+
+Provider interfaces define contracts for specific component behaviors. Each interface focuses on a single aspect of component functionality, following the interface segregation principle.
+
+=== Implementations
+
+Concrete implementations of these interfaces provide the actual behavior. These implementations typically use the `CuiState` helper to manage component state in a JSF-friendly way.
+
+=== Component Bridges
+
+Facilities for connecting different component parts, allowing components to be composed from multiple partial implementations.
+
+== Core Provider Interfaces
+
+=== ComponentStyleClassProvider
+
+Defines a contract for components that can provide CSS class strings.
+
+[source,java]
+----
+public interface ComponentStyleClassProvider {
+    /**
+     * @return the style class for the component, may be null
+     */
+    String getStyleClass();
+
+    /**
+     * @param styleClass the style class to be set
+     */
+    void setStyleClass(String styleClass);
+}
+----
+
+=== TitleProvider
+
+Defines a contract for components that can provide a title attribute.
+
+[source,java]
+----
+public interface TitleProvider {
+    /**
+     * @return the title for the component, may be null
+     */
+    String getTitle();
+
+    /**
+     * @param title the title to be set
+     */
+    void setTitle(String title);
+}
+----
+
+=== StyleAttributeProvider
+
+Defines a contract for components that can provide CSS style attributes.
+
+[source,java]
+----
+public interface StyleAttributeProvider {
+    /**
+     * @return the style attribute for the component, may be null
+     */
+    String getStyle();
+
+    /**
+     * @param style the style to be set
+     */
+    void setStyle(String style);
+}
+----
+
+=== DisabledComponentProvider
+
+Defines a contract for components that can be disabled.
+
+[source,java]
+----
+public interface DisabledComponentProvider {
+    /**
+     * @return whether the component is disabled
+     */
+    boolean isDisabled();
+
+    /**
+     * @param disabled the disabled state to be set
+     */
+    void setDisabled(boolean disabled);
+}
+----
+
+=== IconProvider
+
+Defines a contract for components that can display an icon.
+
+[source,java]
+----
+public interface IconProvider {
+    /**
+     * @return the icon identifier, may be null
+     */
+    String getIcon();
+
+    /**
+     * @param icon the icon identifier to be set
+     */
+    void setIcon(String icon);
+
+    /**
+     * @return the resolved CSS class for the icon
+     */
+    String resolveIconCss();
+}
+----
+
+=== LabelProvider
+
+Defines a contract for components that can display a label.
+
+[source,java]
+----
+public interface LabelProvider {
+    /**
+     * @return the label for the component, may be null
+     */
+    String getLabel();
+
+    /**
+     * @param label the label to be set
+     */
+    void setLabel(String label);
+}
+----
+
+=== ModelProvider
+
+Defines a contract for components that have an associated model.
+
+[source,java]
+----
+public class ModelProvider {
+    /**
+     * @return the model for the component, may be null
+     */
+    public Serializable getModel();
+
+    /**
+     * @param model the model to be set
+     */
+    public void setModel(Serializable model);
+}
+----
+
+=== Other Providers
+
+The package includes many other providers for specific behaviors:
+
+* `AjaxProvider` - For AJAX-enabled components
+* `AlignProvider` - For components with alignment options
+* `ContextStateProvider` - For components with contextual states (success, warning, error)
+* `DeferredProvider` - For components with deferred loading
+* `ForIdentifierProvider` - For components that reference other components
+* `HeaderProvider` and `FooterProvider` - For components with header and footer sections
+* `PlaceholderProvider` - For input components with placeholder text
+* And many more...
+
+== Implementation Pattern
+
+Most provider interfaces have corresponding implementation classes that follow a consistent pattern:
+
+1. The implementation class is named after the interface with "Impl" suffix (e.g., `TitleProviderImpl`)
+2. It uses `CuiState` to manage component state
+3. It implements the interface methods to get and set the relevant attributes
+
+[source,java]
+----
+public class TitleProviderImpl implements TitleProvider {
+
+    /** The key for the state. */
+    private static final String KEY = "title";
+
+    private final CuiState state;
+
+    /**
+     * @param componentBridge must not be null
+     */
+    public TitleProviderImpl(final ComponentBridge componentBridge) {
+        state = new CuiState(componentBridge.stateHelper());
+    }
+
+    @Override
+    public String getTitle() {
+        return state.get(KEY);
+    }
+
+    @Override
+    public void setTitle(final String title) {
+        state.put(KEY, title);
+    }
+}
+----
+
+== ComponentBridge
+
+The `ComponentBridge` interface is a key part of the partial implementation pattern. It provides access to the underlying JSF component's state helper, allowing partial implementations to store and retrieve their state.
+
+[source,java]
+----
+public interface ComponentBridge {
+    /**
+     * @return the state helper of the component
+     */
+    StateHelper stateHelper();
+}
+----
+
+JSF components that want to use partial implementations must implement this interface to bridge between the component and its partial implementations.
+
+== Usage Pattern
+
+=== Direct Implementation
+
+Components can directly implement multiple provider interfaces:
+
+[source,java]
+----
+public class MyComponent extends UIComponentBase implements 
+        TitleProvider, StyleAttributeProvider, DisabledComponentProvider {
+
+    // Implementation of provider methods...
+}
+----
+
+=== Composition
+
+Alternatively, components can use composition by creating instances of the implementation classes:
+
+[source,java]
+----
+public class MyComponent extends UIComponentBase implements ComponentBridge, TitleProvider, StyleAttributeProvider, DisabledComponentProvider {
+
+    @Delegate
+    private final TitleProviderImpl titleProvider;
+
+    @Delegate
+    private final StyleAttributeProviderImpl styleAttributeProvider;
+
+    @Delegate
+    private final DisabledComponentProviderImpl disabledComponentProvider;
+
+    public MyComponent() {
+        titleProvider = new TitleProviderImpl(this);
+        styleAttributeProvider = new StyleAttributeProviderImpl(this);
+        disabledComponentProvider = new DisabledComponentProviderImpl(this);
+    }
+
+    @Override
+    public StateHelper stateHelper() {
+        return getStateHelper();
+    }
+
+    // No need to manually implement delegation methods
+    // Lombok's @Delegate handles it automatically
+}
+----
+
+=== Base Component Classes
+
+The CUI JSF API provides several base component classes that already implement common provider interfaces:
+
+* `AbstractBaseCuiComponent` - Base class for all CUI components
+* `BaseCuiCommandButton` - Base class for command buttons
+* `BaseCuiHtmlInputComponent` - Base class for HTML input components
+* `BaseCuiOutputText` - Base class for output text components
+
+These base classes make it easy to create new components with consistent behavior.
+
+== Benefits
+
+=== Code Reuse
+
+The partial implementation pattern promotes code reuse by allowing components to share common behaviors without complex inheritance hierarchies.
+
+=== Consistency
+
+By using the same partial implementations across components, the framework ensures consistent behavior and API for similar features.
+
+=== Flexibility
+
+Components can mix and match partial implementations as needed, creating flexible compositions tailored to their specific requirements.
+
+=== Maintainability
+
+Changes to a partial implementation are automatically reflected in all components that use it, making maintenance easier.
+
+== Examples from Bootstrap Components
+
+The CUI Bootstrap components make extensive use of partial implementations. For example:
+
+=== Button Component
+
+The link:https://github.com/cuioss/cui-jsf-components/blob/main/modules/cui-jsf-bootstrap/src/main/java/de/cuioss/jsf/bootstrap/button/Button.java[Button] component from cui-jsf-bootstrap is an excellent example of the partial implementation pattern using Lombok's @Delegate annotation:
+
+[source,java]
+----
+@FacesComponent(BootstrapFamily.BUTTON_COMPONENT)
+@ListenerFor(systemEventClass = PreRenderComponentEvent.class)
+public class Button extends HtmlOutcomeTargetButton implements ComponentBridge, 
+        TitleProvider, MyFacesDelegateStyleClassAdapter, MyFacesDelegateTitleAdapter {
+
+    @Delegate
+    private final TitleProvider titleProvider;
+
+    @Delegate
+    private final ContextSizeProvider contextSizeProvider;
+
+    @Delegate
+    private final ContextStateProvider contextStateProvider;
+
+    @Delegate
+    private final IconProvider iconProvider;
+
+    @Delegate
+    private final IconAlignProvider iconAlignProvider;
+
+    @Delegate
+    private final LabelProvider labelProvider;
+
+    @Delegate
+    private final KeyBindingProvider keyBindingProvider;
+
+    @Delegate
+    private final ComponentStyleClassProvider styleClassProvider;
+
+    public Button() {
+        super.setRendererType(BootstrapFamily.BUTTON_RENDERER);
+        titleProvider = new TitleProviderImpl(this);
+        contextSizeProvider = new ContextSizeProvider(this);
+        contextStateProvider = new ContextStateProvider(this);
+        iconProvider = new IconProvider(this);
+        labelProvider = new LabelProvider(this);
+        styleClassProvider = new ComponentStyleClassProviderImpl(this);
+        iconAlignProvider = new IconAlignProvider(this);
+        keyBindingProvider = new KeyBindingProvider(this);
+    }
+
+    // Implementation of ComponentBridge methods and other component-specific code...
+}
+----
+
+=== TagInputComponent
+
+The link:https://github.com/cuioss/cui-jsf-components/blob/main/modules/cui-jsf-bootstrap/src/main/java/de/cuioss/jsf/bootstrap/taginput/TagInputComponent.java[TagInputComponent] from cui-jsf-bootstrap implements multiple provider interfaces directly:
+
+[source,java]
+----
+public class TagInputComponent extends UIInput implements
+        ComponentStyleClassProvider, DisabledComponentProvider {
+
+    // Component-specific code...
+}
+----
+
+== Best Practices
+
+1. **Follow Interface Segregation**: Create focused provider interfaces that handle a single aspect of component behavior.
+2. **Use CuiState**: Always use `CuiState` in implementations to ensure proper state management.
+3. **Implement ComponentBridge**: Components using partial implementations should implement `ComponentBridge`.
+4. **Document Provider Usage**: Clearly document which providers a component implements and how they affect its behavior.
+5. **Consider Composition vs. Implementation**: Choose between direct implementation and composition based on the component's complexity.
+
+== Conclusion
+
+The partial implementation pattern is a powerful approach to creating flexible, maintainable JSF components. By breaking component functionality into small, focused interfaces and implementations, the CUI JSF API enables developers to create components with consistent behavior while avoiding the pitfalls of deep inheritance hierarchies.
+
+The `de.cuioss.jsf.api.components.partial` package provides a rich set of provider interfaces and implementations that cover most common component behaviors, making it easy to create new components that follow best practices and integrate seamlessly with the rest of the framework.
