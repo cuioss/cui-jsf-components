@@ -28,6 +28,7 @@ import jakarta.faces.application.FacesMessage;
 import jakarta.faces.application.FacesMessage.Severity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 import java.io.Serial;
@@ -296,8 +297,8 @@ public class MessageProducerMock implements MessageProducer {
      * </p>
      */
     @Override
-    public void addMessage(final String message, final Severity severity, final String componentId,
-            final Object... parameter) {
+    public void addMessage(final @NonNull String message, final @NonNull Severity severity, final String componentId,
+                           final Object... parameter) {
         if (MoreStrings.isEmpty(componentId)) {
             globalMessages.add(getMessageFor(message, severity, parameter));
         } else {

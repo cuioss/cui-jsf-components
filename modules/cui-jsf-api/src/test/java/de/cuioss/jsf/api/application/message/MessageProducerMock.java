@@ -25,6 +25,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Provider;
 import lombok.Getter;
+import lombok.NonNull;
 
 import java.io.Serial;
 import java.text.MessageFormat;
@@ -75,7 +76,7 @@ public class MessageProducerMock implements MessageProducer {
     }
 
     @Override
-    public void addMessage(String message, Severity severity, String componentId, Object... parameter) {
+    public void addMessage(@NonNull String message, @NonNull Severity severity, String componentId, Object... parameter) {
         var resultingMessage = message;
         if (!MoreCollections.isEmpty(parameter)) {
             resultingMessage = MessageFormat.format(resultingMessage, parameter);

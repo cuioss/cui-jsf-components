@@ -72,13 +72,13 @@ public interface MessageProducer extends Serializable {
      * message is added to the {@link FacesContext} for the specified component.
      * </p>
      *
-     * @param messagekey  The key to look up in the resource bundle, must not be {@code null}
+     * @param messageKey  The key to look up in the resource bundle, must not be {@code null}
      * @param severity    The severity level of the message, must not be {@code null}
      * @param componentId The ID of the component to associate the message with, or {@code null} for a global message
      * @param parameter   Optional parameters for message formatting
-     * @throws NullPointerException if messagekey or severity is null
+     * @throws NullPointerException if messageKey or severity is null
      */
-    void setFacesMessage(String messagekey, FacesMessage.Severity severity, String componentId, Object... parameter);
+    void setFacesMessage(String messageKey, FacesMessage.Severity severity, String componentId, Object... parameter);
 
     /**
      * Adds a direct message to the {@link FacesContext} without resource bundle resolution.
@@ -136,13 +136,13 @@ public interface MessageProducer extends Serializable {
      * that uses {@code null} as the component ID to create a global message.
      * </p>
      *
-     * @param messagekey The key to look up in the resource bundle, must not be {@code null}
+     * @param messageKey The key to look up in the resource bundle, must not be {@code null}
      * @param severity   The severity level of the message, must not be {@code null}
      * @param parameter  Optional parameters for message formatting
-     * @throws NullPointerException if messagekey or severity is null
+     * @throws NullPointerException if messageKey or severity is null
      */
-    default void setGlobalMessage(String messagekey, FacesMessage.Severity severity, Object... parameter) {
-        setFacesMessage(messagekey, severity, null, parameter);
+    default void setGlobalMessage(String messageKey, FacesMessage.Severity severity, Object... parameter) {
+        setFacesMessage(messageKey, severity, null, parameter);
     }
 
     /**
@@ -168,12 +168,12 @@ public interface MessageProducer extends Serializable {
      * that uses {@link FacesMessage#SEVERITY_INFO} as the severity level.
      * </p>
      *
-     * @param messagekey The key to look up in the resource bundle, must not be {@code null}
+     * @param messageKey The key to look up in the resource bundle, must not be {@code null}
      * @param parameter  Optional parameters for message formatting
-     * @throws NullPointerException if messagekey is null
+     * @throws NullPointerException if messageKey is null
      */
-    default void setGlobalInfoMessage(String messagekey, Object... parameter) {
-        setGlobalMessage(messagekey, FacesMessage.SEVERITY_INFO, parameter);
+    default void setGlobalInfoMessage(String messageKey, Object... parameter) {
+        setGlobalMessage(messageKey, FacesMessage.SEVERITY_INFO, parameter);
     }
 
     /**
@@ -183,12 +183,12 @@ public interface MessageProducer extends Serializable {
      * that uses {@link FacesMessage#SEVERITY_ERROR} as the severity level.
      * </p>
      *
-     * @param messagekey The key to look up in the resource bundle, must not be {@code null}
+     * @param messageKey The key to look up in the resource bundle, must not be {@code null}
      * @param parameter  Optional parameters for message formatting
-     * @throws NullPointerException if messagekey is null
+     * @throws NullPointerException if messageKey is null
      */
-    default void setGlobalErrorMessage(String messagekey, Object... parameter) {
-        setGlobalMessage(messagekey, FacesMessage.SEVERITY_ERROR, parameter);
+    default void setGlobalErrorMessage(String messageKey, Object... parameter) {
+        setGlobalMessage(messageKey, FacesMessage.SEVERITY_ERROR, parameter);
     }
 
     /**
@@ -198,11 +198,11 @@ public interface MessageProducer extends Serializable {
      * that uses {@link FacesMessage#SEVERITY_WARN} as the severity level.
      * </p>
      *
-     * @param messagekey The key to look up in the resource bundle, must not be {@code null}
+     * @param messageKey The key to look up in the resource bundle, must not be {@code null}
      * @param parameter  Optional parameters for message formatting
-     * @throws NullPointerException if messagekey is null
+     * @throws NullPointerException if messageKey is null
      */
-    default void setGlobalWarningMessage(String messagekey, Object... parameter) {
-        setGlobalMessage(messagekey, FacesMessage.SEVERITY_WARN, parameter);
+    default void setGlobalWarningMessage(String messageKey, Object... parameter) {
+        setGlobalMessage(messageKey, FacesMessage.SEVERITY_WARN, parameter);
     }
 }
