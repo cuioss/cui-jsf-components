@@ -44,8 +44,10 @@ module.exports = function(grunt) {
             options: {
                 specs: 'src/test/resources/javascript/spec/**/*[sS]pec.?(m)js',
                 vendor: 'src/test/resources/javascript/spec/lib/**/*.js',
+
                 sandboxArgs: {
-                    headless: 'new'
+                    headless: 'new',
+                    args: ['--no-sandbox', '--disable-setuid-sandbox']
                 }
             }
         }
