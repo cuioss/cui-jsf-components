@@ -17,63 +17,90 @@ package de.cuioss.jsf.bootstrap.dashboard;
 
 import static de.cuioss.tools.collect.CollectionLiterals.mutableList;
 
-import java.io.IOException;
-
-import jakarta.faces.view.facelets.ComponentConfig;
-import jakarta.faces.view.facelets.CompositeFaceletHandler;
-import jakarta.faces.view.facelets.FaceletContext;
-import jakarta.faces.view.facelets.FaceletHandler;
-import jakarta.faces.view.facelets.Tag;
-import jakarta.faces.view.facelets.TagAttribute;
-import jakarta.faces.view.facelets.TagAttributes;
-
-import org.easymock.EasyMock;
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.model.widget.DashboardWidgetModel;
 import de.cuioss.jsf.api.components.support.DummyComponent;
+import jakarta.faces.view.facelets.*;
+import org.easymock.EasyMock;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
+@DisplayName("Tests for DashboardTagHandler")
 class DashboardTagHandlerTest {
 
-    private final TagAttribute tagAttribute = EasyMock.niceMock(TagAttribute.class);
+    private TagAttribute tagAttribute;
     private Tag tag;
-    private final ComponentConfig componentConfig = EasyMock.niceMock(ComponentConfig.class);
-    private final TagAttributes tagAttributes = EasyMock.niceMock(TagAttributes.class);
-    private final FaceletContext faceletContext = EasyMock.niceMock(FaceletContext.class);
-    private final DashboardWidgetModel dashboardWidgetModel = EasyMock.niceMock(DashboardWidgetModel.class);
+    private ComponentConfig componentConfig;
+    private TagAttributes tagAttributes;
+    private FaceletContext faceletContext;
+    private DashboardWidgetModel dashboardWidgetModel;
 
-    @Test
-    void testEmpty() throws IOException {
-        EasyMock.expect(tagAttribute.getObject(EasyMock.anyObject(FaceletContext.class))).andReturn(mutableList());
-        EasyMock.replay(tagAttribute);
-        EasyMock.expect(tagAttributes.get("widgets")).andReturn(tagAttribute);
-        EasyMock.replay(tagAttributes);
-        tag = new Tag(null, null, null, null, tagAttributes);
-        EasyMock.expect(componentConfig.getTagId()).andReturn("test");
-        EasyMock.expect(componentConfig.getTag()).andReturn(tag);
-        EasyMock.expect(componentConfig.getNextHandler()).andReturn(new CompositeFaceletHandler(new FaceletHandler[0]));
-        EasyMock.replay(componentConfig);
-        var underTest = new DashboardTagHandler(componentConfig);
-        underTest.apply(faceletContext, new DummyComponent());
+    @BeforeEach
+    void setUp() {
+        // Initialize mocks for each test
+        tagAttribute = EasyMock.niceMock(TagAttribute.class);
+        componentConfig = EasyMock.niceMock(ComponentConfig.class);
+        tagAttributes = EasyMock.niceMock(TagAttributes.class);
+        faceletContext = EasyMock.niceMock(FaceletContext.class);
+        dashboardWidgetModel = EasyMock.niceMock(DashboardWidgetModel.class);
     }
 
-    @Test
-    void test() throws IOException {
-        EasyMock.expect(dashboardWidgetModel.getCompositeComponentId()).andReturn("abc:def").anyTimes();
-        EasyMock.replay(dashboardWidgetModel);
-        EasyMock.expect(tagAttribute.getObject(EasyMock.anyObject(FaceletContext.class)))
-                .andReturn(mutableList(dashboardWidgetModel));
-        EasyMock.expect(tagAttribute.getValue()).andReturn("{abc}").anyTimes();
-        EasyMock.replay(tagAttribute);
-        EasyMock.expect(tagAttributes.get("widgets")).andReturn(tagAttribute);
-        EasyMock.replay(tagAttributes);
-        tag = new Tag(null, null, null, null, tagAttributes);
-        EasyMock.expect(componentConfig.getTagId()).andReturn("test");
-        EasyMock.expect(componentConfig.getTag()).andReturn(tag);
-        EasyMock.expect(componentConfig.getNextHandler()).andReturn(new CompositeFaceletHandler(new FaceletHandler[0]));
-        EasyMock.replay(componentConfig);
-        var underTest = new DashboardTagHandler(componentConfig);
-        var fc = EasyMock.niceMock(FaceletContext.class);
-        underTest.apply(faceletContext, new DummyComponent());
+    @Nested
+    @DisplayName("Basic functionality tests")
+    class BasicFunctionalityTests {
+
+        @Test
+        @DisplayName("Should handle empty widget list")
+        void shouldHandleEmptyWidgetList() throws IOException {
+            // Arrange
+            EasyMock.expect(tagAttribute.getObject(EasyMock.anyObject(FaceletContext.class))).andReturn(mutableList());
+            EasyMock.replay(tagAttribute);
+
+            EasyMock.expect(tagAttributes.get("widgets")).andReturn(tagAttribute);
+            EasyMock.replay(tagAttributes);
+
+            tag = new Tag(null, null, null, null, tagAttributes);
+
+            EasyMock.expect(componentConfig.getTagId()).andReturn("test");
+            EasyMock.expect(componentConfig.getTag()).andReturn(tag);
+            EasyMock.expect(componentConfig.getNextHandler()).andReturn(new CompositeFaceletHandler(new FaceletHandler[0]));
+            EasyMock.replay(componentConfig);
+
+            var underTest = new DashboardTagHandler(componentConfig);
+
+            // Act & Assert - No exception should be thrown
+            underTest.apply(faceletContext, new DummyComponent());
+        }
+
+        @Test
+        @DisplayName("Should handle widget list with one item")
+        void shouldHandleWidgetListWithOneItem() throws IOException {
+            // Arrange
+            EasyMock.expect(dashboardWidgetModel.getCompositeComponentId()).andReturn("abc:def").anyTimes();
+            EasyMock.replay(dashboardWidgetModel);
+
+            EasyMock.expect(tagAttribute.getObject(EasyMock.anyObject(FaceletContext.class)))
+                    .andReturn(mutableList(dashboardWidgetModel));
+            EasyMock.expect(tagAttribute.getValue()).andReturn("{abc}").anyTimes();
+            EasyMock.replay(tagAttribute);
+
+            EasyMock.expect(tagAttributes.get("widgets")).andReturn(tagAttribute);
+            EasyMock.replay(tagAttributes);
+
+            tag = new Tag(null, null, null, null, tagAttributes);
+
+            EasyMock.expect(componentConfig.getTagId()).andReturn("test");
+            EasyMock.expect(componentConfig.getTag()).andReturn(tag);
+            EasyMock.expect(componentConfig.getNextHandler()).andReturn(new CompositeFaceletHandler(new FaceletHandler[0]));
+            EasyMock.replay(componentConfig);
+
+            var underTest = new DashboardTagHandler(componentConfig);
+
+            // Act & Assert - No exception should be thrown
+            underTest.apply(faceletContext, new DummyComponent());
+        }
     }
 }

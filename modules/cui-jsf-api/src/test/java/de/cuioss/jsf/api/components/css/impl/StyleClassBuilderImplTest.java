@@ -16,123 +16,260 @@
 package de.cuioss.jsf.api.components.css.impl;
 
 import static de.cuioss.test.generator.Generators.letterStrings;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.components.css.CssCommon;
 import de.cuioss.test.valueobjects.ValueObjectTest;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for StyleClassBuilderImpl")
 class StyleClassBuilderImplTest extends ValueObjectTest<StyleClassBuilderImpl> {
 
     private static final String COMBINED_CLASS = "some class";
 
     private static final String CSS_CLASS = "cssClass";
 
-    @Test
-    void shouldBeEmptyOnDefaultConstructor() {
-        var builder = new StyleClassBuilderImpl();
-        assertFalse(builder.isAvailable());
-        assertTrue(builder.getStyleClass().isEmpty());
+    @Nested
+    @DisplayName("Tests for constructors and empty handling")
+    class ConstructorTests {
+
+        @Test
+        @DisplayName("Should create empty builder with default constructor")
+        void shouldCreateEmptyBuilderWithDefaultConstructor() {
+            // Arrange & Act
+            var builder = new StyleClassBuilderImpl();
+
+            // Assert
+            assertFalse(builder.isAvailable(),
+                    "Builder should not have available styles");
+            assertTrue(builder.getStyleClass().isEmpty(),
+                    "Style class string should be empty");
+        }
+
+        @Test
+        @DisplayName("Should create empty builder with null or empty string")
+        void shouldCreateEmptyBuilderWithNullOrEmptyString() {
+            // Arrange & Act - empty string
+            var builder = new StyleClassBuilderImpl("");
+
+            // Assert
+            assertFalse(builder.isAvailable(),
+                    "Builder should not have available styles with empty string");
+            assertTrue(builder.getStyleClass().isEmpty(),
+                    "Style class string should be empty with empty string");
+
+            // Arrange & Act - null string
+            builder = new StyleClassBuilderImpl(null);
+
+            // Assert
+            assertFalse(builder.isAvailable(),
+                    "Builder should not have available styles with null string");
+            assertTrue(builder.getStyleClass().isEmpty(),
+                    "Style class string should be empty with null string");
+        }
+
+        @Test
+        @DisplayName("Should ignore empty elements when appending")
+        void shouldIgnoreEmptyElements() {
+            // Arrange
+            var builder = new StyleClassBuilderImpl();
+
+            // Act
+            builder.append("");
+            builder.append(new StyleClassBuilderImpl());
+
+            // Assert
+            assertFalse(builder.isAvailable(),
+                    "Builder should not have available styles after appending empty elements");
+            assertTrue(builder.getStyleClass().isEmpty(),
+                    "Style class string should be empty after appending empty elements");
+        }
     }
 
-    @Test
-    void shouldBeEmptyOnCssConstructorWithEmptyString() {
-        var builder = new StyleClassBuilderImpl("");
-        assertFalse(builder.isAvailable());
-        assertTrue(builder.getStyleClass().isEmpty());
-        builder = new StyleClassBuilderImpl(null);
-        assertFalse(builder.isAvailable());
-        assertTrue(builder.getStyleClass().isEmpty());
+    @Nested
+    @DisplayName("Tests for CSS string handling")
+    class CssStringHandlingTests {
+
+        @Test
+        @DisplayName("Should handle CSS string in constructor")
+        void shouldHandleCssStringInConstructor() {
+            // Arrange & Act
+            var builder = new StyleClassBuilderImpl(COMBINED_CLASS);
+
+            // Assert
+            assertTrue(builder.isAvailable(),
+                    "Builder should have available styles when initialized with CSS string");
+            assertEquals(COMBINED_CLASS, builder.getStyleClass(),
+                    "Style class should match the provided CSS string");
+        }
+
+        @Test
+        @DisplayName("Should ignore duplicate CSS classes")
+        void shouldIgnoreDuplicateCssClasses() {
+            // Arrange
+            var builder = new StyleClassBuilderImpl();
+
+            // Act
+            builder.append(COMBINED_CLASS).append(COMBINED_CLASS);
+
+            // Assert
+            assertTrue(builder.isAvailable(),
+                    "Builder should have available styles after appending");
+            assertEquals(COMBINED_CLASS, builder.getStyleClass(),
+                    "Style class should contain only one instance of the class");
+        }
+
+        @Test
+        @DisplayName("Should create combined CSS string")
+        void shouldCreateCombinedCssString() {
+            // Arrange
+            var builder = new StyleClassBuilderImpl();
+
+            // Act
+            builder.append(CSS_CLASS).append(COMBINED_CLASS);
+
+            // Assert
+            assertTrue(builder.isAvailable(),
+                    "Builder should have available styles after appending");
+            assertEquals(CSS_CLASS + " " + COMBINED_CLASS, builder.getStyleClass(),
+                    "Style class should contain both classes with space separator");
+        }
     }
 
-    @Test
-    void shouldIgnoreEmptyElements() {
-        var builder = new StyleClassBuilderImpl();
-        builder.append("");
-        builder.append(new StyleClassBuilderImpl());
-        assertFalse(builder.isAvailable());
-        assertTrue(builder.getStyleClass().isEmpty());
-    }
+    @Nested
+    @DisplayName("Tests for style class manipulation")
+    class StyleClassManipulationTests {
 
-    @Test
-    void shouldHandleCssString() {
-        var builder = new StyleClassBuilderImpl(COMBINED_CLASS);
-        assertTrue(builder.isAvailable());
-        assertEquals(COMBINED_CLASS, builder.getStyleClass());
-    }
+        @Test
+        @DisplayName("Should remove class from style string")
+        void shouldRemoveClassFromStyleString() {
+            // Arrange
+            var builder = new StyleClassBuilderImpl();
+            builder.append(CSS_CLASS).append(COMBINED_CLASS);
 
-    @Test
-    void shouldIgnoreDuplicates() {
-        var builder = new StyleClassBuilderImpl();
-        builder.append(COMBINED_CLASS).append(COMBINED_CLASS);
-        assertTrue(builder.isAvailable());
-        assertEquals(COMBINED_CLASS, builder.getStyleClass());
-    }
+            // Act
+            builder.remove(COMBINED_CLASS);
 
-    @Test
-    void shouldCreateCssString() {
-        var builder = new StyleClassBuilderImpl();
-        builder.append(CSS_CLASS).append(COMBINED_CLASS);
-        assertTrue(builder.isAvailable());
-        assertEquals(CSS_CLASS + " " + COMBINED_CLASS, builder.getStyleClass());
-    }
+            // Assert
+            assertTrue(builder.isAvailable(),
+                    "Builder should still have available styles after removal");
+            assertEquals(CSS_CLASS, builder.getStyleClass(),
+                    "Style class should contain only the remaining class");
+        }
 
-    @Test
-    void shouldRemoveClassString() {
-        var builder = new StyleClassBuilderImpl();
-        builder.append(CSS_CLASS).append(COMBINED_CLASS).remove(COMBINED_CLASS);
-        assertTrue(builder.isAvailable());
-        assertEquals(CSS_CLASS, builder.getStyleClass());
-    }
+        @Test
+        @DisplayName("Should toggle class in style string")
+        void shouldToggleClassInStyleString() {
+            // Arrange
+            var builder = new StyleClassBuilderImpl();
+            builder.append(CSS_CLASS).append(COMBINED_CLASS);
 
-    @Test
-    void shouldToggleClassString() {
-        var builder = new StyleClassBuilderImpl();
-        builder.append(CSS_CLASS).append(COMBINED_CLASS).toggle(COMBINED_CLASS);
-        assertTrue(builder.isAvailable());
-        assertEquals(CSS_CLASS, builder.getStyleClass());
-    }
+            // Act - toggle to remove
+            builder.toggle(COMBINED_CLASS);
 
-    @Test
-    void shouldHandleStyleClassProvider() {
-        var builder = new StyleClassBuilderImpl();
-        builder.append(CssCommon.DISABLED);
-        assertTrue(builder.isAvailable());
-        assertEquals(CssCommon.DISABLED.getStyleClass(), builder.getStyleClass());
-        builder.remove(CssCommon.DISABLED);
-        assertFalse(builder.isAvailable());
-        builder.toggle(CssCommon.DISABLED);
-        assertTrue(builder.isAvailable());
-        assertEquals(CssCommon.DISABLED.getStyleClass(), builder.getStyleClass());
-        builder.toggle(CssCommon.DISABLED);
-        assertFalse(builder.isAvailable());
-    }
+            // Assert
+            assertTrue(builder.isAvailable(),
+                    "Builder should still have available styles after toggle");
+            assertEquals(CSS_CLASS, builder.getStyleClass(),
+                    "Style class should contain only the remaining class");
+        }
 
-    @Test
-    void shouldHandleStyleClassBuilder() {
-        var builder = new StyleClassBuilderImpl();
-        builder.append(CssCommon.DISABLED);
-        assertTrue(builder.isAvailable());
-        assertEquals(CssCommon.DISABLED.getStyleClass(), builder.getStyleClass());
-        builder.remove(CssCommon.DISABLED.getStyleClassBuilder());
-        assertFalse(builder.isAvailable());
-        builder.toggle(CssCommon.DISABLED.getStyleClassBuilder());
-        assertTrue(builder.isAvailable());
-        assertEquals(CssCommon.DISABLED.getStyleClass(), builder.getStyleClass());
-        builder.toggle(CssCommon.DISABLED.getStyleClassBuilder());
-        assertFalse(builder.isAvailable());
-    }
+        @Test
+        @DisplayName("Should handle style class provider")
+        void shouldHandleStyleClassProvider() {
+            // Arrange
+            var builder = new StyleClassBuilderImpl();
 
-    @Test
-    void shouldHandleDuplicateEmpty() {
-        var builder = new StyleClassBuilderImpl();
-        builder.append("  ");
-        builder.append(CssCommon.DISABLED);
-        assertTrue(builder.isAvailable());
-        assertEquals(CssCommon.DISABLED.getStyleClass(), builder.getStyleClass());
+            // Act - append
+            builder.append(CssCommon.DISABLED);
+
+            // Assert - after append
+            assertTrue(builder.isAvailable(),
+                    "Builder should have available styles after appending");
+            assertEquals(CssCommon.DISABLED.getStyleClass(), builder.getStyleClass(),
+                    "Style class should match the provider's style class");
+
+            // Act - remove
+            builder.remove(CssCommon.DISABLED);
+
+            // Assert - after remove
+            assertFalse(builder.isAvailable(),
+                    "Builder should not have available styles after removal");
+
+            // Act - toggle on
+            builder.toggle(CssCommon.DISABLED);
+
+            // Assert - after toggle on
+            assertTrue(builder.isAvailable(),
+                    "Builder should have available styles after toggle on");
+            assertEquals(CssCommon.DISABLED.getStyleClass(), builder.getStyleClass(),
+                    "Style class should match the provider's style class after toggle on");
+
+            // Act - toggle off
+            builder.toggle(CssCommon.DISABLED);
+
+            // Assert - after toggle off
+            assertFalse(builder.isAvailable(),
+                    "Builder should not have available styles after toggle off");
+        }
+
+        @Test
+        @DisplayName("Should handle style class builder")
+        void shouldHandleStyleClassBuilder() {
+            // Arrange
+            var builder = new StyleClassBuilderImpl();
+
+            // Act - append
+            builder.append(CssCommon.DISABLED);
+
+            // Assert - after append
+            assertTrue(builder.isAvailable(),
+                    "Builder should have available styles after appending");
+            assertEquals(CssCommon.DISABLED.getStyleClass(), builder.getStyleClass(),
+                    "Style class should match the builder's style class");
+
+            // Act - remove using builder
+            builder.remove(CssCommon.DISABLED.getStyleClassBuilder());
+
+            // Assert - after remove
+            assertFalse(builder.isAvailable(),
+                    "Builder should not have available styles after removal");
+
+            // Act - toggle on using builder
+            builder.toggle(CssCommon.DISABLED.getStyleClassBuilder());
+
+            // Assert - after toggle on
+            assertTrue(builder.isAvailable(),
+                    "Builder should have available styles after toggle on");
+            assertEquals(CssCommon.DISABLED.getStyleClass(), builder.getStyleClass(),
+                    "Style class should match the builder's style class after toggle on");
+
+            // Act - toggle off using builder
+            builder.toggle(CssCommon.DISABLED.getStyleClassBuilder());
+
+            // Assert - after toggle off
+            assertFalse(builder.isAvailable(),
+                    "Builder should not have available styles after toggle off");
+        }
+
+        @Test
+        @DisplayName("Should handle empty strings and whitespace")
+        void shouldHandleEmptyStringsAndWhitespace() {
+            // Arrange
+            var builder = new StyleClassBuilderImpl();
+
+            // Act
+            builder.append("  ");
+            builder.append(CssCommon.DISABLED);
+
+            // Assert
+            assertTrue(builder.isAvailable(),
+                    "Builder should have available styles after appending valid class");
+            assertEquals(CssCommon.DISABLED.getStyleClass(), builder.getStyleClass(),
+                    "Style class should only contain the valid class, ignoring whitespace");
+        }
     }
 
     @Override
@@ -140,12 +277,27 @@ class StyleClassBuilderImplTest extends ValueObjectTest<StyleClassBuilderImpl> {
         return new StyleClassBuilderImpl(letterStrings().next());
     }
 
-    @Test
-    void shouldAppendIfTrue() {
-        var builder = new StyleClassBuilderImpl();
-        builder.append(CSS_CLASS).appendIfTrue(CssCommon.DISABLED, true).appendIfTrue(CssCommon.PULL_LEFT, false)
-                .appendIfTrue(null, true);
-        assertTrue(builder.isAvailable());
-        assertEquals(CSS_CLASS + " " + CssCommon.DISABLED.getStyleClass(), builder.getStyleClass());
+    @Nested
+    @DisplayName("Tests for conditional append operations")
+    class ConditionalAppendTests {
+
+        @Test
+        @DisplayName("Should conditionally append style classes based on boolean condition")
+        void shouldConditionallyAppendStyleClasses() {
+            // Arrange
+            var builder = new StyleClassBuilderImpl();
+
+            // Act
+            builder.append(CSS_CLASS)
+                    .appendIfTrue(CssCommon.DISABLED, true)  // Should append
+                    .appendIfTrue(CssCommon.PULL_LEFT, false) // Should not append
+                    .appendIfTrue(null, true);  // Should handle null safely
+
+            // Assert
+            assertTrue(builder.isAvailable(),
+                    "Builder should have available styles after appending");
+            assertEquals(CSS_CLASS + " " + CssCommon.DISABLED.getStyleClass(), builder.getStyleClass(),
+                    "Style class should contain base class and conditionally appended class");
+        }
     }
 }

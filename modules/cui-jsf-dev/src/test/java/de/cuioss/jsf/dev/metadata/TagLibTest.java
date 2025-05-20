@@ -15,12 +15,12 @@
  */
 package de.cuioss.jsf.dev.metadata;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import de.cuioss.jsf.dev.metadata.model.*;
 import de.cuioss.test.valueobjects.ValueObjectTest;
 import de.cuioss.test.valueobjects.api.property.PropertyReflectionConfig;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @PropertyReflectionConfig(skip = true)
 class TagLibTest extends ValueObjectTest<TagLib> {
@@ -30,7 +30,7 @@ class TagLibTest extends ValueObjectTest<TagLib> {
     private static final String TAGLIB = "/commons-webui-test.taglib.xml";
 
     @Test
-    void testTagLib() {
+    void tagLib() {
         var tagLib = new TagLib(TAGLIB, TagLib.JSF_4_0_FACELET_TAGLIB_NAMESPACE);
         assertEquals(CUI_NAMESPACE, tagLib.getNamespace());
         assertTrue(tagLib.getComponentMetadata().size() > 18);
@@ -62,7 +62,7 @@ class TagLibTest extends ValueObjectTest<TagLib> {
     public static void assertConverterContract(final ConverterMetadata converterMetadata) {
         assertTagContract(converterMetadata);
         assertNotNull(converterMetadata.getConverterId(),
-            "Converter must provide a converter-id, " + converterMetadata.getName());
+                "Converter must provide a converter-id, " + converterMetadata.getName());
     }
 
     /**
@@ -73,7 +73,7 @@ class TagLibTest extends ValueObjectTest<TagLib> {
     public static void assertValidatorContract(final ValidatorMetadata validatorMetadata) {
         assertTagContract(validatorMetadata);
         assertNotNull(validatorMetadata.getValidatorId(),
-            "Validator must provide a validator-id, " + validatorMetadata.getName());
+                "Validator must provide a validator-id, " + validatorMetadata.getName());
     }
 
     /**
@@ -109,10 +109,10 @@ class TagLibTest extends ValueObjectTest<TagLib> {
         assertNotNull(attribute, "Attribute must not be null, tag=" + componentName);
         assertNotNull(attribute.getName(), "Attribute must not be null, tag=" + componentName);
         assertNotNull(attribute.getDescription(),
-            "Description must not be null, tag=" + componentName + ", attribute=" + attribute.getName());
+                "Description must not be null, tag=" + componentName + ", attribute=" + attribute.getName());
         assertNotNull(attribute.getRequired(),
-            "Required must not be null, tag=" + componentName + ", attribute=" + attribute.getName());
+                "Required must not be null, tag=" + componentName + ", attribute=" + attribute.getName());
         assertNotNull(attribute.getType(),
-            "Type must not be null, tag=" + componentName + ", attribute=" + attribute.getName());
+                "Type must not be null, tag=" + componentName + ", attribute=" + attribute.getName());
     }
 }

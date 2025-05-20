@@ -15,12 +15,25 @@
  */
 package de.cuioss.jsf.api.application.navigation;
 
+import static de.cuioss.jsf.api.common.logging.JsfApiLogMessages.WARN;
 import static de.cuioss.jsf.api.servlet.ServletAdapterUtil.getRequest;
 import static de.cuioss.jsf.api.servlet.ServletAdapterUtil.getResponse;
 import static de.cuioss.tools.net.UrlParameter.createParameterString;
 import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
 import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
 import static java.util.Objects.requireNonNull;
+
+import de.cuioss.jsf.api.common.view.ViewDescriptor;
+import de.cuioss.jsf.api.common.view.ViewDescriptorImpl;
+import de.cuioss.jsf.api.servlet.ServletAdapterUtil;
+import de.cuioss.tools.logging.CuiLogger;
+import de.cuioss.tools.net.UrlParameter;
+import jakarta.faces.application.ConfigurableNavigationHandler;
+import jakarta.faces.application.NavigationCase;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.http.HttpServletRequest;
+import org.omnifaces.util.Servlets;
 
 import java.io.IOException;
 import java.io.Serial;
@@ -29,35 +42,44 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
-import jakarta.faces.application.ConfigurableNavigationHandler;
-import jakarta.faces.application.NavigationCase;
-import jakarta.faces.component.UIViewRoot;
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
-import jakarta.servlet.http.HttpServletRequest;
-
-import org.omnifaces.util.Servlets;
-
-import de.cuioss.jsf.api.common.view.ViewDescriptor;
-import de.cuioss.jsf.api.common.view.ViewDescriptorImpl;
-import de.cuioss.jsf.api.servlet.ServletAdapterUtil;
-import de.cuioss.tools.logging.CuiLogger;
-import de.cuioss.tools.net.UrlParameter;
-
 /**
- * Class provides navigation utilities.<br>
- * <b>Attention</b> use {@linkplain NavigationUtils} careful and only if Faces
- * Request needs to be redirected to a <b>different</b> web application
- * resource! If you doesn't leave the web application space use Navigation
- * Rules!
+ * Utility class that provides navigation functionality for JSF applications.
+ * <p>
+ * This class offers methods for:
+ * <ul>
+ *   <li>Looking up view IDs from navigation outcomes</li>
+ *   <li>Performing redirects to different views</li>
+ *   <li>Extracting current view information</li>
+ *   <li>Handling view ID suffixes and URL parameters</li>
+ * </ul>
+ * 
+ * <p>
+ * <strong>Important:</strong> Use {@code NavigationUtils} carefully and only when 
+ * Faces Request needs to be redirected to a <strong>different</strong> web application
+ * resource! For navigation within the web application space, use standard Navigation
+ * Rules instead.
+ * </p>
+ * 
+ * <p>
+ * This class is thread-safe as it contains no mutable state and all methods are either
+ * static or properly synchronized.
+ * </p>
  *
+ * @author Oliver Wolff
+ * @since 1.0
  */
 public final class NavigationUtils implements Serializable {
 
     private static final CuiLogger log = new CuiLogger(NavigationUtils.class);
 
+    /**
+     * JSF file extension used for web-accessible views.
+     */
     private static final String JSF = ".jsf";
 
+    /**
+     * XHTML file extension used for view templates.
+     */
     private static final String XHTML = ".xhtml";
 
     @Serial
@@ -67,20 +89,21 @@ public final class NavigationUtils implements Serializable {
 
     private static final String INCOMPLETE_CONFIG = "No NavigationCase defined for outcome ['%s']. Verify your faces configuration.";
 
-    private static final String UNABLE_TO_REDIRECT_RESPONSE_ALREADY_COMMITTED = "Unable to redirect, response already committed.";
-
     /**
      * Try to look up view id or view id expression for outcome by using
-     * {@linkplain ConfigurableNavigationHandler}
+     * {@linkplain ConfigurableNavigationHandler}.
+     * <p>
+     * This method resolves the navigation outcome to a view ID based on the
+     * navigation rules defined in the faces-config.xml.
+     * </p>
      *
-     * @param facesContext to be utilized
-     * @param outcome      navigation case outcome
-     * @return view id if can be resolved.
-     * @throws IllegalStateException if no
-     *                               {@linkplain ConfigurableNavigationHandler} is
-     *                               used in application
+     * @param facesContext The current faces context, must not be null
+     * @param outcome      The navigation case outcome, must not be null
+     * @return The resolved view ID if it can be resolved
+     * @throws IllegalStateException if no {@linkplain ConfigurableNavigationHandler} is
+     *                               used in the application
      * @throws IllegalStateException if the {@linkplain NavigationCase} for outcome
-     *                               not available
+     *                               is not available
      */
     public static String lookUpToViewIdBy(final FacesContext facesContext, final String outcome) {
         return findNavigationCaseForOutcome(facesContext, outcome).getToViewId(facesContext);
@@ -88,16 +111,20 @@ public final class NavigationUtils implements Serializable {
 
     /**
      * Try to look up logical view id (=resulting url) of view id or view id
-     * expression for outcome by using {@linkplain ConfigurableNavigationHandler}
+     * expression for outcome by using {@linkplain ConfigurableNavigationHandler}.
+     * <p>
+     * This method resolves the navigation outcome to a logical view ID (the resulting URL path)
+     * based on the navigation rules defined in the faces-config.xml, and handles the
+     * view ID suffix conversion (e.g., .xhtml to .jsf).
+     * </p>
      *
-     * @param facesContext to be utilized
-     * @param outcome      navigation case outcome
-     * @return logical view id (=resulting url) of the view id if can be resolved.
-     * @throws IllegalStateException if no
-     *                               {@linkplain ConfigurableNavigationHandler} is
-     *                               used in application
+     * @param facesContext The current faces context, must not be null
+     * @param outcome      The navigation case outcome, must not be null
+     * @return The logical view ID (resulting URL) of the view if it can be resolved
+     * @throws IllegalStateException if no {@linkplain ConfigurableNavigationHandler} is
+     *                               used in the application
      * @throws IllegalStateException if the {@linkplain NavigationCase} for outcome
-     *                               not available
+     *                               is not available
      */
     public static String lookUpToLogicalViewIdBy(final FacesContext facesContext, final String outcome) {
         return handleViewIdSuffix(lookUpToViewIdBy(facesContext, outcome));
@@ -105,16 +132,19 @@ public final class NavigationUtils implements Serializable {
 
     /**
      * Try to look up a ViewIdentifier of view id or view id expression for outcome
-     * by using {@linkplain ConfigurableNavigationHandler}
+     * by using {@linkplain ConfigurableNavigationHandler}.
+     * <p>
+     * This method creates a {@link ViewIdentifier} based on the resolved navigation outcome,
+     * which includes the logical view ID and the original outcome.
+     * </p>
      *
-     * @param facesContext to be utilized
-     * @param outcome      navigation case outcome
-     * @return ViewIdentifier of the view id if can be resolved.
-     * @throws IllegalStateException if no
-     *                               {@linkplain ConfigurableNavigationHandler} is
-     *                               used in application
+     * @param facesContext The current faces context, must not be null
+     * @param outcome      The navigation case outcome, must not be null
+     * @return A {@link ViewIdentifier} of the view ID if it can be resolved
+     * @throws IllegalStateException if no {@linkplain ConfigurableNavigationHandler} is
+     *                               used in the application
      * @throws IllegalStateException if the {@linkplain NavigationCase} for outcome
-     *                               not available
+     *                               is not available
      */
     public static ViewIdentifier lookUpToViewIdentifierBy(final FacesContext facesContext, final String outcome) {
         return new ViewIdentifier(lookUpToLogicalViewIdBy(facesContext, outcome), outcome, Collections.emptyList());
@@ -122,16 +152,19 @@ public final class NavigationUtils implements Serializable {
 
     /**
      * Try to look up a ViewDescriptor of view id or view id expression for outcome
-     * by using {@linkplain ConfigurableNavigationHandler}
+     * by using {@linkplain ConfigurableNavigationHandler}.
+     * <p>
+     * This method creates a {@link ViewDescriptor} based on the resolved navigation outcome,
+     * which includes both the original view ID and the logical view ID.
+     * </p>
      *
-     * @param facesContext to be utilized
-     * @param outcome      navigation case outcome
-     * @return ViewDescriptor of the view id if can be resolved.
-     * @throws IllegalStateException if no
-     *                               {@linkplain ConfigurableNavigationHandler} is
-     *                               used in application
+     * @param facesContext The current faces context, must not be null
+     * @param outcome      The navigation case outcome, must not be null
+     * @return A {@link ViewDescriptor} of the view ID if it can be resolved
+     * @throws IllegalStateException if no {@linkplain ConfigurableNavigationHandler} is
+     *                               used in the application
      * @throws IllegalStateException if the {@linkplain NavigationCase} for outcome
-     *                               not available
+     *                               is not available
      */
     public static ViewDescriptor lookUpToViewDescriptorBy(final FacesContext facesContext, final String outcome) {
         final var viewId = lookUpToViewIdBy(facesContext, outcome);
@@ -139,17 +172,19 @@ public final class NavigationUtils implements Serializable {
     }
 
     /**
-     * Try to look up a navigation case outcome by using
-     * {@linkplain ConfigurableNavigationHandler}. In
+     * Finds a NavigationCase for the provided outcome using the ConfigurableNavigationHandler.
+     * <p>
+     * This is an internal helper method used to resolve navigation outcomes to
+     * NavigationCase objects.
+     * </p>
      *
-     * @param facesContext to be utilized
-     * @param outcome      navigation case outcome
-     * @return {@link NavigationCase} id if can be resolved.
-     * @throws IllegalStateException if no
-     *                               {@linkplain ConfigurableNavigationHandler} is
-     *                               used in application
+     * @param facesContext The current faces context, must not be null
+     * @param outcome      The navigation case outcome, must not be null
+     * @return The {@link NavigationCase} if it can be resolved
+     * @throws IllegalStateException if no {@linkplain ConfigurableNavigationHandler} is
+     *                               used in the application
      * @throws IllegalStateException if the {@linkplain NavigationCase} for outcome
-     *                               not available
+     *                               is not available
      */
     private static NavigationCase findNavigationCaseForOutcome(final FacesContext facesContext, final String outcome) {
         final var navigationHandler = facesContext.getApplication().getNavigationHandler();
@@ -167,13 +202,19 @@ public final class NavigationUtils implements Serializable {
     }
 
     /**
-     * Send redirect to given URL.
+     * Sends a redirect to the specified URL with optional URL parameters.
+     * <p>
+     * This method constructs a complete URL from the context path, the provided URL,
+     * and any URL parameters, then performs a redirect. It handles encoding of parameters
+     * and checks if the response is already committed.
+     * </p>
      *
-     * @param url          Context-relative url where the response should be
-     *                     redirected. Must not be null or empty
-     * @param facesContext current faces context, must not be null.
-     * @param encode       indicates whether to encode the UrlParameter
-     * @param parameters   optional {@link UrlParameter}
+     * @param facesContext The current faces context, must not be null
+     * @param url          The context-relative URL where the response should be
+     *                     redirected, must not be null or empty
+     * @param encode       Indicates whether to encode the URL parameters
+     * @param parameters   Optional {@link UrlParameter} instances to append to the URL
+     * @throws IllegalArgumentException if url is null or empty
      */
     public static void sendRedirect(final FacesContext facesContext, final String url, final boolean encode,
             final UrlParameter... parameters) {
@@ -184,34 +225,47 @@ public final class NavigationUtils implements Serializable {
         if (!response.isCommitted()) {
 
             final var fullUrl = response.encodeRedirectURL(getRequest(facesContext).getContextPath()) +
-                handleViewIdSuffix(url) + createParameterString(encode, parameters);
+                    handleViewIdSuffix(url) + createParameterString(encode, parameters);
 
             redirect(facesContext, fullUrl);
         } else if (log.isWarnEnabled()) {
-            log.warn(UNABLE_TO_REDIRECT_RESPONSE_ALREADY_COMMITTED);
+            log.warn(WARN.RESPONSE_ALREADY_COMMITTED::format);
         }
     }
 
+    /**
+     * Executes a redirect to the specified URL.
+     *
+     * <p><em>Caution</em>: This method is only for context-relative redirects,
+     * therefore only the referenced file will be resolved/redirected to,
+     * not the complete {@link URL}.</p>
+     *
+     * @param facesContext The {@link FacesContext} to use for the redirect
+     * @param fullUrl The complete URL to redirect to, must not be null
+     * @throws IllegalStateException if the redirect operation fails
+     */
     public static void redirect(final FacesContext facesContext, final String fullUrl) {
         try {
-
             // FlashScope needs to know, whether the next request is a redirect.
             facesContext.getExternalContext().getFlash().setRedirect(true);
             facesContext.getExternalContext().redirect(fullUrl);
             facesContext.responseComplete();
-
         } catch (final IOException e) {
             throw new IllegalStateException("Unable to redirect to " + fullUrl, e);
         }
     }
 
     /**
-     * Shorthand for using sendRedirect with List instead of ellipsis
+     * Shorthand for using sendRedirect with a List of parameters instead of varargs.
+     * <p>
+     * This method simplifies redirecting with a list of URL parameters, handling
+     * the case where the parameter list is null or empty.
+     * </p>
      *
-     * @param url           Context-relative url where the response should be
-     *                      redirected. Must not be null or empty
-     * @param facesContext  current faces context, must not be null.
-     * @param parameterList list of url parameter
+     * @param facesContext  The current faces context, must not be null
+     * @param url           The context-relative URL where the response should be
+     *                      redirected, must not be null or empty
+     * @param parameterList A list of URL parameters, may be null or empty
      */
     public static void sendRedirectParameterList(final FacesContext facesContext, final String url,
             final List<UrlParameter> parameterList) {
@@ -224,16 +278,19 @@ public final class NavigationUtils implements Serializable {
     }
 
     /**
-     * Shorthand for using sendRedirect with outcome and List instead of ellipsis
+     * Shorthand for using sendRedirect with a navigation outcome and a list of parameters.
+     * <p>
+     * This method resolves the navigation outcome to a logical view ID and then
+     * redirects to that URL with the provided parameters.
+     * </p>
      *
-     * @param facesContext to be used
-     * @param outcome      navigation case outcome
-     * @param parameters   optional {@link UrlParameter}
-     * @throws IllegalStateException if no
-     *                               {@linkplain ConfigurableNavigationHandler} is
-     *                               used in application
+     * @param facesContext The current faces context, must not be null
+     * @param outcome      The navigation case outcome, must not be null
+     * @param parameters   Optional list of {@link UrlParameter} instances
+     * @throws IllegalStateException if no {@linkplain ConfigurableNavigationHandler} is
+     *                               used in the application
      * @throws IllegalStateException if the {@linkplain NavigationCase} for outcome
-     *                               not available
+     *                               is not available
      */
     public static void sendRedirectOutcomeParameterList(final FacesContext facesContext, final String outcome,
             final List<UrlParameter> parameters) {
@@ -242,12 +299,18 @@ public final class NavigationUtils implements Serializable {
     }
 
     /**
-     * Extracts the viewId from facesContext. If none can be extracted it tries to
-     * extract the requested uri from the context. If this fails as well it will
-     * return an empty {@link ViewDescriptor}.
+     * Extracts the current view information from the FacesContext.
+     * 
+     * This method attempts to extract view information from:
+     * <ol>
+     *   <li>The ViewRoot of the FacesContext, if available</li>
+     *   <li>The request URI, if the ViewRoot is not available</li>
+     * </ol>
+     * It also extracts any URL parameters from the request.
      *
-     * @param facesContext {@link FacesContext} must not be null
-     * @return ViewDescriptor extracted from facesContext.
+     * @param facesContext The current {@link FacesContext}, must not be null
+     * @return A {@link ViewDescriptor} containing information about the current view
+     * @throws NullPointerException if facesContext is null
      */
     public static ViewDescriptor getCurrentView(final FacesContext facesContext) {
         requireNonNull(facesContext, "facesContext");
@@ -271,31 +334,33 @@ public final class NavigationUtils implements Serializable {
     }
 
     /**
-     * Extracts from the faces context a List of {@link UrlParameter}
+     * Extracts URL parameters from the request.
+     * <p>
+     * This method converts the query string from the request into a list of
+     * {@link UrlParameter} objects for easier handling.
+     * </p>
      *
-     * @param request expected to be an {@link HttpServletRequest}, {@link Object}
-     *                because of the return value of
-     *                {@link ExternalContext#getRequest()}
-     *
-     * @return the Url-parameter derived from the query-String, in case the given
-     *         request does not represent an {@link HttpServletRequest} it will
-     *         return an empty List.
+     * @param request The request object, expected to be an {@link HttpServletRequest}
+     * @return A list of {@link UrlParameter} instances derived from the query string,
+     *         or an empty list if the request is not an HttpServletRequest
      */
     public static List<UrlParameter> extractUrlParameters(final Object request) {
         if (request instanceof HttpServletRequest servletRequest) {
             return UrlParameter.fromQueryString(Servlets.getRequestQueryString(servletRequest));
         }
-        log.warn(
-                "Unexpected environment. {} is not of type javax.servlet.http.HttpServletRequest. This call therefore returns null",
-                request);
+        log.warn(WARN.UNEXPECTED_ENVIRONMENT.format(request));
         return Collections.emptyList();
     }
 
     /**
-     * Temporary method to ensure proper handling of extensions.
+     * Handles view ID suffix conversion, replacing .xhtml with .jsf.
+     * <p>
+     * This method ensures proper handling of file extensions for web-accessible views,
+     * converting internal view IDs to their web-accessible form.
+     * </p>
      *
-     * @param viewId text representation must not be null
-     * @return the view id with "xhtml" replaced by "jsf"
+     * @param viewId The view ID to process, must not be null
+     * @return The view ID with .xhtml replaced by .jsf if applicable, otherwise unchanged
      */
     public static String handleViewIdSuffix(final String viewId) {
         if (viewId.endsWith(XHTML)) {
@@ -305,60 +370,52 @@ public final class NavigationUtils implements Serializable {
     }
 
     /**
-     * Execute redirect by {@linkplain URL} <em>Caution</em>: This method is only
-     * for context relative redirects, therefore only the referenced file will be
-     * resolved / redirected to, not the complete {@link URL}
+     * Executes a redirect to the specified URL.
+     * 
+     * <em>Caution</em>: This method is only for context-relative redirects,
+     * therefore only the referenced file will be resolved/redirected to,
+     * not the complete {@link URL}.
      *
-     * @param newTarget {@linkplain URL} must not be null
+     * @param newTarget The {@link URL} object to redirect to, must not be null
+     * @throws NullPointerException if newTarget is null
      */
     public static void executeRedirect(final URL newTarget) {
-
         final var checked = requireNonNull(newTarget, "URL must not be null");
-
         final var facesContext = FacesContext.getCurrentInstance();
-
         final var calculatedUrl = checked.getFile();
-
         final var response = ServletAdapterUtil.getResponse(facesContext);
 
         if (!response.isCommitted()) {
-
             final var fullUrl = response.encodeRedirectURL(calculatedUrl);
-
             redirect(facesContext, fullUrl);
-
         } else if (log.isWarnEnabled()) {
-            log.warn(UNABLE_TO_REDIRECT_RESPONSE_ALREADY_COMMITTED);
+            log.warn(WARN.RESPONSE_ALREADY_COMMITTED::format);
         }
     }
 
     /**
-     * Tries to extract the uri of the requested request. It removes the context
-     * path from the uri in order to unify the structure with
-     * {@link UIViewRoot#getViewId()}
+     * Extracts the URI from the request, removing the context path.
+     * 
+     * <p>This method tries to extract the URI of the requested request and removes the
+     * context path to unify the structure with {@link UIViewRoot#getViewId()}.
      *
-     * @param request to be used. It is assumed that it is assignable to
-     *                {@link HttpServletRequest} in order to work. The type of
-     *                {@link Object} is needed because of
-     *                {@link ExternalContext#getRequest()} returning {@link Object}
-     * @return the request url if it can be determined, null otherwise
+     * @param request The request object, expected to be an {@link HttpServletRequest}
+     * @return The request URI with the context path removed if it can be determined,
+     *         null otherwise
      */
     public static String extractRequestUri(final Object request) {
         if (request instanceof HttpServletRequest servletRequest) {
             return nullToEmpty(servletRequest.getRequestURI())
                     .replaceFirst(nullToEmpty(servletRequest.getContextPath()), "");
         }
-        log.warn(
-                "Unexpected environment. {} is not of type javax.servlet.http.HttpServletRequest. This call therefore returns null",
-                request);
+        log.warn(WARN.UNEXPECTED_ENVIRONMENT.format(request));
         return null;
-
     }
 
     /**
-     * Enforce utility class
+     * Private constructor to prevent instantiation of this utility class.
      */
     private NavigationUtils() {
-
+        // Utility class should not be instantiated
     }
 }

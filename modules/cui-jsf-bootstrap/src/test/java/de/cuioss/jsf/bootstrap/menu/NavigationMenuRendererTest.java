@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.bootstrap.menu;
 
+import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
+
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
@@ -25,7 +27,6 @@ import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.jsf.bootstrap.icon.IconComponent;
 import de.cuioss.jsf.bootstrap.icon.IconRenderer;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
-import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
@@ -35,15 +36,15 @@ import jakarta.faces.component.UIOutput;
 import jakarta.faces.component.html.HtmlOutcomeTargetLink;
 import jakarta.faces.component.html.HtmlOutputLink;
 import jakarta.faces.component.html.HtmlOutputText;
-import org.junit.jupiter.api.Disabled;
+import jakarta.faces.context.FacesContext;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
+import java.io.IOException;
 
 @Disabled("FIXME : new css classes need to be added")
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
-class NavigationMenuRendererTest extends AbstractComponentRendererTest<NavigationMenuRenderer>
-    implements ComponentConfigurator {
+class NavigationMenuRendererTest extends AbstractComponentRendererTest<NavigationMenuRenderer> {
 
     private static final String CUI_ICON_PREFIX = "cui-icon ";
 
@@ -61,21 +62,32 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
 
     private static final String OUTCOME_HOME = "home";
 
+    @BeforeEach
+    void setUp(ComponentConfigDecorator decorator) {
+        decorator.registerUIComponent(HtmlOutcomeTargetLink.COMPONENT_TYPE, HtmlOutcomeTargetLink.class)
+                .registerMockRenderer(UIOutcomeTarget.COMPONENT_FAMILY, "jakarta.faces.Link");
+        decorator.registerUIComponent(HtmlOutputLink.COMPONENT_TYPE, HtmlOutputLink.class)
+                .registerMockRenderer(UIOutput.COMPONENT_FAMILY, "jakarta.faces.Link");
+        decorator.registerUIComponent(HtmlOutputText.COMPONENT_TYPE, HtmlOutputText.class);
+        decorator.registerUIComponent(NavigationMenuComponent.class).registerRenderer(NavigationMenuRenderer.class);
+        decorator.registerUIComponent(IconComponent.class).registerRenderer(IconRenderer.class);
+    }
+
     @Test
-    void shouldRenderMinimalWithCommand() {
-        var menuModelItem = new NavigationMenuItemSingleImpl(10);
+    void shouldRenderMinimalWithCommand(FacesContext facesContext) throws IOException {
+        final var menuModelItem = new NavigationMenuItemSingleImpl(10);
         menuModelItem.setOutcome(OUTCOME_HOME);
         menuModelItem.setLabelValue(RESOLVED_LABEL);
         var component = new NavigationMenuComponent();
         component.setModel(menuModelItem);
         var builder = new HtmlTreeBuilder();
         withCommandElement(builder, CLIENT_ID, OUTCOME_HOME, RESOLVED_LABEL);
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderMinimalWithActiveState() {
-        var menuModelItem = new NavigationMenuItemSingleImpl(10);
+    void shouldRenderMinimalWithActiveState(FacesContext facesContext) throws IOException {
+        final var menuModelItem = new NavigationMenuItemSingleImpl(10);
         menuModelItem.setOutcome(OUTCOME_HOME);
         menuModelItem.setLabelValue(RESOLVED_LABEL);
         menuModelItem.getActiveForAdditionalViewId().add("/viewId");
@@ -83,16 +95,16 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         component.setModel(menuModelItem);
         var builder = new HtmlTreeBuilder();
         builder.withNode(Node.LI).withAttributeNameAndId(CLIENT_ID)
-            .withAttribute(AttributeName.DATA_ITEM_ACTIVE, "true").withNode(HTML_OUTCOME_TARGET_LINK)
-            .withAttribute("outcome", OUTCOME_HOME).withNode(Node.SPAN)
-            .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass())
-            .withTextContent(RESOLVED_LABEL).currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
-        assertRenderResult(component, builder.getDocument());
+                .withAttribute(AttributeName.DATA_ITEM_ACTIVE, "true").withNode(HTML_OUTCOME_TARGET_LINK)
+                .withAttribute("outcome", OUTCOME_HOME).withNode(Node.SPAN)
+                .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass())
+                .withTextContent(RESOLVED_LABEL).currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderMinimalWithExternalHref() {
-        var menuModelItem = new NavigationMenuItemExternalSingleImpl(10);
+    void shouldRenderMinimalWithExternalHref(FacesContext facesContext) throws IOException {
+        final var menuModelItem = new NavigationMenuItemExternalSingleImpl(10);
         menuModelItem.setHRef("http://www.google.de");
         menuModelItem.setLabelValue(RESOLVED_LABEL);
         menuModelItem.setTarget("_blank");
@@ -100,16 +112,16 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         component.setModel(menuModelItem);
         var builder = new HtmlTreeBuilder();
         builder.withNode(Node.LI).withAttributeNameAndId(CLIENT_ID).withNode(HTML_OUTPUT_LINK)
-            .withAttribute("value", "http://www.google.de").withAttribute("target", "_blank")
-            .withNode(Node.SPAN)
-            .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass())
-            .withTextContent(RESOLVED_LABEL).currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
-        assertRenderResult(component, builder.getDocument());
+                .withAttribute("value", "http://www.google.de").withAttribute("target", "_blank")
+                .withNode(Node.SPAN)
+                .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass())
+                .withTextContent(RESOLVED_LABEL).currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderMinimalWithTarget() {
-        var menuModelItem = new NavigationMenuItemSingleImpl(10);
+    void shouldRenderMinimalWithTarget(FacesContext facesContext) throws IOException {
+        final var menuModelItem = new NavigationMenuItemSingleImpl(10);
         menuModelItem.setOutcome(OUTCOME_HOME);
         menuModelItem.setLabelValue(RESOLVED_LABEL);
         menuModelItem.setTarget("_blank");
@@ -117,15 +129,15 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         component.setModel(menuModelItem);
         var builder = new HtmlTreeBuilder();
         builder.withNode(Node.LI).withAttributeNameAndId(CLIENT_ID).withNode(HTML_OUTCOME_TARGET_LINK)
-            .withAttribute("outcome", OUTCOME_HOME).withAttribute("target", "_blank").withNode(Node.SPAN)
-            .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass())
-            .withTextContent(RESOLVED_LABEL).currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
-        assertRenderResult(component, builder.getDocument());
+                .withAttribute("outcome", OUTCOME_HOME).withAttribute("target", "_blank").withNode(Node.SPAN)
+                .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass())
+                .withTextContent(RESOLVED_LABEL).currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderMinimalWithCommandAndIcon() {
-        var menuModelItem = new NavigationMenuItemSingleImpl(10);
+    void shouldRenderMinimalWithCommandAndIcon(FacesContext facesContext) throws IOException {
+        final var menuModelItem = new NavigationMenuItemSingleImpl(10);
         menuModelItem.setOutcome(OUTCOME_HOME);
         menuModelItem.setLabelValue(RESOLVED_LABEL);
         menuModelItem.setIconStyleClass(CUI_ICON_ICON);
@@ -133,25 +145,28 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         component.setModel(menuModelItem);
         var builder = new HtmlTreeBuilder();
         builder.withNode(Node.LI).withAttributeNameAndId(CLIENT_ID).withNode(HTML_OUTCOME_TARGET_LINK)
-            .withAttribute("outcome", OUTCOME_HOME).withNode(Node.SPAN)
-            .withStyleClass(CUI_ICON_PREFIX + CUI_ICON_ICON).currentHierarchyUp().withNode(Node.SPAN)
-            .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass())
-            .withTextContent(RESOLVED_LABEL);
-        assertRenderResult(component, builder.getDocument());
+                .withAttribute("outcome", OUTCOME_HOME).withNode(Node.SPAN)
+                .withStyleClass(CUI_ICON_PREFIX + CUI_ICON_ICON).currentHierarchyUp().withNode(Node.SPAN)
+                .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass())
+                .withTextContent(RESOLVED_LABEL);
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderMinimalWithSeparator() {
-        var component = new NavigationMenuComponent();
+    void shouldRenderMinimalWithSeparator(FacesContext facesContext) throws IOException {
+        final var component = new NavigationMenuComponent();
         component.setModel(new NavigationMenuItemSeparatorImpl(10));
+        final var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId(CLIENT_ID)
+                .withStyleClass(CssBootstrap.LIST_DIVIDER);
+        assertRenderResult(component, builder.getDocument(), facesContext);
         var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId(CLIENT_ID)
             .withStyleClass(CssBootstrap.LIST_DIVIDER);
         assertRenderResult(component, builder.getDocument());
     }
 
     @Test
-    void shouldRenderMinimalWithContainer() {
-        var component = new NavigationMenuComponent();
+    void shouldRenderMinimalWithContainer(FacesContext facesContext) throws IOException {
+        final var component = new NavigationMenuComponent();
         component.setId("foo");
         var navigationMenuItemContainer = new NavigationMenuItemContainerImpl(10);
         navigationMenuItemContainer.setId("bar");
@@ -159,7 +174,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId("foo_0_bar")
             .withStyleClass("dropdown");
         withContainerElement(builder);
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     /**
@@ -167,7 +182,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
      */
     @Test
     void shouldRenderNestedContainers() {
-        var component = new NavigationMenuComponent();
+        final var component = new NavigationMenuComponent();
         NavigationMenuItemContainer container1 = new NavigationMenuItemContainerImpl(10);
         NavigationMenuItemContainer container2 = new NavigationMenuItemContainerImpl(10);
         NavigationMenuItemContainer container3 = new NavigationMenuItemContainerImpl(10);
@@ -183,14 +198,14 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         builder.withNode(Node.LI).withAttributeNameAndId(CLIENT_ID).withStyleClass("dropdown");
         withContainerElement(builder, "", false);
         builder.withNode(Node.LI).withAttributeNameAndId(CLIENT_ID + ID_EXTENSION)
-            .withStyleClass("dropdown dropdown-submenu");
+                .withStyleClass("dropdown dropdown-submenu");
         withContainerElement(builder, "", true);
         builder.withNode(Node.LI).withAttributeNameAndId(CLIENT_ID + ID_EXTENSION + ID_EXTENSION)
-            .withStyleClass("dropdown dropdown-submenu");
+                .withStyleClass("dropdown dropdown-submenu");
         withContainerElement(builder, "", true);
         withCommandElement(builder, CLIENT_ID + ID_EXTENSION + ID_EXTENSION + ID_EXTENSION, OUTCOME_HOME,
-            RESOLVED_LABEL);
-        assertRenderResult(component, builder.getDocument());
+                RESOLVED_LABEL);
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     /**
@@ -198,10 +213,10 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
      * children.
      */
     @Test
-    void shouldRenderComplexMenuItem() {
-        var menuModelItem = new NavigationMenuItemContainerImpl(10);
-        var id = "linkId_0";
-        var topLevelText = "parentlabelValue";
+    void shouldRenderComplexMenuItem(FacesContext facesContext) throws IOException {
+        final var menuModelItem = new NavigationMenuItemContainerImpl(10);
+        final var id = "linkId_0";
+        final var topLevelText = "parentlabelValue";
         menuModelItem.setLabelValue(topLevelText);
         var child1 = new NavigationMenuItemSingleImpl(10);
         child1.setOutcome(OUTCOME_HOME);
@@ -234,12 +249,12 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         withContainerElement(builder, topLevelText);
         withCommandElement(builder, id + ID_EXTENSION + ID_EXTENSION, OUTCOME_HOME, child1_labelValue);
         withCommandElement(builder, id + ID_EXTENSION + "_" + child2Id, OUTCOME_HOME, child2_labelValue);
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderModelItemsWithMultipleElements() {
-        var component = new NavigationMenuComponent();
+    void shouldRenderModelItemsWithMultipleElements(FacesContext facesContext) throws IOException {
+        final var component = new NavigationMenuComponent();
         final NavigationMenuItemContainer menuModelItem1 = new NavigationMenuItemContainerImpl(10);
         var menuModelItem2 = new NavigationMenuItemSingleImpl(10);
         menuModelItem2.setOutcome("foo");
@@ -250,12 +265,12 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         // container
         builder.currentHierarchyUp().currentHierarchyUp();
         withCommandElement(builder, "j_id__v_0_1_menu", "foo", "");
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderModelItemsWithOneElement() {
-        var menuModelItem = new NavigationMenuItemContainerImpl(10);
+    void shouldRenderModelItemsWithOneElement(FacesContext facesContext) throws IOException {
+        final var menuModelItem = new NavigationMenuItemContainerImpl(10);
         // menuModelItem.setTitleValue("foo");
         menuModelItem.setIconStyleClass("fooicon");
         var child1 = new NavigationMenuItemSingleImpl(10);
@@ -277,7 +292,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         withCommandElement(builder, CLIENT_ID + "_0_model1", "out1", "");
         withCommandElement(builder, CLIENT_ID + "_1_model2", "out2", "");
         withCommandElement(builder, CLIENT_ID + "_2_menu", "", "");
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     /**
@@ -285,10 +300,10 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
      * children with separator.
      */
     @Test
-    void shouldRenderComplexMenuItemWithSeparator() {
-        var menuModelItem = new NavigationMenuItemContainerImpl(10);
-        var id = "linkId";
-        var topLevelText = "parentlabelValue";
+    void shouldRenderComplexMenuItemWithSeparator(FacesContext facesContext) throws IOException {
+        final var menuModelItem = new NavigationMenuItemContainerImpl(10);
+        final var id = "linkId";
+        final var topLevelText = "parentlabelValue";
         menuModelItem.setLabelValue(topLevelText);
         var child1 = new NavigationMenuItemSingleImpl(10);
         child1.setOutcome(OUTCOME_HOME);
@@ -315,21 +330,21 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         withCommandElement(builder, id + ID_EXTENSION + ID_EXTENSION, OUTCOME_HOME, child1_labelValue);
         separatorElement(builder, id + ID_EXTENSION + "_1_separatorid");
         withCommandElement(builder, id + ID_EXTENSION + "_" + child2Id, OUTCOME_HOME, child2_labelValue);
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderNothing() {
-        var component = new NavigationMenuComponent();
-        assertEmptyRenderResult(component);
+    void shouldRenderNothing(FacesContext facesContext) throws IOException {
+        final var component = new NavigationMenuComponent();
+        assertEmptyRenderResult(component, facesContext);
         component.setModel(new NavigationMenuItemSingleImpl(10));
         component.setRendered(false);
-        assertEmptyRenderResult(component);
+        assertEmptyRenderResult(component, facesContext);
     }
 
     @Test
-    void shouldRenderSeparator() {
-        var component = (NavigationMenuComponent) getComponent();
+    void shouldRenderSeparator(FacesContext facesContext) throws IOException {
+        final var component = (NavigationMenuComponent) getComponent();
         component.setId("compid");
         component.setModel(new NavigationMenuItemSeparatorImpl(10));
         var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId("compid" + ID_EXTENSION)
@@ -338,8 +353,8 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     }
 
     @Test
-    void shouldNotRenderChildsIfParentIsNotRendered() {
-        var menuModelItem = new NavigationMenuItemContainerImpl(10);
+    void shouldNotRenderChildsIfParentIsNotRendered(FacesContext facesContext) throws IOException {
+        final var menuModelItem = new NavigationMenuItemContainerImpl(10);
         menuModelItem.setRendered(false);
         menuModelItem.getChildren().add(new NavigationMenuItemSingleImpl(10));
         menuModelItem.getChildren().add(NavigationMenuItemSeparatorImpl.getInstance(10));
@@ -347,7 +362,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         var component = new NavigationMenuComponent();
         component.setModel(menuModelItem);
         component.setId("rendertest");
-        assertEmptyRenderResult(component);
+        assertEmptyRenderResult(component, facesContext);
     }
 
     /**
@@ -361,11 +376,11 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     }
 
     private static void withCommandElement(final HtmlTreeBuilder builder, final String id, final String outcome,
-                                           final String text) {
+            final String text) {
         builder.withNode(Node.LI).withAttributeNameAndId(id).withNode(HTML_OUTCOME_TARGET_LINK)
-            .withAttribute("outcome", outcome).withNode(Node.SPAN)
-            .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass()).withTextContent(text)
-            .currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
+                .withAttribute("outcome", outcome).withNode(Node.SPAN)
+                .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass()).withTextContent(text)
+                .currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
     }
 
     private static void withContainerElement(final HtmlTreeBuilder builder) {
@@ -377,7 +392,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     }
 
     private static void withContainerElement(final HtmlTreeBuilder builder, final String text,
-                                             final boolean isSubItem) {
+            final boolean isSubItem) {
         containerElement(builder, text, false, isSubItem);
     }
 
@@ -390,18 +405,18 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
      * @param isSubItem
      */
     private static void containerElement(final HtmlTreeBuilder builder, final String text,
-                                         final boolean setIconStyleClass, final boolean isSubItem) {
+            final boolean setIconStyleClass, final boolean isSubItem) {
         builder.withNode(HTML_OUTCOME_TARGET_LINK).withStyleClass("dropdown-toggle")
-            .withAttribute(AttributeName.DATA_TOGGLE, "dropdown");
+                .withAttribute(AttributeName.DATA_TOGGLE, "dropdown");
         if (setIconStyleClass) {
             builder.withNode(Node.SPAN).withStyleClass(IconProvider.FALLBACK_ICON_STRING).currentHierarchyUp();
         }
         builder.withNode(Node.SPAN)
-            .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass()).withTextContent(text)
-            .currentHierarchyUp();
+                .withAttribute("class", CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass()).withTextContent(text)
+                .currentHierarchyUp();
         builder.withNode(Node.SPAN)
-            .withStyleClass("cui-icon " + (isSubItem ? "cui-icon-triangle_e" : "cui-icon-triangle_s"))
-            .currentHierarchyUp().currentHierarchyUp();
+                .withStyleClass("cui-icon " + (isSubItem ? "cui-icon-triangle_e" : "cui-icon-triangle_s"))
+                .currentHierarchyUp().currentHierarchyUp();
         builder.withNode(Node.UL).withStyleClass("dropdown-menu");
     }
 
@@ -412,14 +427,4 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         return component;
     }
 
-    @Override
-    public void configureComponents(final ComponentConfigDecorator decorator) {
-        decorator.registerUIComponent(HtmlOutcomeTargetLink.COMPONENT_TYPE, HtmlOutcomeTargetLink.class)
-            .registerMockRenderer(UIOutcomeTarget.COMPONENT_FAMILY, "jakarta.faces.Link");
-        decorator.registerUIComponent(HtmlOutputLink.COMPONENT_TYPE, HtmlOutputLink.class)
-            .registerMockRenderer(UIOutput.COMPONENT_FAMILY, "jakarta.faces.Link");
-        decorator.registerUIComponent(HtmlOutputText.COMPONENT_TYPE, HtmlOutputText.class);
-        decorator.registerUIComponent(NavigationMenuComponent.class).registerRenderer(NavigationMenuRenderer.class);
-        decorator.registerUIComponent(IconComponent.class).registerRenderer(IconRenderer.class);
-    }
 }

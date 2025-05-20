@@ -15,24 +15,25 @@
  */
 package de.cuioss.jsf.bootstrap.layout;
 
-import jakarta.faces.component.FacesComponent;
-
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
+import jakarta.faces.component.FacesComponent;
 
 /**
  * <p>
- * Renders a bootstrap conform div with the styleClass 'form-group'.
+ * Renders a Bootstrap form-group container that provides proper spacing and structure
+ * for form elements. The form-group is a fundamental building block in Bootstrap's form system
+ * that wraps labels, controls, and help text.
  * </p>
+ *
+ * <h2>Bootstrap Form Structure</h2>
  * <p>
- * The layout relies completely on the grid-system of twitter-bootstrap, see
- * <a href="http://getbootstrap.com/css/#grid">Bootstrap Documentation</a>
+ * Form groups are the easiest way to add structure to forms and provide a consistent spacing
+ * and alignment for labels, controls, validation states, and help text. In Bootstrap's form system,
+ * form-groups create optimally spaced blocks that maintain proper vertical rhythm and horizontal
+ * alignment, especially when used with grid classes.
  * </p>
- * <ul>
- * <li>Form-Groups are similar to rows but within a form-context</li>
- * <li>Use rows to create horizontal groups of columns.</li>
- * </ul>
  * <p>
  * More information and examples can be found in the <a href=
  * "https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/layout.jsf"
@@ -41,7 +42,10 @@ import de.cuioss.jsf.bootstrap.CssBootstrap;
  * <h2>Usage</h2>
  *
  * <pre>
- *  {@code <cui:formGroup />}
+ *  {@code <cui:formGroup>
+ *    <cui:outputLabel for="input1" value="Label" />
+ *    <h:inputText id="input1" />
+ *  </cui:formGroup>}
  * </pre>
  *
  * <h2>Styling</h2>
@@ -50,15 +54,11 @@ import de.cuioss.jsf.bootstrap.CssBootstrap;
  * </ul>
  *
  * @author Oliver Wolff
- *
  */
 @FacesComponent(BootstrapFamily.LAYOUT_FORMGROUP_COMPONENT)
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
 public class FormGroupComponent extends AbstractLayoutComponent {
 
-    /**
-     *
-     */
     public FormGroupComponent() {
         super.setRendererType(BootstrapFamily.LAYOUT_RENDERER);
     }

@@ -15,17 +15,55 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 @VerifyComponentProperties(of = "style")
+@ExplicitParamInjection
+@DisplayName("Tests for StyleAttributeProviderImpl implementation")
 class StyleAttributeProviderImplTest extends AbstractPartialComponentTest {
 
     @Test
+    @DisplayName("Should throw NullPointerException when constructed with null")
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> new StyleAttributeProviderImpl(null));
+        // Act & Assert
+        assertThrows(NullPointerException.class, () -> new StyleAttributeProviderImpl(null),
+                "Constructor should reject null component");
+    }
+
+    @Nested
+    @DisplayName("Tests for style attribute management")
+    class StyleAttributeTests {
+
+        @Test
+        @DisplayName("Should return null when no style is set")
+        void shouldReturnNullWhenNoStyleSet() {
+            // Arrange
+            var any = anyComponent();
+
+            // Act & Assert
+            assertNull(any.getStyle(),
+                    "Style should be null when none is set");
+        }
+
+        @Test
+        @DisplayName("Should store and retrieve style correctly")
+        void shouldStoreAndRetrieveStyle() {
+            // Arrange
+            var any = anyComponent();
+            String testStyle = "color: red; font-weight: bold;";
+
+            // Act
+            any.setStyle(testStyle);
+
+            // Assert
+            assertEquals(testStyle, any.getStyle(),
+                    "Should return the style that was set");
+        }
     }
 }

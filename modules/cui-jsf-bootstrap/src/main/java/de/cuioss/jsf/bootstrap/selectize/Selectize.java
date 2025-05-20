@@ -15,11 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.selectize;
 
-import java.io.Serializable;
-import java.util.Map;
-
-import jakarta.faces.component.UIComponent;
-
 import de.cuioss.jsf.api.components.javascript.ComponentWrapperJQuerySelector;
 import de.cuioss.jsf.api.components.javascript.ComponentWrapperJQuerySelector.ComponentWrapperJQuerySelectorBuilder;
 import de.cuioss.jsf.api.components.javascript.JavaScriptOptions;
@@ -28,29 +23,62 @@ import de.cuioss.jsf.api.components.javascript.NotQuotableWrapper;
 import de.cuioss.jsf.api.components.javascript.ScriptProvider;
 import de.cuioss.jsf.api.components.util.ComponentWrapper;
 import de.cuioss.uimodel.model.code.CodeType;
+import jakarta.faces.component.UIComponent;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
+import java.io.Serializable;
+import java.util.Map;
+
 /**
- * Helper class for creating java-script configuration for the selectize
- * JavaScript
+ * Helper class for integrating Selectize.js library with JSF components.
+ * Provides a fluent API for creating JavaScript configuration for customizable 
+ * select boxes and tag inputs.
+ * 
+ * <h3>Features:</h3>
+ * <ul>
+ *   <li>Fluent builder API for configuration</li>
+ *   <li>Support for tag creation, sorting, and plugins</li>
+ *   <li>Handling of user-created items</li>
+ * </ul>
+ * 
+ * <h3>Usage Example:</h3>
+ * <pre>
+ * Selectize selectize = Selectize.builder()
+ *     .withComponentWrapper(componentWrapper)
+ *     .withOption(Selectize.OPTION_KEY_MAX_ITEMS, 5)
+ *     .withOption(Selectize.OPTION_KEY_CREATE, Selectize.DEFAULT_TAG_CREATE_METHOD_WRAPPER)
+ *     .build();
+ * 
+ * String script = selectize.script();
+ * </pre>
  *
  * @author Oliver Wolff
- *
+ * @since 1.0
  */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class Selectize implements ScriptProvider {
 
     /**
-     * The javaScript to be called for enabling the selectize plugin.
+     * The javaScript template to be called for enabling the selectize plugin.
+     * The format parameters are:
+     * <ol>
+     *   <li>The jQuery selector for the target component</li>
+     *   <li>The JSON configuration options object</li>
+     * </ol>
      */
     public static final String JS_TEMPLATE = "%s.selectize(%s);";
 
     /**
-     * "create": Allows the user to create a new items that aren't in the list of
-     * options. This option can be any of the following: "true", "false" (disabled),
-     * or a function that accepts two arguments: "input" and "callback". The
-     * callback should be invoked with the final data for the option.
+     * "create": Allows the user to create new items that aren't in the list of options.
+     * <p>
+     * This option can be any of the following:
+     * <ul>
+     *   <li>"true" - Enable item creation</li>
+     *   <li>"false" - Disable item creation</li>
+     *   <li>A function that accepts two arguments: "input" and "callback". 
+     *       The callback should be invoked with the final data for the option</li>
+     * </ul>
      */
     public static final String OPTION_KEY_CREATE = "create";
 
@@ -144,19 +172,33 @@ public class Selectize implements ScriptProvider {
     public static final String OPTION_VALUE_SORT_BY_LABEL = "{field:'label',direction:'asc'}";
 
     /**
-     * String identifier used for identifying {@link CodeType} that are user
-     * created, and must therefore handled separately. The user-input will prefixed
-     * with that String: "_client_created_"
+     * String identifier used for identifying {@link CodeType} instances that are user
+     * created, and must therefore be handled separately. The user-input will be prefixed
+     * with this String: "_client_created_"
+     * <p>
+     * This is particularly useful when implementing client-side item creation while maintaining
+     * the ability to distinguish between predefined and user-created items on the server side.
      */
     public static final String CLIENT_CREATED_SUFFIX = "_client_created_";
 
-    /** "function(input) {return {value: input,label: input}" */
+    /**
+     * Default create method for tag creation that adds the {@link #CLIENT_CREATED_SUFFIX} 
+     * to user-created values to mark them as client-created.
+     * <p>
+     * The function creates an object with:
+     * <ul>
+     *   <li>value: The input prefixed with {@link #CLIENT_CREATED_SUFFIX}</li>
+     *   <li>label: The original input text</li>
+     * </ul>
+     */
     public static final String DEFAULT_TAG_CREATE_METHOD = "function(input) {return {value: '" + CLIENT_CREATED_SUFFIX
             + "' + input,label: input}}";
 
     /**
-     * NotQuotableWrapper variant of {@link #DEFAULT_TAG_CREATE_METHOD} to be used
-     * directly.
+     * NotQuotableWrapper variant of {@link #DEFAULT_TAG_CREATE_METHOD} ready to be used
+     * directly as an option value without additional quotes.
+     * <p>
+     * This wrapper ensures the JavaScript function is not enclosed in quotes when used as an option value.
      */
     public static final NotQuotableWrapper DEFAULT_TAG_CREATE_METHOD_WRAPPER = new NotQuotableWrapper(
             DEFAULT_TAG_CREATE_METHOD);
@@ -164,14 +206,27 @@ public class Selectize implements ScriptProvider {
     private final ComponentWrapperJQuerySelector jQuerySelector;
     private final JavaScriptOptions options;
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Generates the complete Selectize initialization JavaScript by combining the jQuery 
+     * selector with the configuration options.
+     * 
+     * @return The JavaScript code to initialize Selectize on the target element
+     */
     @Override
     public String script() {
         return JS_TEMPLATE.formatted(jQuerySelector.script(), options.script());
     }
 
     /**
-     * @author Oliver Wolff
+     * Builder class for creating {@link Selectize} instances with a fluent API.
+     * <p>
+     * This builder provides methods to configure all aspects of the Selectize initialization,
+     * including the target component and all supported options.
      *
+     * @author Oliver Wolff
+     * @since 1.0
      */
     public static class SelectizeBuilder {
 
@@ -185,8 +240,11 @@ public class Selectize implements ScriptProvider {
         }
 
         /**
-         * @param componentWrapper
-         * @return an instance of {@link SelectizeBuilder}
+         * Sets the component wrapper to identify the target JSF component.
+         *
+         * @param componentWrapper The wrapper containing the JSF component to apply Selectize to.
+         *                         Must not be null.
+         * @return The current builder instance for method chaining
          */
         public SelectizeBuilder withComponentWrapper(ComponentWrapper<? extends UIComponent> componentWrapper) {
             querySelectorBuilder.withComponentWrapper(componentWrapper);
@@ -194,10 +252,12 @@ public class Selectize implements ScriptProvider {
         }
 
         /**
-         * @param idExtension if not null it will be appended to the derived ClientId.
-         *                    In addition there will be an underscore appended: The
-         *                    result will be component.getClientId() + "_" + idExtension
-         * @return an instance of {@link SelectizeBuilder}
+         * Sets an ID extension to be appended to the component's client ID.
+         *
+         * @param idExtension If not null, it will be appended to the derived ClientId.
+         *                    An underscore will be automatically added between the client ID and extension.
+         *                    The resulting selector will target component.getClientId() + "_" + idExtension
+         * @return The current builder instance for method chaining
          */
         public SelectizeBuilder withIdExtension(String idExtension) {
             querySelectorBuilder.withIdExtension(idExtension);
@@ -205,8 +265,11 @@ public class Selectize implements ScriptProvider {
         }
 
         /**
-         * @param options
-         * @return instance of {@link SelectizeBuilder}
+         * Adds multiple Selectize options at once using a Map.
+         *
+         * @param options A map containing option key-value pairs to be added to the Selectize configuration.
+         *                Keys should be one of the predefined OPTION_KEY_* constants.
+         * @return The current builder instance for method chaining
          */
         public SelectizeBuilder withOptions(Map<String, Serializable> options) {
             optionsBuilder.withOptions(options);
@@ -214,9 +277,12 @@ public class Selectize implements ScriptProvider {
         }
 
         /**
-         * @param key   identifying the key of an entry, must no be null
-         * @param value the concrete value of an option, may be null.
-         * @return instance of {@link SelectizeBuilder}
+         * Adds a single Selectize option to the configuration.
+         *
+         * @param key   The option key, typically one of the predefined OPTION_KEY_* constants. Must not be null.
+         * @param value The option value, which may be null, a primitive, a String, or a {@link NotQuotableWrapper}
+         *              for JavaScript functions or other non-quotable values.
+         * @return The current builder instance for method chaining
          */
         public SelectizeBuilder withOption(String key, Serializable value) {
             optionsBuilder.withOption(key, value);
@@ -224,7 +290,9 @@ public class Selectize implements ScriptProvider {
         }
 
         /**
-         * @return a build {@link Selectize}
+         * Builds and returns the configured {@link Selectize} instance.
+         *
+         * @return A fully configured {@link Selectize} instance ready to generate JavaScript
          */
         public Selectize build() {
             return new Selectize(querySelectorBuilder.build(), optionsBuilder.build());
@@ -232,10 +300,11 @@ public class Selectize implements ScriptProvider {
     }
 
     /**
-     * @return a new instance of {@link SelectizeBuilder}
+     * Creates a new {@link SelectizeBuilder} to begin constructing a Selectize configuration.
+     *
+     * @return A new builder instance for creating Selectize configurations
      */
     public static SelectizeBuilder builder() {
         return new SelectizeBuilder();
     }
-
 }

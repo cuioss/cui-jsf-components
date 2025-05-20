@@ -15,22 +15,22 @@
  */
 package de.cuioss.jsf.api.components.util;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.component.behavior.AjaxBehavior;
 import jakarta.faces.component.html.HtmlInputText;
 import jakarta.faces.component.html.HtmlOutputText;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.test.jsf.config.ComponentConfigurator;
-import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
-import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
-
-class ComponentWrapperTest extends JsfEnabledTestEnvironment implements ComponentConfigurator {
+@EnableJsfEnvironment
+@DisplayName("Tests for ComponentWrapper")
+class ComponentWrapperTest {
 
     private static final String ID = "id";
 
@@ -38,46 +38,93 @@ class ComponentWrapperTest extends JsfEnabledTestEnvironment implements Componen
 
     private static final String EXTENSION_SUFFIX = "_" + EXTENSION;
 
-    @Test
-    void shouldHandleHtmlInputText() {
-        var wrapper = new ComponentWrapper<>(new HtmlInputText());
-        assertTrue(wrapper.isClientBehaviorHolder());
-        // Should be cached now.
-        assertTrue(wrapper.isClientBehaviorHolder());
-        assertTrue(wrapper.getClientBehaviors().isEmpty());
-        // Should be cached now.
-        wrapper.getWrapped().addClientBehavior("click", new AjaxBehavior());
-        assertTrue(wrapper.getClientBehaviors().isEmpty());
-        // No Id set and no ClientBehaviors but is of type UIInput, therefore
-        // clientId needs to be rendered
-        assertFalse(wrapper.shouldRenderClientId());
+    @Nested
+    @DisplayName("Tests for client behavior handling")
+    class ClientBehaviorTests {
+
+        @Test
+        @DisplayName("Should correctly identify and handle client behavior holders")
+        void shouldIdentifyAndHandleClientBehaviorHolders() {
+            // Arrange
+            var wrapper = new ComponentWrapper<>(new HtmlInputText());
+
+            // Act & Assert - initial state
+            assertTrue(wrapper.isClientBehaviorHolder(),
+                    "HtmlInputText should be identified as a client behavior holder");
+
+            // Act & Assert - cached result
+            assertTrue(wrapper.isClientBehaviorHolder(),
+                    "Result should be cached and remain true on second call");
+
+            // Act & Assert - empty behaviors
+            assertTrue(wrapper.getClientBehaviors().isEmpty(),
+                    "Client behaviors should be empty initially");
+
+            // Arrange - add behavior after cache is created
+            wrapper.getWrapped().addClientBehavior("click", new AjaxBehavior());
+
+            // Act & Assert - behaviors after modification
+            assertTrue(wrapper.getClientBehaviors().isEmpty(),
+                    "Client behaviors should still be empty due to caching");
+
+            // Act & Assert - client ID rendering
+            assertFalse(wrapper.shouldRenderClientId(),
+                    "Should not render client ID when no ID is set");
+        }
+
+        @Test
+        @DisplayName("Should correctly handle components that are not client behavior holders")
+        void shouldHandleNonClientBehaviorHolders() {
+            // Arrange
+            var wrapper = new ComponentWrapper<>(new HtmlOutputText());
+
+            // Act & Assert - behavior holder check
+            assertFalse(wrapper.isClientBehaviorHolder(),
+                    "HtmlOutputText should not be identified as a client behavior holder");
+
+            // Act & Assert - client ID rendering without ID
+            assertFalse(wrapper.shouldRenderClientId(),
+                    "Should not render client ID when no ID is set and not a behavior holder");
+
+            // Arrange - set generated ID
+            wrapper.getWrapped().setId(UIViewRoot.UNIQUE_ID_PREFIX);
+
+            // Act & Assert - client ID rendering with generated ID
+            assertFalse(wrapper.shouldRenderClientId(),
+                    "Should not render client ID when ID is generated");
+
+            // Arrange - set explicit ID
+            wrapper.getWrapped().setId(ID);
+
+            // Act & Assert - client ID rendering with explicit ID
+            assertTrue(wrapper.shouldRenderClientId(),
+                    "Should render client ID when explicit ID is set");
+        }
     }
 
-    @Test
-    void shouldHandleHtmlOutputText() {
-        var wrapper = new ComponentWrapper<>(new HtmlOutputText());
-        assertFalse(wrapper.isClientBehaviorHolder());
-        // No Id set and not of type ClientBehaviorHolder, therefore no
-        // clientId needs to be rendered
-        assertFalse(wrapper.shouldRenderClientId());
-        wrapper.getWrapped().setId(UIViewRoot.UNIQUE_ID_PREFIX);
-        assertFalse(wrapper.shouldRenderClientId());
-        wrapper.getWrapped().setId(ID);
-        assertTrue(wrapper.shouldRenderClientId());
+    @Nested
+    @DisplayName("Tests for client ID manipulation")
+    class ClientIdTests {
+
+        @Test
+        @DisplayName("Should correctly suffix client IDs")
+        void shouldSuffixClientIds() {
+            // Arrange
+            var wrapper = new ComponentWrapper<>(new HtmlOutputText());
+            wrapper.getWrapped().setId(ID);
+
+            // Act & Assert - with extension
+            assertEquals(ID + EXTENSION_SUFFIX, wrapper.getSuffixedClientId(EXTENSION),
+                    "Should append suffix to client ID with underscore separator");
+
+            // Act & Assert - with null extension
+            assertEquals(ID, wrapper.getSuffixedClientId(null),
+                    "Should return original client ID when suffix is null");
+        }
     }
 
-    @Test
-    void shouldSuffixClientId() {
-        var wrapper = new ComponentWrapper<>(new HtmlOutputText());
-        assertFalse(wrapper.isClientBehaviorHolder());
-        wrapper.getWrapped().setId(ID);
-        assertTrue(wrapper.shouldRenderClientId());
-        assertEquals(ID + EXTENSION_SUFFIX, wrapper.getSuffixedClientId(EXTENSION));
-        assertEquals(ID, wrapper.getSuffixedClientId(null));
-    }
-
-    @Override
-    public void configureComponents(final ComponentConfigDecorator decorator) {
+    @BeforeEach
+    void configureComponents(final ComponentConfigDecorator decorator) {
         decorator.registerMockRendererForHtmlOutputText();
     }
 }

@@ -16,7 +16,9 @@
 package de.cuioss.jsf.dev.metadata.composite.attributes;
 
 import de.cuioss.test.jsf.component.AbstractComponentTest;
+import org.junit.jupiter.api.DisplayName;
 
+@DisplayName("Tests for DisplayXmlCode")
 class DisplayXmlCodeTest extends AbstractComponentTest<DisplayXmlCode> {
 
 }

@@ -15,9 +15,6 @@
  */
 package de.cuioss.jsf.jqplot.plugin.highlighter;
 
-import java.io.Serial;
-import java.util.List;
-
 import de.cuioss.jsf.jqplot.hook.PlotHookFunctionProvider;
 import de.cuioss.jsf.jqplot.js.support.JsObject;
 import de.cuioss.jsf.jqplot.js.types.JsBoolean;
@@ -29,6 +26,9 @@ import de.cuioss.jsf.jqplot.plugin.IPluginConsumer;
 import de.cuioss.jsf.jqplot.plugin.PluginSupport;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.util.List;
 
 /**
  * Plugin which will highlight data points when they are moused over.

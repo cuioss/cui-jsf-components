@@ -17,19 +17,35 @@ package de.cuioss.jsf.api.components.base;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.base.BaseCuiPanel.PanelType;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "styleClass", "rendered", "style" })
+@VerifyComponentProperties(of = {"styleClass", "rendered", "style"})
+@DisplayName("Tests for BaseCuiPanel")
 class BaseCuiPanelTest extends AbstractComponentTest<BaseCuiPanel> {
 
-    @Test
-    void shouldCreateAccordingGivenType() {
-        assertEquals("block", new BaseCuiPanel(PanelType.DIV).getLayout());
-        assertEquals("span", new BaseCuiPanel(PanelType.SPAN).getLayout());
-        assertEquals("block", new BaseCuiPanel().getLayout());
+    @Nested
+    @DisplayName("Tests for panel layout configuration")
+    class LayoutConfigurationTests {
+
+        @Test
+        @DisplayName("Should create panel with correct layout based on panel type")
+        void shouldCreateWithCorrectLayoutBasedOnType() {
+            // Arrange & Act & Assert - testing DIV type
+            assertEquals("block", new BaseCuiPanel(PanelType.DIV).getLayout(),
+                    "DIV panel type should have 'block' layout");
+
+            // Arrange & Act & Assert - testing SPAN type
+            assertEquals("span", new BaseCuiPanel(PanelType.SPAN).getLayout(),
+                    "SPAN panel type should have 'span' layout");
+
+            // Arrange & Act & Assert - testing default constructor
+            assertEquals("block", new BaseCuiPanel().getLayout(),
+                    "Default panel should have 'block' layout");
+        }
     }
 }

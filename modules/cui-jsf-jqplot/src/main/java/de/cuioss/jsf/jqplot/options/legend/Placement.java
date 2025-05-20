@@ -15,9 +15,9 @@
  */
 package de.cuioss.jsf.jqplot.options.legend;
 
-import static java.util.Objects.requireNonNull;
-
 import lombok.Getter;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * "insideGrid" places legend inside the grid area of the plot. "outsideGrid"

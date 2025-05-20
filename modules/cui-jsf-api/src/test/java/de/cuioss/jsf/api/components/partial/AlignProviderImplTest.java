@@ -18,28 +18,50 @@ package de.cuioss.jsf.api.components.partial;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.css.AlignHolder;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 @VerifyComponentProperties(of = "align")
+@ExplicitParamInjection
+@DisplayName("Tests for AlignProvider implementation")
 class AlignProviderImplTest extends AbstractPartialComponentTest {
 
     @Test
+    @DisplayName("Should throw NullPointerException when constructed with null")
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> new AlignProvider(null));
+        // Act & Assert
+        assertThrows(NullPointerException.class, () -> new AlignProvider(null),
+                "Constructor should reject null component");
     }
 
-    @Test
-    void shouldResolveDefaultForNoAlignSet() {
-        assertEquals(AlignHolder.DEFAULT, anyComponent().resolveAlign());
-    }
+    @Nested
+    @DisplayName("Tests for align resolution")
+    class AlignResolutionTests {
 
-    @Test
-    void shouldResolveAlign() {
-        var any = anyComponent();
-        any.setAlign(AlignHolder.LEFT.name());
-        assertEquals(AlignHolder.LEFT, any.resolveAlign());
+        @Test
+        @DisplayName("Should resolve default align when none is set")
+        void shouldResolveDefaultForNoAlignSet() {
+            // Act & Assert
+            assertEquals(AlignHolder.DEFAULT, anyComponent().resolveAlign(),
+                    "Should return default align when none is set");
+        }
+
+        @Test
+        @DisplayName("Should resolve specific align when set")
+        void shouldResolveSpecificAlign() {
+            // Arrange
+            var any = anyComponent();
+
+            // Act
+            any.setAlign(AlignHolder.LEFT.name());
+
+            // Assert
+            assertEquals(AlignHolder.LEFT, any.resolveAlign(),
+                    "Should return the specific align that was set");
+        }
     }
 }

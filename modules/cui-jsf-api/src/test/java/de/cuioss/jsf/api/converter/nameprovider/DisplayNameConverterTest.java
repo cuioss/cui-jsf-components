@@ -20,8 +20,10 @@ import de.cuioss.test.generator.Generators;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.converter.AbstractSanitizingConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import de.cuioss.uimodel.nameprovider.DisplayName;
 
+@EnableJsfEnvironment
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class DisplayNameConverterTest extends AbstractSanitizingConverterTest<DisplayNameConverter, DisplayName> {
 

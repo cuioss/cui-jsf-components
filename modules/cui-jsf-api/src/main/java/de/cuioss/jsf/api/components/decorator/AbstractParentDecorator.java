@@ -15,10 +15,11 @@
  */
 package de.cuioss.jsf.api.components.decorator;
 
+import static java.util.Objects.requireNonNull;
+
 import de.cuioss.jsf.api.components.partial.ComponentBridge;
 import de.cuioss.jsf.api.components.util.ComponentModifier;
 import de.cuioss.jsf.api.components.util.modifier.ComponentModifierFactory;
-
 import jakarta.faces.component.StateHelper;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIComponentBase;
@@ -27,19 +28,77 @@ import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.ListenerFor;
 import jakarta.faces.event.PostAddToViewEvent;
 
-import static java.util.Objects.requireNonNull;
-
 /**
- * Base class for decorating the parent of the given component. This component
- * ensures that {@link #decorate(ComponentModifier)} method is always called
- * before a component is to be rendered, In addition, it implements the contract
- * of {@link ComponentBridge}
+ * Base class for components that need to decorate their parent component.
+ * <p>
+ * This abstract class provides the foundation for creating JSF components that modify
+ * or enhance their parent component in the component tree. It ensures that the
+ * {@link #decorate(ComponentModifier)} method is called at the appropriate time
+ * in the JSF lifecycle (specifically after the component is added to the view).
+ * </p>
+ * <p>
+ * The decorator pattern is implemented through the following workflow:
+ * </p>
+ * <ol>
+ *   <li>Component is added to the view and receives a {@link PostAddToViewEvent}</li>
+ *   <li>If the component is rendered (rendered="true"), the parent component is decorated</li>
+ *   <li>The actual decoration logic is implemented by subclasses in the {@link #decorate(ComponentModifier)} method</li>
+ * </ol>
+ * <p>
+ * Usage example for creating a component subclass:
+ * </p>
+ * <pre>
+ * public class StyleClassDecorator extends AbstractParentDecorator {
+ *     
+ *     private String styleClass;
+ *     
+ *     &#64;Override
+ *     public String getFamily() {
+ *         return "decorator.family";
+ *     }
+ *     
+ *     &#64;Override
+ *     public void decorate(ComponentModifier parent) {
+ *         parent.addStyleClass(styleClass);
+ *     }
+ *     
+ *     // Getter and setter for styleClass attribute
+ *     public void setStyleClass(String styleClass) {
+ *         this.styleClass = styleClass;
+ *     }
+ *     
+ *     public String getStyleClass() {
+ *         return styleClass;
+ *     }
+ * }
+ * </pre>
+ * <p>
+ * This class implements {@link ComponentBridge} to provide simplified access to component
+ * state and context.
+ * </p>
+ * <p>
+ * Like other JSF components, this class is not thread-safe and instances
+ * should not be shared between requests.
+ * </p>
  *
  * @author Oliver Wolff
+ * @since 1.0
+ * @see ComponentBridge
+ * @see ComponentModifier
+ * @see PostAddToViewEvent
  */
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractParentDecorator extends UIComponentBase implements ComponentBridge {
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Processes component system events, specifically handling the {@link PostAddToViewEvent}
+     * to trigger parent component decoration if this component is rendered.
+     * </p>
+     * 
+     * @param event the component system event to be processed
+     */
     @Override
     public void processEvent(final ComponentSystemEvent event) {
         if (event instanceof PostAddToViewEvent) {
@@ -52,25 +111,59 @@ public abstract class AbstractParentDecorator extends UIComponentBase implements
     }
 
     /**
-     * Actual decorates the given parent. The component ensures that this method
-     * will be called at {@link PostAddToViewEvent} and only if the component is
-     * set to {@code rendered=true}
+     * Abstract method that must be implemented by subclasses to provide the actual
+     * decoration logic for the parent component.
+     * <p>
+     * This method is called automatically when the component is added to the view,
+     * but only if the component is rendered (rendered="true"). The parent component
+     * is wrapped in a {@link ComponentModifier} to provide a consistent API for
+     * modifying different types of components.
+     * </p>
+     * <p>
+     * Implementations should use the provided modifier to apply decorations such as
+     * adding style classes, attributes, or other modifications to the parent component.
+     * </p>
      *
-     * @param parent to be decorated, wrapped into a corresponding
-     *               {@link ComponentModifier}, is never null
+     * @param parent the parent component to be decorated, wrapped in a {@link ComponentModifier},
+     *               never null
      */
     public abstract void decorate(final ComponentModifier parent);
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Provides access to the component's StateHelper for storing component state.
+     * </p>
+     * 
+     * @return the StateHelper for this component
+     */
     @Override
     public StateHelper stateHelper() {
         return getStateHelper();
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Provides access to the current FacesContext.
+     * </p>
+     * 
+     * @return the current FacesContext
+     */
     @Override
     public FacesContext facesContext() {
         return getFacesContext();
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Provides access to the named facet of this component.
+     * </p>
+     * 
+     * @param facetName the name of the facet to retrieve
+     * @return the UIComponent that corresponds to the requested facet, or null if no such facet exists
+     */
     @Override
     public UIComponent facet(String facetName) {
         return getFacet(facetName);

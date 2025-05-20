@@ -17,11 +17,6 @@ package de.cuioss.jsf.bootstrap.button;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-import jakarta.faces.component.UICommand;
-import jakarta.faces.component.UIComponent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.JsfComponentIdentifier;
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
@@ -30,35 +25,59 @@ import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.icon.IconComponent;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
-import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.mocks.CuiMockRenderer;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
+import jakarta.faces.component.UICommand;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
-class CloseCommandButtonRendererTest extends AbstractComponentRendererTest<CloseCommandButtonRenderer>
-        implements ComponentConfigurator {
+@DisplayName("Tests for CloseCommandButtonRenderer")
+class CloseCommandButtonRendererTest extends AbstractComponentRendererTest<CloseCommandButtonRenderer> {
 
-    @Test
-    void shouldRenderMinimal() {
-        var expected = new HtmlTreeBuilder().withNode(Node.BUTTON)
-                .withAttribute(AttributeName.ARIA_LABEL, AttributeValue.ARIA_CLOSE)
-                .withStyleClass(CssBootstrap.BUTTON_CLOSE);
-        expected.withNode(Node.SPAN).withAttribute(AttributeName.ARIA_HIDDEN, AttributeValue.TRUE)
-                .withStyleClass(CssBootstrap.BUTTON_TEXT).withTextContent("&#xD7;");
-        assertRenderResult(getComponent(), expected.getDocument());
-    }
-
-    @Test
-    void shouldDecodeWOErrors() {
-        assertDoesNotThrow(() -> getRenderer().decode(getFacesContext(), getComponent()));
-    }
-
-    @Override
-    public void configureComponents(final ComponentConfigDecorator decorator) {
+    @BeforeEach
+    void setUp(ComponentConfigDecorator decorator) {
         decorator.registerRenderer(UICommand.COMPONENT_FAMILY, JsfComponentIdentifier.BUTTON_RENDERER_TYPE,
                 new CuiMockRenderer("input")).registerUIComponent(IconComponent.class);
+    }
+
+    @Nested
+    @DisplayName("Basic rendering tests")
+    class BasicRenderingTests {
+
+        @Test
+        @DisplayName("Should render minimal close button")
+        void shouldRenderMinimal(FacesContext facesContext) throws IOException {
+            // Arrange
+            var component = getComponent();
+
+            // Act & Assert
+            var expected = new HtmlTreeBuilder().withNode(Node.BUTTON)
+                    .withAttribute(AttributeName.ARIA_LABEL, AttributeValue.ARIA_CLOSE)
+                    .withStyleClass(CssBootstrap.BUTTON_CLOSE);
+            expected.withNode(Node.SPAN).withAttribute(AttributeName.ARIA_HIDDEN, AttributeValue.TRUE)
+                    .withStyleClass(CssBootstrap.BUTTON_TEXT).withTextContent("&#xD7;");
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
+
+        @Test
+        @DisplayName("Should decode without errors")
+        void shouldDecodeWithoutErrors(FacesContext facesContext) {
+            // Arrange
+            var component = getComponent();
+
+            // Act & Assert
+            assertDoesNotThrow(() -> getRenderer().decode(facesContext, component),
+                    "Decoder should not throw exceptions");
+        }
     }
 
     @Override

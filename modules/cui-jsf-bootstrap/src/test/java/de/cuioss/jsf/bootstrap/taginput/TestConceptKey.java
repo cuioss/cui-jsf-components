@@ -15,17 +15,17 @@
  */
 package de.cuioss.jsf.bootstrap.taginput;
 
-import java.io.Serial;
-import java.util.Collections;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-
 import de.cuioss.uimodel.model.conceptkey.ConceptCategory;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import de.cuioss.uimodel.model.conceptkey.impl.BaseConceptCategory;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.util.Collections;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 @SuppressWarnings("ALL")
 @EqualsAndHashCode

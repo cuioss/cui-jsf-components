@@ -17,8 +17,10 @@ package de.cuioss.jsf.api.components.base;
 
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.DisplayName;
 
-@VerifyComponentProperties(of = { "styleClass", "rendered", "style" })
+@VerifyComponentProperties(of = {"styleClass", "rendered", "style"})
+@DisplayName("Tests for BaseCuiNamingContainer")
 class BaseCuiNamingContainerTest extends AbstractComponentTest<BaseCuiNamingContainer> {
 
 }

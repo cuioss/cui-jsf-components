@@ -17,15 +17,14 @@ package de.cuioss.jsf.api.components.partial;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
-import java.util.Collections;
-import java.util.List;
-
-import jakarta.faces.component.StateHelper;
-
 import de.cuioss.jsf.api.components.support.ActiveIndexManager;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.tools.logging.CuiLogger;
+import jakarta.faces.component.StateHelper;
 import lombok.NonNull;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * <h2>Summary</h2>

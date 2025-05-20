@@ -17,23 +17,46 @@ package de.cuioss.jsf.bootstrap.layout;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.test.jsf.component.AbstractUiComponentTest;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for RowComponent")
 class RowComponentTest extends AbstractUiComponentTest<RowComponent> {
 
-    @Test
-    void shouldProvideCorrectStyleClass() {
-        final var component = new RowComponent();
-        final var expected = CssBootstrap.ROW.getStyleClass();
-        assertEquals(expected, component.resolveStyleClass().getStyleClass());
+    @Nested
+    @DisplayName("Tests for style class resolution")
+    class StyleClassTests {
+
+        @Test
+        @DisplayName("Should provide correct style class")
+        void shouldProvideCorrectStyleClass() {
+            // Arrange
+            final var component = new RowComponent();
+            final var expected = CssBootstrap.ROW.getStyleClass();
+
+            // Act & Assert
+            assertEquals(expected, component.resolveStyleClass().getStyleClass(),
+                    "Style class should match ROW");
+        }
     }
 
-    @Test
-    void shouldProvideCorrectMetadata() {
-        assertEquals(BootstrapFamily.LAYOUT_RENDERER, anyComponent().getRendererType());
+    @Nested
+    @DisplayName("Tests for component metadata")
+    class MetadataTests {
+
+        @Test
+        @DisplayName("Should provide correct renderer type")
+        void shouldProvideCorrectMetadata() {
+            // Arrange
+            var component = anyComponent();
+
+            // Act & Assert
+            assertEquals(BootstrapFamily.LAYOUT_RENDERER, component.getRendererType(),
+                    "Renderer type should be LAYOUT_RENDERER");
+        }
     }
 }

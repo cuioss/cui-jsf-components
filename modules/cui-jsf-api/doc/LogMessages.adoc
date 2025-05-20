@@ -1,0 +1,39 @@
+= Log Messages for JSF API Module
+:toc: left
+:toclevels: 2
+
+link:../README.adoc[Back to README]
+
+== Overview
+
+All messages follow the format: JSF_API-[identifier]: [message]
+
+== INFO Level (001-099)
+
+[cols="1,1,2,2", options="header"]
+|===
+|ID |Component |Message |Description
+|JSF_API-001 |API |Silent error occurred |Logged when a silent error occurs at INFO level
+|JSF_API-002 |API |Running on %s ( Version : %s ) |Logged when the application starts, showing the CUI version information
+|JSF_API-003 |API |Error occurred but was handled silent. |Logged when an error occurred but was handled silently at INFO level
+|===
+
+== WARN Level (100-199)
+
+[cols="1,1,2,2", options="header"]
+|===
+|ID |Component |Message |Description
+|JSF_API-100 |API |Silent warning occurred |Logged when a silent warning occurs at WARN level
+|JSF_API-101 |API |Unable to redirect, response already committed. |Logged when a redirect cannot be performed because the response is already committed
+|JSF_API-102 |API |Unexpected environment. %s is not of type javax.servlet.http.HttpServletRequest. This call therefore returns null |Logged when the request object is not of the expected type HttpServletRequest
+|JSF_API-103 |API |Error occurred but was handled silent. |Logged when an error occurred but was handled silently at WARN level
+|===
+
+== ERROR Level (200-299)
+
+[cols="1,1,2,2", options="header"]
+|===
+|ID |Component |Message |Description
+|JSF_API-200 |API |Silent error occurred |Logged when a silent error occurs at ERROR level
+|JSF_API-201 |API |Error occurred but was handled silent. |Logged when an error occurred but was handled silently at ERROR level
+|===

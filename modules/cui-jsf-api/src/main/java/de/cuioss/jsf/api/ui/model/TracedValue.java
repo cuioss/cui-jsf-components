@@ -15,14 +15,14 @@
  */
 package de.cuioss.jsf.api.ui.model;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.Objects;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Class provide functionality to recognize if value was changed or not and is

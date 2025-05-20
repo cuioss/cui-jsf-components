@@ -15,52 +15,103 @@
  */
 package de.cuioss.jsf.api.components.util;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
+import de.cuioss.tools.string.Joiner;
+import de.cuioss.tools.string.MoreStrings;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.component.behavior.ClientBehavior;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
-
-import de.cuioss.tools.string.Joiner;
-import de.cuioss.tools.string.MoreStrings;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
 /**
- * <p>
- * Wraps a {@link UIComponent} at runtime in order to provide some convenience
- * methods for rendering / decoding.
- * </p>
- * <p>
- * <em>Caution:</em> This wrapper essentially caches some calls that are quite
- * expensive like {@link UIComponent#getClientId()}. Therefore it must
- * <em>NEVER</em> be reused and is not reentrant. It must always be instantiated
- * newly.
- * </p>
+ * <p>Wraps a {@link UIComponent} at runtime to provide convenience methods for rendering and decoding
+ * operations, while caching expensive method calls for improved performance.</p>
+ * 
+ * <p>This wrapper caches frequently accessed properties and computed values that would otherwise
+ * require expensive operations each time they're accessed, such as:</p>
+ * <ul>
+ *   <li>Component client ID ({@link UIComponent#getClientId()})</li>
+ *   <li>Type checking results (whether the component is a {@link ClientBehaviorHolder} or {@link UIInput})</li>
+ *   <li>Client behavior collections</li>
+ * </ul>
+ * 
+ * <p><strong>Important Usage Note:</strong> Due to its caching behavior, this wrapper must 
+ * <em>never be reused</em> across multiple operations or rendering cycles. A new instance 
+ * should be created each time a component needs to be wrapped. This class is not reentrant 
+ * and not thread-safe for reuse.</p>
+ * 
+ * <p>Usage example:</p>
+ * <pre>
+ * // During component rendering
+ * public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
+ *     ComponentWrapper&lt;UIComponent&gt; wrapper = new ComponentWrapper&lt;&gt;(component);
+ *     ResponseWriter writer = context.getResponseWriter();
+ *     
+ *     // Use wrapper's convenience methods
+ *     if (wrapper.shouldRenderClientId()) {
+ *         writer.writeAttribute("id", wrapper.getClientId(), null);
+ *     }
+ *     
+ *     // Access client behaviors if needed
+ *     if (!wrapper.getClientBehaviors().isEmpty()) {
+ *         // Handle behaviors
+ *     }
+ * }
+ * </pre>
  *
  * @author Oliver Wolff
- * @param <T> Must be at least {@link UIComponent}
+ * @param <T> The specific type of UIComponent being wrapped, must be at least {@link UIComponent}
  */
 @RequiredArgsConstructor
 public class ComponentWrapper<T extends UIComponent> {
 
+    /**
+     * <p>The wrapped component instance.</p>
+     * <p>This is the actual JSF component that this wrapper is providing convenience methods for.</p>
+     */
     @Getter
     private final T wrapped;
 
+    /**
+     * <p>Cached client ID of the wrapped component.</p>
+     * <p>This field caches the result of {@link UIComponent#getClientId()} to avoid
+     * repeated expensive calls.</p>
+     */
     private String clientId;
 
+    /**
+     * <p>Cached result indicating whether the wrapped component implements {@link ClientBehaviorHolder}.</p>
+     * <p>This field caches the type check result to avoid repeated {@code instanceof} operations.</p>
+     */
     private Boolean clientBehaviorHolder;
 
+    /**
+     * <p>Cached result indicating whether the wrapped component is an instance of {@link UIInput}.</p>
+     * <p>This field caches the type check result to avoid repeated {@code instanceof} operations.</p>
+     */
     private Boolean uiInput;
 
+    /**
+     * <p>Cached map of client behaviors associated with the wrapped component.</p>
+     * <p>This field caches the result of {@link ClientBehaviorHolder#getClientBehaviors()}
+     * to avoid repeated calls.</p>
+     */
     private Map<String, List<ClientBehavior>> clientBehaviors;
 
     /**
-     * @return the clientId for the wrapped component.
+     * <p>Returns the client ID of the wrapped component.</p>
+     * 
+     * <p>This method caches the result of {@link UIComponent#getClientId()} on first call
+     * to avoid the overhead of repeated calls, which can be expensive especially during
+     * rendering.</p>
+     *
+     * @return The client ID of the wrapped component
      */
     public String getClientId() {
         if (null == clientId) {
@@ -70,8 +121,13 @@ public class ComponentWrapper<T extends UIComponent> {
     }
 
     /**
-     * @return boolean indicating whether the wrapped component is a
-     *         {@link ClientBehaviorHolder}
+     * <p>Determines whether the wrapped component implements {@link ClientBehaviorHolder}.</p>
+     * 
+     * <p>This method caches the result of the type check to avoid repeated
+     * {@code instanceof} operations.</p>
+     *
+     * @return {@code true} if the wrapped component implements {@link ClientBehaviorHolder},
+     *         {@code false} otherwise
      */
     public boolean isClientBehaviorHolder() {
         if (null == clientBehaviorHolder) {
@@ -81,7 +137,13 @@ public class ComponentWrapper<T extends UIComponent> {
     }
 
     /**
-     * @return boolean indicating whether the wrapped component is a {@link UIInput}
+     * <p>Determines whether the wrapped component is an instance of {@link UIInput}.</p>
+     * 
+     * <p>This method caches the result of the type check to avoid repeated
+     * {@code instanceof} operations.</p>
+     *
+     * @return {@code true} if the wrapped component is an instance of {@link UIInput},
+     *         {@code false} otherwise
      */
     public boolean isUIInput() {
         if (null == uiInput) {
@@ -91,9 +153,16 @@ public class ComponentWrapper<T extends UIComponent> {
     }
 
     /**
-     * @return the map of {@link ClientBehavior} associated with this component. In
-     *         case the component is not {@link ClientBehaviorHolder} it returns an
-     *         empty Map but never null.
+     * <p>Returns the map of client behaviors associated with the wrapped component.</p>
+     * 
+     * <p>If the wrapped component implements {@link ClientBehaviorHolder}, this method
+     * returns the result of {@link ClientBehaviorHolder#getClientBehaviors()}. Otherwise,
+     * it returns an empty map.</p>
+     * 
+     * <p>The result is cached to avoid repeated calls.</p>
+     *
+     * @return A map of client behaviors associated with the wrapped component,
+     *         never {@code null}
      */
     public Map<String, List<ClientBehavior>> getClientBehaviors() {
         if (null == clientBehaviors) {
@@ -107,16 +176,21 @@ public class ComponentWrapper<T extends UIComponent> {
     }
 
     /**
-     * @return boolean indicating whether to render a client id. <br>
-     *         Returns true if:
-     *         <ul>
-     *         <li>An id is set that is not generated: must not start with
-     *         {@link UIViewRoot#UNIQUE_ID_PREFIX}</li>
-     *         <li>If the component in hand provides at least one
-     *         {@link ClientBehavior}, assuming that the {@link ClientBehavior}
-     *         needs a clientId.</li>
-     *         </ul>
-     *         otherwise it will return false
+     * <p>Determines whether the component's client ID should be rendered.</p>
+     * 
+     * <p>This method implements a heuristic to decide whether a component's client ID
+     * should be explicitly rendered. It returns {@code true} if either:</p>
+     * <ul>
+     *   <li>The component has an explicitly set ID (not auto-generated by JSF)</li>
+     *   <li>The component has at least one client behavior attached (which typically
+     *       requires a client ID for DOM event binding)</li>
+     * </ul>
+     * 
+     * <p>This is useful for optimizing the HTML output by omitting unnecessary
+     * {@code id} attributes when they're not needed.</p>
+     *
+     * @return {@code true} if the component's client ID should be rendered,
+     *         {@code false} otherwise
      */
     public boolean shouldRenderClientId() {
         final var componentId = getWrapped().getId();
@@ -127,11 +201,19 @@ public class ComponentWrapper<T extends UIComponent> {
     }
 
     /**
-     * @param idExtension if not null or empty it will be appended to the derived
-     *                    ClientId. In addition there will be an underscore
-     *                    appended: The result will be component.getClientId() + "_"
-     *                    + idExtension
-     * @return the created id
+     * <p>Returns a client ID with an optional suffix appended.</p>
+     * 
+     * <p>This method is useful for creating related IDs for sub-elements of a component,
+     * such as when a component needs to generate multiple HTML elements that need
+     * related but distinct IDs.</p>
+     * 
+     * <p>If the extension is provided, it will be appended to the component's client ID
+     * with an underscore separator. For example, if the component's client ID is "form:input"
+     * and the extension is "container", the result will be "form:input_container".</p>
+     *
+     * @param idExtension An optional suffix to append to the client ID. If {@code null} or empty,
+     *                   the regular client ID is returned without modification.
+     * @return The client ID with the extension appended if provided
      */
     public String getSuffixedClientId(final String idExtension) {
         if (MoreStrings.isEmpty(idExtension)) {

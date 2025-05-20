@@ -15,19 +15,19 @@
  */
 package de.cuioss.jsf.jqplot.axes;
 
-import java.io.Serial;
-import java.util.ArrayList;
-import java.util.List;
-
 import de.cuioss.jsf.jqplot.js.support.JsObject;
 import de.cuioss.jsf.jqplot.plugin.IPluginConsumer;
 import de.cuioss.jsf.jqplot.plugin.PluginSupport;
 import lombok.ToString;
 
+import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Eugen Fischer
  */
-@ToString(of = { "axisList", "plugins" }, callSuper = false)
+@ToString(of = {"axisList", "plugins"}, callSuper = false)
 public class Axes extends JsObject implements IPluginConsumer {
 
     /** serial Version UID */

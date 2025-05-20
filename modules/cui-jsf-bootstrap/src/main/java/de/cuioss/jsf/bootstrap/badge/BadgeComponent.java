@@ -15,24 +15,38 @@
  */
 package de.cuioss.jsf.bootstrap.badge;
 
-import jakarta.faces.component.FacesComponent;
-
 import de.cuioss.jsf.api.components.base.BaseCuiOutputText;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
+import jakarta.faces.component.FacesComponent;
 
 /**
- * Component Class for creating badges. All standard attributes are defined by
- * {@link BaseCuiOutputText}. The defining css class "badge"
+ * Component for Bootstrap badge elements - small count or labeling elements.
+ * Extends {@link BaseCuiOutputText} with Bootstrap badge styling.
+ * 
+ * <h3>Usage:</h3>
+ * <pre>
+ * &lt;boot:badge value="42"/&gt;
+ * &lt;boot:badge value="New!" styleClass="badge-primary"/&gt;
+ * &lt;h3&gt;Example Heading &lt;boot:badge value="New"/&gt;&lt;/h3&gt;
+ * </pre>
  *
  * @author Oliver Wolff
- *
+ * @since 1.0
  */
 @FacesComponent(BootstrapFamily.BADGE_COMPONENT)
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
 public class BadgeComponent extends BaseCuiOutputText {
 
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>For BadgeComponent, this method adds the Bootstrap "badge" CSS class to ensure
+     * proper styling according to Bootstrap conventions.</p>
+     * 
+     * @return The {@link StyleClassBuilder} with the Bootstrap badge class applied
+     */
     @Override
     public StyleClassBuilder resolveComponentSpecificStyleClasses() {
         return CssBootstrap.BADGE.getStyleClassBuilder();

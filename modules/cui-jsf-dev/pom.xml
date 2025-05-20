@@ -47,5 +47,10 @@
             <classifier>jakarta</classifier>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>de.cuioss.test</groupId>
+            <artifactId>cui-jsf-test-basic</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

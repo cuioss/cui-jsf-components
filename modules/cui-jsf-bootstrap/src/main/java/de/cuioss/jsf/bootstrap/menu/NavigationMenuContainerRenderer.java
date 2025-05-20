@@ -38,6 +38,7 @@ import java.io.IOException;
  * Renders a bootstrap conform navigation menu structure.
  *
  * <h2>HTML structure</h2>
+ * <p>The renderer produces the following HTML structure for dropdown menus:</p>
  *
  * <pre>
  * &lt;li class="nav-item dropdown"&gt;
@@ -52,7 +53,18 @@ import java.io.IOException;
  * &lt;/li&gt;
  * </pre>
  *
+ * <p>For submenus (nested dropdowns), additional CSS classes are applied to enable
+ * proper positioning and behavior:</p>
+ *
+ * <pre>
+ * &lt;li class="dropdown dropdown-submenu"&gt;
+ *   ...
+ * </pre>
+ *
  * @author Sven Haag
+ * @see NavigationMenuItemContainer
+ * @see NavigationMenuComponent
+ * @see NavigationMenuRenderer
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class NavigationMenuContainerRenderer {
@@ -61,19 +73,29 @@ public class NavigationMenuContainerRenderer {
     private static final String ICON_SUB_MENU = "cui-icon-triangle_e";
 
     /**
-     * Write beginning tags.
+     * <p>Renders the beginning tags of a dropdown menu structure based on a
+     * {@link NavigationMenuItemContainer} model.</p>
      *
-     * @param context           must not be null
-     * @param writer            must not be null
-     * @param model             must not be null
-     * @param component         must not be null
-     * @param parentIsContainer flag
-     * @param idExtension       for creating ids
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * <p>This method generates:</p>
+     * <ul>
+     *   <li>The list item container with appropriate dropdown classes</li>
+     *   <li>The toggle link with icon, label and dropdown indicator</li>
+     *   <li>The opening tag for the dropdown menu container</li>
+     * </ul>
+     *
+     * <p>The container will not be rendered if the model's rendered property is false.</p>
+     *
+     * @param context the current FacesContext
+     * @param writer the decorating response writer
+     * @param model the navigation menu item container model to render
+     * @param component the parent navigation menu component
+     * @param parentIsContainer flag indicating whether this menu is within another container (submenu)
+     * @param idExtension string to append to the generated component ID for uniqueness
+     * @throws IOException if an error occurs during the rendering process
      */
     static void renderBegin(final FacesContext context, final DecoratingResponseWriter<NavigationMenuComponent> writer,
-                            final NavigationMenuItemContainer model, final NavigationMenuComponent component,
-                            final boolean parentIsContainer, final String idExtension) throws IOException {
+            final NavigationMenuItemContainer model, final NavigationMenuComponent component,
+            final boolean parentIsContainer, final String idExtension) throws IOException {
         if (!model.isRendered()) {
             return;
         }
@@ -98,14 +120,22 @@ public class NavigationMenuContainerRenderer {
     }
 
     /**
-     * Write closing tags.
+     * <p>Renders the closing tags for a dropdown menu structure.</p>
      *
-     * @param writer must not be null
-     * @param model  must not be null
-     * @throws IOException from the underlying {@link jakarta.faces.context.ResponseWriter}
+     * <p>This method generates:</p>
+     * <ul>
+     *   <li>The closing tag for the dropdown menu container (&lt;/ul&gt;)</li>
+     *   <li>The closing tag for the list item container (&lt;/li&gt;)</li>
+     * </ul>
+     *
+     * <p>The closing tags will not be rendered if the model's rendered property is false.</p>
+     *
+     * @param writer the decorating response writer
+     * @param model the navigation menu item container model
+     * @throws IOException if an error occurs during the rendering process
      */
     static void renderEnd(final DecoratingResponseWriter<NavigationMenuComponent> writer,
-                          final NavigationMenuItemContainer model) throws IOException {
+            final NavigationMenuItemContainer model) throws IOException {
         if (!model.isRendered()) {
             return;
         }
@@ -113,10 +143,28 @@ public class NavigationMenuContainerRenderer {
         writer.withEndElement(Node.LI);
     }
 
+    /**
+     * <p>Renders the dropdown toggle link with appropriate styling, icon, label and
+     * dropdown indicator.</p>
+     *
+     * <p>The link is rendered with:</p>
+     * <ul>
+     *   <li>dropdown-toggle CSS class</li>
+     *   <li>data-toggle="dropdown" attribute for Bootstrap JavaScript</li>
+     *   <li>Optional icon if specified in the model</li>
+     *   <li>Text label from the model</li>
+     *   <li>Dropdown indicator icon (triangle pointing down for top menus, right for submenus)</li>
+     * </ul>
+     *
+     * @param context the current FacesContext
+     * @param model the navigation menu item container model
+     * @param parentIsContainer flag indicating whether this menu is within another container (submenu)
+     * @throws IOException if an error occurs during the rendering process
+     */
     private static void renderCmdLink(final FacesContext context, final NavigationMenuItemContainer model,
                                       final boolean parentIsContainer) throws IOException {
 
-        var application = context.getApplication();
+        final var application = context.getApplication();
 
         var commandLink = (HtmlOutcomeTargetLink) application.createComponent(HtmlOutcomeTargetLink.COMPONENT_TYPE);
         commandLink.setOutcome("#");
@@ -131,19 +179,19 @@ public class NavigationMenuContainerRenderer {
 
         // Item Icon
         if (null != model.getIconStyleClass()) {
-            var icon = (IconComponent) application.createComponent(BootstrapFamily.ICON_COMPONENT);
+            final var icon = (IconComponent) application.createComponent(BootstrapFamily.ICON_COMPONENT);
             icon.setIcon(model.getIconStyleClass());
             commandLink.getChildren().add(icon);
         }
 
         // Label
-        var outputText = (HtmlOutputText) application.createComponent(HtmlOutputText.COMPONENT_TYPE);
+        final var outputText = (HtmlOutputText) application.createComponent(HtmlOutputText.COMPONENT_TYPE);
         outputText.setStyleClass(CssCuiBootstrap.CUI_NAVIGATION_MENU_TEXT.getStyleClass());
         outputText.setValue(model.getResolvedLabel());
         commandLink.getChildren().add(outputText);
 
         // Collapse Icon
-        var caret = (IconComponent) context.getApplication().createComponent(BootstrapFamily.ICON_COMPONENT);
+        final var caret = (IconComponent) context.getApplication().createComponent(BootstrapFamily.ICON_COMPONENT);
         if (parentIsContainer) {
             caret.setIcon(ICON_SUB_MENU);
         } else {

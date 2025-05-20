@@ -17,20 +17,18 @@ package de.cuioss.jsf.api.composite.accessor;
 
 import static de.cuioss.test.generator.Generators.booleans;
 import static de.cuioss.test.generator.Generators.letterStrings;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
+import de.cuioss.test.valueobjects.ValueObjectTest;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import de.cuioss.test.valueobjects.ValueObjectTest;
-
+@DisplayName("Tests for StringAttributeAccessor")
 class StringAttributeAccessorTest extends ValueObjectTest<StringAttributeAccessor> {
 
     private static final String ATTRIBUTE_NAME = "someName";
@@ -48,27 +46,58 @@ class StringAttributeAccessorTest extends ValueObjectTest<StringAttributeAccesso
         underTest = new StringAttributeAccessor(ATTRIBUTE_NAME, true, true);
     }
 
-    @Test
-    void shouldWorkOnHappyCase() {
-        assertTrue(underTest.available(attributeMap));
-        assertEquals(ATTRIBUTE_VALUE, underTest.value(attributeMap));
-        // Clear Map
-        attributeMap.clear();
-        assertFalse(underTest.available(attributeMap));
-        assertNull(underTest.value(attributeMap));
+    @Nested
+    @DisplayName("Tests for basic attribute access functionality")
+    class BasicAttributeAccessTests {
+
+        @Test
+        @DisplayName("Should correctly access string attributes in standard mode")
+        void shouldAccessAttributesInStandardMode() {
+            // Arrange - setup done in @BeforeEach
+
+            // Act & Assert - attribute present
+            assertTrue(underTest.available(attributeMap),
+                    "Accessor should detect attribute as available");
+            assertEquals(ATTRIBUTE_VALUE, underTest.value(attributeMap),
+                    "Accessor should return the correct attribute value");
+
+            // Act - clear map
+            attributeMap.clear();
+
+            // Assert - attribute not present
+            assertFalse(underTest.available(attributeMap),
+                    "Accessor should detect attribute as not available after clearing map");
+            assertNull(underTest.value(attributeMap),
+                    "Accessor should return null when attribute is not available");
+        }
     }
 
-    @Test
-    void shouldConsiderEmptyStringAsNull() {
-        attributeMap.put(ATTRIBUTE_NAME, "");
-        assertNull(underTest.value(attributeMap));
-    }
+    @Nested
+    @DisplayName("Tests for empty string handling")
+    class EmptyStringHandlingTests {
 
-    @Test
-    void shouldNotConsiderEmptyStringAsNull() {
-        underTest = new StringAttributeAccessor(ATTRIBUTE_NAME, true, false);
-        attributeMap.put(ATTRIBUTE_NAME, "");
-        assertNotNull(underTest.value(attributeMap));
+        @Test
+        @DisplayName("Should treat empty strings as null when configured to do so")
+        void shouldConsiderEmptyStringAsNull() {
+            // Arrange
+            attributeMap.put(ATTRIBUTE_NAME, "");
+
+            // Act & Assert
+            assertNull(underTest.value(attributeMap),
+                    "Accessor should return null for empty string when configured to treat empty as null");
+        }
+
+        @Test
+        @DisplayName("Should preserve empty strings when configured not to treat them as null")
+        void shouldNotConsiderEmptyStringAsNull() {
+            // Arrange
+            underTest = new StringAttributeAccessor(ATTRIBUTE_NAME, true, false);
+            attributeMap.put(ATTRIBUTE_NAME, "");
+
+            // Act & Assert
+            assertNotNull(underTest.value(attributeMap),
+                    "Accessor should preserve empty string when configured not to treat empty as null");
+        }
     }
 
     @Override

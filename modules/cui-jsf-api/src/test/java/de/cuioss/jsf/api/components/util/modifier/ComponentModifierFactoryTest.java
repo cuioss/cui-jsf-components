@@ -18,32 +18,54 @@ package de.cuioss.jsf.api.components.util.modifier;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import de.cuioss.jsf.api.components.util.modifier.support.TitleProviderImpl;
 import jakarta.faces.component.UIComponentBase;
-
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.jsf.api.components.util.modifier.support.TitleProviderImpl;
-
+@DisplayName("Tests for ComponentModifierFactory")
 class ComponentModifierFactoryTest {
 
-    @Test
-    void shouldHandleComponentBase() {
-        UIComponentBase component = new UIComponentBase() {
+    @Nested
+    @DisplayName("Tests for finding appropriate component modifiers")
+    class ModifierResolutionTests {
 
-            @Override
-            public String getFamily() {
-                return null;
-            }
-        };
-        assertNotNull(ComponentModifierFactory.findFittingWrapper(component));
-        assertEquals(ReflectionBasedModifier.class, ComponentModifierFactory.findFittingWrapper(component).getClass());
-    }
+        @Test
+        @DisplayName("Should handle basic UIComponentBase with reflection-based modifier")
+        void shouldHandleComponentBase() {
+            // Arrange
+            UIComponentBase component = new UIComponentBase() {
+                @Override
+                public String getFamily() {
+                    return null;
+                }
+            };
 
-    @Test
-    void shouldHandleCuiInterface() {
-        UIComponentBase component = new TitleProviderImpl();
-        assertNotNull(ComponentModifierFactory.findFittingWrapper(component));
-        assertEquals(CuiInterfaceBasedModifier.class,
-                ComponentModifierFactory.findFittingWrapper(component).getClass());
+            // Act
+            var result = ComponentModifierFactory.findFittingWrapper(component);
+
+            // Assert
+            assertNotNull(result,
+                    "Should find a modifier for basic UIComponentBase");
+            assertEquals(ReflectionBasedModifier.class, result.getClass(),
+                    "Should use ReflectionBasedModifier for basic UIComponentBase");
+        }
+
+        @Test
+        @DisplayName("Should handle components implementing CUI interfaces with specialized modifier")
+        void shouldHandleCuiInterface() {
+            // Arrange
+            UIComponentBase component = new TitleProviderImpl();
+
+            // Act
+            var result = ComponentModifierFactory.findFittingWrapper(component);
+
+            // Assert
+            assertNotNull(result,
+                    "Should find a modifier for component implementing CUI interface");
+            assertEquals(CuiInterfaceBasedModifier.class, result.getClass(),
+                    "Should use CuiInterfaceBasedModifier for component implementing CUI interface");
+        }
     }
 }

@@ -18,14 +18,16 @@ package de.cuioss.jsf.bootstrap.common.partial;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import lombok.Getter;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for ColumnProvider")
 class ColumnProviderImplTest extends AbstractComponentTest<MockPartialComponent> {
 
     public static final String COL_MD_PREFIX = ColumnCssResolver.COL_PREFIX;
@@ -44,52 +46,105 @@ class ColumnProviderImplTest extends AbstractComponentTest<MockPartialComponent>
         underTest = new MockPartialComponent();
     }
 
-    @Test
-    void shouldHandleValidNumbers() {
-        var valid = validNumbers.next();
-        underTest.setSize(valid);
-        assertEquals(valid, underTest.getSize());
-        valid = validNumbers.next();
-        underTest.setOffsetSize(valid);
-        assertEquals(valid, underTest.getOffsetSize());
+    @Nested
+    @DisplayName("Basic property tests")
+    class BasicPropertyTests {
+
+        @Test
+        @DisplayName("Should handle valid size and offset values")
+        void shouldHandleValidNumbers() {
+            // Arrange
+            var valid = validNumbers.next();
+
+            // Act
+            underTest.setSize(valid);
+
+            // Assert
+            assertEquals(valid, underTest.getSize(), "Size should match the set value");
+
+            // Arrange
+            valid = validNumbers.next();
+
+            // Act
+            underTest.setOffsetSize(valid);
+
+            // Assert
+            assertEquals(valid, underTest.getOffsetSize(), "Offset size should match the set value");
+        }
     }
 
-    @Test
-    void shouldResolveSize() {
-        final var valid = validNumbers.next();
-        underTest.setSize(valid);
-        assertEquals(COL_MD_PREFIX + valid, underTest.resolveColumnCss().getStyleClass());
+    @Nested
+    @DisplayName("CSS resolution tests")
+    class CssResolutionTests {
+
+        @Test
+        @DisplayName("Should resolve CSS with size only")
+        void shouldResolveSize() {
+            // Arrange
+            final var valid = validNumbers.next();
+            underTest.setSize(valid);
+
+            // Act & Assert
+            assertEquals(COL_MD_PREFIX + valid, underTest.resolveColumnCss().getStyleClass(),
+                    "CSS class should contain only size class");
+        }
+
+        @Test
+        @DisplayName("Should resolve CSS with size and offset")
+        void shouldResolveAndOffsetSize() {
+            // Arrange
+            final var size = validNumbers.next();
+            final var offsetSize = validNumbers.next();
+            underTest.setSize(size);
+            underTest.setOffsetSize(offsetSize);
+
+            // Act & Assert
+            assertEquals(COL_MD_PREFIX + size + " " + COL_MD_OFFSET_PREFIX + offsetSize,
+                    underTest.resolveColumnCss().getStyleClass(),
+                    "CSS class should contain both size and offset classes");
+        }
     }
 
-    @Test
-    void shouldResolveAndOffsetSize() {
-        final var size = validNumbers.next();
-        final var offsetSize = validNumbers.next();
-        underTest.setSize(size);
-        underTest.setOffsetSize(offsetSize);
-        assertEquals(COL_MD_PREFIX + size + " " + COL_MD_OFFSET_PREFIX + offsetSize,
-                underTest.resolveColumnCss().getStyleClass());
-    }
+    @Nested
+    @DisplayName("Validation tests")
+    class ValidationTests {
 
-    @Test
-    void shouldFailOnResolveWithNoSize() {
-        assertThrows(NullPointerException.class, () -> underTest.resolveColumnCss());
-    }
+        @Test
+        @DisplayName("Should throw exception when size is not set")
+        void shouldFailOnResolveWithNoSize() {
+            // Act & Assert
+            assertThrows(NullPointerException.class, () -> underTest.resolveColumnCss(),
+                    "Should throw NullPointerException when size is not set");
+        }
 
-    @Test
-    void shouldFailOnInvalidSize() {
-        underTest.setSize(invalidNumbers.next());
-        assertThrows(IllegalArgumentException.class, () -> underTest.resolveColumnCss());
-    }
+        @Test
+        @DisplayName("Should throw exception for invalid size")
+        void shouldFailOnInvalidSize() {
+            // Arrange
+            underTest.setSize(invalidNumbers.next());
 
-    @Test
-    void shouldFailOnInvalidOffsetSize() {
-        underTest.setOffsetSize(invalidNumbers.next());
-        assertThrows(NullPointerException.class, () -> underTest.resolveColumnCss());
-    }
+            // Act & Assert
+            assertThrows(IllegalArgumentException.class, () -> underTest.resolveColumnCss(),
+                    "Should throw IllegalArgumentException for invalid size");
+        }
 
-    @Test
-    void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> new ColumnProvider(null));
+        @Test
+        @DisplayName("Should throw exception for invalid offset size")
+        void shouldFailOnInvalidOffsetSize() {
+            // Arrange
+            underTest.setOffsetSize(invalidNumbers.next());
+
+            // Act & Assert
+            assertThrows(NullPointerException.class, () -> underTest.resolveColumnCss(),
+                    "Should throw NullPointerException when size is not set but offset is invalid");
+        }
+
+        @Test
+        @DisplayName("Should throw exception for null constructor parameter")
+        void shouldFailWithNullConstructor() {
+            // Act & Assert
+            assertThrows(NullPointerException.class, () -> new ColumnProvider(null),
+                    "Should throw NullPointerException for null constructor parameter");
+        }
     }
 }

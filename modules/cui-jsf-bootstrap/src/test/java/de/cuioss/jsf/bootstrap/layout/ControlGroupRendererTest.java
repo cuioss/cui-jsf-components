@@ -24,32 +24,56 @@ import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.html.HtmlOutputText;
+import jakarta.faces.context.FacesContext;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
+@DisplayName("Tests for ControlGroupRenderer")
 class ControlGroupRendererTest extends AbstractComponentRendererTest<ControlGroupRenderer> {
 
     private static final String MINIMAL_COLUMN_CSS = ColumnCssResolver.COL_PREFIX + "8";
 
-    @Test
-    void shouldRenderMinimal() {
-        final var component = new ControlGroupComponent();
-        final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.FORM_GROUP)
-            .withNode(Node.DIV).withStyleClass(MINIMAL_COLUMN_CSS);
-        assertRenderResult(component, expected.getDocument());
-    }
-
-    @Test
-    void shouldRenderWithChildren() {
-        final var component = new ControlGroupComponent();
-        component.getChildren().add(new HtmlOutputText());
-        final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.FORM_GROUP)
-            .withNode(Node.DIV).withStyleClass(MINIMAL_COLUMN_CSS).withNode(Node.SPAN);
-        assertRenderResult(component, expected.getDocument());
-    }
-
     @Override
     protected UIComponent getComponent() {
         return new ControlGroupComponent();
+    }
+
+    @Nested
+    @DisplayName("Tests for rendering behavior")
+    class RenderingTests {
+
+        @Test
+        @DisplayName("Should render minimal component correctly")
+        void shouldRenderMinimal(FacesContext facesContext) throws IOException {
+            // Arrange
+            final var component = new ControlGroupComponent();
+
+            // Act & Assert
+            final var expected = new HtmlTreeBuilder()
+                    .withNode(Node.DIV).withStyleClass(CssBootstrap.FORM_GROUP)
+                    .withNode(Node.DIV).withStyleClass(MINIMAL_COLUMN_CSS);
+
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
+
+        @Test
+        @DisplayName("Should render component with children correctly")
+        void shouldRenderWithChildren(FacesContext facesContext) throws IOException {
+            // Arrange
+            final var component = new ControlGroupComponent();
+            component.getChildren().add(new HtmlOutputText());
+
+            // Act & Assert
+            final var expected = new HtmlTreeBuilder()
+                    .withNode(Node.DIV).withStyleClass(CssBootstrap.FORM_GROUP)
+                    .withNode(Node.DIV).withStyleClass(MINIMAL_COLUMN_CSS)
+                    .withNode(Node.SPAN);
+
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
     }
 }

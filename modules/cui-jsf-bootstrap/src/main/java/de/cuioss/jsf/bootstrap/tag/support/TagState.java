@@ -21,35 +21,64 @@ import de.cuioss.tools.string.MoreStrings;
 import lombok.Getter;
 
 /**
- * Represents a Bootstrap-State for a Tag
+ * Represents visual states for Tag components based on Bootstrap contextual styling.
+ * Each state maps to a specific CSS class for different semantic meanings.
+ * 
+ * <h2>Available States</h2>
+ * <ul>
+ *   <li>DEFAULT - General tags without specific meaning</li>
+ *   <li>PRIMARY - Tags with visual emphasis</li>
+ *   <li>SUCCESS - Tags for positive outcomes</li>
+ *   <li>INFO - Tags for informational content</li>
+ *   <li>WARNING - Tags for caution conditions</li>
+ *   <li>DANGER - Tags for critical issues</li>
+ * </ul>
  *
  * @author Oliver Wolff
+ * @since 1.0
  */
 @Getter
 public enum TagState implements StyleClassProvider {
 
     /**
-     * The default-state.
+     * The default neutral state.
+     * <p>Useful for general tags without specific semantic meaning.</p>
+     * <p>CSS class: cui-tag-default</p>
      */
     DEFAULT("default"),
+
     /**
-     * Primary.
+     * Primary highlight state.
+     * <p>Useful for tags that need visual emphasis or represent primary actions/statuses.</p>
+     * <p>CSS class: cui-tag-primary</p>
      */
     PRIMARY("primary"),
+
     /**
-     * Success.
+     * Success state indicating positive outcomes.
+     * <p>Useful for tags representing successful operations, completed status, or positive conditions.</p>
+     * <p>CSS class: cui-tag-success</p>
      */
     SUCCESS("success"),
+
     /**
-     * Info.
+     * Informational state.
+     * <p>Useful for tags containing informational content, notes, or neutral information.</p>
+     * <p>CSS class: cui-tag-info</p>
      */
     INFO("info"),
+
     /**
-     * Warning.
+     * Warning state indicating caution.
+     * <p>Useful for tags representing warnings, alerts that require attention but are not critical.</p>
+     * <p>CSS class: cui-tag-warning</p>
      */
     WARNING("warning"),
+
     /**
-     * Danger.
+     * Danger state indicating critical issues.
+     * <p>Useful for tags representing errors, failures, or critical conditions that require immediate attention.</p>
+     * <p>CSS class: cui-tag-danger</p>
      */
     DANGER("danger");
 
@@ -66,13 +95,15 @@ public enum TagState implements StyleClassProvider {
     private final String styleClass;
 
     /**
-     * @param contextState Maybe null, otherwise must be one of
-     *                     {"DEFAULT","PRIMARY", "SUCCESS", "INFO", "WARNING",
-     *                     "DANGER"}
-     * @return the corresponding {@link TagState} derived by the given
-     * {@link ContextState}.
-     * In case of <code>contextSize==null</code> it
-     * will return {@link TagState#DEFAULT}.
+     * Converts a {@link ContextState} to the corresponding {@link TagState}.
+     * This allows for consistent mapping between general context states and
+     * tag-specific visual states.
+     * 
+     * @param contextState The context state to convert. May be null, otherwise must 
+     *                     be one of {"DEFAULT", "PRIMARY", "SUCCESS", "INFO", "WARNING", "DANGER"}
+     * @return the corresponding {@link TagState} derived from the given
+     *         {@link ContextState}. If contextState is null, returns {@link TagState#DEFAULT}
+     * @since 1.0
      */
     public static TagState getForContextState(ContextState contextState) {
         if (null != contextState) {

@@ -15,41 +15,82 @@
  */
 package de.cuioss.jsf.api.components.util;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import jakarta.faces.component.html.HtmlForm;
 import jakarta.faces.component.html.HtmlInputText;
 import jakarta.faces.component.html.HtmlSelectOneMenu;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @EnableJsfEnvironment
+@DisplayName("Tests for DisableUIComponentStrategy")
 class DisableUIComponentStrategyTest {
 
-    @Test
-    void shouldFailOnMissingComponent() {
-        assertThrows(NullPointerException.class, () -> DisableUIComponentStrategy.disableComponent(null));
+    @Nested
+    @DisplayName("Tests for error handling")
+    class ErrorHandlingTests {
+
+        @Test
+        @DisplayName("Should throw NullPointerException for null component")
+        void shouldRejectNullComponent() {
+            // Act & Assert
+            assertThrows(NullPointerException.class, () -> DisableUIComponentStrategy.disableComponent(null),
+                    "Should throw NullPointerException when component is null");
+        }
+
+        @Test
+        @DisplayName("Should throw IllegalArgumentException for unsupported component")
+        void shouldRejectUnsupportedComponent() {
+            // Arrange
+            final var component = new HtmlForm();
+
+            // Act & Assert
+            assertThrows(IllegalArgumentException.class, () -> DisableUIComponentStrategy.disableComponent(component),
+                    "Should throw IllegalArgumentException when component is not supported");
+        }
     }
 
-    @Test
-    void shouldFailOnMissingComponentStrategy() {
-        final var component = new HtmlForm();
-        assertThrows(IllegalArgumentException.class, () -> DisableUIComponentStrategy.disableComponent(component));
-    }
+    @Nested
+    @DisplayName("Tests for component disabling")
+    class ComponentDisablingTests {
 
-    @Test
-    void shouldSupportToDisableHtmlInput() {
-        final var component = new HtmlInputText();
-        assertFalse(component.isDisabled(), "wrong state of initialized component. ");
-        DisableUIComponentStrategy.disableComponent(component);
-        assertTrue(component.isDisabled(), "disable state is wrong. ");
-    }
+        @Test
+        @DisplayName("Should disable HtmlInputText component")
+        void shouldDisableHtmlInputText() {
+            // Arrange
+            final var component = new HtmlInputText();
 
-    @Test
-    void shouldSupportToDisableHtmlSelectOneMenu() {
-        final var component = new HtmlSelectOneMenu();
-        assertFalse(component.isDisabled(), "wrong state of initialized component. ");
-        DisableUIComponentStrategy.disableComponent(component);
-        assertTrue(component.isDisabled(), "disable state is wrong. ");
+            // Assert - initial state
+            assertFalse(component.isDisabled(),
+                    "HtmlInputText should not be disabled initially");
+
+            // Act
+            DisableUIComponentStrategy.disableComponent(component);
+
+            // Assert - after disabling
+            assertTrue(component.isDisabled(),
+                    "HtmlInputText should be disabled after calling disableComponent");
+        }
+
+        @Test
+        @DisplayName("Should disable HtmlSelectOneMenu component")
+        void shouldDisableHtmlSelectOneMenu() {
+            // Arrange
+            final var component = new HtmlSelectOneMenu();
+
+            // Assert - initial state
+            assertFalse(component.isDisabled(),
+                    "HtmlSelectOneMenu should not be disabled initially");
+
+            // Act
+            DisableUIComponentStrategy.disableComponent(component);
+
+            // Assert - after disabling
+            assertTrue(component.isDisabled(),
+                    "HtmlSelectOneMenu should be disabled after calling disableComponent");
+        }
     }
 }

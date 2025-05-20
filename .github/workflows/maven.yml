@@ -12,12 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: [ 17,21,23 ]
+        version: [ 17,21,24 ]
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@0634a2670c59f64b4a01f0f96f84700a4088b9f0 # v2.12.0
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Set up JDK ${{ matrix.version }}
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
         with:
           java-version: ${{ matrix.version }}
           distribution: 'temurin'
@@ -30,25 +35,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@0634a2670c59f64b4a01f0f96f84700a4088b9f0 # v2.12.0
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
 
       - name: Set up JDK 17 for Sonar-build
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
 
       - name: Cache SonarCloud packages
-        uses: actions/cache@v3
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-      - uses: radcortez/project-metadata-action@master
+      - uses: radcortez/project-metadata-action@203f7ffba8db2669b2c9b4d4c2e90b186c588fa5 # 1.1
         name: Retrieve project metadata from '.github/project.yml'
         id: metadata
         with:
@@ -67,15 +77,20 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@0634a2670c59f64b4a01f0f96f84700a4088b9f0 # v2.12.0
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Set up JDK 17 for snapshot release
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
         with:
           java-version: '17'
           distribution: 'temurin'
-          server-id: sonatype-nexus-snapshots
+          server-id: central
           server-username: MAVEN_USERNAME
-          server-password: MAVEN_CENTRAL_TOKEN
+          server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
           cache: maven
@@ -87,9 +102,9 @@ jobs:
       - name: Deploy Snapshot with Maven, version ${{ steps.project.outputs.version }}
         if: ${{endsWith(steps.project.outputs.version, '-SNAPSHOT')}}
         run: |
-          ./mvnw -B --no-transfer-progress -Prelease-snapshot install -Dmaven.javadoc.skip=true
-          ./mvnw -B --no-transfer-progress -Prelease-snapshot deploy -Dmaven.javadoc.skip=true -Dmaven.test.skip=true
+          ./mvnw -B -Prelease-snapshot javadoc:aggregate
+          ./mvnw -B -Prelease-snapshot deploy -Dmaven.test.skip=true
         env:
           MAVEN_USERNAME: ${{ secrets.OSS_SONATYPE_USERNAME }}
-          MAVEN_CENTRAL_TOKEN: ${{ secrets.OSS_SONATYPE_PASSWORD }}
+          MAVEN_PASSWORD: ${{ secrets.OSS_SONATYPE_PASSWORD }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}

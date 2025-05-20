@@ -15,39 +15,61 @@
  */
 package de.cuioss.jsf.api.common.accessor;
 
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.context.FacesContext;
+import lombok.Getter;
+
 import java.io.Serial;
 import java.util.Locale;
 
-import jakarta.faces.application.ViewHandler;
-import jakarta.faces.context.FacesContext;
-
-import lombok.Getter;
-
 /**
+ * Accessor for resolving {@link Locale} in a serialization-safe manner.
  * <p>
- * Determines the current active user-locale. It uses the {@link ViewHandler}
- * therefore.
- * </p>
- * <em>Caution:</em>
- * <ul>
- * <li>The {@link LocaleAccessor} must never be referenced longer than a
- * request:</li>
- * <li>In case of type in the portal context, use PortalLocale instead</li>
- * </ul>
+ * This accessor simplifies access to the current locale and enables serialization-safe
+ * handling in JSF views. It retrieves the locale from the view-root using
+ * {@link FacesContext#getViewRoot()} and then {@code getLocale()}.
+ * 
+ * <p>
+ * Usage example:
+ * <pre>
+ * private final LocaleAccessor localeAccessor = new LocaleAccessor();
+ * 
+ * public String getLocalizedGreeting() {
+ *     return messageBundle.getString("greeting", localeAccessor.getValue());
+ * }
+ * </pre>
  *
- *
+ * @author Oliver Wolff
  */
 public class LocaleAccessor implements ManagedAccessor<Locale> {
 
     @Serial
     private static final long serialVersionUID = -7372535413254248257L;
 
+    /**
+     * The lazily initialized user locale.
+     * This field is initialized by the {@link #resolveValue()} method
+     * on the first call to {@link #getValue()}.
+     */
     @Getter(lazy = true)
     private final Locale value = resolveValue();
 
+    /**
+     * Resolves the current user locale using the JSF ViewHandler.
+     * <p>
+     * This method determines the appropriate locale for the current user
+     * based on the JSF locale resolution algorithm, which considers:
+     * <ul>
+     *   <li>User locale preferences from the browser</li>
+     *   <li>Application default locale</li>
+     *   <li>JSF configuration settings</li>
+     * </ul>
+     *
+     * @return The resolved Locale for the current user
+     * @throws IllegalStateException if called outside of a valid JSF request context
+     */
     private Locale resolveValue() {
         var context = FacesContext.getCurrentInstance();
         return context.getApplication().getViewHandler().calculateLocale(context);
     }
-
 }

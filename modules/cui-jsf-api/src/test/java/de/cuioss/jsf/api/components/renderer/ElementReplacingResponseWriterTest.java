@@ -16,23 +16,24 @@
 package de.cuioss.jsf.api.components.renderer;
 
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
+import de.cuioss.jsf.api.components.support.DummyComponent;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import org.apache.myfaces.test.mock.MockResponseWriter;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.StringWriter;
 
-import jakarta.faces.component.UIComponent;
-
-import org.apache.myfaces.test.mock.MockResponseWriter;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import de.cuioss.jsf.api.components.support.DummyComponent;
-import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
-
-class ElementReplacingResponseWriterTest extends JsfEnabledTestEnvironment {
+@EnableJsfEnvironment
+@DisplayName("Tests for ElementReplacingResponseWriter")
+class ElementReplacingResponseWriterTest {
 
     static final String FILTER = "filter";
 
@@ -45,41 +46,76 @@ class ElementReplacingResponseWriterTest extends JsfEnabledTestEnvironment {
     private StringWriter output;
 
     @BeforeEach
-    void beforeTest() {
+    void beforeTest(FacesContext facesContext) {
         output = new StringWriter();
-        getFacesContext().setResponseWriter(new MockResponseWriter(output));
+        facesContext.setResponseWriter(new MockResponseWriter(output));
         component = new DummyComponent();
     }
 
-    @Test
-    void shouldFilterElement() throws IOException {
-        var writer = new ElementReplacingResponseWriter(getFacesContext().getResponseWriter(), FILTER, REPLACEMENT,
-                false);
-        assertTrue(isEmpty(output.toString()));
-        writer.startElement(FILTER, component);
-        writer.endElement(FILTER);
-        assertTrue(output.toString().contains(REPLACEMENT));
-        assertFalse(output.toString().contains(FILTER));
-        assertFalse(output.toString().contains(PASSTHROUGH));
-    }
+    @Nested
+    @DisplayName("Tests for element filtering and replacement")
+    class ElementFilteringTests {
 
-    @Test
-    void shouldPassthroughElement() throws IOException {
-        var writer = new ElementReplacingResponseWriter(getFacesContext().getResponseWriter(), FILTER, REPLACEMENT,
-                false);
-        assertTrue(isEmpty(output.toString()));
-        writer.startElement(PASSTHROUGH, component);
-        writer.endElement(PASSTHROUGH);
-        assertFalse(output.toString().contains(FILTER));
-        assertTrue(output.toString().contains(PASSTHROUGH));
-    }
+        @Test
+        @DisplayName("Should replace filtered element with replacement element")
+        void shouldFilterElement(FacesContext facesContext) throws IOException {
+            // Arrange
+            var writer = new ElementReplacingResponseWriter(facesContext.getResponseWriter(), FILTER, REPLACEMENT,
+                    false);
 
-    @Test
-    void shouldFilterCloseElement() throws IOException {
-        var writer = new ElementReplacingResponseWriter(getFacesContext().getResponseWriter(), FILTER, REPLACEMENT,
-                true);
-        writer.startElement(FILTER, component);
-        writer.endElement(FILTER);
-        assertEquals("<" + REPLACEMENT, output.toString());
+            // Assert - initial state
+            assertTrue(isEmpty(output.toString()),
+                    "Output should be empty initially");
+
+            // Act
+            writer.startElement(FILTER, component);
+            writer.endElement(FILTER);
+
+            // Assert - after filtering
+            assertTrue(output.toString().contains(REPLACEMENT),
+                    "Output should contain the replacement element");
+            assertFalse(output.toString().contains(FILTER),
+                    "Output should not contain the filtered element");
+            assertFalse(output.toString().contains(PASSTHROUGH),
+                    "Output should not contain unrelated elements");
+        }
+
+        @Test
+        @DisplayName("Should pass through non-filtered elements unchanged")
+        void shouldPassthroughElement(FacesContext facesContext) throws IOException {
+            // Arrange
+            var writer = new ElementReplacingResponseWriter(facesContext.getResponseWriter(), FILTER, REPLACEMENT,
+                    false);
+
+            // Assert - initial state
+            assertTrue(isEmpty(output.toString()),
+                    "Output should be empty initially");
+
+            // Act
+            writer.startElement(PASSTHROUGH, component);
+            writer.endElement(PASSTHROUGH);
+
+            // Assert - after writing
+            assertFalse(output.toString().contains(FILTER),
+                    "Output should not contain the filtered element");
+            assertTrue(output.toString().contains(PASSTHROUGH),
+                    "Output should contain the passthrough element");
+        }
+
+        @Test
+        @DisplayName("Should only write opening tag when closeElement is true")
+        void shouldFilterCloseElement(FacesContext facesContext) throws IOException {
+            // Arrange
+            var writer = new ElementReplacingResponseWriter(facesContext.getResponseWriter(), FILTER, REPLACEMENT,
+                    true);
+
+            // Act
+            writer.startElement(FILTER, component);
+            writer.endElement(FILTER);
+
+            // Assert
+            assertEquals("<" + REPLACEMENT, output.toString(),
+                    "Output should only contain the opening tag of the replacement element");
+        }
     }
 }

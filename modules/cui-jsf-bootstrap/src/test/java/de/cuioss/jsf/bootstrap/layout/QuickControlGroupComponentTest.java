@@ -17,48 +17,87 @@ package de.cuioss.jsf.bootstrap.layout;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.test.jsf.component.AbstractUiComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "align" })
+@VerifyComponentProperties(of = {"align"})
+@DisplayName("Tests for QuickControlGroupComponent")
 class QuickControlGroupComponentTest extends AbstractUiComponentTest<QuickControlGroupComponent> {
 
-    @Test
-    void ensureDefaultAlignment() {
-        var underTest = anyComponent();
-        assertEquals(CssBootstrap.QUICK_CONTROL_GROUP_RIGHT.getStyleClass(),
-                underTest.resolveStyleClass().getStyleClass());
+    @Nested
+    @DisplayName("Tests for alignment handling")
+    class AlignmentTests {
+
+        @Test
+        @DisplayName("Should use right alignment by default")
+        void ensureDefaultAlignment() {
+            // Arrange
+            var component = anyComponent();
+
+            // Act & Assert
+            assertEquals(CssBootstrap.QUICK_CONTROL_GROUP_RIGHT.getStyleClass(),
+                    component.resolveStyleClass().getStyleClass(),
+                    "Default alignment should be right");
+        }
+
+        @Test
+        @DisplayName("Should handle different alignment values correctly")
+        void ensureSetAlignment() {
+            // Arrange
+            var component = anyComponent();
+
+            // Act & Assert - Invalid value should fallback to default
+            component.setAlign("fallback-to-default");
+            assertEquals(CssBootstrap.QUICK_CONTROL_GROUP_RIGHT.getStyleClass(),
+                    component.resolveStyleClass().getStyleClass(),
+                    "Invalid alignment should fallback to right");
+
+            // Act & Assert - Left alignment
+            component.setAlign("left");
+            assertEquals(CssBootstrap.QUICK_CONTROL_GROUP_LEFT.getStyleClass(),
+                    component.resolveStyleClass().getStyleClass(),
+                    "Alignment should be left when set to 'left'");
+
+            // Act & Assert - Right alignment
+            component.setAlign("right");
+            assertEquals(CssBootstrap.QUICK_CONTROL_GROUP_RIGHT.getStyleClass(),
+                    component.resolveStyleClass().getStyleClass(),
+                    "Alignment should be right when set to 'right'");
+        }
+
+        @Test
+        @DisplayName("Should combine style class with alignment correctly")
+        void ensureStyleClassWithAlignment() {
+            // Arrange
+            var component = anyComponent();
+            component.setAlign("left");
+            component.setStyleClass("foo");
+
+            // Act & Assert
+            assertEquals(CssBootstrap.QUICK_CONTROL_GROUP_LEFT.getStyleClassBuilder().append("foo").getStyleClass(),
+                    component.resolveStyleClass().getStyleClass(),
+                    "Style class should be combined with alignment");
+        }
     }
 
-    @Test
-    void ensureSetAlignment() {
-        var underTest = anyComponent();
-        underTest.setAlign("fallback-to-default");
-        assertEquals(CssBootstrap.QUICK_CONTROL_GROUP_RIGHT.getStyleClass(),
-                underTest.resolveStyleClass().getStyleClass());
-        underTest.setAlign("left");
-        assertEquals(CssBootstrap.QUICK_CONTROL_GROUP_LEFT.getStyleClass(),
-                underTest.resolveStyleClass().getStyleClass());
-        underTest.setAlign("right");
-        assertEquals(CssBootstrap.QUICK_CONTROL_GROUP_RIGHT.getStyleClass(),
-                underTest.resolveStyleClass().getStyleClass());
-    }
+    @Nested
+    @DisplayName("Tests for component metadata")
+    class MetadataTests {
 
-    @Test
-    void ensureStyleClassWithAlignment() {
-        var underTest = anyComponent();
-        underTest.setAlign("left");
-        underTest.setStyleClass("foo");
-        assertEquals(CssBootstrap.QUICK_CONTROL_GROUP_LEFT.getStyleClassBuilder().append("foo").getStyleClass(),
-                underTest.resolveStyleClass().getStyleClass());
-    }
+        @Test
+        @DisplayName("Should provide correct renderer type")
+        void shouldProvideCorrectMetadata() {
+            // Arrange
+            var component = anyComponent();
 
-    @Test
-    void shouldProvideCorrectMetadata() {
-        assertEquals(BootstrapFamily.LAYOUT_RENDERER, anyComponent().getRendererType());
+            // Act & Assert
+            assertEquals(BootstrapFamily.LAYOUT_RENDERER, component.getRendererType(),
+                    "Renderer type should be LAYOUT_RENDERER");
+        }
     }
 }

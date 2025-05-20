@@ -16,7 +16,9 @@
 package de.cuioss.jsf.jqplot.renderer;
 
 import de.cuioss.test.valueobjects.junit5.contracts.ShouldBeSerializable;
+import org.junit.jupiter.api.DisplayName;
 
+@DisplayName("Tests for LabelRenderer class")
 class LabelRendererTest implements ShouldBeSerializable<LabelRenderer> {
 
     @Override

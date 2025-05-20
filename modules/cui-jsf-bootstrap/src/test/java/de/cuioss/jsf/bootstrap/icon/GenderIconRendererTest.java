@@ -18,10 +18,6 @@ package de.cuioss.jsf.bootstrap.icon;
 import static de.cuioss.jsf.bootstrap.icon.GenderIconComponentTest.GENDER_MALE_TITLE;
 import static de.cuioss.jsf.bootstrap.icon.GenderIconComponentTest.GENDER_UNKNOWN_TITLE;
 
-import jakarta.faces.component.UIComponent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
@@ -31,32 +27,56 @@ import de.cuioss.jsf.test.EnableResourceBundleSupport;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 import de.cuioss.uimodel.model.Gender;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @EnableJSFCDIEnvironment
 @EnableResourceBundleSupport
+@ExplicitParamInjection
+@DisplayName("Tests for GenderIconRenderer")
 class GenderIconRendererTest extends AbstractComponentRendererTest<IconRenderer> {
 
     private static final String ICON_PREFIX = "cui-icon ";
-
     private static final String GENDER_UNKNOWN_CSS = ICON_PREFIX + Gender.UNKNOWN.getCssClass();
-
     private static final String GENDER_MALE_CSS = ICON_PREFIX + Gender.MALE.getCssClass();
 
-    @Test
-    void shouldRenderMinimal() {
-        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(GENDER_UNKNOWN_CSS)
-                .withAttribute(AttributeName.TITLE, GENDER_UNKNOWN_TITLE);
-        assertRenderResult(getComponent(), expected.getDocument());
-    }
+    @Nested
+    @DisplayName("Rendering tests")
+    class RenderingTests {
 
-    @Test
-    void shouldRenderGenderIcon() {
-        var component = new GenderIconComponent();
-        component.setGender(Gender.MALE);
-        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(GENDER_MALE_CSS)
-                .withAttribute(AttributeName.TITLE, GENDER_MALE_TITLE);
-        assertRenderResult(component, expected.getDocument());
+        @Test
+        @DisplayName("Should render minimal gender icon with default settings")
+        void shouldRenderMinimalGenderIcon(FacesContext facesContext) throws IOException {
+            // Arrange
+            var component = getComponent();
+
+            // Act & Assert
+            var expected = new HtmlTreeBuilder().withNode(Node.SPAN)
+                    .withStyleClass(GENDER_UNKNOWN_CSS)
+                    .withAttribute(AttributeName.TITLE, GENDER_UNKNOWN_TITLE);
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
+
+        @Test
+        @DisplayName("Should render gender icon with specific gender")
+        void shouldRenderGenderIconWithSpecificGender(FacesContext facesContext) throws IOException {
+            // Arrange
+            var component = new GenderIconComponent();
+            component.setGender(Gender.MALE);
+
+            // Act & Assert
+            var expected = new HtmlTreeBuilder().withNode(Node.SPAN)
+                    .withStyleClass(GENDER_MALE_CSS)
+                    .withAttribute(AttributeName.TITLE, GENDER_MALE_TITLE);
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
     }
 
     @Override

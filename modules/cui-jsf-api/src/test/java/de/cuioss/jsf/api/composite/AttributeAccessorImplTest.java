@@ -16,20 +16,18 @@
 package de.cuioss.jsf.api.composite;
 
 import static de.cuioss.test.generator.Generators.booleans;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
+import de.cuioss.test.valueobjects.ValueObjectTest;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import de.cuioss.test.valueobjects.ValueObjectTest;
-
+@DisplayName("Tests for AttributeAccessorImpl")
 class AttributeAccessorImplTest extends ValueObjectTest<AttributeAccessorImpl<String>> {
 
     private static final String ATTRIBUTE_NAME = "someName";
@@ -49,42 +47,89 @@ class AttributeAccessorImplTest extends ValueObjectTest<AttributeAccessorImpl<St
         underTest = new AttributeAccessorImpl<>(ATTRIBUTE_NAME, String.class, true);
     }
 
-    @Test
-    void shouldWorkOnHappyCase() {
-        assertTrue(underTest.available(attributeMap));
-        assertEquals(ATTRIBUTE_VALUE, underTest.value(attributeMap));
-        // Clear Map
-        attributeMap.clear();
-        assertFalse(underTest.available(attributeMap));
-        assertNull(underTest.value(attributeMap));
+    @Nested
+    @DisplayName("Tests for basic attribute access functionality")
+    class BasicAttributeAccessTests {
+
+        @Test
+        @DisplayName("Should correctly access attributes in standard mode")
+        void shouldAccessAttributesInStandardMode() {
+            // Arrange - setup done in @BeforeEach
+
+            // Act & Assert - attribute present
+            assertTrue(underTest.available(attributeMap),
+                    "Accessor should detect attribute as available");
+            assertEquals(ATTRIBUTE_VALUE, underTest.value(attributeMap),
+                    "Accessor should return the correct attribute value");
+
+            // Act - clear map
+            attributeMap.clear();
+
+            // Assert - attribute not present
+            assertFalse(underTest.available(attributeMap),
+                    "Accessor should detect attribute as not available after clearing map");
+            assertNull(underTest.value(attributeMap),
+                    "Accessor should return null when attribute is not available");
+        }
     }
 
-    @Test
-    void shouldCacheOnNeverResolve() {
-        underTest = new AttributeAccessorImpl<>(ATTRIBUTE_NAME, String.class, false);
-        assertTrue(underTest.available(attributeMap));
-        assertEquals(ATTRIBUTE_VALUE, underTest.value(attributeMap));
-        // Clear Map
-        attributeMap.clear();
-        assertEquals(ATTRIBUTE_VALUE, underTest.value(attributeMap));
-        attributeMap.put(ATTRIBUTE_NAME, ATTRIBUTE_VALUE_ALTERNATIVE);
-        assertTrue(underTest.available(attributeMap));
-        assertEquals(ATTRIBUTE_VALUE, underTest.value(attributeMap));
+    @Nested
+    @DisplayName("Tests for caching behavior")
+    class CachingBehaviorTests {
+
+        @Test
+        @DisplayName("Should cache values when configured to never resolve")
+        void shouldCacheValuesWhenConfiguredToNeverResolve() {
+            // Arrange
+            underTest = new AttributeAccessorImpl<>(ATTRIBUTE_NAME, String.class, false);
+
+            // Act & Assert - initial access
+            assertTrue(underTest.available(attributeMap),
+                    "Accessor should detect attribute as available");
+            assertEquals(ATTRIBUTE_VALUE, underTest.value(attributeMap),
+                    "Accessor should return the correct attribute value");
+
+            // Act - clear map
+            attributeMap.clear();
+
+            // Assert - cached value should still be returned
+            assertEquals(ATTRIBUTE_VALUE, underTest.value(attributeMap),
+                    "Accessor should return cached value even when attribute is removed");
+
+            // Act - change attribute value
+            attributeMap.put(ATTRIBUTE_NAME, ATTRIBUTE_VALUE_ALTERNATIVE);
+
+            // Assert - cached value should still be returned
+            assertTrue(underTest.available(attributeMap),
+                    "Accessor should detect attribute as available");
+            assertEquals(ATTRIBUTE_VALUE, underTest.value(attributeMap),
+                    "Accessor should return cached value even when attribute value changes");
+        }
     }
 
-    @Test
-    void shouldFailOnInvalidType() {
-        attributeMap.clear();
-        attributeMap.put(ATTRIBUTE_NAME, 4);
-        assertThrows(IllegalStateException.class, () -> underTest.value(attributeMap));
+    @Nested
+    @DisplayName("Tests for error handling")
+    class ErrorHandlingTests {
+
+        @Test
+        @DisplayName("Should throw exception when attribute value has invalid type")
+        void shouldThrowExceptionForInvalidType() {
+            // Arrange
+            attributeMap.clear();
+            attributeMap.put(ATTRIBUTE_NAME, 4); // Integer instead of String
+
+            // Act & Assert
+            assertThrows(IllegalStateException.class, () -> underTest.value(attributeMap),
+                    "Accessor should throw IllegalStateException when attribute value has invalid type");
+        }
     }
 
     public interface TestInterfaceA {
-        // dymmy test interface
+        // dummy test interface
     }
 
     public interface TestInterfaceB extends TestInterfaceA {
-        // dymmy test interface
+        // dummy test interface
     }
 
     @Override

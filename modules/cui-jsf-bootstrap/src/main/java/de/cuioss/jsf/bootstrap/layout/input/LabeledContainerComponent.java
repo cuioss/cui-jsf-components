@@ -15,6 +15,9 @@
  */
 package de.cuioss.jsf.bootstrap.layout.input;
 
+import static de.cuioss.jsf.api.components.util.ComponentUtility.findNearestNamingContainer;
+import static de.cuioss.jsf.bootstrap.layout.input.ContainerFacets.*;
+
 import de.cuioss.jsf.api.components.base.BaseCuiNamingContainer;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.partial.*;
@@ -45,55 +48,61 @@ import lombok.experimental.Delegate;
 
 import java.util.*;
 
-import static de.cuioss.jsf.api.components.util.ComponentUtility.findNearestNamingContainer;
-import static de.cuioss.jsf.bootstrap.layout.input.ContainerFacets.*;
-
 /**
- * <h2>Overview</h2>
  * <p>
- * Renders a Label and message for the given output or input component. The
- * component will be rendered into a bootstrap defined div with
- * class='control-group'. The input component is to be a child for this
- * component and having the id 'input' As an alternative to 'input' you can
- * change the attribute 'forIdentifier' In special cases you can provides a
- * space separated list for the forIdentifier attribute resulting in n message
- * elements being appended. The component itself will apply the (needed)
- * styleClass "form-control" to the given input if the corresponding component
- * does not have a styleClass set already. If it has a styleClass the
- * implementer must ensure that it has a form-control specific styleClass set.
+ * Renders a labeled form element with integrated validation message support.
+ * This component wraps input elements with proper Bootstrap styling, handling label positioning,
+ * validation messages, and optional addon elements.
+ * </p>
+ * <p>
+ * The component applies Bootstrap's form styling automatically and supports various layout modes
+ * including column-based layouts. It automatically applies "form-control" to child inputs and
+ * handles validation states and required indicators.
  * </p>
  * <p>
  * More information and examples can be found in the <a href=
- * "https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/labeledContainerDemo.jsf"></a>
+ * "https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/labeledContainerDemo.jsf">Reference
+ * Documentation</a>
  * </p>
+ * 
  * <h2>Attributes</h2>
  * <ul>
- * <li>{@link LabelColumnProvider}</li>
- * <li>{@link ContentColumnProvider}</li>
- * <li>{@link PlaceholderProvider}</li>
- * <li>{@link ForIdentifierProvider}</li>
- * <li>{@link LabelProvider}</li>
- * <li>{@link ContentProvider}</li>
- * <li>{@link TitleProvider}</li>
- * <li>{@link LayoutModeProvider}</li>
- * <li>{@link DisabledComponentProvider}</li>
- * <li>errorClass: Defines the css class to render in case of invalid inputs
- * (default 'has-error').</li>
- * <li>renderMessage: Defines if the error message should be rendered (default
- * true).</li>
- * <li>prependAsButton: Indicates whether the 'prepend' facet is to be treated
- * as button, defaults to {@code false}. If it is {@code true} the facet will be
- * rendered with the styleClass = 'input-group-btn', 'input-group-addon'
- * otherwise.</li>
- * <li>appendAsButton: Indicates whether the 'append' facet is to be treated as
- * button, defaults to {@code false}. If it is {@code true} the facet will be
- * rendered with the styleClass = 'input-group-btn', 'input-group-addon'
- * otherwise.</li>
+ * <li>{@link LabelProvider} - Label content</li>
+ * <li>{@link ContentProvider} - Static content</li>
+ * <li>{@link ForIdentifierProvider} - Target input identifier(s)</li>
+ * <li>{@link PlaceholderProvider} - Input placeholder text</li>
+ * <li>{@link LayoutModeProvider} - Layout structure (default: COLUMN)</li>
+ * <li>{@link LabelColumnProvider} - Label width (default: 4)</li>
+ * <li>{@link ContentColumnProvider} - Content width (default: 8)</li>
+ * <li>{@link DisabledComponentProvider} - Disabled state handling</li>
+ * <li>errorClass - CSS class for invalid inputs (default: 'has-error')</li>
+ * <li>renderMessage - Controls error message visibility (default: true)</li>
+ * <li>renderComplexOutput - For handling complex output rather than inputs</li>
+ * <li>prependAsButton/appendAsButton - Controls addon styling</li>
  * </ul>
+ * 
+ * <h2>Facets</h2>
+ * <ul>
+ * <li>prepend - Content to display before the input</li>
+ * <li>append - Content to display after the input</li>
+ * <li>label - Custom label content (alternative to label attribute)</li>
+ * <li>helpText - Additional help text displayed below the field</li>
+ * </ul>
+ * 
  * <h2>Usage</h2>
  *
  * <pre>
- * &lt;boot:labeledContainer&gt;&lt;h:inputText /&gt;&lt;/boot:labeledContainer&gt;
+ * {@code 
+ * <boot:labeledContainer label="Username" forIdentifier="inputUsername">
+ *   <h:inputText id="inputUsername" />
+ * </boot:labeledContainer>
+ * 
+ * <!-- With addons -->
+ * <boot:labeledContainer label="Email">
+ *   <f:facet name="prepend">@</f:facet>
+ *   <h:inputText id="input" />
+ * </boot:labeledContainer>
+ * }
  * </pre>
  *
  * @author Matthias Walliczek
@@ -294,7 +303,7 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
                                     not configured for complex output. Please check if you want to \
                                     render an input element and did not adapt the id of this element. \
                                     If you want to use it for output text, you can ignore this message""",
-                                getClientId(), forId.get());
+                                    getClientId(), forId.get());
                         }
                     }
                 } catch (Exception e) {
@@ -545,7 +554,7 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
     @Override
     public String toString() {
         return "LabeledContainerComponent [isRendered()=" + isRendered() + ", getFacetsAndChildren()="
-            + getFacetsAndChildren() + ", getId()=" + getId() + ", getParent()=" + getParent() + ", isTransient()="
-            + isTransient() + "]";
+                + getFacetsAndChildren() + ", getId()=" + getId() + ", getParent()=" + getParent() + ", isTransient()="
+                + isTransient() + "]";
     }
 }

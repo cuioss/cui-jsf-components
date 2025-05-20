@@ -17,9 +17,8 @@ package de.cuioss.jsf.api.components.partial;
 
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.api.ui.model.ToggleSwitch;
-import lombok.NonNull;
-
 import jakarta.faces.component.StateHelper;
+import lombok.NonNull;
 
 /**
  * <h2>Summary</h2>

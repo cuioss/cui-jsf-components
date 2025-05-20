@@ -15,10 +15,9 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
-import jakarta.faces.component.StateHelper;
-
 import de.cuioss.jsf.api.components.css.ContextSize;
 import de.cuioss.jsf.api.components.util.CuiState;
+import jakarta.faces.component.StateHelper;
 import lombok.NonNull;
 
 /**

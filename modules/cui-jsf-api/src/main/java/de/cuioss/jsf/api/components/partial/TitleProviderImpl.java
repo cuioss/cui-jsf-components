@@ -18,107 +18,163 @@ package de.cuioss.jsf.api.components.partial;
 import de.cuioss.jsf.api.components.support.LabelResolver;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.tools.string.MoreStrings;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.render.Renderer;
 import lombok.NonNull;
 
-import jakarta.faces.component.StateHelper;
 import java.io.Serializable;
 
 /**
- * <h2>Summary</h2>
+ * Standard implementation of the {@link TitleProvider} interface for JSF components.
  * <p>
- * Implementors of this class manage the state and resolving of the title
- * attribute. The implementation relies on the correct user of the attribute
- * names, saying they must exactly match the accessor methods.
+ * This implementation stores component state using the JSF {@link StateHelper} mechanism
+ * via a {@link CuiState} wrapper and resolves titles using the {@link LabelResolver}.
+ * It provides full support for both direct title values and resource bundle lookups.
  * </p>
- * <h2>titleKey</h2>
  * <p>
- * The key for looking up the text for the title-attribute. Although this
- * attribute is not required you must provide either this or #titleValue if you
- * want a title to be displayed.
+ * Key features of this implementation:
  * </p>
- * <h2>titleValue</h2>
+ * <ul>
+ *   <li>Efficient state handling using the component's StateHelper</li>
+ *   <li>Lazy resolution of titles from resource bundles</li>
+ *   <li>Support for value conversion</li>
+ *   <li>Cross-JSF implementation compatibility (Mojarra/MyFaces)</li>
+ * </ul>
  * <p>
- * The Object displayed for the title-attribute. This is a replacement for
- * #titleKey. If both are present titleValue takes precedence. This object is
- * usually a String. If not, the developer must ensure that a corresponding
- * converter is either registered for the type or must provide a converter using
- * #titleConverter.
+ * The implementation is not thread-safe, which is consistent with the JSF component
+ * lifecycle where components are not shared between requests.
  * </p>
- * <h2>titleConverter</h2>
  * <p>
- * The optional converterId to be used in case of titleValue is set and needs
- * conversion.
+ * Usage example:
  * </p>
+ * <pre>
+ * public class MyComponent extends UIComponentBase implements TitleProvider {
+ *    
+ *    private final TitleProviderImpl titleProvider;
+ *    
+ *    public MyComponent() {
+ *        titleProvider = new TitleProviderImpl(new ComponentBridge(this));
+ *    }
+ *    
+ *    &#64;Override
+ *    public void setTitleKey(String titleKey) {
+ *        titleProvider.setTitleKey(titleKey);
+ *    }
+ *    
+ *    // Additional delegate methods...
+ * }
+ * </pre>
  *
  * @author Oliver Wolff
+ * @since 1.0
+ * @see TitleProvider
+ * @see ComponentBridge
+ * @see LabelResolver
  */
 public class TitleProviderImpl implements TitleProvider {
 
     /**
-     * The key for the {@link StateHelper}
+     * The key for the {@link StateHelper} to store the resource bundle key
      */
     private static final String TITLE_KEY_KEY = "titleKey";
 
     /**
-     * The key for the {@link StateHelper}
+     * The key for the {@link StateHelper} to store the direct title value
      */
     private static final String TITLE_VALUE_KEY = "titleValue";
 
     /**
-     * The key for the {@link StateHelper}
+     * The key for the {@link StateHelper} to store the converter
      */
     private static final String TITLE_CONVERTER_KEY = "titleConverter";
 
     /**
-     * The key for the resolved title.
+     * The key for storing the resolved title in the {@link StateHelper}
      */
     private static final String TITLE_KEY = "title";
 
+    /**
+     * Bridge to the owning component, providing access to its FacesContext and StateHelper
+     */
     private final ComponentBridge componentBridge;
 
+    /**
+     * Wrapper for the component's state management
+     */
     private final CuiState state;
 
     /**
-     * @param bridge must not be null
+     * Constructor creating a new TitleProviderImpl.
+     * <p>
+     * The provider needs a bridge to the component it belongs to in order to
+     * access the component's state management and FacesContext.
+     * </p>
+     *
+     * @param bridge the component bridge connecting to the owning component, must not be null
+     * @throws NullPointerException if bridge is null
      */
     public TitleProviderImpl(@NonNull ComponentBridge bridge) {
         state = new CuiState(bridge.stateHelper());
         componentBridge = bridge;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setTitleKey(final String titleKey) {
         state.put(TITLE_KEY_KEY, titleKey);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getTitleKey() {
         return state.get(TITLE_KEY_KEY);
     }
 
     /**
-     * @param titleValue to be set.
+     * {@inheritDoc}
      */
     @Override
     public void setTitleValue(final Serializable titleValue) {
         state.put(TITLE_VALUE_KEY, titleValue);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Serializable getTitleValue() {
         return state.get(TITLE_VALUE_KEY);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object getTitleConverter() {
         return state.get(TITLE_CONVERTER_KEY);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setTitleConverter(final Object titleConverter) {
         state.put(TITLE_CONVERTER_KEY, titleConverter);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * The implementation uses {@link LabelResolver} to resolve the title
+     * from either the direct value or resource bundle key. This handles
+     * all conversion and localization needs.
+     * </p>
+     */
     @Override
     public String resolveTitle() {
         final var labelValue = getTitleValue();
@@ -126,26 +182,58 @@ public class TitleProviderImpl implements TitleProvider {
         if (!isTitleSet()) {
             return null;
         }
-        return LabelResolver.builder().withLabelKey(labelKey).withStrictMode(false).withConverter(getTitleConverter())
-            .withLabelValue(labelValue).build().resolve(componentBridge.facesContext());
+        return LabelResolver.builder()
+                .withLabelKey(labelKey)
+                .withStrictMode(false)
+                .withConverter(getTitleConverter())
+                .withLabelValue(labelValue)
+                .build()
+                .resolve(componentBridge.facesContext());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getTitle() {
         return state.get(TITLE_KEY);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * The implementation considers a title to be set if either titleValue is not null
+     * or titleKey is not empty.
+     * </p>
+     */
     @Override
     public boolean isTitleSet() {
         return getTitleValue() != null || !MoreStrings.isEmpty(getTitleKey());
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * This implementation always throws an {@link UnsupportedOperationException}
+     * to enforce proper usage of the specific title properties.
+     * </p>
+     * 
+     * @throws UnsupportedOperationException always thrown to prevent direct title setting
+     */
     @Override
     public void setTitle(final String title) {
         throw new UnsupportedOperationException(componentBridge.getClass().getCanonicalName()
-            + " wrong usage detected. Use setTitleKey() or setTitleValue(Serializable) instead.");
+                + " wrong usage detected. Use setTitleKey() or setTitleValue(Serializable) instead.");
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * The implementation only resolves and stores the title once to avoid
+     * redundant processing. This method should be called by the {@link Renderer}
+     * before rendering a component.
+     * </p>
+     */
     @Override
     public void resolveAndStoreTitle() {
         // Titles should usually be set once

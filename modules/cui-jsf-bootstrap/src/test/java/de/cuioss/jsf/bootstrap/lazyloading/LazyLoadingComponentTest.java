@@ -17,9 +17,15 @@ package de.cuioss.jsf.bootstrap.lazyloading;
 
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.DisplayName;
 
+/**
+ * Tests for {@link LazyLoadingComponent} using the property verification from
+ * {@link AbstractComponentTest}.
+ */
 @VerifyComponentProperties(of = {"initialized", "notificationBoxValue", "notificationBoxState", "renderContent",
-    "viewModel", "ignoreAutoUpdate", "async", "childrenLoaded", "waitingIndicatorStyleClass"})
+        "viewModel", "ignoreAutoUpdate", "async", "childrenLoaded", "waitingIndicatorStyleClass"})
+@DisplayName("Tests for LazyLoadingComponent")
 class LazyLoadingComponentTest extends AbstractComponentTest<LazyLoadingComponent> {
-
+    // All tests are inherited from AbstractComponentTest
 }

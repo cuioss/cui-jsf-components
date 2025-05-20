@@ -18,101 +18,187 @@ package de.cuioss.jsf.bootstrap.checkbox;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableMap;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "offTextValue", "offTextKey", "onTextValue", "onTextKey", "titleValue", "titleKey",
-        "rendered", "disabled" })
+@VerifyComponentProperties(of = {"offTextValue", "offTextKey", "onTextValue", "onTextKey", "titleValue", "titleKey",
+        "rendered", "disabled"})
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
+@DisplayName("Tests for SwitchComponent")
 class SwitchComponentTest extends AbstractComponentTest<SwitchComponent> {
 
-    @Test
-    void shouldProvideCorrectMetadata() {
-        assertEquals(BootstrapFamily.SWITCH_RENDERER, anyComponent().getRendererType());
-        assertEquals(BootstrapFamily.COMPONENT_FAMILY, anyComponent().getFamily());
+    @Nested
+    @DisplayName("Metadata tests")
+    class MetadataTests {
+
+        @Test
+        @DisplayName("Should provide correct component metadata")
+        void shouldProvideCorrectMetadata() {
+            // Arrange & Act
+            var component = anyComponent();
+
+            // Assert
+            assertEquals(BootstrapFamily.SWITCH_RENDERER, component.getRendererType(),
+                    "Renderer type should match");
+            assertEquals(BootstrapFamily.COMPONENT_FAMILY, component.getFamily(),
+                    "Component family should match");
+        }
     }
 
-    @Test
-    void shouldResolveText() {
-        var onText = Generators.nonEmptyStrings().next();
-        var offText = Generators.nonEmptyStrings().next();
-        var underTest = anyComponent();
-        underTest.setOnTextValue(onText);
-        underTest.setOffTextValue(offText);
-        assertEquals(offText, underTest.resolveOffText());
-        assertEquals(onText, underTest.resolveOnText());
+    @Nested
+    @DisplayName("Text resolution tests")
+    class TextResolutionTests {
+
+        @Test
+        @DisplayName("Should resolve on/off text values")
+        void shouldResolveText() {
+            // Arrange
+            var onText = Generators.nonEmptyStrings().next();
+            var offText = Generators.nonEmptyStrings().next();
+            var component = anyComponent();
+
+            // Act
+            component.setOnTextValue(onText);
+            component.setOffTextValue(offText);
+
+            // Assert
+            assertEquals(offText, component.resolveOffText(), "Off text should match set value");
+            assertEquals(onText, component.resolveOnText(), "On text should match set value");
+        }
+
+        @Test
+        @DisplayName("Should resolve title text")
+        void shouldResolveTitleText() {
+            // Arrange
+            var titleText = Generators.nonEmptyStrings().next();
+            var component = anyComponent();
+
+            // Act
+            component.setTitleValue(titleText);
+
+            // Assert
+            assertEquals(titleText, component.resolveTitle(), "Title should match set value");
+        }
     }
 
-    @Test
-    void shouldResolveTitleText() {
-        var sample = Generators.nonEmptyStrings().next();
-        var underTest = anyComponent();
-        underTest.setTitleValue(sample);
-        assertEquals(sample, underTest.resolveTitle());
+    @Nested
+    @DisplayName("Style handling tests")
+    class StyleHandlingTests {
+
+        @Test
+        @DisplayName("Should handle style property correctly")
+        void shouldResolveStyle() {
+            // Arrange
+            var styleValue = Generators.nonEmptyStrings().next();
+            var component = anyComponent();
+
+            // Act
+            component.setStyle(styleValue);
+
+            // Assert
+            assertNull(component.getStyle(), "getStyle() should return null");
+            assertEquals(styleValue, component.resolveStyle(), "resolveStyle() should return the set value");
+        }
+
+        @Test
+        @DisplayName("Should handle style class property correctly")
+        void shouldResolveStyleClass() {
+            // Arrange
+            var styleClass = Generators.nonEmptyStrings().next().trim();
+            var component = anyComponent();
+
+            // Act
+            component.setStyleClass(styleClass);
+
+            // Assert
+            assertNull(component.getStyleClass(), "getStyleClass() should return null");
+            assertEquals(styleClass, component.getStyleClassBuilder().getStyleClass(),
+                    "StyleClassBuilder should contain the set value");
+        }
+
+        @Test
+        @DisplayName("Should resolve pass-through attributes correctly")
+        void shouldResolvePassThroughAttributes() {
+            // Arrange
+            var component = anyComponent();
+
+            // Act & Assert - Disabled false
+            component.setDisabled(false);
+            assertEquals(immutableMap("data-switch-disabled", "false"), component.resolvePassThroughAttributes(),
+                    "Pass-through attributes should contain disabled=false");
+
+            // Act & Assert - Disabled true
+            component.setDisabled(true);
+            assertEquals(immutableMap("data-switch-disabled", "true"), component.resolvePassThroughAttributes(),
+                    "Pass-through attributes should contain disabled=true");
+        }
     }
 
-    @Test
-    void shouldResolveStyle() {
-        var sample = Generators.nonEmptyStrings().next();
-        var underTest = anyComponent();
-        underTest.setStyle(sample);
-        assertNull(underTest.getStyle());
-        assertEquals(sample, underTest.resolveStyle());
-    }
+    @Nested
+    @DisplayName("Selected state tests")
+    class SelectedStateTests {
 
-    @Test
-    void shouldResolveStyleClass() {
-        var sample = Generators.nonEmptyStrings().next().trim();
-        var underTest = anyComponent();
-        underTest.setStyleClass(sample);
-        assertNull(underTest.getStyleClass());
-        assertEquals(sample, underTest.getStyleClassBuilder().getStyleClass());
-    }
+        @Test
+        @DisplayName("Should handle null submitted value")
+        void shouldResolveSelectedWithEmpty() {
+            // Arrange
+            var component = anyComponent();
 
-    @Test
-    void shouldResolvePassThroughAttributes() {
-        var underTest = anyComponent();
-        underTest.setDisabled(false);
-        assertEquals(immutableMap("data-switch-disabled", "false"), underTest.resolvePassThroughAttributes());
-        underTest.setDisabled(true);
-        assertEquals(immutableMap("data-switch-disabled", "true"), underTest.resolvePassThroughAttributes());
-    }
+            // Act
+            component.setSubmittedValue(null);
 
-    @Test
-    void shouldResolveSelectedWithEmpty() {
-        var component = anyComponent();
-        component.setSubmittedValue(null);
-        assertFalse(component.isSelected());
-    }
+            // Assert
+            assertFalse(component.isSelected(), "Component should not be selected with null value");
+        }
 
-    @Test
-    void shouldResolveSelectedWithBoolean() {
-        var component = anyComponent();
-        component.setSubmittedValue(Boolean.TRUE);
-        assertTrue(component.isSelected());
-        component.setSubmittedValue(Boolean.FALSE);
-        assertFalse(component.isSelected());
-    }
+        @Test
+        @DisplayName("Should handle Boolean submitted values")
+        void shouldResolveSelectedWithBoolean() {
+            // Arrange
+            var component = anyComponent();
 
-    @Test
-    void shouldResolveSelectedWithString() {
-        var component = anyComponent();
-        component.setSubmittedValue(Boolean.TRUE.toString());
-        assertTrue(component.isSelected());
-        component.setSubmittedValue(Boolean.FALSE.toString());
-        assertFalse(component.isSelected());
-    }
+            // Act & Assert - True
+            component.setSubmittedValue(Boolean.TRUE);
+            assertTrue(component.isSelected(), "Component should be selected with Boolean.TRUE");
 
-    @Test
-    void shouldResolveSelectedWithOther() {
-        var component = anyComponent();
-        component.setSubmittedValue(Generators.runtimeExceptions().next());
-        assertFalse(component.isSelected());
+            // Act & Assert - False
+            component.setSubmittedValue(Boolean.FALSE);
+            assertFalse(component.isSelected(), "Component should not be selected with Boolean.FALSE");
+        }
+
+        @Test
+        @DisplayName("Should handle String submitted values")
+        void shouldResolveSelectedWithString() {
+            // Arrange
+            var component = anyComponent();
+
+            // Act & Assert - "true"
+            component.setSubmittedValue(Boolean.TRUE.toString());
+            assertTrue(component.isSelected(), "Component should be selected with 'true' string");
+
+            // Act & Assert - "false"
+            component.setSubmittedValue(Boolean.FALSE.toString());
+            assertFalse(component.isSelected(), "Component should not be selected with 'false' string");
+        }
+
+        @Test
+        @DisplayName("Should handle other object types as submitted values")
+        void shouldResolveSelectedWithOther() {
+            // Arrange
+            var component = anyComponent();
+
+            // Act
+            component.setSubmittedValue(Generators.runtimeExceptions().next());
+
+            // Assert
+            assertFalse(component.isSelected(), "Component should not be selected with non-boolean object");
+        }
     }
 }

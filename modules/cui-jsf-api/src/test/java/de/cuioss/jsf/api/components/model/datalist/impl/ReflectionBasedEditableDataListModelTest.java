@@ -18,13 +18,12 @@ package de.cuioss.jsf.api.components.model.datalist.impl;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.ArrayList;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.model.datalist.impl.support.ExplodingModel;
 import de.cuioss.jsf.api.components.model.datalist.impl.support.MissingCopyConstructor;
 import de.cuioss.jsf.api.components.model.datalist.impl.support.MissingDefaultConstructor;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 class ReflectionBasedEditableDataListModelTest {
 

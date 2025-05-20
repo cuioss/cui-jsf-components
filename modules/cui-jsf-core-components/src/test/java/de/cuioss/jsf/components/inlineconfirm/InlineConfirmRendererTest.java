@@ -15,6 +15,9 @@
  */
 package de.cuioss.jsf.components.inlineconfirm;
 
+import static de.cuioss.jsf.components.inlineconfirm.InlineConfirmRenderer.DATA_IDENTIFIER;
+import static de.cuioss.jsf.components.inlineconfirm.InlineConfirmRenderer.DATA_TARGET_IDENTIFIER;
+
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
@@ -26,34 +29,65 @@ import de.cuioss.test.jsf.config.renderer.VetoRenderAttributeAssert;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 import de.cuioss.test.jsf.renderer.CommonRendererAsserts;
 import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static de.cuioss.jsf.components.inlineconfirm.InlineConfirmRenderer.DATA_IDENTIFIER;
-import static de.cuioss.jsf.components.inlineconfirm.InlineConfirmRenderer.DATA_TARGET_IDENTIFIER;
+import java.io.IOException;
 
+@DisplayName("Tests for InlineConfirmRenderer")
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @VetoRenderAttributeAssert({CommonRendererAsserts.STYLE, CommonRendererAsserts.STYLE_CLASS,
-    CommonRendererAsserts.PASSTHROUGH, CommonRendererAsserts.ID})
+        CommonRendererAsserts.PASSTHROUGH, CommonRendererAsserts.ID})
 class InlineConfirmRendererTest extends AbstractComponentRendererTest<InlineConfirmRenderer> {
 
     @Override
     protected UIComponent getComponent() {
+        // Create a basic component for tests that don't need facets or children
+        return new InlineConfirmComponent();
+    }
+
+    /**
+     * Creates a component with facets and children for more complex tests
+     * 
+     * @param facesContext the current FacesContext
+     * @return a configured InlineConfirmComponent
+     */
+    protected UIComponent getComponent(FacesContext facesContext) {
+        // Create the main component
         var component = new InlineConfirmComponent();
+
+        // Add the initial facet (button)
         component.getFacets().put(InlineConfirmComponent.INITIAL_FACET_NAME,
-            JsfHtmlComponent.BUTTON.component(getFacesContext()));
-        UIComponent button = JsfHtmlComponent.BUTTON.component(getFacesContext());
+                JsfHtmlComponent.BUTTON.component(facesContext));
+
+        // Add a child button with style
+        UIComponent button = JsfHtmlComponent.BUTTON.component(facesContext);
         button.getAttributes().put(AttributeName.STYLE.getContent(), "border-radius: 3px;");
         component.getChildren().add(button);
+
         return component;
     }
 
     @Test
-    void shouldRenderMinimal() {
-        var expected = new HtmlTreeBuilder().withNode(Node.BUTTON).withAttribute(DATA_IDENTIFIER, DATA_IDENTIFIER);
-        expected.currentHierarchyUp().withNode(Node.BUTTON)
-            .withAttribute(DATA_TARGET_IDENTIFIER, DATA_TARGET_IDENTIFIER).withAttribute(AttributeName.STYLE,
-                AttributeValue.STYLE_DISPLAY_NONE.getContent() + "border-radius: 3px;");
-        assertRenderResult(getComponent(), expected.getDocument());
+    @DisplayName("Should render minimal inline confirm component")
+    void shouldRenderMinimal(FacesContext facesContext) throws IOException {
+        // Arrange
+        var component = getComponent(facesContext);
+
+        // Create expected HTML structure
+        var expected = new HtmlTreeBuilder()
+                .withNode(Node.BUTTON)
+                .withAttribute(DATA_IDENTIFIER, DATA_IDENTIFIER);
+
+        expected.currentHierarchyUp()
+                .withNode(Node.BUTTON)
+                .withAttribute(DATA_TARGET_IDENTIFIER, DATA_TARGET_IDENTIFIER)
+                .withAttribute(AttributeName.STYLE,
+                        AttributeValue.STYLE_DISPLAY_NONE.getContent() + "border-radius: 3px;");
+
+        // Act & Assert - Component should render with expected structure
+        assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
 }

@@ -18,18 +18,74 @@ package de.cuioss.jsf.api.components.css;
 import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
 
 /**
- * Simple interface defining a way to resolve-style-class(es).
+ * Interface for components that need to dynamically resolve CSS style classes from multiple sources.
+ * <p>
+ * While {@link StyleClassProvider} is focused on providing a predefined style class,
+ * this interface is designed for cases where the style class needs to be dynamically computed
+ * or combined from various sources. It's particularly useful for UI components that need
+ * to merge developer-specified classes with framework-specific classes, or apply conditional
+ * styling based on component state.
+ * 
+ * <p>
+ * Implementers of this interface should calculate the complete set of style classes needed
+ * for rendering the component, combining any or all of:
+ * <ul>
+ *   <li>Developer-provided style classes (e.g., from a styleClass attribute)</li>
+ *   <li>Framework-specific style classes (e.g., Bootstrap classes)</li>
+ *   <li>State-dependent classes (e.g., disabled, active states)</li>
+ *   <li>Size or context classes (e.g., responsive sizing)</li>
+ * </ul>
+ * 
+ * <p>
+ * Implementation note: The resolver should be designed to recalculate styles each time
+ * {@link #resolveStyleClass()} is called, since the component state may have changed.
+ * 
+ * <p>
+ * Usage example:
+ * <pre>
+ * public class MyComponent extends UIComponent implements StyleClassResolver {
+ *     
+ *     private String styleClass;
+ *     private boolean active;
+ *     
+ *     &#64;Override
+ *     public StyleClassBuilder resolveStyleClass() {
+ *         StyleClassBuilder builder = new StyleClassBuilderImpl("my-component");
+ *         builder.append(styleClass);
+ *         builder.appendIfTrue("active", active);
+ *         return builder;
+ *     }
+ * }
+ * </pre>
  *
  * @author Oliver Wolff
+ * @since 1.0
+ * @see StyleClassProvider
+ * @see StyleClassBuilder
+ * @see ComponentStyleClassProvider
  */
 public interface StyleClassResolver {
 
     /**
-     * In contrast to {@link ComponentStyleClassProvider#getStyleClass()} that
-     * returns the previously set / configured styleClass-attribute this method
-     * computes a style-class from different sources.
+     * Calculates and returns the complete set of CSS style classes for a component.
+     * <p>
+     * In contrast to {@link ComponentStyleClassProvider#getStyleClass()} which
+     * typically returns only the explicitly configured styleClass attribute, this method
+     * computes a complete style class string from multiple sources, potentially including:
+     * </p>
+     * <ul>
+     *   <li>Base component classes</li>
+     *   <li>Developer-provided custom classes</li>
+     *   <li>State-specific classes</li>
+     *   <li>Framework-specific styling classes</li>
+     * </ul>
+     * <p>
+     * The returned builder contains all resolved classes and can be further modified
+     * if needed before generating the final class string.
+     * </p>
      *
-     * @return the resolved (combined) styleClass for a component.
+     * @return a StyleClassBuilder containing all resolved CSS classes for the component,
+     *         never {@code null}
      */
     StyleClassBuilder resolveStyleClass();
 }

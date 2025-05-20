@@ -15,14 +15,13 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
-import java.io.Serializable;
-
-import jakarta.faces.component.StateHelper;
-
 import de.cuioss.jsf.api.components.support.LabelResolver;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.tools.string.MoreStrings;
+import jakarta.faces.component.StateHelper;
 import lombok.NonNull;
+
+import java.io.Serializable;
 
 /**
  * <h2>Summary</h2>

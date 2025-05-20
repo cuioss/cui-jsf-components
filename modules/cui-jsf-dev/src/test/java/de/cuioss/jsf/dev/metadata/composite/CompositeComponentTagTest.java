@@ -15,8 +15,89 @@
  */
 package de.cuioss.jsf.dev.metadata.composite;
 
-import de.cuioss.test.jsf.component.AbstractComponentTest;
+import static org.junit.jupiter.api.Assertions.*;
 
+import de.cuioss.test.jsf.component.AbstractComponentTest;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+@DisplayName("Tests for CompositeComponentTag")
 class CompositeComponentTagTest extends AbstractComponentTest<CompositeComponentTag> {
 
+    @Nested
+    @DisplayName("Component Attribute Tests")
+    class ComponentAttributeTests {
+
+        @Test
+        @DisplayName("Should return library attribute")
+        void shouldReturnLibrary() {
+            // Arrange
+            var component = anyComponent();
+            var expectedLibrary = "testLibrary";
+            component.getAttributes().put("compositeLibrary", expectedLibrary);
+
+            // Act
+            var library = component.getLibrary();
+
+            // Assert
+            assertEquals(expectedLibrary, library);
+        }
+
+        @Test
+        @DisplayName("Should handle null library attribute")
+        void shouldHandleNullLibrary() {
+            // Arrange
+            var component = anyComponent();
+            // Don't set the attribute at all, which will make getAttributes().get() return null
+
+            // Act
+            var library = component.getLibrary();
+
+            // Assert
+            assertEquals("null", library);
+        }
+    }
+
+    @Nested
+    @DisplayName("Facet Availability Tests")
+    class FacetAvailabilityTests {
+
+        @Test
+        @DisplayName("Should return false for unavailable sample facet")
+        void shouldReturnFalseForUnavailableSampleFacet() {
+            // Arrange
+            var component = anyComponent();
+
+            // Act & Assert
+            assertFalse(component.isSampleFacetAvailable());
+        }
+
+        @Test
+        @DisplayName("Should return false for unavailable sample source facet")
+        void shouldReturnFalseForUnavailableSampleSourceFacet() {
+            // Arrange
+            var component = anyComponent();
+
+            // Act & Assert
+            assertFalse(component.isSampleSourceFacetAvailable());
+        }
+    }
+
+    @Nested
+    @DisplayName("Error Handling Tests")
+    class ErrorHandlingTests {
+
+        @Test
+        @DisplayName("Should throw exception for empty composite name")
+        void shouldThrowExceptionForEmptyCompositeName() {
+            // Arrange
+            var component = anyComponent();
+            component.getAttributes().put("compositeName", "");
+
+            // Act & Assert
+            // This method is private, but we can access it indirectly through getPropertyDescriptors
+            assertThrows(IllegalArgumentException.class, component::getPropertyDescriptors);
+        }
+    }
 }

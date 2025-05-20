@@ -15,15 +15,6 @@
  */
 package de.cuioss.jsf.jqplot.portal.theme;
 
-import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
-import static java.util.stream.Collectors.toList;
-
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import de.cuioss.jsf.jqplot.js.support.JsArray;
 import de.cuioss.jsf.jqplot.js.types.JsString;
 import de.cuioss.tools.string.MoreStrings;
@@ -33,6 +24,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
 
 /**
  * SeriesColors object that could be applied to all series in the plot.
@@ -72,7 +71,7 @@ public class SeriesColors implements Serializable {
     public String getColorsAsJs() {
         if (null == colorsAsJs) {
             final var colJs = new JsArray<JsString>();
-            colJs.addAll(colors.stream().map(JsString::new).collect(toList()));
+            colJs.addAll(colors.stream().map(JsString::new).toList());
             colorsAsJs = colJs.getValueAsString();
         }
         return colorsAsJs;
@@ -105,7 +104,7 @@ public class SeriesColors implements Serializable {
         }
 
         return Splitter.on(",").omitEmptyStrings().trimResults().splitToList(value).stream()
-                .map(item -> item.replace("'", "")).map(item -> item.replace("\"", "")).collect(toList());
+                .map(item -> item.replace("'", "")).map(item -> item.replace("\"", "")).toList();
 
     }
 

@@ -15,21 +15,20 @@
  */
 package de.cuioss.jsf.bootstrap.layout;
 
-import jakarta.faces.component.FacesComponent;
-
 import de.cuioss.jsf.api.components.base.BaseCuiPanel;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.common.partial.ColumnProvider;
+import jakarta.faces.component.FacesComponent;
 import lombok.experimental.Delegate;
 
 /**
  * <p>
- * Renders a bootstrap conform div with the styleClass 'form-group' and an
- * embedded column. It is used to place buttons within a form context.
+ * Renders a Bootstrap form-group for placing buttons and controls within forms. Combines
+ * a form-group with an embedded column for proper alignment with other form elements.
  * </p>
  * <p>
- * The layout relies completely on the grid-system of twitter-bootstrap, see
- * <a href="http://getbootstrap.com/css/#grid">Bootstrap Documentation</a>
+ * The component uses Bootstrap's grid system to control size and positioning. 
+ * It requires placement within a container having 'form-horizontal' class.
  * </p>
  * <ul>
  * <li>controlGoups must be within container with 'form-horizontal'.</li>
@@ -49,13 +48,13 @@ import lombok.experimental.Delegate;
  * </p>
  * <h2>Styling</h2>
  * <ul>
- * <li>The marker css class is 'form-group' and 'col-sm-' + size attribute</li>
+ * <li>The marker css class is 'form-group' with 'col-sm-' + size attribute</li>
  * <li>The offset css class is 'col-sm-offset-' + offsetSize attribute</li>
  * </ul>
  * <h2>Attributes</h2>
  * <ul>
  * <li>{@link BaseCuiPanel}</li>
- * <li>{@link ColumnProvider}</li>
+ * <li>{@link ColumnProvider} - Size defaults to 8 columns</li>
  * </ul>
  *
  * @author Oliver Wolff
@@ -69,9 +68,6 @@ public class ControlGroupComponent extends BasicBootstrapPanelComponent {
     @Delegate
     private final ColumnProvider columnProvider;
 
-    /**
-     *
-     */
     public ControlGroupComponent() {
         columnProvider = new ColumnProvider(this, DEFAULT_COLUMN_SIZE);
         super.setRendererType(BootstrapFamily.LAYOUT_CONTROL_GROUP_RENDERER);

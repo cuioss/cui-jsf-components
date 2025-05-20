@@ -15,9 +15,6 @@
  */
 package de.cuioss.jsf.jqplot.options;
 
-import static de.cuioss.jsf.jqplot.options.DateFormatConverter.convertToJavaScriptDateFormat;
-import static de.cuioss.tools.string.MoreStrings.emptyToNull;
-
 import de.cuioss.jsf.jqplot.js.support.JsObject;
 import de.cuioss.jsf.jqplot.js.types.JsBoolean;
 import de.cuioss.jsf.jqplot.options.label.ILabelDecorator;
@@ -27,6 +24,9 @@ import lombok.ToString;
 import lombok.experimental.Delegate;
 
 import java.io.Serial;
+
+import static de.cuioss.jsf.jqplot.options.DateFormatConverter.convertToJavaScriptDateFormat;
+import static de.cuioss.tools.string.MoreStrings.emptyToNull;
 
 /**
  * Options that will be passed to the tickRenderer, see

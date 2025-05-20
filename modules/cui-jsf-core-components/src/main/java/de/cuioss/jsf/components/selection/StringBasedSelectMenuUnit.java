@@ -15,12 +15,12 @@
  */
 package de.cuioss.jsf.components.selection;
 
-import java.io.Serial;
-import java.util.List;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.model.SelectItem;
+
+import java.io.Serial;
+import java.util.List;
 
 /**
  * Composite of {@linkplain AbstractSelectMenuModel} and converter

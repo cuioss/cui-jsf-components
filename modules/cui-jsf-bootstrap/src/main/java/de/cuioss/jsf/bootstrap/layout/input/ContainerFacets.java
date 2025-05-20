@@ -18,17 +18,23 @@ package de.cuioss.jsf.bootstrap.layout.input;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableSet;
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.Set;
-
 import de.cuioss.tools.logging.CuiLogger;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.Set;
+
 /**
- * Provides the facets supported by {@link LabeledContainerComponent}
+ * Defines the standard facets supported by labeled container components.
+ * These facets allow for extending the basic component with additional elements
+ * such as button groups, custom labels, and help text.
+ * <p>
+ * The primary use case is within {@link LabeledContainerComponent} where these facets
+ * provide consistent extension points for form element customization.
+ * </p>
  *
  * @author Oliver Wolff
  *

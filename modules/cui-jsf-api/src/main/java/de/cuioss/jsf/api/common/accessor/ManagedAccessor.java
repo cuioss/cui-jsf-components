@@ -18,35 +18,59 @@ package de.cuioss.jsf.api.common.accessor;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 
-import jakarta.faces.context.FacesContext;
-
 /**
+ * Defines a pattern for accessing transient values in a serialization-safe manner within JSF.
  * <p>
- * Utility used for accessing transient values in a non transient way. The
- * {@link ManagedAccessor} itself implements {@link Serializable} but the
- * wrapped value is to be kept in a transient field. In order to work properly
- * the concrete accessor must take care on this.
+ * The {@code ManagedAccessor} pattern addresses common challenges in JSF applications
+ * related to serialization and lazy loading of objects. This interface implements
+ * {@link Serializable}, but implementations should store their wrapped values in transient
+ * fields. When the accessor is deserialized, it can reconstruct or reload the transient
+ * value as needed.
+ * 
  * <p>
- * To sum it up, the purpose of accesors are
+ * Core benefits of the accessor pattern include:
  * <ul>
- * <li>Failsafe implementation of {@link Serializable} / transient contract</li>
- * <li>Implicit lazy loading of the Attributes / beans / whatever
- * <li>Hiding of the loading mechanics of the object to be loaded.</li>
- * <li>Unifying usage of common objects like {@link ResourceBundle}, etc.</li>
+ *   <li>Safe implementation of {@link Serializable} contract with transient objects</li>
+ *   <li>Implicit lazy loading of attributes, beans, or other resources</li>
+ *   <li>Encapsulation of the loading mechanism for the accessed object</li>
+ *   <li>Unified approach for accessing common objects like {@link ResourceBundle}</li>
+ *   <li>Simplified recovery after deserialization in JSF view state</li>
  * </ul>
+ * 
+ * <p>
+ * Implementing classes should follow these guidelines:
+ * <ul>
+ *   <li>The wrapped value should be stored in a transient field</li>
+ *   <li>The {@link #getValue()} method should handle lazy initialization</li>
+ *   <li>All serializable state should be properly managed</li>
+ * </ul>
+ * 
+ * <p>
+ * Thread-safety requirements depend on the specific implementation and use case.
  *
  * @author Oliver Wolff
- * @param <T> identifying the concrete type
+ * @param <T> The type of the value being accessed
+ * @since 1.0
+ * @see ConverterAccessor
+ * @see LocaleAccessor
+ * @see CuiProjectStageAccessor
  */
 public interface ManagedAccessor<T> extends Serializable {
 
     /**
-     * Accesses the managed value.
+     * Accesses the managed value, loading or initializing it if necessary.
+     * <p>
+     * This method should handle lazy initialization of the value if it hasn't been
+     * loaded yet or if it was cleared due to serialization/deserialization.
+     * 
+     * <p>
+     * Implementations might depend on JSF-specific context information like
+     * {@link FacesContext} to load or initialize the value.
      *
-     * @return the managed value.
+     * @return The managed value
      * @throws IllegalStateException may occur in corner cases, where
      *                               {@link FacesContext} is not initialized
-     *                               properly
+     *                               properly or other required resources are unavailable
      */
     T getValue();
 }

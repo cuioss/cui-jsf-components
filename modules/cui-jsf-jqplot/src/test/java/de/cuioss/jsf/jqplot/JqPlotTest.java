@@ -15,14 +15,7 @@
  */
 package de.cuioss.jsf.jqplot;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Calendar;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.jqplot.js.support.JsArray;
 import de.cuioss.jsf.jqplot.js.support.JsValue;
@@ -34,8 +27,14 @@ import de.cuioss.jsf.jqplot.model.SeriaTupelItem;
 import de.cuioss.jsf.jqplot.model.SeriesData;
 import de.cuioss.jsf.jqplot.options.Options;
 import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "unchecked" })
+import java.util.Calendar;
+
+@SuppressWarnings({"unchecked"})
+@DisplayName("Tests for JqPlot class")
 class JqPlotTest implements ShouldHandleObjectContracts<JqPlot> {
 
     @Override
@@ -43,62 +42,109 @@ class JqPlotTest implements ShouldHandleObjectContracts<JqPlot> {
         return new JqPlot("ccId", anyNotEmptySeria());
     }
 
-    @Test
-    void createMinimalGraph() {
-        final var targetId = "chartA";
-        final var jqPlot = new JqPlot(targetId, anyNotEmptySeria());
-        assertEquals("$.jqplot(\"" + targetId + "\", [[0]], null);", jqPlot.asJavaScriptObjectNotation());
-        assertEquals(jqPlot.getChartId(), targetId);
-    }
+    @Nested
+    @DisplayName("Basic functionality tests")
+    class BasicFunctionalityTests {
 
-    @Test
-    void createGraphWithTitle() {
-        final var targetId = "chartA";
-        final var title = new Title("Incident date");
-        final var options = new Options();
-        options.setTitle(title);
-        final var jqPlot = new JqPlot(targetId, anyNotEmptySeria(), options);
-        assertEquals("$.jqplot(\"chartA\", [[0]], {title: {text:\"Incident date\",escapeHtml:true}});",
-                jqPlot.asJavaScriptObjectNotation());
-    }
+        @Test
+        @DisplayName("Should create minimal graph with correct ID")
+        void shouldCreateMinimalGraph() {
+            // Arrange
+            final var targetId = "chartA";
 
-    @Test
-    void createGraphWithOneTimeLine() {
-        final var targetId = "chartA";
-        final var title = new Title("Incident date");
-        final var options = new Options();
-        options.setTitle(title);
-        final JsArray<? super JsValue> line = new JsArray<>();
-        for (var i = 0; i < 5; i++) {
-            line.addValueIfNotNull(createItem(i));
+            // Act
+            final var jqPlot = new JqPlot(targetId, anyNotEmptySeria());
+
+            // Assert
+            assertEquals("$.jqplot(\"" + targetId + "\", [[0]], null);", jqPlot.asJavaScriptObjectNotation());
+            assertEquals(jqPlot.getChartId(), targetId);
         }
-        final var jqPlot = new JqPlot(targetId, createSeries(line), options);
-        assertNotNull(jqPlot.asJavaScriptObjectNotation());
+
+        @Test
+        @DisplayName("Should create graph with title")
+        void shouldCreateGraphWithTitle() {
+            // Arrange
+            final var targetId = "chartA";
+            final var title = new Title("Incident date");
+            final var options = new Options();
+            options.setTitle(title);
+
+            // Act
+            final var jqPlot = new JqPlot(targetId, anyNotEmptySeria(), options);
+
+            // Assert
+            assertEquals("$.jqplot(\"chartA\", [[0]], {title: {text:\"Incident date\",escapeHtml:true}});",
+                    jqPlot.asJavaScriptObjectNotation());
+        }
     }
 
-    @Test
-    void shouldProvideHookExtension() {
-        final var targetId = "chartA";
-        final var options = new Options();
-        options.getHighlighter().getTooltipContentEditor();
-        final var jqPlot = new JqPlot(targetId, anyNotEmptySeria(), options);
-        assertFalse(jqPlot.isNothingToDisplay());
-        assertTrue(jqPlot.getPlugins().contains("jqplot.highlighter.min.js"));
-        assertEquals(
-                "$.jqplot(\"chartA\", [[0]], {highlighter: {tooltipContentEditor:tooltipContentEditor}});function tooltipContentEditor(str,seriesIndex,pointIndex,plot){return \"\";};",
-                jqPlot.asJavaScriptObjectNotation());
+    @Nested
+    @DisplayName("Advanced functionality tests")
+    class AdvancedFunctionalityTests {
+
+        @Test
+        @DisplayName("Should create graph with one time line")
+        void shouldCreateGraphWithOneTimeLine() {
+            // Arrange
+            final var targetId = "chartA";
+            final var title = new Title("Incident date");
+            final var options = new Options();
+            options.setTitle(title);
+            final JsArray<? super JsValue> line = new JsArray<>();
+            for (var i = 0; i < 5; i++) {
+                line.addValueIfNotNull(createItem(i));
+            }
+
+            // Act
+            final var jqPlot = new JqPlot(targetId, createSeries(line), options);
+
+            // Assert
+            assertNotNull(jqPlot.asJavaScriptObjectNotation());
+        }
+
+        @Test
+        @DisplayName("Should provide hook extension")
+        void shouldProvideHookExtension() {
+            // Arrange
+            final var targetId = "chartA";
+            final var options = new Options();
+            options.getHighlighter().getTooltipContentEditor();
+
+            // Act
+            final var jqPlot = new JqPlot(targetId, anyNotEmptySeria(), options);
+
+            // Assert
+            assertFalse(jqPlot.isNothingToDisplay());
+            assertTrue(jqPlot.getPlugins().contains("jqplot.highlighter.min.js"));
+            assertEquals(
+                    "$.jqplot(\"chartA\", [[0]], {highlighter: {tooltipContentEditor:tooltipContentEditor}});function tooltipContentEditor(str,seriesIndex,pointIndex,plot){return \"\";};",
+                    jqPlot.asJavaScriptObjectNotation());
+        }
     }
 
-    @Test
-    void shouldProvidePossibilityToIgnoreAvailableData() {
-        final var targetId = "chartA";
-        final var jqPlot = new JqPlot(targetId, anyNotEmptySeria());
-        assertFalse(jqPlot.isNothingToDisplay());
-        assertEquals("$.jqplot(\"chartA\", [[0]], null);", jqPlot.asJavaScriptObjectNotation());
-        jqPlot.setNothingToDisplay(true);
-        assertTrue(jqPlot.isNothingToDisplay());
-        assertEquals("'';", jqPlot.asJavaScriptObjectNotation());
-        assertEquals(0, jqPlot.getPlugins().size());
+    @Nested
+    @DisplayName("Edge case tests")
+    class EdgeCaseTests {
+
+        @Test
+        @DisplayName("Should provide possibility to ignore available data")
+        void shouldProvidePossibilityToIgnoreAvailableData() {
+            // Arrange
+            final var targetId = "chartA";
+            final var jqPlot = new JqPlot(targetId, anyNotEmptySeria());
+
+            // Assert initial state
+            assertFalse(jqPlot.isNothingToDisplay());
+            assertEquals("$.jqplot(\"chartA\", [[0]], null);", jqPlot.asJavaScriptObjectNotation());
+
+            // Act
+            jqPlot.setNothingToDisplay(true);
+
+            // Assert after change
+            assertTrue(jqPlot.isNothingToDisplay());
+            assertEquals("'';", jqPlot.asJavaScriptObjectNotation());
+            assertEquals(0, jqPlot.getPlugins().size());
+        }
     }
 
     private static SeriesData anyNotEmptySeria() {

@@ -18,12 +18,36 @@ package de.cuioss.jsf.bootstrap.tab;
 import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;
 
 /**
+ * Renderer for the {@link TabPanelComponent} that produces Bootstrap-compliant
+ * markup for tab panels. Configured not to render children during the encode phase.
+ * 
+ * <h2>Generated Markup</h2>
+ * <pre>
+ * &lt;div id="tabContainer:tab1" class="tab-pane fade active show" 
+ *      role="tabpanel" aria-labelledby="tabContainer:tab1-tab"&gt;
+ *   [Tab content components]
+ * &lt;/div&gt;
+ * </pre>
+ * 
+ * <h2>CSS Classes</h2>
+ * <ul>
+ *   <li><code>tab-pane</code> - Main tab panel class</li>
+ *   <li><code>active</code> - Applied to the active tab panel</li>
+ *   <li><code>fade</code> - For transition effects (optional)</li>
+ * </ul>
+ *
  * @author Oliver Wolff
+ * @since 1.0
+ * @see TabPanelComponent
+ * @see BaseDecoratorRenderer
  */
 public class TabPanelRenderer extends BaseDecoratorRenderer<TabPanelComponent> {
 
     /**
-     * @param renderChildren
+     * Constructor that configures the renderer not to render children.
+     * 
+     * @param renderChildren boolean indicating whether children should be rendered
+     *                     (always false for this implementation)
      */
     public TabPanelRenderer(final boolean renderChildren) {
         super(false);

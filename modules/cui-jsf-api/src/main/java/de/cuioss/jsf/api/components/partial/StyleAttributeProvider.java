@@ -16,29 +16,70 @@
 package de.cuioss.jsf.api.components.partial;
 
 /**
- * <h2>Summary</h2>
+ * Provider interface for component styling through CSS inline styles.
  * <p>
- * Implementors of this class manage the state and resolving of the
- * style-attribute. The implementation relies on the correct use of attribute
- * names, saying they must exactly match the accessor methods.
+ * This interface defines the contract for components that need to support direct 
+ * CSS styling through the HTML style attribute. Components implementing this
+ * interface offer consistent access to inline style attributes across the
+ * component library.
  * </p>
- * <h2>style</h2>
  * <p>
- * CSS style(s) to be applied when this component is rendered. <em>Caution</em>:
- * The styleClass attribute is always to be preferred.
+ * While this interface supports inline styles for flexibility, it's important to note
+ * that using styleClass attributes is generally preferred over inline styles for
+ * better maintainability and separation of concerns.
+ * </p>
+ * 
+ * <h2>Usage Guidelines</h2>
+ * <ul>
+ *   <li>Use this interface when your component needs to support inline CSS styling</li>
+ *   <li>Prefer using {@link ComponentStyleClassProvider} instead when possible</li>
+ *   <li>Consider combining with {@link StyleAttributeProviderImpl} for implementation</li>
+ * </ul>
+ * 
+ * <h2>Attributes</h2>
+ * <h3>style</h3>
+ * <p>
+ * Defines CSS style(s) to be applied inline when this component is rendered.
+ * This corresponds directly to the HTML style attribute. While supported
+ * for flexibility, the use of styleClass attributes and external CSS is 
+ * generally preferred for better maintainability.
+ * </p>
+ * 
+ * <h2>Implementation Note</h2>
+ * <p>
+ * Implementations should store the style attribute in the component's state
+ * using the standard attribute name "style" to ensure compatibility with
+ * the JSF rendering mechanism. The {@link StyleAttributeProviderImpl} class
+ * provides a standard implementation of this interface.
  * </p>
  *
  * @author Oliver Wolff
+ * @since 1.0
+ * @see StyleAttributeProviderImpl
+ * @see ComponentStyleClassProvider
+ * @see UIComponent#getAttributes()
  */
 public interface StyleAttributeProvider {
 
     /**
-     * @param style the style to set
+     * Sets the CSS inline styles to be applied to the component.
+     * <p>
+     * This corresponds to the HTML style attribute and should contain
+     * valid CSS style declarations (e.g., "color: red; margin-left: 10px;").
+     * </p>
+     * 
+     * @param style the CSS inline style string to set
      */
     void setStyle(String style);
 
     /**
-     * @return the style-attribute
+     * Returns the CSS inline styles applied to the component.
+     * <p>
+     * The returned string represents the content of the HTML style attribute
+     * and should contain valid CSS style declarations.
+     * </p>
+     *
+     * @return the CSS style string, may be null if no inline styles are set
      */
     String getStyle();
 }

@@ -18,14 +18,20 @@ package de.cuioss.jsf.api.components.util.styleclass;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import jakarta.faces.component.html.HtmlInputText;
-
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for StyleClassModifierFactory")
 class StyleClassModifierFactoryTest {
 
     @Test
+    @DisplayName("Should find appropriate wrapper for HtmlInputText component")
     void shouldHandleInputText() {
-        assertNotNull(StyleClassModifierFactory.findFittingWrapper(new HtmlInputText()));
-    }
+        // Arrange
+        var component = new HtmlInputText();
 
+        // Act & Assert
+        assertNotNull(StyleClassModifierFactory.findFittingWrapper(component),
+                "Factory should return a non-null wrapper for HtmlInputText component");
+    }
 }

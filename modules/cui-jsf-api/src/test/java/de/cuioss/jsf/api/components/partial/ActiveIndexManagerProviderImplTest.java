@@ -19,14 +19,15 @@ import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.List;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.support.ActiveIndexManagerImpl;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 @VerifyComponentProperties
+@ExplicitParamInjection
 class ActiveIndexManagerProviderImplTest extends AbstractPartialComponentTest {
 
     @Test

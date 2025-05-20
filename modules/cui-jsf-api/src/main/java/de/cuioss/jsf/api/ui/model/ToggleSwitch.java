@@ -15,17 +15,16 @@
  */
 package de.cuioss.jsf.api.ui.model;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.Objects;
-
 import jakarta.faces.event.ActionEvent;
 import jakarta.faces.event.ComponentSystemEvent;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * ToggleSwitch as holder of toggled state
@@ -44,7 +43,7 @@ public class ToggleSwitch implements Serializable {
     private boolean toggled;
 
     /**
-     * Constructor. Sets {@link #isToggled()} to false.
+     * Constructor. Sets {@code toggled} to false.
      */
     public ToggleSwitch() {
         toggled = false;

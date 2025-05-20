@@ -17,42 +17,39 @@ package de.cuioss.jsf.api.application.message;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import jakarta.inject.Inject;
-
-import org.jboss.weld.junit5.auto.AddBeanClasses;
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.CoreJsfTestConfiguration;
 import de.cuioss.jsf.api.EnableJSFCDIEnvironment;
 import de.cuioss.jsf.api.EnableResourceBundleSupport;
 import de.cuioss.jsf.api.converter.nameprovider.LabeledKeyConverter;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
-import de.cuioss.test.jsf.util.JsfEnvironmentConsumer;
-import de.cuioss.test.jsf.util.JsfEnvironmentHolder;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
 import de.cuioss.uimodel.nameprovider.LabeledKey;
 import de.cuioss.uimodel.result.ResultDetail;
 import de.cuioss.uimodel.result.ResultObject;
 import de.cuioss.uimodel.result.ResultState;
+import jakarta.inject.Inject;
 import lombok.Getter;
-import lombok.Setter;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.jboss.weld.junit5.auto.AddBeanClasses;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 @EnableJSFCDIEnvironment
 @EnableResourceBundleSupport
 @AddBeanClasses(MessageProducerMock.class)
-@JsfTestConfiguration({ CoreJsfTestConfiguration.class })
+@JsfTestConfiguration({CoreJsfTestConfiguration.class})
+@ExplicitParamInjection
+@DisplayName("Tests for DisplayNameMessageProducer")
 class DisplayNameMessageProducerTest
-        implements ShouldHandleObjectContracts<DisplayNameMessageProducer>, JsfEnvironmentConsumer {
+        implements ShouldHandleObjectContracts<DisplayNameMessageProducer> {
 
     private static final String STRING_RESULT = "invalid e-Mail Address syntax";
 
     private static final String MESSAGE_KEY = "de.cuioss.common.email.invalid";
 
     private static final LabeledKey DETAIL = new LabeledKey(MESSAGE_KEY);
-
-    @Setter
-    @Getter
-    private JsfEnvironmentHolder environmentHolder;
 
     @Inject
     private MessageProducerMock messageProducerMock;
@@ -61,37 +58,70 @@ class DisplayNameMessageProducerTest
     @Getter
     private DisplayNameMessageProducer underTest;
 
-    @Test
-    void testShowAsGlobalMessageAndLogWithError() {
-        getComponentConfigDecorator().registerConverter(LabeledKeyConverter.class, LabeledKey.class);
-        var result = new ResultObject<>(STRING_RESULT, ResultState.ERROR, new ResultDetail(DETAIL));
-        underTest.showAsGlobalMessageAndLog(result);
-        assertEquals(1, messageProducerMock.getGlobalMessages().size());
-        messageProducerMock.assertSingleGlobalMessageWithKeyPresent(STRING_RESULT);
-    }
+    @Nested
+    @DisplayName("Tests for showAsGlobalMessageAndLog method")
+    class ShowAsGlobalMessageAndLogTests {
 
-    @Test
-    void testShowAsGlobalMessageAndLogWithWarn() {
-        getComponentConfigDecorator().registerConverter(LabeledKeyConverter.class, LabeledKey.class);
-        var result = new ResultObject<>(STRING_RESULT, ResultState.WARNING, new ResultDetail(DETAIL));
-        underTest.showAsGlobalMessageAndLog(result);
-        assertEquals(1, messageProducerMock.getGlobalMessages().size());
-        messageProducerMock.assertSingleGlobalMessageWithKeyPresent(STRING_RESULT);
-    }
+        @Test
+        @DisplayName("Should display error message for ERROR state")
+        void shouldDisplayErrorMessage(ComponentConfigDecorator componentConfig) {
+            // Arrange
+            componentConfig.registerConverter(LabeledKeyConverter.class, LabeledKey.class);
+            var result = new ResultObject<>(STRING_RESULT, ResultState.ERROR, new ResultDetail(DETAIL));
 
-    @Test
-    void testShowAsGlobalMessageAndLogWithInfo() {
-        getComponentConfigDecorator().registerConverter(LabeledKeyConverter.class, LabeledKey.class);
-        var result = new ResultObject<>(STRING_RESULT, ResultState.INFO, new ResultDetail(DETAIL));
-        underTest.showAsGlobalMessageAndLog(result);
-        assertEquals(1, messageProducerMock.getGlobalMessages().size());
-        messageProducerMock.assertSingleGlobalMessageWithKeyPresent(STRING_RESULT);
-    }
+            // Act
+            underTest.showAsGlobalMessageAndLog(result);
 
-    @Test
-    void testShowAsGlobalMessageAndLogWithValid() {
-        var result = new ResultObject<>(STRING_RESULT, ResultState.VALID, null);
-        underTest.showAsGlobalMessageAndLog(result);
-        assertEquals(0, messageProducerMock.getGlobalMessages().size());
+            // Assert
+            assertEquals(1, messageProducerMock.getGlobalMessages().size(),
+                    "Should add exactly one global message");
+            messageProducerMock.assertSingleGlobalMessageWithKeyPresent(STRING_RESULT);
+        }
+
+        @Test
+        @DisplayName("Should display warning message for WARNING state")
+        void shouldDisplayWarningMessage(ComponentConfigDecorator componentConfig) {
+            // Arrange
+            componentConfig.registerConverter(LabeledKeyConverter.class, LabeledKey.class);
+            var result = new ResultObject<>(STRING_RESULT, ResultState.WARNING, new ResultDetail(DETAIL));
+
+            // Act
+            underTest.showAsGlobalMessageAndLog(result);
+
+            // Assert
+            assertEquals(1, messageProducerMock.getGlobalMessages().size(),
+                    "Should add exactly one global message");
+            messageProducerMock.assertSingleGlobalMessageWithKeyPresent(STRING_RESULT);
+        }
+
+        @Test
+        @DisplayName("Should display info message for INFO state")
+        void shouldDisplayInfoMessage(ComponentConfigDecorator componentConfig) {
+            // Arrange
+            componentConfig.registerConverter(LabeledKeyConverter.class, LabeledKey.class);
+            var result = new ResultObject<>(STRING_RESULT, ResultState.INFO, new ResultDetail(DETAIL));
+
+            // Act
+            underTest.showAsGlobalMessageAndLog(result);
+
+            // Assert
+            assertEquals(1, messageProducerMock.getGlobalMessages().size(),
+                    "Should add exactly one global message");
+            messageProducerMock.assertSingleGlobalMessageWithKeyPresent(STRING_RESULT);
+        }
+
+        @Test
+        @DisplayName("Should not display message for VALID state")
+        void shouldNotDisplayMessageForValidState() {
+            // Arrange
+            var result = new ResultObject<>(STRING_RESULT, ResultState.VALID, null);
+
+            // Act
+            underTest.showAsGlobalMessageAndLog(result);
+
+            // Assert
+            assertEquals(0, messageProducerMock.getGlobalMessages().size(),
+                    "Should not add any global messages for VALID state");
+        }
     }
 }

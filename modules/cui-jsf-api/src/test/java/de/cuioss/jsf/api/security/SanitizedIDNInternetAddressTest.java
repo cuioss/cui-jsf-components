@@ -17,17 +17,51 @@ package de.cuioss.jsf.api.security;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+// Class is documented by @DisplayName
+@DisplayName("Tests for SanitizedIDNInternetAddress")
 class SanitizedIDNInternetAddressTest {
 
-    @Test
-    void testSanitize() {
-        assertEquals("abc&amp;asdasd <asdasd@asdasd.de>",
-                SanitizedIDNInternetAddress.decode("abc&asdasd <asdasd@asdasd.de>"));
-        assertEquals("abc <asdasd@asdasd.de>&#34; onclick&#61;&#34;alert();",
-                SanitizedIDNInternetAddress.decode("abc <asdasd@asdasd.de>\" onclick=\"alert();"));
-        assertEquals("Max Müller <max@xn--mller-kva.de>",
-                SanitizedIDNInternetAddress.encode("Max Müller <max@müller.de>"));
+    @Nested
+    @DisplayName("Decode Tests")
+    class DecodeTests {
+
+        @Test
+        @DisplayName("Should properly decode and sanitize email addresses")
+        void shouldDecodeAndSanitizeEmailAddresses() {
+            // Arrange
+            final String emailWithAmpersand = "abc&asdasd <asdasd@asdasd.de>";
+            final String emailWithJavaScript = "abc <asdasd@asdasd.de>\" onclick=\"alert();";
+
+            // Act & Assert
+            assertEquals("abc&amp;asdasd <asdasd@asdasd.de>",
+                    SanitizedIDNInternetAddress.decode(emailWithAmpersand),
+                    "Should encode ampersands in email addresses");
+
+            assertEquals("abc <asdasd@asdasd.de>&#34; onclick&#61;&#34;alert();",
+                    SanitizedIDNInternetAddress.decode(emailWithJavaScript),
+                    "Should encode JavaScript event handlers in email addresses");
+        }
+    }
+
+    @Nested
+    @DisplayName("Encode Tests")
+    class EncodeTests {
+
+        @Test
+        @DisplayName("Should properly encode internationalized domain names")
+        void shouldEncodeInternationalizedDomainNames() {
+            // Arrange
+            final String emailWithUmlaut = "Max Müller <max@müller.de>";
+            final String expectedPunycode = "Max Müller <max@xn--mller-kva.de>";
+
+            // Act & Assert
+            assertEquals(expectedPunycode,
+                    SanitizedIDNInternetAddress.encode(emailWithUmlaut),
+                    "Should convert internationalized domain names to punycode");
+        }
     }
 }

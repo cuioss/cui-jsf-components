@@ -17,9 +17,15 @@ package de.cuioss.jsf.bootstrap.layout.messages;
 
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.DisplayName;
 
-@VerifyComponentProperties(of = { "style", "styleClass", "escape", "forIdentifier", "showDetail",
-        "showSummary" }, defaultValued = { "forIdentifier" })
+/**
+ * Tests for {@link CuiMessageComponent} using the property verification from
+ * {@link AbstractComponentTest}.
+ */
+@VerifyComponentProperties(of = {"style", "styleClass", "escape", "forIdentifier", "showDetail",
+        "showSummary"}, defaultValued = {"forIdentifier"})
+@DisplayName("Tests for CuiMessageComponent")
 class CuiMessageComponentTest extends AbstractComponentTest<CuiMessageComponent> {
-
+    // All tests are inherited from AbstractComponentTest
 }

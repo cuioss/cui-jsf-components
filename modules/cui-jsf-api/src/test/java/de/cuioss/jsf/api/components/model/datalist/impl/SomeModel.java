@@ -15,11 +15,11 @@
  */
 package de.cuioss.jsf.api.components.model.datalist.impl;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor

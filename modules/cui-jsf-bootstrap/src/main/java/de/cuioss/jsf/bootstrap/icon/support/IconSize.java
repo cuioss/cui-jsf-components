@@ -21,30 +21,42 @@ import de.cuioss.tools.string.MoreStrings;
 import lombok.Getter;
 
 /**
+ * Defines available icon sizes for the CUI bootstrap framework.
+ * Provides corresponding CSS class names for rendering.
+ * 
  * @author Oliver Wolff
  */
 public enum IconSize implements StyleClassProvider {
 
     /**
-     * The default.
+     * Default size with no additional CSS class.
      */
     DEFAULT(""),
+
     /**
-     * Large.
+     * Large size (lg).
      */
     LG("lg"),
+
     /**
-     * XL, addition to bootstrap.
+     * Extra large size (xl).
      */
     XL("xl"),
+
     /**
-     * XXL, addition to bootstrap.
+     * Extra extra large size (xxl).
      */
     XXL("xxl"),
+
     /**
-     * XXXL, addition to bootstrap.
+     * Extra extra extra large size (xxxl).
      */
     XXXL("xxxl");
+
+    private static final String PREFIX = "cui-icon-";
+
+    @Getter
+    private final String styleClass;
 
     IconSize(String suffix) {
         if (MoreStrings.isEmpty(suffix)) {
@@ -54,22 +66,12 @@ public enum IconSize implements StyleClassProvider {
         }
     }
 
-    private static final String PREFIX = "cui-icon-";
-
-    @Getter
-    private final String styleClass;
-
-
     /**
-     * @param contextSize Maybe null, otherwise must be one of
-     *                    {@link ContextSize#LG}, {@link ContextSize#XL},
-     *                    {@link ContextSize#XXL}, {@link ContextSize#XXXL}
-     * @return the corresponding {@link IconSize} derived by the given
-     * {@link ContextSize}.
-     * In case of <code>contextSize==null</code> it
-     * will return {@link IconSize#DEFAULT}.
-     * In case it is none of the
-     * supported sizes it will throw an {@link IllegalArgumentException}
+     * Maps a {@link ContextSize} to the corresponding {@link IconSize}.
+     * 
+     * @param contextSize May be null, returns {@link IconSize#DEFAULT} in that case
+     * @return The matching IconSize for the given contextSize
+     * @throws IllegalArgumentException If the provided contextSize has no matching IconSize
      */
     public static IconSize getForContextSize(ContextSize contextSize) {
         var result = DEFAULT;

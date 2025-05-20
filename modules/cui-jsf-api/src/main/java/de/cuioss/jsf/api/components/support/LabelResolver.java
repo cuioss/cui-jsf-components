@@ -15,19 +15,18 @@
  */
 package de.cuioss.jsf.api.components.support;
 
-import java.io.Serializable;
-
-import jakarta.faces.component.html.HtmlOutputText;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.convert.Converter;
-
 import de.cuioss.jsf.api.common.accessor.ConverterAccessor;
 import de.cuioss.portal.common.bundle.ResourceBundleWrapper;
 import de.cuioss.portal.common.cdi.PortalBeanManager;
 import de.cuioss.tools.string.MoreStrings;
+import jakarta.faces.component.html.HtmlOutputText;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -72,7 +71,7 @@ public class LabelResolver {
     public String resolve(final FacesContext context) {
         if (Boolean.TRUE.equals(strictMode) && MoreStrings.isEmpty(labelKey) && null == labelValue) {
             throw new IllegalStateException(
-                "Neither labelvalue nor LabelKey is set. Either set it or use strictMode=false");
+                    "Neither labelvalue nor LabelKey is set. Either set it or use strictMode=false");
         }
         if (null != labelValue) {
             Converter resolvedConverter = null;
@@ -88,7 +87,7 @@ public class LabelResolver {
             }
             if (null == resolvedConverter) {
                 throw new IllegalStateException(
-                    "Unable to determine converter for valueClass=" + labelValue.getClass());
+                        "Unable to determine converter for valueClass=" + labelValue.getClass());
             }
             DUMMY.setEscape(escape);
             return resolvedConverter.getAsString(context, DUMMY, labelValue);

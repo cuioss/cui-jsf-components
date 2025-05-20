@@ -17,17 +17,7 @@ package de.cuioss.jsf.api.components.model.datalist.impl;
 
 import static de.cuioss.test.generator.Generators.letterStrings;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.io.Serial;
-import java.util.List;
-import java.util.Objects;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.components.model.datalist.EditEvent;
 import de.cuioss.jsf.api.components.model.datalist.EditStatus;
@@ -35,6 +25,11 @@ import de.cuioss.jsf.api.components.model.datalist.ItemWrapper;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.valueobjects.ValueObjectTest;
 import de.cuioss.test.valueobjects.api.property.PropertyReflectionConfig;
+import org.junit.jupiter.api.Test;
+
+import java.io.Serial;
+import java.util.List;
+import java.util.Objects;
 
 @PropertyReflectionConfig(skip = true)
 class AbstractEditableDataListModelTest extends ValueObjectTest<SomeModelEditableDataListModel> {

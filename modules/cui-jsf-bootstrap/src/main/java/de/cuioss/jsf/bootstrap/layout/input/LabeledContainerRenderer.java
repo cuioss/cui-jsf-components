@@ -15,14 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.layout.input;
 
-import java.io.IOException;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UINamingContainer;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.render.FacesRenderer;
-import jakarta.faces.render.Renderer;
-
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.css.StyleClassProvider;
 import de.cuioss.jsf.api.components.css.impl.StyleClassBuilderImpl;
@@ -36,20 +28,35 @@ import de.cuioss.jsf.bootstrap.common.partial.ColumnCssResolver;
 import de.cuioss.jsf.bootstrap.layout.LayoutMode;
 import de.cuioss.jsf.bootstrap.layout.messages.CuiMessageComponent;
 import de.cuioss.tools.string.MoreStrings;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
+import jakarta.faces.render.Renderer;
+
+import java.io.IOException;
 
 /**
  * <p>
- * Default {@link Renderer} for {@link LabeledContainerComponent}
+ * Renderer implementation for {@link LabeledContainerComponent} that handles the complex rendering logic
+ * for labeled form elements, supporting different layout modes and input types.
  * </p>
+ * <p>
+ * The renderer implements several key behaviors:
+ * </p>
+ * <ul>
+ * <li>Layout rendering for column-based and plain modes</li>
+ * <li>Special handling for checkbox/radio button inputs</li>
+ * <li>Input group support with prepend/append elements</li>
+ * <li>Integration with validation messages</li>
+ * <li>Support for static content and complex output</li>
+ * </ul>
  *
  * @author Matthias Walliczek
  */
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.LABELED_CONTAINER_COMPONENT_RENDERER)
 public class LabeledContainerRenderer extends BaseDecoratorRenderer<LabeledContainerComponent> {
 
-    /**
-     *
-     */
     public LabeledContainerRenderer() {
         super(true);
     }

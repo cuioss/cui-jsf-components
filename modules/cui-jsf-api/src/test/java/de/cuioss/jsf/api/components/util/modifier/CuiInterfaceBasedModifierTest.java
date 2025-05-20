@@ -19,70 +19,126 @@ import static de.cuioss.jsf.api.components.util.modifier.ComponentModifierAssert
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.html.HtmlInputText;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.util.modifier.support.StyleClassProvider;
 import de.cuioss.jsf.api.components.util.modifier.support.StyleProvider;
 import de.cuioss.jsf.api.components.util.modifier.support.TitleProviderImpl;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlInputText;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for CuiInterfaceBasedModifier")
 class CuiInterfaceBasedModifierTest {
 
-    @Test
-    void shouldHandleTitleProvider() {
-        UIComponent component = new TitleProviderImpl();
+    @Nested
+    @DisplayName("Tests for wrapping components with CUI interfaces")
+    class CuiInterfaceWrappingTests {
 
-        var componentModifier = CuiInterfaceBasedModifier.wrap(component);
+        @Test
+        @DisplayName("Should correctly wrap components implementing TitleProvider")
+        void shouldHandleTitleProvider() {
+            // Arrange
+            UIComponent component = new TitleProviderImpl();
 
-        assertTrue(componentModifier.isPresent());
-        var modifier = componentModifier.get();
-        assertContracts(modifier, component);
-        assertFalse(modifier.isSupportsDisabled());
-        assertFalse(modifier.isSupportsLabel());
-        assertFalse(modifier.isSupportsRole());
-        assertFalse(modifier.isSupportsStyle());
-        assertFalse(modifier.isSupportsStyleClass());
-        assertTrue(modifier.isSupportsTitle());
+            // Act
+            var componentModifier = CuiInterfaceBasedModifier.wrap(component);
+
+            // Assert - modifier presence
+            assertTrue(componentModifier.isPresent(),
+                    "Should return a present Optional for TitleProvider component");
+
+            // Assert - modifier capabilities
+            var modifier = componentModifier.get();
+            assertContracts(modifier, component);
+            assertFalse(modifier.isSupportsDisabled(),
+                    "TitleProvider should not support disabled property");
+            assertFalse(modifier.isSupportsLabel(),
+                    "TitleProvider should not support label property");
+            assertFalse(modifier.isSupportsRole(),
+                    "TitleProvider should not support role property");
+            assertFalse(modifier.isSupportsStyle(),
+                    "TitleProvider should not support style property");
+            assertFalse(modifier.isSupportsStyleClass(),
+                    "TitleProvider should not support styleClass property");
+            assertTrue(modifier.isSupportsTitle(),
+                    "TitleProvider should support title property");
+        }
+
+        @Test
+        @DisplayName("Should correctly wrap components implementing StyleProvider")
+        void shouldHandleStyleProvider() {
+            // Arrange
+            UIComponent component = new StyleProvider();
+
+            // Act
+            var componentModifier = CuiInterfaceBasedModifier.wrap(component);
+
+            // Assert - modifier presence
+            assertTrue(componentModifier.isPresent(),
+                    "Should return a present Optional for StyleProvider component");
+
+            // Assert - modifier capabilities
+            var modifier = componentModifier.get();
+            assertContracts(modifier, component);
+            assertFalse(modifier.isSupportsDisabled(),
+                    "StyleProvider should not support disabled property");
+            assertFalse(modifier.isSupportsLabel(),
+                    "StyleProvider should not support label property");
+            assertFalse(modifier.isSupportsRole(),
+                    "StyleProvider should not support role property");
+            assertTrue(modifier.isSupportsStyle(),
+                    "StyleProvider should support style property");
+            assertFalse(modifier.isSupportsStyleClass(),
+                    "StyleProvider should not support styleClass property");
+            assertFalse(modifier.isSupportsTitle(),
+                    "StyleProvider should not support title property");
+        }
+
+        @Test
+        @DisplayName("Should correctly wrap components implementing StyleClassProvider")
+        void shouldHandleStyleClassProvider() {
+            // Arrange
+            UIComponent component = new StyleClassProvider();
+
+            // Act
+            var componentModifier = CuiInterfaceBasedModifier.wrap(component);
+
+            // Assert - modifier presence
+            assertTrue(componentModifier.isPresent(),
+                    "Should return a present Optional for StyleClassProvider component");
+
+            // Assert - modifier capabilities
+            var modifier = componentModifier.get();
+            assertContracts(modifier, component);
+            assertFalse(modifier.isSupportsDisabled(),
+                    "StyleClassProvider should not support disabled property");
+            assertFalse(modifier.isSupportsLabel(),
+                    "StyleClassProvider should not support label property");
+            assertFalse(modifier.isSupportsRole(),
+                    "StyleClassProvider should not support role property");
+            assertFalse(modifier.isSupportsStyle(),
+                    "StyleClassProvider should not support style property");
+            assertTrue(modifier.isSupportsStyleClass(),
+                    "StyleClassProvider should support styleClass property");
+            assertFalse(modifier.isSupportsTitle(),
+                    "StyleClassProvider should not support title property");
+        }
     }
 
-    @Test
-    void shouldHandleStyleProvider() {
-        UIComponent component = new StyleProvider();
+    @Nested
+    @DisplayName("Tests for handling non-CUI components")
+    class NonCuiComponentTests {
 
-        var componentModifier = CuiInterfaceBasedModifier.wrap(component);
+        @Test
+        @DisplayName("Should return empty Optional for non-CUI components")
+        void shouldIgnoreNonCuiComponent() {
+            // Arrange & Act
+            var result = CuiInterfaceBasedModifier.wrap(new HtmlInputText());
 
-        assertTrue(componentModifier.isPresent());
-        var modifier = componentModifier.get();
-        assertContracts(modifier, component);
-        assertFalse(modifier.isSupportsDisabled());
-        assertFalse(modifier.isSupportsLabel());
-        assertFalse(modifier.isSupportsRole());
-        assertTrue(modifier.isSupportsStyle());
-        assertFalse(modifier.isSupportsStyleClass());
-        assertFalse(modifier.isSupportsTitle());
-    }
-
-    @Test
-    void shouldHandleStyleClassProvider() {
-        UIComponent component = new StyleClassProvider();
-
-        var componentModifier = CuiInterfaceBasedModifier.wrap(component);
-
-        assertTrue(componentModifier.isPresent());
-        var modifier = componentModifier.get();
-        assertContracts(modifier, component);
-        assertFalse(modifier.isSupportsDisabled());
-        assertFalse(modifier.isSupportsLabel());
-        assertFalse(modifier.isSupportsRole());
-        assertFalse(modifier.isSupportsStyle());
-        assertTrue(modifier.isSupportsStyleClass());
-        assertFalse(modifier.isSupportsTitle());
-    }
-
-    @Test
-    void shouldIgnoreNonCuiComponent() {
-        assertFalse(CuiInterfaceBasedModifier.wrap(new HtmlInputText()).isPresent());
+            // Assert
+            assertFalse(result.isPresent(),
+                    "Should return an empty Optional for standard JSF components");
+        }
     }
 }

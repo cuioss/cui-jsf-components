@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.dev.ui.components;
 
+import static de.cuioss.tools.string.MoreStrings.isEmpty;
+
 import de.cuioss.jsf.api.application.navigation.NavigationUtils;
 import de.cuioss.jsf.api.components.base.BaseCuiNamingContainer;
 import de.cuioss.portal.common.util.PortalResourceLoader;
@@ -45,7 +47,6 @@ import org.jdom2.xpath.XPathFactory;
 import org.omnifaces.util.State;
 import org.xml.sax.InputSource;
 
-import javax.xml.XMLConstants;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URL;
@@ -54,57 +55,71 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
-
-import static de.cuioss.tools.string.MoreStrings.isEmpty;
+import javax.xml.XMLConstants;
 
 /**
- * <h2>Summary</h2>
  * <p>
- * This class manages the state and resolving of the source code to be displayed
- * within documentation
+ * A JSF component for displaying source code within documentation pages with proper
+ * syntax highlighting. This component uses the Google Code Prettify library to
+ * render formatted source code in various languages.
  * </p>
- * <h2>source</h2>
+ *
  * <p>
- * Inline attribute to be used for small amounts of Source code. If it is set it
- * takes precedence over the other attributes for source.
+ * The component offers three ways to specify the source code to be displayed:
  * </p>
- * <h2>sourcePath</h2>
+ * <ol>
+ * <li>Directly via the {@code source} attribute for inline code snippets</li>
+ * <li>Loading from a file via the {@code sourcePath} attribute</li>
+ * <li>Extracting from the current view via the {@code sourceContainerId} attribute</li>
+ * </ol>
+ *
  * <p>
- * The path to the source code. It takes precedence over #sourceContainerId. It
- * can be either a fully qualified path, like
- * '/META-INF/pages/documentation/portal/portal_templates.xhtml' or a relative
- * path like 'portal_templates.xhtml'. The implementation checks for '/' in
- * order to decide whether it is an relative path or not. All relative addressed
- * files are assumed to be found under '/META-INF/'.
+ * The component will try to determine the appropriate syntax highlighting based on the file
+ * extension (if using {@code sourcePath}), or you can explicitly set the language with
+ * the {@code type} attribute.
  * </p>
- * <h2>sourceContainerId</h2>
+ *
  * <p>
- * The id of the container wrapping the source to be displayed. It is assumed
- * that it resides on the current view. <em>Caution:</em> It is not the clientId
- * but the actual id-Attribute on the view
+ * Sample usage in a Facelets page:
  * </p>
- * <h2>enableClipboard</h2>
+ *
+ * <pre>
+ * &lt;!-- Display code from an external file --&gt;
+ * &lt;cui:sourceCode sourcePath="/META-INF/resources/examples/Button.xhtml"
+ * description="Button Component Example"
+ * type="lang-html" /&gt;
+ *
+ * &lt;!-- Display inline code --&gt;
+ * &lt;cui:sourceCode source="public class HelloWorld {
+ * public static void main(String[] args) {
+ * System.out.println(\"Hello World\");
+ * }
+ * }" type="lang-java" /&gt;
+ *
+ * &lt;!-- Extract code from the current view --&gt;
+ * &lt;cui:sourceCode sourceContainerId="myComponent" /&gt;
+ * </pre>
+ *
  * <p>
- * Indicating whether to display copy to clipboard button. Defaults to
- * {@code true}
+ * The component supports the following attributes:
  * </p>
- * <h2>type</h2>
+ *
+ * <ul>
+ * <li><b>source</b>: Inline attribute for small amounts of source code. If set, takes precedence over other source attributes.</li>
+ * <li><b>sourcePath</b>: Path to the source code file. Takes precedence over sourceContainerId. Can be absolute or relative.</li>
+ * <li><b>sourceContainerId</b>: ID of a container on the current view containing source code to display.</li>
+ * <li><b>enableClipboard</b>: Whether to display a copy-to-clipboard button. Defaults to true.</li>
+ * <li><b>type</b>: The language type for syntax highlighting. Defaults to 'lang-html' if not specified.</li>
+ * <li><b>description</b>: Optional description text to display with the source code.</li>
+ * <li><b>maxLineLength</b>: Maximum number of characters per line. Defaults to 96.</li>
+ * </ul>
+ *
  * <p>
- * The type of the source code, needed for proper formatting. Defaults to
- * 'lang-html'. Must be one of 'lang-html', 'lang-java', 'lang-sql', 'lang-js',
- * 'lang-css', 'lang-yaml', 'lang-properties'.
- * </p>
- * <h2>description</h2>
- * <p>
- * The (optional) description for the sourceCode to be displayed.
- * </p>
- * <h2>maxLineLength</h2>
- * <p>
- * The maximum number of characters to be displayed in a line. Defaults to '96',
- * minimum is '32' .
+ * This component is not thread-safe as it uses JSF state management.
  * </p>
  *
  * @author Oliver Wolff
+ * @since 1.0
  */
 @ResourceDependency(library = "thirdparty.prettify", name = "prettify.css", target = "head")
 @ResourceDependency(library = "thirdparty.prettify", name = "prettify.js", target = "head")
@@ -118,6 +133,12 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
 
     private static final CuiLogger log = new CuiLogger(SourceCodeComponent.class);
 
+    /**
+     * <p>
+     * Enum representing supported syntax highlighting languages used with the
+     * Google Code Prettify library.
+     * </p>
+     */
     protected enum LangStyle {
 
         LANG_HTML("lang-html"), LANG_JAVA("lang-java"), LANG_CSS("lang-css"), LANG_JS("lang-js"), LANG_SQL("lang-sql"),
@@ -132,54 +153,74 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
     }
 
     /**
-     * The component Id.
+     * <p>
+     * The component ID used for registration with the JSF framework.
+     * </p>
      */
     public static final String COMPONENT_ID = "de.cuioss.jsf.dev.ui.components.SourceCode";
 
     /**
-     * Renderer type.
+     * <p>
+     * The renderer type ID used for lookup of the component renderer.
+     * </p>
      */
     public static final String RENDERER_TYPE = "de.cuioss.jsf.dev.ui.renderer.SourceCodeComponentRenderer";
 
     /**
-     * The component family.
+     * <p>
+     * The component family identifier used for component type resolution.
+     * </p>
      */
     public static final String COMPONENT_FAMILY_FIELD = "de.cuioss.jsf.dev.ui";
 
     private static final String META_INF_PREFIX = "META-INF/";
 
     /**
-     * The key for the {@link StateHelper} used by {@link #getSource()}
+     * <p>
+     * The key for the {@link StateHelper} used by {@link #getSource()}.
+     * </p>
      */
     private static final String SOURCE_ATTRIBUTE_KEY = "source";
 
     /**
-     * The key for the {@link StateHelper} used by {@link #getSourceContainerId()}
+     * <p>
+     * The key for the {@link StateHelper} used by {@link #getSourceContainerId()}.
+     * </p>
      */
     private static final String SOURCE_CONTAINER_ID_ATTRIBUTE_KEY = "sourceContainerId";
 
     /**
-     * The key for the {@link StateHelper} used by {@link #getSourcePath()}
+     * <p>
+     * The key for the {@link StateHelper} used by {@link #getSourcePath()}.
+     * </p>
      */
     private static final String SOURCE_PATH_ATTRIBUTE_KEY = "sourcePath";
 
     /**
-     * The key for the {@link StateHelper} used by {@link #isEnableClipboard()}
+     * <p>
+     * The key for the {@link StateHelper} used by {@link #isEnableClipboard()}.
+     * </p>
      */
     private static final String ENABLE_CLIPBOARD_ATTRIBUTE_KEY = "enableClipboard";
 
     /**
-     * The key for the {@link StateHelper} used by {@link #getDescription()}
+     * <p>
+     * The key for the {@link StateHelper} used by {@link #getDescription()}.
+     * </p>
      */
     private static final String DESCRIPTION_ATTRIBUTE_KEY = "description";
 
     /**
-     * The key for the {@link StateHelper} used by {@link #getType()}
+     * <p>
+     * The key for the {@link StateHelper} used by {@link #getType()}.
+     * </p>
      */
     private static final String TYPE_ATTRIBUTE_KEY = "type";
 
     /**
-     * The key for the {@link StateHelper} used by {@link #getMaxLineLength()}
+     * <p>
+     * The key for the {@link StateHelper} used by {@link #getMaxLineLength()}.
+     * </p>
      */
     private static final String MAX_LINE_LENGTH_ATTRIBUTE_KEY = "maxLineLength";
 
@@ -188,6 +229,12 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
 
     private final State state = new State(getStateHelper());
 
+    /**
+     * <p>
+     * Custom XML output processor that suppresses namespace declarations.
+     * Used for rendering XML/HTML content without namespace noise.
+     * </p>
+     */
     private static final XMLOutputProcessor NO_NAMESPACES = new AbstractXMLOutputProcessor() {
 
         @Override
@@ -198,14 +245,33 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
     };
 
     /**
-     *
+     * <p>
+     * Default constructor. Sets the renderer type to {@link #RENDERER_TYPE}.
+     * </p>
      */
     public SourceCodeComponent() {
         super.setRendererType(RENDERER_TYPE);
     }
 
     /**
-     * @return the resolved SourceCodeComponent
+     * <p>
+     * Resolves and returns the source code to be displayed.
+     * </p>
+     *
+     * <p>
+     * The method tries three different ways to obtain the source code, in this order:
+     * </p>
+     * <ol>
+     * <li>From the {@code source} attribute, if set</li>
+     * <li>From the component with ID specified by {@code sourceContainerId}, if set</li>
+     * <li>From the file specified by {@code sourcePath}, if set</li>
+     * </ol>
+     *
+     * <p>
+     * If none of these attributes are set, an error message is returned.
+     * </p>
+     *
+     * @return The resolved source code as a String, or an error message if resolution fails
      */
     public String resolveSource() {
         if (!isEmpty(getSource())) {
@@ -224,7 +290,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         final var resolved = resolvePath(sourcePath);
         if (resolved.isEmpty()) {
             return "Unable lo load path from any of '%s', because the file can not be found or is not readable"
-                .formatted(determineViewRelativePath(sourcePath));
+                    .formatted(determineViewRelativePath(sourcePath));
         }
         try {
             return IOStreams.toString(resolved.get().openStream(), StandardCharsets.UTF_8);
@@ -245,7 +311,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         if (!path.startsWith("/")) {
             for (var candidate : determineViewRelativePath(path)) {
                 log.debug("Checking candidate '%s'", candidate);
-                var found = PortalResourceLoader.getRessource(candidate, getClass());
+                var found = PortalResourceLoader.getResource(candidate, getClass());
                 if (found.isPresent()) {
                     log.debug("Found candidate '%s'", candidate);
                     return found;
@@ -272,6 +338,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         return candidates.toImmutableSet();
     }
 
+    @SuppressWarnings("java:S3655") // owolff: False positive ist present is checked
     private String resolveFromContainerId(final String sourceContainerId) {
         final var viewId = getFacesContext().getViewRoot().getViewId();
         final var loader = determineViewUrlResource();
@@ -297,7 +364,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         }
         if (filteredElements.size() > 1) {
             log.warn("More than one element found on view='{}' with id='{}' found, choosing the first one",
-                viewId, sourceContainerId);
+                    viewId, sourceContainerId);
         }
 
         final var outputter = new XMLOutputter();
@@ -305,7 +372,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         outputter.setFormat(Format.getPrettyFormat());
         if (filteredElements.iterator().next().getChildren().isEmpty()) {
             return Joiner.on(System.lineSeparator())
-                .join(Splitter.on('\n').splitToList(filteredElements.iterator().next().getText()));
+                    .join(Splitter.on('\n').splitToList(filteredElements.iterator().next().getText()));
         }
         return outputter.outputString(filteredElements.iterator().next().getChildren());
     }
@@ -317,7 +384,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         }
         List<String> candidates = CollectionLiterals.mutableList(META_INF_PREFIX + "resources/" + viewId, META_INF_PREFIX + viewId, viewId);
         for (var candidate : candidates) {
-            var found = PortalResourceLoader.getRessource(candidate, getClass());
+            var found = PortalResourceLoader.getResource(candidate, getClass());
             if (found.isPresent()) {
                 return found;
             }
@@ -327,84 +394,181 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
     }
 
     /**
-     * @return the source
+     * <p>
+     * Returns the inline source code content.
+     * </p>
+     * 
+     * <p>
+     * This property allows directly specifying source code to be displayed without 
+     * loading from an external file or referencing another component. If this attribute
+     * is set, it takes precedence over {@code sourcePath} and {@code sourceContainerId}.
+     * </p>
+     * 
+     * @return The inline source code string, or null if not set
+     * @see #resolveSource()
      */
     public String getSource() {
         return state.get(SOURCE_ATTRIBUTE_KEY);
     }
 
     /**
-     * @param source
+     * <p>
+     * Sets the inline source code content.
+     * </p>
+     * 
+     * @param source The source code to display
      */
     public void setSource(final String source) {
         state.put(SOURCE_ATTRIBUTE_KEY, source);
     }
 
     /**
-     * @return the sourceContainerId
+     * <p>
+     * Returns the ID of the container in the current view containing source code to display.
+     * </p>
+     * 
+     * <p>
+     * This is the ID of an HTML/JSF element on the current page (not the clientId) whose
+     * content should be extracted and displayed as source code. The component will use
+     * XPath to find the element in the current view.
+     * </p>
+     * 
+     * <p>
+     * This attribute is used if {@code source} is not set, but takes lower precedence
+     * than {@code sourcePath}.
+     * </p>
+     * 
+     * @return The ID of the container element, or null if not set
+     * @see #resolveSource()
      */
     public String getSourceContainerId() {
         return state.get(SOURCE_CONTAINER_ID_ATTRIBUTE_KEY);
     }
 
     /**
-     * @param sourceContainerId
+     * <p>
+     * Sets the ID of the container in the current view containing source code to display.
+     * </p>
+     * 
+     * @param sourceContainerId The ID of the container element
      */
     public void setSourceContainerId(final String sourceContainerId) {
         state.put(SOURCE_CONTAINER_ID_ATTRIBUTE_KEY, sourceContainerId);
     }
 
     /**
-     * @return sourcePath
+     * <p>
+     * Returns the path to the source code file.
+     * </p>
+     * 
+     * <p>
+     * This can be either a fully qualified path starting with '/' (e.g.,
+     * '/META-INF/pages/documentation/portal/portal_templates.xhtml') or a
+     * relative path (e.g., 'portal_templates.xhtml'). Relative paths are
+     * resolved relative to the current view's location.
+     * </p>
+     * 
+     * <p>
+     * This attribute is used if {@code source} is not set, and takes precedence
+     * over {@code sourceContainerId}.
+     * </p>
+     * 
+     * @return The path to the source code file, or null if not set
+     * @see #resolveSource()
      */
     public String getSourcePath() {
         return state.get(SOURCE_PATH_ATTRIBUTE_KEY);
     }
 
     /**
-     * @param sourcePath
+     * <p>
+     * Sets the path to the source code file.
+     * </p>
+     * 
+     * @param sourcePath The path to the source code file
      */
     public void setSourcePath(final String sourcePath) {
         state.put(SOURCE_PATH_ATTRIBUTE_KEY, sourcePath);
     }
 
     /**
-     * @param enableClipboard
+     * <p>
+     * Sets whether to enable the copy-to-clipboard button.
+     * </p>
+     * 
+     * @param enableClipboard {@code true} to enable the copy-to-clipboard button,
+     *                        {@code false} to disable it
      */
     public void setEnableClipboard(final boolean enableClipboard) {
         state.put(ENABLE_CLIPBOARD_ATTRIBUTE_KEY, enableClipboard);
     }
 
     /**
-     * @return enableClipboard
+     * <p>
+     * Returns whether the copy-to-clipboard button is enabled.
+     * </p>
+     * 
+     * <p>
+     * When enabled, a button will be displayed that allows users to copy the
+     * source code to their clipboard with a single click.
+     * </p>
+     * 
+     * @return {@code true} if the copy-to-clipboard button is enabled (default),
+     *         {@code false} otherwise
      */
     public boolean isEnableClipboard() {
         return state.get(ENABLE_CLIPBOARD_ATTRIBUTE_KEY, Boolean.TRUE);
     }
 
     /**
-     * @param description to be set
+     * <p>
+     * Sets the description text to display with the source code.
+     * </p>
+     * 
+     * @param description The description text
      */
     public void setDescription(final String description) {
         state.put(DESCRIPTION_ATTRIBUTE_KEY, description);
     }
 
     /**
-     * @return description
+     * <p>
+     * Returns the description text to display with the source code.
+     * </p>
+     * 
+     * <p>
+     * This is an optional text that can be used to describe or provide context for
+     * the displayed source code.
+     * </p>
+     * 
+     * @return The description text, or null if not set
      */
     public String getDescription() {
         return state.get(DESCRIPTION_ATTRIBUTE_KEY);
     }
 
     /**
-     * @param maxLineLength to be set
+     * <p>
+     * Sets the maximum number of characters per line.
+     * </p>
+     * 
+     * @param maxLineLength The maximum line length (must be at least 32)
      */
     public void setMaxLineLength(final Integer maxLineLength) {
         state.put(MAX_LINE_LENGTH_ATTRIBUTE_KEY, maxLineLength);
     }
 
     /**
-     * @return maxLineLength to nre retrieved
+     * <p>
+     * Returns the maximum number of characters per line.
+     * </p>
+     * 
+     * <p>
+     * This property controls line wrapping for the displayed source code. The default
+     * value is 96, and the minimum allowed value is 32.
+     * </p>
+     * 
+     * @return The maximum line length (at least 32, defaults to 96)
      */
     public Integer getMaxLineLength() {
         final var actual = state.<Integer>get(MAX_LINE_LENGTH_ATTRIBUTE_KEY, LINE_LENGTH_DEFAULT);
@@ -412,14 +576,42 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
     }
 
     /**
-     * @param type to be set
+     * <p>
+     * Sets the language type for syntax highlighting.
+     * </p>
+     * 
+     * @param type The language type, one of the values defined in {@link LangStyle}
+     *            (e.g., "lang-html", "lang-java")
      */
     public void setType(final String type) {
         state.put(TYPE_ATTRIBUTE_KEY, type);
     }
 
     /**
-     * @return type being resolved depending on the file-extension
+     * <p>
+     * Returns the language type for syntax highlighting.
+     * </p>
+     * 
+     * <p>
+     * If not explicitly set, the component will try to determine the correct syntax
+     * highlighting based on the file extension of the {@link #getSourcePath() sourcePath}
+     * attribute. If the type cannot be determined, it defaults to "lang-html".
+     * </p>
+     * 
+     * <p>
+     * Supported types are:
+     * </p>
+     * <ul>
+     *   <li>lang-html - For HTML/XML content</li>
+     *   <li>lang-java - For Java source code</li>
+     *   <li>lang-css - For CSS stylesheets</li>
+     *   <li>lang-js - For JavaScript code</li>
+     *   <li>lang-sql - For SQL queries</li>
+     *   <li>lang-yaml - For YAML/YML files</li>
+     *   <li>lang-properties - For Java properties files</li>
+     * </ul>
+     * 
+     * @return The language type for syntax highlighting, never null
      */
     public String getType() {
         final var defaultValue = LangStyle.LANG_HTML.getStyle();
@@ -443,6 +635,18 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         return type;
     }
 
+    /**
+     * <p>
+     * Returns the component family of this component.
+     * </p>
+     * 
+     * <p>
+     * This method is required by the {@link jakarta.faces.component.UIComponent} contract
+     * and is used by the JSF framework to categorize components.
+     * </p>
+     * 
+     * @return The component family identifier {@link #COMPONENT_FAMILY_FIELD}
+     */
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY_FIELD;

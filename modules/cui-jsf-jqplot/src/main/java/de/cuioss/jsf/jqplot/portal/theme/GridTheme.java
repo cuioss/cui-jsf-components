@@ -15,9 +15,6 @@
  */
 package de.cuioss.jsf.jqplot.portal.theme;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 import de.cuioss.jsf.jqplot.js.types.JsBoolean;
 import de.cuioss.jsf.jqplot.js.types.JsString;
 import lombok.AccessLevel;
@@ -25,6 +22,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * Provide JqPlot theme specific grid settings

@@ -15,17 +15,28 @@
  */
 package de.cuioss.jsf.bootstrap.accordion;
 
-import jakarta.faces.component.FacesComponent;
-
 import de.cuioss.jsf.api.components.partial.ActiveIndexManagerProvider;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.layout.BasicBootstrapPanelComponent;
+import jakarta.faces.component.FacesComponent;
 import lombok.experimental.Delegate;
 
 /**
+ * Bootstrap accordion component for collapsible content panels.
+ * Supports single mode (only one panel open) or multi-select mode.
+ * 
+ * <h3>Usage:</h3>
+ * <pre>
+ * &lt;boot:accordion id="myAccordion" multiselectable="false"&gt;
+ *   &lt;boot:panel title="Panel 1"&gt;Content for panel 1&lt;/boot:panel&gt;
+ *   &lt;boot:panel title="Panel 2"&gt;Content for panel 2&lt;/boot:panel&gt;
+ * &lt;/boot:accordion&gt;
+ * </pre>
+ * 
  * @author Matthias Walliczek
  * @author Sven Haag
+ * @since 1.0
  */
 @FacesComponent(BootstrapFamily.ACCORDION_COMPONENT)
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
@@ -39,7 +50,6 @@ public class AccordionComponent extends BasicBootstrapPanelComponent {
 
     private final CuiState state;
 
-    /***/
     public AccordionComponent() {
         super.setRendererType(BootstrapFamily.ACCORDION_RENDERER);
         activeIndexManagerProvider = new ActiveIndexManagerProvider(this);
@@ -47,14 +57,20 @@ public class AccordionComponent extends BasicBootstrapPanelComponent {
     }
 
     /**
-     * @param multiSelectable
+     * Sets whether multiple panels can be expanded at the same time.
+     * 
+     * @param multiSelectable if true, multiple panels can be expanded simultaneously.
+     * If false, opening one panel will close all others.
      */
     public void setMultiselectable(final boolean multiSelectable) {
         state.put(MULTISELECTABLE_KEY, multiSelectable);
     }
 
     /**
-     * @return multiSelectable
+     * Determines if multiple panels can be expanded simultaneously.
+     * 
+     * @return {@code true} if multiple panels can be expanded at the same time, 
+     * {@code false} if only one panel can be expanded at a time (default).
      */
     public boolean isMultiselectable() {
         return state.getBoolean(MULTISELECTABLE_KEY, false);

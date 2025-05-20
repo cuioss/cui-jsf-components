@@ -20,6 +20,7 @@ import de.cuioss.jsf.api.EnableJSFCDIEnvironment;
 import de.cuioss.jsf.api.EnableResourceBundleSupport;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
+import org.jboss.weld.junit5.ExplicitParamInjection;
 
 /**
  * Base class for the concrete tests of the partial components.
@@ -29,6 +30,7 @@ import de.cuioss.test.jsf.config.JsfTestConfiguration;
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @EnableJSFCDIEnvironment
 @EnableResourceBundleSupport
+@ExplicitParamInjection
 public abstract class AbstractPartialComponentTest extends AbstractComponentTest<MockPartialComponent> {
 
     protected static final String MESSAGE_KEY = "de.cuioss.common.email.invalid";

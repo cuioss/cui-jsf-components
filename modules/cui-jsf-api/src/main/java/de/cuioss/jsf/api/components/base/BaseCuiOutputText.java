@@ -24,81 +24,186 @@ import jakarta.faces.context.FacesContext;
 import lombok.experimental.Delegate;
 
 /**
+ * Base class for creating CUI components that extend {@link HtmlOutputText} and are rendered 
+ * as span elements.
  * <p>
- * Base class for creating CuiComponents that are based on on simple
- * span-element, The default renderer is "jakarta.faces.Text". It acts as
- * {@link ComponentBridge}.
+ * This abstract class provides enhanced functionality for output text components with:
+ * </p>
+ * <ul>
+ *   <li>{@link ComponentBridge} - Provides simplified access to component state and context</li>
+ *   <li>{@link TitleProvider} - Manages the title attribute with resolved message support</li>
+ *   <li>Style class management - Combines component-specific style classes with user-provided ones</li>
+ * </ul>
+ * <p>
+ * The class uses the delegation pattern via Lombok's {@code @Delegate} annotation to implement
+ * the title functionality, keeping the implementation clean and focused.
  * </p>
  * <h2>Attributes</h2>
  * <ul>
- * <li>{@link TitleProvider}: This mechanism overrides
- * {@link HtmlOutputText#getTitle()}. In addition it will throw an
- * {@link UnsupportedOperationException} on calling
- * {@link HtmlOutputText#setTitle(String)}</li>
- * <li>All attributes from {@link HtmlOutputText}</li>
+ *   <li>{@link TitleProvider}: This mechanism overrides {@link HtmlOutputText#getTitle()}.
+ *     In addition it will throw an {@link UnsupportedOperationException} on calling
+ *     {@link HtmlOutputText#setTitle(String)}</li>
+ *   <li>All attributes from {@link HtmlOutputText}</li>
  * </ul>
  * <p>
- * The only thing the child-component needs to care is implementing
- * {@link #resolveComponentSpecificStyleClasses()} according to its needs.
+ * Subclasses must implement {@link #resolveComponentSpecificStyleClasses()} to provide
+ * component-specific CSS classes that will be combined with user-provided styleClass values.
+ * </p>
+ * <p>
+ * Usage example for creating a component subclass:
+ * </p>
+ * <pre>
+ * public class InfoText extends BaseCuiOutputText {
+ *     
+ *     public static final String COMPONENT_TYPE = "info.text";
+ *     
+ *     &#64;Override
+ *     public String getFamily() {
+ *         return "info.text.family";
+ *     }
+ *     
+ *     &#64;Override
+ *     public StyleClassBuilder resolveComponentSpecificStyleClasses() {
+ *         return StyleClassBuilder.create().append("info-text");
+ *     }
+ * }
+ * </pre>
+ * <p>
+ * Like other JSF components, this class is not thread-safe and instances
+ * should not be shared between requests.
  * </p>
  *
  * @author Oliver Wolff
+ * @since 1.0
+ * @see HtmlOutputText
+ * @see ComponentBridge
+ * @see TitleProvider
  */
 public abstract class BaseCuiOutputText extends HtmlOutputText implements ComponentBridge {
 
+    /**
+     * Delegate for implementing the {@link TitleProvider} interface.
+     * <p>
+     * This delegate handles the "title" attribute with message resolution capabilities.
+     * </p>
+     */
     @Delegate
     private final TitleProvider titleProvider;
 
+    /**
+     * Provider for managing the styleClass attribute.
+     * <p>
+     * This provider handles the "styleClass" attribute storage and retrieval.
+     * </p>
+     */
     private final ComponentStyleClassProvider styleClassProvider;
 
     /**
-     *
+     * Default constructor that initializes the component delegates.
+     * <p>
+     * This constructor sets up the title and styleClass attribute providers
+     * that implement the corresponding interfaces.
+     * </p>
      */
     protected BaseCuiOutputText() {
         titleProvider = new TitleProviderImpl(this);
         styleClassProvider = new ComponentStyleClassProviderImpl(this);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Provides access to the component's StateHelper for storing component state.
+     * </p>
+     * 
+     * @return the StateHelper for this component
+     */
     @Override
     public StateHelper stateHelper() {
         return getStateHelper();
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Provides access to the current FacesContext.
+     * </p>
+     * 
+     * @return the current FacesContext
+     */
     @Override
     public FacesContext facesContext() {
         return getFacesContext();
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Provides access to the named facet of this component.
+     * </p>
+     * 
+     * @param facetName the name of the facet to retrieve
+     * @return the UIComponent that corresponds to the requested facet, or null if no such facet exists
+     */
     @Override
     public UIComponent facet(final String facetName) {
         return getFacet(facetName);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Returns the combined style classes from the component-specific classes and
+     * the user-provided styleClass attribute.
+     * </p>
+     * 
+     * @return the combined style class string
+     */
     @Override
     public String getStyleClass() {
         return resolveComponentSpecificStyleClasses().append(styleClassProvider.getStyleClassBuilder()).getStyleClass();
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Sets the user-provided style class.
+     * </p>
+     * 
+     * @param styleClass the style class to set
+     */
     @Override
     public void setStyleClass(final String styleClass) {
         styleClassProvider.setStyleClass(styleClass);
     }
 
     /**
-     * @return the component specific style-classes.
-     * Must not be null.
-     * But may be empty
-     * The parent component (BaseCuiOutputText) takes care on the configured styleClass
-     * attribute and implements the actual method
-     * {@link HtmlOutputText#getStyleClass()} by calling this method and
-     * appending the styleClass configured by the developer / concrete
-     * usage.
+     * Provides component-specific CSS style classes that will be automatically
+     * combined with any user-specified styleClass attribute.
+     * <p>
+     * Subclasses must implement this method to define their specific styling.
+     * The returned builder must not be null, but may be empty.
+     * </p>
+     * <p>
+     * This method is used by {@link #getStyleClass()} to combine the component's
+     * inherent styles with any user-provided styles.
+     * </p>
+     *
+     * @return a StyleClassBuilder containing the component's specific CSS classes, never null
      */
     public abstract StyleClassBuilder resolveComponentSpecificStyleClasses();
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Returns the resolved title text, which may include message lookups
+     * from resource bundles if configured.
+     * </p>
+     * 
+     * @return the resolved title text
+     */
     @Override
     public String getTitle() {
         return titleProvider.resolveTitle();
     }
-
 }

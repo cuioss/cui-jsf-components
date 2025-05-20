@@ -15,33 +15,26 @@
  */
 package de.cuioss.jsf.api.application.message;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import jakarta.faces.application.FacesMessage;
-import jakarta.inject.Inject;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.EnableJSFCDIEnvironment;
 import de.cuioss.jsf.api.EnableResourceBundleSupport;
 import de.cuioss.jsf.api.ProjectStageProducerMock;
 import de.cuioss.portal.common.stage.ProjectStage;
-import de.cuioss.test.jsf.util.JsfEnvironmentConsumer;
-import de.cuioss.test.jsf.util.JsfEnvironmentHolder;
 import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 import lombok.Getter;
-import lombok.Setter;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 @EnableJSFCDIEnvironment
+@ExplicitParamInjection
 @EnableResourceBundleSupport
-class MessageProducerBeanTest implements ShouldHandleObjectContracts<MessageProducerBean>, JsfEnvironmentConsumer {
-
-    @Setter
-    @Getter
-    private JsfEnvironmentHolder environmentHolder;
+@DisplayName("Tests for MessageProducerBean")
+class MessageProducerBeanTest implements ShouldHandleObjectContracts<MessageProducerBean> {
 
     private static final String MESSAGE_PARAMETER = "Test";
 
@@ -61,84 +54,126 @@ class MessageProducerBeanTest implements ShouldHandleObjectContracts<MessageProd
     private MessageProducerBean underTest;
 
     @Test
-    void shouldSetGlobalErrorMessage() {
+    @DisplayName("Should set global error message with key and parameter")
+    void shouldSetGlobalErrorMessage(FacesContext facesContext) {
+        // Act
         underTest.setGlobalErrorMessage(MESSAGE_KEY, MESSAGE_PARAMETER);
-        assertMessageContent(FacesMessage.SEVERITY_ERROR, DETAIL_MESSAGE);
+
+        // Assert
+        assertMessageContent(facesContext, FacesMessage.SEVERITY_ERROR, DETAIL_MESSAGE);
     }
 
     @Test
-    void shouldAddGlobalErrorMessage() {
+    @DisplayName("Should add global error message with direct text")
+    void shouldAddGlobalErrorMessage(FacesContext facesContext) {
+        // Act
         underTest.addGlobalMessage(MESSAGE_PARAMETER, FacesMessage.SEVERITY_ERROR);
-        assertMessageContent(FacesMessage.SEVERITY_ERROR, MESSAGE_PARAMETER);
+
+        // Assert
+        assertMessageContent(facesContext, FacesMessage.SEVERITY_ERROR, MESSAGE_PARAMETER);
     }
 
     @Test
-    void shouldAddErrorMessage() {
+    @DisplayName("Should add error message to specific component")
+    void shouldAddErrorMessage(FacesContext facesContext) {
+        // Act
         underTest.addMessage(MESSAGE_PARAMETER, FacesMessage.SEVERITY_ERROR, COMPONENT_ID);
-        final var messages = getFacesContext().getMessageList(COMPONENT_ID);
-        assertEquals(1, messages.size());
+
+        // Assert
+        final var messages = facesContext.getMessageList(COMPONENT_ID);
+        assertEquals(1, messages.size(), "Should add exactly one message to the component");
         final var facesMessage = messages.get(0);
-        assertEquals(FacesMessage.SEVERITY_ERROR, facesMessage.getSeverity());
-        assertEquals(MESSAGE_PARAMETER, facesMessage.getDetail());
+        assertEquals(FacesMessage.SEVERITY_ERROR, facesMessage.getSeverity(),
+                "Message should have ERROR severity");
+        assertEquals(MESSAGE_PARAMETER, facesMessage.getDetail(),
+                "Message detail should match the provided parameter");
     }
 
     @Test
-    void shouldGracesfullyActOnInvalidMessageKey() {
-
+    @DisplayName("Should handle invalid message keys gracefully")
+    void shouldGracefullyHandleInvalidMessageKey() {
+        // Arrange
         projectStage.setProjectStage(ProjectStage.DEVELOPMENT);
 
+        // Act
         final var message = underTest.getMessageFor(MESSAGE_KEY_NOT_THERE, FacesMessage.SEVERITY_INFO);
-        assertTrue(message.getDetail().contains(MESSAGE_KEY_NOT_THERE));
-        assertTrue(message.getDetail().startsWith(MessageProducerBean.MISSING_KEY_PREFIX));
+
+        // Assert
+        assertTrue(message.getDetail().contains(MESSAGE_KEY_NOT_THERE),
+                "Message detail should contain the missing key");
+        assertTrue(message.getDetail().startsWith(MessageProducerBean.MISSING_KEY_PREFIX),
+                "Message should start with the missing key prefix");
     }
 
     @Test
-    void shouldSetGlobalInfoMessage() {
+    @DisplayName("Should set global info message with key and parameter")
+    void shouldSetGlobalInfoMessage(FacesContext facesContext) {
+        // Act
         underTest.setGlobalInfoMessage(MESSAGE_KEY, MESSAGE_PARAMETER);
-        assertMessageContent(FacesMessage.SEVERITY_INFO, DETAIL_MESSAGE);
+
+        // Assert
+        assertMessageContent(facesContext, FacesMessage.SEVERITY_INFO, DETAIL_MESSAGE);
     }
 
     @Test
+    @DisplayName("Should create info message from key and parameter")
     void shouldCreateInfoMessage() {
-        assertNotNull(underTest.getInfoMessageFor(MESSAGE_KEY, MESSAGE_PARAMETER));
+        // Act & Assert
+        assertNotNull(underTest.getInfoMessageFor(MESSAGE_KEY, MESSAGE_PARAMETER),
+                "Should create a non-null info message");
     }
 
     @Test
+    @DisplayName("Should create error message from key and parameter")
     void shouldCreateErrorMessage() {
-        assertNotNull(underTest.getErrorMessageFor(MESSAGE_KEY, MESSAGE_PARAMETER));
+        // Act & Assert
+        assertNotNull(underTest.getErrorMessageFor(MESSAGE_KEY, MESSAGE_PARAMETER),
+                "Should create a non-null error message");
     }
 
     @Test
-    void shouldSetGlobalWarnMessage() {
+    @DisplayName("Should set global warning message with key and parameter")
+    void shouldSetGlobalWarnMessage(FacesContext facesContext) {
+        // Act
         underTest.setGlobalWarningMessage(MESSAGE_KEY, MESSAGE_PARAMETER);
-        assertMessageContent(FacesMessage.SEVERITY_WARN, DETAIL_MESSAGE);
+
+        // Assert
+        assertMessageContent(facesContext, FacesMessage.SEVERITY_WARN, DETAIL_MESSAGE);
     }
 
     @Test
-    void shouldSetComponentMessage() {
+    @DisplayName("Should set message with key and severity to specific component")
+    void shouldSetComponentMessage(FacesContext facesContext) {
+        // Act
         underTest.setFacesMessage(MESSAGE_KEY, FacesMessage.SEVERITY_INFO, COMPONENT_ID, MESSAGE_PARAMETER);
-        final var messages = getFacesContext().getMessageList(COMPONENT_ID);
+
+        // Assert
+        final var messages = facesContext.getMessageList(COMPONENT_ID);
         final var facesMessage = messages.get(0);
-        assertEquals(FacesMessage.SEVERITY_INFO, facesMessage.getSeverity());
-        assertEquals(DETAIL_MESSAGE, facesMessage.getDetail());
+        assertEquals(FacesMessage.SEVERITY_INFO, facesMessage.getSeverity(),
+                "Message should have INFO severity");
+        assertEquals(DETAIL_MESSAGE, facesMessage.getDetail(),
+                "Message detail should match the resolved message");
     }
 
     @Test
-    void testNoMsgParams() {
+    @DisplayName("Should handle missing message parameters")
+    void shouldHandleMissingMessageParameters() {
+        // Act & Assert
         assertDoesNotThrow(() -> underTest.addMessage("no-args", FacesMessage.SEVERITY_WARN, COMPONENT_ID),
-                "missing varargs should work");
+                "Missing varargs should work");
         assertDoesNotThrow(() -> underTest.addMessage("no-args", FacesMessage.SEVERITY_WARN, COMPONENT_ID),
-                "empty array as varargs should work");
+                "Empty array as varargs should work");
     }
 
     /**
      * Asserts that one message exists with the given content
      */
-    private void assertMessageContent(final FacesMessage.Severity severity, final String detailText) {
-        final var messages = getFacesContext().getMessageList();
-        assertEquals(1, messages.size());
+    private void assertMessageContent(FacesContext facesContext, final FacesMessage.Severity severity, final String detailText) {
+        final var messages = facesContext.getMessageList();
+        assertEquals(1, messages.size(), "Should have exactly one message");
         final var facesMessage = messages.get(0);
-        assertEquals(severity, facesMessage.getSeverity());
-        assertEquals(detailText, facesMessage.getDetail());
+        assertEquals(severity, facesMessage.getSeverity(), "Message should have the expected severity");
+        assertEquals(detailText, facesMessage.getDetail(), "Message detail should match expected text");
     }
 }

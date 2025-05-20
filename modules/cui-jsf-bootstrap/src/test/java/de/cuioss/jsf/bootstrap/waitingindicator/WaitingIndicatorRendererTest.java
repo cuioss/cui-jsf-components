@@ -15,21 +15,22 @@
  */
 package de.cuioss.jsf.bootstrap.waitingindicator;
 
-import jakarta.faces.component.UIComponent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class WaitingIndicatorRendererTest extends AbstractComponentRendererTest<WaitingIndicatorRenderer> {
 
     @Test
-    void shouldRenderMinimal() {
+    void shouldRenderMinimal(FacesContext facesContext) throws IOException {
         var expected = new HtmlTreeBuilder().withNode(Node.DIV).withNode(Node.DIV)
                 .withStyleClass("waiting-indicator waiting-indicator-size-md").withNode(Node.DIV)
                 .withStyleClass("item-1 item-size-md").currentHierarchyUp().withNode(Node.DIV)
@@ -37,7 +38,7 @@ class WaitingIndicatorRendererTest extends AbstractComponentRendererTest<Waiting
                 .withStyleClass("item-3 item-size-md").currentHierarchyUp().withNode(Node.DIV)
                 .withStyleClass("item-4 item-size-md").currentHierarchyUp().withNode(Node.DIV)
                 .withStyleClass("item-5 item-size-md").currentHierarchyUp().currentHierarchyUp().currentHierarchyUp();
-        assertRenderResult(getComponent(), expected.getDocument());
+        assertRenderResult(getComponent(), expected.getDocument(), facesContext);
     }
 
     @Override

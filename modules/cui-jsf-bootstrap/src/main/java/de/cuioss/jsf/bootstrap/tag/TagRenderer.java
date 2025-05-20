@@ -24,40 +24,61 @@ import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.jsf.bootstrap.tag.support.TagSize;
 import de.cuioss.jsf.bootstrap.tag.support.TagState;
 import de.cuioss.tools.string.MoreStrings;
-
 import jakarta.faces.application.ResourceDependency;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.FacesRenderer;
 import jakarta.faces.render.Renderer;
+
 import java.io.IOException;
 
 /**
- * Default {@link Renderer} for {@link TagComponent}
- * <h2>Styling</h2>
+ * Renderer for the {@link TagComponent} that transforms the component's model
+ * into HTML markup as a DIV element with appropriate CSS classes.
+ * 
+ * <h2>CSS Structure</h2>
  * <ul>
- * <li>The marker css class is label</li>
- * <li>Sizing: cui-tag-lg, cui-tag-xl. ..</li>
- * <li>State:label-info, label-error,..</li>
+ * <li>Base class: <code>cui-tag</code></li>
+ * <li>State classes: Based on {@link TagState} (e.g., <code>cui-tag-info</code>)</li>
+ * <li>Size classes: Based on {@link TagSize} (e.g., <code>cui-tag-lg</code>)</li>
  * </ul>
  *
  * @author Oliver Wolff
+ * @since 1.0
  */
-
 @ResourceDependency(library = "thirdparty.js", name = "selectize.js", target = "head")
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.TAG_COMPONENT_RENDERER)
 public class TagRenderer extends BaseDecoratorRenderer<TagComponent> {
 
     /**
-     * TagRenderer default constructor
+     * Constructs a new TagRenderer with decoration enabled.
+     * This ensures that component attributes are properly processed
+     * during the rendering phase.
      */
     public TagRenderer() {
         super(true);
     }
 
+    /**
+     * Renders the opening DIV element for the tag component with all necessary
+     * attributes and content. This includes:
+     * <ul>
+     * <li>CSS classes based on component state and size</li>
+     * <li>Style attributes</li>
+     * <li>Pass-through attributes</li>
+     * <li>Title attribute</li>
+     * <li>Client ID as needed</li>
+     * <li>Content with appropriate escaping</li>
+     * </ul>
+     *
+     * @param context the FacesContext for the current request
+     * @param writer the DecoratingResponseWriter for writing HTML
+     * @param component the TagComponent being rendered
+     * @throws IOException if an error occurs writing to the response
+     */
     @Override
     protected void doEncodeBegin(final FacesContext context, final DecoratingResponseWriter<TagComponent> writer,
-                                 final TagComponent component) throws IOException {
+            final TagComponent component) throws IOException {
         // Write element
         writer.withStartElement(Node.DIV);
         writer.withStyleClass(computeStyleClass(component));
@@ -73,7 +94,7 @@ public class TagRenderer extends BaseDecoratorRenderer<TagComponent> {
             // no additional ClientBehavior defined, and no id is set by client
             final var componentId = component.getId();
             if (writer.getComponentWrapper().getClientBehaviors().size() > 1
-                || !MoreStrings.isEmpty(componentId) && !componentId.startsWith(UIViewRoot.UNIQUE_ID_PREFIX)) {
+                    || !MoreStrings.isEmpty(componentId) && !componentId.startsWith(UIViewRoot.UNIQUE_ID_PREFIX)) {
                 writer.withClientId();
             }
         }
@@ -82,17 +103,36 @@ public class TagRenderer extends BaseDecoratorRenderer<TagComponent> {
         writer.withTextContent(component.resolveContent(), component.getContentEscape());
     }
 
+    /**
+     * Renders the closing DIV element for the tag component.
+     *
+     * @param context the FacesContext for the current request
+     * @param writer the DecoratingResponseWriter for writing HTML
+     * @param component the TagComponent being rendered
+     * @throws IOException if an error occurs writing to the response
+     */
     @Override
     protected void doEncodeEnd(final FacesContext context, final DecoratingResponseWriter<TagComponent> writer,
-                               final TagComponent component) throws IOException {
+            final TagComponent component) throws IOException {
         writer.withEndElement(Node.DIV);
     }
 
+    /**
+     * Computes the complete CSS class string for the tag component based on:
+     * <ul>
+     * <li>Base cui-tag class</li>
+     * <li>Component's custom CSS classes</li>
+     * <li>State class from the component's context state</li>
+     * <li>Size class from the component's context size</li>
+     * </ul>
+     *
+     * @param component the TagComponent being rendered
+     * @return a StyleClassBuilder containing all computed CSS classes
+     */
     private static StyleClassBuilder computeStyleClass(final TagComponent component) {
         // Create style-class
         return CssCuiBootstrap.TAG.getStyleClassBuilder().append(component)
-            .append(TagState.getForContextState(component.resolveContextState()))
-            .append(TagSize.getForContextSize(component.resolveContextSize()));
+                .append(TagState.getForContextState(component.resolveContextState()))
+                .append(TagSize.getForContextSize(component.resolveContextSize()));
     }
-
 }

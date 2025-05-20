@@ -15,6 +15,27 @@
  */
 package de.cuioss.jsf.bootstrap.taginput;
 
+import static de.cuioss.jsf.bootstrap.selectize.Selectize.OPTION_VALUE_DEFAULT_WRAPPER;
+import static de.cuioss.jsf.bootstrap.selectize.Selectize.OPTION_VALUE_LABEL_KEY;
+import static de.cuioss.jsf.bootstrap.selectize.Selectize.OPTION_VALUE_VALUE_KEY;
+import static de.cuioss.tools.base.Preconditions.checkArgument;
+import static de.cuioss.tools.collect.CollectionLiterals.mutableSortedSet;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.stream.Collectors;
+
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.ConverterException;
+
 import de.cuioss.jsf.api.common.accessor.LocaleAccessor;
 import de.cuioss.jsf.api.components.base.BaseCuiHtmlInputComponent;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
@@ -30,7 +51,7 @@ import de.cuioss.tools.codec.Hex;
 import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.tools.string.Joiner;
 import de.cuioss.tools.string.MoreStrings;
-import de.cuioss.uimodel.model.conceptkey.AugmentationKeyConstans;
+import de.cuioss.uimodel.model.conceptkey.AugmentationKeyConstants;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import jakarta.faces.application.ResourceDependency;
 import jakarta.faces.component.FacesComponent;
@@ -39,45 +60,48 @@ import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.ConverterException;
 import lombok.experimental.Delegate;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.SortedSet;
 import java.util.stream.Collectors;
 
-import static de.cuioss.jsf.bootstrap.selectize.Selectize.*;
-import static de.cuioss.tools.base.Preconditions.checkArgument;
-import static de.cuioss.tools.collect.CollectionLiterals.mutableSortedSet;
-
 /**
- * <p>
- * Renders an TagInput similar to a JIRA Tag. See {@link TagInputRenderer} for
- * rendering details
- * </p>
+ * Component that renders an interactive tag input field with autocomplete capabilities.
+ * Users can select from existing tags or create new ones on-the-fly.
+ *
+ * <h2>Features</h2>
+ * <ul>
+ * <li>Select from predefined tags</li>
+ * <li>Create new tags on-the-fly (optional)</li>
+ * <li>Multi-selection with configurable limits</li>
+ * <li>Typeahead/autocomplete functionality</li>
+ * </ul>
+ *
  * <h2>Attributes</h2>
  * <ul>
- * <li>{@link ComponentStyleClassProvider}</li>
- * <li>sourceSet: The initially available tags. The Set must contain objects of
- * the type {@link ConceptKeyType}</li>
- * <li>clientCreated: The tags that are created by the client. Internal use only
- * </li>
- * <li>letUserCreateTags: Indicates whether the user is allowed to dynamically
- * create own Tags on the fly. User Created tags, e.g. with the label 'MyTag'
- * will be translated into a {@link ConceptKeyType} with the
- * {@link ConceptKeyType#getResolved(java.util.Locale)} resulting in 'MyTag'
- * {@link ConceptKeyType#getIdentifier()} resulting in '_client_created_MyTag'.
- * The suffix '_client_created_' is useful to differentiate between the original
- * tags and the ones create on the fly</li>
- * <li>maxItems: Defines the maximum number of items to be selected, defaults to
- * 10.</li>
- * <li>delimiter: Defines the delimiter to separate the identifier in the input
- * value, default to {@link JavaScriptOptions#OPTION_VALUE_DELIMITER}</li>
+ * <li>{@link ComponentStyleClassProvider} - CSS styling</li>
+ * <li>{@link DisabledComponentProvider} - Disabled state</li>
+ * <li><b>sourceSet</b>: Available {@link ConceptKeyType} objects for selection</li>
+ * <li><b>clientCreated</b>: Tags created by user input (internal use)</li>
+ * <li><b>letUserCreateTags</b>: Allow creating new tags (default: true)</li>
+ * <li><b>maxItems</b>: Maximum selectable tags (default: 10)</li>
+ * <li><b>delimiter</b>: Identifier separator (default: {@link JavaScriptOptions#OPTION_VALUE_DELIMITER})</li>
+ * <li><b>displayRemoveButton</b>: Show remove buttons for tags</li>
+ * <li><b>itemConverterId</b>: Optional converter ID for custom conversion</li>
  * </ul>
- * <h2>Usage</h2>
  *
+ * <h2>Usage Example</h2>
  * <pre>
- * &lt;cui:tagInput value="someValueBinding" sourceSet="set of concept keys" /&gt;
+ * &lt;boot:tagInput value="#{bean.selectedTags}" sourceSet="#{bean.availableTags}" /&gt;
  * </pre>
  *
  * @author Oliver Wolff
  * @author Sven Haag
+ * @since 1.0
  */
 @FacesComponent(BootstrapFamily.TAG_INPUT_COMPONENT)
 @ResourceDependency(library = "javascript.enabler", name = "enabler.selectize.js", target = "head")
@@ -125,7 +149,9 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent implements Styl
     private final CuiState state;
 
     /**
-     *
+     * Constructs a new TagInputComponent with default settings.
+     * Initializes the component with the appropriate renderer type and
+     * a default ConceptKeyStringConverter.
      */
     public TagInputComponent() {
         disabledProvider = new DisabledComponentProvider(this);
@@ -134,116 +160,158 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent implements Styl
         state = new CuiState(getStateHelper());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getFamily() {
         return BootstrapFamily.COMPONENT_FAMILY;
     }
 
     /**
-     * @return the sourceList
+     * Returns the source set of available tags for selection.
+     *
+     * @return the Set of ConceptKeyType objects representing available tags,
+     *         or an empty set if none are configured
      */
     public Set<ConceptKeyType> getSourceSet() {
         return state.get(SOURCE_SET_KEY, Collections.<ConceptKeyType>emptySet());
     }
 
     /**
-     * @param sourceList the sourceList to set
+     * Sets the source set of available tags for selection.
+     *
+     * @param sourceList the Set of ConceptKeyType objects representing available tags
      */
     public void setSourceSet(final Set<ConceptKeyType> sourceList) {
         state.put(SOURCE_SET_KEY, sourceList);
     }
 
     /**
-     * @return the clientCreated
+     * Returns the set of tags created by the client.
+     *
+     * @return the Set of ConceptKeyType objects created by the client,
+     *         or an empty set if none exist
      */
     public Set<ConceptKeyType> getClientCreated() {
         return state.get(CLIENT_CREATED_KEY, Collections.<ConceptKeyType>emptySet());
     }
 
     /**
-     * @param displayRemoveButton the list of client created tags to set
+     * Sets whether remove buttons should be displayed on selected tags.
+     *
+     * @param displayRemoveButton true to display remove buttons, false otherwise
      */
     public void setDisplayRemoveButton(final boolean displayRemoveButton) {
         state.put(REMOVE_BUTTON_KEY, displayRemoveButton);
     }
 
     /**
-     * @return true, if the remove button should be displayed on each tag
+     * Determines whether remove buttons should be displayed on selected tags.
+     *
+     * @return true if remove buttons should be displayed, false otherwise (defaults to true)
      */
     public boolean isDisplayRemoveButton() {
         return state.getBoolean(REMOVE_BUTTON_KEY, true);
     }
 
     /**
-     * @param clientCreated the list of client created tags to set
+     * Sets the client-created tags.
+     *
+     * @param clientCreated the Set of ConceptKeyType objects created by the client
      */
     public void setClientCreated(final Set<ConceptKeyType> clientCreated) {
         state.put(CLIENT_CREATED_KEY, clientCreated);
     }
 
     /**
-     * @return the letUserCreateTags
+     * Determines whether users are allowed to create new tags on-the-fly.
+     *
+     * @return true if users can create new tags, false otherwise (defaults to true)
      */
     public boolean isLetUserCreateTags() {
         return state.getBoolean(USER_CREATE_TAGS_KEY, true);
     }
 
     /**
-     * @param letUserCreateTags the letUserCreateTags to set
+     * Sets whether users are allowed to create new tags on-the-fly.
+     *
+     * @param letUserCreateTags true to allow users to create new tags, false otherwise
      */
     public void setLetUserCreateTags(final boolean letUserCreateTags) {
         state.put(USER_CREATE_TAGS_KEY, letUserCreateTags);
     }
 
     /**
-     * @return the maxItems
+     * Returns the maximum number of tags that can be selected.
+     *
+     * @return the maximum number of selectable items (defaults to 10)
      */
     public int getMaxItems() {
         return state.getInt(MAX_ITEMS_KEY, DEFAULT_MAX_ITEMS);
     }
 
     /**
-     * @param maxItems the maxItems to set
+     * Sets the maximum number of tags that can be selected.
+     *
+     * @param maxItems the maximum number of selectable items
      */
     public void setMaxItems(final int maxItems) {
         state.put(MAX_ITEMS_KEY, maxItems);
     }
 
     /**
-     * @return the delimiter
+     * Returns the delimiter used to separate identifiers in the input value.
+     *
+     * @return the delimiter string (defaults to {@link JavaScriptOptions#OPTION_VALUE_DELIMITER})
      */
     public String getDelimiter() {
         return state.get(DELIMITER_KEY, JavaScriptOptions.OPTION_VALUE_DELIMITER);
     }
 
     /**
-     * @param delimiter the delimiter to set
+     * Sets the delimiter used to separate identifiers in the input value.
+     *
+     * @param delimiter the delimiter string
      */
     public void setDelimiter(final String delimiter) {
         state.put(DELIMITER_KEY, delimiter);
     }
 
+    /**
+     * This component uses a fixed converter for ConceptKeyType handling.
+     * Attempting to change the converter will result in an exception.
+     *
+     * @param converter the converter to set (not supported)
+     * @throws UnsupportedOperationException always thrown since the converter cannot be changed
+     */
     @Override
     public void setConverter(final Converter converter) {
         throw new UnsupportedOperationException("Component converter already set.");
     }
 
     /**
-     * @param converterId
+     * Sets the ID of a converter to use for item conversion.
+     *
+     * @param converterId the ID of the converter to use for items
      */
     public void setItemConverterId(final String converterId) {
         state.put(ITEM_CONVERTER_ID_KEY, converterId);
     }
 
     /**
-     * @return converterId
+     * Returns the ID of the converter used for item conversion.
+     *
+     * @return the converter ID, or null if none is set
      */
     public String getItemConverterId() {
         return state.get(ITEM_CONVERTER_ID_KEY);
     }
 
     /**
-     * @return the resolved itemConverter
+     * Returns the resolved item converter instance if one has been specified.
+     *
+     * @return an Optional containing the converter if specified and available, or empty otherwise
      */
     public Optional<Converter> getItemConverter() {
         final var converterId = getItemConverterId();
@@ -255,19 +323,23 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent implements Styl
     }
 
     /**
-     * @return the {@link Set} of ConceptKeyType of
-     * {@link TagHelper#getValueAsSet(Object...)} marked as undefined and
-     * not part of {@link #getSourceSet()}.
+     * Returns the set of ConceptKeyType values that are undefined and not part of the sourceSet.
+     * These represent values that exist in the component's value but are not defined
+     * in the available tags list.
+     *
+     * @return a Set of ConceptKeyType objects that are undefined, or an empty set if none
      */
     Set<ConceptKeyType> getUndefinedValues() {
         if (null == getValue()) {
             return Collections.emptySet();
         }
-        return getValue().stream().filter(AugmentationKeyConstans::isUndefinedValue).collect(Collectors.toSet());
+        return getValue().stream().filter(AugmentationKeyConstants::isUndefinedValue).collect(Collectors.toSet());
     }
 
     /**
-     * @return {@link java.util.SortedSet} of {@link ConceptKeyType}
+     * Returns the component's value as a SortedSet of ConceptKeyType objects.
+     *
+     * @return a SortedSet of selected ConceptKeyType objects, or null if no value is set
      */
     @Override
     public SortedSet<ConceptKeyType> getValue() {
@@ -275,9 +347,10 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent implements Styl
     }
 
     /**
-     * @param value {@link java.util.Set} of {@link ConceptKeyType}
-     * @throws IllegalArgumentException if value is not a {@link java.util.Set} of
-     *                                  {@link ConceptKeyType}
+     * Sets the component's value. The value must be a Set of ConceptKeyType objects.
+     *
+     * @param value the Set of ConceptKeyType objects to set as the component's value
+     * @throws IllegalArgumentException if the value is not a Set of ConceptKeyType objects
      */
     @Override
     public void setValue(final Object value) {
@@ -286,12 +359,10 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent implements Styl
     }
 
     /**
-     * Ensure that <code>value</code> is a {@link java.util.Set} of
-     * {@link ConceptKeyType}.
+     * Validates that the provided value is a Set of ConceptKeyType objects.
      *
-     * @param value to be checked
-     * @throws IllegalArgumentException if value is not a {@link java.util.Set} of
-     *                                  {@link ConceptKeyType}
+     * @param value the object to validate
+     * @throws IllegalArgumentException if value is not null and not a Set of ConceptKeyType objects
      */
     private void checkValue(final Object value) {
         if (null == value) {
@@ -309,17 +380,34 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent implements Styl
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Converts the submitted string value to a Set of ConceptKeyType objects
+     * using the ConceptKeyStringConverter.
+     */
     @Override
     protected Object getConvertedValue(final FacesContext context, final Object submittedValue)
         throws ConverterException {
         return new ConceptKeyStringConverter().getAsObject(context, this, (String) submittedValue);
     }
 
+    /**
+     * Resolves the CSS classes for this component based on configuration.
+     * Adds special classes to indicate whether tag creation is allowed.
+     *
+     * @return a StyleClassBuilder with appropriate CSS classes
+     */
     @Override
     public StyleClassBuilder resolveStyleClass() {
         return getStyleClassBuilder().append(isLetUserCreateTags() ? CSS_CLASS_CAN_CREATE : CSS_CLASS_CANNOT_CREATE);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Adds selectize-specific passthrough attributes needed for client-side initialization.
+     */
     @Override
     public Map<String, Object> getPassThroughAttributes() {
         final var attributes = super.getPassThroughAttributes(true);
@@ -335,6 +423,11 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent implements Styl
         return attributes;
     }
 
+    /**
+     * Builds a JSON string representation of the available tag options.
+     *
+     * @return a JSON string containing all available tag options
+     */
     private String getOptions() {
         final SortedSet<ConceptKeyType> source = mutableSortedSet(getSourceSet());
         source.addAll(getClientCreated());
@@ -343,11 +436,20 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent implements Styl
         return JavaScriptOptions.SQUARE_BRACKETS_WRAPPER.formatted(options);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<String, Object> getPassThroughAttributes(final boolean create) {
         return getPassThroughAttributes();
     }
 
+    /**
+     * Builds the JSON representation of option elements for the given ConceptKeyType set.
+     *
+     * @param codeTypes the set of ConceptKeyType objects to convert to option elements
+     * @return a String containing the JSON representation of the option elements
+     */
     private String buildOptionElements(final SortedSet<ConceptKeyType> codeTypes) {
         final List<String> optionElements = new ArrayList<>();
         final var locale = localeAccessor.getValue();
@@ -365,8 +467,15 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent implements Styl
         return Joiner.on(JavaScriptOptions.OPTION_VALUE_DELIMITER).join(optionElements);
     }
 
+    /**
+     * Builds a single option element JSON object with the given label and identifier.
+     *
+     * @param label the display label for the option
+     * @param identifier the value identifier for the option
+     * @return a JSON string representing the option
+     */
     private static String buildOptionElement(final String label, final String identifier) {
         return "{\"" + OPTION_VALUE_LABEL_KEY + "\":\"" + label +
-            "\",\"" + OPTION_VALUE_VALUE_KEY + "\":\"" + identifier + "\"}";
+                "\",\"" + OPTION_VALUE_VALUE_KEY + "\":\"" + identifier + "\"}";
     }
 }

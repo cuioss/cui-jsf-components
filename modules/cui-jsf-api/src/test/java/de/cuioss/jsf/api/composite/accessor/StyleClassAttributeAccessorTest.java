@@ -15,27 +15,44 @@
  */
 package de.cuioss.jsf.api.composite.accessor;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.jupiter.api.Test;
-
+@DisplayName("Tests for StyleClassAttributeAccessor")
 class StyleClassAttributeAccessorTest {
 
-    @Test
-    void shouldHandleStyleClass() {
-        var accessor = new StyleClassAttributeAccessor();
-        Map<String, Object> map = new HashMap<>();
-        assertFalse(accessor.available(map));
-        assertNull(accessor.value(map));
-        final var value = "set";
-        map.put("styleClass", value);
-        assertTrue(accessor.available(map));
-        assertEquals(value, accessor.value(map));
+    @Nested
+    @DisplayName("Tests for style class attribute access")
+    class StyleClassAttributeAccessTests {
+
+        @Test
+        @DisplayName("Should correctly access style class attributes")
+        void shouldHandleStyleClassAttributes() {
+            // Arrange
+            var accessor = new StyleClassAttributeAccessor();
+            Map<String, Object> map = new HashMap<>();
+
+            // Act & Assert - empty map
+            assertFalse(accessor.available(map),
+                    "Accessor should report style class as unavailable when not in map");
+            assertNull(accessor.value(map),
+                    "Accessor should return null when style class is not in map");
+
+            // Arrange - add style class to map
+            final var value = "set";
+            map.put("styleClass", value);
+
+            // Act & Assert - map with style class
+            assertTrue(accessor.available(map),
+                    "Accessor should report style class as available when in map");
+            assertEquals(value, accessor.value(map),
+                    "Accessor should return the correct style class value");
+        }
     }
 }

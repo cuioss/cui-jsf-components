@@ -17,13 +17,11 @@ package de.cuioss.jsf.dev.metadata.composite.attributes;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import jakarta.faces.view.AttachedObjectTarget;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.valueobjects.generator.dynamic.GeneratorResolver;
+import jakarta.faces.view.AttachedObjectTarget;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class AttachedObjectPropertyWrapperTest extends AbstractPropertyWrapperTest<AttachedObjectPropertyWrapper> {
 

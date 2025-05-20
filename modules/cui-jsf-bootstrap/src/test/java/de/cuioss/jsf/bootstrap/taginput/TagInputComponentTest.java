@@ -18,11 +18,6 @@ package de.cuioss.jsf.bootstrap.taginput;
 import static de.cuioss.tools.collect.CollectionLiterals.mutableSet;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Collections;
-import java.util.Set;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.support.ConceptKeyTypeGenerator;
 import de.cuioss.jsf.bootstrap.support.ConceptKeyTypeSetGenerator;
@@ -36,9 +31,13 @@ import de.cuioss.test.valueobjects.property.util.CollectionType;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
 import de.cuioss.uimodel.nameprovider.I18nDisplayNameProvider;
+import jakarta.faces.context.FacesContext;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "maxItems", "letUserCreateTags", "delimiter", "itemConverterId",
-        "displayRemoveButton" }, defaultValued = { "maxItems", "displayRemoveButton" })
+import java.util.Set;
+
+@VerifyComponentProperties(of = {"maxItems", "letUserCreateTags", "delimiter", "itemConverterId",
+        "displayRemoveButton"}, defaultValued = {"maxItems", "displayRemoveButton"})
 @PropertyConfig(name = "sourceSet", propertyClass = ConceptKeyType.class, collectionType = CollectionType.SET)
 @PropertyConfig(name = "clientCreated", propertyClass = ConceptKeyType.class, collectionType = CollectionType.SET)
 @PropertyGenerator(ConceptKeyTypeGenerator.class)
@@ -64,7 +63,7 @@ class TagInputComponentTest extends AbstractUiComponentTest<TagInputComponent> {
     void shouldSetValueSets() {
         final var underTest = anyComponent();
         assertTrue(TagHelper.getValueAsSet(underTest.getSubmittedValue(), underTest.getValue()).isEmpty());
-        underTest.setValue(Collections.singleton(conceptKeyTypeGenerator.next()));
+        underTest.setValue(Set.of(conceptKeyTypeGenerator.next()));
         assertEquals(1, TagHelper.getValueAsSet(underTest.getSubmittedValue(), underTest.getValue()).size());
         final Set<ConceptKeyType> valueSet = mutableSet(conceptKeyTypeSetGenerator.next());
         valueSet.add(ConceptKeyTypeImpl.builder().identifier("same").labelResolver(new I18nDisplayNameProvider("same1"))
@@ -79,7 +78,8 @@ class TagInputComponentTest extends AbstractUiComponentTest<TagInputComponent> {
     @Test
     void shouldNotSetSingleValue() {
         final var underTest = anyComponent();
-        assertThrows(IllegalArgumentException.class, () -> underTest.setValue(conceptKeyTypeGenerator.next()));
+        ConceptKeyType next = conceptKeyTypeGenerator.next();
+        assertThrows(IllegalArgumentException.class, () -> underTest.setValue(next));
     }
 
     @Test
@@ -99,7 +99,8 @@ class TagInputComponentTest extends AbstractUiComponentTest<TagInputComponent> {
     @Test
     void shouldFailOnInvalidSetValue() {
         final var component = anyComponent();
-        assertThrows(IllegalArgumentException.class, () -> component.setValue(mutableSet(1)));
+        Set<Integer> value = mutableSet(1);
+        assertThrows(IllegalArgumentException.class, () -> component.setValue(value));
     }
 
     @Test
@@ -109,8 +110,8 @@ class TagInputComponentTest extends AbstractUiComponentTest<TagInputComponent> {
     }
 
     @Test
-    void shouldResolveItemConverter() {
-        getFacesContext().getApplication().addConverter(TestTagItemConverter.ID, TestTagItemConverter.class.getName());
+    void shouldResolveItemConverter(FacesContext facesContext) {
+        facesContext.getApplication().addConverter(TestTagItemConverter.ID, TestTagItemConverter.class.getName());
         final var component = anyComponent();
         component.setItemConverterId(TestTagItemConverter.ID);
         assertNotNull(component.getItemConverter());

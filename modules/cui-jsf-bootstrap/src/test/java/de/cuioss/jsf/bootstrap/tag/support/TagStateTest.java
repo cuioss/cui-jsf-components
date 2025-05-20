@@ -18,9 +18,8 @@ package de.cuioss.jsf.bootstrap.tag.support;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.css.ContextState;
+import org.junit.jupiter.api.Test;
 
 class TagStateTest {
 

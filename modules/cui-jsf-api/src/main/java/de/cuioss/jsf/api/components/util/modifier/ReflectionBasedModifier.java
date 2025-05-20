@@ -17,20 +17,19 @@ package de.cuioss.jsf.api.components.util.modifier;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import jakarta.faces.component.EditableValueHolder;
-import jakarta.faces.component.UIComponent;
-
 import de.cuioss.jsf.api.components.partial.ComponentStyleClassProviderImpl;
 import de.cuioss.jsf.api.components.partial.ForIdentifierProvider;
 import de.cuioss.jsf.api.components.partial.StyleAttributeProviderImpl;
 import de.cuioss.jsf.api.components.util.ComponentModifier;
 import de.cuioss.tools.property.PropertyReadWrite;
 import de.cuioss.tools.property.PropertyUtil;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.UIComponent;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Implementation of {@link ComponentModifier} that uses reflection in order to

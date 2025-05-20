@@ -19,17 +19,16 @@ import static de.cuioss.test.generator.Generators.integers;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.test.valueobjects.ValueObjectTest;
 import de.cuioss.test.valueobjects.api.contracts.VerifyBeanProperty;
 import de.cuioss.test.valueobjects.api.contracts.VerifyConstructor;
 import de.cuioss.test.valueobjects.api.object.ObjectTestConfig;
 import de.cuioss.test.valueobjects.api.property.PropertyConfig;
+import org.junit.jupiter.api.Test;
 
 @VerifyBeanProperty(of = "typedValue")
 @VerifyConstructor(of = "typedValue")
-@VerifyConstructor(of = { "typedValue", "label" })
+@VerifyConstructor(of = {"typedValue", "label"})
 @PropertyConfig(name = "typedValue", propertyClass = Integer.class)
 @PropertyConfig(name = "label", propertyClass = String.class)
 @ObjectTestConfig(equalsAndHashCodeOf = "typedValue")

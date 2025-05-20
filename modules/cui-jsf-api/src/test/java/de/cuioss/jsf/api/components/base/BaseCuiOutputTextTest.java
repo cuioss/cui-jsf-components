@@ -17,23 +17,43 @@ package de.cuioss.jsf.api.components.base;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "titleKey", "titleValue" })
+@VerifyComponentProperties(of = {"titleKey", "titleValue"})
+@DisplayName("Tests for BaseCuiOutputText")
 class BaseCuiOutputTextTest extends AbstractComponentTest<MockBaseCuiOutputText> {
 
-    @Test
-    void shouldProvideDefaultStyleClass() {
-        assertEquals("mock", anyComponent().getStyleClass());
-    }
+    @Nested
+    @DisplayName("Tests for style class handling")
+    class StyleClassTests {
 
-    @Test
-    void shouldExtendStyleClass() {
-        var component = anyComponent();
-        component.setStyleClass("foo");
-        assertEquals("mock foo", component.getStyleClass());
+        @Test
+        @DisplayName("Should provide default style class")
+        void shouldProvideDefaultStyleClass() {
+            // Arrange & Act
+            var component = anyComponent();
+
+            // Assert
+            assertEquals("mock", component.getStyleClass(),
+                    "Default style class should be 'mock'");
+        }
+
+        @Test
+        @DisplayName("Should extend style class when custom class is set")
+        void shouldExtendStyleClass() {
+            // Arrange
+            var component = anyComponent();
+
+            // Act
+            component.setStyleClass("foo");
+
+            // Assert
+            assertEquals("mock foo", component.getStyleClass(),
+                    "Style class should be extended with custom class");
+        }
     }
 }

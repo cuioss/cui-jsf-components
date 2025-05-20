@@ -15,10 +15,6 @@
  */
 package de.cuioss.jsf.jqplot.model;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.ArrayList;
-
 import de.cuioss.jsf.jqplot.js.support.JavaScriptSupport;
 import de.cuioss.jsf.jqplot.js.support.JsArray;
 import de.cuioss.jsf.jqplot.js.support.JsValue;
@@ -26,6 +22,10 @@ import de.cuioss.jsf.jqplot.js.types.JsDateTimeFormat;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * user's data. Data should *NOT* be specified in the options object, but be

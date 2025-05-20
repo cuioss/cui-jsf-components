@@ -15,14 +15,14 @@
  */
 package de.cuioss.jsf.jqplot.hook;
 
-import static java.util.Objects.requireNonNull;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;
 
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Hook functions provider, manage list of IPlotHookFunctionProvider able to

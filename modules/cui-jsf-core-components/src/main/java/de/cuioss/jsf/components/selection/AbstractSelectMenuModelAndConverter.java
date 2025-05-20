@@ -15,6 +15,17 @@
  */
 package de.cuioss.jsf.components.selection;
 
+import de.cuioss.jsf.api.components.selection.SelectMenuModel;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ValueChangeEvent;
+import jakarta.faces.model.SelectItem;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,36 +40,41 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.AbortProcessingException;
-import jakarta.faces.event.ValueChangeEvent;
-import jakarta.faces.model.SelectItem;
-
-import de.cuioss.jsf.api.components.selection.SelectMenuModel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 /**
- * Abstract class using {@link MapInstanceConverter} to create a drop down list
- * (h:selectOneMenu).
- * <p>
- * Example:
+ * <p>Abstract class providing both model and converter functionality for JSF selection components.
+ * This implementation uses {@link MapInstanceConverter} to handle the conversion between object
+ * model and string representation for use with JSF select components.</p>
+ * 
+ * <p>This class simplifies the creation of dropdown lists by handling:</p>
+ * <ul>
+ *   <li>Generation of {@link SelectItem} instances from a source collection</li>
+ *   <li>Storage and retrieval of the selected value</li>
+ *   <li>Conversion between model objects and their string representations</li>
+ *   <li>Sorting of select items based on their labels</li>
+ *   <li>Support for adding and manipulating items in the selection list</li>
+ * </ul>
+ * 
+ * <p>Implementing classes need to provide two key methods:</p>
+ * <ul>
+ *   <li>{@link #getLabel(Serializable)} - to determine how each value is displayed</li>
+ *   <li>{@link #getIdentifier(Serializable)} - to create a unique string identifier for each value</li>
+ * </ul>
+ *
+ * <h2>Usage Example</h2>
  *
  * <pre>
  * &lt;h:selectOneMenu value="#{model.selectedValue}" converter="#{model}"&gt;
- * &lt;f:selectItems value="#{model.selectableValues}" /&gt;
+ *   &lt;f:selectItems value="#{model.selectableValues}" /&gt;
  * &lt;/h:selectOneMenu&gt;
  * </pre>
  *
- * @param <T> the value of the drop down list.
+ * @param <T> The type of the values in the selection component, must implement {@link Serializable}
  *
  * @author Matthias Walliczek
+ * @since 1.0
  */
-@ToString(doNotUseGetters = true, exclude = { "converter", "selectableValues" })
-@EqualsAndHashCode(doNotUseGetters = true, exclude = { "converter", "selectableValues" })
+@ToString(doNotUseGetters = true, exclude = {"converter", "selectableValues"})
+@EqualsAndHashCode(doNotUseGetters = true, exclude = {"converter", "selectableValues"})
 public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable> implements SelectMenuModel<T> {
 
     @Serial
@@ -71,7 +87,8 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
     private T selectedValue;
 
     /**
-     * flag indication whether the menu model is disabled.
+     * Flag indicating whether the menu model is disabled.
+     * When disabled, the corresponding UI component should be rendered in a disabled state.
      */
     @Getter
     @Setter
@@ -85,15 +102,22 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
     private Set<T> sourceData;
 
     /**
-     * Default constructor creating the initial list of values.
+     * Default constructor that initializes the model with the provided source data.
      *
-     * @param sourceData the initial data to create the list with. May be null or
-     *                   empty, which results in an empty drop down list.
+     * @param sourceData The set of values to populate the selection list.
+     *                  May be null or empty, which results in an empty selection list.
      */
     protected AbstractSelectMenuModelAndConverter(final Set<T> sourceData) {
         initialize(sourceData);
     }
 
+    /**
+     * Initializes or reinitializes the model with a new set of source data.
+     * This method can be used to refresh the selection list with updated values.
+     *
+     * @param newSourceData The set of values to populate the selection list.
+     *                     May be null or empty, which results in an empty selection list.
+     */
     protected void initialize(final Set<T> newSourceData) {
         if (null == newSourceData) {
             sourceData = null;
@@ -116,6 +140,13 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
         }
     }
 
+    /**
+     * Creates a mapping between string identifiers and their corresponding object values.
+     * This mapping is used by the converter for conversion between object and string representations.
+     *
+     * @param values The set of values to create mappings for
+     * @return A map with string identifiers as keys and object values as values
+     */
     private Map<String, T> getMapping(final Set<T> values) {
         final Map<String, T> result = new HashMap<>(values.size());
         for (final T value : values) {
@@ -125,15 +156,25 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
     }
 
     /**
-     * Returns true if value is selected for this unit and false otherwise.
-     *
-     * @return is value selected status.
+     * {@inheritDoc}
+     * 
+     * <p>Determines if a value is currently selected by checking if the selectedValue is non-null.</p>
+     * 
+     * @return {@code true} if a value is currently selected, {@code false} otherwise
      */
     @Override
     public boolean isValueSelected() {
         return null != getSelectedValue();
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>Processes a value change event by updating the selectedValue with the new value from the event.</p>
+     * 
+     * @param event The value change event containing the new selected value
+     * @throws AbortProcessingException if processing should be aborted
+     */
     @SuppressWarnings("unchecked")
     // Implicitly safe because of typing
     @Override
@@ -141,6 +182,14 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
         this.setSelectedValue((T) event.getNewValue());
     }
 
+    /**
+     * Creates a list of {@link SelectItem} instances from the provided set of values.
+     * If the input is a {@link SortedSet}, the order is preserved. Otherwise, the items
+     * are sorted alphabetically by their labels.
+     *
+     * @param values The set of values to convert to SelectItems
+     * @return An ArrayList of SelectItems representing the values
+     */
     private ArrayList<SelectItem> initializeSelectItems(final Set<T> values) {
         if (values instanceof SortedSet) {
             return values.stream().map(value -> new SelectItem(value, getLabel(value)))
@@ -151,19 +200,20 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
     }
 
     /**
-     * Initializes to the first element in the Model. Use {@link SortedSet} to
-     * control the order of entries.
+     * Initializes the selected value to the first element in the model.
+     * This is useful for pre-selecting a default value in the UI.
+     * Use {@link SortedSet} as source data to control the order of entries.
      */
     public void initToFirstElement() {
         getSelectableValues().stream().findFirst().ifPresent(it -> setSelectedValue((T) it.getValue()));
     }
 
     /**
-     * Insert a new value at a specific position in the drop down list.
+     * Inserts a new value at a specific position in the selection list.
      *
-     * @param position     the position, e.g. 0 to set as first item.
-     * @param newValue     the new value.
-     * @param itemDisabled disabled property of the {@link SelectItem}
+     * @param position The position where to insert the new value, e.g., 0 to insert as the first item
+     * @param newValue The new value to insert
+     * @param itemDisabled Whether the new item should be disabled in the UI
      */
     @SuppressWarnings("unchecked")
     // Implicitly safe because of typing
@@ -175,31 +225,43 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
     }
 
     /**
-     * Insert a new value at a specific position in the dropdown list.
+     * Inserts a new value at a specific position in the selection list.
+     * The new item will not be disabled.
      *
-     * @param position the position, e.g. 0 to set as first item.
-     * @param newValue the new value.
+     * @param position The position where to insert the new value, e.g., 0 to insert as the first item
+     * @param newValue The new value to insert
      */
     public void add(final int position, final T newValue) {
         add(position, newValue, false);
     }
 
     /**
-     * @param value
+     * Returns the display label for a given value.
+     * This label is used in the UI to represent the value to the user.
      *
-     * @return the label to display at the dropdown list.
+     * @param value The value to get a label for
+     * @return The human-readable label for the value
      */
     protected abstract String getLabel(T value);
 
     /**
-     * @param value
+     * Returns a unique identifier for a given value.
+     * This identifier is used by the converter for converting between
+     * the object model and string representation.
      *
-     * @return the unique identifier to resolve a value with.
+     * @param value The value to get an identifier for
+     * @return A unique string identifier for the value
      */
     protected abstract String getIdentifier(T value);
 
-    // Lazy initialization because #getLabel() may access properties from
-    // implementing class
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>The list is lazily initialized when first accessed to ensure that
+     * implementing classes are fully initialized before calling {@link #getLabel(Serializable)}.</p>
+     *
+     * @return A list of SelectItems representing the available selection options
+     */
     @Override
     public List<SelectItem> getSelectableValues() {
         if (null == selectableValues) {
@@ -208,25 +270,56 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
         return selectableValues;
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>Delegates to the internal {@link MapInstanceConverter} to convert the string value
+     * back to its object representation.</p>
+     *
+     * @param context The FacesContext for the current request
+     * @param component The UIComponent this converter is being used with
+     * @param value The string value to be converted
+     * @return The object representation of the string value, or null if conversion fails
+     */
     @Override
     public T getAsObject(final FacesContext context, final UIComponent component, final String value) {
         return converter.getAsObject(context, component, value);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>Delegates to the internal {@link MapInstanceConverter} to convert the object value
+     * to its string representation.</p>
+     *
+     * @param context The FacesContext for the current request
+     * @param component The UIComponent this converter is being used with
+     * @param value The object value to be converted
+     * @return The string representation of the object value
+     */
     @Override
     public String getAsString(final FacesContext context, final UIComponent component, final T value) {
         return converter.getAsString(context, component, value);
     }
 
     /**
-     * @param rescrictModeActive
+     * Sets whether the converter should operate in restricted mode.
+     * In restricted mode, the converter will only accept values that are present
+     * in its instance map.
+     *
+     * @param rescrictModeActive True to activate restricted mode, false otherwise
      */
     public void setRescrictModeActive(final boolean rescrictModeActive) {
         converter.setRestrictedModeActive(rescrictModeActive);
     }
 
     /**
-     * @param instanceMap
+     * Sets the instance map for the internal converter.
+     * This allows direct manipulation of the mapping between string identifiers
+     * and object values used for conversion.
+     *
+     * @param instanceMap The map to use for conversion, with string identifiers as keys
+     *                   and object values as values
      */
     public void setInstanceMap(final Map<String, T> instanceMap) {
         converter.setInstanceMap(instanceMap);

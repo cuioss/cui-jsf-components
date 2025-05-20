@@ -15,17 +15,31 @@
  */
 package de.cuioss.jsf.bootstrap.layout;
 
-import de.cuioss.test.jsf.component.AbstractUiComponentTest;
-import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import de.cuioss.test.jsf.component.AbstractUiComponentTest;
+import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
 @VerifyComponentProperties(of = {"labelKey", "labelValue", "labelEscape", "titleKey", "titleValue", "for"})
+@DisplayName("Tests for OutputLabelComponent")
 class OutputLabelComponentTest extends AbstractUiComponentTest<OutputLabelComponent> {
 
-    @Test
-    void shouldProvideCorrectMetadata() {
-        assertEquals("jakarta.faces.Output", anyComponent().getFamily());
+    @Nested
+    @DisplayName("Tests for component metadata")
+    class MetadataTests {
+
+        @Test
+        @DisplayName("Should provide correct component family")
+        void shouldProvideCorrectMetadata() {
+            // Arrange
+            var component = anyComponent();
+
+            // Act & Assert
+            assertEquals("jakarta.faces.Output", component.getFamily(),
+                    "Component family should be 'jakarta.faces.Output'");
+        }
     }
 }

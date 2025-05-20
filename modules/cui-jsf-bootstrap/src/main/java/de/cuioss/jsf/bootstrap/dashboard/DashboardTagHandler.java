@@ -15,6 +15,15 @@
  */
 package de.cuioss.jsf.bootstrap.dashboard;
 
+import de.cuioss.jsf.api.components.model.widget.DashboardWidgetModel;
+import de.cuioss.tools.logging.CuiLogger;
+import de.cuioss.tools.string.MoreStrings;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.view.facelets.ComponentConfig;
+import jakarta.faces.view.facelets.FaceletContext;
+import jakarta.faces.view.facelets.TagAttribute;
+import jakarta.faces.view.facelets.TagHandler;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,16 +31,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.view.facelets.ComponentConfig;
-import jakarta.faces.view.facelets.FaceletContext;
-import jakarta.faces.view.facelets.TagAttribute;
-import jakarta.faces.view.facelets.TagHandler;
-
-import de.cuioss.jsf.api.components.model.widget.DashboardWidgetModel;
-import de.cuioss.tools.logging.CuiLogger;
-import de.cuioss.tools.string.MoreStrings;
-
+/**
+ * TagHandler for rendering a dashboard with multiple widgets.
+ * Dynamically creates and includes a facelet file with the widget components.
+ * 
+ * @author Oliver Wolff
+ */
 public class DashboardTagHandler extends TagHandler {
 
     private static final CuiLogger log = new CuiLogger(DashboardTagHandler.class);
@@ -41,6 +46,11 @@ public class DashboardTagHandler extends TagHandler {
     private final TagAttribute styleClassAttr;
     private final TagAttribute styleAttr;
 
+    /**
+     * Constructor storing the TagHandler configuration and attributes.
+     * 
+     * @param config The component configuration
+     */
     public DashboardTagHandler(final ComponentConfig config) {
         super(config);
         widgetsAttr = getAttribute("widgets");

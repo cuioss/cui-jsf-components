@@ -17,10 +17,6 @@ package de.cuioss.jsf.bootstrap.accordion;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
-import jakarta.faces.component.UIComponent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
@@ -31,13 +27,21 @@ import de.cuioss.jsf.bootstrap.layout.BootstrapPanelComponent;
 import de.cuioss.jsf.bootstrap.layout.BootstrapPanelRenderer;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.generator.Generators;
-import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
-class AccordionRendererTest extends AbstractComponentRendererTest<AccordionRenderer> implements ComponentConfigurator {
+@DisplayName("Tests for AccordionRenderer")
+class AccordionRendererTest extends AbstractComponentRendererTest<AccordionRenderer> {
 
     private static final String DEFAULT_ID = "j_id__v_0";
 
@@ -57,41 +61,73 @@ class AccordionRendererTest extends AbstractComponentRendererTest<AccordionRende
 
     private static final String HEADER_TEXT = Generators.strings(5, 100).next();
 
-    @Test
-    void shouldRenderMinimal() {
-        final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.PANEL_GROUP)
-                .withAttribute(AttributeName.ID, DEFAULT_ID).withAttribute(AttributeName.NAME, DEFAULT_ID)
-                .withAttribute(AttributeName.ROLE, "tablist")
-                .withAttribute(AttributeName.ARIA_MULTISELECTABLE, AttributeValue.FALSE);
-        assertRenderResult(new AccordionComponent(), expected.getDocument());
+    @BeforeEach
+    void setUp(ComponentConfigDecorator decorator) {
+        decorator.registerRenderer(BootstrapPanelRenderer.class);
     }
 
-    @Test
-    void shouldRenderWithChildren() {
-        final var component = new AccordionComponent();
-        component.setId(SOME_ID);
-        final var child = new BootstrapPanelComponent();
-        child.setId(CHILD_ID);
-        child.setHeaderValue(HEADER_TEXT);
-        component.getChildren().add(child);
-        assertRenderResult(component, getAccordionWithOnePanel(true).getDocument());
+    @Nested
+    @DisplayName("Basic rendering tests")
+    class BasicRenderingTests {
+
+        @Test
+        @DisplayName("Should render minimal accordion")
+        void shouldRenderMinimal(FacesContext facesContext) throws IOException {
+            // Arrange
+            final var component = new AccordionComponent();
+
+            // Act & Assert
+            final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(CssBootstrap.PANEL_GROUP)
+                    .withAttribute(AttributeName.ID, DEFAULT_ID).withAttribute(AttributeName.NAME, DEFAULT_ID)
+                    .withAttribute(AttributeName.ROLE, "tablist")
+                    .withAttribute(AttributeName.ARIA_MULTISELECTABLE, AttributeValue.FALSE);
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
+
+        @Test
+        @DisplayName("Should render accordion with children")
+        void shouldRenderWithChildren(FacesContext facesContext) throws IOException {
+            // Arrange
+            final var component = new AccordionComponent();
+            component.setId(SOME_ID);
+            final var child = new BootstrapPanelComponent();
+            child.setId(CHILD_ID);
+            child.setHeaderValue(HEADER_TEXT);
+            component.getChildren().add(child);
+
+            // Act & Assert
+            assertRenderResult(component, getAccordionWithOnePanel(true).getDocument(), facesContext);
+        }
     }
 
-    @Test
-    void shouldRenderWithActiveIndexedChildren() {
-        final var component = new AccordionComponent();
-        component.setId(SOME_ID);
-        component.setActiveIndexManager(new ActiveIndexManagerImpl(immutableList()));
-        final var child = new BootstrapPanelComponent();
-        child.setId(CHILD_ID);
-        child.setCollapsible(true);
-        child.setHeaderValue(HEADER_TEXT);
-        // opposite to active index manager
-        child.setCollapsed(false);
-        component.getChildren().add(child);
-        assertRenderResult(component, getAccordionWithOnePanel(false).getDocument());
-        component.setActiveIndexManager(new ActiveIndexManagerImpl(immutableList(0)));
-        assertRenderResult(component, getAccordionWithOnePanel(true).getDocument());
+    @Nested
+    @DisplayName("Active index tests")
+    class ActiveIndexTests {
+
+        @Test
+        @DisplayName("Should render with active indexed children")
+        void shouldRenderWithActiveIndexedChildren(FacesContext facesContext) throws IOException {
+            // Arrange
+            final var component = new AccordionComponent();
+            component.setId(SOME_ID);
+            component.setActiveIndexManager(new ActiveIndexManagerImpl(immutableList()));
+            final var child = new BootstrapPanelComponent();
+            child.setId(CHILD_ID);
+            child.setCollapsible(true);
+            child.setHeaderValue(HEADER_TEXT);
+            // opposite to active index manager
+            child.setCollapsed(false);
+            component.getChildren().add(child);
+
+            // Act & Assert - Empty active indexes
+            assertRenderResult(component, getAccordionWithOnePanel(false).getDocument(), facesContext);
+
+            // Arrange - Set active index to 0
+            component.setActiveIndexManager(new ActiveIndexManagerImpl(immutableList(0)));
+
+            // Act & Assert - With active index 0
+            assertRenderResult(component, getAccordionWithOnePanel(true).getDocument(), facesContext);
+        }
     }
 
     private static HtmlTreeBuilder getAccordionWithOnePanel(final boolean panelExpanded) {
@@ -123,9 +159,9 @@ class AccordionRendererTest extends AbstractComponentRendererTest<AccordionRende
                 .withStyleClass("cui-icon cui-collapsible-icon").currentHierarchyUp().currentHierarchyUp()
                 .currentHierarchyUp().withNode(Node.DIV)
                 .withStyleClass(CssBootstrap.PANEL_COLLAPSE.getStyleClassBuilder().append("collapse").append(// "in"
-                                                                                                             // =
-                                                                                                             // show
-                                                                                                             // content
+                        // =
+                        // show
+                        // content
                         panelExpanded ? "in" : ""))
                 .withAttribute(AttributeName.ID, CHILD_ID + CLIENT_ID_BODY)
                 .withAttribute(AttributeName.NAME, CHILD_ID + CLIENT_ID_BODY)
@@ -137,10 +173,5 @@ class AccordionRendererTest extends AbstractComponentRendererTest<AccordionRende
     @Override
     protected UIComponent getComponent() {
         return new AccordionComponent();
-    }
-
-    @Override
-    public void configureComponents(final ComponentConfigDecorator decorator) {
-        decorator.registerRenderer(BootstrapPanelRenderer.class);
     }
 }

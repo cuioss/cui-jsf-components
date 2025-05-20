@@ -54,9 +54,11 @@ import de.cuioss.jsf.bootstrap.waitingindicator.WaitingIndicatorComponent;
 import lombok.experimental.UtilityClass;
 
 /**
- * Simple Container for identifying bootstrap family
+ * Constants container for Bootstrap component and renderer identifiers.
+ * Used for component registration and lookup in the JSF framework.
  *
  * @author Oliver Wolff
+ * @since 1.0
  */
 @UtilityClass
 public final class BootstrapFamily {

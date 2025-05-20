@@ -25,20 +25,72 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
- * Single {@link Rule} define a condition when this rule has to be chosen and
- * the corresponding action result.<br>
- * Instead create a rule using constructor the class provide needed factory
- * methods.<br>
- * As there are {@linkplain #create(Serializable, Serializable)} for a regular
- * rule and {@linkplain #createDefaultRule(Serializable)} which is needed if no
- * other rule conditions maps.
+ * <p>
+ * The Rule class represents a condition-result mapping within the Strategy design pattern.
+ * Each rule defines a specific condition when the rule should be applied, and the corresponding
+ * result to return when that condition is met. Rules are the building blocks for
+ * {@link IStrategyProvider} implementations.
+ * </p>
+ * 
+ * <h2>Key Characteristics</h2>
+ * <ul>
+ *   <li>Immutable value object with condition and result</li>
+ *   <li>Type-safe through generic parameters</li>
+ *   <li>Specialized support for default rules (null condition)</li>
+ *   <li>Factory methods for clear, intention-revealing instantiation</li>
+ * </ul>
+ * 
+ * <h2>Rule Types</h2>
+ * <p>
+ * The class supports two distinct types of rules:
+ * </p>
+ * <ol>
+ *   <li><b>Regular Rule</b> - Has a non-null condition and a result to return when that condition matches</li>
+ *   <li><b>Default Rule</b> - Has a null condition and represents the fallback behavior when no other rule matches</li>
+ * </ol>
+ * 
+ * <h2>Creation Pattern</h2>
+ * <p>
+ * Rules should always be created using the provided factory methods rather than constructors:
+ * </p>
+ * <ul>
+ *   <li>{@link #create(Serializable, Serializable)} - Creates a regular rule with a specified condition</li>
+ *   <li>{@link #createDefaultRule(Serializable)} - Creates a default rule with only a result value</li>
+ * </ul>
+ * 
+ * <h2>Equality and Comparison</h2>
+ * <p>
+ * Rules are compared based on their condition values only. Two rules with the same condition
+ * are considered equal even if they have different result values. This is important to consider 
+ * when using rules in collections.
+ * </p>
+ * 
+ * <h2>Usage Example</h2>
+ * <pre>
+ * // Creating regular rules
+ * Rule&lt;String, MimeTypeIcon&gt; pdfRule = Rule.create("application/pdf", MimeTypeIcon.PDF);
+ * Rule&lt;String, MimeTypeIcon&gt; jpegRule = Rule.create("image/jpeg", MimeTypeIcon.JPEG);
+ * 
+ * // Creating a default rule
+ * Rule&lt;String, MimeTypeIcon&gt; defaultRule = Rule.createDefaultRule(MimeTypeIcon.UNDEFINED);
+ * 
+ * // Using rules in a strategy provider
+ * IStrategyProvider&lt;String, MimeTypeIcon&gt; provider = new StrategyProviderImpl.Builder&lt;String, MimeTypeIcon&gt;()
+ *     .add(pdfRule)
+ *     .add(jpegRule)
+ *     .defineDefaultRule(defaultRule)
+ *     .build();
+ * </pre>
  *
  * @author Eugen Fischer
- * @param <K> bounded type for condition must be serializable
- * @param <V> bounded type for result must be serializable
+ * @param <K> The type of condition to evaluate (must be serializable)
+ * @param <V> The type of result to return (must be serializable)
+ * 
+ * @see IStrategyProvider The interface that uses rules for strategy implementation
+ * @see StrategyProviderImpl Implementation of the strategy provider that consumes rules
  */
 @ToString
-@EqualsAndHashCode(of = { "condition", "serialVersionUID" })
+@EqualsAndHashCode(of = {"condition", "serialVersionUID"})
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class Rule<K extends Serializable, V extends Serializable> implements Serializable {
 

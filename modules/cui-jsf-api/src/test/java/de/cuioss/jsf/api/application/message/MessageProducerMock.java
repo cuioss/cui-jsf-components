@@ -17,20 +17,20 @@ package de.cuioss.jsf.api.application.message;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.Serial;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
-
+import de.cuioss.tools.collect.MoreCollections;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.application.FacesMessage.Severity;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Provider;
-
-import de.cuioss.tools.collect.MoreCollections;
 import lombok.Getter;
+import lombok.NonNull;
+
+import java.io.Serial;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Matthias Walliczek
@@ -76,7 +76,7 @@ public class MessageProducerMock implements MessageProducer {
     }
 
     @Override
-    public void addMessage(String message, Severity severity, String componentId, Object... parameter) {
+    public void addMessage(@NonNull String message, @NonNull Severity severity, String componentId, Object... parameter) {
         var resultingMessage = message;
         if (!MoreCollections.isEmpty(parameter)) {
             resultingMessage = MessageFormat.format(resultingMessage, parameter);

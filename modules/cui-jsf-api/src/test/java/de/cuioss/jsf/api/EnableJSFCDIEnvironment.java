@@ -18,20 +18,19 @@ package de.cuioss.jsf.api;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
+import de.cuioss.test.jsf.producer.JsfObjectsProducer;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.view.ViewScoped;
-
+import org.jboss.weld.junit5.ExplicitParamInjection;
 import org.jboss.weld.junit5.auto.ActivateScopes;
 import org.jboss.weld.junit5.auto.AddBeanClasses;
 import org.jboss.weld.junit5.auto.EnableAutoWeld;
 
-import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
-import de.cuioss.test.jsf.producer.JsfObjectsProducer;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
 /**
  * Using this annotation at type-level of a junit 5 test defines the basic
@@ -60,7 +59,8 @@ import de.cuioss.test.jsf.producer.JsfObjectsProducer;
 @Target(TYPE)
 @EnableAutoWeld
 @EnableJsfEnvironment
-@ActivateScopes({ RequestScoped.class, SessionScoped.class, ViewScoped.class })
-@AddBeanClasses({ ProjectStageProducerMock.class, JsfObjectsProducer.class })
+@ExplicitParamInjection
+@ActivateScopes({RequestScoped.class, SessionScoped.class, ViewScoped.class})
+@AddBeanClasses({ProjectStageProducerMock.class, JsfObjectsProducer.class})
 public @interface EnableJSFCDIEnvironment {
 }

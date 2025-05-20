@@ -15,15 +15,7 @@
  */
 package de.cuioss.jsf.components.html.fieldset;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import jakarta.faces.event.PostAddToViewEvent;
-import jakarta.faces.event.PreRenderComponentEvent;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.components.CuiFamily;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
@@ -33,11 +25,18 @@ import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 import de.cuioss.test.jsf.mocks.ReverseConverter;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.event.PreRenderComponentEvent;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "disabled", "legendKey", "legendValue", "legendConverter", "legendEscape" })
+@VerifyComponentProperties(of = {"disabled", "legendKey", "legendValue", "legendConverter", "legendEscape"})
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @EnableJSFCDIEnvironment
 @EnableResourceBundleSupport
+@ExplicitParamInjection
 class FieldsetComponentTest extends AbstractComponentTest<FieldsetComponent> {
 
     protected static final String MESSAGE_KEY = "some.key";
@@ -45,40 +44,95 @@ class FieldsetComponentTest extends AbstractComponentTest<FieldsetComponent> {
     protected static final String MESSAGE_VALUE = "abc";
 
     @Test
+    @DisplayName("Should resolve legend based on configuration")
     void shouldResolveLegend() {
+        // Arrange - Test with no legend configuration
         var component = anyComponent();
-        assertNull(component.resolveLegend());
+
+        // Act & Assert - No legend configured
+        assertNull(component.resolveLegend(), "Legend should be null when no legend is configured");
+
+        // Arrange - Test with legendKey
         component.setLegendKey(MESSAGE_KEY);
-        assertEquals(MESSAGE_KEY, component.resolveLegend());
+
+        // Act & Assert - With legendKey
+        assertEquals(MESSAGE_KEY, component.resolveLegend(),
+                "Legend should be the message key when legendKey is set");
+
+        // Arrange - Test with legendValue
         component = anyComponent();
         component.setLegendValue(MESSAGE_VALUE);
-        assertEquals(MESSAGE_VALUE, component.resolveLegend());
+
+        // Act & Assert - With legendValue
+        assertEquals(MESSAGE_VALUE, component.resolveLegend(),
+                "Legend should be the message value when legendValue is set");
+
+        // Arrange - Test with legendValue and converter
         component = anyComponent();
         component.setLegendValue(MESSAGE_VALUE);
         component.setLegendConverter(new ReverseConverter());
-        assertEquals("cba", component.resolveLegend());
+
+        // Act & Assert - With legendValue and converter
+        assertEquals("cba", component.resolveLegend(),
+                "Legend should be converted when legendConverter is set");
     }
 
     @Test
-    void shouldHandleDisableAttribute() {
+    @DisplayName("Should handle disabled attribute correctly")
+    void shouldHandleDisableAttribute(FacesContext facesContext) {
+        // Arrange - Initial state (not disabled)
         var component = anyComponent();
-        component.processEvent(new PreRenderComponentEvent(getFacesContext(), component));
-        assertFalse(component.getPassThroughAttributes(true).containsKey(FieldsetComponent.DISABLED_ATTRIBUTE_NAME));
+
+        // Act - Process PreRenderComponentEvent with disabled=false (default)
+        component.processEvent(new PreRenderComponentEvent(facesContext, component));
+
+        // Assert - No disabled attribute should be present
+        assertFalse(component.getPassThroughAttributes(true).containsKey(FieldsetComponent.DISABLED_ATTRIBUTE_NAME),
+                "Disabled attribute should not be present when disabled=false");
+
+        // Arrange - Set disabled to true
         component.setDisabled(true);
-        component.processEvent(new PreRenderComponentEvent(getFacesContext(), component));
-        assertTrue(component.getPassThroughAttributes(true).containsKey(FieldsetComponent.DISABLED_ATTRIBUTE_NAME));
+
+        // Act - Process PreRenderComponentEvent with disabled=true
+        component.processEvent(new PreRenderComponentEvent(facesContext, component));
+
+        // Assert - Disabled attribute should be present
+        assertTrue(component.getPassThroughAttributes(true).containsKey(FieldsetComponent.DISABLED_ATTRIBUTE_NAME),
+                "Disabled attribute should be present when disabled=true");
+
+        // Arrange - Set disabled back to false
         component.setDisabled(false);
-        component.processEvent(new PreRenderComponentEvent(getFacesContext(), component));
-        assertFalse(component.getPassThroughAttributes(true).containsKey(FieldsetComponent.DISABLED_ATTRIBUTE_NAME));
-        // Should ignore other events
+
+        // Act - Process PreRenderComponentEvent with disabled=false
+        component.processEvent(new PreRenderComponentEvent(facesContext, component));
+
+        // Assert - Disabled attribute should be removed
+        assertFalse(component.getPassThroughAttributes(true).containsKey(FieldsetComponent.DISABLED_ATTRIBUTE_NAME),
+                "Disabled attribute should be removed when disabled=false");
+
+        // Arrange - Set disabled to true but use a different event
         component.setDisabled(true);
-        component.processEvent(new PostAddToViewEvent(getFacesContext(), component));
-        assertFalse(component.getPassThroughAttributes(true).containsKey(FieldsetComponent.DISABLED_ATTRIBUTE_NAME));
+
+        // Act - Process PostAddToViewEvent (not PreRenderComponentEvent)
+        component.processEvent(new PostAddToViewEvent(facesContext, component));
+
+        // Assert - Should ignore events other than PreRenderComponentEvent
+        assertFalse(component.getPassThroughAttributes(true).containsKey(FieldsetComponent.DISABLED_ATTRIBUTE_NAME),
+                "Component should ignore events other than PreRenderComponentEvent");
     }
 
     @Test
+    @DisplayName("Should provide correct component metadata")
     void shouldProvideCorrectMetadata() {
-        assertEquals(CuiFamily.FIELDSET_RENDERER, anyComponent().getRendererType());
-        assertEquals(CuiFamily.COMPONENT_FAMILY, anyComponent().getFamily());
+        // Arrange
+        var component = anyComponent();
+
+        // Act & Assert - Check renderer type
+        assertEquals(CuiFamily.FIELDSET_RENDERER, component.getRendererType(),
+                "Component should have the correct renderer type");
+
+        // Act & Assert - Check component family
+        assertEquals(CuiFamily.COMPONENT_FAMILY, component.getFamily(),
+                "Component should have the correct component family");
     }
 }

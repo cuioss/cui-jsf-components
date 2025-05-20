@@ -18,9 +18,9 @@ package de.cuioss.jsf.dev.metadata.composite.attributes;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import java.beans.FeatureDescriptor;
-
 import org.junit.jupiter.api.Test;
+
+import java.beans.FeatureDescriptor;
 
 class ComponentPropertiesWrapperTest extends AbstractPropertyWrapperTest<ComponentPropertiesWrapper> {
 

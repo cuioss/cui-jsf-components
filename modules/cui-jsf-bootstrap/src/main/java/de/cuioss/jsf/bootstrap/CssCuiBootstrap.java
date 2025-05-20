@@ -23,10 +23,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Provides css-classes that are related to Bootstrap classes but are from the
- * cui-namespace
+ * Enum providing CUI-specific CSS class names that extend or complement Bootstrap styling.
+ * Implements {@link StyleClassProvider} for consistent component integration.
  *
  * @author Oliver Wolff
+ * @since 1.0
  */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum CssCuiBootstrap implements StyleClassProvider {

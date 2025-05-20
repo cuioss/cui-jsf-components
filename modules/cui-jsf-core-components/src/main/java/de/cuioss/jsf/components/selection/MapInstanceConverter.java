@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.components.selection;
 
+import static java.util.Objects.requireNonNull;
+
 import de.cuioss.jsf.api.converter.AbstractConverter;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
@@ -28,34 +30,47 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import static java.util.Objects.requireNonNull;
-
 /**
- * Converter is based on {@link AbstractConverter} and is used in most cased
- * by drop-down elements.
- * <p>
- * The #instanceMap is utilized for the mapping between the {@link Serializable}
- * keys and the corresponding model classes. The keys must be
- * {@link Serializable} because they are sent to the client. The corresponding
- * {@link #toString()} method must return a String representation that can be
- * used for key lookup within the map.
- * </p>
- * <p>
- * The lookup is implemented to fail fast, saying for both ways,
- * {@link jakarta.faces.convert.Converter#getAsObject(FacesContext, UIComponent, String)} and
- * {@link jakarta.faces.convert.Converter#getAsString(FacesContext, UIComponent, Object)} the references will
- * be checked, whether they are contained within the #instanceMap, throwing a
- * {@link ConverterException} if it doesn't.
- * </p>
+ * <p>A JSF converter implementation that uses a map-based approach for converting between
+ * object models and their string representations. This converter is particularly useful
+ * for dropdown elements and other selection components where a fixed set of values
+ * needs to be converted between client and server.</p>
+ * 
+ * <p>The converter maintains an internal map (instanceMap) that associates serializable
+ * keys with their corresponding model objects. The keys must be {@link Serializable}
+ * because they are transmitted to the client. The {@link #toString()} method of the key
+ * must return a consistent string representation that can be used for lookups within the map.</p>
+ * 
+ * <p>By default, the converter operates in "restricted mode" where it throws a
+ * {@link ConverterException} if asked to convert a value that is not found in the instanceMap.
+ * This behavior can be changed by setting the {@code restrictedModeActive} property to false,
+ * in which case the converter will return null for object conversion or an empty string
+ * for string conversion when the value is not found.</p>
+ * 
+ * <h2>Usage Example</h2>
+ * 
+ * <pre>
+ * MapInstanceConverter&lt;String, User&gt; converter = new MapInstanceConverter&lt;&gt;();
+ * Map&lt;String, User&gt; userMap = new HashMap&lt;&gt;();
+ * userMap.put("user1", new User("John Doe"));
+ * userMap.put("user2", new User("Jane Smith"));
+ * converter.setInstanceMap(userMap);
+ * 
+ * // In JSF component
+ * &lt;h:selectOneMenu value="#{bean.selectedUser}" converter="#{converter}"&gt;
+ *   &lt;f:selectItems value="#{bean.users}" /&gt;
+ * &lt;/h:selectOneMenu&gt;
+ * </pre>
  *
- * @param <K> key type must be {@link Serializable}
- * @param <T> object type must be {@link Serializable}
+ * @param <K> The key type used in the instance map, must be {@link Serializable}
+ * @param <T> The object type to convert to/from, must be {@link Serializable}
  * @author Oliver Wolff
  * @author Eugen Fischer
+ * @since 1.0
  */
 @ToString
 public class MapInstanceConverter<K extends Serializable, T extends Serializable> extends AbstractConverter<T>
-    implements Serializable {
+        implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 2920782351086654176L;
@@ -63,17 +78,33 @@ public class MapInstanceConverter<K extends Serializable, T extends Serializable
     private static final String ERROR_MESSAGE_CANNOT_MAP = "message.error.converter.mapinstance.cannotmap";
 
     /**
-     * used for the two-way mapping.
+     * The map used for the two-way conversion between keys and object values.
+     * Keys are sent to the client, values are kept on the server.
      */
     private HashMap<K, T> instanceMap;
 
     /**
-     * If restrictedModeActive is active the converter throws
-     * {@link IllegalStateException} if on converting the value is not known.
+     * Controls the converter's behavior when a value is not found in the instance map.
+     * If true (default), the converter throws a {@link ConverterException} when a value
+     * cannot be mapped. If false, the converter returns null for getAsObject and an
+     * empty string for getAsString.
      */
     @Setter
     private boolean restrictedModeActive = true;
 
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>Converts a string value from the client to its corresponding object representation
+     * by looking up the key in the instance map.</p>
+     * 
+     * @param context The FacesContext for the current request
+     * @param component The UIComponent this converter is being used with
+     * @param value The string value to be converted, representing a key in the instance map
+     * @return The object associated with the key, or null if not found and restricted mode is disabled
+     * @throws ConverterException if the value cannot be found in the instance map and restricted mode is enabled
+     * @throws NullPointerException if the instance map has not been initialized
+     */
     @Override
     protected T convertToObject(final FacesContext context, final UIComponent component, final String value) {
 
@@ -89,6 +120,19 @@ public class MapInstanceConverter<K extends Serializable, T extends Serializable
         return instanceMap.get(value);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>Converts an object value to its string representation by finding the key
+     * associated with the object in the instance map.</p>
+     * 
+     * @param context The FacesContext for the current request
+     * @param component The UIComponent this converter is being used with
+     * @param value The object value to be converted
+     * @return The string representation (key) of the object, or empty string if not found and restricted mode is disabled
+     * @throws ConverterException if the object cannot be found in the instance map and restricted mode is enabled
+     * @throws NullPointerException if the instance map has not been initialized
+     */
     @Override
     protected String convertToString(final FacesContext context, final UIComponent component, final T value) {
 
@@ -114,18 +158,23 @@ public class MapInstanceConverter<K extends Serializable, T extends Serializable
     }
 
     /**
-     * @param instanceMap the instanceMap to set. Must not be null
+     * Sets the instance map used for conversion between keys and object values.
+     * The map is copied to an internal HashMap to avoid external modifications.
+     *
+     * @param instanceMap The map containing the key-value pairs for conversion.
+     *                   Must not be null.
+     * @throws NullPointerException if instanceMap is null
      */
     public void setInstanceMap(final Map<K, T> instanceMap) {
         this.instanceMap = new HashMap<>(requireNonNull(instanceMap, "instanceMap must not be null."));
     }
 
     /**
-     * usage of {@link #setInstanceMap(Map)} is not enforced, so instanceMap could
-     * be null
+     * Returns the instance map used for conversion.
+     * This is an internal method that verifies the map is not null before use.
      *
-     * @return verified instanceMap
-     * @throws NullPointerException if instanceMap is null
+     * @return The instance map used for conversion
+     * @throws NullPointerException if instanceMap has not been initialized
      */
     private Map<K, T> getInstanceMap() {
         return requireNonNull(instanceMap, "instanceMap must not be null.");

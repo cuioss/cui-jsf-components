@@ -18,19 +18,18 @@ package de.cuioss.jsf.api.components.renderer.partial;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 import static java.util.Objects.requireNonNull;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
-import jakarta.faces.component.UIComponent;
-
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.uimodel.model.code.CodeType;
+import jakarta.faces.component.UIComponent;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Renders the given {@link CodeType} to an option node.

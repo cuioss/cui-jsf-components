@@ -15,12 +15,11 @@
  */
 package de.cuioss.jsf.api.components.renderer;
 
-import java.io.IOException;
-
+import de.cuioss.jsf.api.components.html.Node;
 import jakarta.faces.component.html.HtmlInputText;
 import jakarta.faces.context.FacesContext;
 
-import de.cuioss.jsf.api.components.html.Node;
+import java.io.IOException;
 
 public class MockDecoratorRenderer extends BaseDecoratorRenderer<HtmlInputText> {
 

@@ -15,24 +15,45 @@
  */
 package de.cuioss.jsf.api.application.view.matcher;
 
-import java.io.Serializable;
-
 import de.cuioss.jsf.api.common.view.ViewDescriptor;
 
+import java.io.Serializable;
+
 /**
- * View matchers are used to check whether a given view matches to given set of
- * parameters that are usually configured for the application.
+ * Strategy interface for matching JSF views against application-defined criteria.
+ * <p>
+ * View matchers are used to determine if a given view (represented by a {@link ViewDescriptor})
+ * matches specific criteria, which are typically configured at the application level.
+ * This pattern is useful for cases such as:
+ * <ul>
+ *   <li>Determining if a view belongs to a specific application section</li>
+ *   <li>Filtering views based on URL patterns</li>
+ *   <li>Applying security constraints or UI customizations to groups of views</li>
+ *   <li>Implementing navigation rules based on view patterns</li>
+ * </ul>
+ * 
+ * <p>
+ * Implementations should be thread-safe if they are to be shared between multiple threads.
  *
  * @author Oliver Wolff
+ * @since 1.0
+ * @see ViewDescriptor
+ * @see ViewMatcherImpl
+ * @see EmptyViewMatcher
+ * @see OutcomeBasedViewMatcher
  */
 public interface ViewMatcher extends Serializable {
 
     /**
-     * Checks whether a given view matches to given set of parameters that are
-     * usually configured for the application.
+     * Determines whether the provided view matches the criteria defined by this matcher.
+     * <p>
+     * The specific matching logic depends on the implementation. Common strategies include
+     * matching by view ID patterns, URL parameters, navigation outcomes, or any combination
+     * of these attributes.
      *
-     * @param viewDescriptor to be matched. Must not be null
-     * @return whether the given view matches.
+     * @param viewDescriptor The view descriptor to be evaluated, must not be null
+     * @return {@code true} if the view matches the defined criteria, {@code false} otherwise
+     * @throws NullPointerException if viewDescriptor is null
      */
     boolean match(ViewDescriptor viewDescriptor);
 }

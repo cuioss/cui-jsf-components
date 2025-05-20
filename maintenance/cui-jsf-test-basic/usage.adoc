@@ -1,0 +1,439 @@
+== Usage
+
+Extension for http://myfaces.apache.org/test/index.html[MyFaces-Test] that uses the mock-based infrastructure and adds certain aspects in order to simplify its usage in the portal-context:
+
+* Convenient programmatic configuration of JSF-context
+* Specific base-classes for conveniently testing aspects like 
+** `AbstractBeanTest`
+** `AbstractValidatorTest`
+** `AbstractConverterTest`
+** `AbstractComponentTest`
+** `AbstractUiComponentTest`
+** `AbstractComponentRendererTest`
+* Tooling for generating (partial-)HTML-trees including the corresponding Assertions
+* Additional Mocks completing the ones provided from myfaces-test
+* Integration into https://github.com/cuioss/cui-test-value-objects[cui-test-value-objects] framework
+* Baseline is Jakarta Faces (part of Jakarta EE 10)
+
+== How To use it
+
+=== Caution
+
+Due to an implementation-issue of the underlying `myfaces-test` this library must use the `myfaces-api` to compile / run against. 
+Otherwise there may popup some strange class-loader-issues, especially on parallel execution.
+
+=== Simple Usage
+
+If you want to add a complete JSF-runtime-setup to a certain test just add the annotation
+
+[source,java]
+----
+@EnableJsfEnvironment
+class FacesTestEnabledTest {
+}
+----
+
+The corresponding extension takes care for handling the JSF-Setup including resetting it for each test.
+
+=== Configuration Options
+
+==== Configuration by Type
+
+You can add additional configuration by specifying a configuration class:
+
+[source,java]
+----
+@EnableJsfEnvironment
+@JsfTestConfiguration(BasicApplicationConfiguration.class)
+class FacesTestEnabledTest {
+}
+----
+
+==== Configuration via Parameter Resolution (Recommended)
+
+The recommended approach is to use parameter resolution, which allows you to directly access configuration objects in your test methods:
+
+[source,java]
+----
+@EnableJsfEnvironment
+class MyTest {
+
+    @Test
+    void testWithConfiguration(ComponentConfigDecorator componentConfig) {
+        componentConfig.registerRenderer(BootstrapPanelRenderer.class);
+
+        // Test code
+    }
+}
+----
+
+===== Using @BeforeEach for Test Setup (Recommended)
+
+An excellent pattern for configuring components is to use `@BeforeEach` with a `ComponentConfigDecorator` parameter. This approach centralizes your test setup and makes your test methods cleaner:
+
+[source,java]
+----
+@EnableJsfEnvironment
+class SelectizeTest {
+
+    private ComponentWrapper<UIComponent> componentWrapper;
+
+    @BeforeEach
+    void setUp(ComponentConfigDecorator decorator) {
+        decorator.registerMockRendererForHtmlForm()
+                .registerMockRendererForHtmlInputText();
+
+        var form = new HtmlForm();
+        var wrapped = new HtmlInputText();
+        wrapped.setId("mock");
+        form.setId("form");
+        form.getChildren().add(wrapped);
+        componentWrapper = new ComponentWrapper<>(wrapped);
+    }
+
+    @Test
+    void shouldTestComponent() {
+        // Test code using componentWrapper
+    }
+}
+----
+
+This pattern has several advantages:
+* Centralizes component configuration in one place
+* Reduces duplication across test methods
+* Makes test methods more focused on testing behavior rather than setup
+* Improves readability and maintainability
+
+==== Configuration via Callback Interface (Deprecated)
+
+NOTE: The following approach is deprecated in favor of the parameter resolution approach described above.
+
+You can also configure the JSF environment using callback interfaces:
+
+[source,java]
+----
+@EnableJsfEnvironment
+class AccordionRendererTest
+        extends AbstractComponentRendererTest<AccordionRenderer> implements ComponentConfigurator {
+
+    @Override
+    public void configureComponents(final ComponentConfigDecorator decorator) {
+        decorator.registerRenderer(BootstrapPanelRenderer.class);
+    }
+}
+----
+
+The framework takes care of calling the callback methods at the correct time prior to each test.
+
+===== Deprecated Configurator Interfaces
+
+The following interfaces are deprecated:
+
+* `de.cuioss.test.jsf.config.ApplicationConfigurator`
+* `de.cuioss.test.jsf.config.ComponentConfigurator`
+* `de.cuioss.test.jsf.config.RequestConfigurator`
+
+===== Configurator Types
+
+The following decorator types are available for configuration:
+
+* `de.cuioss.test.jsf.config.decorator.ApplicationConfigDecorator`
+* `de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator`
+* `de.cuioss.test.jsf.config.decorator.RequestConfigDecorator`
+
+For details on how to migrate from the deprecated callback interfaces to the parameter resolution approach, see the link:migration.adoc[Migration Guide].
+
+
+=== Parameter Resolution (Recommended Approach)
+
+Parameter resolution is the recommended approach for accessing JSF objects in your tests. It allows you to directly declare the JSF objects you need as parameters in your test methods, making your tests more concise and focused.
+
+==== Basic Usage
+
+Simply declare the JSF objects you need as parameters in your test methods:
+
+[source,java]
+----
+@EnableJsfEnvironment
+class MyTest {
+
+    @Test
+    void testWithJsfObjects(FacesContext facesContext, ExternalContext externalContext) {
+        // Test code using facesContext and externalContext
+    }
+}
+----
+
+==== Available Parameters
+
+The following parameters can be resolved in test methods when using the `@EnableJsfEnvironment` annotation:
+
+|===
+| Parameter Type | Description
+
+| `JsfEnvironmentHolder` | The main holder object that contains all JSF-related objects
+| `FacesContext` | The central context object for JSF processing
+| `ExternalContext` | Provides access to the external environment (request, response, etc.)
+| `Application` | Represents the JSF application
+| `RequestConfigDecorator` | Allows configuration of the request in tests
+| `ApplicationConfigDecorator` | Allows configuration of the application in tests
+| `ComponentConfigDecorator` | Allows configuration of components in tests
+| `MockHttpServletResponse` | Provides access to the mock HTTP response
+| `MockHttpServletRequest` | Provides access to the mock HTTP request
+| `NavigationAsserts` | Provides utilities for asserting navigation outcomes and redirects
+|===
+
+==== Testing Navigation
+
+For navigation testing, you can use the `NavigationAsserts` parameter type:
+
+[source,java]
+----
+@EnableJsfEnvironment
+class NavigationTest {
+
+    @Test
+    void shouldAssertNavigationOutcome(
+            FacesContext facesContext, 
+            ApplicationConfigDecorator applicationConfig,
+            NavigationAsserts navigationAsserts) {
+        // Set up navigation
+        applicationConfig.registerNavigationCase(OUTCOME, TO_VIEW_JSF);
+
+        // Perform navigation
+        facesContext.getApplication().getNavigationHandler()
+            .handleNavigation(facesContext, null, OUTCOME);
+
+        // Assert navigation outcome
+        navigationAsserts.assertNavigatedWithOutcome(OUTCOME);
+    }
+
+    @Test
+    void shouldAssertRedirect(
+            ExternalContext externalContext,
+            NavigationAsserts navigationAsserts) throws IOException {
+        // Perform redirect
+        externalContext.redirect(TO_VIEW_JSF);
+
+        // Assert redirect
+        navigationAsserts.assertRedirect(TO_VIEW_JSF);
+    }
+}
+----
+
+For more detailed information about parameter resolution, including common patterns, examples, and migration from deprecated approaches, see the link:migration.adoc[Migration Guide].
+
+
+== Testing a Validator
+Testing a validator is straight-forward. You focus on the actual data to be checked, by using the fluent-api on TestItems. The api-tests are implicitly run. Additional configuration can be done using the mechanisms described previously.
+The callback method for configuring the validator is optional.
+
+[source,java]
+----
+
+class AbstractValidatorTestTest extends AbstractValidatorTest<LengthValidator, String> {
+
+   @Override
+   public void populate(final TestItems<String> testItems) {
+       testItems.addValid("1").addValid("abc").addInvalidWithMessage("123456",
+               LengthValidator.MAXIMUM_MESSAGE_ID);
+   }
+
+   @Override
+   public void configure(final LengthValidator validator) {
+       validator.setMaximum(5);
+   }
+}
+----
+
+Take a closer look at the parameter addInvalidWithMessage. It passes and checks the key not a resolved message, see `de.cuioss.test.jsf.junit5.EnableJsfEnvironment#useIdentityResouceBundle` for an explanation of the resource-bundle handling.
+
+=== Testing a Converter
+
+Testing a converter is straight-forward. You focus on the actual data to be checked, by using the fluent-api on TestItems. The api-tests are implicitly run. Additional configuration can be done using the mechanisms described previously.
+The callback method for configuring the converter is again optional.
+
+[source,java]
+----
+
+class AbstractConverterTestTest extends AbstractConverterTest<IntegerConverter, Integer> {
+
+   @Override
+   public void populate(final TestItems<Integer> testItems) {
+       testItems.addRoundtripValues("1", "122", "2132121").addInvalidString("a")
+               .addInvalidStringWithMessage("a", "jakarta.faces.converter.IntegerConverter.INTEGER")
+               .addInvalidObject(Boolean.TRUE)
+               .addInvalidObjectWithMessage(Boolean.FALSE, "jakarta.faces.converter.STRING")
+               .addValidString("13").addValidStringWithObjectResult("17", 17)
+               .addValidObject(2)
+               .addValidObjectWithStringResult(14, "14");
+   }
+
+   @Override
+   public void configure(IntegerConverter toBeConfigured) {
+       // Optional configuration for converter-test
+   }
+
+}
+
+----
+
+=== Testing a Managed / Named Bean
+
+Testing the attributes and canonical Object-Methods of a given Managed / Named Bean
+
+[source,java]
+----
+
+@PropertyReflectionConfig(defaultValued = { MediumComplexityBean.STRING_WITH_DEFAULT_VALUE })
+@ObjectTestConfig(equalsAndHashCodeExclude = MediumComplexityBean.ATTRIBUTE_NO_OBJECT_IDENTITY_STRING)
+class AbstractBeanTestTest extends AbstractBeanTest<MediumComplexityBean> {
+
+}
+
+----
+
+=== Testing a Component
+
+Testing a component-class usually consists of testing the api-contract, the attribute handling (incl. Value-Expressions), and custom tests. Api and attributes are tested declarative.
+
+[source,java]
+----
+
+@VerifyComponentProperties(of = { "offTextValue", "offTextKey" ,"onTextValue", "onTextKey","titleValue", "titleKey","rendered", "disabled" })
+@JsfTestConfiguration(CoreJsfTestConfiguration.class)
+class SwitchComponentTest extends AbstractComponentTest<SwitchComponent> {
+
+   @Test // Tests actual logic
+   void shouldResolvePassThroughAttributes() {
+       SwitchComponent underTest = anyComponent();
+       underTest.setDisabled(false);
+       assertEquals(ImmutableMap.of("data-switch-disabled", "false"),
+                underTest.resolvePassThroughAttributes());
+       underTest.setDisabled(true);
+       assertEquals(ImmutableMap.of("data-switch-disabled", "true"),
+                underTest.resolvePassThroughAttributes());
+   }
+}
+
+----
+
+=== Testing a Component with Renderer
+
+This is a complex real-world-example bringing together many aspects of the test-framework
+
+[source,java]
+----
+
+@JsfTestConfiguration(CoreJsfTestConfiguration.class)
+class SwitchRendererTest extends AbstractComponentRendererTest<SwitchRenderer> implements ComponentConfigurator {
+
+    @Override
+    public void configureComponents(final ComponentConfigDecorator decorator) {
+        decorator.registerUIComponent(ColumnComponent.class).
+        registerRenderer(LayoutComponentRenderer.class);
+   }
+
+    @Override
+    protected UIComponent getComponent() {
+        final SwitchComponent component = new SwitchComponent();
+        component.setId(testComponent);
+        component.setTitleValue(titleValue);
+        component.setTitleKey(titleKey);
+        component.setOnTextValue(onText);
+        component.setOffTextValue(offText);
+        component.setOnTextKey(onTextKey);
+        component.setOffTextKey(offTextKey);
+        component.setStyle(style);
+        component.setSize(3);
+        component.setStyleClass(styleClass);
+        return component;
+    }
+
+   @Test
+   void shouldRenderMinimal() {
+       final SwitchComponent component = (SwitchComponent) getComponent();
+       component.processEvent(new PostAddToViewEvent(component));
+       component.processEvent(new PreRenderComponentEvent(component));
+
+       final HtmlTreeBuilder expected = buildHtmlTree(false, false);
+       assertRenderResult(component, expected.getDocument());
+   }
+
+   @Test
+   void shouldRenderDisabled() {
+       final SwitchComponent component = (SwitchComponent) getComponent();
+       component.setDisabled(true);
+
+       component.processEvent(new PostAddToViewEvent(component));
+       component.processEvent(new PreRenderComponentEvent(component));
+
+       final HtmlTreeBuilder expected = buildHtmlTree(false, true);
+       assertRenderResult(component, expected.getDocument());
+   }
+   /**
+    * <div id="testComponent_container"
+    * name="testComponent_container"
+    * data-switch-disabled="true|false">
+    * <div class="col-sm-6 switch-placing">
+    * <label class="switch">
+    * <input id="testComponent" name="testComponent"/>
+    * <span class="slider round"/>
+    * </label>
+    * <span class="switch-text" data-item-active="true">onText</span>
+    * <span class="switch-text" data-item-active="false">offText</span>
+    * </div>
+    * </div>
+    */
+   private HtmlTreeBuilder buildHtmlTree(final boolean isActive, final boolean isDisabled) {
+     final HtmlTreeBuilder expected = new HtmlTreeBuilder()
+     // container
+     .withNode(Node.DIV)
+     .withAttributeNameAndId("testComponent_container")
+     .withAttribute("data-switch-disabled", String.valueOf(isDisabled))
+     .withAttribute(AttributeName.CLASS, styleClass)
+     .withAttribute(AttributeName.STYLE, style)
+
+     // column
+     .withNode(Node.DIV)
+     .withAttribute(AttributeName.CLASS, default_column_size + " switch-placing")
+
+     // label
+     .withNode(Node.LABEL)
+     .withAttribute(AttributeName.CLASS, "switch")
+     .withAttribute(AttributeName.TITLE, titleValue)
+
+     // checkbox
+     .withNode(Node.INPUT)
+     .withAttributeNameAndId("testComponent")
+     .currentHierarchyUp()
+
+     // slider
+     .withNode(Node.SPAN)
+     .withAttribute(AttributeName.CLASS, "slider round")
+     .currentHierarchyUp()
+
+     // leaving label
+     .currentHierarchyUp()
+
+     // on text
+     .withNode(Node.SPAN)
+     .withAttribute(AttributeName.CLASS, "switch-text" + (!isActive ? " hidden" : ""))
+     .withAttribute(AttributeName.DATA_ITEM_ACTIVE, "true")
+     .withTextContent(onText)
+     .currentHierarchyUp()
+
+     // off text
+     .withNode(Node.SPAN)
+     .withAttribute(AttributeName.CLASS, "switch-text" + (isActive ? " hidden" : ""))
+     .withAttribute(AttributeName.DATA_ITEM_ACTIVE, "false")
+     .withTextContent(offText)
+     .currentHierarchyUp()
+
+     // leaving column
+     .currentHierarchyUp();
+
+      return expected;
+    }
+}
+----

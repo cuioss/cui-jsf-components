@@ -18,24 +18,73 @@ package de.cuioss.jsf.bootstrap.icon.strategy;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableMap;
 import static java.util.Objects.requireNonNull;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-
 import de.cuioss.tools.base.Preconditions;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- * Strategy Provider Implementation. Furthermore StrategyProviderImpl provide a
- * builder to create the StrategyProvider (see {@linkplain Builder}).
+ * <p>
+ * Standard implementation of the {@link IStrategyProvider} interface that provides a rule-based
+ * strategy resolution system. This implementation manages a collection of rules and supports
+ * a default fallback rule for unmatched conditions.
+ * </p>
+ * 
+ * <h2>Key Features</h2>
+ * <ul>
+ *   <li>Immutable implementation with thread-safety guarantees</li>
+ *   <li>Builder pattern for intuitive and safe construction</li>
+ *   <li>Efficient condition matching using a map-based lookup</li>
+ *   <li>Required default rule to ensure complete condition coverage</li>
+ *   <li>Type-safe generic implementation</li>
+ * </ul>
+ * 
+ * <h2>Implementation Details</h2>
+ * <p>
+ * The class stores rules as key-value pairs in an immutable map for fast lookup, where:
+ * </p>
+ * <ul>
+ *   <li>Keys are the rule conditions</li>
+ *   <li>Values are the associated results</li>
+ *   <li>A separate default rule handles fallback behavior</li>
+ * </ul>
+ * 
+ * <h2>Thread Safety</h2>
+ * <p>
+ * This implementation is immutable and thread-safe once constructed. The internal map 
+ * and default rule cannot be modified after creation, making it safe for concurrent use
+ * across multiple threads.
+ * </p>
+ * 
+ * <h2>Usage Example</h2>
+ * <pre>
+ * // Create a strategy provider that maps MIME types to icons
+ * StrategyProviderImpl&lt;String, MimeTypeIcon&gt; mimeTypeResolver = 
+ *     new StrategyProviderImpl.Builder&lt;String, MimeTypeIcon&gt;()
+ *         .add(Rule.create("application/pdf", MimeTypeIcon.PDF))
+ *         .add(Rule.create("image/jpeg", MimeTypeIcon.JPEG))
+ *         .add(Rule.create("text/plain", MimeTypeIcon.TEXT))
+ *         .defineDefaultRule(Rule.createDefaultRule(MimeTypeIcon.UNDEFINED))
+ *         .build();
+ *         
+ * // Resolve icons based on MIME types
+ * MimeTypeIcon pdfIcon = mimeTypeResolver.actOnCondition("application/pdf");
+ * MimeTypeIcon unknownIcon = mimeTypeResolver.actOnCondition("unknown/type");
+ * </pre>
  *
  * @author Eugen Fischer
- * @param <K> bounded type for condition must be serializable
- * @param <V> bounded type for result must be serializable
+ * @param <K> The type of condition to evaluate (must be serializable)
+ * @param <V> The type of result to return (must be serializable)
+ * 
+ * @see IStrategyProvider The interface implemented by this class
+ * @see Rule The condition-result pairs used by this provider
+ * @see Builder The builder class for creating instances of this provider
  */
 @ToString
 @EqualsAndHashCode
@@ -59,28 +108,63 @@ public class StrategyProviderImpl<K extends Serializable, V extends Serializable
     }
 
     /**
-     * Builder for creating StrategyProvider with immutable map of rules. Example:
      * <p>
-     * <code>
-     * static final StrategyProvider&lt;String, Integer&gt; WORD_TO_INT =
-     * new StrategyProviderImpl.Builder&lt;String, Integer&gt;()
-     * .add(Rule.create("a", 1))
-     * .add(Rule.create("b", 2))
-     * .defineDefaultRule(Rule.createDefaultRule(0))
-     * .build();
-     * </code>
-     * <p>
-     * For <i>small</i> immutable maps, the {@code ImmutableMap.of()} methods are
-     * even more convenient.
-     * <p>
-     * Builder instances can be reused - it is safe to call {@link #build} multiple
-     * times to build multiple maps in series. Each map is a superset of the maps
-     * created before it.
+     * A builder class that facilitates the construction of immutable {@link StrategyProviderImpl} instances
+     * using a fluent API. The builder collects rules and the default rule, then constructs
+     * an immutable strategy provider upon calling {@link #build()}.
      * </p>
+     * 
+     * <h2>Key Features</h2>
+     * <ul>
+     *   <li>Fluent API for intuitive construction</li>
+     *   <li>Rule validation during construction</li>
+     *   <li>Prevention of duplicate rule conditions</li>
+     *   <li>Enforcement of default rule presence</li>
+     *   <li>Reusable - can build multiple StrategyProvider instances</li>
+     * </ul>
+     * 
+     * <h2>Usage Pattern</h2>
+     * <p>
+     * The typical pattern for using this builder is:
+     * </p>
+     * <ol>
+     *   <li>Create a new Builder instance</li>
+     *   <li>Add one or more rules with {@link #add(Rule)}</li>
+     *   <li>Define a default rule with {@link #defineDefaultRule(Rule)}</li>
+     *   <li>Call {@link #build()} to create the StrategyProviderImpl</li>
+     * </ol>
+     * 
+     * <h2>Example</h2>
+     * <pre>
+     * StrategyProviderImpl&lt;String, MimeTypeIcon&gt; provider = 
+     *     new StrategyProviderImpl.Builder&lt;String, MimeTypeIcon&gt;()
+     *         .add(Rule.create("application/pdf", MimeTypeIcon.PDF))
+     *         .add(Rule.create("image/jpeg", MimeTypeIcon.JPEG))
+     *         .defineDefaultRule(Rule.createDefaultRule(MimeTypeIcon.UNDEFINED))
+     *         .build();
+     * </pre>
+     * 
+     * <h2>Builder Reuse</h2>
+     * <p>
+     * Builder instances can be reused to create multiple StrategyProvider instances:
+     * </p>
+     * <pre>
+     * Builder&lt;String, MimeTypeIcon&gt; builder = 
+     *     new StrategyProviderImpl.Builder&lt;String, MimeTypeIcon&gt;()
+     *         .add(Rule.create("application/pdf", MimeTypeIcon.PDF))
+     *         .defineDefaultRule(Rule.createDefaultRule(MimeTypeIcon.UNDEFINED));
+     *         
+     * // Create first provider
+     * StrategyProviderImpl&lt;String, MimeTypeIcon&gt; provider1 = builder.build();
+     * 
+     * // Add more rules and create a second provider (superset of the first)
+     * builder.add(Rule.create("image/jpeg", MimeTypeIcon.JPEG));
+     * StrategyProviderImpl&lt;String, MimeTypeIcon&gt; provider2 = builder.build();
+     * </pre>
      *
      * @author Eugen Fischer
-     * @param <K> bounded type for condition must be serializable
-     * @param <V> bounded type for result must be serializable
+     * @param <K> The type of condition to evaluate (must be serializable)
+     * @param <V> The type of result to return (must be serializable)
      */
     public static class Builder<K extends Serializable, V extends Serializable> {
 

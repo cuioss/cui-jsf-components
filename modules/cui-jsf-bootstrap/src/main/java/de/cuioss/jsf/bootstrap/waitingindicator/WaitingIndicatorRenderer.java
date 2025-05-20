@@ -19,27 +19,54 @@ import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
-
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.FacesRenderer;
+
 import java.io.IOException;
 
 /**
- * Renderer for {@linkplain WaitingIndicatorComponent}.
+ * Renderer for the {@link WaitingIndicatorComponent} that creates a visual spinner
+ * with five animated elements.
+ * 
+ * <h2>Generated HTML Structure</h2>
+ * <pre>
+ * &lt;div id="..." class="..."&gt;
+ *   &lt;div class="waiting-indicator waiting-indicator-size-[size]"&gt;
+ *     &lt;div class="item-1 item-size-[size]"&gt;&lt;/div&gt;
+ *     &lt;div class="item-2 item-size-[size]"&gt;&lt;/div&gt;
+ *     ...
+ *   &lt;/div&gt;
+ * &lt;/div&gt;
+ * </pre>
+ *
+ * @author Oliver Wolff
+ * @since 1.0
  */
 @FacesRenderer(componentFamily = BootstrapFamily.COMPONENT_FAMILY, rendererType = BootstrapFamily.WAITING_INDICATOR_RENDERER)
 public class WaitingIndicatorRenderer extends BaseDecoratorRenderer<WaitingIndicatorComponent> {
 
     /**
-     *
+     * Default constructor that configures this renderer to handle the children
+     * of the component.
      */
     public WaitingIndicatorRenderer() {
         super(true);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>Renders the waiting indicator structure with 5 animated div elements.
+     * The size of the indicator is controlled by the component's size attribute.</p>
+     * 
+     * @param context the FacesContext
+     * @param writer the decorating response writer
+     * @param component the WaitingIndicatorComponent being rendered
+     * @throws IOException if an error occurs during writing to the response
+     */
     @Override
     protected void doEncodeEnd(FacesContext context, DecoratingResponseWriter<WaitingIndicatorComponent> writer,
-                               WaitingIndicatorComponent component) throws IOException {
+            WaitingIndicatorComponent component) throws IOException {
 
         // Write element
         writer.withStartElement(Node.DIV);

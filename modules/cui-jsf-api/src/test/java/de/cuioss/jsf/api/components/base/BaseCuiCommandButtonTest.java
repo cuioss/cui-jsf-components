@@ -17,8 +17,10 @@ package de.cuioss.jsf.api.components.base;
 
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.DisplayName;
 
-@VerifyComponentProperties(of = { "titleKey", "titleValue" })
+@VerifyComponentProperties(of = {"titleKey", "titleValue"})
+@DisplayName("Tests for BaseCuiCommandButton")
 class BaseCuiCommandButtonTest extends AbstractComponentTest<BaseCuiCommandButton> {
 
 }

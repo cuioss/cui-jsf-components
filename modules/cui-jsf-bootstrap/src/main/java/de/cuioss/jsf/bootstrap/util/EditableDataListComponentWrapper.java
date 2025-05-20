@@ -15,20 +15,22 @@
  */
 package de.cuioss.jsf.bootstrap.util;
 
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.validator.ValidatorException;
-
 import de.cuioss.jsf.api.components.util.ComponentModifier;
 import de.cuioss.jsf.api.components.util.modifier.CuiInterfaceBasedModifier;
 import de.cuioss.jsf.bootstrap.composite.EditableDataListComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.ValidatorException;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * {@link ComponentModifier} for {@link EditableDataListComponent}
+ * {@link ComponentModifier} wrapper for {@link EditableDataListComponent}
+ * that enables it to participate in the component modification framework.
+ * Handles validation and required state checking.
  *
  * @author Oliver Wolff
- *
+ * @since 1.0
+ * @see BootstrapComponentModifierResolver
  */
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = false)
@@ -37,20 +39,35 @@ class EditableDataListComponentWrapper extends CuiInterfaceBasedModifier {
     private final EditableDataListComponent dataListComponent;
 
     /**
-     * Constructor
+     * Constructor that initializes the wrapper with the component to be wrapped.
      *
-     * @param dataListComponent
+     * @param dataListComponent the {@link EditableDataListComponent} to be wrapped,
+     *                          must not be null
      */
     EditableDataListComponentWrapper(EditableDataListComponent dataListComponent) {
         super(dataListComponent);
         this.dataListComponent = dataListComponent;
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @return {@code true} because {@link EditableDataListComponent} acts as an editable value holder
+     */
     @Override
     public boolean isEditableValueHolder() {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>Determines whether the wrapped component is in a valid state by attempting to
+     * validate it. If validation succeeds (no exception is thrown), the component is 
+     * considered valid.</p>
+     * 
+     * @return {@code true} if the component validates successfully, {@code false} otherwise
+     */
     @Override
     public boolean isValid() {
         try {
@@ -58,17 +75,26 @@ class EditableDataListComponentWrapper extends CuiInterfaceBasedModifier {
             return true;
         } catch (ValidatorException e) {
             // We use the exception to check whether the component is valid, but not the
-            // exception
-            // itself
+            // exception itself
             return false;
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @return the result of {@link EditableDataListComponent#evaluateRequired()}
+     */
     @Override
     public boolean isRequired() {
         return dataListComponent.evaluateRequired();
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @return {@code false} because {@link EditableDataListComponent} does not support value reset
+     */
     @Override
     public boolean isSupportsResetValue() {
         return false;

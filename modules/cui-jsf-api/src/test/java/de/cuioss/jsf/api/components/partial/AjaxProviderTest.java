@@ -16,19 +16,18 @@
 package de.cuioss.jsf.api.components.partial;
 
 import static de.cuioss.tools.collect.CollectionLiterals.mutableList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Collections;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 import de.cuioss.test.jsf.mocks.CuiMockSearchExpressionHandler;
+import jakarta.faces.context.FacesContext;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "process", "update" })
+import java.util.Collections;
+
+@VerifyComponentProperties(of = {"process", "update"})
+@ExplicitParamInjection
 class AjaxProviderTest extends AbstractPartialComponentTest {
 
     private static final String DEFAULT_UPDATE_KEY = AjaxProvider.DATA_CUI_AJAX + AjaxProvider.UPDATE_KEY;
@@ -52,19 +51,19 @@ class AjaxProviderTest extends AbstractPartialComponentTest {
     }
 
     @Test
-    void shoulHandleEmptyUpdateAndProcess() {
+    void shouldHandleEmptyUpdateAndProcess() {
         var any = anyComponent();
         assertTrue(any.resolveAjaxAttributesAsMap(any).isEmpty());
     }
 
     @Test
-    void shoulHandleUpdateAndProcess() {
+    void shouldHandleUpdateAndProcess(FacesContext facesContext) {
         var any = anyComponent();
         final var someId = "someId";
         any.setUpdate(someId);
         any.setProcess(someId);
 
-        CuiMockSearchExpressionHandler.retrieve(getFacesContext()).setResolvedClientIds(mutableList(someId));
+        CuiMockSearchExpressionHandler.retrieve(facesContext).setResolvedClientIds(mutableList(someId));
 
         var ajaxAttributes = any.resolveAjaxAttributesAsMap(any);
         assertEquals(2, ajaxAttributes.size());
@@ -77,20 +76,20 @@ class AjaxProviderTest extends AbstractPartialComponentTest {
     }
 
     @Test
-    void shoulIgnoreEmptyUpdateAndProcess() {
+    void shouldIgnoreEmptyUpdateAndProcess(FacesContext facesContext) {
         var any = anyComponent();
         final var someId = "someId";
         any.setUpdate("");
         any.setProcess(someId);
 
-        CuiMockSearchExpressionHandler.retrieve(getFacesContext()).setResolvedClientIds(Collections.emptyList());
+        CuiMockSearchExpressionHandler.retrieve(facesContext).setResolvedClientIds(Collections.emptyList());
 
         var ajaxAttributes = any.resolveAjaxAttributesAsMap(any);
         assertTrue(ajaxAttributes.isEmpty());
     }
 
     @Test
-    void shouldHandleCustomDataPrefix() {
+    void shouldHandleCustomDataPrefix(FacesContext facesContext) {
         var any = anyComponent();
         var prefix = "huch-";
         any.ajaxDataPrefix(prefix);
@@ -98,7 +97,7 @@ class AjaxProviderTest extends AbstractPartialComponentTest {
         any.setUpdate(someId);
         any.setProcess(someId);
 
-        CuiMockSearchExpressionHandler.retrieve(getFacesContext()).setResolvedClientIds(mutableList(someId));
+        CuiMockSearchExpressionHandler.retrieve(facesContext).setResolvedClientIds(mutableList(someId));
 
         var ajaxAttributes = any.resolveAjaxAttributesAsMap(any);
         assertEquals(2, ajaxAttributes.size());

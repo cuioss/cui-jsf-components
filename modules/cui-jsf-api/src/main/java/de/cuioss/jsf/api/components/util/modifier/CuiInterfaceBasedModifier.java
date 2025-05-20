@@ -15,15 +15,14 @@
  */
 package de.cuioss.jsf.api.components.util.modifier;
 
-import java.util.Optional;
-
-import jakarta.faces.component.UIComponent;
-
 import de.cuioss.jsf.api.components.css.StyleClassProvider;
 import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
 import de.cuioss.jsf.api.components.partial.StyleAttributeProvider;
 import de.cuioss.jsf.api.components.partial.TitleProvider;
 import de.cuioss.jsf.api.components.util.ComponentModifier;
+import jakarta.faces.component.UIComponent;
+
+import java.util.Optional;
 
 /**
  * Variant that can be used for Cui-components that implements at least one of

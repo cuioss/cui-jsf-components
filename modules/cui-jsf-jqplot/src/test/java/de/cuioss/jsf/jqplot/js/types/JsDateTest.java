@@ -18,33 +18,50 @@ package de.cuioss.jsf.jqplot.js.types;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import java.util.Calendar;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.valueobjects.ValueObjectTest;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
+import java.util.Calendar;
+
+@DisplayName("Tests for JsDate class")
 class JsDateTest extends ValueObjectTest<JsDate> {
 
-    @Test
-    void shouldReturnNullOnEmptyValue() {
-        final var target = new JsDate(null);
-        assertNull(target.getValueAsString());
-    }
+    @Nested
+    @DisplayName("Value handling tests")
+    class ValueHandlingTests {
 
-    @Test
-    void shouldFormatValidValue() {
-        final var cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, 2010);
-        cal.set(Calendar.MONTH, Calendar.OCTOBER);
-        cal.set(Calendar.DAY_OF_MONTH, 20);
-        cal.set(Calendar.HOUR, 5);
-        cal.set(Calendar.MINUTE, 5);
-        cal.set(Calendar.SECOND, 5);
-        final var date = cal.getTime();
-        final var target = new JsDate(date);
-        assertEquals("\"2010-10-20\"", target.getValueAsString());
+        @Test
+        @DisplayName("Should return null when date is null")
+        void shouldReturnNullOnEmptyValue() {
+            // Arrange
+            final var target = new JsDate(null);
+
+            // Act & Assert
+            assertNull(target.getValueAsString());
+        }
+
+        @Test
+        @DisplayName("Should format date in YYYY-MM-DD format")
+        void shouldFormatValidValue() {
+            // Arrange
+            final var cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, 2010);
+            cal.set(Calendar.MONTH, Calendar.OCTOBER);
+            cal.set(Calendar.DAY_OF_MONTH, 20);
+            cal.set(Calendar.HOUR, 5);
+            cal.set(Calendar.MINUTE, 5);
+            cal.set(Calendar.SECOND, 5);
+            final var date = cal.getTime();
+
+            // Act
+            final var target = new JsDate(date);
+
+            // Assert
+            assertEquals("\"2010-10-20\"", target.getValueAsString());
+        }
     }
 
     @Override

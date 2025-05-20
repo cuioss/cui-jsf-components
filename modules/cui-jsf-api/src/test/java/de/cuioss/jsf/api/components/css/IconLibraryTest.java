@@ -15,13 +15,13 @@
  */
 package de.cuioss.jsf.api.components.css;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for IconLibrary class")
 class IconLibraryTest {
 
     private static final String CUI_ICON_PREFIX = "cui-icon";
@@ -32,67 +32,82 @@ class IconLibraryTest {
 
     private static final String NO_VALID_ICON = "novalid-icon";
 
-    @Test
-    void testResolveLibraryFromIconClass() {
-        assertEquals(CUI_ICON_PREFIX, IconLibrary.resolveLibraryFromIconClass(CUI_ICON_WARNING));
-    }
+    @Nested
+    @DisplayName("Tests for icon resolution methods")
+    class IconResolutionTests {
 
-    @Test
-    void testResolveCssString() {
-        assertEquals(CUI_ICON_WARNING_CSS, IconLibrary.resolveCssString(CUI_ICON_WARNING));
-    }
+        @Test
+        @DisplayName("Should resolve library prefix from icon class")
+        void shouldResolveLibraryFromIconClass() {
+            // Act & Assert
+            assertEquals(CUI_ICON_PREFIX, IconLibrary.resolveLibraryFromIconClass(CUI_ICON_WARNING),
+                    "Should extract library prefix from icon class");
+        }
 
-    /**
-     * Should throw {@link IllegalArgumentException} if invalid icon is used
-     */
-    @Test
-    void shouldFailOnInvalidIcon() {
-        try {
-            IconLibrary.resolveCssString(null);
-            fail("IllegalArgumentException should occurs before");
-        } catch (final IllegalArgumentException e) {
-            // is expected
+        @Test
+        @DisplayName("Should resolve complete CSS class string from icon name")
+        void shouldResolveCssString() {
+            // Act & Assert
+            assertEquals(CUI_ICON_WARNING_CSS, IconLibrary.resolveCssString(CUI_ICON_WARNING),
+                    "Should create complete CSS class string from icon name");
         }
-        try {
-            IconLibrary.resolveCssString(NO_VALID_ICON);
-            fail("IllegalArgumentException should occurs before");
-        } catch (final IllegalArgumentException e) {
-            // is expected
-        }
-    }
 
-    /**
-     * Protect code from wrong usage
-     */
-    @Test
-    void shouldFailOnWrongUsage() {
-        try {
-            IconLibrary.isIconUsagePossible(null);
-            fail("IllegalArgumentException should occurs before");
-        } catch (final IllegalArgumentException e) {
-            // is expected
-        }
-        try {
-            IconLibrary.isIconUsagePossible("");
-            fail("IllegalArgumentException should occurs before");
-        } catch (final IllegalArgumentException e) {
-            // is expected
+        @Test
+        @DisplayName("Should throw IllegalArgumentException for null or invalid icons")
+        void shouldThrowExceptionForInvalidIcons() {
+            // Act & Assert - null icon
+            assertThrows(IllegalArgumentException.class,
+                    () -> IconLibrary.resolveCssString(null),
+                    "Should throw IllegalArgumentException for null icon");
+
+            // Act & Assert - invalid icon
+            assertThrows(IllegalArgumentException.class,
+                    () -> IconLibrary.resolveCssString(NO_VALID_ICON),
+                    "Should throw IllegalArgumentException for invalid icon");
         }
     }
 
-    /**
-     * Verify check method
-     */
-    @Test
-    void shouldProvideCheckMethod() {
-        var result = IconLibrary.isIconUsagePossible(CUI_ICON_WARNING);
-        assertTrue(result);
-        result = IconLibrary.isIconUsagePossible(NO_VALID_ICON);
-        assertFalse(result);
+    @Nested
+    @DisplayName("Tests for icon validation methods")
+    class IconValidationTests {
+
+        @Test
+        @DisplayName("Should throw IllegalArgumentException for null or empty input")
+        void shouldThrowExceptionForInvalidInput() {
+            // Act & Assert - null input
+            assertThrows(IllegalArgumentException.class,
+                    () -> IconLibrary.isIconUsagePossible(null),
+                    "Should throw IllegalArgumentException for null input");
+
+            // Act & Assert - empty string
+            assertThrows(IllegalArgumentException.class,
+                    () -> IconLibrary.isIconUsagePossible(""),
+                    "Should throw IllegalArgumentException for empty string");
+        }
+
+        @Test
+        @DisplayName("Should correctly identify valid and invalid icons")
+        void shouldIdentifyValidAndInvalidIcons() {
+            // Act & Assert - valid icon
+            assertTrue(IconLibrary.isIconUsagePossible(CUI_ICON_WARNING),
+                    "Should return true for valid icon");
+
+            // Act & Assert - invalid icon
+            assertFalse(IconLibrary.isIconUsagePossible(NO_VALID_ICON),
+                    "Should return false for invalid icon");
+        }
     }
 
-    @Test
-    void shouldProvideLibraryLibraryPrefix() {
-        assertEquals("cui-icon", IconLibrary.CUI.getLibraryPrefix());
+    @Nested
+    @DisplayName("Tests for library enum")
+    class LibraryEnumTests {
+
+        @Test
+        @DisplayName("Should provide correct library prefix")
+        void shouldProvideCorrectLibraryPrefix() {
+            // Act & Assert
+            assertEquals("cui-icon", IconLibrary.CUI.getLibraryPrefix(),
+                    "CUI library should have 'cui-icon' prefix");
+        }
     }
 }

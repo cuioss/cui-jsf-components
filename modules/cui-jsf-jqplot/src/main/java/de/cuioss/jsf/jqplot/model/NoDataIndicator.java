@@ -15,11 +15,11 @@
  */
 package de.cuioss.jsf.jqplot.model;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 import de.cuioss.jsf.jqplot.axes.Axes;
 import lombok.Data;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * Options to set up a mock plot with a data loading indicator if no data is

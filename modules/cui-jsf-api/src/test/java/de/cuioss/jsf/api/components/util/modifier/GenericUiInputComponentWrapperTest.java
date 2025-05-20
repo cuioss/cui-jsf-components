@@ -17,15 +17,23 @@ package de.cuioss.jsf.api.components.util.modifier;
 
 import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import jakarta.faces.component.html.HtmlInputText;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @EnableJsfEnvironment
+@DisplayName("Tests for GenericUiInputComponentWrapper")
 class GenericUiInputComponentWrapperTest {
 
     @Test
+    @DisplayName("Should correctly implement the component wrapper contract")
     void shouldHandleComponentWrapperContract() {
+        // Arrange
         var component = new HtmlInputText();
+
+        // Act
         var wrapper = new GenericUiInputComponentWrapper(component);
+
+        // Assert
         ComponentModifierAssert.assertContracts(wrapper, component);
     }
 }

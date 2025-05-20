@@ -18,12 +18,12 @@ package de.cuioss.jsf.api.components.model.datalist.impl;
 import static de.cuioss.test.generator.Generators.integers;
 import static de.cuioss.test.generator.Generators.letterStrings;
 
+import de.cuioss.jsf.api.components.model.datalist.EditEvent;
+import lombok.Getter;
+
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
-
-import de.cuioss.jsf.api.components.model.datalist.EditEvent;
-import lombok.Getter;
 
 public class SomeModelEditableDataListModel extends AbstractEditableDataListModel<SomeModel> {
 

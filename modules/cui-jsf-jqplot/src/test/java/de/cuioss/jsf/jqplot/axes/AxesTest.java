@@ -18,25 +18,43 @@ package de.cuioss.jsf.jqplot.axes;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import de.cuioss.test.valueobjects.contract.SerializableContractImpl;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.test.valueobjects.contract.SerializableContractImpl;
-
+@DisplayName("Tests for Axes class")
 class AxesTest {
 
     private Axes target;
 
-    @Test
-    void shouldBeSerializable() {
-        assertDoesNotThrow(() -> SerializableContractImpl.serializeAndDeserialize(createAny()));
+    @Nested
+    @DisplayName("Serialization tests")
+    class SerializationTests {
+
+        @Test
+        @DisplayName("Should be serializable")
+        void shouldBeSerializable() {
+            // Arrange & Act & Assert
+            assertDoesNotThrow(() -> SerializableContractImpl.serializeAndDeserialize(createAny()));
+        }
     }
 
-    @Test
-    final void shouldVerifyDuplicates() {
-        target = createEmpty();
-        target.addInNotNull(Axis.createXAxis());
-        var axis = Axis.createXAxis();
-        assertThrows(IllegalArgumentException.class, () -> target.addInNotNull(axis));
+    @Nested
+    @DisplayName("Validation tests")
+    class ValidationTests {
+
+        @Test
+        @DisplayName("Should verify duplicates")
+        void shouldVerifyDuplicates() {
+            // Arrange
+            target = createEmpty();
+            target.addInNotNull(Axis.createXAxis());
+            var axis = Axis.createXAxis();
+
+            // Act & Assert
+            assertThrows(IllegalArgumentException.class, () -> target.addInNotNull(axis));
+        }
     }
 
     private static Axes createEmpty() {

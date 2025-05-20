@@ -17,20 +17,31 @@ package de.cuioss.jsf.jqplot.plugin.cursor;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
-
+@DisplayName("Tests for Cursor class")
 class CursorTest implements ShouldHandleObjectContracts<Cursor> {
-
-    @Test
-    void shouldNotReturnObjectOnEmptyProperties() {
-        final var target = new Cursor();
-        assertNull(target.asJavaScriptObjectNotation());
-    }
 
     @Override
     public Cursor getUnderTest() {
         return new Cursor();
+    }
+
+    @Nested
+    @DisplayName("Basic functionality tests")
+    class BasicFunctionalityTests {
+
+        @Test
+        @DisplayName("Should return null when no properties are set")
+        void shouldReturnNullWhenNoPropertiesAreSet() {
+            // Arrange
+            final var target = new Cursor();
+
+            // Act & Assert
+            assertNull(target.asJavaScriptObjectNotation(), "Empty cursor should return null");
+        }
     }
 }

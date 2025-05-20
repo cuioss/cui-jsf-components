@@ -15,12 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.accordion;
 
-import java.io.IOException;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.render.FacesRenderer;
-
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.jsf.api.components.html.Node;
@@ -29,12 +23,28 @@ import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.layout.BootstrapPanelComponent;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
+
+import java.io.IOException;
 
 /**
- * Renderer for {@linkplain AccordionComponent}.
+ * Renderer for {@link AccordionComponent} that produces Bootstrap-compliant accordion markup.
+ * Generates a container with panel-group styling and configures child panels with
+ * appropriate collapse behavior.
+ * 
+ * <h3>Generated HTML Structure:</h3>
+ * <pre>
+ * &lt;div class="panel-group" id="accordionId" role="tablist" aria-multiselectable="true|false"&gt;
+ *   &lt;!-- Panel components are rendered here --&gt;
+ * &lt;/div&gt;
+ * </pre>
  *
  * @author Matthias Walliczek
  * @author Sven Haag
+ * @since 1.0
+ * @see AccordionComponent
  */
 @FacesRenderer(rendererType = BootstrapFamily.ACCORDION_RENDERER, componentFamily = BootstrapFamily.COMPONENT_FAMILY)
 public class AccordionRenderer extends BaseDecoratorRenderer<AccordionComponent> {

@@ -16,7 +16,6 @@
 package de.cuioss.jsf.bootstrap.layout.input.support;
 
 import jakarta.faces.component.html.HtmlInputText;
-
 import lombok.Getter;
 import lombok.Setter;
 

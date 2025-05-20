@@ -17,7 +17,7 @@ package de.cuioss.jsf.components.selection;
 
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
-import de.cuioss.uimodel.model.conceptkey.AugmentationKeyConstans;
+import de.cuioss.uimodel.model.conceptkey.AugmentationKeyConstants;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 import de.cuioss.uimodel.model.conceptkey.impl.BaseConceptCategory;
 import de.cuioss.uimodel.model.conceptkey.impl.ConceptKeyTypeImpl;
@@ -33,7 +33,7 @@ public class ConceptKeyTypeGenerator implements TypedGenerator<ConceptKeyType> {
 
     public static final ConceptKeyType TEST_DEFAULT_CODE = ConceptKeyTypeImpl.builder().identifier("default_code")
             .labelResolver(new I18nDisplayNameProvider("default_code-resolved"))
-            .augmentation(AugmentationKeyConstans.DEFAULT_VALUE, "true").category(new BaseConceptCategory()).build();
+            .augmentation(AugmentationKeyConstants.DEFAULT_VALUE, "true").category(new BaseConceptCategory()).build();
 
     private final TypedGenerator<String> strings = Generators.letterStrings(1, 5);
 

@@ -15,62 +15,59 @@
  */
 package de.cuioss.jsf.api.servlet;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
+import de.cuioss.test.jsf.config.decorator.RequestConfigDecorator;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
+import jakarta.faces.context.FacesContext;
 import jakarta.servlet.http.Cookie;
-
+import org.apache.myfaces.test.mock.MockHttpServletResponse;
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
-
-class CookieMonsterTest extends JsfEnabledTestEnvironment {
+@EnableJsfEnvironment
+class CookieMonsterTest {
 
     private static final String COUNTRY_COOKIE_NAME = "country";
 
     private static final String COUNTRY_COOKIE_VALUE = "US";
 
     @Test
-    void testGetRequestCookies() {
-        setSomeCookiesAndPutThemIntoContext();
-        var requestCookies = CookieMonster.getRequestCookies(getFacesContext());
+    void getRequestCookies(FacesContext facesContext, RequestConfigDecorator requestConfig) {
+        setSomeCookiesAndPutThemIntoContext(requestConfig);
+        var requestCookies = CookieMonster.getRequestCookies(facesContext);
         assertNotNull(requestCookies);
         assertEquals(3, requestCookies.size());
     }
 
     @Test
-    void testGetRequestCookiesWithNullContext() {
+    void getRequestCookiesWithNullContext() {
         assertThrows(NullPointerException.class, () -> CookieMonster.getRequestCookies(null));
     }
 
     @Test
-    void testGetRequestCookieForName() {
-        setSomeCookiesAndPutThemIntoContext();
-        var cookie = CookieMonster.getRequestCookieForName(getFacesContext(), COUNTRY_COOKIE_NAME);
+    void getRequestCookieForName(FacesContext facesContext, RequestConfigDecorator requestConfig) {
+        setSomeCookiesAndPutThemIntoContext(requestConfig);
+        var cookie = CookieMonster.getRequestCookieForName(facesContext, COUNTRY_COOKIE_NAME);
         assertNotNull(cookie);
         assertEquals(COUNTRY_COOKIE_NAME, cookie.getName());
         assertEquals(COUNTRY_COOKIE_VALUE, cookie.getValue());
     }
 
     @Test
-    void testGetRequestCookieForNameWithNullName() {
-        var facesContect = getFacesContext();
-        assertThrows(IllegalArgumentException.class, () -> CookieMonster.getRequestCookieForName(facesContect, null));
+    void getRequestCookieForNameWithNullName(FacesContext facesContext) {
+        assertThrows(IllegalArgumentException.class, () -> CookieMonster.getRequestCookieForName(facesContext, null));
     }
 
     @Test
-    void testGetRequestCookieForNameWithNullContext() {
+    void getRequestCookieForNameWithNullContext() {
         assertThrows(NullPointerException.class,
                 () -> CookieMonster.getRequestCookieForName(null, COUNTRY_COOKIE_NAME));
     }
 
     @Test
-    void testSetSimpleResponseCookie() {
-        CookieMonster.setSimpleResponseCookie(getFacesContext(), COUNTRY_COOKIE_NAME, COUNTRY_COOKIE_VALUE);
-        var c = getResponse().getCookies();
+    void setSimpleResponseCookie(FacesContext facesContext, MockHttpServletResponse response) {
+        CookieMonster.setSimpleResponseCookie(facesContext, COUNTRY_COOKIE_NAME, COUNTRY_COOKIE_VALUE);
+        var c = response.getCookies();
         assertEquals(1, c.size());
         assertTrue(c.containsKey(COUNTRY_COOKIE_NAME));
         var cookie = c.get(COUNTRY_COOKIE_NAME);
@@ -79,46 +76,43 @@ class CookieMonsterTest extends JsfEnabledTestEnvironment {
     }
 
     @Test
-    void testSetSimpleResponseCookieWithNullName() {
-        var facesContect = getFacesContext();
+    void setSimpleResponseCookieWithNullName(FacesContext facesContext) {
         assertThrows(IllegalArgumentException.class,
-                () -> CookieMonster.setSimpleResponseCookie(facesContect, null, COUNTRY_COOKIE_VALUE));
+                () -> CookieMonster.setSimpleResponseCookie(facesContext, null, COUNTRY_COOKIE_VALUE));
     }
 
     @Test
-    void testSetSimpleResponseCookieWithNullValue() {
-        var facesContect = getFacesContext();
+    void setSimpleResponseCookieWithNullValue(FacesContext facesContext) {
         assertThrows(IllegalArgumentException.class,
-                () -> CookieMonster.setSimpleResponseCookie(facesContect, COUNTRY_COOKIE_NAME, null));
+                () -> CookieMonster.setSimpleResponseCookie(facesContext, COUNTRY_COOKIE_NAME, null));
     }
 
     @Test
-    void testSetSimpleResponseCookieWithNullContext() {
+    void setSimpleResponseCookieWithNullContext() {
         assertThrows(NullPointerException.class,
                 () -> CookieMonster.setSimpleResponseCookie(null, COUNTRY_COOKIE_NAME, COUNTRY_COOKIE_VALUE));
     }
 
     @Test
-    void testSetResponseCookie() {
+    void setResponseCookie(FacesContext facesContext) {
         var cookie = new Cookie(COUNTRY_COOKIE_NAME, COUNTRY_COOKIE_VALUE);
-        assertDoesNotThrow(() -> CookieMonster.setResponseCookie(getFacesContext(), cookie));
+        assertDoesNotThrow(() -> CookieMonster.setResponseCookie(facesContext, cookie));
     }
 
     @Test
-    void testSetResponseCookieWithNullContext() {
+    void setResponseCookieWithNullContext() {
         var cookie = new Cookie(COUNTRY_COOKIE_NAME, COUNTRY_COOKIE_VALUE);
         assertThrows(NullPointerException.class, () -> CookieMonster.setResponseCookie(null, cookie));
     }
 
     @Test
-    void testSetResponseCookieWithNullCookie() {
-        var facesContect = getFacesContext();
-        assertThrows(NullPointerException.class, () -> CookieMonster.setResponseCookie(facesContect, null));
+    void setResponseCookieWithNullCookie(FacesContext facesContext) {
+        assertThrows(NullPointerException.class, () -> CookieMonster.setResponseCookie(facesContext, null));
     }
 
-    private void setSomeCookiesAndPutThemIntoContext() {
-        getRequestConfigDecorator().addRequestCookie(new Cookie(COUNTRY_COOKIE_NAME, COUNTRY_COOKIE_VALUE));
-        getRequestConfigDecorator().addRequestCookie(new Cookie("language", "en"));
-        getRequestConfigDecorator().addRequestCookie(new Cookie("username", "office0"));
+    private void setSomeCookiesAndPutThemIntoContext(RequestConfigDecorator requestConfig) {
+        requestConfig.addRequestCookie(new Cookie(COUNTRY_COOKIE_NAME, COUNTRY_COOKIE_VALUE));
+        requestConfig.addRequestCookie(new Cookie("language", "en"));
+        requestConfig.addRequestCookie(new Cookie("username", "office0"));
     }
 }

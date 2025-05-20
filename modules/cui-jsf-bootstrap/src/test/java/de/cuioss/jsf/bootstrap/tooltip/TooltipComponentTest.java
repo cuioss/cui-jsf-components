@@ -16,30 +16,21 @@
 package de.cuioss.jsf.bootstrap.tooltip;
 
 import static de.cuioss.jsf.api.components.html.AttributeValue.DATA_TOGGLE;
-import static de.cuioss.jsf.bootstrap.tooltip.TooltipComponent.DATA_DELAY;
-import static de.cuioss.jsf.bootstrap.tooltip.TooltipComponent.DATA_PLACEMENT;
-import static de.cuioss.jsf.bootstrap.tooltip.TooltipComponent.DATA_TRIGGER;
-import static de.cuioss.jsf.bootstrap.tooltip.TooltipComponent.PLACEMENT_DEFAULT;
-import static de.cuioss.jsf.bootstrap.tooltip.TooltipComponent.TOOLTIP;
-import static de.cuioss.jsf.bootstrap.tooltip.TooltipComponent.TRIGGER_DEFAULT;
+import static de.cuioss.jsf.bootstrap.tooltip.TooltipComponent.*;
 import static de.cuioss.tools.string.MoreStrings.emptyToNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import jakarta.faces.component.html.HtmlInputText;
-import jakarta.faces.event.ComponentSystemEvent;
-import jakarta.faces.event.PostAddToViewEvent;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.PostAddToViewEvent;
 import lombok.Getter;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class TooltipComponentTest extends AbstractComponentTest<TooltipComponent> {

@@ -1,0 +1,193 @@
+= Accessor Pattern for Transient JSF Resources
+:toc: macro
+:toclevels: 3
+:sectnumlevels: 4
+:numbered:
+
+link:../README.adoc[Back to README]
+
+This document describes the concept and members of the `de.cuioss.jsf.api.common.accessor` package, which implements the accessor pattern for handling transient JSF resources.
+
+toc::[]
+
+== Overview
+
+The accessor pattern addresses common challenges in JSF applications related to accessing transient resources while maintaining proper serialization. It provides a unified approach to safely handle resources that should not be serialized as part of the JSF view state, while ensuring they can be properly recovered after deserialization.
+
+== Key Benefits
+
+The accessor pattern provides several advantages for JSF development:
+
+* Safe implementation of the `Serializable` / transient contract
+* Implicit lazy loading of resources
+* Encapsulation of the loading mechanics
+* Unified approach to accessing common JSF resources
+* Simplified recovery after deserialization in JSF view state
+
+== Core Interface
+
+=== ManagedAccessor
+
+The `ManagedAccessor<T>` interface is the foundation of the accessor pattern. It defines a contract for accessing a value of type `T` in a serialization-safe manner.
+
+[source,java]
+----
+public interface ManagedAccessor<T> extends Serializable {
+
+    /**
+     * @return the value to be accessed, may be null
+     */
+    T getValue();
+
+    /**
+     * Resets the internal state of the accessor
+     */
+    void resetValue();
+}
+----
+
+The interface is designed to be implemented by classes that need to provide access to transient resources. The `getValue()` method retrieves the resource, typically implementing lazy loading if the resource is not yet available or has been lost due to deserialization. The `resetValue()` method allows clearing the internal state, which can be useful in certain scenarios.
+
+== Implementations
+
+=== ConverterAccessor
+
+The `ConverterAccessor<T>` class is a specialized accessor for resolving and accessing JSF `Converter` instances based on configurable criteria. It can resolve converters by:
+
+* Converter ID
+* Target class
+* Explicit converter instance
+
+[source,java]
+----
+// Using converter ID
+ConverterAccessor<Date> accessor = new ConverterAccessor<>();
+accessor.setConverterId("jakarta.faces.DateTime");
+
+// Using target class
+ConverterAccessor<MyType> accessor = new ConverterAccessor<>();
+accessor.setTargetClass(MyType.class);
+----
+
+The accessor handles the transient nature of the converter instance, ensuring it can be properly recovered after deserialization.
+
+=== LocaleAccessor
+
+The `LocaleAccessor` class provides access to the current user's locale in a JSF application. It resolves the locale from the JSF context, falling back to the JVM default locale if necessary.
+
+[source,java]
+----
+LocaleAccessor localeAccessor = new LocaleAccessor();
+Locale userLocale = localeAccessor.getValue();
+----
+
+This accessor is particularly useful in components that need to perform locale-specific operations, such as formatting or localization.
+
+=== CuiProjectStageAccessor
+
+The `CuiProjectStageAccessor` class provides access to the current project stage (development, test, production) through the `CuiProjectStage` enum. This is useful for conditional behavior based on the deployment environment.
+
+[source,java]
+----
+CuiProjectStageAccessor stageAccessor = new CuiProjectStageAccessor();
+if (stageAccessor.getValue().isDevelopment()) {
+    // Development-specific behavior
+}
+----
+
+== Implementation Pattern
+
+When implementing custom accessors, follow these guidelines:
+
+1. Implement the `ManagedAccessor<T>` interface
+2. Declare any non-serializable fields as `transient`
+3. Implement `getValue()` to handle lazy initialization and recovery after deserialization
+4. Implement `resetValue()` to clear the internal state when needed
+
+[source,java]
+----
+public class MyResourceAccessor implements ManagedAccessor<MyResource> {
+
+    private static final long serialVersionUID = 1L;
+
+    // Non-serializable resource declared as transient
+    private transient MyResource resource;
+
+    // Configuration properties (serializable)
+    private String resourceId;
+
+    @Override
+    public MyResource getValue() {
+        if (null == resource) {
+            // Lazy initialization or recovery after deserialization
+            resource = lookupResource(resourceId);
+        }
+        return resource;
+    }
+
+    @Override
+    public void resetValue() {
+        resource = null;
+    }
+
+    // Helper methods and configuration setters
+    private MyResource lookupResource(String id) {
+        // Resource lookup logic
+    }
+
+    public void setResourceId(String id) {
+        this.resourceId = id;
+        resetValue(); // Reset when configuration changes
+    }
+}
+----
+
+== Usage in Components
+
+Accessors are commonly used in JSF components to handle transient resources like converters, validators, and other context-dependent objects. Here's an example of using accessors in a component:
+
+[source,java]
+----
+@FacesComponent("myComponent")
+public class MyComponent extends UIInput {
+
+    private final ConverterAccessor<Date> dateConverter = new ConverterAccessor<>();
+    private final LocaleAccessor localeAccessor = new LocaleAccessor();
+
+    public MyComponent() {
+        dateConverter.setConverterId("jakarta.faces.DateTime");
+    }
+
+    @Override
+    public Object getSubmittedValue() {
+        String value = (String) super.getSubmittedValue();
+        if (value != null) {
+            try {
+                // Use accessors to get transient resources
+                Converter<Date> converter = dateConverter.getValue();
+                Locale locale = localeAccessor.getValue();
+
+                // Use the resources
+                // ...
+            } catch (Exception e) {
+                // Handle exceptions
+            }
+        }
+        return value;
+    }
+}
+----
+
+== Best Practices
+
+1. **Lazy Initialization**: Always implement lazy initialization in the `getValue()` method to avoid unnecessary resource creation.
+2. **Clear Configuration**: Make configuration properties clear and well-documented, as they determine how the resource is resolved.
+3. **Reset on Configuration Change**: Call `resetValue()` when configuration properties change to ensure the resource is re-created with the new configuration.
+4. **Thread Safety**: Consider thread safety when implementing accessors, especially for application-scoped resources.
+5. **Error Handling**: Implement proper error handling in the `getValue()` method to handle cases where the resource cannot be resolved.
+
+== Conclusion
+
+The accessor pattern provides a robust solution for handling transient resources in JSF applications. By encapsulating the resource access and recovery logic, it simplifies component development and ensures proper behavior across the JSF lifecycle, including serialization and deserialization of the view state.
+
+The `de.cuioss.jsf.api.common.accessor` package provides several ready-to-use implementations for common JSF resources, making it easy to adopt this pattern in your components.

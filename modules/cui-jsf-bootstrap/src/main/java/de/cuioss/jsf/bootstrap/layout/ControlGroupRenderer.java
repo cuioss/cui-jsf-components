@@ -15,29 +15,54 @@
  */
 package de.cuioss.jsf.bootstrap.layout;
 
-import java.io.IOException;
-
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.render.FacesRenderer;
-
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
+
+import java.io.IOException;
 
 /**
- * Default renderer for {@link ControlGroupComponent}
+ * <p>
+ * Renderer implementation for {@link ControlGroupComponent} that applies Bootstrap's
+ * form-group structure and column-based layout to control groups.
+ * </p>
+ * 
+ * <h2>Rendering Structure</h2>
+ * <p>
+ * The rendered output follows this HTML structure:
+ * </p>
+ * <pre>
+ * &lt;div class="form-group [additional-classes]" style="[style]"&gt;
+ *   &lt;div class="[column-classes]"&gt;
+ *     [child components]
+ *   &lt;/div&gt;
+ * &lt;/div&gt;
+ * </pre>
+ * 
+ * <h2>Responsibilities</h2>
+ * <ul>
+ *   <li>Applying proper form-group Bootstrap styling</li>
+ *   <li>Handling column-based layout via responsive grid classes</li>
+ *   <li>Managing client ID and pass-through attributes</li>
+ *   <li>Maintaining proper nesting structure for Bootstrap's form system</li>
+ * </ul>
+ * 
+ * <p>
+ * This renderer works in conjunction with {@link ControlGroupComponent} to provide
+ * a consistent layout for form controls and button groups that follows Bootstrap's
+ * design patterns.
+ * </p>
  *
  * @author Oliver Wolff
- *
+ * @see ControlGroupComponent
  */
 @FacesRenderer(rendererType = BootstrapFamily.LAYOUT_CONTROL_GROUP_RENDERER, componentFamily = BootstrapFamily.COMPONENT_FAMILY)
 public class ControlGroupRenderer extends BaseDecoratorRenderer<ControlGroupComponent> {
 
-    /**
-     *
-     */
     public ControlGroupRenderer() {
         super(false);
     }

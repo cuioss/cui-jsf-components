@@ -20,7 +20,12 @@ import de.cuioss.uimodel.model.conceptkey.impl.BaseConceptCategory;
 import java.io.Serial;
 
 /**
+ * A concept category for representing tags that are not found or missing 
+ * from the originally defined set. Used to handle cases where a tag reference 
+ * exists but the actual tag definition is not available.
+ *
  * @author Sven Haag
+ * @since 1.0
  */
 public class MissingTagConceptKeyCategory extends BaseConceptCategory {
 

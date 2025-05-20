@@ -15,10 +15,10 @@
  */
 package de.cuioss.jsf.jqplot.layout;
 
-import static java.util.Objects.requireNonNull;
-
 import de.cuioss.jsf.jqplot.js.types.JsString;
 import lombok.Getter;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * compass direction, nw, n, ne, e, se, s, sw, w.

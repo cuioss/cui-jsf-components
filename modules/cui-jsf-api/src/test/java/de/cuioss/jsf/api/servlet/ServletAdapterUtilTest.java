@@ -15,64 +15,62 @@
  */
 package de.cuioss.jsf.api.servlet;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
+import jakarta.faces.context.FacesContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import org.junit.jupiter.api.Test;
 
-import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
-
-class ServletAdapterUtilTest extends JsfEnabledTestEnvironment {
+@EnableJsfEnvironment
+class ServletAdapterUtilTest {
 
     private static final String PARAM_NAME = "parameterName";
 
     @Test
-    void testGetRequestParameter() {
-        var s1 = ServletAdapterUtil.getRequestParameter(getFacesContext(), PARAM_NAME);
-        var s2 = ServletAdapterUtil.getRequest(getFacesContext()).getParameter(PARAM_NAME);
+    void getRequestParameter(FacesContext facesContext) {
+        var s1 = ServletAdapterUtil.getRequestParameter(facesContext, PARAM_NAME);
+        var s2 = ServletAdapterUtil.getRequest(facesContext).getParameter(PARAM_NAME);
         assertEquals(s1, s2);
     }
 
     @Test
-    void testGetRequestParameterWithNullContext() {
+    void getRequestParameterWithNullContext() {
         assertThrows(NullPointerException.class, () -> ServletAdapterUtil.getRequestParameter(null, PARAM_NAME));
     }
 
     @Test
-    void testGetRequestParameterWithNullParameter() {
+    void getRequestParameterWithNullParameter(FacesContext facesContext) {
         assertThrows(IllegalArgumentException.class,
-                () -> ServletAdapterUtil.getRequestParameter(getFacesContext(), null));
+                () -> ServletAdapterUtil.getRequestParameter(facesContext, null));
     }
 
     @Test
-    void testGetResponse() {
-        final var response = (HttpServletResponse) getFacesContext().getExternalContext().getResponse();
-        assertEquals(response, ServletAdapterUtil.getResponse(getFacesContext()));
+    void getResponse(FacesContext facesContext) {
+        final var response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+        assertEquals(response, ServletAdapterUtil.getResponse(facesContext));
     }
 
     @Test
-    void shouldProduceSession() {
-        var session = ServletAdapterUtil.getSession(getFacesContext());
+    void shouldProduceSession(FacesContext facesContext) {
+        var session = ServletAdapterUtil.getSession(facesContext);
         assertTrue(session.isPresent());
     }
 
     @Test
-    void testGetResponseWithNullContext() {
+    void getResponseWithNullContext() {
         assertThrows(NullPointerException.class, () -> ServletAdapterUtil.getResponse(null));
     }
 
     @Test
-    void testGetRequest() {
-        final var request = (HttpServletRequest) getFacesContext().getExternalContext().getRequest();
-        assertEquals(request, ServletAdapterUtil.getRequest(getFacesContext()));
+    void getRequest(FacesContext facesContext) {
+        final var request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
+        assertEquals(request, ServletAdapterUtil.getRequest(facesContext));
     }
 
     @Test
-    void testGetRequestWithNullContext() {
+    void getRequestWithNullContext() {
         assertThrows(NullPointerException.class, () -> ServletAdapterUtil.getRequest(null));
     }
 

@@ -15,14 +15,38 @@
  */
 package de.cuioss.jsf.bootstrap.layout.messages;
 
+import de.cuioss.jsf.bootstrap.BootstrapFamily;
+import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import jakarta.faces.component.FacesComponent;
 import jakarta.faces.component.html.HtmlMessages;
 
-import de.cuioss.jsf.bootstrap.BootstrapFamily;
-import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
-
 /**
- * Extends {@link HtmlMessages} and sets bootstrap aligned style classes.
+ * <p>
+ * A Bootstrap-styled version of the standard JSF {@link HtmlMessages} component for displaying
+ * all queued FacesMessages that are not associated with specific components.
+ * </p>
+ * <p>
+ * This component automatically applies Bootstrap alert styling to messages based on their severity:
+ * </p>
+ * <ul>
+ * <li>FATAL: "alert alert-danger"</li>
+ * <li>ERROR: "alert alert-danger"</li>
+ * <li>WARN: "alert alert-warning"</li>
+ * <li>INFO: "alert alert-info"</li>
+ * </ul>
+ * <p>
+ * The component wrapper is styled with "cui-messages" class to provide consistent styling
+ * across the application.
+ * </p>
+ * 
+ * <h2>Usage</h2>
+ * <pre>
+ * &lt;!-- Basic usage --&gt;
+ * &lt;boot:messages /&gt;
+ * 
+ * &lt;!-- With customized display options --&gt;
+ * &lt;boot:messages showDetail="true" showSummary="true" globalOnly="true" /&gt;
+ * </pre>
  *
  * @author Matthias Walliczek
  *

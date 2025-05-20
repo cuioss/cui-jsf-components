@@ -17,14 +17,14 @@ package de.cuioss.jsf.api.components.util.styleclass;
 
 import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.cuioss.tools.string.Joiner;
 import de.cuioss.tools.string.MoreStrings;
 import de.cuioss.tools.string.Splitter;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Base implementation for dealing with style class attribute.

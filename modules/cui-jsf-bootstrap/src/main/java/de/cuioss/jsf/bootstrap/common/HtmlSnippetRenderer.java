@@ -15,18 +15,28 @@
  */
 package de.cuioss.jsf.bootstrap.common;
 
-import java.io.IOException;
-
-import jakarta.faces.component.UIComponent;
-
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
+import jakarta.faces.component.UIComponent;
 import lombok.experimental.UtilityClass;
 
+import java.io.IOException;
+
 /**
+ * <p>
+ * Utility class that provides helper methods for rendering common Bootstrap HTML snippets
+ * consistently throughout the application. This class enables standardized rendering of
+ * commonly used UI elements without duplicating code.
+ * </p>
+ * 
+ * <p>
+ * The rendered HTML snippets follow Bootstrap's design patterns and accessibility guidelines,
+ * ensuring consistent appearance and behavior across the application.
+ * </p>
+ *
  * @author Oliver Wolff
  *
  */
@@ -34,12 +44,24 @@ import lombok.experimental.UtilityClass;
 public final class HtmlSnippetRenderer {
 
     /**
-     * Renders a simple close button in the bootstrap conform css at the current
-     * position of the response writer
+     * <p>
+     * Renders a Bootstrap-styled close button (×) at the current position of the response writer.
+     * This close button follows Bootstrap's standard design pattern and includes appropriate
+     * ARIA attributes for accessibility.
+     * </p>
+     * 
+     * <p>The rendered HTML structure is:</p>
+     * <pre>
+     * &lt;button aria-label="Close" data-dismiss="[dataDismissAttribute]" type="button" class="close"&gt;
+     *   &lt;span aria-hidden="true"&gt;&amp;#xD7;&lt;/span&gt;
+     * &lt;/button&gt;
+     * </pre>
      *
-     * @param writer
-     * @param dataDismissAttribute
-     * @throws IOException
+     * <p>Typically used in alerts, modals, and other dismissible components.</p>
+     *
+     * @param writer The {@link DecoratingResponseWriter} to write the HTML output
+     * @param dataDismissAttribute The value for the data-dismiss attribute (e.g., "modal", "alert")
+     * @throws IOException If an I/O error occurs during rendering
      */
     public static void renderCloseButton(final DecoratingResponseWriter<? extends UIComponent> writer,
             final String dataDismissAttribute) throws IOException {

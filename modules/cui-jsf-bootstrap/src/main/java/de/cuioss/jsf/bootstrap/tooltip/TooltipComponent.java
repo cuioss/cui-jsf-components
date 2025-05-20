@@ -18,47 +18,32 @@ package de.cuioss.jsf.bootstrap.tooltip;
 import static de.cuioss.jsf.bootstrap.BootstrapFamily.COMPONENT_FAMILY;
 import static java.util.Objects.requireNonNull;
 
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.FacesComponent;
-
 import de.cuioss.jsf.api.components.decorator.AbstractParentDecorator;
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.jsf.api.components.partial.ContentProvider;
 import de.cuioss.jsf.api.components.util.ComponentModifier;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.FacesComponent;
 import lombok.experimental.Delegate;
 
 /**
- * <p>
- * Renders a bootstrap based tooltip component for an existing parent-component.
- * It acts as {@link de.cuioss.jsf.api.components.decorator}, saying itself it
- * renders no output but changes the attributes of the parent element
- * accordingly. The actual rendering of the tooltip is done by the javascript
- * "component.enabler.tooltip.js", see <a href=
- * "http://getbootstrap.com/javascript/#tooltips">Bootstrap-Documentation</a>
- * </p>
- * <p>
- * Examples can be found in the <a href=
- * "https://cuioss.de/cui-reference-documentation/pages/documentation/cui_components/demo/miscellaneous.jsf"
- * >Reference Documentation</a>
- * </p>
+ * Renders a bootstrap-based tooltip for an existing parent component.
+ * Acts as a {@link de.cuioss.jsf.api.components.decorator} that modifies
+ * the parent element's attributes rather than producing its own output.
+ * The actual tooltip rendering is handled by JavaScript.
+ * 
  * <h2>Attributes</h2>
  * <ul>
- * <li>{@link ContentProvider}</li>
- * <li><b>placement</b>: String identifying the relative positioning of the
- * tooltip: One of 'left', 'top', 'bottom', 'right' expected, defaults to
- * {@value #PLACEMENT_DEFAULT}. For example, if placement is "auto left", the
- * tooltip will display to the left when possible, otherwise it will display
- * right.</li>
- * <li><b>trigger</b>: String identifying the dom-event when to trigger the
- * display of the tooltip. One of 'click', 'hover', 'focus', 'manual' expected,
- * defaults to {@value #TRIGGER_DEFAULT}</li>
- * <li><b>delay</b>: showing and hiding the tooltip (ms). Expected setting is
- * integer value, defaults to 500 (ms)</li>
+ * <li>{@link ContentProvider} - The tooltip content</li>
+ * <li><b>placement</b>: Tooltip positioning ('left', 'top', 'bottom', 'right'), defaults to {@value #PLACEMENT_DEFAULT}</li>
+ * <li><b>trigger</b>: Event to trigger tooltip ('click', 'hover', 'focus', 'manual'), defaults to {@value #TRIGGER_DEFAULT}</li>
+ * <li><b>delay</b>: Show/hide delay in ms, defaults to 500</li>
  * </ul>
  *
  * @author Oliver Wolff
+ * @since 1.0
  */
 @ResourceDependency(library = "javascript.enabler", name = "enabler.tooltip.js", target = "head")
 @FacesComponent(BootstrapFamily.TOOLTIP_COMPONENT)

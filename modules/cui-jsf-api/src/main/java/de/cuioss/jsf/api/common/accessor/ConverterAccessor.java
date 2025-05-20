@@ -15,11 +15,10 @@
  */
 package de.cuioss.jsf.api.common.accessor;
 
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.convert.Converter;
-
 import de.cuioss.jsf.api.converter.ObjectToStringConverter;
 import de.cuioss.jsf.api.converter.StringIdentConverter;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,22 +27,24 @@ import lombok.ToString;
 import java.io.Serial;
 
 /**
- * Resolves a converter regarding the current context.
- * <ul>
- * <li>First it checks whether the converterId is set. If so it instantiates a
- * corresponding converter.</li>
- * <li>If it is not set it tries to access the converter using the given
- * targetClass</li>
- * <li>If this also returns <code>null</code> and the targetClass is String it
- * will return the converter for the ID
- * {@link StringIdentConverter#CONVERTER_ID}</li>
- * <li>If the target class is not {@link String} it will return the converter
- * for the ID {@link ObjectToStringConverter#CONVERTER_ID}</li>
- * <li>otherwise it will throw an {@link IllegalStateException}</li>
- * </ul>
+ * Accessor for resolving {@link Converter} in a serialization-safe manner.
+ * <p>
+ * This accessor simplifies access to JSF converters and enables serialization-safe
+ * handling in JSF views. It retrieves converters from the
+ * {@link jakarta.faces.application.Application}.
+ * 
+ * <p>
+ * Usage example:
+ * <pre>
+ * private final ConverterAccessor converterAccessor = 
+ *   new ConverterAccessor("jakarta.faces.Number");
+ * 
+ * public Converter&lt;Number&gt; getNumberConverter() {
+ *     return converterAccessor.getValue();
+ * }
+ * </pre>
  *
  * @author Oliver Wolff
- * @param <T> The target type of the converter
  */
 @ToString
 @EqualsAndHashCode
@@ -52,16 +53,39 @@ public class ConverterAccessor<T> implements ManagedAccessor<Converter<T>> {
     @Serial
     private static final long serialVersionUID = -4619233196555638241L;
 
+    /**
+     * The JSF converter ID to look up.
+     * This is used as the first resolution strategy if present.
+     */
     @Getter
     @Setter
     private String converterId;
 
+    /**
+     * The target class for which to find a converter.
+     * This is used as the second resolution strategy if converterId is not set.
+     */
     @Getter
     @Setter
     private Class<T> targetClass;
 
+    /**
+     * Cached converter instance.
+     * This is lazily initialized when {@link #getValue()} is called.
+     */
     private transient Converter<?> loadedConverter;
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Returns the converter resolved according to the hierarchical strategy described in the class documentation.
+     * The converter is lazily loaded on the first call and cached for subsequent calls.
+     * </p>
+     *
+     * @return The resolved converter
+     * @throws IllegalStateException if neither converterId nor targetClass is set,
+     *         or if no converter could be found for the given converterId
+     */
     @SuppressWarnings("unchecked")
     @Override
     public Converter<T> getValue() {
@@ -91,11 +115,14 @@ public class ConverterAccessor<T> implements ManagedAccessor<Converter<T>> {
     }
 
     /**
-     * @return boolean indicating whether at least converterId or targetClass is
-     *         set.
+     * Validates that the accessor has sufficient information to resolve a converter.
+     * <p>
+     * This method checks whether at least one of {@code converterId} or {@code targetClass} is set,
+     * which is the minimum requirement for this accessor to function properly.
+     *
+     * @return {@code true} if at least converterId or targetClass is set, {@code false} otherwise
      */
     public boolean checkContract() {
         return null != converterId || null != targetClass;
     }
-
 }

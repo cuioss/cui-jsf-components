@@ -17,19 +17,21 @@ package de.cuioss.jsf.api.components.renderer;
 
 import static de.cuioss.test.jsf.renderer.util.HtmlTreeAsserts.assertHtmlTreeEquals;
 
-import java.io.IOException;
-import java.io.StringWriter;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.html.HtmlInputText;
-
-import org.apache.myfaces.test.mock.MockResponseWriter;
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.test.jsf.renderer.AbstractRendererTestBase;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.context.FacesContext;
+import org.apache.myfaces.test.mock.MockResponseWriter;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.io.StringWriter;
+
+@DisplayName("Tests for BaseDecoratorRenderer")
 class BaseDecoratorRendererTest extends AbstractRendererTestBase<MockDecoratorRenderer> {
 
     @Override
@@ -37,27 +39,58 @@ class BaseDecoratorRendererTest extends AbstractRendererTestBase<MockDecoratorRe
         return new HtmlInputText();
     }
 
-    @Test
-    void shouldRenderDummyWithChildren() throws IOException {
-        final var actual = renderToTreeBuilder(getComponent(), new MockDecoratorRenderer(true));
-        final var expected = new HtmlTreeBuilder().withNode(Node.DIV);
-        assertHtmlTreeEquals(expected.getDocument(), actual.getDocument());
-    }
+    @Nested
+    @DisplayName("Tests for rendering behavior")
+    class RenderingTests {
 
-    @Test
-    void shouldRenderDummyWithoutChildren() throws IOException {
-        final var actual = renderToTreeBuilder(getComponent(), new MockDecoratorRenderer(false));
-        final var expected = new HtmlTreeBuilder().withNode(Node.DIV);
-        assertHtmlTreeEquals(expected.getDocument(), actual.getDocument());
-    }
+        @Test
+        @DisplayName("Should render component with children")
+        void shouldRenderComponentWithChildren(FacesContext facesContext) throws IOException {
+            // Arrange
+            var component = getComponent();
+            var renderer = new MockDecoratorRenderer(true);
 
-    @Test
-    void shouldIgnoreIfRenderedIsFalse() throws IOException {
-        final var component = getComponent();
-        component.setRendered(false);
-        final var actual = renderToTreeBuilder(component, new MockDecoratorRenderer(false));
-        final var expected = new HtmlTreeBuilder();
-        assertHtmlTreeEquals(expected.getDocument(), actual.getDocument());
+            // Act
+            final var actual = renderToTreeBuilder(component, renderer, facesContext);
+
+            // Assert
+            final var expected = new HtmlTreeBuilder().withNode(Node.DIV);
+            // Rendered output should match expected HTML structure
+            assertHtmlTreeEquals(expected.getDocument(), actual.getDocument());
+        }
+
+        @Test
+        @DisplayName("Should render component without children")
+        void shouldRenderComponentWithoutChildren(FacesContext facesContext) throws IOException {
+            // Arrange
+            var component = getComponent();
+            var renderer = new MockDecoratorRenderer(false);
+
+            // Act
+            final var actual = renderToTreeBuilder(component, renderer, facesContext);
+
+            // Assert
+            final var expected = new HtmlTreeBuilder().withNode(Node.DIV);
+            // Rendered output should match expected HTML structure
+            assertHtmlTreeEquals(expected.getDocument(), actual.getDocument());
+        }
+
+        @Test
+        @DisplayName("Should not render component when rendered property is false")
+        void shouldNotRenderWhenRenderedIsFalse(FacesContext facesContext) throws IOException {
+            // Arrange
+            final var component = getComponent();
+            component.setRendered(false);
+            var renderer = new MockDecoratorRenderer(false);
+
+            // Act
+            final var actual = renderToTreeBuilder(component, renderer, facesContext);
+
+            // Assert
+            final var expected = new HtmlTreeBuilder();
+            // No output should be rendered when component's rendered property is false
+            assertHtmlTreeEquals(expected.getDocument(), actual.getDocument());
+        }
     }
 
     /**
@@ -66,16 +99,17 @@ class BaseDecoratorRendererTest extends AbstractRendererTestBase<MockDecoratorRe
      *
      * @param component must not be null
      * @param renderer must not be null
+     * @param facesContext the FacesContext to use
      * @return the resulting {@link HtmlTreeBuilder}
      * @throws IOException from underlying {@link jakarta.faces.context.ResponseWriter}
      */
-    protected HtmlTreeBuilder renderToTreeBuilder(final UIComponent component, final MockDecoratorRenderer renderer)
-            throws IOException {
+    protected HtmlTreeBuilder renderToTreeBuilder(final UIComponent component, final MockDecoratorRenderer renderer,
+            FacesContext facesContext) throws IOException {
         var writer = new StringWriter();
-        getFacesContext().setResponseWriter(new MockResponseWriter(writer));
-        renderer.encodeBegin(getFacesContext(), component);
-        renderer.encodeChildren(getFacesContext(), component);
-        renderer.encodeEnd(getFacesContext(), component);
+        facesContext.setResponseWriter(new MockResponseWriter(writer));
+        renderer.encodeBegin(facesContext, component);
+        renderer.encodeChildren(facesContext, component);
+        renderer.encodeEnd(facesContext, component);
         return new HtmlTreeBuilder(writer.toString());
     }
 }

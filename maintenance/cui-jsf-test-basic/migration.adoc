@@ -1,0 +1,843 @@
+= JSF Testing Framework Migration Guide
+
+== Introduction
+
+This document provides guidance for migrating from the legacy approach of using `JsfEnvironmentConsumer` to the new parameter resolution approach in the JSF testing framework. The framework has been enhanced to leverage JUnit 5's parameter resolution capabilities, making tests more concise and easier to write.
+
+== Overview of Changes
+
+The JSF testing framework has been refactored to use JUnit 5's parameter resolution mechanism instead of manual injection through the `JsfEnvironmentConsumer` interface. This change allows test methods to directly declare the JSF objects they need as parameters, without requiring the test class to implement any specific interface.
+
+Key changes include:
+
+* Implementation of a `JsfParameterResolver` that supports resolution of common JSF objects
+* Integration of parameter resolution with the existing `JsfSetupExtension`
+* Deprecation of the `JsfEnvironmentConsumer` interface and related methods
+* Deprecation of the configurator interfaces (`ApplicationConfigurator`, `ComponentConfigurator`, `RequestConfigurator`)
+* Creation of a new `NavigationAsserts` class for simplified navigation testing with parameter resolution
+* Maintenance of backward compatibility to ensure existing tests continue to work
+
+== Benefits of Parameter Resolution
+
+The new parameter resolution approach offers several advantages:
+
+* *Less boilerplate code*: No need to implement interfaces or declare fields
+* *More focused tests*: Test methods only receive the objects they actually need
+* *Improved readability*: Dependencies are clearly visible in method signatures
+* *Better testability*: Easier to test components in isolation
+* *Simplified test setup*: No need to manually wire dependencies
+* *Reduced coupling*: Tests don't depend on implementation details of the framework
+* *Future-proof*: Aligned with modern JUnit 5 testing practices
+
+== Migration Guide
+
+=== Step 1: Update Dependencies
+
+Ensure you're using the latest version of the JSF testing framework that includes parameter resolution support.
+
+=== Step 2: Identify Classes Using JsfEnvironmentConsumer
+
+Identify test classes that currently implement `JsfEnvironmentConsumer` or extend `JsfEnabledTestEnvironment`. These classes will need to be migrated.
+
+=== Step 3: Migrate Test Methods
+
+For each test method that uses JSF objects:
+
+1. Identify which JSF objects the test method uses
+2. Add these objects as parameters to the test method
+3. Remove references to getter methods from `JsfEnvironmentConsumer`
+
+==== Before Migration
+
+[source,java]
+----
+@EnableJsfEnvironment
+class MyTest implements JsfEnvironmentConsumer {
+
+    @Setter
+    @Getter
+    private JsfEnvironmentHolder environmentHolder;
+
+    @Test
+    void testSomething() {
+        FacesContext facesContext = getFacesContext();
+        Application application = getApplication();
+
+        // Test code using facesContext and application
+    }
+}
+----
+
+==== After Migration
+
+[source,java]
+----
+@EnableJsfEnvironment
+class MyTest {
+
+    @Test
+    void testSomething(FacesContext facesContext, Application application) {
+        // Test code using facesContext and application
+    }
+}
+----
+
+=== Step 4: Migrate Base Classes
+
+If your test classes extend `JsfEnabledTestEnvironment`, consider migrating to a standalone test class that uses parameter resolution.
+
+==== Before Migration
+
+[source,java]
+----
+@EnableJsfEnvironment
+class MyTest extends JsfEnabledTestEnvironment {
+
+    @Test
+    void testNavigation() {
+        // Set up navigation
+        getApplicationConfigDecorator().registerNavigationCase("outcome", "targetViewId");
+
+        // Perform navigation
+        getFacesContext().getApplication().getNavigationHandler()
+            .handleNavigation(getFacesContext(), null, "outcome");
+
+        // Assert navigation outcome
+        assertNavigatedWithOutcome("outcome");
+    }
+}
+----
+
+==== After Migration
+
+[source,java]
+----
+@EnableJsfEnvironment
+class MyTest {
+
+    @Test
+    void testNavigation(
+            FacesContext facesContext, 
+            ApplicationConfigDecorator applicationConfig,
+            NavigationAsserts navigationAsserts) {
+        // Set up navigation
+        applicationConfig.registerNavigationCase("outcome", "targetViewId");
+
+        // Perform navigation
+        facesContext.getApplication().getNavigationHandler()
+            .handleNavigation(facesContext, null, "outcome");
+
+        // Assert navigation outcome
+        navigationAsserts.assertNavigatedWithOutcome("outcome");
+    }
+}
+----
+
+==== Migrating Common Base Test Classes
+
+The following sections provide guidance for migrating common base test classes to use parameter resolution.
+
+[IMPORTANT]
+====
+When migrating tests that extend base classes like `AbstractConverterTest`, `AbstractSanitizingConverterTest`, `AbstractValidatorTest`, `AbstractComponentTest`, `AbstractUiComponentTest`, or `AbstractComponentRendererTest`, the `@EnableJsfEnvironment` annotation is usually *not necessary* because the parent class already provides it. 
+
+Adding the annotation again in the child class is redundant and should be avoided unless you have a specific reason to override the parent's configuration.
+====
+
+===== AbstractConverterTest
+
+When migrating tests that extend `AbstractConverterTest`, you should update test methods to use parameter resolution for JSF objects.
+
+====== Before Migration
+
+[source,java]
+----
+@EnableJsfEnvironment
+class MyConverterTest extends AbstractConverterTest<MyConverter, String> {
+
+    @Override
+    public void populate(final TestItems<String> testItems) {
+        testItems.addRoundtripValues("value1", "value2");
+    }
+
+    @Test
+    void shouldHandleSpecialCase() {
+        var converter = getConverter();
+        var result = converter.getAsString(getFacesContext(), getComponent(), "special");
+        assertEquals("expected", result);
+    }
+}
+----
+
+====== After Migration
+
+[source,java]
+----
+@EnableJsfEnvironment
+class MyConverterTest extends AbstractConverterTest<MyConverter, String> {
+
+    @Override
+    public void populate(final TestItems<String> testItems) {
+        testItems.addRoundtripValues("value1", "value2");
+    }
+
+    @Test
+    void shouldHandleSpecialCase(FacesContext facesContext) {
+        var converter = getConverter();
+        var result = converter.getAsString(facesContext, getComponent(), "special");
+        assertEquals("expected", result);
+    }
+}
+----
+
+===== AbstractSanitizingConverterTest
+
+For tests extending `AbstractSanitizingConverterTest`, the migration approach is similar to `AbstractConverterTest`.
+
+====== Before Migration
+
+[source,java]
+----
+@EnableJsfEnvironment
+class MySanitizingConverterTest extends AbstractSanitizingConverterTest<MySanitizingConverter, String> {
+
+    @Override
+    public void populate(final TestItems<String> testItems) {
+        testItems.addRoundtripValues("safe_value")
+                .addValidObjectWithStringResult("<p>unsafe</p>", "unsafe");
+    }
+
+    @Test
+    void shouldConfigureSanitizer() {
+        var converter = getConverter();
+        converter.setSanitizerOption("option");
+        var result = converter.getAsString(getFacesContext(), getComponent(), "<script>alert('xss')</script>");
+        assertEquals("", result);
+    }
+}
+----
+
+====== After Migration
+
+[source,java]
+----
+@EnableJsfEnvironment
+class MySanitizingConverterTest extends AbstractSanitizingConverterTest<MySanitizingConverter, String> {
+
+    @Override
+    public void populate(final TestItems<String> testItems) {
+        testItems.addRoundtripValues("safe_value")
+                .addValidObjectWithStringResult("<p>unsafe</p>", "unsafe");
+    }
+
+    @Test
+    void shouldConfigureSanitizer(FacesContext facesContext) {
+        var converter = getConverter();
+        converter.setSanitizerOption("option");
+        var result = converter.getAsString(facesContext, getComponent(), "<script>alert('xss')</script>");
+        assertEquals("", result);
+    }
+}
+----
+
+===== AbstractValidatorTest
+
+For tests extending `AbstractValidatorTest`, update test methods to use parameter resolution for JSF objects.
+
+====== Before Migration
+
+[source,java]
+----
+@EnableJsfEnvironment
+class MyValidatorTest extends AbstractValidatorTest<MyValidator, String> {
+
+    @Override
+    public void populate(final TestItems<String> testItems) {
+        testItems.addValid("valid")
+                .addInvalidWithMessage("invalid", "error.message.key");
+    }
+
+    @Test
+    void shouldHandleSpecialValidation() {
+        var validator = getValidator();
+        validator.setOption("value");
+
+        // Using getFacesContext() from parent class
+        assertThrows(ValidatorException.class, 
+            () -> validator.validate(getFacesContext(), getComponent(), "special"));
+    }
+}
+----
+
+====== After Migration
+
+[source,java]
+----
+@EnableJsfEnvironment
+class MyValidatorTest extends AbstractValidatorTest<MyValidator, String> {
+
+    @Override
+    public void populate(final TestItems<String> testItems) {
+        testItems.addValid("valid")
+                .addInvalidWithMessage("invalid", "error.message.key");
+    }
+
+    @Test
+    void shouldHandleSpecialValidation(FacesContext facesContext) {
+        var validator = getValidator();
+        validator.setOption("value");
+
+        // Using injected facesContext parameter
+        assertThrows(ValidatorException.class, 
+            () -> validator.validate(facesContext, getComponent(), "special"));
+    }
+}
+----
+
+===== AbstractComponentTest
+
+For tests extending `AbstractComponentTest`, update test methods to use parameter resolution for JSF objects and configuration decorators.
+
+====== Before Migration
+
+[source,java]
+----
+@EnableJsfEnvironment
+@VerifyComponentProperties(of = { "property1", "property2" })
+class MyComponentTest extends AbstractComponentTest<MyComponent> implements ComponentConfigurator {
+
+    @Override
+    public void configureComponents(ComponentConfigDecorator decorator) {
+        decorator.registerMockRenderer("family", "rendererType");
+    }
+
+    @Test
+    void shouldHandleSpecialCase() {
+        var component = anyComponent();
+        component.setValue("test");
+
+        // Using getFacesContext() from parent class
+        component.encodeBegin(getFacesContext());
+    }
+}
+----
+
+====== After Migration
+
+[source,java]
+----
+@EnableJsfEnvironment
+@VerifyComponentProperties(of = { "property1", "property2" })
+class MyComponentTest extends AbstractComponentTest<MyComponent> {
+
+    @Test
+    void shouldHandleSpecialCase(FacesContext facesContext, ComponentConfigDecorator componentConfig) {
+        // Configure components directly in the test method
+        componentConfig.registerMockRenderer("family", "rendererType");
+
+        var component = anyComponent();
+        component.setValue("test");
+
+        // Using injected facesContext parameter
+        component.encodeBegin(facesContext);
+    }
+}
+----
+
+===== AbstractUiComponentTest
+
+For tests extending `AbstractUiComponentTest`, the migration approach is similar to `AbstractComponentTest`.
+
+====== Before Migration
+
+[source,java]
+----
+@EnableJsfEnvironment
+class MyUiComponentTest extends AbstractUiComponentTest<MyUiComponent> implements ComponentConfigurator {
+
+    @Override
+    public void configureComponents(ComponentConfigDecorator decorator) {
+        decorator.registerMockRenderer("family", "rendererType");
+    }
+
+    @Test
+    void shouldRenderCorrectly() {
+        var component = anyComponent();
+        component.setId("testId");
+
+        // Using getFacesContext() from parent class
+        component.encodeAll(getFacesContext());
+    }
+}
+----
+
+====== After Migration
+
+[source,java]
+----
+@EnableJsfEnvironment
+class MyUiComponentTest extends AbstractUiComponentTest<MyUiComponent> {
+
+    @Test
+    void shouldRenderCorrectly(FacesContext facesContext, ComponentConfigDecorator componentConfig) {
+        // Configure components directly in the test method
+        componentConfig.registerMockRenderer("family", "rendererType");
+
+        var component = anyComponent();
+        component.setId("testId");
+
+        // Using injected facesContext parameter
+        component.encodeAll(facesContext);
+    }
+}
+----
+
+===== AbstractComponentRendererTest
+
+For tests extending `AbstractComponentRendererTest`, update test methods to use parameter resolution for JSF objects and configuration decorators.
+
+====== Before Migration
+
+[source,java]
+----
+@EnableJsfEnvironment
+class MyRendererTest extends AbstractComponentRendererTest<MyRenderer> implements ComponentConfigurator {
+
+    @Override
+    public void configureComponents(ComponentConfigDecorator decorator) {
+        decorator.registerUIComponent(MyComponent.class)
+                 .registerRenderer(MyRenderer.class);
+    }
+
+    @Override
+    protected UIComponent getComponent() {
+        var component = new MyComponent();
+        component.setId("testComponent");
+        component.setValue("testValue");
+        return component;
+    }
+
+    @Test
+    void shouldRenderCorrectly() throws IOException {
+        var component = getComponent();
+        var renderer = getRenderer();
+
+        // Using getFacesContext() from parent class
+        renderer.encodeBegin(getFacesContext(), component);
+    }
+}
+----
+
+====== After Migration
+
+[source,java]
+----
+@EnableJsfEnvironment
+class MyRendererTest extends AbstractComponentRendererTest<MyRenderer> {
+
+    @Override
+    protected UIComponent getComponent() {
+        var component = new MyComponent();
+        component.setId("testComponent");
+        component.setValue("testValue");
+        return component;
+    }
+
+    @Test
+    void shouldRenderCorrectly(FacesContext facesContext, ComponentConfigDecorator componentConfig) throws IOException {
+        // Configure components directly in the test method
+        componentConfig.registerUIComponent(MyComponent.class)
+                       .registerRenderer(MyRenderer.class);
+
+        var component = getComponent();
+        var renderer = getRenderer();
+
+        // Using injected facesContext parameter
+        renderer.encodeBegin(facesContext, component);
+    }
+}
+----
+
+=== Step 5: Migrate from Configurator Interfaces
+
+If your test classes implement any of the configurator interfaces (`ApplicationConfigurator`, `ComponentConfigurator`, `RequestConfigurator`), you should migrate to the parameter resolution approach.
+
+==== Before Migration (using ComponentConfigurator)
+
+[source,java]
+----
+@EnableJsfEnvironment
+class MyComponentTest implements ComponentConfigurator {
+
+    @Test
+    void testComponent() {
+        // Test code
+    }
+
+    @Override
+    public void configureComponents(ComponentConfigDecorator decorator) {
+        decorator.registerMockRenderer("javax.faces.Output", "javax.faces.Text");
+    }
+}
+----
+
+==== After Migration (using parameter resolution)
+
+[source,java]
+----
+@EnableJsfEnvironment
+class MyComponentTest {
+
+    @Test
+    void testComponent(ComponentConfigDecorator componentConfig) {
+        componentConfig.registerMockRenderer("javax.faces.Output", "javax.faces.Text");
+
+        // Test code
+    }
+}
+----
+
+The same approach applies to the other configurator interfaces:
+
+* Replace `ApplicationConfigurator.configureApplication(ApplicationConfigDecorator)` with `ApplicationConfigDecorator` parameter
+* Replace `RequestConfigurator.configureRequest(RequestConfigDecorator)` with `RequestConfigDecorator` parameter
+
+This approach has several advantages:
+
+* Configuration is done directly in the test method, making it more explicit and visible
+* Only the tests that need configuration receive the configurator
+* The test class doesn't need to implement any interface
+* The configuration is scoped to the test method, not the entire class
+
+=== Step 6: Update Utility Method Calls
+
+If your tests use utility methods from `JsfEnvironmentConsumer` or `JsfEnabledTestEnvironment`, update them to use the `NavigationAsserts` parameter type.
+
+*Old approach (JsfEnvironmentConsumer):*
+
+The old approach used methods that implicitly accessed the JSF environment through the consumer interface. For example:
+
+* `assertNavigatedWithOutcome(String outcome)` - Asserts navigation with a specific outcome
+* `assertRedirect(String redirectUrl)` - Asserts a redirect to a specific URL
+
+*New approach (NavigationAsserts):*
+
+The new approach uses the `NavigationAsserts` parameter type, which provides methods for asserting navigation outcomes and redirects:
+
+* `navigationAsserts.assertNavigatedWithOutcome(String outcome)` - Asserts navigation with a specific outcome
+* `navigationAsserts.assertRedirect(String redirectUrl)` - Asserts a redirect to a specific URL
+
+This makes the dependencies explicit and allows for better testing of isolated components.
+
+== Supported Parameter Types
+
+The following parameter types are currently supported for resolution:
+
+* `JsfEnvironmentHolder` - the main holder object that contains all JSF-related objects
+* `FacesContext` - the central context object for JSF processing
+* `ExternalContext` - provides access to the external environment (request, response, etc.)
+* `Application` - represents the JSF application
+* `RequestConfigDecorator` - allows configuration of the request in tests
+* `ApplicationConfigDecorator` - allows configuration of the application in tests
+* `ComponentConfigDecorator` - allows configuration of components in tests
+* `MockHttpServletResponse` - provides access to the mock HTTP response
+* `MockHttpServletRequest` - provides access to the mock HTTP request
+* `NavigationAsserts` - provides utilities for asserting navigation outcomes and redirects
+
+== Common Patterns and Examples
+
+=== Testing with Multiple Parameters
+
+You can request multiple parameters in a single test method:
+
+[source,java]
+----
+@Test
+void testWithMultipleParameters(
+        FacesContext facesContext,
+        Application application,
+        ComponentConfigDecorator componentConfig) {
+    // Test code using multiple JSF objects
+}
+----
+
+=== Testing Component Configuration
+
+[source,java]
+----
+@Test
+void testComponentConfiguration(ComponentConfigDecorator componentConfig) {
+    // Register a mock component
+    componentConfig.registerMockRenderer("javax.faces.Output", "javax.faces.Text");
+
+    // Test code using the configured component
+}
+----
+
+=== Testing Navigation
+
+[source,java]
+----
+@Test
+void testNavigation(
+        FacesContext facesContext, 
+        ApplicationConfigDecorator applicationConfig,
+        NavigationAsserts navigationAsserts) {
+    // Set up navigation
+    applicationConfig.registerNavigationCase("outcome", "targetViewId");
+
+    // Perform navigation
+    facesContext.getApplication().getNavigationHandler()
+        .handleNavigation(facesContext, null, "outcome");
+
+    // Assert navigation outcome
+    navigationAsserts.assertNavigatedWithOutcome("outcome");
+}
+----
+
+=== Testing Redirects
+
+[source,java]
+----
+@Test
+void testRedirect(
+        ExternalContext externalContext,
+        NavigationAsserts navigationAsserts) throws IOException {
+    // Perform redirect
+    externalContext.redirect("http://example.com");
+
+    // Assert redirect
+    navigationAsserts.assertRedirect("http://example.com");
+}
+----
+
+== Common Pitfalls and Solutions
+
+=== Pitfall: Missing Parameters
+
+*Problem*: Test fails with `ParameterResolutionException` because a required parameter is missing.
+
+*Solution*: Ensure that all required parameters are declared in the test method signature and that they are of the correct type.
+
+=== Pitfall: Mixing Old and New Approaches
+
+*Problem*: Test uses both `JsfEnvironmentConsumer` methods and parameter resolution, leading to confusion.
+
+*Solution*: Fully migrate to the parameter resolution approach. If you need to maintain backward compatibility, consider using a separate test class.
+
+=== Pitfall: Missing NavigationAsserts Parameter
+
+*Problem*: Navigation assertions fail because the NavigationAsserts parameter is missing from the test method.
+
+*Solution*: Add NavigationAsserts as a parameter to test methods that need to assert navigation outcomes or redirects.
+
+=== Pitfall: CDI Integration Challenges
+
+*Problem*: Some tests rely on CDI features that aren't directly available in the parameter resolution approach. When combining `@EnableJsfEnvironment` with CDI, Weld may interfere with JsfSetupExtension, resulting in errors like: `org.junit.jupiter.api.extension.ParameterResolutionException: Weld has failed to resolve test parameter [de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator arg0] in method [void de.cuioss.jsf.api.application.message.DisplayNameMessageProducerTest.showAsGlobalMessageAndLogWithError(de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator)]`.
+
+*Solution*: Annotate the test method or class with `@ExplicitParamInjection` to prevent Weld from interfering with JsfSetupExtension. This annotation tells Weld to only inject parameters that are explicitly annotated with CDI qualifiers, allowing JsfSetupExtension to handle the other parameters. For more information, see the Weld testing documentation: https://github.com/weld/weld-testing/blob/master/junit5/README.md#explicit-parameter-injection
+
+== Migration Findings and Best Practices
+
+=== Helper Method Migration
+
+When migrating helper methods that previously accessed JSF objects through the parent class, convert them to accept the required objects as parameters:
+
+==== Before Migration
+
+[source,java]
+----
+protected HtmlTreeBuilder renderToTreeBuilder(UIComponent component, Renderer renderer) throws IOException {
+    var writer = new StringWriter();
+    getFacesContext().setResponseWriter(new MockResponseWriter(writer));
+    renderer.encodeBegin(getFacesContext(), component);
+    renderer.encodeChildren(getFacesContext(), component);
+    renderer.encodeEnd(getFacesContext(), component);
+    return new HtmlTreeBuilder(writer.toString());
+}
+----
+
+==== After Migration
+
+[source,java]
+----
+protected HtmlTreeBuilder renderToTreeBuilder(UIComponent component, Renderer renderer, 
+        FacesContext facesContext) throws IOException {
+    var writer = new StringWriter();
+    facesContext.setResponseWriter(new MockResponseWriter(writer));
+    renderer.encodeBegin(facesContext, component);
+    renderer.encodeChildren(facesContext, component);
+    renderer.encodeEnd(facesContext, component);
+    return new HtmlTreeBuilder(writer.toString());
+}
+----
+
+=== Handling Tests with Multiple JSF Object Dependencies
+
+For tests that depend on multiple JSF objects, it's cleaner to pass them as parameters rather than retrieving them through getter methods:
+
+==== Before Migration
+
+[source,java]
+----
+@Test
+void shouldHandleCustomDataPrefix() {
+    var any = anyComponent();
+    var prefix = "huch-";
+    any.ajaxDataPrefix(prefix);
+    final var someId = "someId";
+    any.setUpdate(someId);
+    any.setProcess(someId);
+
+    CuiMockSearchExpressionHandler.retrieve(getFacesContext()).setResolvedClientIds(mutableList(someId));
+
+    var ajaxAttributes = any.resolveAjaxAttributesAsMap(any);
+    assertEquals(2, ajaxAttributes.size());
+
+    // Additional assertions...
+}
+----
+
+==== After Migration
+
+[source,java]
+----
+@Test
+void shouldHandleCustomDataPrefix(FacesContext facesContext) {
+    var any = anyComponent();
+    var prefix = "huch-";
+    any.ajaxDataPrefix(prefix);
+    final var someId = "someId";
+    any.setUpdate(someId);
+    any.setProcess(someId);
+
+    CuiMockSearchExpressionHandler.retrieve(facesContext).setResolvedClientIds(mutableList(someId));
+
+    var ajaxAttributes = any.resolveAjaxAttributesAsMap(any);
+    assertEquals(2, ajaxAttributes.size());
+
+    // Additional assertions...
+}
+----
+
+=== Migrating Tests Using assertRenderResult
+
+When migrating tests that use the `assertRenderResult` method, pay special attention to the order of arguments and exception handling:
+
+==== Before Migration
+
+[source,java]
+----
+@Test
+void shouldRenderMinimal() {
+    var expected = new HtmlTreeBuilder().withNode(Node.BUTTON).withStyleClass(DEFAULT_BTN_CLASSES);
+    assertRenderResult(getFacesContext(), getComponent(), expected.getDocument());
+}
+----
+
+==== After Migration
+
+[source,java]
+----
+@Test
+void shouldRenderMinimal(FacesContext facesContext) throws IOException {
+    var expected = new HtmlTreeBuilder().withNode(Node.BUTTON).withStyleClass(DEFAULT_BTN_CLASSES);
+    assertRenderResult(getComponent(), expected.getDocument(), facesContext);
+}
+----
+
+[IMPORTANT]
+====
+When migrating tests that use `assertRenderResult`, make sure to:
+
+1. *Use the correct parameter order*: The correct order is `assertRenderResult(component, expected.getDocument(), facesContext)`, not `assertRenderResult(facesContext, component, expected.getDocument())`.
+
+2. *Declare IOException*: Methods that use `assertRenderResult` must declare `throws IOException` to compile correctly.
+
+3. *Add FacesContext parameter*: Replace `getFacesContext()` with a `FacesContext` parameter in the test method signature.
+
+Failing to follow these steps will result in compilation errors and test failures.
+====
+
+=== Migrating Abstract Test Classes
+
+When migrating abstract test classes that extend `JsfEnabledTestEnvironment`, consider these approaches:
+
+1. *Direct Parameter Resolution*: Replace all getter methods with parameter resolution in test methods
+2. *Hybrid Approach*: For complex test hierarchies, you might need a transitional approach where the base class still provides some common functionality while individual test methods use parameter resolution
+
+=== Handling Configuration Methods
+
+For test classes that implement configurator interfaces like `ComponentConfigurator`, migrate the configuration logic to test methods:
+
+==== Before Migration
+
+[source,java]
+----
+@Test
+void shouldUseConverterAsId() {
+    getComponentConfigDecorator().registerConverter(ReverseConverter.class);
+    var any = anyComponent();
+    any.setPlaceholderConverter(ReverseConverter.CONVERTER_ID);
+    any.setPlaceholderValue("test");
+    assertEquals("tset", any.resolvePlaceholder());
+}
+----
+
+==== After Migration
+
+[source,java]
+----
+@Test
+void shouldUseConverterAsId(ComponentConfigDecorator componentConfig) {
+    componentConfig.registerConverter(ReverseConverter.class);
+    var any = anyComponent();
+    any.setPlaceholderConverter(ReverseConverter.CONVERTER_ID);
+    any.setPlaceholderValue("test");
+    assertEquals("tset", any.resolvePlaceholder());
+}
+----
+
+== Backward Compatibility
+
+The JSF testing framework maintains backward compatibility with the existing approach:
+
+* The `JsfEnvironmentConsumer` interface is still supported but deprecated
+* Test classes can implement both approaches simultaneously during migration
+* Existing tests will continue to work without modification
+
+However, it is recommended to migrate to the new parameter resolution approach for all new tests and to gradually migrate existing tests as time permits.
+
+== Future Enhancements
+
+Future enhancements to the parameter resolution support include:
+
+=== Extended Parameter Resolution Support
+
+* Support for additional JSF objects:
+** `NavigationHandler` - for testing navigation logic
+** `UIComponent` instances - for testing component behavior
+** `ELContext` - for testing expression language evaluation
+** `ViewHandler` - for testing view handling logic
+** `RenderKit` - for testing rendering logic
+** `UIViewRoot` - for testing view root functionality
+** `ResourceHandler` - for testing resource handling
+** Custom beans from the JSF context - for testing application-specific beans
+
+* Custom annotations for specific injection scenarios:
+** `@JsfInject` annotation for more specific injection control
+** Qualification of injected objects (e.g., by name or type)
+** Injection of custom beans from the JSF context
+** Injection of mock objects for testing
+
+=== Performance Optimization
+
+* Evaluation of performance impact of parameter resolution vs. manual injection
+* Optimization of the parameter resolution mechanism
+* Implementation of caching for frequently resolved parameters
+
+== Conclusion
+
+Migrating to the parameter resolution approach will make your JSF tests more concise, readable, and maintainable. The migration process is straightforward and can be done incrementally, allowing you to migrate tests at your own pace while maintaining backward compatibility.
+
+For more information, refer to the JavaDoc documentation of the relevant classes, particularly `JsfParameterResolver`, `JsfSetupExtension`, and `NavigationAsserts`.

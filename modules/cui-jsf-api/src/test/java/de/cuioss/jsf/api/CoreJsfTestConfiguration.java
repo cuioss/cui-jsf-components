@@ -15,9 +15,6 @@
  */
 package de.cuioss.jsf.api;
 
-import jakarta.faces.convert.NumberConverter;
-import jakarta.faces.render.Renderer;
-
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.jsf.api.converter.ObjectToStringConverter;
 import de.cuioss.jsf.api.converter.StringIdentConverter;
@@ -25,6 +22,8 @@ import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.defaults.BasicApplicationConfiguration;
 import de.cuioss.test.jsf.mocks.CuiMockRenderer;
+import jakarta.faces.convert.NumberConverter;
+import jakarta.faces.render.Renderer;
 
 /**
  * Defines a base setup for testing. Implicitly uses

@@ -17,16 +17,7 @@ package de.cuioss.jsf.dev.ui.components;
 
 import static de.cuioss.jsf.dev.ui.components.SourceCodeComponent.LangStyle.LANG_HTML;
 import static de.cuioss.jsf.dev.ui.components.SourceCodeComponentRenderer.PRE_STYLE_CLASS;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import jakarta.faces.component.UIComponent;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
@@ -34,6 +25,13 @@ import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 import de.cuioss.tools.string.MoreStrings;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 class SourceCodeComponentRendererTest extends AbstractComponentRendererTest<SourceCodeComponentRenderer> {
 
@@ -55,18 +53,18 @@ class SourceCodeComponentRendererTest extends AbstractComponentRendererTest<Sour
     }
 
     @Test
-    void shouldRenderMinimal() {
+    void shouldRenderMinimal(FacesContext facesContext) throws IOException {
         final var component = new SourceCodeComponent();
         component.setSource(MINIMAL_CONTENT);
         component.setEnableClipboard(false);
         final var expected = new HtmlTreeBuilder().withNode(Node.PRE).withAttributeNameAndId(PRE_WRAPPER_ID)
                 .withStyleClass(PRE_STYLE_CLASS).withNode(Node.CODE).withStyleClass(LANG_HTML.getStyle())
                 .withTextContent(MINIMAL_CONTENT);
-        assertRenderResult(component, expected.getDocument());
+        assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderWithDescription() {
+    void shouldRenderWithDescription(FacesContext facesContext) throws IOException {
         final var component = new SourceCodeComponent();
         component.setSource(MINIMAL_CONTENT);
         component.setDescription(MINIMAL_DESCRIPTION);
@@ -77,11 +75,11 @@ class SourceCodeComponentRendererTest extends AbstractComponentRendererTest<Sour
         // Actual Content of source area
         expected.withNode(Node.PRE).withAttributeNameAndId(PRE_WRAPPER_ID).withStyleClass(PRE_STYLE_CLASS)
                 .withNode(Node.CODE).withStyleClass(LANG_HTML.getStyle()).withTextContent(MINIMAL_CONTENT);
-        assertRenderResult(component, expected.getDocument());
+        assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderWithCopyButton() {
+    void shouldRenderWithCopyButton(FacesContext facesContext) throws IOException {
         final var component = new SourceCodeComponent();
         component.setSource(MINIMAL_CONTENT);
         component.setEnableClipboard(true);
@@ -104,7 +102,7 @@ class SourceCodeComponentRendererTest extends AbstractComponentRendererTest<Sour
         // Actual Content of source area
         expected.withNode(Node.PRE).withAttributeNameAndId(PRE_WRAPPER_ID).withStyleClass(PRE_STYLE_CLASS)
                 .withNode(Node.CODE).withStyleClass(LANG_HTML.getStyle()).withTextContent(MINIMAL_CONTENT);
-        assertRenderResult(component, expected.getDocument());
+        assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
     @Test
@@ -149,13 +147,13 @@ class SourceCodeComponentRendererTest extends AbstractComponentRendererTest<Sour
     }
 
     @Test
-    void shouldSanitizeLineBreaks() {
+    void shouldSanitizeLineBreaks(FacesContext facesContext) throws IOException {
         final var component = new SourceCodeComponent();
         component.setEnableClipboard(false);
         component.setSource("1\n2\r3\n\r4\r\n5%n6");
         final var expected = new HtmlTreeBuilder().withNode(Node.PRE).withAttributeNameAndId(PRE_WRAPPER_ID)
                 .withStyleClass(PRE_STYLE_CLASS).withNode(Node.CODE).withStyleClass(LANG_HTML.getStyle())
                 .withTextContent("1\n2\n3\n4\n5\n6");
-        assertRenderResult(component, expected.getDocument());
+        assertRenderResult(component, expected.getDocument(), facesContext);
     }
 }

@@ -20,40 +20,79 @@ import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.icon.support.CssMimeTypeIcon;
 import de.cuioss.tools.string.MoreStrings;
-import lombok.experimental.Delegate;
-
 import jakarta.faces.component.FacesComponent;
+import lombok.experimental.Delegate;
 
 /**
  * <p>
- * Renders an MimeTypeIcon regarding to the cui-icon contract.
+ * Specialized icon component for displaying MIME type icons from the CUI icon library.
+ * This component renders appropriate icons based on file types or MIME type identifiers,
+ * providing a consistent visual representation for different file formats across the application.
  * </p>
+ * 
+ * <h2>Features</h2>
+ * <ul>
+ *   <li>Displays icons specific to file types/MIME types (e.g., PDF, Excel, audio)</li>
+ *   <li>Supports all MIME types defined in the {@link MimeTypeIcon} enum</li>
+ *   <li>Configurable icon size (xs, sm, md, lg, xl)</li>
+ *   <li>Optional decorator styling for layered icon display</li>
+ *   <li>Tooltip/title support with resource bundle integration</li>
+ *   <li>Customizable styling through additional CSS classes and styles</li>
+ * </ul>
+ * 
+ * <h2>Component Structure</h2>
  * <p>
- * A list of all available mimeTypeIcons can be found at the <a href=
- * "https://cuioss.de/cui-reference-documentation/pages/documentation/icons/mime_types.jsf">
- * Reference Documentation</a>
+ * The component renders a styled icon representation of a file type using the CUI icon system.
+ * Depending on the configuration, it may render:
  * </p>
+ * <ul>
+ *   <li>A simple icon representation of the MIME type</li>
+ *   <li>A stacked icon with base layer and a type indicator</li>
+ *   <li>A customized decorator layer if decorator class is specified</li>
+ * </ul>
+ * 
  * <h2>Attributes</h2>
  * <ul>
- * <li>{@link TitleProvider}</li>
- * <li>{@link ContextSizeProvider}</li>
- * <li>{@link ComponentStyleClassProvider}</li>
- * <li>{@link StyleAttributeProvider}</li>
- * <li>decoratorClass: Additional class for the decorating layer. Defaults to
- * "cui-mime-type-no-decorator"</li>
- * <li>mimeTypeIcon: The MimeTypeIcon to be displayed. In case #mimeTypeIcon and
- * #mimeTypeString is set #mimeTypeIcon take precedence</li>
- * <li>mimeTypeString: The string representation of a concrete mime-type. In
- * case #mimeTypeIcon and #mimeTypeString is set #mimeTypeIcon take
- * precedence.</li>
+ *   <li>{@link TitleProvider} - For tooltip/title support with resource bundle integration</li>
+ *   <li>{@link ContextSizeProvider} - For icon size configuration (xs, sm, md, lg, xl)</li>
+ *   <li>{@link ComponentStyleClassProvider} - For additional CSS styling</li>
+ *   <li>{@link StyleAttributeProvider} - For inline CSS styling</li>
+ *   <li><b>mimeTypeIcon</b> - The {@link MimeTypeIcon} enum value to be displayed</li>
+ *   <li><b>mimeTypeString</b> - String representation of a MIME type (alternative to mimeTypeIcon)</li>
+ *   <li><b>decoratorClass</b> - Additional CSS class for the decorating layer (defaults to "cui-mime-type-no-decorator")</li>
  * </ul>
- * <h2>Usage</h2>
- *
+ * 
+ * <h2>Selection Logic</h2>
+ * <p>
+ * The component resolves which MIME type icon to display using the following logic:
+ * </p>
+ * <ol>
+ *   <li>If mimeTypeIcon is set, it takes precedence</li>
+ *   <li>Otherwise, if mimeTypeString is set, it's converted to the corresponding enum value</li>
+ *   <li>If neither is set, or if mimeTypeString doesn't map to a valid enum, falls back to MimeTypeIcon.UNDEFINED</li>
+ * </ol>
+ * 
+ * <h2>Usage Examples</h2>
+ * 
+ * <p><b>Using enum constant name as string:</b></p>
  * <pre>
- * &lt;cui:mimeTypeIcon mimeTypeString="AUDIO_MPEG" titleValue="AUDIO_MPEG" size="xl" /&gt;
+ * &lt;boot:mimeTypeIcon mimeTypeString="AUDIO_MPEG" titleValue="Audio file" /&gt;
+ * </pre>
+ * 
+ * <p><b>Using the enum directly (in backing bean):</b></p>
+ * <pre>
+ * &lt;boot:mimeTypeIcon mimeTypeIcon="#{backingBean.mimeType}" size="lg" /&gt;
+ * </pre>
+ * 
+ * <p><b>With custom decorator:</b></p>
+ * <pre>
+ * &lt;boot:mimeTypeIcon mimeTypeString="PDF" decoratorClass="my-pdf-decorator" /&gt;
  * </pre>
  *
  * @author Oliver Wolff
+ * @see MimeTypeIcon
+ * @see MimeTypeIconRenderer
+ * @see IconComponent
  */
 @FacesComponent(BootstrapFamily.MIME_TYPE_ICON_COMPONENT)
 public class MimeTypeIconComponent extends AbstractBaseCuiComponent implements TitleProvider {
@@ -70,9 +109,6 @@ public class MimeTypeIconComponent extends AbstractBaseCuiComponent implements T
     @Delegate
     private final ContextSizeProvider contextSizeProvider;
 
-    /**
-     *
-     */
     public MimeTypeIconComponent() {
         super.setRendererType(BootstrapFamily.MIME_TYPE_ICON_COMPONENT_RENDERER);
         titleProvider = new TitleProviderImpl(this);
@@ -133,7 +169,7 @@ public class MimeTypeIconComponent extends AbstractBaseCuiComponent implements T
      */
     public String getDecoratorClass() {
         return (String) getStateHelper().eval(DECORATOR_CLASS_KEY,
-            CssMimeTypeIcon.CUI_STACKED_ICON_NO_DECORATOR.getStyleClass());
+                CssMimeTypeIcon.CUI_STACKED_ICON_NO_DECORATOR.getStyleClass());
     }
 
     /**

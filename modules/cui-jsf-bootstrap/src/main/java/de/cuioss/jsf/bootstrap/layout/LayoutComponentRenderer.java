@@ -15,19 +15,45 @@
  */
 package de.cuioss.jsf.bootstrap.layout;
 
-import java.io.IOException;
-
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.render.FacesRenderer;
-import jakarta.faces.render.Renderer;
-
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.api.components.renderer.BaseDecoratorRenderer;
 import de.cuioss.jsf.api.components.renderer.DecoratingResponseWriter;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.FacesRenderer;
+import jakarta.faces.render.Renderer;
+
+import java.io.IOException;
 
 /**
- * {@link Renderer} for all variants of {@link AbstractLayoutComponent}
+ * <p>
+ * Core renderer implementation for all variants of {@link AbstractLayoutComponent} in the Bootstrap
+ * component hierarchy. This renderer provides the common rendering behavior for layout components.
+ * </p>
+ * 
+ * <h2>Rendering Structure</h2>
+ * <p>
+ * This renderer creates a basic div wrapper with the component's resolved style classes:
+ * </p>
+ * <pre>
+ * &lt;div class="[resolved-style-classes]" style="[style]"&gt;
+ *   [child components]
+ * &lt;/div&gt;
+ * </pre>
+ * 
+ * <h2>Responsibilities</h2>
+ * <ul>
+ *   <li>Rendering the basic Bootstrap layout container structure</li>
+ *   <li>Applying component-specific style classes resolved by the component</li>
+ *   <li>Handling client ID and pass-through attributes consistently</li>
+ *   <li>Providing a unified rendering approach for all layout components</li>
+ * </ul>
+ * 
+ * <p>
+ * This renderer supports various Bootstrap components like {@link RowComponent}, 
+ * {@link ColumnComponent}, {@link QuickControlGroupComponent}, and other layout components
+ * that extend from {@link AbstractLayoutComponent}.
+ * </p>
  *
  * @author Oliver Wolff
  */

@@ -15,16 +15,14 @@
  */
 package de.cuioss.jsf.api.components.partial;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import jakarta.faces.component.StateHelper;
-
-import org.omnifaces.util.State;
-
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.tools.string.Joiner;
+import jakarta.faces.component.StateHelper;
 import lombok.NonNull;
+import org.omnifaces.util.State;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <h2>Summary</h2>

@@ -15,14 +15,13 @@
  */
 package de.cuioss.jsf.api.components.selection;
 
-import java.io.Serializable;
-import java.util.List;
-
+import de.cuioss.uimodel.model.TypedSelection;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.event.ValueChangeListener;
 import jakarta.faces.model.SelectItem;
 
-import de.cuioss.uimodel.model.TypedSelection;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Interfaces for combining functionality used by selection elements.

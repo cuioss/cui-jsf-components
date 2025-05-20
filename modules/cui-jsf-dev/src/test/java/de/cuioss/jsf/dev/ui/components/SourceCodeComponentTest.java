@@ -18,76 +18,134 @@ package de.cuioss.jsf.dev.ui.components;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import de.cuioss.test.generator.Generators;
+import de.cuioss.test.jsf.component.AbstractComponentTest;
+import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import de.cuioss.test.jsf.config.decorator.RequestConfigDecorator;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import de.cuioss.test.generator.Generators;
-import de.cuioss.test.jsf.component.AbstractComponentTest;
-import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
-
-@VerifyComponentProperties(of = { "source", "sourcePath", "sourceContainerId", "enableClipboard", "type",
-        "description" }, defaultValued = { "enableClipboard" })
+@DisplayName("Tests for SourceCodeComponent")
+@VerifyComponentProperties(of = {"source", "sourcePath", "sourceContainerId", "enableClipboard", "type",
+        "description"}, defaultValued = {"enableClipboard"})
 class SourceCodeComponentTest extends AbstractComponentTest<SourceCodeComponent> {
 
     private static final String BASE = "/samples/";
-
     private static final String VIEW_ID = BASE + "source.xhtml";
-
     private static final String WRAPPER_ID = "panelRef";
 
-    @Test
-    void shouldReturnSource() {
-        var component = new SourceCodeComponent();
-        var source = Generators.strings(5, 100).next();
-        component.setSource(source);
-        assertEquals(source, component.resolveSource());
+    @Nested
+    @DisplayName("Direct Source Tests")
+    class DirectSourceTests {
+
+        @Test
+        @DisplayName("Should return the directly set source")
+        void shouldReturnSource() {
+            // Arrange
+            var component = new SourceCodeComponent();
+            var source = Generators.strings(5, 100).next();
+            component.setSource(source);
+
+            // Act
+            var resolvedSource = component.resolveSource();
+
+            // Assert
+            assertEquals(source, resolvedSource);
+        }
     }
 
-    @Test
-    void shouldResolveSourceId() {
-        getRequestConfigDecorator().setViewId(VIEW_ID);
-        var component = new SourceCodeComponent();
-        component.setSourceContainerId(WRAPPER_ID);
-        var resolved = component.resolveSource();
-        assertTrue(resolved.contains("Extract Sample Source"));
+    @Nested
+    @DisplayName("Source Container ID Tests")
+    class SourceContainerIdTests {
+
+        @Test
+        @DisplayName("Should resolve source from container ID")
+        void shouldResolveSourceId(RequestConfigDecorator requestConfigDecorator) {
+            // Arrange
+            requestConfigDecorator.setViewId(VIEW_ID);
+            var component = new SourceCodeComponent();
+            component.setSourceContainerId(WRAPPER_ID);
+
+            // Act
+            var resolved = component.resolveSource();
+
+            // Assert
+            assertTrue(resolved.contains("Extract Sample Source"));
+        }
     }
 
-    @ParameterizedTest
-    @CsvSource({ "test.properties,hello=world", "relativeResources.properties,hello=relative",
-            "absoluteResources.properties,hello=absolute" })
-    void shouldReadRelativeSourceFile(String path, String result) {
-        getRequestConfigDecorator().setViewId(VIEW_ID);
-        var component = new SourceCodeComponent();
-        component.setSourcePath(path);
-        var resolved = component.resolveSource();
-        assertEquals(result, resolved);
+    @Nested
+    @DisplayName("Source File Tests")
+    class SourceFileTests {
+
+        @ParameterizedTest
+        @CsvSource({"test.properties,hello=world", "relativeResources.properties,hello=relative",
+                "absoluteResources.properties,hello=absolute"})
+        @DisplayName("Should read relative source files")
+        void shouldReadRelativeSourceFile(String path, String result, RequestConfigDecorator requestConfigDecorator) {
+            // Arrange
+            requestConfigDecorator.setViewId(VIEW_ID);
+            var component = new SourceCodeComponent();
+            component.setSourcePath(path);
+
+            // Act
+            var resolved = component.resolveSource();
+
+            // Assert
+            assertEquals(result, resolved);
+        }
+
+        @Test
+        @DisplayName("Should read absolute source file")
+        void shouldReadAbsoluteSourceFile(RequestConfigDecorator requestConfigDecorator) {
+            // Arrange
+            requestConfigDecorator.setViewId(VIEW_ID);
+            var component = new SourceCodeComponent();
+            component.setSourcePath("/META-INF" + BASE + "absolut.properties");
+
+            // Act
+            var resolved = component.resolveSource();
+
+            // Assert
+            assertEquals("hello=world2", resolved);
+        }
     }
 
-    @Test
-    void shouldReadAbsoluteSourceFile() {
-        getRequestConfigDecorator().setViewId(VIEW_ID);
-        var component = new SourceCodeComponent();
-        component.setSourcePath("/META-INF" + BASE + "absolut.properties");
-        var resolved = component.resolveSource();
-        assertEquals("hello=world2", resolved);
-    }
+    @Nested
+    @DisplayName("Error Handling Tests")
+    class ErrorHandlingTests {
 
-    @Test
-    void shouldFailToReadAbsoluteSourceFile() {
-        getRequestConfigDecorator().setViewId(VIEW_ID);
-        var component = new SourceCodeComponent();
-        component.setSourcePath("/META-INF" + BASE + "notthere.properties");
-        var resolved = component.resolveSource();
-        assertTrue(resolved.startsWith("Unable lo load "), resolved);
-    }
+        @Test
+        @DisplayName("Should handle missing absolute source file")
+        void shouldFailToReadAbsoluteSourceFile(RequestConfigDecorator requestConfigDecorator) {
+            // Arrange
+            requestConfigDecorator.setViewId(VIEW_ID);
+            var component = new SourceCodeComponent();
+            component.setSourcePath("/META-INF" + BASE + "notthere.properties");
 
-    @Test
-    void shouldFailToLoadRelativeSourceFile() {
-        getRequestConfigDecorator().setViewId(VIEW_ID);
-        var component = new SourceCodeComponent();
-        component.setSourcePath("not.there");
-        var resolved = component.resolveSource();
-        assertTrue(resolved.startsWith("Unable lo load "), resolved);
+            // Act
+            var resolved = component.resolveSource();
+
+            // Assert
+            assertTrue(resolved.startsWith("Unable lo load "), resolved);
+        }
+
+        @Test
+        @DisplayName("Should handle missing relative source file")
+        void shouldFailToLoadRelativeSourceFile(RequestConfigDecorator requestConfigDecorator) {
+            // Arrange
+            requestConfigDecorator.setViewId(VIEW_ID);
+            var component = new SourceCodeComponent();
+            component.setSourcePath("not.there");
+
+            // Act
+            var resolved = component.resolveSource();
+
+            // Assert
+            assertTrue(resolved.startsWith("Unable lo load "), resolved);
+        }
     }
 }

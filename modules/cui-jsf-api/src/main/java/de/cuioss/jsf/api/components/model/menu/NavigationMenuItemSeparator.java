@@ -16,13 +16,31 @@
 package de.cuioss.jsf.api.components.model.menu;
 
 /**
- * Represents menu separator. There is no need to create different instances of
- * this class, therefore you can get a instance by calling
- * {@linkplain NavigationMenuItemSeparatorImpl#getInstance(Integer)}
+ * <h2>Interface for menu separator items</h2>
+ * <p>
+ * This interface represents separator elements within a navigation menu. Separators are
+ * non-interactive elements that visually divide groups of related menu items, typically
+ * rendered as horizontal lines or dividers in dropdown menus.
+ * </p>
+ * <p>
+ * Key characteristics of menu separators:
+ * </p>
+ * <ul>
+ * <li>Visual dividers with no interactive functionality</li>
+ * <li>Used to group related menu items</li>
+ * <li>Positioned between menu items based on their order property</li>
+ * <li>Stateless elements that can be reused throughout a menu</li>
+ * </ul>
+ * <p>
+ * Since separators are stateless and functionally identical, the implementation
+ * {@link NavigationMenuItemSeparatorImpl} provides a singleton-pattern factory method
+ * {@link NavigationMenuItemSeparatorImpl#getInstance(Integer)} to avoid creating
+ * redundant instances.
+ * </p>
  *
  * @author Oliver Wolff
  * @author Sven Haag
  */
 public interface NavigationMenuItemSeparator extends NavigationMenuItem {
-
+    // No additional methods required beyond NavigationMenuItem
 }

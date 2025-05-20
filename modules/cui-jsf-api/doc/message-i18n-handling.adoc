@@ -1,0 +1,168 @@
+= Message Internationalization Handling
+:toc: macro
+:toclevels: 3
+:sectnumlevels: 4
+:numbered:
+
+link:../README.adoc[Back to README]
+
+This document describes the message internationalization (i18n) handling in the CUI JSF API, which relies on `de.cuioss.portal.common.bundle.ResourceBundleLocator` with `de.cuioss.jsf.api.application.message.MessageProducer` as the central aspect.
+
+toc::[]
+
+== Overview
+
+The CUI JSF API provides a comprehensive framework for handling internationalized messages in JSF applications. The system is designed to simplify the creation and management of `FacesMessage` objects while ensuring proper resource bundle resolution and message formatting.
+
+== Core Components
+
+=== ResourceBundleLocator
+
+The `ResourceBundleLocator` interface from the `de.cuioss.portal.common.bundle` package serves as the foundation for resource bundle access. It provides a mechanism to locate and retrieve resource bundles containing localized messages.
+
+==== CuiJSfResourceBundleLocator
+
+`CuiJSfResourceBundleLocator` is the implementation of `ResourceBundleLocator` that provides access to the core JSF message bundle "de.cuioss.jsf.api.l18n.messages" for the CUI JSF components.
+
+[source,java]
+----
+@Priority(PortalPriorities.PORTAL_CORE_LEVEL)
+@ApplicationScoped
+public class CuiJSfResourceBundleLocator implements ResourceBundleLocator {
+    private static final String PATH = "de.cuioss.jsf.api.l18n.messages";
+
+    @Override
+    public Optional<String> getBundlePath() {
+        return Optional.of(PATH);
+    }
+}
+----
+
+This locator is configured with the priority level `PortalPriorities.PORTAL_CORE_LEVEL`, ensuring it is loaded appropriately within the portal's resource bundle hierarchy.
+
+=== MessageProducer
+
+The `MessageProducer` interface is the central component for message handling in the CUI JSF API. It provides methods to:
+
+1. Create messages from resource bundle keys with parameter substitution
+2. Add messages to specific components or as global messages
+3. Set messages with different severity levels (INFO, WARN, ERROR)
+
+[source,java]
+----
+public interface MessageProducer extends Serializable {
+    // Create a FacesMessage using a message key from a resource bundle
+    FacesMessage getMessageFor(String messageKey, FacesMessage.Severity severity, Object... parameter);
+
+    // Create a FacesMessage and add it to the FacesContext
+    void setFacesMessage(String messageKey, FacesMessage.Severity severity, String componentId, Object... parameter);
+
+    // Add a direct message to the FacesContext without resource bundle resolution
+    void addMessage(String message, FacesMessage.Severity severity, String componentId, Object... parameter);
+
+    // Convenience methods for different severity levels and global messages
+    FacesMessage getErrorMessageFor(String messageKey, Object... parameter);
+    void setGlobalInfoMessage(String messageKey, Object... parameter);
+    void setGlobalErrorMessage(String messageKey, Object... parameter);
+    void setGlobalWarningMessage(String messageKey, Object... parameter);
+    // ... and more
+}
+----
+
+==== MessageProducerBean
+
+`MessageProducerBean` is the concrete implementation of the `MessageProducer` interface. It is a `@RequestScoped` bean, which means that for injecting it into `@ViewScoped` or `@SessionScoped` beans, you must use a `Provider<MessageProducer>`.
+
+==== DisplayNameMessageProducer
+
+`DisplayNameMessageProducer` is a specialized implementation that works with display name providers, making it easier to display localized names of domain objects.
+
+== Usage Examples
+
+=== Basic Message Creation
+
+[source,java]
+----
+@Inject
+private MessageProducer messageProducer;
+
+public void processAction() {
+    try {
+        // Business logic here
+        messageProducer.setGlobalInfoMessage("operation.success");
+    } catch (Exception e) {
+        messageProducer.setGlobalErrorMessage("operation.failed", e.getMessage());
+    }
+}
+----
+
+=== Component-Specific Messages
+
+[source,java]
+----
+@Inject
+private MessageProducer messageProducer;
+
+public void validateInput(String input, String componentId) {
+    if (input == null || input.isEmpty()) {
+        messageProducer.setFacesMessage("validation.required", 
+                                       FacesMessage.SEVERITY_ERROR, 
+                                       componentId);
+    }
+}
+----
+
+=== Using in ViewScoped Beans
+
+[source,java]
+----
+@ViewScoped
+@Named
+public class ViewScopedBean implements Serializable {
+
+    @Inject
+    private Provider<MessageProducer> messageProducerProvider;
+
+    public void someAction() {
+        // Get the current instance of MessageProducer
+        MessageProducer producer = messageProducerProvider.get();
+        producer.setGlobalInfoMessage("action.completed");
+    }
+}
+----
+
+== Integration with Converters and Validators
+
+The message handling system integrates seamlessly with JSF converters and validators through the `AbstractConverter` and `AbstractValidator` base classes, which use the `MessageProducer` to create consistent error messages.
+
+[source,java]
+----
+public class MyCustomConverter extends AbstractConverter<MyType> {
+
+    @Override
+    protected MyType toObject(String value, UIComponent component) {
+        try {
+            // Conversion logic
+            return convertToMyType(value);
+        } catch (ConversionException e) {
+            throw new ConverterException(
+                getMessageProducer().getErrorMessageFor("myConverter.error", value));
+        }
+    }
+
+    // Other methods...
+}
+----
+
+== Best Practices
+
+1. **Use Resource Bundles**: Always define messages in resource bundles rather than hardcoding them.
+2. **Parameterize Messages**: Use parameters in messages for dynamic content rather than concatenating strings.
+3. **Appropriate Severity Levels**: Choose the appropriate severity level for each message (INFO, WARN, ERROR).
+4. **Component-Specific Messages**: Associate messages with specific components when they relate to input validation.
+5. **Global Messages**: Use global messages for operation results or system-wide notifications.
+6. **Provider Injection**: Remember to use `Provider<MessageProducer>` when injecting into view or session scoped beans.
+
+== Conclusion
+
+The message internationalization system in CUI JSF API provides a robust and flexible way to handle localized messages in JSF applications. By centralizing message creation and management through the `MessageProducer` interface and leveraging the `ResourceBundleLocator` for bundle resolution, the framework ensures consistent and maintainable message handling across the application.

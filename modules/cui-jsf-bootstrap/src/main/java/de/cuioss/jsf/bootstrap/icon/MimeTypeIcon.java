@@ -18,10 +18,6 @@ package de.cuioss.jsf.bootstrap.icon;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
-
 import de.cuioss.jsf.bootstrap.icon.strategy.IStrategyProvider;
 import de.cuioss.jsf.bootstrap.icon.strategy.Rule;
 import de.cuioss.jsf.bootstrap.icon.strategy.StrategyProviderImpl;
@@ -29,12 +25,82 @@ import de.cuioss.tools.io.StructuredFilename;
 import lombok.AccessLevel;
 import lombok.Getter;
 
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
+
 /**
- * Each constant represents a mime type icon, defined within icons.css.<br>
- * <br>
+ * <p>
+ * Comprehensive enumeration of MIME type icons supported by the CUI icon library.
+ * Each constant represents a specific file or document type with associated CSS classes
+ * and HTML metadata. This enum serves as the central registry for all supported MIME
+ * type icons in the system.
+ * </p>
+ * 
+ * <h2>Implementation Features</h2>
+ * <ul>
+ *   <li>Defines CSS class names for each MIME type icon</li>
+ *   <li>Maps standard MIME type identifiers to appropriate icon representations</li>
+ *   <li>Provides file extension mappings for common file types</li>
+ *   <li>Supports healthcare-specific document formats (CDA, CCD, CCDA, etc.)</li>
+ *   <li>Includes placeholder versions of each icon type</li>
+ *   <li>Offers intelligent resolution strategies to determine appropriate icon</li>
+ * </ul>
+ * 
+ * <h2>Resolution Strategies</h2>
+ * <p>
+ * The enum provides several methods to determine the appropriate icon:
+ * </p>
+ * <ol>
+ *   <li><b>Direct enum access</b> - Using the enum constant directly when the type is known</li>
+ *   <li><b>MIME type resolution</b> - Using the {@link #valueOfIdentifier} method with a MIME type string</li>
+ *   <li><b>File extension resolution</b> - Using the {@link #determineForFilenameSuffix} method with a filename</li>
+ *   <li><b>HL7 format resolution</b> - Special handling for healthcare document formats</li>
+ * </ol>
+ * 
+ * <h2>Icon Categories</h2>
+ * <p>
+ * The icons can be broadly categorized into:
+ * </p>
+ * <ul>
+ *   <li><b>Document types</b> - PDF, DOC, DOCX, RTF, TXT, etc.</li>
+ *   <li><b>Image types</b> - JPEG, PNG, GIF, TIFF, etc.</li>
+ *   <li><b>Audio types</b> - MP3, audio/basic, etc.</li>
+ *   <li><b>Video types</b> - MPEG, AVI, etc.</li>
+ *   <li><b>Healthcare document types</b> - CDA, CCD, CCDA, etc.</li>
+ *   <li><b>Other types</b> - HTML, XML, etc.</li>
+ * </ul>
+ * 
+ * <h2>Usage Examples</h2>
+ * 
+ * <p><b>Direct enum usage:</b></p>
+ * <pre>
+ * MimeTypeIcon icon = MimeTypeIcon.PDF;
+ * String cssClass = icon.getIconClass();  // Returns "cui-mime-type-pdf"
+ * </pre>
+ * 
+ * <p><b>Resolving from a MIME type string:</b></p>
+ * <pre>
+ * MimeTypeIcon icon = MimeTypeIcon.valueOfIdentifier("application/pdf", null);
+ * // Returns MimeTypeIcon.PDF
+ * </pre>
+ * 
+ * <p><b>Resolving from a filename:</b></p>
+ * <pre>
+ * MimeTypeIcon icon = MimeTypeIcon.determineForFilenameSuffix("document.docx");
+ * // Returns MimeTypeIcon.DOCX
+ * </pre>
+ * 
+ * <p><b>Healthcare format handling:</b></p>
+ * <pre>
+ * MimeTypeIcon icon = MimeTypeIcon.valueOfIdentifier("text/xml", "CCD");
+ * // Returns MimeTypeIcon.CCD regardless of the MIME type
+ * </pre>
  *
  * @author Oliver Wolff
  * @author Eugen Fischer
+ * @see MimeTypeIconComponent
+ * @see MimeTypeIconRenderer
  */
 public enum MimeTypeIcon {
 

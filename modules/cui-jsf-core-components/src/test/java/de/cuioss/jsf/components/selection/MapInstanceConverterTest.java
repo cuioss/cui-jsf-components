@@ -15,26 +15,58 @@
  */
 package de.cuioss.jsf.components.selection;
 
-import java.util.HashMap;
-import java.util.Map;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
+import jakarta.faces.context.FacesContext;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
+@DisplayName("Tests for MapInstanceConverter")
 class MapInstanceConverterTest extends AbstractConverterTest<MapInstanceConverter<String, String>, String> {
 
     @Override
+    @DisplayName("Configure converter with test instance map")
     public void configure(final MapInstanceConverter<String, String> toBeConfigured) {
+        // Arrange
         Map<String, String> instanceMap = new HashMap<>();
         instanceMap.put("ONE", "eins");
         instanceMap.put("TWO", "zwei");
+
+        // Act
         toBeConfigured.setInstanceMap(instanceMap);
     }
 
     @Override
+    @DisplayName("Populate test items for map instance conversion")
     public void populate(final TestItems<String> testItems) {
+        // Add valid strings for testing
         testItems.addValidString("ONE");
         testItems.addValidString("TWO");
+    }
+
+    @Test
+    @DisplayName("Should convert keys to values and back")
+    void shouldConvertKeysToValuesAndBack(FacesContext facesContext) {
+        // Arrange
+        var converter = new MapInstanceConverter<String, String>();
+        Map<String, String> instanceMap = new HashMap<>();
+        instanceMap.put("ONE", "eins");
+        instanceMap.put("TWO", "zwei");
+        converter.setInstanceMap(instanceMap);
+        var component = getComponent();
+
+        // Act
+        var result = converter.getAsObject(facesContext, component, "ONE");
+
+        // Assert
+        assertEquals("eins", result, "Should convert key 'ONE' to value 'eins'");
+        assertEquals("ONE", converter.getAsString(facesContext, component, "eins"),
+                "Should convert value 'eins' back to key 'ONE'");
     }
 
 }

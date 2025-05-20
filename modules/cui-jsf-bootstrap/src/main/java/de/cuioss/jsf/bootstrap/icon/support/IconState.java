@@ -21,34 +21,47 @@ import de.cuioss.tools.string.MoreStrings;
 import lombok.Getter;
 
 /**
+ * Defines available icon states for the CUI bootstrap framework.
+ * Each state corresponds to a Bootstrap contextual state.
+ * 
  * @author Oliver Wolff
  */
 public enum IconState implements StyleClassProvider {
 
     /**
-     * The default-state (empty)
+     * Default state with no additional CSS class.
      */
     DEFAULT(""),
+
     /**
-     * Primary.
+     * Primary state for primary actions.
      */
     PRIMARY("primary"),
+
     /**
-     * Success.
+     * Success state for positive outcomes.
      */
     SUCCESS("success"),
+
     /**
-     * Info.
+     * Info state for informational content.
      */
     INFO("info"),
+
     /**
-     * Warning.
+     * Warning state for cautionary information.
      */
     WARNING("warning"),
+
     /**
-     * error.
+     * Danger state for errors or destructive actions.
      */
     DANGER("danger");
+
+    private static final String PREFIX = "cui-icon-state-";
+
+    @Getter
+    private final String styleClass;
 
     IconState(String suffix) {
         if (MoreStrings.isEmpty(suffix)) {
@@ -58,19 +71,12 @@ public enum IconState implements StyleClassProvider {
         }
     }
 
-    private static final String PREFIX = "cui-icon-state-";
-
-    @Getter
-    private final String styleClass;
-
     /**
-     * @param contextState Maybe null, otherwise must be one of
-     *                     {"DEFAULT","PRIMARY", "SUCCESS", "INFO", "WARNING",
-     *                     "DANGER"}
-     * @return the corresponding {@link IconState} derived by the given
-     * {@link ContextState}.
-     * In case of <code>contextSize==null</code> it
-     * will return {@link IconState#DEFAULT}.
+     * Maps a {@link ContextState} to the corresponding {@link IconState}.
+     * 
+     * @param contextState The ContextState to convert, may be null
+     * @return the matching IconState or {@link IconState#DEFAULT} if null
+     * @throws IllegalArgumentException If no matching IconState exists
      */
     public static IconState getForContextState(ContextState contextState) {
         if (null != contextState) {

@@ -17,13 +17,13 @@ package de.cuioss.jsf.bootstrap.support;
 
 import static de.cuioss.tools.collect.CollectionLiterals.mutableSet;
 
-import java.util.Set;
-
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
 
-@SuppressWarnings({ "rawtypes" })
+import java.util.Set;
+
+@SuppressWarnings({"rawtypes"})
 public class ConceptKeyTypeSetGenerator implements TypedGenerator<Set> {
 
     private final ConceptKeyTypeGenerator codeType = new ConceptKeyTypeGenerator();

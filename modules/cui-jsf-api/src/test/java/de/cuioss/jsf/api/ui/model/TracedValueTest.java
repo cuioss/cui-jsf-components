@@ -16,16 +16,13 @@
 package de.cuioss.jsf.api.ui.model;
 
 import static de.cuioss.test.generator.Generators.letterStrings;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.valueobjects.ValueObjectTest;
 import de.cuioss.test.valueobjects.api.contracts.VerifyConstructor;
 import de.cuioss.test.valueobjects.api.property.PropertyConfig;
 import de.cuioss.tools.string.MoreStrings;
+import org.junit.jupiter.api.Test;
 
 @PropertyConfig(name = "defaultValue", propertyClass = String.class)
 @VerifyConstructor(of = "defaultValue", writeOnly = "defaultValue")

@@ -35,24 +35,67 @@ import java.io.IOException;
 import java.util.Map.Entry;
 
 /**
- * {@link Renderer} utility for the {@link NavigationMenuItemSingle} model.
+ * <p>A utility class responsible for rendering {@link NavigationMenuItemSingle} models as
+ * Bootstrap-compatible navigation menu items. This renderer creates standard menu items that
+ * link to internal application pages using JSF navigation outcomes.</p>
+ *
+ * <p>Unlike {@link NavigationMenuExternalSingleRenderer} which handles external URLs, this
+ * renderer uses {@link HtmlOutcomeTargetLink} components to create navigation links that use
+ * JSF's navigation system. It fully supports JSF's navigation features including outcome
+ * parameters and target attributes.</p>
+ *
+ * <h2>Features</h2>
+ * <ul>
+ *   <li>Renders navigation links that use JSF's outcome-based navigation</li>
+ *   <li>Supports outcome parameters for dynamic navigation targets</li>
+ *   <li>Includes optional icon display</li>
+ *   <li>Adds proper styling for menu item text</li>
+ *   <li>Handles active state styling via data attributes</li>
+ *   <li>Supports target attribute for controlling link behavior (e.g., "_blank")</li>
+ * </ul>
  *
  * <h2>HTML structure</h2>
+ * <p>The renderer produces the following HTML structure:</p>
  *
  * <pre>
  * &lt;li class="nav-item"&gt;
  *   &lt;a class="nav-link" href="outcome"&gt;
  *     &lt;span class="cui-icon cui-icon-tag"/&gt;
- *     &lt;span&gt;label&lt;/span&gt;
+ *     &lt;span&gt;Menu Item Label&lt;/span&gt;
  *   &lt;/a&gt;
  * &lt;/li&gt;
  * </pre>
  *
  * @author Sven Haag
+ * @see NavigationMenuItemSingle
+ * @see NavigationMenuComponent
+ * @see NavigationMenuRenderer
+ * @see NavigationMenuExternalSingleRenderer
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class NavigationMenuSingleRenderer {
 
+    /**
+     * <p>Renders a single navigation menu item based on a {@link NavigationMenuItemSingle} model.</p>
+     *
+     * <p>This method generates:</p>
+     * <ul>
+     *   <li>A list item container (&lt;li&gt;)</li>
+     *   <li>An outcome-based navigation link using HtmlOutcomeTargetLink</li>
+     *   <li>Optional icon if specified in the model</li>
+     *   <li>Text label with appropriate styling</li>
+     *   <li>Any required outcome parameters as UIParameter components</li>
+     * </ul>
+     *
+     * <p>The menu item will not be rendered if the model's rendered property is false.</p>
+     *
+     * @param context the current FacesContext
+     * @param writer the decorating response writer
+     * @param model the single menu item model to render
+     * @param component the parent navigation menu component
+     * @param idExtension string to append to the generated component ID for uniqueness
+     * @throws IOException if an error occurs during the rendering process
+     */
     static void render(final FacesContext context, final DecoratingResponseWriter<NavigationMenuComponent> writer,
             final NavigationMenuItemSingle model, final NavigationMenuComponent component, final String idExtension)
             throws IOException {
@@ -74,6 +117,23 @@ public class NavigationMenuSingleRenderer {
         writer.withEndElement(Node.LI);
     }
 
+    /**
+     * <p>Renders the outcome-based navigation link with appropriate attributes and content.</p>
+     *
+     * <p>This method creates an {@link HtmlOutcomeTargetLink} component configured with:</p>
+     * <ul>
+     *   <li>The JSF outcome from the model</li>
+     *   <li>Target attribute (e.g., "_blank") if specified in the model</li>
+     *   <li>Any outcome parameters as UIParameter components</li>
+     *   <li>Optional title/tooltip from the model</li>
+     *   <li>Optional icon component if an icon class is specified</li>
+     *   <li>Text label with appropriate styling</li>
+     * </ul>
+     *
+     * @param context the current FacesContext
+     * @param model the single menu item model
+     * @throws IOException if an error occurs during the rendering process
+     */
     private static void renderCmdLink(final FacesContext context, final NavigationMenuItemSingle model)
             throws IOException {
         var application = context.getApplication();

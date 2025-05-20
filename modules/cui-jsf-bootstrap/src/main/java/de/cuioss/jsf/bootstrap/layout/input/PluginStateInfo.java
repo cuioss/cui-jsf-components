@@ -20,10 +20,19 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Defines a number of states for the plugins
+ * Defines the possible state indicators that plugins can use to communicate their status
+ * to container components.
+ * <p>
+ * These states are used by {@link ContainerPlugin} implementations to indicate
+ * conditions like validation warnings or errors, which the parent container
+ * can then use to apply appropriate styling.
+ * </p>
+ * <p>
+ * Each state is associated with corresponding Bootstrap CSS classes that will be
+ * applied to the container when a plugin reports that state.
+ * </p>
  *
  * @author Oliver Wolff
- *
  */
 @RequiredArgsConstructor
 public enum PluginStateInfo {

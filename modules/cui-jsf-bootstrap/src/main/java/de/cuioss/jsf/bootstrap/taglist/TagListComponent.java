@@ -15,46 +15,39 @@
  */
 package de.cuioss.jsf.bootstrap.taglist;
 
-import java.util.Collection;
-
-import jakarta.faces.component.FacesComponent;
-
 import de.cuioss.jsf.api.components.base.BaseCuiNamingContainer;
-import de.cuioss.jsf.api.components.partial.ComponentStyleClassProvider;
-import de.cuioss.jsf.api.components.partial.ContentProvider;
-import de.cuioss.jsf.api.components.partial.ContextSizeProvider;
-import de.cuioss.jsf.api.components.partial.ContextStateProvider;
-import de.cuioss.jsf.api.components.partial.StyleAttributeProvider;
+import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.tag.support.TagHelper;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
+import jakarta.faces.component.FacesComponent;
 import lombok.experimental.Delegate;
 
+import java.util.Collection;
+
 /**
- * <p>
- * Renders an Tag similar to a JIRA Tag. The tag is rendered within a span with
- * the according classes. The content and title are resolved using the cui
- * standard label-resolving mechanism.
- * </p>
+ * Component that renders a collection of tags in a consistent layout.
+ * Handles various input types including single tags, collections of tags, and strings.
+ * 
  * <h2>Attributes</h2>
  * <ul>
- * <li>{@link ContextSizeProvider}</li>
- * <li>{@link ComponentStyleClassProvider}</li>
- * <li>{@link StyleAttributeProvider}</li>
- * <li>{@link ContextStateProvider}</li>
- * <li>value: the value of the component. It is supposed to be either a single
- * {@link ConceptKeyType}, {@link String} or a {@link Collection} of
- * {@link ConceptKeyType} or {@link String}</li>
- * <li>contentEscape: indicating whether the content of the tags need to be
- * escaped. defaults to <code>true</code></li>
+ * <li>{@link ContextSizeProvider} - Size of all tags (SM, DEFAULT, LG, XL)</li>
+ * <li>{@link ComponentStyleClassProvider} - Custom CSS classes</li>
+ * <li>{@link StyleAttributeProvider} - Custom inline styles</li>
+ * <li>{@link ContextStateProvider} - Visual state/appearance of tags</li>
+ * <li><b>value</b>: Tag content as {@link ConceptKeyType}, {@link String}, 
+ *     or {@link Collection} of either type</li>
+ * <li><b>contentEscape</b>: Whether to escape tag content (default: true)</li>
  * </ul>
- * <h2>Usage</h2>
- *
+ * 
+ * <h2>Usage Example</h2>
  * <pre>
- * &lt;cui:tagList value="#{bean.tags}" /&gt;
+ * &lt;boot:tagList value="#{bean.tagCollection}" 
+ *            state="INFO" size="SM" /&gt;
  * </pre>
  *
  * @author Oliver Wolff
+ * @since 1.0
  */
 @FacesComponent(BootstrapFamily.TAG_LIST_COMPONENT)
 public class TagListComponent extends BaseCuiNamingContainer {
@@ -75,7 +68,9 @@ public class TagListComponent extends BaseCuiNamingContainer {
     private final ContentProvider contentProvider;
 
     /**
-     *
+     * Constructs a new TagListComponent with default settings.
+     * Initializes the component with the appropriate renderer type and
+     * required providers for context size, state, and content configuration.
      */
     public TagListComponent() {
         super.setRendererType(BootstrapFamily.TAG_LIST_COMPONENT_RENDERER);
@@ -85,43 +80,64 @@ public class TagListComponent extends BaseCuiNamingContainer {
     }
 
     /**
-     * @return the value of the component. It is supposed to be either a single
-     *         {@link ConceptKeyType} or a {@link Collection} of
-     *         {@link ConceptKeyType}
+     * Returns the value of the component, which represents the tag(s) to be displayed.
+     * The value can be either a single {@link ConceptKeyType}, a single {@link String}, 
+     * or a {@link Collection} of either type.
+     *
+     * @return the object representing the tag(s) to be displayed
      */
     public Object getValue() {
         return getStateHelper().eval(TAG_LIST_KEY);
     }
 
     /**
-     * @param tagList the value of the component. It is supposed to be either a
-     *                single {@link ConceptKeyType} or a {@link Collection} of
-     *                {@link ConceptKeyType}
+     * Sets the value of the component, which represents the tag(s) to be displayed.
+     * 
+     * @param tagList the value to set, which can be either a single {@link ConceptKeyType}, 
+     *                a single {@link String}, or a {@link Collection} of either type
      */
     public void setValue(final Object tagList) {
         getStateHelper().put(TAG_LIST_KEY, tagList);
     }
 
     /**
-     * @return boolean indicating whether the content of the tags need to be
-     *         escaped. defaults to true
+     * Determines whether the content of the tags should be HTML-escaped.
+     * Escaping helps prevent XSS attacks when displaying user-provided content.
+     *
+     * @return boolean indicating whether tag content should be escaped (defaults to true)
      */
     public boolean getContentEscape() {
         return contentProvider.getContentEscape();
     }
 
     /**
-     * @param contentEscape to set.
+     * Sets whether the content of the tags should be HTML-escaped.
+     * 
+     * @param contentEscape true to enable content escaping, false to disable it
      */
     public void setContentEscape(final boolean contentEscape) {
         contentProvider.setContentEscape(contentEscape);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * Extends the standard {@link jakarta.faces.component.UIComponent#isRendered()} check
+     * to prevent rendering when there are no tags to display.
+     * 
+     * @return true if the component should be rendered (parent check passes and there
+     *         are tags to display), false otherwise
+     */
     @Override
     public boolean isRendered() {
         return super.isRendered() && !TagHelper.getValueAsSet(getValue()).isEmpty();
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @return the component family identifier
+     */
     @Override
     public String getFamily() {
         return BootstrapFamily.COMPONENT_FAMILY;

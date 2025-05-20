@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.bootstrap.tag;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import de.cuioss.jsf.api.components.css.ContextSize;
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
@@ -30,26 +32,34 @@ import de.cuioss.jsf.bootstrap.tag.support.TagState;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.jsf.test.EnableJSFCDIEnvironment;
 import de.cuioss.jsf.test.EnableResourceBundleSupport;
-import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
+import de.cuioss.test.jsf.config.decorator.RequestConfigDecorator;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 import de.cuioss.tools.string.Joiner;
-import org.jdom2.Element;
-import org.junit.jupiter.api.Test;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIInput;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.PostAddToViewEvent;
 import jakarta.faces.event.ValueChangeEvent;
 import jakarta.faces.event.ValueChangeListener;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.jdom2.Element;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.io.IOException;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @EnableJSFCDIEnvironment
 @EnableResourceBundleSupport
-class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> implements ComponentConfigurator {
+@ExplicitParamInjection
+class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> {
+
+    @BeforeEach
+    void setUp(ComponentConfigDecorator decorator) {
+        decorator.registerUIComponent(CloseCommandButton.class).registerRenderer(CloseCommandButtonRenderer.class);
+    }
 
     private static final String SOME_CONTENT_VALUE = "some.content.value";
 
@@ -60,79 +70,79 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> impleme
     private static final String SOME_KEY = "some.key";
 
     @Test
-    void shouldRenderMinimal() {
+    void shouldRenderMinimal(FacesContext facesContext) throws IOException {
         final var component = new TagComponent();
         component.setContentKey(SOME_KEY);
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(LABEL_PRIMARY_STYLE_CLASS)
-            .withTextContent(SOME_KEY);
-        assertRenderResult(component, expected.getDocument());
+                .withTextContent(SOME_KEY);
+        assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderTitleFromBundle() {
+    void shouldRenderTitleFromBundle(FacesContext facesContext) throws IOException {
         final var component = new TagComponent();
         component.setContentValue(SOME_CONTENT_VALUE);
         component.setTitleKey(SOME_KEY);
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(LABEL_PRIMARY_STYLE_CLASS)
-            .withAttribute(AttributeName.TITLE, SOME_KEY).withTextContent(SOME_CONTENT_VALUE);
-        assertRenderResult(component, expected.getDocument());
+                .withAttribute(AttributeName.TITLE, SOME_KEY).withTextContent(SOME_CONTENT_VALUE);
+        assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderContentUnEscaped() {
+    void shouldRenderContentUnEscaped(FacesContext facesContext) {
         final var component = new TagComponent();
         component.setContentValue(ESCAPE_CONTENT);
         component.setContentEscape(false);
         assertEquals("<div class=\"cui-tag cui-tag-default\">" + ESCAPE_CONTENT + "</div>",
-            assertDoesNotThrow(() -> renderToString(component)));
+                assertDoesNotThrow(() -> renderToString(component, facesContext)));
     }
 
     @Test
-    void shouldRenderContentEscaped() {
+    void shouldRenderContentEscaped(FacesContext facesContext) {
         final var component = new TagComponent();
         component.setContentValue(ESCAPE_CONTENT);
         component.setContentEscape(true);
         assertEquals("<div class=\"cui-tag cui-tag-default\">&lt;&gt;</div>",
-            assertDoesNotThrow(() -> renderToString(component)));
+                assertDoesNotThrow(() -> renderToString(component, facesContext)));
     }
 
     @Test
-    void shouldRenderState() {
+    void shouldRenderState(FacesContext facesContext) throws IOException {
         final var component = new TagComponent();
         component.setContentValue(SOME_CONTENT_VALUE);
         component.setState(ContextState.DANGER.name());
         final var styleClassBuilder = CssCuiBootstrap.TAG.getStyleClassBuilder();
         styleClassBuilder.append(TagState.DANGER);
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(styleClassBuilder)
-            .withTextContent(SOME_CONTENT_VALUE);
-        assertRenderResult(component, expected.getDocument());
+                .withTextContent(SOME_CONTENT_VALUE);
+        assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderSize() {
+    void shouldRenderSize(FacesContext facesContext) throws IOException {
         final var component = new TagComponent();
         component.setContentValue(SOME_CONTENT_VALUE);
         component.setSize(ContextSize.LG.name());
         final StyleClassBuilder styleClassBuilder = new StyleClassBuilderImpl(LABEL_PRIMARY_STYLE_CLASS);
         styleClassBuilder.append(TagSize.LG);
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(styleClassBuilder)
-            .withTextContent(SOME_CONTENT_VALUE);
-        assertRenderResult(component, expected.getDocument());
+                .withTextContent(SOME_CONTENT_VALUE);
+        assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderDisposeButtonAndHiddenInput() {
+    void shouldRenderDisposeButtonAndHiddenInput(FacesContext facesContext) throws IOException {
         final var component = new TagComponent();
         component.setId("tagComp");
         component.setModel(SOME_CONTENT_VALUE);
         component.setContentValue(SOME_CONTENT_VALUE);
         component.setDisposable(true);
-        simulatePostAddToView(component);
+        simulatePostAddToView(component, facesContext);
         final var clientId = component.getClientId();
         final StyleClassBuilder styleClassBuilder = new StyleClassBuilderImpl(LABEL_PRIMARY_STYLE_CLASS);
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(styleClassBuilder)
-            .withTextContent(SOME_CONTENT_VALUE).withAttribute(AttributeName.ID, clientId)
-            .withAttribute(AttributeName.NAME, clientId);
+                .withTextContent(SOME_CONTENT_VALUE).withAttribute(AttributeName.ID, clientId)
+                .withAttribute(AttributeName.NAME, clientId);
         final var current = expected.getCurrent();
         // Close button
         final var closeButton = new Element(Node.BUTTON.getContent());
@@ -159,7 +169,7 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> impleme
          * .withAttribute(AttributeName.ID, inputId) .withAttribute(AttributeName.NAME,
          * inputId) .withAttribute(AttributeName.VALUE, Boolean.FALSE.toString());
          */
-        assertRenderResult(component, expected.getDocument());
+        assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
     private static String computeSuffixedAttribute(final UIComponent component, final String suffix) {
@@ -167,14 +177,14 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> impleme
     }
 
     @Test
-    void shouldNotRenderIfDisposed() {
+    void shouldNotRenderIfDisposed(FacesContext facesContext) throws IOException {
         final var component = new TagComponent();
         component.setModel(SOME_CONTENT_VALUE);
         component.setDisposable(true);
-        component.setParent(getFacesContext().getViewRoot());
-        simulatePostAddToView(component);
+        component.setParent(facesContext.getViewRoot());
+        simulatePostAddToView(component, facesContext);
         simulateEmitValueChangeOnHiddenInput(component);
-        assertEmptyRenderResult(component);
+        assertEmptyRenderResult(component, facesContext);
     }
 
     private void simulateEmitValueChangeOnHiddenInput(final TagComponent component) {
@@ -189,47 +199,42 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> impleme
 
     private static UIInput getHiddenInput(final TagComponent component) {
         return (UIInput) component.getChildren().stream().filter(child -> child instanceof UIInput).findFirst()
-            .orElseThrow(
-                () -> new IllegalStateException("Hidden input is missing but should be available as child"));
+                .orElseThrow(
+                        () -> new IllegalStateException("Hidden input is missing but should be available as child"));
     }
 
-    private void simulatePostAddToView(final TagComponent component) {
-        component.processEvent(new PostAddToViewEvent(getFacesContext().getViewRoot()));
+    private void simulatePostAddToView(final TagComponent component, FacesContext facesContext) {
+        component.processEvent(new PostAddToViewEvent(facesContext.getViewRoot()));
     }
 
     @Test
-    void shouldNotQueueEventOnDecodeIfNotDisposed() {
+    void shouldNotQueueEventOnDecodeIfNotDisposed(FacesContext facesContext, RequestConfigDecorator requestConfigDecorator) {
         final var component = new TagComponent();
         component.setModel(SOME_CONTENT_VALUE);
         component.setDisposable(true);
-        component.setParent(getFacesContext().getViewRoot());
+        component.setParent(facesContext.getViewRoot());
         // Hidden input
         final var inputId = computeSuffixedAttribute(component, TagComponent.DISPOSE_INFO_SUFFIX);
-        getRequestConfigDecorator().setRequestParameter(inputId, Boolean.FALSE.toString());
-        getRenderer().decode(getFacesContext(), component);
-        assertTrue(extractEventsFromViewRoot().isEmpty());
+        requestConfigDecorator.setRequestParameter(inputId, Boolean.FALSE.toString());
+        getRenderer().decode(facesContext, component);
+        assertTrue(extractEventsFromViewRoot(facesContext).isEmpty());
     }
 
     @Test
-    void shouldNotQueueEventOnDecodeOnInvalidClientId() {
+    void shouldNotQueueEventOnDecodeOnInvalidClientId(FacesContext facesContext, RequestConfigDecorator requestConfigDecorator) {
         final var component = new TagComponent();
         component.setModel(SOME_CONTENT_VALUE);
         component.setDisposable(true);
-        component.setParent(getFacesContext().getViewRoot());
+        component.setParent(facesContext.getViewRoot());
         // Hidden input
         final var inputId = "x" + computeSuffixedAttribute(component, TagComponent.DISPOSE_INFO_SUFFIX);
-        getRequestConfigDecorator().setRequestParameter(inputId, Boolean.TRUE.toString());
-        getRenderer().decode(getFacesContext(), component);
-        assertTrue(extractEventsFromViewRoot().isEmpty());
+        requestConfigDecorator.setRequestParameter(inputId, Boolean.TRUE.toString());
+        getRenderer().decode(facesContext, component);
+        assertTrue(extractEventsFromViewRoot(facesContext).isEmpty());
     }
 
     @Override
     protected UIComponent getComponent() {
         return new TagComponent();
-    }
-
-    @Override
-    public void configureComponents(final ComponentConfigDecorator decorator) {
-        decorator.registerUIComponent(CloseCommandButton.class).registerRenderer(CloseCommandButtonRenderer.class);
     }
 }

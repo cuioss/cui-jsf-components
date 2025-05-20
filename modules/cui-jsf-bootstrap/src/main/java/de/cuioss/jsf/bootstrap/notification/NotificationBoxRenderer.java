@@ -25,10 +25,10 @@ import de.cuioss.jsf.api.components.util.ComponentUtility;
 import de.cuioss.jsf.api.components.util.ComponentWrapper;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
-
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.FacesRenderer;
 import jakarta.faces.render.Renderer;
+
 import java.io.IOException;
 
 /**
@@ -60,8 +60,8 @@ public class NotificationBoxRenderer extends BaseDecoratorRenderer<NotificationB
 
     @Override
     protected void doEncodeBegin(final FacesContext context,
-                                 final DecoratingResponseWriter<NotificationBoxComponent> writer, final NotificationBoxComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<NotificationBoxComponent> writer, final NotificationBoxComponent component)
+            throws IOException {
         writer.withStartElement(Node.DIV);
         if (component.isDismissible() && null != component.getDismissListener()) {
             writer.withClientId();
@@ -69,7 +69,7 @@ public class NotificationBoxRenderer extends BaseDecoratorRenderer<NotificationB
             writer.withClientIdIfNecessary();
         }
         var styleClassBuilder = CssBootstrap.ALERT.getStyleClassBuilder().append(component)
-            .append(getAlertClassForState(component.resolveContextState()));
+                .append(getAlertClassForState(component.resolveContextState()));
         if (component.isDismissible()) {
             styleClassBuilder.append(CssBootstrap.ALERT_DISMISSIBLE);
         }
@@ -101,15 +101,15 @@ public class NotificationBoxRenderer extends BaseDecoratorRenderer<NotificationB
 
     @Override
     protected void doEncodeEnd(final FacesContext context,
-                               final DecoratingResponseWriter<NotificationBoxComponent> writer, final NotificationBoxComponent component)
-        throws IOException {
+            final DecoratingResponseWriter<NotificationBoxComponent> writer, final NotificationBoxComponent component)
+            throws IOException {
 
         writer.withEndElement(Node.DIV);
     }
 
     @Override
     protected void doDecode(final FacesContext context,
-                            final ComponentWrapper<NotificationBoxComponent> componentWrapper) {
+            final ComponentWrapper<NotificationBoxComponent> componentWrapper) {
         if (!componentWrapper.getWrapped().isDismissible()) {
             return;
         }

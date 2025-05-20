@@ -18,10 +18,34 @@ package de.cuioss.jsf.bootstrap.layout;
 import de.cuioss.jsf.api.components.css.StyleClassResolver;
 
 /**
- * Base class for our layout components.
+ * <p>Abstract base class for Bootstrap layout components within the CUI JSF component
+ * library. This class establishes the common foundation for components that implement
+ * Bootstrap's grid system and layout structures.</p>
+ * 
+ * <h2>Purpose and Functionality</h2>
+ * <ul>
+ *   <li>Provides a common inheritance point for all layout-related components</li>
+ *   <li>Extends {@link BasicBootstrapPanelComponent} to inherit panel-related capabilities</li>
+ *   <li>Implements {@link StyleClassResolver} to ensure all layout components can
+ *       consistently resolve their CSS classes</li>
+ *   <li>Acts as a bridge between the general component framework and specific layout 
+ *       implementations like columns, rows, etc.</li>
+ * </ul>
+ *
+ * <h2>Usage</h2>
+ * <p>This class is not meant to be used directly but serves as a parent for concrete
+ * layout components such as:</p>
+ * <ul>
+ *   <li>{@link RowComponent} - Implements Bootstrap's row element</li>
+ *   <li>{@link ColumnComponent} - Implements Bootstrap's column elements</li>
+ *   <li>Other layout-specific components</li>
+ * </ul>
  *
  * @author Oliver Wolff
- *
+ * @see RowComponent
+ * @see ColumnComponent
+ * @see BasicBootstrapPanelComponent
+ * @see StyleClassResolver
  */
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
 public abstract class AbstractLayoutComponent extends BasicBootstrapPanelComponent implements StyleClassResolver {

@@ -18,8 +18,6 @@ package de.cuioss.jsf.bootstrap.button;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.AttributeValue;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
@@ -27,21 +25,52 @@ import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "titleKey", "titleValue" })
+@VerifyComponentProperties(of = {"titleKey", "titleValue", "styleClass"})
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
+@DisplayName("Tests for CloseCommandButton component")
 class CloseCommandButtonTest extends AbstractComponentTest<CloseCommandButton> {
 
-    @Test
-    void shouldProvidePassThroughAttributes() {
-        var map = anyComponent().getPassThroughAttributes();
-        assertTrue(map.containsKey(AttributeName.ARIA_LABEL.getContent()));
-        assertEquals(AttributeValue.ARIA_CLOSE.getContent(), map.get(AttributeName.ARIA_LABEL.getContent()));
+    @Nested
+    @DisplayName("Accessibility tests")
+    class AccessibilityTests {
+
+        @Test
+        @DisplayName("Should provide ARIA label for accessibility")
+        void shouldProvidePassThroughAttributes() {
+            // Arrange
+            var component = anyComponent();
+
+            // Act
+            var map = component.getPassThroughAttributes();
+
+            // Assert
+            assertTrue(map.containsKey(AttributeName.ARIA_LABEL.getContent()),
+                    "Should contain ARIA label attribute");
+            assertEquals(AttributeValue.ARIA_CLOSE.getContent(), map.get(AttributeName.ARIA_LABEL.getContent()),
+                    "ARIA label should be 'Close'");
+        }
     }
 
-    @Test
-    void shouldProvideCorrectMetadata() {
-        assertEquals(BootstrapFamily.COMPONENT_FAMILY, anyComponent().getFamily());
-        assertEquals(BootstrapFamily.CLOSE_COMMAND_BUTTON_RENDERER, anyComponent().getRendererType());
+    @Nested
+    @DisplayName("Metadata tests")
+    class MetadataTests {
+
+        @Test
+        @DisplayName("Should provide correct component metadata")
+        void shouldProvideCorrectMetadata() {
+            // Arrange
+            var component = anyComponent();
+
+            // Act & Assert
+            assertEquals(BootstrapFamily.COMPONENT_FAMILY, component.getFamily(),
+                    "Component family should match");
+            assertEquals(BootstrapFamily.CLOSE_COMMAND_BUTTON_RENDERER, component.getRendererType(),
+                    "Renderer type should match");
+        }
     }
+
 }

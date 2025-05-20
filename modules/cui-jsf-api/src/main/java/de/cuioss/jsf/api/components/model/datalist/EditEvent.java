@@ -16,26 +16,56 @@
 package de.cuioss.jsf.api.components.model.datalist;
 
 /**
- * Defines the kind of the edit that too places
+ * <h2>Defines the types of edit events that can occur within an editable data list</h2>
+ * <p>
+ * This enum represents the different kinds of modifications that can occur to items
+ * in an {@link EditableDataListModel}. These events are typically used to trigger
+ * callbacks and notify listeners about changes to the model.
+ * </p>
+ * <p>
+ * The events are used by the {@link EditableDataListModel#elementModified} callback
+ * to indicate what kind of change occurred to an item.
+ * </p>
  *
  * @author Oliver Wolff
  */
 public enum EditEvent {
 
     /**
-     * The item was added by the EditableDataListComponent by calling
-     * {@link EditableDataListModel#createEmptyItem()}
+     * <p>Indicates that a new item was added to the data list.</p>
+     * <p>This event is triggered when a new item is created via
+     * {@link EditableDataListModel#createEmptyItem()} and added to the model
+     * through the {@link EditableDataListModel#addItem()} method.</p>
+     * <p>In callbacks, the old value will typically be null, and the new value
+     * will be the newly created item.</p>
      */
     ADDED,
 
     /**
-     * Defines an item that was loaded form the BE-system but modified in some way.
+     * <p>Indicates that an existing item was modified.</p>
+     * <p>This event is triggered when an item that was previously loaded from
+     * the back-end system is edited and the changes are saved to the model
+     * through {@link EditableDataListModel#saveEditItem}.</p>
+     * <p>In callbacks, both the old and new values will be non-null, representing
+     * the item before and after modification.</p>
      */
     MODIFIED,
 
-    /** The item is unmarked to be deleted. */
+    /**
+     * <p>Indicates that an item previously marked for deletion has been unmarked.</p>
+     * <p>This event is triggered when {@link EditableDataListModel#undoMarkForDelete}
+     * is called on an item that was previously marked for deletion.</p>
+     * <p>In callbacks, the old value may be null, and the new value will be
+     * the item that is no longer marked for deletion.</p>
+     */
     UNMARK_DELETE,
 
-    /** The item is marked to be deleted. */
+    /**
+     * <p>Indicates that an item has been marked for deletion.</p>
+     * <p>This event is triggered when {@link EditableDataListModel#markForDelete}
+     * is called on an item.</p>
+     * <p>In callbacks, the old value will be the item being marked for deletion,
+     * and the new value may be null.</p>
+     */
     MARK_DELETE
 }

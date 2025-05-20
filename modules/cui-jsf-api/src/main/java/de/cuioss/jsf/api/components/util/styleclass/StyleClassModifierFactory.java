@@ -15,9 +15,8 @@
  */
 package de.cuioss.jsf.api.components.util.styleclass;
 
-import jakarta.faces.component.UIComponent;
-
 import de.cuioss.jsf.api.components.util.modifier.ComponentModifierFactory;
+import jakarta.faces.component.UIComponent;
 
 /**
  * Factory for creating wrapper classes dealing with modification of styleClass

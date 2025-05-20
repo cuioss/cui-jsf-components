@@ -15,13 +15,13 @@
  */
 package de.cuioss.jsf.bootstrap.widget;
 
-import java.io.Serial;
-import java.util.ArrayList;
-
 import de.cuioss.jsf.api.components.model.widget.BaseListItem;
 import de.cuioss.tools.collect.CollectionLiterals;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
 import de.cuioss.uimodel.nameprovider.LabeledKey;
+
+import java.io.Serial;
+import java.util.ArrayList;
 
 public class BaseDeferredLoadingListItemWidgetMock extends BaseDeferredLoadingListItemWidget {
 

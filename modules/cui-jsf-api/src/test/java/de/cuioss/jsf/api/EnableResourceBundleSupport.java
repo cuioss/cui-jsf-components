@@ -18,15 +18,14 @@ package de.cuioss.jsf.api;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-import org.jboss.weld.junit5.auto.AddBeanClasses;
-
 import de.cuioss.jsf.api.application.bundle.CuiJSfResourceBundleLocator;
 import de.cuioss.portal.common.bundle.PortalResourceBundleBean;
 import de.cuioss.portal.common.bundle.ResourceBundleWrapperImpl;
+import org.jboss.weld.junit5.auto.AddBeanClasses;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
 /**
  * It adds the {@link CuiJSfResourceBundleLocator},
@@ -38,7 +37,7 @@ import de.cuioss.portal.common.bundle.ResourceBundleWrapperImpl;
 @Documented
 @Retention(RUNTIME)
 @Target(TYPE)
-@AddBeanClasses({ CuiJSfResourceBundleLocator.class, PortalResourceBundleBean.class, ResourceBundleWrapperImpl.class,
-        LocaleProducerMock.class })
+@AddBeanClasses({CuiJSfResourceBundleLocator.class, PortalResourceBundleBean.class, ResourceBundleWrapperImpl.class,
+        LocaleProducerMock.class})
 public @interface EnableResourceBundleSupport {
 }

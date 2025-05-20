@@ -15,19 +15,10 @@
  */
 package de.cuioss.jsf.api.components.model.datalist.impl;
 
-import static de.cuioss.jsf.api.components.model.datalist.AddStatus.ADDED;
-import static de.cuioss.jsf.api.components.model.datalist.AddStatus.CREATED;
-import static de.cuioss.jsf.api.components.model.datalist.AddStatus.PERSISTED;
+import static de.cuioss.jsf.api.components.model.datalist.AddStatus.*;
 import static de.cuioss.test.generator.Generators.integers;
 import static de.cuioss.test.generator.Generators.nonEmptyStrings;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.components.model.datalist.EditStatus;
 import de.cuioss.jsf.api.components.model.datalist.ItemWrapper;
@@ -35,9 +26,10 @@ import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.valueobjects.ValueObjectTest;
 import de.cuioss.test.valueobjects.api.contracts.VerifyConstructor;
 import de.cuioss.test.valueobjects.api.object.ObjectTestConfig;
+import org.junit.jupiter.api.Test;
 
-@VerifyConstructor(of = { "wrapped", "editStatus" }, required = "editStatus")
-@ObjectTestConfig(equalsAndHashCodeOf = { "wrapped", "editStatus" })
+@VerifyConstructor(of = {"wrapped", "editStatus"}, required = "editStatus")
+@ObjectTestConfig(equalsAndHashCodeOf = {"wrapped", "editStatus"})
 class ItemWrapperImplTest extends ValueObjectTest<ItemWrapperImpl<String>> {
 
     private final TypedGenerator<String> strings = nonEmptyStrings();

@@ -20,21 +20,67 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Represents common styleClasses that are not specific to a concrete library
- * like bootstrap.
+ * Represents common CSS style classes that are not specific to a concrete library
+ * like Bootstrap, but are used throughout the CUI framework.
+ * <p>
+ * This enum provides a type-safe way to access commonly used CSS classes while
+ * maintaining consistency across the application. Each enum constant corresponds
+ * to a specific CSS class that serves a general purpose in UI styling.
+ * </p>
+ * <p>
+ * The enum implements {@link StyleClassProvider} interface to integrate with
+ * the component CSS class generation system.
+ * </p>
+ * <p>
+ * Usage examples:
+ * </p>
+ * <pre>
+ * // Get the disabled CSS class
+ * String disabledClass = CssCommon.DISABLED.getStyleClass(); // returns "disabled"
+ * 
+ * // Use with StyleClassBuilder
+ * StyleClassBuilder builder = new StyleClassBuilderImpl();
+ * builder.append(CssCommon.PULL_LEFT);
+ * </pre>
+ * <p>
+ * This enum is thread-safe and immutable.
+ * </p>
  *
  * @author Oliver Wolff
- *
+ * @since 1.0
+ * @see StyleClassProvider
+ * @see StyleClassBuilder
  */
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum CssCommon implements StyleClassProvider {
 
-    /** General disabled class. */
+    /**
+     * General disabled class.
+     * <p>
+     * Represents a CSS class that indicates a disabled state of a UI element.
+     * This class is commonly used to visually indicate that an element is not
+     * interactive or currently unavailable.
+     * </p>
+     */
     DISABLED("disabled"),
-    /** Shorthand for Bootstrap-style float:right. */
+
+    /**
+     * Shorthand for Bootstrap-style float:right.
+     * <p>
+     * Represents a CSS class that floats an element to the right side of its container.
+     * This is a common utility class used for alignment purposes.
+     * </p>
+     */
     PULL_RIGHT("pull-right"),
-    /** Shorthand for Bootstrap-style float:left. */
+
+    /**
+     * Shorthand for Bootstrap-style float:left.
+     * <p>
+     * Represents a CSS class that floats an element to the left side of its container.
+     * This is a common utility class used for alignment purposes.
+     * </p>
+     */
     PULL_LEFT("pull-left");
 
     private final String styleClass;

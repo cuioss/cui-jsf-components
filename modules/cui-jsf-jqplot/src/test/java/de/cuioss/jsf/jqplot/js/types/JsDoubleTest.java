@@ -18,11 +18,13 @@ package de.cuioss.jsf.jqplot.js.types;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.valueobjects.ValueObjectTest;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for JsDouble class")
 class JsDoubleTest extends ValueObjectTest<JsDouble> {
 
     @Override
@@ -30,19 +32,37 @@ class JsDoubleTest extends ValueObjectTest<JsDouble> {
         return new JsDouble(Generators.doubles().next());
     }
 
-    @Test
-    void shouldReturnNullOnEmptyValue() {
-        final var target = new JsDouble(null);
-        assertNull(target.getValueAsString());
+    @Nested
+    @DisplayName("Value handling tests")
+    class ValueHandlingTests {
+
+        @Test
+        @DisplayName("Should return null when double value is null")
+        void shouldReturnNullOnEmptyValue() {
+            // Arrange
+            final var target = new JsDouble(null);
+
+            // Act & Assert
+            assertNull(target.getValueAsString());
+        }
     }
 
-    @Test
-    void shouldFormatValidValue() {
-        final var val1 = new JsDouble(Double.valueOf("3.5"));
-        assertEquals("3.500", val1.getValueAsString());
-        final var val2 = new JsDouble(5d);
-        assertEquals("5.000", val2.getValueAsString());
-        final var val3 = new JsDouble(50000d);
-        assertEquals("50000.000", val3.getValueAsString());
+    @Nested
+    @DisplayName("Formatting tests")
+    class FormattingTests {
+
+        @Test
+        @DisplayName("Should format double values with three decimal places")
+        void shouldFormatValidValue() {
+            // Arrange
+            final var val1 = new JsDouble(Double.valueOf("3.5"));
+            final var val2 = new JsDouble(5d);
+            final var val3 = new JsDouble(50000d);
+
+            // Act & Assert
+            assertEquals("3.500", val1.getValueAsString(), "Should format decimal value correctly");
+            assertEquals("5.000", val2.getValueAsString(), "Should format integer value with decimals");
+            assertEquals("50000.000", val3.getValueAsString(), "Should format large value correctly");
+        }
     }
 }

@@ -15,50 +15,83 @@
  */
 package de.cuioss.jsf.bootstrap.layout.input;
 
-import de.cuioss.jsf.bootstrap.layout.input.support.MockComponentPlugin;
-import de.cuioss.test.jsf.component.AbstractUiComponentTest;
-import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
-import jakarta.faces.event.PostAddToViewEvent;
-import jakarta.faces.event.PreRenderComponentEvent;
-import org.junit.jupiter.api.Test;
-
 import static de.cuioss.jsf.bootstrap.BootstrapFamily.COMPONENT_FAMILY;
 import static de.cuioss.jsf.bootstrap.BootstrapFamily.LABELED_CONTAINER_COMPONENT_RENDERER;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import de.cuioss.jsf.bootstrap.layout.input.support.MockComponentPlugin;
+import de.cuioss.test.jsf.component.AbstractUiComponentTest;
+import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.event.PreRenderComponentEvent;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
 @VerifyComponentProperties(of = {"placeholderKey", "placeholderValue", "titleKey", "titleValue",
-    "placeholderConverter", "errorClass", "forIdentifier", "renderMessage", "layoutMode", "titleConverter",
-    "contentSize", "labelSize", "disabled", "contentStyleClass", "labelStyleClass",
-    "renderInputGroup"},
-    defaultValued = {"errorClass", "forIdentifier", "renderMessage", "layoutMode",
-        "contentSize", "labelSize"})
+        "placeholderConverter", "errorClass", "forIdentifier", "renderMessage", "layoutMode", "titleConverter",
+        "contentSize", "labelSize", "disabled", "contentStyleClass", "labelStyleClass",
+        "renderInputGroup"},
+        defaultValued = {"errorClass", "forIdentifier", "renderMessage", "layoutMode",
+                "contentSize", "labelSize"})
+@DisplayName("Tests for LabeledContainerComponent")
 class LabeledContainerComponentTest extends AbstractUiComponentTest<LabeledContainerComponent> {
 
-    @Test
-    void shouldCallPluginChild() {
-        getComponentConfigDecorator().registerMockRenderer(COMPONENT_FAMILY, LABELED_CONTAINER_COMPONENT_RENDERER);
-        var component = anyComponent();
-        var plugin = new MockComponentPlugin();
-        component.getChildren().add(plugin);
-        assertFalse(plugin.isPrerenderCalled());
-        assertFalse(plugin.isPostAddToViewCalled());
-        component.processEvent(new PreRenderComponentEvent(component));
-        assertTrue(plugin.isPrerenderCalled());
-        component.processEvent(new PostAddToViewEvent(component));
-        assertTrue(plugin.isPostAddToViewCalled());
-    }
+    @Nested
+    @DisplayName("Tests for plugin handling")
+    class PluginHandlingTests {
 
-    @Test
-    void shouldCallPluginAsFacet() {
-        getComponentConfigDecorator().registerMockRenderer(COMPONENT_FAMILY, LABELED_CONTAINER_COMPONENT_RENDERER);
-        var component = anyComponent();
-        var plugin = new MockComponentPlugin();
-        component.getFacets().put(ContainerFacets.LABEL.getName(), plugin);
-        assertFalse(plugin.isPrerenderCalled());
-        component.processEvent(new PreRenderComponentEvent(component));
-        assertTrue(plugin.isPrerenderCalled());
-        component.processEvent(new PostAddToViewEvent(component));
-        assertTrue(plugin.isPostAddToViewCalled());
+        @Test
+        @DisplayName("Should call plugin methods when plugin is a child")
+        void shouldCallPluginChild(ComponentConfigDecorator componentConfig) {
+            // Arrange
+            componentConfig.registerMockRenderer(COMPONENT_FAMILY, LABELED_CONTAINER_COMPONENT_RENDERER);
+            var component = anyComponent();
+            var plugin = new MockComponentPlugin();
+            component.getChildren().add(plugin);
+
+            // Assert - Initial state
+            assertFalse(plugin.isPrerenderCalled(), "Prerender should not be called initially");
+            assertFalse(plugin.isPostAddToViewCalled(), "PostAddToView should not be called initially");
+
+            // Act - Process PreRenderComponentEvent
+            component.processEvent(new PreRenderComponentEvent(component));
+
+            // Assert - After PreRenderComponentEvent
+            assertTrue(plugin.isPrerenderCalled(), "Prerender should be called after PreRenderComponentEvent");
+
+            // Act - Process PostAddToViewEvent
+            component.processEvent(new PostAddToViewEvent(component));
+
+            // Assert - After PostAddToViewEvent
+            assertTrue(plugin.isPostAddToViewCalled(), "PostAddToView should be called after PostAddToViewEvent");
+        }
+
+        @Test
+        @DisplayName("Should call plugin methods when plugin is a facet")
+        void shouldCallPluginAsFacet(ComponentConfigDecorator componentConfig) {
+            // Arrange
+            componentConfig.registerMockRenderer(COMPONENT_FAMILY, LABELED_CONTAINER_COMPONENT_RENDERER);
+            var component = anyComponent();
+            var plugin = new MockComponentPlugin();
+            component.getFacets().put(ContainerFacets.LABEL.getName(), plugin);
+
+            // Assert - Initial state
+            assertFalse(plugin.isPrerenderCalled(), "Prerender should not be called initially");
+
+            // Act - Process PreRenderComponentEvent
+            component.processEvent(new PreRenderComponentEvent(component));
+
+            // Assert - After PreRenderComponentEvent
+            assertTrue(plugin.isPrerenderCalled(), "Prerender should be called after PreRenderComponentEvent");
+
+            // Act - Process PostAddToViewEvent
+            component.processEvent(new PostAddToViewEvent(component));
+
+            // Assert - After PostAddToViewEvent
+            assertTrue(plugin.isPostAddToViewCalled(), "PostAddToView should be called after PostAddToViewEvent");
+        }
     }
 }

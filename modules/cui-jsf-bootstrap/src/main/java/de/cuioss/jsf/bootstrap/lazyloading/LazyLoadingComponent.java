@@ -43,12 +43,34 @@ import lombok.experimental.Delegate;
 import java.util.Optional;
 
 /**
- * Displays a content that should be loaded lazy after initial page rendering.
- * <p>
- * The initial page will display the waiting indicator and trigger an ajax
- * update of the content. This update will first call an ActionListener (if
- * defined) during Invoke Application phase, and then switch the waiting
- * indicator to be hidden and render the content.
+ * Container for content that loads asynchronously after initial page rendering.
+ * Enhances page performance by deferring resource-intensive component loading.
+ * 
+ * <h3>Structure</h3>
+ * <ul>
+ *   <li>Waiting indicator during loading</li>
+ *   <li>Notification area for status messages</li>
+ *   <li>Content area for lazy-loaded components</li>
+ * </ul>
+ * 
+ * <h3>Usage Modes</h3>
+ * <ul>
+ *   <li>Simple: Configure with component properties</li>
+ *   <li>Model-based: Use {@link LazyLoadingModel} for behavior control</li>
+ * </ul>
+ *
+ * <h3>Key Properties</h3>
+ * <ul>
+ *   <li>{@code initialized}: Whether content has been loaded</li>
+ *   <li>{@code renderContent}: Whether to display child components</li>
+ *   <li>{@code async}: Whether to load asynchronously</li>
+ *   <li>{@code startInitialize}: Method called at start of loading</li>
+ * </ul>
+ *
+ * @author Oliver Wolff
+ * @since 1.0
+ * @see LazyLoadingRenderer
+ * @see LazyLoadingModel
  */
 @ResourceDependency(library = "javascript.enabler", name = "enabler.lazyLoading.js", target = "head")
 @FacesComponent(BootstrapFamily.LAZYLOADING_COMPONENT)
@@ -75,10 +97,19 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
 
     private static final String WAITING_INDICATOR_STYLE_CLASS_KEY = "waitingIndicatorStyleClass";
 
+    /**
+     * Parameter ID suffix used to identify a content load request.
+     */
     static final String ID_SUFFIX_IS_LOADED = "is_loaded";
 
+    /**
+     * Data attribute for identifying the notification box component.
+     */
     static final String DATA_RESULT_NOTIFICATION_BOX = "data-resultNotificationBox";
 
+    /**
+     * Fixed ID for the waiting indicator component.
+     */
     static final String WAITING_INDICATOR_ID = "waitingIndicator";
 
     @Delegate
@@ -95,7 +126,11 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
     private final StyleAttributeProviderImpl styleAttributeProvider;
 
     /**
-     *
+     * Default constructor.
+     * <p>
+     * Initializes the component with the appropriate renderer type and
+     * creates the necessary delegate objects for style handling, state management,
+     * and behavior tracking.
      */
     public LazyLoadingComponent() {
         state = new CuiState(getStateHelper());
@@ -106,6 +141,16 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
         styleAttributeProvider = new StyleAttributeProviderImpl(this);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Processes the component system events:
+     * <ul>
+     *   <li>{@link PreRenderComponentEvent}: Invokes the startInitialize method expression if present 
+     *       and if the component hasn't been initialized yet</li>
+     *   <li>{@link PostAddToViewEvent}: Creates the waiting indicator and notification box components</li>
+     * </ul>
+     */
     @Override
     public void processEvent(final ComponentSystemEvent event) {
         if (event instanceof PreRenderComponentEvent) {
@@ -126,65 +171,97 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
         super.processEvent(event);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @return The component family, always {@link BootstrapFamily#COMPONENT_FAMILY}
+     */
     @Override
     public String getFamily() {
         return BootstrapFamily.COMPONENT_FAMILY;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public StateHelper stateHelper() {
         return getStateHelper();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public FacesContext facesContext() {
         return getFacesContext();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public UIComponent facet(final String facetName) {
         return getFacet(facetName);
     }
 
     /**
-     * ATTENTION: Evaluation the MethodExpression may already trigger executing the
-     * method!
+     * Retrieves the method expression that should be executed once during the component initialization.
+     * <p>
+     * <strong>Note:</strong> Evaluation of the MethodExpression may already trigger executing the method!
      *
-     * @return the startInitialize, a function to be called one time at
-     * PreRenderViewEvent
+     * @return An {@link Optional} containing the startInitialize method expression if present
      */
     private Optional<MethodExpression> getStartInitialize() {
         return Optional.ofNullable((MethodExpression) getStateHelper().eval(START_INITIALIZE_KEY));
     }
 
     /**
-     * @param startInitialize the startInitialize to set
+     * Sets the method expression to be called once at the PreRenderViewEvent.
+     * <p>
+     * This method is typically used to initialize data needed for the lazy-loaded content.
+     *
+     * @param startInitialize The method expression to set
      */
     public void setStartInitialize(final MethodExpression startInitialize) {
         getStateHelper().put(START_INITIALIZE_KEY, startInitialize);
     }
 
     /**
-     * @return the viewModel
+     * Returns the view model that controls the component's behavior.
+     *
+     * @return The LazyLoadingModel instance or null if not set
      */
     public LazyLoadingModel getViewModel() {
         return state.get(VIEW_MODEL_KEY);
     }
 
     /**
-     * @param viewModel the viewModel to set
+     * Sets the view model that will control this component's behavior.
+     * <p>
+     * When a view model is set, its properties take precedence over the component's properties.
+     *
+     * @param viewModel The LazyLoadingModel to set
      */
     public void setViewModel(final LazyLoadingModel viewModel) {
         state.put(VIEW_MODEL_KEY, viewModel);
     }
 
     /**
-     * @return the notificationBoxValue
+     * Returns the value to be displayed in the notification box.
+     *
+     * @return The notification box display text provider
      */
     public IDisplayNameProvider<?> getNotificationBoxValue() {
         return state.get(NOTIFICATION_BOX_VALUE_KEY);
     }
 
+    /**
+     * Evaluates the notification box value to display, using the view model if available,
+     * otherwise using the component's own value.
+     *
+     * @return The notification box value to be displayed
+     */
     public IDisplayNameProvider<?> evaluateNotificationBoxValue() {
         if (null != getViewModel()) {
             return getViewModel().getNotificationBoxValue();
@@ -193,19 +270,29 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
     }
 
     /**
-     * @param notificationBoxValue the notificationBoxValue to set
+     * Sets the text to be displayed in the notification box.
+     *
+     * @param notificationBoxValue The notification box display text provider
      */
     public void setNotificationBoxValue(final IDisplayNameProvider<?> notificationBoxValue) {
         state.put(NOTIFICATION_BOX_VALUE_KEY, notificationBoxValue);
     }
 
     /**
-     * @return the notificationBoxState
+     * Returns the contextual state of the notification box.
+     *
+     * @return The notification box state, defaults to {@link ContextState#WARNING} if not set
      */
     public ContextState getNotificationBoxState() {
         return state.get(NOTIFICATION_BOX_STATE_KEY, ContextState.WARNING);
     }
 
+    /**
+     * Evaluates the notification box state to use, using the view model if available,
+     * otherwise using the component's own state.
+     *
+     * @return The notification box state to be used
+     */
     public ContextState evaluateNotificationBoxState() {
         if (null != getViewModel()) {
             return getViewModel().getNotificationBoxState();
@@ -214,33 +301,47 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
     }
 
     /**
-     * @param notificationBoxState the notificationBoxState to set
+     * Sets the contextual state for the notification box.
+     *
+     * @param notificationBoxState The contextual state to set
      */
     public void setNotificationBoxState(final ContextState notificationBoxState) {
         state.put(NOTIFICATION_BOX_STATE_KEY, notificationBoxState);
     }
 
     /**
-     * @return the waitingIndicatorStyleClass
+     * Returns any additional style classes to be applied to the waiting indicator.
+     *
+     * @return The waiting indicator style class or null if not set
      */
     public String getWaitingIndicatorStyleClass() {
         return state.get(WAITING_INDICATOR_STYLE_CLASS_KEY);
     }
 
     /**
-     * @param waitingIndicatorStyleClass the waitingIndicatorStyleClass to set
+     * Sets additional style classes to be applied to the waiting indicator.
+     *
+     * @param waitingIndicatorStyleClass The style classes to set
      */
     public void setWaitingIndicatorStyleClass(final String waitingIndicatorStyleClass) {
         state.put(WAITING_INDICATOR_STYLE_CLASS_KEY, waitingIndicatorStyleClass);
     }
 
     /**
-     * @return initialized
+     * Returns whether the component has been initialized.
+     *
+     * @return {@code true} if the component has been initialized, otherwise {@code false}
      */
     public boolean isInitialized() {
         return state.getBoolean(INITIALIZED_KEY, false);
     }
 
+    /**
+     * Evaluates whether the component is not initialized, considering both the component
+     * state and the view model if available.
+     *
+     * @return {@code true} if the component is not initialized, otherwise {@code false}
+     */
     public boolean evaluateNotInitialized() {
         if (null != getViewModel()) {
             return !isInitialized() && !getViewModel().isInitialized();
@@ -249,63 +350,91 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
     }
 
     /**
-     * @param initialized the value to set
+     * Sets the initialization state of the component.
+     *
+     * @param initialized {@code true} to mark the component as initialized, {@code false} otherwise
      */
     public void setInitialized(final boolean initialized) {
         state.put(INITIALIZED_KEY, initialized);
     }
 
     /**
-     * @return async
+     * Returns whether the content should be loaded asynchronously.
+     *
+     * @return {@code true} if async loading is enabled, otherwise {@code false}
      */
     public boolean isAsync() {
         return state.getBoolean(ASYNC_KEY, false);
     }
 
     /**
-     * @param async the value to set
+     * Sets whether the content should be loaded asynchronously.
+     *
+     * @param async {@code true} to enable async loading, {@code false} otherwise
      */
     public void setAsync(final boolean async) {
         state.put(ASYNC_KEY, async);
     }
 
     /**
-     * @return renderContent
+     * Returns whether the child content should be rendered.
+     *
+     * @return {@code true} if the content should be rendered, otherwise {@code false}
      */
     public boolean isRenderContent() {
         return state.getBoolean(RENDER_CONTENT_KEY, true);
     }
 
     /**
-     * @param renderContent the value to set
+     * Sets whether the child content should be rendered.
+     *
+     * @param renderContent {@code true} to render the content, {@code false} otherwise
      */
     public void setRenderContent(final boolean renderContent) {
         state.put(RENDER_CONTENT_KEY, renderContent);
     }
 
     /**
-     * @return boolean indicating whether the children are rendered or should be
-     * rendered
+     * Returns whether the children have been loaded.
+     *
+     * @return {@code true} if the children have been loaded, otherwise {@code false}
      */
     public boolean getChildrenLoaded() {
         return state.getBoolean(CHILDREN_LOADED_KEY);
     }
 
     /**
-     * Remember that children were already rendered or trigger loading in the next
-     * request.
+     * Sets whether the children have been loaded or should be loaded in the next request.
      *
-     * @param childrenLoaded true when the children should be rendered in the next
-     *                       render phase.
+     * @param childrenLoaded {@code true} when the children should be rendered in the next render phase
      */
     public void setChildrenLoaded(final boolean childrenLoaded) {
         state.put(CHILDREN_LOADED_KEY, childrenLoaded);
     }
 
+    /**
+     * Determines whether the waiting indicator should be rendered.
+     * <p>
+     * The indicator is shown when:
+     * <ul>
+     *   <li>The component is not initialized</li>
+     *   <li>Children are not loaded yet</li>
+     *   <li>The current request is not a content load request</li>
+     * </ul>
+     *
+     * @param facesContext The current faces context
+     * @return {@code true} if the waiting indicator should be rendered, otherwise {@code false}
+     */
     public boolean shouldRenderWaitingIndicator(FacesContext facesContext) {
         return evaluateNotInitialized() && !getChildrenLoaded() && isNotContentLoadRequest(facesContext);
     }
 
+    /**
+     * Evaluates whether the content should be rendered, using the view model if available,
+     * otherwise using the component's own setting.
+     *
+     * @return {@code true} if the content should be rendered, otherwise {@code false}
+     */
     public boolean evaluateRenderContent() {
         if (null != getViewModel()) {
             return getViewModel().isRenderContent();
@@ -314,9 +443,10 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
     }
 
     /**
-     * Stop processing if the children are not initialized
-     *
-     * @param context the FacesContext
+     * {@inheritDoc}
+     * <p>
+     * Overrides the validator processing to skip validation if this is a content load request.
+     * This prevents validation of uninitialized child components during the loading phase.
      */
     @Override
     public void processValidators(FacesContext context) {
@@ -326,9 +456,11 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
     }
 
     /**
-     * Stop processing if the children are not initialized
-     *
-     * @param context the FacesContext
+     * {@inheritDoc}
+     * <p>
+     * Overrides the update processing to skip updates if this is a content load request.
+     * This prevents processing model updates from uninitialized child components during 
+     * the loading phase.
      */
     @Override
     public void processUpdates(FacesContext context) {
@@ -338,22 +470,25 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
     }
 
     /**
-     * Check if the current request was triggered by the ajax request to reload the
-     * lazy loading content
+     * Checks if the current request was triggered by the ajax request to reload the
+     * lazy loading content.
+     * <p>
+     * This is determined by checking for a specific request parameter that is added
+     * by the JavaScript code when triggering the content load.
      *
-     * @param context the FacesContext
-     * @return true if the current request was triggered by the ajax request to
-     * reload the lazy loading content
+     * @param context The FacesContext for the current request
+     * @return {@code true} if this is NOT a content load request, {@code false} if it is
      */
     public boolean isNotContentLoadRequest(FacesContext context) {
         var componentWrapper = new ComponentWrapper<>(this);
         return !context.getExternalContext().getRequestParameterMap()
-            .containsKey(componentWrapper.getSuffixedClientId(ID_SUFFIX_IS_LOADED));
+                .containsKey(componentWrapper.getSuffixedClientId(ID_SUFFIX_IS_LOADED));
     }
 
     /**
-     * Create a waiting indicator based on the composite component if not already
-     * existing.
+     * Creates a waiting indicator component if one does not already exist.
+     * <p>
+     * The indicator is added as a child component with any configured style classes.
      */
     void createWaitingIndicator() {
         if (retrieveWaitingIndicator().isEmpty()) {
@@ -367,25 +502,37 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
     }
 
     /**
-     * Create a result notification box if not already existing.
+     * Creates a notification box component if one does not already exist.
+     * <p>
+     * The notification box is added as the first child component and is marked
+     * with a data attribute for identification.
      */
     void createNotificationBox() {
         if (retrieveNotificationBox().isEmpty()) {
             var notificationBoxComponent = new NotificationBoxComponent();
             notificationBoxComponent.getPassThroughAttributes().put(DATA_RESULT_NOTIFICATION_BOX,
-                DATA_RESULT_NOTIFICATION_BOX);
+                    DATA_RESULT_NOTIFICATION_BOX);
             getChildren().add(0, notificationBoxComponent);
         }
     }
 
+    /**
+     * Retrieves the waiting indicator component if it exists.
+     *
+     * @return An {@link Optional} containing the waiting indicator component if found
+     */
     public Optional<UIComponent> retrieveWaitingIndicator() {
         return getChildren().stream().filter(child -> child.getClass() == WaitingIndicatorComponent.class).findFirst();
-
     }
 
+    /**
+     * Retrieves the notification box component if it exists.
+     *
+     * @return An {@link Optional} containing the notification box component if found
+     */
     public Optional<UIComponent> retrieveNotificationBox() {
         return getChildren().stream()
-            .filter(child -> child.getPassThroughAttributes().containsKey(DATA_RESULT_NOTIFICATION_BOX))
-            .findFirst();
+                .filter(child -> child.getPassThroughAttributes().containsKey(DATA_RESULT_NOTIFICATION_BOX))
+                .findFirst();
     }
 }

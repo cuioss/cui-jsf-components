@@ -19,20 +19,19 @@ import static de.cuioss.test.generator.Generators.integers;
 import static de.cuioss.test.generator.Generators.letterStrings;
 import static de.cuioss.tools.collect.CollectionLiterals.mutableList;
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
+import de.cuioss.test.generator.TypedGenerator;
+import de.cuioss.tools.string.Joiner;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
-
-import de.cuioss.test.generator.TypedGenerator;
-import de.cuioss.tools.string.Joiner;
-
+@DisplayName("Tests for ForIdentifierProvider implementation")
 class ForIdentifierProviderImplTest {
 
     private final TypedGenerator<Integer> integers = integers(1, 5);
@@ -41,52 +40,106 @@ class ForIdentifierProviderImplTest {
 
     private ForIdentifierProvider target;
 
-    @Test
-    final void shouldVerifyMandatoryConstructorParameter() {
-        assertThrows(NullPointerException.class,
-                () -> new ForIdentifierProvider(null, ForIdentifierProvider.DEFAULT_FOR_IDENTIFIER));
+    @Nested
+    @DisplayName("Tests for constructor behavior")
+    class ConstructorTests {
+
+        @Test
+        @DisplayName("Should throw NullPointerException when constructed with null component")
+        void shouldRejectNullComponent() {
+            // Act & Assert
+            assertThrows(NullPointerException.class,
+                    () -> new ForIdentifierProvider(null, ForIdentifierProvider.DEFAULT_FOR_IDENTIFIER),
+                    "Constructor should reject null component");
+        }
     }
 
-    @Test
-    void shouldNotRetrieveTargetComponentIdAsLongNoWasDefined() {
-        target = new ForIdentifierProvider(new MockPartialComponent(), "");
-        assertTrue(isEmpty(target.getForIdentifier()));
-        assertFalse(target.resolveFirstIdentifier().isPresent());
-        assertTrue(target.resolveIdentifierAsList().isEmpty());
+    @Nested
+    @DisplayName("Tests for identifier resolution")
+    class IdentifierResolutionTests {
+
+        @Test
+        @DisplayName("Should handle empty identifier correctly")
+        void shouldHandleEmptyIdentifier() {
+            // Arrange
+            target = new ForIdentifierProvider(new MockPartialComponent(), "");
+
+            // Act & Assert
+            assertTrue(isEmpty(target.getForIdentifier()),
+                    "ForIdentifier should be empty when initialized with empty string");
+            assertFalse(target.resolveFirstIdentifier().isPresent(),
+                    "First identifier should not be present for empty string");
+            assertTrue(target.resolveIdentifierAsList().isEmpty(),
+                    "Identifier list should be empty for empty string");
+        }
+
+        @Test
+        @DisplayName("Should resolve single identifier correctly")
+        void shouldResolveSingleIdentifier() {
+            // Arrange
+            final var expected_id = ids.next();
+            target = createAnyValid();
+
+            // Act
+            target.setForIdentifier(expected_id);
+
+            // Assert
+            assertEquals(expected_id, target.getForIdentifier(),
+                    "ForIdentifier should match the set value");
+            assertTrue(target.resolveFirstIdentifier().isPresent(),
+                    "First identifier should be present");
+            assertEquals(expected_id, target.resolveFirstIdentifier().get(),
+                    "First identifier should match the set value");
+            assertTrue(target.resolveIdentifierAsList().contains(expected_id),
+                    "Identifier list should contain the set value");
+        }
     }
 
-    @Test
-    void shouldNotRetrieveTargetComponentId() {
-        final var expected_id = ids.next();
-        target = createAnyValid();
-        target.setForIdentifier(expected_id);
-        assertEquals(expected_id, target.getForIdentifier());
-        assertTrue(target.resolveFirstIdentifier().isPresent());
-        assertEquals(expected_id, target.resolveFirstIdentifier().get());
-        assertTrue(target.resolveIdentifierAsList().contains(expected_id));
+    @Nested
+    @DisplayName("Tests for multiple identifier handling")
+    class MultipleIdentifierTests {
+
+        @Test
+        @DisplayName("Should handle multiple space-separated identifiers correctly")
+        void shouldHandleMultipleIdentifiers() {
+            // Arrange
+            final var first_id = ids.next();
+            final var separatedIds = anyIds();
+            final List<String> allIds = new ArrayList<>();
+            allIds.add(first_id);
+            allIds.addAll(Arrays.asList(separatedIds));
+            final var expected_ids = Joiner.on(" ").join(allIds);
+            target = createAnyValid();
+
+            // Act
+            target.setForIdentifier(expected_ids);
+
+            // Assert
+            assertEquals(expected_ids, target.getForIdentifier(),
+                    "ForIdentifier should match the set value with multiple IDs");
+            assertTrue(target.resolveFirstIdentifier().isPresent(),
+                    "First identifier should be present");
+            assertEquals(first_id, target.resolveFirstIdentifier().get(),
+                    "First identifier should match the first ID in the space-separated list");
+            assertTrue(target.resolveIdentifierAsList().contains(first_id),
+                    "Identifier list should contain the first ID");
+            assertTrue(target.resolveIdentifierAsList().containsAll(mutableList(separatedIds)),
+                    "Identifier list should contain all the additional IDs");
+        }
     }
 
-    @Test
-    void shouldSupportMultipleTargetComponentIds() {
-        final var first_id = ids.next();
-        final var separatedIds = anyIds();
-        final List<String> allIds = new ArrayList<>();
-        allIds.add(first_id);
-        allIds.addAll(Arrays.asList(separatedIds));
-        final var expected_ids = Joiner.on(" ").join(allIds);
-        target = createAnyValid();
-        target.setForIdentifier(expected_ids);
-        assertEquals(expected_ids, target.getForIdentifier());
-        assertTrue(target.resolveFirstIdentifier().isPresent());
-        assertEquals(first_id, target.resolveFirstIdentifier().get());
-        assertTrue(target.resolveIdentifierAsList().contains(first_id));
-        assertTrue(target.resolveIdentifierAsList().containsAll(mutableList(separatedIds)));
-    }
-
+    /**
+     * Creates a ForIdentifierProvider with default settings
+     * @return a new ForIdentifierProvider instance
+     */
     private static ForIdentifierProvider createAnyValid() {
         return new ForIdentifierProvider(new MockPartialComponent(), ForIdentifierProvider.DEFAULT_FOR_IDENTIFIER);
     }
 
+    /**
+     * Generates an array of random IDs
+     * @return an array of random string IDs
+     */
     private String[] anyIds() {
         final var maxCount = integers.next();
         final List<String> tempIds = new ArrayList<>(maxCount);

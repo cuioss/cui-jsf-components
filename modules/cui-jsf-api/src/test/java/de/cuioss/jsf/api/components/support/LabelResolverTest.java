@@ -16,27 +16,30 @@
 package de.cuioss.jsf.api.components.support;
 
 import static de.cuioss.test.generator.Generators.nonEmptyStrings;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import jakarta.faces.convert.NumberConverter;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.CoreJsfTestConfiguration;
 import de.cuioss.jsf.api.EnableJSFCDIEnvironment;
 import de.cuioss.jsf.api.EnableResourceBundleSupport;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
-import de.cuioss.test.jsf.junit5.JsfEnabledTestEnvironment;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import de.cuioss.test.jsf.mocks.ReverseConverter;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.NumberConverter;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 @EnableJSFCDIEnvironment
 @EnableResourceBundleSupport
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
-class LabelResolverTest extends JsfEnabledTestEnvironment {
+@EnableJsfEnvironment
+@ExplicitParamInjection
+@DisplayName("Tests for LabelResolver")
+class LabelResolverTest {
 
     protected static final String MESSAGE_KEY = "de.cuioss.common.email.invalid";
 
@@ -44,67 +47,145 @@ class LabelResolverTest extends JsfEnabledTestEnvironment {
 
     private final TypedGenerator<String> someStrings = nonEmptyStrings();
 
-    @Test
-    void shouldResolveStringObject() {
-        final var test = someStrings.next();
-        final var resolver = LabelResolver.builder().withLabelValue(test).build();
-        assertEquals(test, resolver.resolve(getFacesContext()));
+    @Nested
+    @DisplayName("Tests for basic label resolution")
+    class BasicResolutionTests {
+
+        @Test
+        @DisplayName("Should resolve string object directly")
+        void shouldResolveStringObject(FacesContext facesContext) {
+            // Arrange
+            final var test = someStrings.next();
+
+            // Act
+            final var resolver = LabelResolver.builder().withLabelValue(test).build();
+
+            // Assert
+            assertEquals(test, resolver.resolve(facesContext),
+                    "Resolver should return the original string value");
+        }
+
+        @Test
+        @DisplayName("Should resolve message key from resource bundle")
+        void shouldResolveMessageKey(FacesContext facesContext) {
+            // Arrange
+            final var resolver = LabelResolver.builder().withLabelKey(MESSAGE_KEY).build();
+
+            // Act & Assert
+            assertEquals(MESSAGE_VALUE, resolver.resolve(facesContext),
+                    "Resolver should return the message value from the resource bundle");
+        }
+
+        @Test
+        @DisplayName("Should prioritize value over key when both are set")
+        void shouldResolveValueOverKey(FacesContext facesContext) {
+            // Arrange
+            final var test = someStrings.next();
+
+            // Act
+            final var resolver = LabelResolver.builder()
+                    .withLabelValue(test)
+                    .withLabelKey(MESSAGE_KEY)
+                    .build();
+
+            // Assert
+            assertEquals(test, resolver.resolve(facesContext),
+                    "Resolver should prioritize label value over label key");
+        }
     }
 
-    @Test
-    void shouldFallBackWithNotRegisteredConverterObject() {
-        final Double test = 1.0;
-        final var resolver = LabelResolver.builder().withLabelValue(test).build();
-        assertEquals("1.0", resolver.resolve(getFacesContext()));
+    @Nested
+    @DisplayName("Tests for converter integration")
+    class ConverterTests {
+
+        @Test
+        @DisplayName("Should fall back to toString for non-registered converter objects")
+        void shouldFallBackWithNotRegisteredConverterObject(FacesContext facesContext) {
+            // Arrange
+            final Double test = 1.0;
+
+            // Act
+            final var resolver = LabelResolver.builder().withLabelValue(test).build();
+
+            // Assert
+            assertEquals("1.0", resolver.resolve(facesContext),
+                    "Resolver should fall back to toString for non-string objects");
+        }
+
+        @Test
+        @DisplayName("Should resolve with converter ID when registered")
+        void shouldResolveWithConverterId(FacesContext facesContext, ComponentConfigDecorator componentConfig) {
+            // Arrange
+            componentConfig.registerConverter(ReverseConverter.class);
+
+            // Act
+            final var resolver = LabelResolver.builder()
+                    .withLabelValue("test")
+                    .withConverter(ReverseConverter.CONVERTER_ID)
+                    .build();
+
+            // Assert
+            assertEquals("tset", resolver.resolve(facesContext),
+                    "Resolver should use the registered converter by ID");
+        }
+
+        @Test
+        @DisplayName("Should resolve with converter instance")
+        void shouldResolveWithConverter(FacesContext facesContext) {
+            // Arrange
+            final var resolver = LabelResolver.builder()
+                    .withLabelValue("test")
+                    .withConverter(new ReverseConverter())
+                    .build();
+
+            // Act & Assert
+            assertEquals("tset", resolver.resolve(facesContext),
+                    "Resolver should use the provided converter instance");
+        }
+
+        @Test
+        @DisplayName("Should handle converter errors gracefully")
+        void shouldResolveMessageOnConverterError(FacesContext facesContext) {
+            // Arrange
+            facesContext.getApplication().addConverter(NumberConverter.CONVERTER_ID, NumberConverter.class.getName());
+            final var test = someStrings.next();
+
+            // Act
+            final var resolver = LabelResolver.builder()
+                    .withLabelValue(test)
+                    .withConverter(NumberConverter.CONVERTER_ID)
+                    .build();
+
+            // Assert
+            assertNotNull(resolver.resolve(facesContext),
+                    "Resolver should not return null when converter fails");
+        }
     }
 
-    @Test
-    void shouldResolveWithConverterId() {
-        getComponentConfigDecorator().registerConverter(ReverseConverter.class);
-        final var resolver = LabelResolver.builder().withLabelValue("test").withConverter(ReverseConverter.CONVERTER_ID)
-                .build();
-        assertEquals("tset", resolver.resolve(getFacesContext()));
-    }
+    @Nested
+    @DisplayName("Tests for strict mode behavior")
+    class StrictModeTests {
 
-    @Test
-    void shouldResolveWithConverter() {
-        final var resolver = LabelResolver.builder().withLabelValue("test").withConverter(new ReverseConverter())
-                .build();
-        assertEquals("tset", resolver.resolve(getFacesContext()));
-    }
+        @Test
+        @DisplayName("Should throw exception in strict mode when no label is set")
+        void shouldFailOnStrictMode(FacesContext facesContext) {
+            // Arrange
+            final var resolver = LabelResolver.builder().withStrictMode(true).build();
 
-    @Test
-    void shouldResolveMessageOnConverterError() {
-        getFacesContext().getApplication().addConverter(NumberConverter.CONVERTER_ID, NumberConverter.class.getName());
-        final var test = someStrings.next();
-        final var resolver = LabelResolver.builder().withLabelValue(test).withConverter(NumberConverter.CONVERTER_ID)
-                .build();
-        assertNotNull(resolver.resolve(getFacesContext()));
-    }
+            // Act & Assert
+            assertThrows(IllegalStateException.class, () -> resolver.resolve(facesContext),
+                    "Resolver should throw IllegalStateException in strict mode when no label is set");
+        }
 
-    @Test
-    void shouldResolveMessageKey() {
-        final var resolver = LabelResolver.builder().withLabelKey(MESSAGE_KEY).build();
-        assertEquals(MESSAGE_VALUE, resolver.resolve(getFacesContext()));
-    }
+        @Test
+        @DisplayName("Should return null in non-strict mode when no label is set")
+        void shouldReturnNullOnNonStrictMode(FacesContext facesContext) {
+            // Arrange
+            final var resolver = LabelResolver.builder().withStrictMode(false).build();
 
-    @Test
-    void shouldFailOnStrictMode() {
-        final var resolver = LabelResolver.builder().withStrictMode(true).build();
-        var facesContext = getFacesContext();
-        assertThrows(IllegalStateException.class, () -> resolver.resolve(facesContext));
-    }
-
-    @Test
-    void shouldReturnNullOnNonStrictMode() {
-        final var resolver = LabelResolver.builder().withStrictMode(false).build();
-        assertNull(resolver.resolve(getFacesContext()));
-    }
-
-    @Test
-    void shouldResolveValueOverKey() {
-        final var test = someStrings.next();
-        final var resolver = LabelResolver.builder().withLabelValue(test).withLabelKey(MESSAGE_KEY).build();
-        assertEquals(test, resolver.resolve(getFacesContext()));
+            // Act & Assert
+            assertNull(resolver.resolve(facesContext),
+                    "Resolver should return null in non-strict mode when no label is set");
+        }
     }
 }

@@ -22,26 +22,88 @@ import jakarta.faces.component.StateHelper;
 import lombok.NonNull;
 
 /**
- * Default implementation for {@link ComponentStyleClassProvider}
+ * <h2>Summary</h2>
+ * <p>
+ * Default implementation for {@link ComponentStyleClassProvider} that manages the 
+ * component's style class attributes using JSF's state management facilities.
+ * This implementation distinguishes between the "local" style class (as set by the 
+ * user) and the "computed" style class (which includes component-specific style classes).
+ * </p>
+ * 
+ * <h2>State Management</h2>
+ * <p>
+ * This implementation uses {@link CuiState} to handle state management, which requires
+ * a {@link ComponentBridge} to be provided at construction time. Component state is 
+ * stored using two separate keys:
+ * </p>
+ * <ul>
+ *   <li>{@link #KEY} - Stores the final computed style class including component-specific classes</li>
+ *   <li>{@link #LOCAL_STYLE_CLASS_KEY} - Stores only the user-provided style classes</li>
+ * </ul>
+ * 
+ * <h2>Usage</h2>
+ * <p>
+ * This implementation is designed to be used as a delegate within JSF components:
+ * </p>
+ * <pre>
+ * public class MyComponent extends UIComponentBase implements ComponentStyleClassProvider {
+ *     
+ *     private final ComponentStyleClassProviderImpl styleClassProvider;
+ *     
+ *     public MyComponent() {
+ *         styleClassProvider = new ComponentStyleClassProviderImpl(new ComponentBridge() {
+ *             &#64;Override
+ *             public StateHelper stateHelper() {
+ *                 return getStateHelper();
+ *             }
+ *         });
+ *     }
+ *     
+ *     &#64;Override
+ *     public String getStyleClass() {
+ *         return styleClassProvider.getStyleClass();
+ *     }
+ *     
+ *     &#64;Override
+ *     public void setStyleClass(String styleClass) {
+ *         styleClassProvider.setStyleClass(styleClass);
+ *     }
+ *     
+ *     &#64;Override
+ *     public String computeAndStoreFinalStyleClass(StyleClassBuilder componentSpecificStyleClass) {
+ *         return styleClassProvider.computeAndStoreFinalStyleClass(componentSpecificStyleClass);
+ *     }
+ * }
+ * </pre>
  *
  * @author Oliver Wolff
+ * @since 1.0
+ * @see ComponentStyleClassProvider
+ * @see ComponentBridge
+ * @see CuiState
  */
 public class ComponentStyleClassProviderImpl implements ComponentStyleClassProvider {
 
     /**
-     * The key for the {@link StateHelper}
+     * The key for the {@link StateHelper} that stores the final computed style class
+     * (including component-specific style classes).
      */
     public static final String KEY = "styleClass";
 
     /**
-     * The key for the {@link StateHelper}
+     * The key for the {@link StateHelper} that stores only the user-provided style class
+     * (excluding component-specific style classes).
      */
     public static final String LOCAL_STYLE_CLASS_KEY = "localStyleClass";
 
     private final CuiState state;
 
     /**
-     * @param bridge to be used
+     * Constructor that initializes the state management system.
+     * 
+     * @param bridge to be used for accessing the component's {@link StateHelper}.
+     *              Must not be {@code null}.
+     * @throws NullPointerException if {@code bridge} is {@code null}
      */
     public ComponentStyleClassProviderImpl(@NonNull ComponentBridge bridge) {
         state = new CuiState(bridge.stateHelper());
@@ -65,8 +127,14 @@ public class ComponentStyleClassProviderImpl implements ComponentStyleClassProvi
         return state.get(KEY);
     }
 
+    /**
+     * Creates a StyleClassBuilder containing the user-provided style classes.
+     * This method is used internally to combine user-provided style classes
+     * with component-specific ones.
+     * 
+     * @return a new {@link StyleClassBuilder} instance containing the user-provided style classes
+     */
     private StyleClassBuilder getLocalStyleClassBuilder() {
         return new StyleClassBuilderImpl(state.get(LOCAL_STYLE_CLASS_KEY));
     }
-
 }

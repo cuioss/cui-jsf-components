@@ -16,71 +16,141 @@
 package de.cuioss.jsf.api.components.partial;
 
 import static de.cuioss.test.generator.Generators.letterStrings;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.mocks.ReverseConverter;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
-@VerifyComponentProperties(of = { "titleKey", "titleValue", "titleConverter" })
+@VerifyComponentProperties(of = {"titleKey", "titleValue", "titleConverter"})
+@ExplicitParamInjection
+@DisplayName("Tests for TitleProviderImpl implementation")
 class TitleProviderImplTest extends AbstractPartialComponentTest {
 
     @Test
+    @DisplayName("Should throw NullPointerException when constructed with null")
     void shouldFailWithNullConstructor() {
-        assertThrows(NullPointerException.class, () -> new TitleProviderImpl(null));
+        // Act & Assert
+        assertThrows(NullPointerException.class, () -> new TitleProviderImpl(null),
+                "Constructor should reject null component");
     }
 
-    @Test
-    void shouldResolveNullForNoTitleSet() {
-        assertNull(anyComponent().resolveTitle());
+    @Nested
+    @DisplayName("Tests for title resolution")
+    class TitleResolutionTests {
+
+        @Test
+        @DisplayName("Should resolve null when no title is set")
+        void shouldResolveNullForNoTitleSet() {
+            // Act & Assert
+            assertNull(anyComponent().resolveTitle(),
+                    "Title should be null when none is set");
+        }
+
+        @Test
+        @DisplayName("Should resolve title value when set directly")
+        void shouldResolveTitleValue() {
+            // Arrange
+            final var any = anyComponent();
+
+            // Act
+            any.setTitleValue(MESSAGE_KEY);
+
+            // Assert
+            assertEquals(MESSAGE_KEY, any.resolveTitle(),
+                    "Should return the directly set title value");
+        }
+
+        @Test
+        @DisplayName("Should resolve title from resource bundle when key is set")
+        void shouldResolveTitleKey() {
+            // Arrange
+            final var any = anyComponent();
+
+            // Act
+            any.setTitleKey(MESSAGE_KEY);
+
+            // Assert
+            assertEquals(MESSAGE_VALUE, any.resolveTitle(),
+                    "Should resolve title from resource bundle using the key");
+        }
     }
 
-    @Test
-    void shouldResolveTitleValue() {
-        final var any = anyComponent();
-        any.setTitleValue(MESSAGE_KEY);
-        assertEquals(MESSAGE_KEY, any.resolveTitle());
+    @Nested
+    @DisplayName("Tests for title conversion")
+    class TitleConversionTests {
+
+        @Test
+        @DisplayName("Should use converter by ID when registered in application")
+        void shouldUseConverterById(ComponentConfigDecorator componentConfig) {
+            // Arrange
+            componentConfig.registerConverter(ReverseConverter.class);
+            final var any = anyComponent();
+
+            // Act
+            any.setTitleConverter(ReverseConverter.CONVERTER_ID);
+            any.setTitleValue("test");
+
+            // Assert
+            assertEquals("tset", any.resolveTitle(),
+                    "Title should be converted using the registered converter");
+        }
+
+        @Test
+        @DisplayName("Should use converter instance when set directly")
+        void shouldUseConverterInstance() {
+            // Arrange
+            final var any = anyComponent();
+
+            // Act
+            any.setTitleConverter(new ReverseConverter());
+            any.setTitleValue("test");
+
+            // Assert
+            assertEquals("tset", any.resolveTitle(),
+                    "Title should be converted using the direct converter instance");
+        }
     }
 
-    @Test
-    void shouldResolveTitleKey() {
-        final var any = anyComponent();
-        any.setTitleKey(MESSAGE_KEY);
-        assertEquals(MESSAGE_VALUE, any.resolveTitle());
-    }
+    @Nested
+    @DisplayName("Tests for title availability detection")
+    class TitleAvailabilityTests {
 
-    @Test
-    void shouldUseConverterAsId() {
-        getComponentConfigDecorator().registerConverter(ReverseConverter.class);
-        final var any = anyComponent();
-        any.setTitleConverter(ReverseConverter.CONVERTER_ID);
-        any.setTitleValue("test");
-        assertEquals("tset", any.resolveTitle());
-    }
+        @Test
+        @DisplayName("Should correctly detect whether title is set")
+        void shouldDetectTitleAvailability() {
+            // Arrange
+            final var any = anyComponent();
+            final var strings = letterStrings(1, 10);
 
-    @Test
-    void shouldUseConverterAsConverter() {
-        final var any = anyComponent();
-        any.setTitleConverter(new ReverseConverter());
-        any.setTitleValue("test");
-        assertEquals("tset", any.resolveTitle());
-    }
+            // Assert - initial state
+            assertFalse(any.isTitleSet(),
+                    "Title should not be set initially");
 
-    @Test
-    void shouldDetectTitleAvailabilty() {
-        final var any = anyComponent();
-        assertFalse(any.isTitleSet());
-        final var strings = letterStrings(1, 10);
-        any.setTitleKey(strings.next());
-        assertTrue(any.isTitleSet());
-        any.setTitleValue(strings.next());
-        assertTrue(any.isTitleSet());
-        any.setTitleKey(null);
-        assertTrue(any.isTitleSet());
+            // Act - set title key
+            any.setTitleKey(strings.next());
+
+            // Assert - after setting key
+            assertTrue(any.isTitleSet(),
+                    "Title should be detected as set after setting key");
+
+            // Act - set title value
+            any.setTitleValue(strings.next());
+
+            // Assert - after setting value
+            assertTrue(any.isTitleSet(),
+                    "Title should be detected as set after setting value");
+
+            // Act - clear key but keep value
+            any.setTitleKey(null);
+
+            // Assert - after clearing key
+            assertTrue(any.isTitleSet(),
+                    "Title should still be detected as set when value remains");
+        }
     }
 }

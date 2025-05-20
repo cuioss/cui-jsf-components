@@ -15,49 +15,99 @@
  */
 package de.cuioss.jsf.bootstrap.button.support;
 
+import static de.cuioss.tools.string.MoreStrings.isEmpty;
+
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.jsf.api.components.css.StyleClassProvider;
 import de.cuioss.tools.string.MoreStrings;
 import lombok.Getter;
 
-import static de.cuioss.tools.string.MoreStrings.isEmpty;
-
 /**
+ * Represents Bootstrap button states/styles and maps them to corresponding CSS classes.
+ * Implements {@link StyleClassProvider} for easy CSS class retrieval.
+ * 
+ * <h3>Available States</h3>
+ * <ul>
+ *   <li>{@link #DEFAULT} - Standard gray button ("btn-default")</li>
+ *   <li>{@link #PRIMARY} - Blue button for primary actions ("btn-primary")</li>
+ *   <li>{@link #SUCCESS} - Green button for successful actions ("btn-success")</li>
+ *   <li>{@link #INFO} - Light blue button for information ("btn-info")</li>
+ *   <li>{@link #WARNING} - Yellow button for warnings ("btn-warning")</li>
+ *   <li>{@link #DANGER} - Red button for dangerous actions ("btn-danger")</li>
+ *   <li>{@link #LINK} - Button styled as a link ("btn-link")</li>
+ * </ul>
+ *
  * @author Oliver Wolff
+ * @since 1.0
+ * @see ContextState
  */
 @Getter
 public enum ButtonState implements StyleClassProvider {
 
     /**
-     * The default-state.
+     * Default state button style.
+     * <p>Applies the "btn-default" CSS class for a standard gray button.</p>
      */
     DEFAULT("default"),
+
     /**
-     * Primary.
+     * Primary action button style.
+     * <p>Applies the "btn-primary" CSS class for a blue button, 
+     * typically used for the main action on a page or form.</p>
      */
     PRIMARY("primary"),
+
     /**
-     * Success.
+     * Success state button style.
+     * <p>Applies the "btn-success" CSS class for a green button,
+     * typically used for successful or positive actions.</p>
      */
     SUCCESS("success"),
+
     /**
-     * Info.
+     * Information state button style.
+     * <p>Applies the "btn-info" CSS class for a light blue button,
+     * typically used for informational or neutral actions.</p>
      */
     INFO("info"),
+
     /**
-     * Warning.
+     * Warning state button style.
+     * <p>Applies the "btn-warning" CSS class for a yellow button,
+     * typically used for actions that require caution.</p>
      */
     WARNING("warning"),
+
     /**
-     * error.
+     * Danger state button style.
+     * <p>Applies the "btn-danger" CSS class for a red button,
+     * typically used for destructive or irreversible actions.</p>
      */
     DANGER("danger"),
-    /**
-     * Light.
-     */
-    LINK("link"),
-    ;
 
+    /**
+     * Link style button.
+     * <p>Applies the "btn-link" CSS class to make the button appear as a link
+     * while maintaining button behavior.</p>
+     */
+    LINK("link");
+
+    /**
+     * The CSS class prefix for all button state classes.
+     */
+    private static final String PREFIX = "btn-";
+
+    /**
+     * The CSS class corresponding to this button state.
+     */
+    private final String styleClass;
+
+    /**
+     * Constructor.
+     *
+     * @param suffix The state suffix to be appended to the "btn-" prefix.
+     *               If empty, an empty string will be used as the style class.
+     */
     ButtonState(final String suffix) {
         if (MoreStrings.isEmpty(suffix)) {
             styleClass = "";
@@ -66,18 +116,20 @@ public enum ButtonState implements StyleClassProvider {
         }
     }
 
-    private static final String PREFIX = "btn-";
-
-    private final String styleClass;
-
-
     /**
-     * @param state Maybe null or empty, otherwise must be one of
-     *              {"default","primary", "success", "info", "warning", "danger",
-     *              "link"}
-     * @return the corresponding {@link ButtonState} derived by the given
-     * {@link ContextState}. In case of <code>contextSize==null</code> it
-     * will return {@link ButtonState#DEFAULT}.
+     * Converts a string state name to the corresponding {@link ButtonState} enum value.
+     * <p>
+     * This method allows for case-insensitive string lookup of button states,
+     * which is useful when processing user input or configuration values.
+     * 
+     * @param state The state name to convert. May be null or empty.
+     *              Valid values are: "default", "primary", "success", "info",
+     *              "warning", "danger", and "link" (case-insensitive).
+     *              
+     * @return The corresponding {@link ButtonState}. Returns {@link ButtonState#DEFAULT}
+     *         if the input is null or empty.
+     *         
+     * @throws IllegalArgumentException if the state string doesn't match any defined button state
      */
     public static ButtonState getForContextState(final String state) {
         if (isEmpty(state)) {

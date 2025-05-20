@@ -15,41 +15,67 @@
  */
 package de.cuioss.jsf.bootstrap.tag;
 
+import de.cuioss.jsf.api.components.events.ModelPayloadEvent;
+import de.cuioss.jsf.api.components.util.MethodRule;
 import jakarta.faces.view.facelets.ComponentConfig;
 import jakarta.faces.view.facelets.ComponentHandler;
 import jakarta.faces.view.facelets.MetaRule;
 import jakarta.faces.view.facelets.MetaRuleset;
 
-import de.cuioss.jsf.api.components.events.ModelPayloadEvent;
-import de.cuioss.jsf.api.components.util.MethodRule;
-
 /**
- * This handler is responsible for adding the binding to the disposeListener
+ * Component handler for {@link TagComponent} that manages method bindings
+ * for the dispose listener functionality during view build time.
+ * 
+ * <p>Adds a MetaRule to process the disposeListener attribute, which expects
+ * a method compatible with {@link ModelPayloadEvent}.</p>
+ * 
+ * <h2>Usage Example</h2>
+ * <pre>
+ * &lt;boot:tag contentValue="Status" 
+ *         disposable="true" 
+ *         disposeListener="#{bean.handleTagDisposed}" /&gt;
+ * </pre>
  *
  * @author Oliver Wolff
+ * @since 1.0
  */
 public class TagHandler extends ComponentHandler {
 
-    /** "disposeListener". */
+    /** 
+     * Name of the attribute for the dispose listener method binding.
+     * Value: "disposeListener". 
+     */
     public static final String DISPOSE_LISTENER_NAME = "disposeListener";
 
+    /**
+     * MetaRule that handles the binding of the dispose listener method to the component.
+     * It expects a method with no return value (void) that accepts a
+     * {@link ModelPayloadEvent} parameter.
+     */
     private static final MetaRule DISPOSE_METHOD = new MethodRule(DISPOSE_LISTENER_NAME, null,
-            new Class[] { ModelPayloadEvent.class });
+            new Class[]{ModelPayloadEvent.class});
 
     /**
-     * @param config
+     * Constructor that initializes the handler with the given configuration.
+     * 
+     * @param config the component configuration containing information about the
+     *               tag handler being created
      */
     public TagHandler(final ComponentConfig config) {
         super(config);
     }
 
+    /**
+     * Extends the meta ruleset for the component by adding the dispose method rule.
+     * This enables the processing of the disposeListener attribute in the view declaration.
+     *
+     * @param type the component class type
+     * @return the extended MetaRuleset containing the dispose method rule
+     */
     @Override
     protected MetaRuleset createMetaRuleset(final Class type) {
         final var metaRuleset = super.createMetaRuleset(type);
-
         metaRuleset.addRule(DISPOSE_METHOD);
-
         return metaRuleset;
     }
-
 }

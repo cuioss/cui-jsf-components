@@ -15,13 +15,6 @@
  */
 package de.cuioss.jsf.jqplot.layout;
 
-import static de.cuioss.jsf.jqplot.axes.AxisType.X_AXES;
-import static de.cuioss.jsf.jqplot.axes.AxisType.Y_AXES;
-import static de.cuioss.tools.base.Preconditions.checkArgument;
-
-import java.io.Serial;
-import java.util.List;
-
 import de.cuioss.jsf.jqplot.axes.AxisType;
 import de.cuioss.jsf.jqplot.js.support.JsObject;
 import de.cuioss.jsf.jqplot.js.support.JsValue;
@@ -42,6 +35,13 @@ import de.cuioss.jsf.jqplot.renderer.marker.MarkerRendererOptions;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Delegate;
+
+import java.io.Serial;
+import java.util.List;
+
+import static de.cuioss.jsf.jqplot.axes.AxisType.X_AXES;
+import static de.cuioss.jsf.jqplot.axes.AxisType.Y_AXES;
+import static de.cuioss.tools.base.Preconditions.checkArgument;
 
 /**
  * Class: Series An individual data series object. Cannot be instantiated

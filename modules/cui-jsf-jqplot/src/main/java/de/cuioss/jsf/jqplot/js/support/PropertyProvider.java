@@ -15,15 +15,15 @@
  */
 package de.cuioss.jsf.jqplot.js.support;
 
-import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
 /**
  * @author Oliver Wolff

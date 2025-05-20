@@ -15,8 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.layout.input.support;
 
-import java.io.Serializable;
-
 import de.cuioss.jsf.api.components.partial.ComponentBridge;
 import de.cuioss.jsf.api.components.support.LabelResolver;
 import de.cuioss.jsf.api.components.util.CuiState;
@@ -24,38 +22,42 @@ import de.cuioss.jsf.bootstrap.layout.input.InputGuardComponent;
 import de.cuioss.tools.string.MoreStrings;
 import lombok.NonNull;
 
+import java.io.Serializable;
+
 /**
- * <h2>Summary</h2>
  * <p>
- * This class manages the state and resolving of the information needed for
- * creating the guard- / unguard Button in context of
- * {@link InputGuardComponent}
+ * Component attribute provider that encapsulates guard button configuration for
+ * {@link InputGuardComponent}. This class manages the appearance and behavior of the
+ * button that unlocks guarded input fields.
  * </p>
- * <h2>guardButtonTitleKey</h2>
+ * 
+ * <h2>Features</h2>
+ * <ul>
+ *   <li>Manages icon selection for the unlock button</li>
+ *   <li>Provides internationalized title/tooltip text for the button</li>
+ *   <li>Supports both resource bundle keys and direct values</li>
+ *   <li>Handles conversion and escaping options</li>
+ * </ul>
+ * 
+ * <h2>Attributes</h2>
+ * <ul>
+ *   <li><b>guardIcon</b> - Icon to display on the unlock button (default: "cui-icon-unlock")</li>
+ *   <li><b>guardButtonTitleKey</b> - Resource bundle key for button tooltip (default: "input_guard.unlock.default.title")</li>
+ *   <li><b>guardButtonTitleValue</b> - Direct value for button tooltip (takes precedence over titleKey if both are present)</li>
+ *   <li><b>guardButtonTitleConverter</b> - Optional converter for title value</li>
+ *   <li><b>guardButtonTitleEscape</b> - Whether to escape HTML in title (default: true)</li>
+ * </ul>
+ * 
+ * <h2>Usage</h2>
  * <p>
- * The key for looking up the text to be displayed as the title. Although this
- * attribute is not required the developer must provide either this or
- * #guardButtonTitleValue if you want a title to be displayed. Defaults to
- * 'cc.unlockableField.unlock.title', resulting in 'Unlock field for editing'
+ * This class is used internally by {@link InputGuardComponent} and is not typically
+ * instantiated directly by application code. The attributes it manages are exposed
+ * as properties on the InputGuardComponent.
  * </p>
- * <h2>guardButtonTitleValue</h2>
- * <p>
- * The Object representing the title to be displayed. This is a replacement for
- * #guardButtonTitleKey. If both are present guardButtonTitleValue takes
- * precedence.
- * </p>
- * <h2>guardButtonTitleConverter</h2>
- * <p>
- * The optional converterId to be used in case of guardButtonTitleValue is set
- * and needs conversion.
- * </p>
- * <h2>guardButtonTitleEscape</h2>
- * <p>
- * Indicates whether the title is to be escaped on output or not. Default is
- * <code>true</code>.
- * </p>
- *
+ * 
  * @author Oliver Wolff
+ * @see InputGuardComponent
+ * @see ResetGuardButtonAttributes
  */
 public class GuardButtonAttributes {
 

@@ -15,10 +15,6 @@
  */
 package de.cuioss.jsf.bootstrap.icon;
 
-import jakarta.faces.component.UIComponent;
-
-import org.junit.jupiter.api.Test;
-
 import de.cuioss.jsf.api.components.css.ContextSize;
 import de.cuioss.jsf.api.components.css.ContextState;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
@@ -34,72 +30,125 @@ import de.cuioss.jsf.test.EnableJSFCDIEnvironment;
 import de.cuioss.jsf.test.EnableResourceBundleSupport;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @EnableJSFCDIEnvironment
 @EnableResourceBundleSupport
+@ExplicitParamInjection
+@DisplayName("Tests for IconRenderer")
 class IconRendererTest extends AbstractComponentRendererTest<IconRenderer> {
 
     private static final String ICON = "cui-icon-alarm";
-
     private static final String ICON_PREFIX = "cui-icon";
-
     private static final String ICON_RESULT_CSS = ICON_PREFIX + " " + ICON;
-
     private static final String SOME_KEY = "some.key";
 
-    @Test
-    void shouldRenderIconClass() {
-        var component = new IconComponent();
-        component.setIcon(ICON);
-        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(ICON_RESULT_CSS);
-        assertRenderResult(component, expected.getDocument());
+    @Nested
+    @DisplayName("Basic rendering tests")
+    class BasicRenderingTests {
+
+        @Test
+        @DisplayName("Should render icon with specified icon class")
+        void shouldRenderIconWithSpecifiedClass(FacesContext facesContext) throws IOException {
+            // Arrange
+            var component = new IconComponent();
+            component.setIcon(ICON);
+
+            // Act & Assert
+            var expected = new HtmlTreeBuilder().withNode(Node.SPAN)
+                    .withStyleClass(ICON_RESULT_CSS);
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
+
+        @Test
+        @DisplayName("Should render minimal icon with default settings")
+        void shouldRenderMinimalIcon(FacesContext facesContext) throws IOException {
+            // Arrange
+            var component = getComponent();
+
+            // Act & Assert
+            var expected = new HtmlTreeBuilder().withNode(Node.SPAN)
+                    .withStyleClass(IconProvider.FALLBACK_ICON_STRING);
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
+
+        @Test
+        @DisplayName("Should render fallback icon when library is invalid")
+        void shouldRenderFallbackIconForInvalidLibrary(FacesContext facesContext) throws IOException {
+            // Arrange
+            var component = new IconComponent();
+            component.setIcon(SOME_KEY);
+
+            // Act & Assert
+            var expected = new HtmlTreeBuilder().withNode(Node.SPAN)
+                    .withStyleClass(IconProvider.FALLBACK_ICON_STRING);
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
     }
 
-    @Test
-    void shouldRenderMinimal() {
-        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(IconProvider.FALLBACK_ICON_STRING);
-        assertRenderResult(getComponent(), expected.getDocument());
+    @Nested
+    @DisplayName("Title rendering tests")
+    class TitleRenderingTests {
+
+        @Test
+        @DisplayName("Should render title from bundle key")
+        void shouldRenderTitleFromBundleKey(FacesContext facesContext) throws IOException {
+            // Arrange
+            var component = new IconComponent();
+            component.setIcon(ICON);
+            component.setTitleKey(SOME_KEY);
+
+            // Act & Assert
+            var expected = new HtmlTreeBuilder().withNode(Node.SPAN)
+                    .withStyleClass(ICON_RESULT_CSS)
+                    .withAttribute(AttributeName.TITLE, SOME_KEY);
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
     }
 
-    @Test
-    void shouldRenderDefaultIconOnInvalidLibrary() {
-        var component = new IconComponent();
-        component.setIcon(SOME_KEY);
-        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(IconProvider.FALLBACK_ICON_STRING);
-        assertRenderResult(component, expected.getDocument());
-    }
+    @Nested
+    @DisplayName("Style rendering tests")
+    class StyleRenderingTests {
 
-    @Test
-    void shouldRenderTitleFromBundle() {
-        var component = new IconComponent();
-        component.setIcon(ICON);
-        component.setTitleKey(SOME_KEY);
-        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(ICON_RESULT_CSS)
-                .withAttribute(AttributeName.TITLE, SOME_KEY);
-        assertRenderResult(component, expected.getDocument());
-    }
+        @Test
+        @DisplayName("Should render icon with specified state")
+        void shouldRenderIconWithState(FacesContext facesContext) throws IOException {
+            // Arrange
+            var component = new IconComponent();
+            component.setIcon(ICON);
+            component.setState(ContextState.DANGER.name());
 
-    @Test
-    void shouldRenderState() {
-        var component = new IconComponent();
-        component.setIcon(ICON);
-        component.setState(ContextState.DANGER.name());
-        StyleClassBuilder classBuilder = new StyleClassBuilderImpl(ICON_RESULT_CSS);
-        classBuilder.append(IconState.DANGER.getStyleClass());
-        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(classBuilder);
-        assertRenderResult(component, expected.getDocument());
-    }
+            // Act & Assert
+            StyleClassBuilder classBuilder = new StyleClassBuilderImpl(ICON_RESULT_CSS);
+            classBuilder.append(IconState.DANGER.getStyleClass());
+            var expected = new HtmlTreeBuilder().withNode(Node.SPAN)
+                    .withStyleClass(classBuilder);
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
 
-    @Test
-    void shouldRenderSize() {
-        var component = new IconComponent();
-        component.setIcon(ICON);
-        component.setSize(ContextSize.LG.name());
-        StyleClassBuilder classBuilder = new StyleClassBuilderImpl(ICON_RESULT_CSS);
-        classBuilder.append(IconSize.LG.getStyleClass());
-        var expected = new HtmlTreeBuilder().withNode(Node.SPAN).withStyleClass(classBuilder);
-        assertRenderResult(component, expected.getDocument());
+        @Test
+        @DisplayName("Should render icon with specified size")
+        void shouldRenderIconWithSize(FacesContext facesContext) throws IOException {
+            // Arrange
+            var component = new IconComponent();
+            component.setIcon(ICON);
+            component.setSize(ContextSize.LG.name());
+
+            // Act & Assert
+            StyleClassBuilder classBuilder = new StyleClassBuilderImpl(ICON_RESULT_CSS);
+            classBuilder.append(IconSize.LG.getStyleClass());
+            var expected = new HtmlTreeBuilder().withNode(Node.SPAN)
+                    .withStyleClass(classBuilder);
+            assertRenderResult(component, expected.getDocument(), facesContext);
+        }
     }
 
     @Override

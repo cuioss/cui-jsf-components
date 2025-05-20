@@ -16,12 +16,11 @@
 package de.cuioss.jsf.api.components.partial;
 
 import de.cuioss.jsf.api.components.html.Node;
-import lombok.experimental.Delegate;
-
 import jakarta.faces.component.StateHelper;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.context.FacesContext;
+import lombok.experimental.Delegate;
 
 /**
  * Uses all available provider

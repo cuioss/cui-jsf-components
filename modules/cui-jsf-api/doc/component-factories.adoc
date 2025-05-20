@@ -1,0 +1,310 @@
+= Component Factories
+:toc: macro
+:toclevels: 3
+:sectnumlevels: 4
+:numbered:
+
+link:../README.adoc[Back to README]
+
+This document describes the component factories in the CUI JSF API, specifically `de.cuioss.jsf.api.components.JsfHtmlComponent` and `de.cuioss.jsf.api.components.JsfBehaviorComponent`.
+
+toc::[]
+
+== Overview
+
+Creating JSF components programmatically can be verbose and error-prone, requiring knowledge of component types, renderer types, and component families. The CUI JSF API provides factory classes that simplify this process by encapsulating these details and providing a more intuitive API for component creation.
+
+== JsfHtmlComponent
+
+The `JsfHtmlComponent` class is an enum-like repository for standard JSF HTML components and renderers. It provides access to commonly used JSF component types with their associated component families, renderer types, and default HTML elements.
+
+=== Design and Implementation
+
+`JsfHtmlComponent<T extends UIComponent>` is a generic class where each instance represents a specific type of JSF component. The class is designed to be used as a static repository of component definitions, similar to an enum but with more flexibility.
+
+[source,java]
+----
+public class JsfHtmlComponent<T extends UIComponent> {
+
+    // Component family, type, and renderer information
+    private final String family;
+    private final String componentType;
+    private final String rendererType;
+    private final Class<T> componentClass;
+    private final Node defaultHtmlElement;
+
+    // Private constructor to enforce the enum-like pattern
+    private JsfHtmlComponent(String family, String componentType, 
+                           String rendererType, Class<T> componentClass, 
+                           Node defaultHtmlElement) {
+        this.family = family;
+        this.componentType = componentType;
+        this.rendererType = rendererType;
+        this.componentClass = componentClass;
+        this.defaultHtmlElement = defaultHtmlElement;
+    }
+
+    // Factory methods for component creation
+    public T component(FacesContext context) {
+        return ComponentUtility.createComponent(context, componentType);
+    }
+
+    public Renderer renderer(FacesContext context) {
+        return ComponentUtility.createRenderer(context, family, rendererType);
+    }
+
+    // Static convenience methods
+    public static <T extends UIComponent> T createComponent(
+            FacesContext context, JsfHtmlComponent<T> component) {
+        return component.component(context);
+    }
+
+    public static <T extends Renderer> T createRenderer(
+            FacesContext context, JsfHtmlComponent<?> component) {
+        return (T) component.renderer(context);
+    }
+}
+----
+
+=== Predefined Components
+
+The `JsfHtmlComponent` class provides static final instances for commonly used JSF components:
+
+[source,java]
+----
+// Button (h:button)
+public static final JsfHtmlComponent<HtmlOutcomeTargetButton> BUTTON = 
+    new JsfHtmlComponent<>(HtmlOutcomeTargetButton.COMPONENT_FAMILY, 
+                         HtmlOutcomeTargetButton.COMPONENT_TYPE, 
+                         BUTTON_RENDERER_TYPE, 
+                         HtmlOutcomeTargetButton.class, 
+                         Node.BUTTON);
+
+// Command Button (h:commandButton)
+public static final JsfHtmlComponent<HtmlCommandButton> COMMAND_BUTTON = 
+    new JsfHtmlComponent<>(HtmlCommandButton.COMPONENT_FAMILY, 
+                         HtmlCommandButton.COMPONENT_TYPE, 
+                         BUTTON_RENDERER_TYPE, 
+                         HtmlCommandButton.class, 
+                         Node.BUTTON);
+
+// Form (h:form)
+public static final JsfHtmlComponent<HtmlForm> FORM = 
+    new JsfHtmlComponent<>(HtmlForm.COMPONENT_FAMILY, 
+                         HtmlForm.COMPONENT_TYPE, 
+                         FORM_RENDERER_TYPE, 
+                         HtmlForm.class, 
+                         Node.FORM);
+
+// Panel Group (h:panelGroup)
+public static final JsfHtmlComponent<HtmlPanelGroup> PANEL_GROUP = 
+    new JsfHtmlComponent<>(HtmlPanelGroup.COMPONENT_FAMILY, 
+                         HtmlPanelGroup.COMPONENT_TYPE, 
+                         GROUP_RENDERER_TYPE, 
+                         HtmlPanelGroup.class, 
+                         Node.DIV);
+
+// And many more...
+----
+
+The class includes components for all standard JSF HTML components, such as buttons, forms, panels, inputs, and outputs.
+
+=== Usage Examples
+
+==== Creating Components
+
+[source,java]
+----
+// Get the current FacesContext
+FacesContext context = FacesContext.getCurrentInstance();
+
+// Create a command button
+HtmlCommandButton button = JsfHtmlComponent.COMMAND_BUTTON.component(context);
+button.setValue("Submit");
+button.setId("submitButton");
+button.setActionExpression(createMethodExpression("#{bean.submit}", Void.class));
+
+// Create a panel group
+HtmlPanelGroup panel = JsfHtmlComponent.PANEL_GROUP.component(context);
+panel.setLayout("block");
+panel.getChildren().add(button);
+
+// Add to the view
+UIViewRoot viewRoot = context.getViewRoot();
+viewRoot.getChildren().add(panel);
+----
+
+==== Creating Renderers
+
+[source,java]
+----
+// Get a renderer for a specific component type
+Renderer buttonRenderer = JsfHtmlComponent.COMMAND_BUTTON.renderer(context);
+
+// Use the renderer directly
+buttonRenderer.encodeBegin(context, button);
+buttonRenderer.encodeEnd(context, button);
+----
+
+==== Using Static Convenience Methods
+
+[source,java]
+----
+// Create a component using the static method
+HtmlOutputText text = JsfHtmlComponent.createComponent(context, JsfHtmlComponent.HTML_OUTPUT_TEXT);
+text.setValue("Hello, World!");
+
+// Create a renderer using the static method
+HtmlOutputText.Renderer textRenderer = JsfHtmlComponent.createRenderer(context, JsfHtmlComponent.HTML_OUTPUT_TEXT);
+----
+
+== JsfBehaviorComponent
+
+The `JsfBehaviorComponent` class is a utility class that provides factory methods for creating JSF behavior components, such as `AjaxBehavior`.
+
+=== Design and Implementation
+
+Unlike `JsfHtmlComponent`, which is an enum-like class with multiple instances, `JsfBehaviorComponent` is a utility class with static methods for creating different types of behaviors.
+
+[source,java]
+----
+@UtilityClass
+public class JsfBehaviorComponent {
+
+    /**
+     * Creates a new instance of an AjaxBehavior.
+     */
+    public static AjaxBehavior ajaxBehavior(FacesContext context) {
+        requireNonNull(context);
+        return (AjaxBehavior) context.getApplication()
+            .createBehavior(AjaxBehavior.BEHAVIOR_ID);
+    }
+
+    // Other behavior creation methods could be added here
+}
+----
+
+=== Usage Examples
+
+==== Creating Ajax Behaviors
+
+[source,java]
+----
+// Get the current FacesContext
+FacesContext context = FacesContext.getCurrentInstance();
+
+// Create an Ajax behavior
+AjaxBehavior ajaxBehavior = JsfBehaviorComponent.ajaxBehavior(context);
+ajaxBehavior.setExecute(Arrays.asList("@this"));
+ajaxBehavior.setRender(Arrays.asList("messages"));
+
+// Add the behavior to a component
+HtmlCommandButton button = JsfHtmlComponent.COMMAND_BUTTON.component(context);
+button.addClientBehavior("click", ajaxBehavior);
+----
+
+==== Configuring Ajax Behaviors
+
+[source,java]
+----
+// Create and configure an Ajax behavior for form submission
+AjaxBehavior submitBehavior = JsfBehaviorComponent.ajaxBehavior(context);
+submitBehavior.setExecute(Arrays.asList("@form"));
+submitBehavior.setRender(Arrays.asList("@form", "messages"));
+submitBehavior.setOnerror("handleError(xhr, status, error)");
+submitBehavior.setOnevent("handleEvent(data)");
+
+// Add to a command button
+button.addClientBehavior("action", submitBehavior);
+----
+
+== Integration with Component Creation
+
+The component factories can be used together to create complex component structures with behaviors:
+
+[source,java]
+----
+// Create a form with a submit button that uses Ajax
+FacesContext context = FacesContext.getCurrentInstance();
+
+// Create the form
+HtmlForm form = JsfHtmlComponent.FORM.component(context);
+form.setId("myForm");
+
+// Create a panel for layout
+HtmlPanelGroup panel = JsfHtmlComponent.PANEL_GROUP.component(context);
+panel.setLayout("block");
+form.getChildren().add(panel);
+
+// Create an input field
+HtmlInputText input = JsfHtmlComponent.HTML_INPUT.component(context);
+input.setId("username");
+input.setValueExpression("value", 
+    createValueExpression("#{userBean.username}", String.class));
+panel.getChildren().add(input);
+
+// Create a submit button with Ajax behavior
+HtmlCommandButton button = JsfHtmlComponent.COMMAND_BUTTON.component(context);
+button.setValue("Submit");
+button.setId("submitButton");
+button.setActionExpression(
+    createMethodExpression("#{userBean.submit}", Void.class));
+
+// Add Ajax behavior
+AjaxBehavior ajaxBehavior = JsfBehaviorComponent.ajaxBehavior(context);
+ajaxBehavior.setExecute(Arrays.asList("@form"));
+ajaxBehavior.setRender(Arrays.asList("@form", "messages"));
+button.addClientBehavior("action", ajaxBehavior);
+
+panel.getChildren().add(button);
+
+// Add to the view
+UIViewRoot viewRoot = context.getViewRoot();
+viewRoot.getChildren().add(form);
+----
+
+== Benefits
+
+=== Type Safety
+
+The component factories provide type-safe access to JSF components and behaviors, reducing the risk of runtime errors due to incorrect component types.
+
+=== Simplified API
+
+The factories encapsulate the details of component and behavior creation, providing a more intuitive API that requires less knowledge of JSF internals.
+
+=== Consistency
+
+By using the factories, you ensure consistent component creation across your application, with all components created using the same approach.
+
+=== Reduced Boilerplate
+
+The factories eliminate much of the boilerplate code typically associated with programmatic component creation in JSF.
+
+== Best Practices
+
+=== Use for Programmatic Component Creation
+
+The component factories are primarily intended for programmatic component creation in Java code, not as a replacement for JSF tags in views.
+
+=== Combine with Composite Components
+
+Consider using the factories to create reusable composite components that can be used in multiple views.
+
+=== Cache FacesContext
+
+When creating multiple components, get the `FacesContext` once and reuse it to avoid unnecessary lookups.
+
+=== Set IDs for Important Components
+
+Always set IDs for components that will be referenced by other components or in JavaScript, to ensure they can be reliably located.
+
+=== Use with Component Modifiers
+
+Combine the component factories with the component modifier framework to apply consistent styling and behavior to created components.
+
+== Conclusion
+
+The component factories in the CUI JSF API provide a powerful and type-safe way to create JSF components and behaviors programmatically. By encapsulating the details of component creation and providing a more intuitive API, they make it easier to work with JSF components in Java code.
+
+Whether you're creating dynamic components at runtime, building composite components, or generating complex component structures, the `JsfHtmlComponent` and `JsfBehaviorComponent` classes can significantly simplify your code and reduce the risk of errors.

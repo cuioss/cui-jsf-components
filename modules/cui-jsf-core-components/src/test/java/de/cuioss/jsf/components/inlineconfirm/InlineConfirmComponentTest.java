@@ -15,39 +15,68 @@
  */
 package de.cuioss.jsf.components.inlineconfirm;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import de.cuioss.jsf.api.components.support.DummyComponent;
 import de.cuioss.jsf.components.CuiFamily;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+@DisplayName("Tests for InlineConfirmComponent")
 class InlineConfirmComponentTest extends AbstractComponentTest<InlineConfirmComponent> {
 
     @Test
+    @DisplayName("Should provide correct component metadata")
     void shouldProvideMetadata() {
-        assertEquals(CuiFamily.COMPONENT_FAMILY, anyComponent().getFamily());
-        assertEquals(CuiFamily.INLINE_CONFIRM_RENDERER, anyComponent().getRendererType());
+        // Arrange
+        var component = anyComponent();
+
+        // Act & Assert - Check component family
+        assertEquals(CuiFamily.COMPONENT_FAMILY, component.getFamily(),
+                "Component should have the correct component family");
+
+        // Act & Assert - Check renderer type
+        assertEquals(CuiFamily.INLINE_CONFIRM_RENDERER, component.getRendererType(),
+                "Component should have the correct renderer type");
     }
 
     @Test
+    @DisplayName("Should throw exception when initial facet is missing")
     void shouldFailWithMissingFacet() {
+        // Arrange
         var component = anyComponent();
-        assertThrows(IllegalArgumentException.class, component::getInitialFacet);
+
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, component::getInitialFacet,
+                "Component should throw IllegalArgumentException when initial facet is missing");
     }
 
     @Test
+    @DisplayName("Should throw exception when child component is missing")
     void shouldFailWithMissingChild() {
+        // Arrange
         var component = anyComponent();
-        assertThrows(IllegalArgumentException.class, component::getChildAsModifier);
+
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, component::getChildAsModifier,
+                "Component should throw IllegalArgumentException when child component is missing");
     }
 
     @Test
+    @DisplayName("Should correctly handle child and facet components")
     void shouldHandleChildAndFacet() {
+        // Arrange
         var underTest = anyComponent();
         underTest.getFacets().put(InlineConfirmComponent.INITIAL_FACET_NAME, new DummyComponent());
         underTest.getChildren().add(new DummyComponent());
-        assertNotNull(underTest.getInitialFacet());
-        assertNotNull(underTest.getChildAsModifier());
+
+        // Act & Assert - Check initial facet
+        assertNotNull(underTest.getInitialFacet(),
+                "Component should return the initial facet when it exists");
+
+        // Act & Assert - Check child component
+        assertNotNull(underTest.getChildAsModifier(),
+                "Component should return the child component when it exists");
     }
 }

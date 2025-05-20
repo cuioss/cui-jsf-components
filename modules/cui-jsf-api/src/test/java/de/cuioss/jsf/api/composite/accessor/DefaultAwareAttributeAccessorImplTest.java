@@ -17,19 +17,18 @@ package de.cuioss.jsf.api.composite.accessor;
 
 import static de.cuioss.test.generator.Generators.booleans;
 import static de.cuioss.test.generator.Generators.letterStrings;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
+import de.cuioss.test.valueobjects.ValueObjectTest;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import de.cuioss.test.valueobjects.ValueObjectTest;
-
+@DisplayName("Tests for DefaultAwareAttributeAccessorImpl")
 class DefaultAwareAttributeAccessorImplTest extends ValueObjectTest<DefaultAwareAttributeAccessorImpl<String>> {
 
     private static final String ATTRIBUTE_NAME = "someName";
@@ -49,29 +48,52 @@ class DefaultAwareAttributeAccessorImplTest extends ValueObjectTest<DefaultAware
         underTest = new DefaultAwareAttributeAccessorImpl<>(ATTRIBUTE_NAME, String.class, true, DEFAULT_VALUE);
     }
 
-    @Test
-    void shouldWorkOnHappyCase() {
-        assertTrue(underTest.available(attributeMap));
-        assertEquals(ATTRIBUTE_VALUE, underTest.value(attributeMap));
-        // Clear Map
-        attributeMap.clear();
-        // Default value is
-        assertTrue(underTest.available(attributeMap));
-        // always there
-        assertEquals(DEFAULT_VALUE, underTest.value(attributeMap));
-    }
+    @Nested
+    @DisplayName("Tests for attribute access with default values")
+    class DefaultValueTests {
 
-    @Test
-    void shouldHandleNullAsDefault() {
-        underTest = new DefaultAwareAttributeAccessorImpl<>(ATTRIBUTE_NAME, String.class, true, null);
-        assertTrue(underTest.available(attributeMap));
-        assertEquals(ATTRIBUTE_VALUE, underTest.value(attributeMap));
-        // Clear Map
-        attributeMap.clear();
-        // Default value is
-        assertFalse(underTest.available(attributeMap));
-        // always there
-        assertNull(underTest.value(attributeMap));
+        @Test
+        @DisplayName("Should correctly access attributes with non-null default value")
+        void shouldWorkWithNonNullDefaultValue() {
+            // Arrange - setup done in @BeforeEach
+
+            // Act & Assert - attribute present
+            assertTrue(underTest.available(attributeMap),
+                    "Accessor should detect attribute as available");
+            assertEquals(ATTRIBUTE_VALUE, underTest.value(attributeMap),
+                    "Accessor should return the actual attribute value when present");
+
+            // Act - clear map to simulate missing attribute
+            attributeMap.clear();
+
+            // Assert - default value behavior
+            assertTrue(underTest.available(attributeMap),
+                    "Accessor should still report attribute as available when default value is set");
+            assertEquals(DEFAULT_VALUE, underTest.value(attributeMap),
+                    "Accessor should return the default value when attribute is missing");
+        }
+
+        @Test
+        @DisplayName("Should correctly handle null as default value")
+        void shouldHandleNullAsDefault() {
+            // Arrange
+            underTest = new DefaultAwareAttributeAccessorImpl<>(ATTRIBUTE_NAME, String.class, true, null);
+
+            // Act & Assert - attribute present
+            assertTrue(underTest.available(attributeMap),
+                    "Accessor should detect attribute as available");
+            assertEquals(ATTRIBUTE_VALUE, underTest.value(attributeMap),
+                    "Accessor should return the actual attribute value when present");
+
+            // Act - clear map to simulate missing attribute
+            attributeMap.clear();
+
+            // Assert - null default value behavior
+            assertFalse(underTest.available(attributeMap),
+                    "Accessor should report attribute as unavailable when default value is null");
+            assertNull(underTest.value(attributeMap),
+                    "Accessor should return null when attribute is missing and default is null");
+        }
     }
 
     @Override

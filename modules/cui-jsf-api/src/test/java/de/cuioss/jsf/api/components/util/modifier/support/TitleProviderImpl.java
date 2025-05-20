@@ -15,13 +15,12 @@
  */
 package de.cuioss.jsf.api.components.util.modifier.support;
 
-import java.io.Serializable;
-
-import jakarta.faces.component.UIComponentBase;
-
 import de.cuioss.jsf.api.components.partial.TitleProvider;
+import jakarta.faces.component.UIComponentBase;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
 
 public class TitleProviderImpl extends UIComponentBase implements TitleProvider {
 

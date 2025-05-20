@@ -20,14 +20,6 @@ import static de.cuioss.tools.base.BooleanOperations.areAllTrue;
 import static de.cuioss.tools.base.BooleanOperations.isAnyFalse;
 import static de.cuioss.tools.base.Preconditions.checkState;
 
-import java.util.Optional;
-
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.EditableValueHolder;
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-
 import de.cuioss.jsf.api.components.JsfComponentIdentifier;
 import de.cuioss.jsf.api.components.base.BaseCuiHtmlHiddenInputComponent;
 import de.cuioss.jsf.api.components.partial.AjaxProvider;
@@ -37,32 +29,59 @@ import de.cuioss.jsf.bootstrap.button.CommandButton;
 import de.cuioss.jsf.bootstrap.layout.input.support.GuardButtonAttributes;
 import de.cuioss.jsf.bootstrap.layout.input.support.ResetGuardButtonAttributes;
 import de.cuioss.tools.logging.CuiLogger;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 import lombok.NonNull;
 import lombok.experimental.Delegate;
 
+import java.util.Optional;
+
 /**
- * Helper / Decorator component used for guarding input-elements within
- * {@link LabeledContainerComponent}.
  * <p>
- * Renders an unlock button beside its input component. The input component will
- * be disabled per default. It can be unlocked on demand. A warning message is
- * shown right beside if it is unlocked
+ * Provides input guarding capabilities for form elements within {@link LabeledContainerComponent}.
+ * This component implements a security pattern where form fields are initially disabled (guarded)
+ * and must be explicitly unlocked by the user before editing.
  * </p>
+ * <p>
+ * As a {@link ContainerPlugin}, it seamlessly integrates with labeled containers to:
+ * </p>
+ * <ul>
+ * <li>Control the disabled state of the target input</li>
+ * <li>Render unlock/lock toggle buttons</li> 
+ * <li>Apply visual indicators when input is unlocked (warning state)</li>
+ * <li>Optionally reset input values when re-locking</li>
+ * </ul>
+ * 
+ * <h2>Security Benefits</h2>
+ * <ul>
+ * <li>Prevents accidental data modifications</li>
+ * <li>Makes users conscious of which fields they're editing</li>
+ * <li>Creates visual distinction between locked and unlocked fields</li>
+ * </ul>
  *
  * <h2>Attributes</h2>
  * <ul>
- * <li>{@link GuardButtonAttributes}</li>
- * <li>{@link ResetGuardButtonAttributes}</li>
- * <li>{@link AjaxProvider}: Default to "@namingcontainer" for update and
- * "@this" for process</li>
- * <li>buttonAlign: The alignment of the button relative to the wrapped input,
- * defaults to 'append'</li>
- * <li>renderButtons: If set to {@code true}, default, the guard/resetGuard
- * buttons are rendered, if set to {@code false} they are not rendered.</li>
- * <li>resetInputValue: If set to {@code true}, default, the clicking of the
- * resestGuard button will result in a {@link EditableValueHolder#resetValue()}
- * on the guarded component</li>
+ * <li>{@link GuardButtonAttributes} - Appearance of the unlock button</li>
+ * <li>{@link ResetGuardButtonAttributes} - Appearance of the lock button</li>
+ * <li>{@link AjaxProvider} - Ajax behavior (defaults to "@namingcontainer" update, "@this" process)</li>
+ * <li>buttonAlign - Position of the guard button ('append'/'prepend', defaults to 'append')</li>
+ * <li>renderButtons - Whether to display the guard/reset buttons (default: true)</li>
+ * <li>resetInputValue - Whether unlocking should reset the input value (default: true)</li>
  * </ul>
+ * 
+ * <h2>Usage</h2>
+ *
+ * <pre>
+ * &lt;boot:labeledContainer label="Protected Field"&gt;
+ *   &lt;h:inputText id="input" /&gt;
+ *   &lt;boot:inputGuard guardIcon="cui-icon-lock" 
+ *                   resetGuardIcon="cui-icon-unlock" 
+ *                   resetInputValue="true" /&gt;
+ * &lt;/boot:labeledContainer&gt;
+ * </pre>
  *
  * @author Oliver Wolff
  *
@@ -157,7 +176,7 @@ public class InputGuardComponent extends BaseCuiHtmlHiddenInputComponent impleme
     }
 
     private CommandButton updateGuardButtonContent(CommandButton button, @NonNull Boolean guarded) {
-        if (Boolean.TRUE.equals(guarded)) {
+        if (guarded) {
             button.setIcon(guardAttributes.getGuardIcon());
             button.setTitleValue(guardAttributes.resolveGuardButtonTitle());
         } else {
