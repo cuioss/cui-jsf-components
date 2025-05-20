@@ -1,0 +1,169 @@
+= CUI JSF Bootstrap
+:toc: macro
+:toclevels: 3
+:sectnumlevels: 1
+
+The CUI JSF Bootstrap module provides JSF component implementations based on Bootstrap CSS framework. It offers a comprehensive set of UI components that follow Bootstrap design patterns while integrating seamlessly with the JSF component lifecycle.
+
+== Maven Coordinates
+
+[source, xml]
+----
+<dependency>
+    <groupId>de.cuioss.jsf</groupId>
+    <artifactId>cui-jsf-bootstrap</artifactId>
+</dependency>
+----
+
+toc::[]
+
+== Core Concepts
+
+=== Bootstrap Integration
+* JSF components mapped to Bootstrap CSS classes and components
+* Responsive design support through Bootstrap grid system
+* Consistent styling using Bootstrap themes
+* Integration with Bootstrap JavaScript features
+
+=== Component Suite
+* Complete set of Bootstrap-styled UI components
+* Form controls with Bootstrap styling
+* Navigation components
+* Layout components based on Bootstrap grid
+* Interactive components (modals, tooltips, etc.)
+
+=== Themeable Design
+* Support for Bootstrap theming
+* Consistent application of theme colors
+* CSS class management for theme variations
+
+== Component Categories
+
+=== Layout Components
+* Grid system components (row, column)
+* Container components
+* Panel and card components
+* Tab and accordion components
+
+=== Form Components
+* Input fields with Bootstrap styling
+* Form layout components
+* Input groups
+* Validation display integration
+
+=== Navigation Components
+* Navbar components
+* Breadcrumb components
+* Pagination
+* Tab navigation
+
+=== Interactive Components
+* Modal dialogs
+* Tooltips and popovers
+* Dropdown menus
+* Collapse panels
+
+== Usage Examples
+
+=== Basic Grid Layout
+
+[source,xml]
+----
+<boot:row>
+    <boot:column size="md-6">
+        <!-- Content for left column -->
+        <h:outputText value="Left Column Content" />
+    </boot:column>
+    
+    <boot:column size="md-6">
+        <!-- Content for right column -->
+        <h:outputText value="Right Column Content" />
+    </boot:column>
+</boot:row>
+----
+
+=== Form with Bootstrap Styling
+
+[source,xml]
+----
+<boot:form>
+    <boot:formGroup>
+        <h:label for="name" value="Name" />
+        <h:inputText id="name" value="#{bean.name}" />
+    </boot:formGroup>
+    
+    <boot:formGroup>
+        <h:label for="email" value="Email" />
+        <h:inputText id="email" value="#{bean.email}"
+                      placeholder="Enter email address" />
+    </boot:formGroup>
+    
+    <boot:commandButton primary="true" 
+                      value="Submit" 
+                      action="#{bean.submit}" />
+</boot:form>
+----
+
+=== Modal Dialog
+
+[source,xml]
+----
+<boot:modalDialog id="exampleModal" 
+                title="Confirmation" 
+                binding="#{bean.modal}">
+                
+    <boot:modalBody>
+        <h:outputText value="Are you sure you want to proceed?" />
+    </boot:modalBody>
+    
+    <boot:modalFooter>
+        <boot:commandButton value="Cancel" 
+                          dismiss="modal" />
+                          
+        <boot:commandButton primary="true" 
+                          value="Confirm" 
+                          action="#{bean.confirm}" />
+    </boot:modalFooter>
+</boot:modalDialog>
+
+<boot:commandButton value="Open Modal" 
+                  onclick="$('#exampleModal').modal('show')" />
+----
+
+== Configuration
+
+=== Theme Configuration
+* Default Bootstrap theme is used by default
+* Custom themes can be configured through CSS overrides
+* Theme colors are consistently applied across components
+
+=== Component Sizes
+* Components support standard Bootstrap sizing (sm, md, lg)
+* Size attributes are consistently named across components
+
+== Technical Details
+
+=== Responsive Design
+* All components follow Bootstrap's responsive design principles
+* Mobile-first approach with responsive breakpoints
+* Predictable behavior across device sizes
+
+=== Browser Compatibility
+* Follows Bootstrap's browser compatibility guidelines
+* Tested across major modern browsers
+* Graceful degradation for older browsers
+
+=== Accessibility
+* WAI-ARIA attributes included where appropriate
+* Keyboard navigation support
+* Focus management for interactive components
+
+== Best Practices
+* Use the grid system for layout instead of tables
+* Apply consistent sizing across related components
+* Leverage the built-in responsive capabilities
+* Follow Bootstrap's nesting rules for components
+
+== Related Documentation
+* link:https://getbootstrap.com/docs/[Bootstrap Documentation]
+* link:https://jakarta.ee/specifications/faces/[Jakarta Faces Specification]

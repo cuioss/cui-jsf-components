@@ -1,0 +1,191 @@
+= CUI JSF Test
+:toc: macro
+:toclevels: 3
+:sectnumlevels: 1
+
+The CUI JSF Test module provides a set of mock classes and test configurations for JSF component testing. These mock implementations simplify the testing of JSF components by providing controlled test environments.
+
+== Maven Coordinates
+
+[source, xml]
+----
+<dependency>
+    <groupId>de.cuioss.jsf</groupId>
+    <artifactId>cui-jsf-test</artifactId>
+</dependency>
+----
+
+toc::[]
+
+== Core Concepts
+
+=== Mock Classes
+
+The module provides several mock implementations for JSF testing:
+
+* Mock classes that simulate JSF infrastructure components
+* Test annotations for enabling JSF and CDI test environments
+* Configuration classes for JSF component testing
+
+=== Test Annotations
+
+The module includes JUnit 5 annotations that simplify test setup:
+
+* `@EnableJSFCDIEnvironment` - Sets up a complete JSF and CDI environment
+* `@EnableResourceBundleSupport` - Adds resource bundle and internationalization support
+
+== Mock Implementations
+
+=== CoreJsfTestConfiguration
+
+A base configuration for JSF testing that extends `BasicApplicationConfiguration` and adds CUI-specific components, converters, and renderers.
+
+[source,java]
+----
+@JsfTestConfiguration(CoreJsfTestConfiguration.class)
+class MyComponentTest extends AbstractComponentTest<MyComponent> {
+    // Test methods
+}
+----
+
+=== LocaleProducerMock
+
+A mock implementation that produces `Locale` objects for test environments.
+
+* Provides configurable locale settings
+* Simulates locale change events
+* Defaults to English locale with German and English as available locales
+
+[source,java]
+----
+@Inject
+private LocaleProducerMock localeProducer;
+
+@Test
+void shouldRenderGermanContent() {
+    // Switch to German locale for testing
+    localeProducer.setLocale(Locale.GERMAN);
+    
+    // Test locale-specific behavior
+}
+----
+
+=== MessageProducerMock
+
+Mock implementation of `MessageProducer` for testing JSF message handling.
+
+* Captures messages created during tests
+* Provides assertion methods for verifying message creation
+* Stores global and component-specific messages separately
+
+[source,java]
+----
+@Inject
+private MessageProducerMock messageProducer;
+
+@Test
+void shouldDisplayErrorMessage() {
+    // Trigger component that should produce an error message
+    
+    // Verify the message was created with the expected key
+    messageProducer.assertGlobalMessageWithKeyPresent(
+        FacesMessage.SEVERITY_ERROR, "error.message.key");
+}
+----
+
+=== MirrorCuiRessourcBundle
+
+Mock implementation of `ResourceBundleWrapper` that returns keys as values.
+
+* Returns the key itself when `getString(String)` is called
+* Simplifies testing of components that use resource bundles
+* No need for actual message resources in tests
+
+[source,java]
+----
+@Inject
+private ResourceBundleWrapper resourceBundle;
+
+@Test
+void shouldUseCorrectMessageKey() {
+    String key = "some.message.key";
+    assertEquals(key, resourceBundle.getString(key));
+}
+----
+
+=== ProjectStageProducerMock
+
+A mock implementation that produces configurable `ProjectStage` instances for testing.
+
+* Allows controlling the project stage in tests
+* Enables verification of stage-dependent behavior
+* Defaults to `ProjectStage.PRODUCTION`
+
+[source,java]
+----
+@Inject
+private ProjectStageProducerMock stageProducer;
+
+@Test
+void shouldBehaveDifferentlyInDevelopment() {
+    // Change project stage for this test
+    stageProducer.setProjectStage(ProjectStage.DEVELOPMENT);
+    
+    // Test development-specific behavior
+}
+----
+
+== Usage Examples
+
+=== Basic Component Test
+
+[source,java]
+----
+@EnableJSFCDIEnvironment
+@JsfTestConfiguration(CoreJsfTestConfiguration.class)
+class ButtonComponentTest extends AbstractComponentTest<MyButtonComponent> {
+
+    @Test
+    @DisplayName("should render correctly with default values")
+    void shouldRenderWithDefaults() {
+        // Arrange
+        var component = new MyButtonComponent();
+        
+        // Act
+        String renderedOutput = renderComponent(component);
+        
+        // Assert
+        assertContains(renderedOutput, "expected-css-class");
+    }
+}
+----
+
+=== Testing with Resource Bundles
+
+[source,java]
+----
+@EnableJSFCDIEnvironment
+@EnableResourceBundleSupport
+class LocalizedComponentTest {
+
+    @Inject
+    private LocaleProducerMock localeProducer;
+    
+    @Inject
+    private MessageProducerMock messageProducer;
+    
+    @Test
+    void shouldUseCorrectMessageKeys() {
+        // Test component that uses message keys
+        // ...
+        
+        // Verify the correct message keys were used
+        messageProducer.assertMessagePresentContaining("expected.key");
+    }
+}
+----
+
+== Related Documentation
+
+* link:https://jakarta.ee/specifications/faces/[Jakarta Faces Specification]
+* link:https://junit.org/junit5/docs/current/user-guide/[JUnit 5 User Guide]

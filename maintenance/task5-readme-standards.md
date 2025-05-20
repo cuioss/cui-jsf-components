@@ -39,6 +39,7 @@ README files should follow this basic structure:
 - Include code examples for common use cases
 - Provide links to more detailed documentation
 - Use proper AsciiDoc formatting
+- Take care on correct asciidoc formatting regarding bullet list (preceding new line)
 - Include screenshots or diagrams where helpful
 - Keep information up-to-date with the current version
 

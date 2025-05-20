@@ -1,0 +1,145 @@
+= CUI JSF Dev
+:toc: macro
+:toclevels: 3
+:sectnumlevels: 1
+
+The CUI JSF Dev module provides specialized components for developer documentation generation and development-time support for JSF applications. It offers tools to display source code with syntax highlighting and formatting options.
+
+== Maven Coordinates
+
+[source, xml]
+----
+<dependency>
+    <groupId>de.cuioss.jsf</groupId>
+    <artifactId>cui-jsf-dev</artifactId>
+</dependency>
+----
+
+toc::[]
+
+== Core Concepts
+
+=== Documentation Support
+
+* Source code display with syntax highlighting
+* Support for multiple programming languages
+* Flexible source loading options
+* Copy-to-clipboard functionality
+
+=== XPath Integration
+
+* XPath-based document processing using Jaxen
+* XML/HTML node selection and manipulation
+* Documentation content extraction
+
+== Component Documentation
+
+=== sourceCode
+
+Renders a source code element with syntax highlighting and formatting options. The component can load source code from various locations including inline content, file paths, or container elements on the current view.
+
+[source,xml]
+----
+<cui:sourceCode 
+    source="<h1>Example HTML</h1>"
+    type="lang-html"
+    description="Simple HTML example" />
+----
+
+Attributes:
+
+* `id`: The component identifier for this component.
+* `rendered`: Flag indicating whether this component should be rendered. Defaults to true.
+* `source`: Inline attribute for small amounts of source code. Takes precedence over other source attributes.
+* `description`: An additional description to be rendered as a preceding paragraph element.
+* `maxLineLength`: The maximum number of characters to be displayed in a line. Defaults to 96, minimum is 32.
+* `sourcePath`: The path to the source code file. Takes precedence over sourceContainerId. Can be a fully qualified path like '/META-INF/pages/documentation/example.xhtml' or a relative path like 'example.xhtml'.
+* `sourceContainerId`: The id of the container wrapping the source to be displayed. It is assumed to reside on the current view.
+* `type`: The type of source code for proper formatting. Defaults to 'lang-html'. Must be one of 'lang-html', 'lang-java', 'lang-sql', 'lang-js', 'lang-css', 'lang-yaml', 'lang-properties'.
+* `enableClipboard`: Indicates whether to render 'Copy to Clipboard' functionality. Defaults to true.
+
+== Usage Examples
+
+=== Displaying Inline Source Code
+
+[source,xml]
+----
+<cui:sourceCode 
+    source="public class Example { 
+    public static void main(String[] args) {
+        System.out.println(&quot;Hello World&quot;);
+    }
+}"
+    type="lang-java"
+    description="Simple Java example" />
+----
+
+=== Loading Source from a File
+
+[source,xml]
+----
+<cui:sourceCode 
+    sourcePath="/META-INF/pages/examples/complex-example.xhtml"
+    type="lang-html"
+    description="Complex HTML example from file" />
+----
+
+=== Loading Source from a Container
+
+[source,xml]
+----
+<h:panelGroup id="exampleSource" style="display: none;">
+    <h:outputText value="SELECT * FROM users WHERE active = true;" />
+</h:panelGroup>
+
+<cui:sourceCode 
+    sourceContainerId="exampleSource"
+    type="lang-sql"
+    description="SQL example from container" />
+----
+
+=== Customizing Display Options
+
+[source,xml]
+----
+<cui:sourceCode 
+    source="const greeting = 'Hello, world!';"
+    type="lang-js"
+    maxLineLength="60"
+    enableClipboard="false"
+    description="JavaScript example with custom options" />
+----
+
+== Configuration
+
+=== Source Code Display Options
+
+* Control maximum line length for better readability
+* Enable or disable clipboard functionality
+* Add descriptive text to explain code examples
+* Select appropriate language for syntax highlighting
+
+== Technical Details
+
+=== Integration with Build Process
+
+* Can be included in development builds for documentation generation
+* Recommended for use in development environments only
+
+=== XPath Processing
+
+* Uses Jaxen for XPath processing of XML/HTML documents
+* Enables extraction of specific elements from source files
+
+== Best Practices
+
+* Include this module only in development profiles
+* Use descriptive text with source code examples
+* Provide appropriate language type for proper syntax highlighting
+* Consider line length for optimal readability
+* Use relative paths when possible for better portability
+
+== Related Documentation
+
+* link:https://jakarta.ee/specifications/faces/[Jakarta Faces Specification]
+* link:https://jaxen.org/[Jaxen XPath Engine Documentation]

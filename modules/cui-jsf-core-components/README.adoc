@@ -1,0 +1,375 @@
+= CUI JSF Core Components
+:toc: macro
+:toclevels: 3
+:sectnumlevels: 1
+
+toc::[]
+
+The CUI JSF Core Components module provides fundamental JSF UI components, converters, and validators that are framework-agnostic. These components form the core building blocks for JSF applications without dependencies on Bootstrap or other UI frameworks.
+
+== Maven Coordinates
+
+[source, xml]
+----
+<dependency>
+    <groupId>de.cuioss.jsf</groupId>
+    <artifactId>cui-jsf-core-components</artifactId>
+</dependency>
+----
+
+== Core Concepts
+
+=== Converters
+
+* Specialized converters for common data types and formatting needs
+* Support for code types, dates, pretty time, and text manipulation
+* Sanitizing capabilities to prevent XSS attacks
+* Flexible configuration options for each converter
+
+=== Validators
+
+* Input validation for common formats like email
+* Configurable validation patterns
+* Integration with JSF validation lifecycle
+
+=== UI Components
+
+* Framework-agnostic UI components
+* Basic HTML structure components like fieldset
+* Interactive components like inlineConfirm
+* Integration with JSF component lifecycle
+
+== Component Documentation
+
+=== Converters
+
+==== Code Type Converters
+The module provides converters for working with code types:
+
+===== codeTypeDisplayConverter
+Formatting converter for creating/resolving the label of a given CodeType. Uses the standard LocaleProducerAccessor for accessing the needed Locale.
+
+[source,xml]
+----
+<cui:codeTypeDisplayConverter />
+----
+
+===== listOfCodeTypesConverter
+Displays a list of CodeTypes with configurable separator.
+
+[source,xml]
+----
+<cui:listOfCodeTypesConverter separator=", " />
+----
+
+Attributes:
+
+* `separator`: The separator character. Defaults to ";"
+
+==== Text Manipulation Converters
+
+===== sanitizer
+Sanitizes String inputs to prevent script injection or HTML code that could corrupt layout.
+
+[source,xml]
+----
+<cui:sanitizer strategy="PLAIN_TEXT_PRESERVE_ENTITIES" />
+----
+
+Attributes:
+
+* `strategy`: Defines the sanitizing strategy. Options include "PLAIN_TEXT", "SIMPLE_HTML", "COMPLEX_HTML", "PASSTHROUGH", "PLAIN_TEXT_PRESERVE_ENTITIES", or "COMPLEX_HTML_PRESERVE_ENTITIES". Defaults to "PLAIN_TEXT_PRESERVE_ENTITIES".
+
+===== textSplitter
+Wrapping converter for text splitting functionality. Formats text with configurable breaking points.
+
+[source,xml]
+----
+<cui:textSplitter forceLengthBreakCount="20" abridgedLengthCount="1000" />
+----
+
+Attributes:
+
+* `forceLengthBreakCount`: Character count when a text break will be forced. Defaults to 15.
+* `abridgedLengthCount`: Character count until the complete text will be abridged. Defaults to 4096.
+
+===== lineBreakConverter
+Converts plain text to sanitized HTML text with configurable line breaks.
+
+[source,xml]
+----
+<cui:lineBreakConverter delimiter="&lt;br /&gt;" sanitizingStrategy="PLAIN_TEXT_PRESERVE_ENTITIES" />
+----
+
+Attributes:
+
+* `delimiter`: The HTML delimiter for line breaks. Defaults to "&lt;br /&gt;".
+* `sanitizingStrategy`: Defines the strategy for sanitizing. Defaults to "PLAIN_TEXT_PRESERVE_ENTITIES".
+
+===== stringToListConverter
+Converts between String and List/SortedSet based on a separator character.
+
+[source,xml]
+----
+<cui:stringToListConverter separator=";" targetType="list" omitEmptyStrings="true" trimResults="true" />
+----
+
+Attributes:
+
+* `separator`: The separator character. Defaults to ";".
+* `targetType`: Controls the return type. Use "sorted_set" for SortedSet, otherwise returns List.
+* `omitEmptyStrings`: If true, doesn't add empty strings to the result. 
+* `trimResults`: If true, trims the resulting strings.
+
+==== Date and Time Converters
+
+===== prettyTimeConverter
+Displays dates in a human-readable format (e.g., "5 minutes ago"). Works with various date types including `java.util.Date`, `java.util.Calendar`, `java.time.LocalDateTime`, `java.time.ZonedDateTime`, and `java.time.LocalDate`.
+
+[source,xml]
+----
+<cui:prettyTimeConverter />
+----
+
+Requires the PrettyTime library at runtime:
+[source,xml]
+----
+<dependency>
+    <groupId>org.ocpsoft.prettytime</groupId>
+    <artifactId>prettytime</artifactId>
+</dependency>
+----
+
+===== convertDateTime
+Enhanced version of the standard JSF date/time converter with additional features.
+
+[source,xml]
+----
+<cui:convertDateTime pattern="dd.MM.yyyy" type="date" />
+----
+
+Attributes:
+
+* `dateStyle`: Formatting style for date component. Options: "default", "short", "medium", "long", "full".
+* `locale`: Locale for formatting. Defaults to view root locale.
+* `pattern`: Custom formatting pattern.
+* `timeStyle`: Formatting style for time component. Options: "default", "short", "medium", "long", "full".
+* `timeZone`: Time zone for interpreting time information.
+* `type`: Content type to format/parse. Options: "date", "time", "both". Defaults to "date".
+
+==== Other Converters
+
+===== mapInstanceConverter
+Used for drop-down elements to map between serializable keys and model classes.
+
+[source,xml]
+----
+<cui:mapInstanceConverter instanceMap="#{bean.instanceMap}" />
+----
+
+Attributes:
+
+* `instanceMap`: The map being referenced (required).
+
+=== Validators
+
+==== emailValidator
+Validates input text as email with configurable pattern.
+
+[source,xml]
+----
+<cui:emailValidator pattern="^[^@]+@[^@]+$" />
+----
+
+Attributes:
+
+* `pattern`: The pattern to validate email against. Defaults to "^[^@]+@[^@]+$".
+
+=== UI Components
+
+==== fieldset
+Renders an HTML fieldset with optional legend.
+
+[source,xml]
+----
+<cui:fieldset id="personalInfo" legendKey="personal.info" disabled="false">
+    &lt;!-- Content --&gt;
+</cui:fieldset>
+----
+
+Attributes:
+
+* `id`: Component identifier.
+* `disabled`: Whether all controls within the fieldset are disabled. Defaults to false.
+* `rendered`: Whether the component should be rendered. Defaults to true.
+* `legendKey`: Key for looking up the text to display as legend.
+* `legendValue`: String displayed for the legend. Takes precedence over legendKey.
+* `legendEscape`: Whether the legend should be escaped. Defaults to true.
+* `legendConverter`: Optional converter for legendValue.
+
+==== blockElement
+Blocks an element after clicking by adding a spinner and the "disabled" property. The element can be unblocked via AJAX update.
+
+[source,xml]
+----
+<cui:blockElement>
+    &lt;!-- Content to be blocked --&gt;
+</cui:blockElement>
+----
+
+==== inlineConfirm
+Alternative to modal confirm dialogs. Renders initial content (usually a button) and then renders child content when clicked.
+
+[source,xml]
+----
+<cui:inlineConfirm>
+    <f:facet name="initial">
+        &lt;!-- Initial content, typically a button --&gt;
+    </f:facet>
+    &lt;!-- Content to show after confirmation --&gt;
+</cui:inlineConfirm>
+----
+
+To cancel the inline confirm, add a button with the `data-inline-confirm-cancel` attribute.
+
+==== scheduler
+Wraps a PrimeFaces scheduler component with additional features.
+
+[source,xml]
+----
+<cui:scheduler model="#{bean.scheduleModel}" resizable="true" draggable="true" timeFormat="H:mm" />
+----
+
+Attributes:
+
+* `model`: An org.primefaces.model.ScheduleModel instance (required).
+* `resizable`: When true, events are resizable. Defaults to true.
+* `draggable`: When true, events are draggable. Defaults to true.
+* `timeFormat`: Determines the time-text displayed on each event.
+
+== Usage Examples
+
+=== Using Converters
+
+==== Pretty Time Display
+
+[source,xml]
+----
+<h:outputText value="#{bean.timestamp}">
+    <cui:prettyTimeConverter />
+</h:outputText>
+----
+
+==== Sanitizing User Input
+
+[source,xml]
+----
+<h:inputTextarea value="#{bean.userComment}">
+    <cui:sanitizer strategy="SIMPLE_HTML" />
+</h:inputTextarea>
+----
+
+==== Converting String to List
+
+[source,xml]
+----
+<h:inputText value="#{bean.tagList}">
+    <cui:stringToListConverter separator="," omitEmptyStrings="true" trimResults="true" />
+</h:inputText>
+----
+
+=== Using Validators
+
+==== Email Validation
+
+[source,xml]
+----
+<h:inputText id="email" value="#{bean.email}">
+    <cui:emailValidator />
+</h:inputText>
+<h:message for="email" />
+----
+
+=== Using UI Components
+
+==== Fieldset with Legend
+
+[source,xml]
+----
+<cui:fieldset legendValue="Personal Information">
+    <h:panelGrid columns="2">
+        <h:outputLabel for="firstName" value="First Name:" />
+        <h:inputText id="firstName" value="#{bean.firstName}" />
+
+        <h:outputLabel for="lastName" value="Last Name:" />
+        <h:inputText id="lastName" value="#{bean.lastName}" />
+    </h:panelGrid>
+</cui:fieldset>
+----
+
+==== Inline Confirmation
+
+[source,xml]
+----
+<cui:inlineConfirm>
+    <f:facet name="initial">
+        <h:commandButton value="Delete Item" />
+    </f:facet>
+
+    <h:panelGroup>
+        <h:outputText value="Are you sure you want to delete this item?" />
+        <h:commandButton value="Yes, Delete" action="#{bean.deleteItem}" />
+        <h:commandButton value="Cancel" pt:data-inline-confirm-cancel="cancel" />
+    </h:panelGroup>
+</cui:inlineConfirm>
+----
+
+==== Blocking Element During Processing
+
+[source,xml]
+----
+<cui:blockElement>
+    <h:commandButton value="Submit" action="#{bean.submit}">
+        <f:ajax execute="@form" render="@form" />
+    </h:commandButton>
+</cui:blockElement>
+----
+
+== Configuration
+
+=== Component Configuration
+
+* Most components have sensible defaults but offer configuration options
+* Converters can be configured with specific formats and patterns
+* UI components support standard JSF attributes like `id`, `rendered`, etc.
+
+=== Resource Configuration
+
+* No additional resource configuration required for core components
+* Some components may require additional libraries (e.g., PrettyTime for prettyTimeConverter)
+
+== Technical Details
+
+=== Component Lifecycle
+
+* All components follow the standard JSF component lifecycle
+* Converters and validators integrate with the JSF validation phase
+* UI components properly handle state management
+
+=== Rendering Strategy
+
+* Components use efficient rendering techniques
+* Support for conditional rendering via the standard `rendered` attribute
+
+== Best Practices
+
+* Use converters to format data consistently across your application
+* Apply validators to ensure data integrity before processing
+* Combine core components to build more complex UI structures
+* Use inlineConfirm for user confirmations instead of modal dialogs
+* Apply sanitizer to user input to prevent XSS attacks
+
+== Related Documentation
+
+* link:https://jakarta.ee/specifications/faces/[Jakarta Faces Specification]
+* link:https://github.com/ocpsoft/prettytime[PrettyTime Documentation]

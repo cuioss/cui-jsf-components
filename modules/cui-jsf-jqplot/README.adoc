@@ -1,0 +1,169 @@
+= CUI JSF JQPlot
+:toc: macro
+:toclevels: 3
+:sectnumlevels: 1
+
+The CUI JSF JQPlot module provides JSF component implementations for rendering charts and diagrams based on the JQPlot JavaScript library. It offers a comprehensive set of charting components that seamlessly integrate with the JSF component lifecycle.
+
+== Maven Coordinates
+
+[source, xml]
+----
+<dependency>
+    <groupId>de.cuioss.jsf</groupId>
+    <artifactId>cui-jsf-jqplot</artifactId>
+</dependency>
+----
+
+toc::[]
+
+== Core Concepts
+
+=== JQPlot Integration
+
+* JSF component wrappers for JQPlot charting library
+* Client-side chart rendering with server-side data binding
+* Comprehensive chart configuration options
+* Dynamic chart updates through Ajax
+
+=== Data Visualization
+
+* Multiple chart types (line, bar, pie, etc.)
+* Data series management
+* Axis configuration and customization
+* Legend and tooltip support
+
+=== Component Integration
+
+* Seamless integration with JSF component lifecycle
+* Clean API for Java-based chart configuration
+* Event handling for chart interactions
+* Resource dependency management
+
+== Chart Types
+
+=== Line Charts
+
+* Single and multi-series line charts
+* Trend line visualization
+* Time series support
+* Customizable line styles and markers
+
+=== Bar Charts
+
+* Vertical and horizontal bar charts
+* Stacked bar charts
+* Grouped bar charts
+* Bar styling options
+
+=== Pie Charts
+
+* Standard pie charts
+* Donut charts
+* Slice highlighting
+* Label customization
+
+=== Specialized Charts
+
+* Area charts
+* Scatter plots
+* Bubble charts
+* Candlestick charts
+
+== Usage Examples
+
+=== Basic Line Chart
+
+[source,xml]
+----
+<cui:lineChart id="basicLineChart"
+              value="#{chartBean.lineData}"
+              title="Monthly Sales"
+              xaxisLabel="Month"
+              yaxisLabel="Sales ($)">
+</cui:lineChart>
+----
+
+=== Bar Chart with Multiple Series
+
+[source,xml]
+----
+<cui:barChart id="multiSeriesBarChart"
+             value="#{chartBean.barData}"
+             stacked="false"
+             title="Quarterly Performance">
+    <cui:chartSeries name="2023" color="#4572A7" />
+    <cui:chartSeries name="2024" color="#AA4643" />
+</cui:barChart>
+----
+
+=== Pie Chart with Customization
+
+[source,xml]
+----
+<cui:pieChart id="customPieChart"
+             value="#{chartBean.pieData}"
+             showLegend="true"
+             sliceMargin="3"
+             startAngle="45">
+    <cui:chartSeries name="Market Share" />
+</cui:pieChart>
+----
+
+== Configuration
+
+=== Chart Options
+
+* Standard configuration properties available across all chart types
+* Type-specific configuration options
+* Consistent naming conventions for properties
+* Default values aligned with best practices
+
+=== Style Customization
+
+* Color schemes and palettes
+* Font configuration
+* Grid and background styling
+* Animation settings
+
+=== Axis Configuration
+
+* Linear and logarithmic scales
+* Date/time axis support
+* Tick mark customization
+* Min/max value settings
+
+== Technical Details
+
+=== Client-Side Integration
+
+* Efficient JavaScript generation
+* Resource optimization
+* Browser compatibility considerations
+* Performance tuning options
+
+=== Data Handling
+
+* Support for various data structures
+* Large dataset optimizations
+* Data transformation utilities
+* Date and number formatting
+
+=== Event Handling
+
+* Click events on chart elements
+* Hover interactions
+* Zoom and pan capabilities
+* Selection events
+
+== Best Practices
+
+* Limit the number of data points for optimal performance
+* Use appropriate chart types for different data relationships
+* Configure proper axis scales for data accuracy
+* Consider responsive design for charts in flexible layouts
+
+== Related Documentation
+
+* link:https://www.jqplot.com/[JQPlot Documentation]
+* link:https://jakarta.ee/specifications/faces/[Jakarta Faces Specification]
