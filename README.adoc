@@ -4,7 +4,7 @@
 
 image:https://github.com/cuioss/cui-jsf-components/actions/workflows/maven.yml/badge.svg[Java CI with Maven,link=https://github.com/cuioss/cui-jsf-components/actions/workflows/maven.yml]
 image:http://img.shields.io/:license-apache-blue.svg[License,link=http://www.apache.org/licenses/LICENSE-2.0.html]
-image:https://maven-badges.herokuapp.com/maven-central/io.github.cuioss.jsf/cui-jsf-components/badge.svg[Maven Central,link=https://maven-badges.herokuapp.com/maven-central/io.github.cuioss.jsf/cui-jsf-components]
+image:https://img.shields.io/maven-central/v/de.cuioss.jsf/cui-jsf-components.svg?label=Maven%20Central["Maven Central", link="https://search.maven.org/artifact/de.cuioss.jsf/cui-jsf-components"]
 
 https://sonarcloud.io/summary/new_code?id=cuioss_cui-jsf-components[image:https://sonarcloud.io/api/project_badges/measure?project=cuioss_cui-jsf-components&metric=alert_status[Quality
 Gate Status]]
