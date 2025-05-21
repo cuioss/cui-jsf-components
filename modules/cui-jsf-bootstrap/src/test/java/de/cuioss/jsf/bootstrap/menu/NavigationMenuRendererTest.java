@@ -15,12 +15,14 @@
  */
 package de.cuioss.jsf.bootstrap.menu;
 
-import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
-
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
-import de.cuioss.jsf.api.components.model.menu.*;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemContainer;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemContainerImpl;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemExternalSingleImpl;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSeparatorImpl;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSingleImpl;
 import de.cuioss.jsf.api.components.partial.IconProvider;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
@@ -41,6 +43,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+
+import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class NavigationMenuRendererTest extends AbstractComponentRendererTest<NavigationMenuRenderer> {
@@ -216,21 +220,21 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         menuModelItem.setLabelValue(topLevelText);
         final var child1 = new NavigationMenuItemSingleImpl(10);
         child1.setOutcome(OUTCOME_HOME);
-        final var child1_labelValue = "child1labelValue";
-        child1.setLabelValue(child1_labelValue);
+        final var child1labelValue = "child1labelValue";
+        child1.setLabelValue(child1labelValue);
         child1.getOutcomeParameter().put("param1", "value1");
         final var child2 = new NavigationMenuItemSingleImpl(10);
         child2.setDisabled(true);
         final var child2Id = "1_menu";
         child2.setOutcome(OUTCOME_HOME);
-        final var child2_labelValue = "child2labelValue";
-        child2.setLabelValue(child2_labelValue);
+        final var child2labelValue = "child2labelValue";
+        child2.setLabelValue(child2labelValue);
         child2.getOutcomeParameter().put("param1", "value1");
         final var child3 = new NavigationMenuItemSingleImpl(10);
         child3.setOutcome(OUTCOME_HOME);
         child3.setRendered(false);
-        final var child3_labelValue = "child3labelValue";
-        child3.setLabelValue(child3_labelValue);
+        final var child3labelValue = "child3labelValue";
+        child3.setLabelValue(child3labelValue);
         menuModelItem.getChildren().add(child1);
         menuModelItem.getChildren().add(child2);
         menuModelItem.getChildren().add(child3);
@@ -240,8 +244,8 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         final var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId(id + ID_EXTENSION)
                 .withStyleClass("dropdown");
         withContainerElement(builder, topLevelText);
-        withCommandElement(builder, id + ID_EXTENSION + ID_EXTENSION, OUTCOME_HOME, child1_labelValue);
-        withCommandElement(builder, id + ID_EXTENSION + "_" + child2Id, OUTCOME_HOME, child2_labelValue);
+        withCommandElement(builder, id + ID_EXTENSION + ID_EXTENSION, OUTCOME_HOME, child1labelValue);
+        withCommandElement(builder, id + ID_EXTENSION + "_" + child2Id, OUTCOME_HOME, child2labelValue);
         assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
@@ -264,7 +268,6 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     @Test
     void shouldRenderModelItemsWithOneElement(FacesContext facesContext) throws IOException {
         final var menuModelItem = new NavigationMenuItemContainerImpl(10);
-        // menuModelItem.setTitleValue("foo");
         menuModelItem.setIconStyleClass("fooicon");
         final var child1 = new NavigationMenuItemSingleImpl(10);
         child1.setId("model1");
@@ -296,7 +299,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     void shouldRenderComplexMenuItemWithSeparator(FacesContext facesContext) throws IOException {
         final var menuModelItem = new NavigationMenuItemContainerImpl(10);
         final var id = "linkId";
-        final var topLevelText = "parentlabelValue";
+        final var topLevelText = "parentLabelValue";
         menuModelItem.setLabelValue(topLevelText);
         final var child1 = new NavigationMenuItemSingleImpl(10);
         child1.setOutcome(OUTCOME_HOME);
@@ -304,7 +307,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         child1.setLabelValue(child1_labelValue);
         child1.getOutcomeParameter().put("param1", "value1");
         final var separator = new NavigationMenuItemSeparatorImpl(10);
-        separator.setId("separatorid");
+        separator.setId("separatorId");
         final var child2 = new NavigationMenuItemSingleImpl(10);
         final var child2Id = "2_menu";
         child2.setOutcome(OUTCOME_HOME);
@@ -321,13 +324,13 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
                 .withStyleClass("dropdown");
         withContainerElement(builder, topLevelText);
         withCommandElement(builder, id + ID_EXTENSION + ID_EXTENSION, OUTCOME_HOME, child1_labelValue);
-        separatorElement(builder, id + ID_EXTENSION + "_1_separatorid");
+        separatorElement(builder, id + ID_EXTENSION + "_1_separatorId");
         withCommandElement(builder, id + ID_EXTENSION + "_" + child2Id, OUTCOME_HOME, child2_labelValue);
         assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
-    void shouldRenderNothing(FacesContext facesContext) throws IOException {
+    void shouldRenderNothing(FacesContext facesContext) {
         final var component = new NavigationMenuComponent();
         assertEmptyRenderResult(component, facesContext);
         component.setModel(new NavigationMenuItemSingleImpl(10));
@@ -346,7 +349,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     }
 
     @Test
-    void shouldNotRenderChildsIfParentIsNotRendered(FacesContext facesContext) throws IOException {
+    void shouldNotRenderChildrenIfParentIsNotRendered(FacesContext facesContext) {
         final var menuModelItem = new NavigationMenuItemContainerImpl(10);
         menuModelItem.setRendered(false);
         menuModelItem.getChildren().add(new NavigationMenuItemSingleImpl(10));
