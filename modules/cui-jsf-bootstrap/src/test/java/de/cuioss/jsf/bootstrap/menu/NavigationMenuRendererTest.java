@@ -15,12 +15,14 @@
  */
 package de.cuioss.jsf.bootstrap.menu;
 
-import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
-
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
-import de.cuioss.jsf.api.components.model.menu.*;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemContainer;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemContainerImpl;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemExternalSingleImpl;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSeparatorImpl;
+import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSingleImpl;
 import de.cuioss.jsf.api.components.partial.IconProvider;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
@@ -38,9 +40,12 @@ import jakarta.faces.component.html.HtmlOutputLink;
 import jakarta.faces.component.html.HtmlOutputText;
 import jakarta.faces.context.FacesContext;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+
+import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
 @Disabled("FIXME : new css classes need to be added")
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
@@ -159,9 +164,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         final var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId(CLIENT_ID)
                 .withStyleClass(CssBootstrap.LIST_DIVIDER);
         assertRenderResult(component, builder.getDocument(), facesContext);
-        var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId(CLIENT_ID)
-            .withStyleClass(CssBootstrap.LIST_DIVIDER);
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
@@ -181,7 +184,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
      * expected icons: south, east, east Structure: C1 > C2 > C3 > Single
      */
     @Test
-    void shouldRenderNestedContainers() {
+    void shouldRenderNestedContainers(FacesContext facesContext) throws IOException {
         final var component = new NavigationMenuComponent();
         NavigationMenuItemContainer container1 = new NavigationMenuItemContainerImpl(10);
         NavigationMenuItemContainer container2 = new NavigationMenuItemContainerImpl(10);
@@ -349,11 +352,11 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         component.setModel(new NavigationMenuItemSeparatorImpl(10));
         var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId("compid" + ID_EXTENSION)
             .withStyleClass("divider").currentHierarchyUp();
-        assertRenderResult(component, builder.getDocument());
+        assertRenderResult(component, builder.getDocument(), facesContext);
     }
 
     @Test
-    void shouldNotRenderChildsIfParentIsNotRendered(FacesContext facesContext) throws IOException {
+    void shouldNotRenderChildsIfParentIsNotRendered(FacesContext facesContext) {
         final var menuModelItem = new NavigationMenuItemContainerImpl(10);
         menuModelItem.setRendered(false);
         menuModelItem.getChildren().add(new NavigationMenuItemSingleImpl(10));
