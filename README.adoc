@@ -15,8 +15,8 @@ image:https://sonarcloud.io/api/project_badges/measure?project=cuioss_cui-jsf-co
 https://cuioss.github.io/cui-jsf-components/index.html[Generated Documentation on github-pages]
 
 == What is it?
- 
-Provides a number of JavaServer Faces modules 
+
+Provides a number of JavaServer Faces modules
 
 === Maven Coordinates
 
@@ -25,8 +25,25 @@ Provides a number of JavaServer Faces modules
  <dependency>
     <groupId>de.cuioss.jsf</groupId>
     <artifactId>bom</artifactId>
-    <version>CURRENT_VERSION</version>
+    <version>1.0.0</version>
     <type>pom</type>
     <scope>import</scope>
 </dependency>
 ----
+
+== Modules
+
+=== JSF Modules
+
+* link:modules/cui-jsf-api/README.adoc[CUI JSF API]
+* link:modules/cui-jsf-bootstrap/README.adoc[CUI JSF Bootstrap]
+* link:modules/cui-jsf-core-components/README.adoc[CUI JSF Core Components]
+* link:modules/cui-jsf-dev/README.adoc[CUI JSF Dev]
+* link:modules/cui-jsf-jqplot/README.adoc[CUI JSF JQPlot]
+* link:modules/cui-jsf-test/README.adoc[CUI JSF Test]
+
+=== Web Modules
+
+* link:web-modules/cui-javascript/README.adoc[CUI JavaScript]
+* link:web-modules/cui-jsf-bootstrap-css/README.adoc[CUI JSF Bootstrap CSS]
+

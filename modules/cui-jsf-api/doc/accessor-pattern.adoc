@@ -186,8 +186,108 @@ public class MyComponent extends UIInput {
 4. **Thread Safety**: Consider thread safety when implementing accessors, especially for application-scoped resources.
 5. **Error Handling**: Implement proper error handling in the `getValue()` method to handle cases where the resource cannot be resolved.
 
+== AttributeAccessor for Composite Components
+
+In addition to the `ManagedAccessor` pattern for transient resources, the framework provides another important accessor variant specifically designed for JSF composite components: the `AttributeAccessor` interface and its implementations.
+
+=== Core Interface
+
+The `AttributeAccessor<T>` interface provides a unified way to access component attributes in a type-safe manner:
+
+[source,java]
+----
+public interface AttributeAccessor<T> extends Serializable {
+
+    /**
+     * Typesafe access on a certain attribute. The concrete attribute name is
+     * encapsulated in the implementation.
+     *
+     * @param attributeMap must not be null
+     * @return the type attribute or null if the attribute is not available
+     */
+    T value(Map<String, Object> attributeMap);
+
+    /**
+     * @param attributeMap must not be null
+     * @return boolean indicating whether the attribute is available (not null) at
+     *         all
+     */
+    boolean available(Map<String, Object> attributeMap);
+}
+----
+
+This interface is particularly useful for composite components that need to access attributes from their attribute map in a type-safe way.
+
+=== AttributeAccessorImpl
+
+The `AttributeAccessorImpl<T>` class is the standard implementation of the `AttributeAccessor` interface:
+
+[source,java]
+----
+// Create an accessor for a String attribute named "label"
+AttributeAccessor<String> labelAccessor = 
+    new AttributeAccessorImpl<>("label", String.class, false);
+
+// Use the accessor to get the attribute value
+String label = labelAccessor.value(component.getAttributes());
+
+// Check if the attribute is available
+boolean hasLabel = labelAccessor.available(component.getAttributes());
+----
+
+Key features of `AttributeAccessorImpl`:
+
+* Type-safe access to attributes with runtime type checking
+* Option to always resolve from the attribute map or cache the value after first access
+* Proper handling of null values
+* Serialization support with transient caching
+
+=== StringAttributeAccessor
+
+For string attributes, the framework provides a specialized implementation called `StringAttributeAccessor` that adds handling for empty strings:
+
+[source,java]
+----
+// Create an accessor that treats empty strings as null
+StringAttributeAccessor titleAccessor = 
+    new StringAttributeAccessor("title", false, true);
+
+// Use the accessor
+String title = titleAccessor.value(component.getAttributes());
+----
+
+This implementation is particularly useful for attributes like labels, titles, or style classes where empty strings often need to be treated the same as null values.
+
+=== Usage in Composite Components
+
+The `AttributeAccessor` pattern is commonly used in composite component implementations to access attributes in a type-safe and consistent way:
+
+[source,java]
+----
+@FacesComponent("myComponent")
+public class MyComponent extends UIComponentBase {
+
+    private final AttributeAccessor<String> labelAccessor = 
+        new StringAttributeAccessor("label", false, true);
+
+    private final AttributeAccessor<Boolean> disabledAccessor = 
+        new AttributeAccessorImpl<>("disabled", Boolean.class, false);
+
+    @Override
+    public void encodeBegin(FacesContext context) throws IOException {
+        Map<String, Object> attributes = getAttributes();
+
+        String label = labelAccessor.value(attributes);
+        boolean disabled = Boolean.TRUE.equals(disabledAccessor.value(attributes));
+
+        // Use the attributes to render the component
+        // ...
+    }
+}
+----
+
 == Conclusion
 
-The accessor pattern provides a robust solution for handling transient resources in JSF applications. By encapsulating the resource access and recovery logic, it simplifies component development and ensures proper behavior across the JSF lifecycle, including serialization and deserialization of the view state.
+The accessor patterns provided by the framework offer robust solutions for handling both transient resources and component attributes in JSF applications. By encapsulating the resource access and recovery logic, they simplify component development and ensure proper behavior across the JSF lifecycle.
 
-The `de.cuioss.jsf.api.common.accessor` package provides several ready-to-use implementations for common JSF resources, making it easy to adopt this pattern in your components.
+The `de.cuioss.jsf.api.common.accessor` package provides several ready-to-use implementations for common JSF resources, while the `de.cuioss.jsf.api.composite` package offers specialized accessors for composite component attributes.
