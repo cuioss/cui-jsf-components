@@ -361,14 +361,8 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
         assertEmptyRenderResult(component, facesContext);
     }
 
-    /**
-     * Create expected structure for "separator" menu item.<br>
-     *
-     * @param builder
-     * @return expected separator element structure
-     */
-    private static HtmlTreeBuilder separatorElement(final HtmlTreeBuilder builder, final String id) {
-        return builder.withNode(Node.LI).withStyleClass("divider").withAttributeNameAndId(id).currentHierarchyUp();
+    private static void separatorElement(final HtmlTreeBuilder builder, final String id) {
+        builder.withNode(Node.LI).withStyleClass("divider").withAttributeNameAndId(id).currentHierarchyUp();
     }
 
     private static void withCommandElement(final HtmlTreeBuilder builder, final String id, final String outcome,
