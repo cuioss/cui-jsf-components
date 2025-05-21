@@ -85,7 +85,7 @@ public class PrettyTimeConverter extends AbstractConverter<Object> {
      * Once this limit is reached, the least recently used entries are removed.
      */
     private static final int CACHE_SIZE = 20;
-    
+
     /**
      * Thread-safe LRU (Least Recently Used) cache of PrettyTime instances by locale.
      * This improves performance by reusing instances for frequently used locales.

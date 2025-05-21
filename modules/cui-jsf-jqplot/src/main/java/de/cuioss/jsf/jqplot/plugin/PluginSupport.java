@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.jqplot.plugin;
 
+import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
+
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -22,8 +24,6 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
 /**
  * Identify entry which needs / expected special plug-in (additional javaScript)

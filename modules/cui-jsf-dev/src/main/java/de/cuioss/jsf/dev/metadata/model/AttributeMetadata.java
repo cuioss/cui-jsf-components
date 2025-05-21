@@ -88,7 +88,7 @@ public class AttributeMetadata implements Serializable {
      * </p>
      */
     private final String name;
-    
+
     /**
      * <p>
      * The Java type of the attribute as defined in the taglib XML file.
@@ -101,7 +101,7 @@ public class AttributeMetadata implements Serializable {
      * </p>
      */
     private final String type;
-    
+
     /**
      * <p>
      * The description of the attribute as defined in the taglib XML file.
@@ -116,7 +116,7 @@ public class AttributeMetadata implements Serializable {
      * </p>
      */
     private final String description;
-    
+
     /**
      * <p>
      * Indicates whether the attribute is required as defined in the taglib XML file.

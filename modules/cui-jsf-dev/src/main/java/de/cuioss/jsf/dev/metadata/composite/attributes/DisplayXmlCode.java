@@ -103,7 +103,7 @@ import java.util.Map;
 public final class DisplayXmlCode extends UINamingContainer {
 
     private static final CuiLogger LOGGER = new CuiLogger(DisplayXmlCode.class);
-    
+
     /**
      * Default suffix for XHTML component files.
      * Used when retrieving component resources and normalizing component names.

@@ -15,14 +15,12 @@
  */
 package de.cuioss.jsf.bootstrap.menu;
 
+import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
+
 import de.cuioss.jsf.api.components.html.AttributeName;
 import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
-import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemContainer;
-import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemContainerImpl;
-import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemExternalSingleImpl;
-import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSeparatorImpl;
-import de.cuioss.jsf.api.components.model.menu.NavigationMenuItemSingleImpl;
+import de.cuioss.jsf.api.components.model.menu.*;
 import de.cuioss.jsf.api.components.partial.IconProvider;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
@@ -43,8 +41,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-
-import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class NavigationMenuRendererTest extends AbstractComponentRendererTest<NavigationMenuRenderer> {

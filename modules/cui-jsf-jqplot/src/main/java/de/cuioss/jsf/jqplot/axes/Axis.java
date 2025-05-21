@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.jqplot.axes;
 
+import static de.cuioss.tools.string.MoreStrings.emptyToNull;
+
 import de.cuioss.jsf.jqplot.js.support.JsObject;
 import de.cuioss.jsf.jqplot.js.support.JsValue;
 import de.cuioss.jsf.jqplot.js.types.JsBoolean;
@@ -36,8 +38,6 @@ import lombok.ToString;
 import java.awt.*;
 import java.io.Serial;
 import java.util.List;
-
-import static de.cuioss.tools.string.MoreStrings.emptyToNull;
 
 /**
  * An individual axis object. Cannot be instantiated directly, but created by

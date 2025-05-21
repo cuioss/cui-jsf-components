@@ -15,9 +15,9 @@
  */
 package de.cuioss.jsf.jqplot.plugin.highlighter;
 
-import lombok.Getter;
-
 import static java.util.Objects.requireNonNull;
+
+import lombok.Getter;
 
 /**
  * Which axes to display in tooltip, 'x', 'y' or 'both', 'xy' or 'yx' 'both' and

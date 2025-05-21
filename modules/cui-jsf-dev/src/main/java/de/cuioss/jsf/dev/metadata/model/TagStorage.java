@@ -15,19 +15,15 @@
  */
 package de.cuioss.jsf.dev.metadata.model;
 
+import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-
-import static de.cuioss.tools.string.MoreStrings.nullToEmpty;
+import java.util.*;
 
 /**
  * <p>

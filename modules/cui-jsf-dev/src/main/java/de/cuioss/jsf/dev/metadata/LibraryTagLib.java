@@ -66,7 +66,7 @@ public enum LibraryTagLib {
      * </p>
      */
     CUI_CORE("/META-INF/cui-core.taglib.xml", JSF_4_0_FACELET_TAGLIB_NAMESPACE),
-    
+
     /**
      * <p>
      * The CUI Bootstrap tag library, containing Bootstrap-based UI components.
@@ -79,7 +79,7 @@ public enum LibraryTagLib {
      * </p>
      */
     CUI_BOOTSTRAP("/META-INF/cui-bootstrap.taglib.xml", JSF_4_0_FACELET_TAGLIB_NAMESPACE),
-    
+
     /**
      * <p>
      * The PrimeFaces tag library, containing the third-party PrimeFaces components.
@@ -92,7 +92,7 @@ public enum LibraryTagLib {
      * </p>
      */
     PRIME_FACES("/META-INF/primefaces.taglib.xml", JSF_2_2_FACELET_TAGLIB_NAMESPACE),
-    
+
     /**
      * <p>
      * The OmniFaces tag library, containing the third-party OmniFaces UI components.
@@ -105,7 +105,7 @@ public enum LibraryTagLib {
      * </p>
      */
     OMNI_FACES("/META-INF/omnifaces-ui.taglib.xml", JSF_4_0_FACELET_TAGLIB_NAMESPACE),
-    
+
     /**
      * <p>
      * The Jakarta Faces core tag library, containing the standard faces core components.
@@ -118,7 +118,7 @@ public enum LibraryTagLib {
      * </p>
      */
     FACES_CORE("/META-INF/resources/mojarra-4.0.7-tlds/faces.core_taglib.xml", JSF_4_0_FACELET_TAGLIB_NAMESPACE),
-    
+
     /**
      * <p>
      * The Jakarta Faces HTML tag library, containing the standard HTML components.

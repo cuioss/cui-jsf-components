@@ -15,9 +15,9 @@
  */
 package de.cuioss.jsf.jqplot.js.types;
 
-import de.cuioss.jsf.jqplot.js.support.JsValue;
-
 import static java.util.Objects.requireNonNull;
+
+import de.cuioss.jsf.jqplot.js.support.JsValue;
 
 /**
  * JsNumber factory is able to create type safe JsValue with number content.

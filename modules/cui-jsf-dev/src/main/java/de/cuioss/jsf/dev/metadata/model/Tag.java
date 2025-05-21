@@ -69,7 +69,7 @@ public abstract class Tag implements Serializable, Comparable<Tag> {
      * </p>
      */
     private final String name;
-    
+
     /**
      * <p>
      * The description of the tag as defined in the taglib XML file.
@@ -83,7 +83,7 @@ public abstract class Tag implements Serializable, Comparable<Tag> {
      * </p>
      */
     private final String description;
-    
+
     /**
      * <p>
      * The list of attributes defined for this tag in the taglib XML file.

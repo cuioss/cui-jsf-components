@@ -15,12 +15,12 @@
  */
 package de.cuioss.jsf.jqplot.hook;
 
+import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
+
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.io.Serial;
-
-import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
 
 /**
  * Base implementation of {@linkplain PlotHookFunctionProvider}

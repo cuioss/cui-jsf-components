@@ -15,6 +15,8 @@
  */
 package de.cuioss.jsf.jqplot.options.color;
 
+import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
+
 import de.cuioss.jsf.jqplot.js.support.JavaScriptSupport;
 import de.cuioss.jsf.jqplot.js.support.JsObject;
 import de.cuioss.jsf.jqplot.js.support.JsProperty;
@@ -23,8 +25,6 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.io.Serial;
-
-import static de.cuioss.tools.string.MoreStrings.requireNotEmpty;
 
 /**
  * Color property combine {@linkplain Color} as {@linkplain JsValue} and

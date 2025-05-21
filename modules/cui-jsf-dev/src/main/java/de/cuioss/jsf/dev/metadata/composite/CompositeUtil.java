@@ -72,7 +72,7 @@ import java.beans.BeanInfo;
 public final class CompositeUtil {
 
     private static final CuiLogger log = new CuiLogger(CompositeUtil.class);
-    
+
     /**
      * <p>
      * The standard file extension for XHTML-based composite components.
@@ -83,7 +83,7 @@ public final class CompositeUtil {
      * </p>
      */
     private static final String XHTML_SUFFIX = ".xhtml";
-    
+
     /**
      * <p>
      * A placeholder facelet suffix used when retrieving the view declaration language.

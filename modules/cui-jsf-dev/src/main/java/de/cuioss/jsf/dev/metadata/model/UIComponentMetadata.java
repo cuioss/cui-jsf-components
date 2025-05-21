@@ -99,7 +99,7 @@ public class UIComponentMetadata extends Tag {
      */
     @Getter
     private final String componentType;
-    
+
     /**
      * <p>
      * The renderer type identifier for this UI component tag.
@@ -116,7 +116,7 @@ public class UIComponentMetadata extends Tag {
      */
     @Getter
     private final String rendererType;
-    
+
     /**
      * <p>
      * The handler class name for this UI component tag.

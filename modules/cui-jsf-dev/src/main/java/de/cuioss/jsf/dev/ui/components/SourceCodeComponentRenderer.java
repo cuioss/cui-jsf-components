@@ -101,37 +101,37 @@ public class SourceCodeComponentRenderer extends BaseDecoratorRenderer<SourceCod
      * Line separator used for rendering the source code
      */
     private static final String LINE_SEPARATOR = "\n";
-    
+
     /**
      * Label displayed on the copy-to-clipboard button
      */
     static final String COPY_BUTTON_LABEL = "Copy";
-    
+
     /**
      * Tooltip title for the copy-to-clipboard button
      */
     static final String COPY_BUTTON_TITLE = "Copy content to clipboard";
-    
+
     /**
      * Client ID suffix for the invisible textarea that holds the content for copying
      */
     static final String ID_INVISIBLE_TEXT_AREA_SUFFIX = "invisibleTextArea";
-    
+
     /**
      * Client ID for the pre element that wraps the source code
      */
     static final String ID_PRE_WRAPPER = "preWrapper";
-    
+
     /**
      * Identifier for the copy button element
      */
     static final String COPY_BTN_IDENTIFIER = "copyBtn";
-    
+
     /**
      * CSS class for the copy button
      */
     static final String COPY_BTN_CLASS = "cui-btn-copy";
-    
+
     /**
      * CSS class for the div that wraps the copy button
      */

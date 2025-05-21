@@ -298,7 +298,7 @@ public class MessageProducerMock implements MessageProducer {
      */
     @Override
     public void addMessage(final @NonNull String message, final @NonNull Severity severity, final String componentId,
-                           final Object... parameter) {
+            final Object... parameter) {
         if (MoreStrings.isEmpty(componentId)) {
             globalMessages.add(getMessageFor(message, severity, parameter));
         } else {

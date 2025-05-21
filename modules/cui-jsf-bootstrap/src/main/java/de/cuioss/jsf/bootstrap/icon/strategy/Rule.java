@@ -15,14 +15,14 @@
  */
 package de.cuioss.jsf.bootstrap.icon.strategy;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * <p>
