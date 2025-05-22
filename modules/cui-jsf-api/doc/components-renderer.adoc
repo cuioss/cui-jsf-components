@@ -189,7 +189,7 @@ public class ElementReplacingResponseWriter extends ResponseWriterBase {
 }
 ----
 
-This writer is often used to adapt standard JSF components to Bootstrap or other CSS frameworks that require specific HTML structures.
+This writer is used to adapt standard JSF components to Bootstrap or other CSS frameworks that require specific HTML structures.
 
 === ResponseWriterBase
 

@@ -73,31 +73,41 @@ Decorators are typically placed inside the component they should decorate:
 
 [source,xml]
 ----
-<h:panelGroup>
-    <cui:styleClassDecorator styleClass="panel panel-default"/>
-    Panel content here...
-</h:panelGroup>
+<h:commandButton value="Click Me">
+    <cui:tooltip title="Click this button to submit the form" placement="top"/>
+</h:commandButton>
 ----
 
-When the view is rendered, the decorator modifies its parent component (in this case, adding CSS classes to the `panelGroup`).
+When the view is rendered, the decorator modifies its parent component (in this case, adding tooltip functionality to the `commandButton`).
 
 == Common Decorator Types
 
-=== Style Class Decorators
+=== Tooltip Decorators
 
-Add CSS classes to the parent component:
+Add tooltip functionality to the parent component:
 
 [source,java]
 ----
-public class StyleClassDecorator extends AbstractParentDecorator {
+public class TooltipComponent extends AbstractParentDecorator {
 
-    private String styleClass;
+    private String placement;
+    private String trigger;
+    private Integer delay;
+    private String content;
 
     @Override
-    protected void decorate(UIComponent parent) {
-        ComponentModifier modifier = ComponentModifierFactory.findFittingWrapper(parent);
-        if (null != modifier) {
-            modifier.addStyleClass(parent, styleClass);
+    public void decorate(final ComponentModifier parent) {
+        parent.addPassThrough("data-placement", getPlacement())
+                .addPassThrough("data-toggle", "tooltip")
+                .addPassThrough("data-trigger", getTrigger())
+                .addPassThrough("data-delay", getDelay());
+
+        if (null != content) {
+            if (parent.isSupportsTitle()) {
+                parent.setTitle(content);
+            } else {
+                parent.addPassThrough("title", content);
+            }
         }
     }
 
@@ -105,53 +115,41 @@ public class StyleClassDecorator extends AbstractParentDecorator {
 }
 ----
 
-=== Attribute Decorators
+=== Modal Control Decorators
 
-Set attributes on the parent component:
-
-[source,java]
-----
-public class AttributeDecorator extends AbstractParentDecorator {
-
-    private String name;
-    private Object value;
-
-    @Override
-    protected void decorate(UIComponent parent) {
-        parent.getAttributes().put(name, value);
-    }
-
-    // Getters and setters...
-}
-----
-
-=== Behavior Decorators
-
-Add behaviors to the parent component:
+Add modal dialog control functionality to the parent component:
 
 [source,java]
 ----
-public class AjaxDecorator extends AbstractParentDecorator {
+public class ModalControl extends AbstractParentDecorator {
 
+    private String forId;
     private String event;
-    private String execute;
-    private String render;
+    private String action;
 
     @Override
-    protected void decorate(UIComponent parent) {
-        if (parent instanceof ClientBehaviorHolder) {
-            ClientBehaviorHolder behaviorHolder = (ClientBehaviorHolder) parent;
-            AjaxBehavior behavior = createAjaxBehavior();
-            behaviorHolder.addClientBehavior(event, behavior);
-        }
-    }
-
-    private AjaxBehavior createAjaxBehavior() {
-        // Create and configure the behavior
-        // ...
+    public void decorate(final ComponentModifier parent) {
+        parent.addPassThrough("data-modal-for", getFor())
+              .addPassThrough("data-modal-action", getAction())
+              .addPassThrough("data-modal-event", getEvent());
     }
 
     // Getters and setters...
+}
+----
+
+=== Block Element Decorators
+
+Add block element functionality to the parent component:
+
+[source,java]
+----
+public class BlockElementDecorator extends AbstractParentDecorator {
+
+    @Override
+    public void decorate(ComponentModifier parent) {
+        parent.addPassThrough("data-cui-block-element", "data-cui-block-element");
+    }
 }
 ----
 
@@ -159,29 +157,7 @@ public class AjaxDecorator extends AbstractParentDecorator {
 
 === TooltipComponent (Bootstrap Module)
 
-The link:https://github.com/cuioss/cui-jsf-components/blob/main/modules/cui-jsf-bootstrap/src/main/java/de/cuioss/jsf/bootstrap/tooltip/TooltipComponent.java[TooltipComponent] in the Bootstrap module is an example of a decorator that adds tooltip functionality to its parent component:
-
-[source,java]
-----
-public class TooltipComponent extends AbstractParentDecorator {
-
-    // Tooltip configuration properties...
-
-    @Override
-    protected void decorate(UIComponent parent) {
-        // Add tooltip-related attributes and behaviors to the parent
-        parent.getAttributes().put("data-toggle", "tooltip");
-        parent.getAttributes().put("data-placement", getPlacement());
-        parent.getAttributes().put("title", getTitle());
-
-        // Add necessary CSS classes
-        ComponentModifier modifier = ComponentModifierFactory.findFittingWrapper(parent);
-        if (null != modifier) {
-            modifier.addStyleClass(parent, "tooltip-enabled");
-        }
-    }
-}
-----
+The link:https://github.com/cuioss/cui-jsf-components/blob/main/modules/cui-jsf-bootstrap/src/main/java/de/cuioss/jsf/bootstrap/tooltip/TooltipComponent.java[TooltipComponent] in the Bootstrap module is a decorator that adds tooltip functionality to its parent component.
 
 Usage:
 
@@ -194,22 +170,7 @@ Usage:
 
 === ModalControl (Bootstrap Module)
 
-The link:https://github.com/cuioss/cui-jsf-components/blob/main/modules/cui-jsf-bootstrap/src/main/java/de/cuioss/jsf/bootstrap/modal/ModalControl.java[ModalControl] decorator adds modal dialog control functionality to buttons:
-
-[source,java]
-----
-public class ModalControl extends AbstractParentDecorator {
-
-    private String target;
-
-    @Override
-    protected void decorate(UIComponent parent) {
-        // Add modal control attributes
-        parent.getAttributes().put("data-toggle", "modal");
-        parent.getAttributes().put("data-target", "#" + target);
-    }
-}
-----
+The link:https://github.com/cuioss/cui-jsf-components/blob/main/modules/cui-jsf-bootstrap/src/main/java/de/cuioss/jsf/bootstrap/modal/ModalControl.java[ModalControl] decorator adds modal dialog control functionality to buttons.
 
 Usage:
 
@@ -218,6 +179,33 @@ Usage:
 <h:commandButton value="Open Modal">
     <cui:modalControl target="myModalId"/>
 </h:commandButton>
+----
+
+=== BlockElementDecorator (Core Components Module)
+
+The link:https://github.com/cuioss/cui-jsf-components/blob/main/modules/cui-jsf-core-components/src/main/java/de/cuioss/jsf/components/blockelement/BlockElementDecorator.java[BlockElementDecorator] adds functionality to disable a component and show a loading spinner during Ajax operations.
+
+Usage:
+
+[source,xml]
+----
+<boot:commandButton value="Submit">
+    <f:ajax render="@this"/>
+    <cui:blockElement/>
+</boot:commandButton>
+----
+
+=== TypewatchComponent (Core Components Module)
+
+The link:https://github.com/cuioss/cui-jsf-components/blob/main/modules/cui-jsf-core-components/src/main/java/de/cuioss/jsf/components/typewatch/TypewatchComponent.java[TypewatchComponent] monitors user input and triggers an action after the user stops typing for a specified period.
+
+Usage:
+
+[source,xml]
+----
+<h:inputText value="#{bean.searchTerm}">
+    <cui:typewatch wait="500" listener="#{bean.search}"/>
+</h:inputText>
 ----
 
 == Implementation Guidelines

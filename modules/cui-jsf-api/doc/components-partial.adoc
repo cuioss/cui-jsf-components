@@ -13,6 +13,7 @@ toc::[]
 == Overview
 
 The partial implementation pattern is a design approach that follows the composite pattern to create flexible and reusable JSF components. Instead of relying heavily on inheritance, which can lead to complex class hierarchies, this pattern uses composition to combine specific behaviors into complete components.
+Another commonly used Anti-Pattern for component design is copy-pasting.
 
 The `de.cuioss.jsf.api.components.partial` package contains provider interfaces and their implementations for common component attributes and behaviors. Many component implementations in the CUI JSF framework use these partial implementations to reduce code duplication and maintain consistency across the component library.
 
@@ -25,6 +26,7 @@ Provider interfaces define contracts for specific component behaviors. Each inte
 === Implementations
 
 Concrete implementations of these interfaces provide the actual behavior. These implementations typically use the `CuiState` helper to manage component state in a JSF-friendly way.
+`CuiState` extends OmniFaces's `StateHelper` and provides additional convenience methods for using component state.
 
 === Component Bridges
 

@@ -14,6 +14,16 @@ toc::[]
 
 Web applications are vulnerable to Cross-Site Scripting (XSS) attacks when they display user-provided content without proper sanitization. The CUI JSF API provides a comprehensive set of tools to sanitize HTML content, preventing XSS vulnerabilities while allowing legitimate HTML formatting when needed.
 
+== JSF Default Escaping
+
+It's important to note that JSF, by design, provides default escaping for output, which helps prevent XSS attacks. However, it is still sensible to add sanitization as another line of defense, especially in the following scenarios:
+
+1. When other clients are working on the same data that might not have the same built-in protections
+2. When a developer explicitly sets `escape="false"` on JSF components
+3. As part of a defense-in-depth security strategy
+
+This multi-layered approach to security ensures that your application remains protected even if one layer is bypassed or disabled.
+
 == CuiSanitizer
 
 The `CuiSanitizer` enum is the core component of the security framework. It provides predefined sanitization policies based on the OWASP HTML Sanitizer library, offering different levels of HTML element and attribute filtering.
@@ -264,6 +274,7 @@ Some sanitizers preserve HTML entities, which can be useful for displaying speci
 === Performance Impact
 
 Sanitization adds some processing overhead. For high-performance applications, consider caching sanitized content when appropriate.
+
 
 == Conclusion
 
