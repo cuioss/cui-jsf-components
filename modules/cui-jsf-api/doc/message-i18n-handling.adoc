@@ -6,9 +6,177 @@
 
 link:../README.adoc[Back to README]
 
-This document describes the message internationalization (i18n) handling in the CUI JSF API, which relies on `de.cuioss.portal.common.bundle.ResourceBundleLocator` with `de.cuioss.jsf.api.application.message.MessageProducer` as the central aspect.
-
 toc::[]
+
+== LabelProvider Pattern: Component-Level Internationalization
+
+A central aspect of CUI JSF is promoting internationalization (i18n) through the `LabelProvider` pattern. This pattern is used extensively throughout the framework to provide consistent, internationalized labels for components.
+
+=== Overview of the LabelProvider Pattern
+
+The `LabelProvider` pattern consists of several key components:
+
+1. **LabelProvider Class**: Manages the state and resolving of label strings for components
+2. **LabelResolver Class**: Resolves labels based on either a key (for resource bundle lookup) or a direct value
+3. **ComponentBridge Interface**: Connects partial implementations to their owning UIComponent
+4. **ResourceBundleWrapper**: Provides access to internationalized messages
+
+=== LabelProvider Implementation
+
+The `LabelProvider` class (`de.cuioss.jsf.api.components.partial.LabelProvider`) implements a consistent approach to handling internationalized labels with the following key attributes:
+
+* **labelKey**: The key for looking up text in a resource bundle
+* **labelValue**: A direct value to use as the label (takes precedence over labelKey)
+* **labelConverter**: Optional converter for non-string labelValue objects
+* **labelEscape**: Controls whether the label should be HTML-escaped (default: true)
+
+[source,java]
+----
+public class LabelProvider {
+    // State management for label attributes
+    private final CuiState state;
+    private final ComponentBridge componentBridge;
+
+    // Constructor requires a bridge to the owning component
+    public LabelProvider(@NonNull ComponentBridge bridge) {
+        state = new CuiState(bridge.stateHelper());
+        componentBridge = bridge;
+    }
+
+    // Getters and setters for label attributes
+    public String getLabelKey() { /* implementation */ }
+    public void setLabelKey(String labelKey) { /* implementation */ }
+    public Serializable getLabelValue() { /* implementation */ }
+    public void setLabelValue(Serializable labelValue) { /* implementation */ }
+    public Object getLabelConverter() { /* implementation */ }
+    public void setLabelConverter(Object labelConverter) { /* implementation */ }
+    public boolean isLabelEscape() { /* implementation */ }
+    public void setLabelEscape(boolean labelEscape) { /* implementation */ }
+
+    // Resolves the label based on the configured attributes
+    public String resolveLabel() {
+        final var labelValue = getLabelValue();
+        final var labelKey = getLabelKey();
+        if (labelValue == null && MoreStrings.isEmpty(labelKey)) {
+            return null;
+        }
+        return LabelResolver.builder()
+                .withConverter(getLabelConverter())
+                .withLabelKey(labelKey)
+                .withEscape(isLabelEscape())
+                .withLabelValue(labelValue)
+                .build()
+                .resolve(componentBridge.facesContext());
+    }
+}
+----
+
+=== LabelResolver: The Resolution Engine
+
+The `LabelResolver` class handles the actual resolution of labels following this algorithm:
+
+1. If `labelValue` is provided, it's converted to a string using the specified converter
+2. If `labelKey` is provided, it's looked up in the appropriate resource bundle
+3. If neither is available, it returns null (or throws an exception in strict mode)
+
+[source,java]
+----
+@Builder(setterPrefix = "with")
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+public class LabelResolver {
+    private final String labelKey;
+    private final Serializable labelValue;
+    private final Object converter;
+    private final Boolean strictMode;
+
+    @Builder.Default
+    private final boolean escape = true;
+
+    public String resolve(final FacesContext context) {
+        // Resolution logic
+        if (null != labelValue) {
+            // Convert labelValue to string using appropriate converter
+            // Code to resolve and use converter omitted for brevity
+            return "converted value";
+        }
+        if (!MoreStrings.isEmpty(labelKey)) {
+            // Look up labelKey in resource bundle
+            return PortalBeanManager.resolveRequiredBean(ResourceBundleWrapper.class).getString(labelKey);
+        }
+        return null;
+    }
+}
+----
+
+=== Integration with Component Architecture
+
+The `LabelProvider` integrates with the CUI JSF component architecture through the partial implementation pattern. Components that need internationalized labels:
+
+1. Implement the `ComponentBridge` interface
+2. Create an instance of `LabelProvider`
+3. Delegate label-related methods to the provider
+
+[source,java]
+----
+public class Button extends HtmlOutcomeTargetButton implements ComponentBridge {
+
+    @Delegate
+    private final LabelProvider labelProvider;
+
+    public Button() {
+        labelProvider = new LabelProvider(this);
+    }
+
+    @Override
+    public StateHelper stateHelper() {
+        return getStateHelper();
+    }
+
+    @Override
+    public FacesContext facesContext() {
+        return getFacesContext();
+    }
+}
+----
+
+=== Benefits of the LabelProvider Pattern
+
+1. **Consistency**: Provides a uniform approach to internationalization across all components
+2. **Flexibility**: Supports both resource bundle keys and direct values
+3. **Separation of Concerns**: Isolates i18n logic from other component functionality
+4. **Reusability**: Can be easily added to any component through composition
+5. **Maintainability**: Centralizes i18n handling logic for easier updates and bug fixes
+
+=== Usage Examples
+
+==== Basic Usage with Resource Bundle Key
+
+[source,xml]
+----
+<cui:button labelKey="button.save" />
+----
+
+==== Direct Value with Converter
+
+[source,xml]
+----
+<cui:outputLabel labelValue="#{bean.dateValue}" labelConverter="javax.faces.DateTime" />
+----
+
+==== Combining with Other Attributes
+
+[source,xml]
+----
+<cui:labeledContainer labelKey="form.address" 
+                     labelEscape="false"
+                     styleClass="address-container">
+    <!-- Container content -->
+</cui:labeledContainer>
+----
+
+== Message Internationalization Framework
+
+This document also describes the message internationalization (i18n) handling in the CUI JSF API, which relies on `de.cuioss.portal.common.bundle.ResourceBundleLocator` with `de.cuioss.jsf.api.application.message.MessageProducer` as the central aspect.
 
 == Overview
 
