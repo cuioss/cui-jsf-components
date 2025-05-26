@@ -26,22 +26,22 @@ The javascript Module for the cui jsf components. The resulting scripts are:
 
 == Build-Structure
 
-In contrast to other cuioss modules, this module relies entirely on nodes.js / grunt creating the javascript
+This module contains core JavaScript (ES6+) resources. The development and build process relies on Node.js and npm scripts for managing dependencies and executing build tasks.
 
-Technically it consists of certain Type-Script modules that are 
-* compiled
-* combined
-* jshinted
-* minified 
-* tested (jasmine) 
+The JavaScript sources are:
+* Linted using ESLint (via `npm run lint`).
+* Tested using Jest (via `npm test`).
+* Concatenated using `concat`.
+* Minified using `terser`.
 
-using the nodes.js/grunt stack.
+These tasks are orchestrated by the `npm run build` script.
 
-Therefore the development can completely take place in specialized tools like VS-Code or similar.
+The development can take place in any preferred JavaScript-aware IDE (e.g., VS-Code).
 
-The maven build again calls the grunt task using https://github.com/eirslett/frontend-maven-plugin[frontend-maven-plugin] 
-that results in the files being created under `/target/uglify/`.
-These files will be copied by maven to the appropriate directory and package to a jar-file.
+The Maven build invokes these npm scripts using the https://github.com/eirslett/frontend-maven-plugin[frontend-maven-plugin].
+The plugin executes `npm install` to fetch dependencies, followed by `npm run lint`, `npm test`, and finally `npm run build`.
+The build output (concatenated and minified files) is generated in the `/target/uglify/` directory.
+Maven then copies these files to the appropriate location for packaging into the JAR.
 
 == Changes to pre cuioss
 
@@ -50,7 +50,7 @@ These files will be copied by maven to the appropriate directory and package to 
 
 == TODOs
 
-* Write sensible Unit-Tests: Currently there are some nonsense tests that need to be fixed
-* Apply sensible Code-Structures: Currently: Work in progress
-* Separate scripts 
-* Move from jquery to `cash`
+* Write sensible Unit-Tests: Comprehensive unit tests using Jest have been implemented for all JavaScript modules. Further refinement and edge-case coverage can always be added.
+* Apply sensible Code-Structures: Ongoing effort to maintain and improve code quality.
+* Separate scripts: Consider if the single `cui.js` / `cui.min.js` bundle should be broken down into smaller, more targeted scripts for specific functionalities.
+* Move from jquery to `cash`: Evaluate replacing jQuery with a smaller alternative like `cash` for reduced bundle size.
