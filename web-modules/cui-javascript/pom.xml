@@ -41,7 +41,7 @@
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
                 <configuration>
-                    <nodeVersion>v18.19.1</nodeVersion> <!-- Updated Node.js version -->
+                    <nodeVersion>v20.11.1</nodeVersion> <!-- Updated Node.js version -->
                     <installDirectory>target</installDirectory>
                     <workingDirectory>${project.basedir}</workingDirectory> <!-- Ensure npm commands run in the correct directory -->
                 </configuration>
@@ -51,6 +51,7 @@
                         <goals>
                             <goal>install-node-and-npm</goal>
                         </goals>
+                        <phase>initialize</phase>
                     </execution>
                     <execution>
                         <id>npm install</id>
