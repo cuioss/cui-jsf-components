@@ -58,6 +58,7 @@
                         <goals>
                             <goal>npm</goal>
                         </goals>
+                        <phase>generate-sources</phase>
                         <configuration>
                             <arguments>install</arguments>
                         </configuration>
