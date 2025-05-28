@@ -1,5 +1,11 @@
 // Assuming jQuery ($) and faces are globally available from the test environment / browser
 
+import { Session } from './session.js';
+import { TabControl } from './tabcontrol.js';
+
+// Re-export Session and TabControl to make them part of the public API
+export { Session, TabControl };
+
 // --- CuiIdleHandler Class ---
 export class CuiIdleHandler {
     constructor() {

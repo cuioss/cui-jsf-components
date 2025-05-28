@@ -14,18 +14,18 @@
     "eslint": "^8.57.0",
     "eslint-plugin-jest": "^27.9.0",
     "eslint-plugin-jquery": "1.5.1",
-    "concat": "^1.0.3",
-    "terser": "^5.29.0",
     "@babel/core": "^7.24.0",
-    "@babel/preset-env": "^7.24.0"
+    "@babel/preset-env": "^7.24.0",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4",
+    "babel-loader": "^9.1.3",
+    "terser-webpack-plugin": "^5.3.10"
   },
   "scripts": {
     "test": "jest",
     "lint": "eslint src/main/resources/META-INF/resources/de.cuioss.javascript/**/*.js src/test/javascript/**/*.js",
     "clean:build": "rm -rf target/uglify",
     "prepare:dirs": "mkdir -p target/uglify",
-    "concat:js": "concat -o target/uglify/cui.js src/main/resources/META-INF/resources/de.cuioss.javascript/cui_utilities.js src/main/resources/META-INF/resources/de.cuioss.javascript/session.js src/main/resources/META-INF/resources/de.cuioss.javascript/portal.js src/main/resources/META-INF/resources/de.cuioss.javascript/tabcontrol.js src/main/resources/META-INF/resources/de.cuioss.javascript/cui.js src/main/resources/META-INF/resources/de.cuioss.javascript/scheduler.js",
-    "minify:js": "terser target/uglify/cui.js -o target/uglify/cui.min.js -c -m",
-    "build": "npm run clean:build && npm run prepare:dirs && npm run concat:js && npm run minify:js"
+    "build": "npm run clean:build && webpack --config webpack.config.js"
   }
 }
