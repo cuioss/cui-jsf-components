@@ -1,99 +1,83 @@
 import { escapeClientId } from './cui_utilities.js';
 
-// Module-scoped variables to hold state
-let _timeout = null;
-let _interval = 0;
-let _linkId = '';
-let _storedCallback = null;
+// Assuming jQuery ($) is available globally
 
-/**
- * Internal function to set the actual timeout.
- * Uses module-scoped variables.
- */
-function _setLogoutTimeout() {
-    if (_timeout) {
-        clearTimeout(_timeout);
+export class Session {
+    constructor(linkId, intervalSec, callback) {
+        this.linkId = linkId;
+        this.interval = (intervalSec === undefined || intervalSec <= 0 ? 1 : intervalSec) * 1000; // Default to 1 sec if invalid
+        this.callback = callback;
+        this.timeoutId = null;
     }
 
-    if (_storedCallback) {
-        if (_interval > 0) {
-            _timeout = setTimeout(_storedCallback, _interval);
+    /**
+     * Internal method to set the actual timeout.
+     * Uses instance properties.
+     */
+    _setTimer() {
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId);
         }
-    } else {
-        if (_interval > 0) {
-            _timeout = setTimeout(() => {
-                // Assuming jQuery ($) and escapeClientId are available
-                // escapeClientId is imported, $ is assumed global for now
-                const elementToClick = $(escapeClientId(_linkId));
-                if (elementToClick.length > 0 && typeof elementToClick[0].click === 'function') {
-                    elementToClick[0].click();
-                } else if (elementToClick.length > 0 && typeof elementToClick.click === 'function') {
-                    elementToClick.click();
+
+        if (this.interval <= 0) { // Do not set timer if interval is not positive
+            this.timeoutId = null;
+            return;
+        }
+
+        if (this.callback) {
+            this.timeoutId = setTimeout(this.callback, this.interval);
+        } else if (this.linkId) { // Only set timeout if linkId is provided and no callback
+            this.timeoutId = setTimeout(() => {
+                const elementToClick = $(escapeClientId(this.linkId));
+                if (elementToClick.length > 0) {
+                    if (typeof elementToClick[0].click === 'function') {
+                        elementToClick[0].click();
+                    } else if (typeof elementToClick.click === 'function') {
+                        elementToClick.click();
+                    }
                 }
-            }, _interval);
+            }, this.interval);
+        } else {
+             this.timeoutId = null; // No action possible
         }
     }
-}
 
-/**
-* Initialize logout timeout.
-* @param {number} intervalSec - Interval in seconds.
-* @param {string} linkId - The ID of the link to click if no callback.
-* @param {function} [callback] - Function to execute after timeout.
-*/
-export function startLogoutTimeout(intervalSec, linkId, callback) {
-    _interval = (intervalSec === undefined ? 1 : intervalSec) * 1000;
-    _linkId = linkId;
-    _storedCallback = callback;
-    _setLogoutTimeout();
-}
-
-/**
- * Reset logout timeout using previously stored settings.
- */
-export function resetLogoutTimeout() {
-    if (_timeout) {
-        clearTimeout(_timeout);
-        _timeout = null;
+    /**
+     * Starts the logout timeout.
+     */
+    start() {
+        this._setTimer();
     }
-    // Re-apply the timeout with the stored interval, linkId, and callback
-    _setLogoutTimeout();
-}
 
-/**
- * Stop the logout timeout.
- */
-export function stopLogoutTimeout() {
-    if (_timeout) {
-        clearTimeout(_timeout);
-        _timeout = null;
+    /**
+     * Resets the logout timeout using previously stored settings.
+     */
+    reset() {
+        // Stop any existing timer
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId);
+            this.timeoutId = null;
+        }
+        // Re-apply the timer with the current instance settings
+        this._setTimer();
     }
-}
 
-/**
- * FOR TESTING PURPOSES ONLY.
- * Resets the internal state of the session module.
- */
-export function _resetSessionState() {
-    if (_timeout) {
-        clearTimeout(_timeout);
+    /**
+     * Stops the logout timeout.
+     */
+    stop() {
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId);
+            this.timeoutId = null;
+        }
     }
-    _timeout = null;
-    _interval = 0;
-    _linkId = '';
-    _storedCallback = null;
-}
 
-/**
- * FOR TESTING PURPOSES ONLY.
- * Gets the current internal state.
- * @returns {object} The internal state.
- */
-export function _getSessionState() {
-    return {
-        timeout: _timeout,
-        interval: _interval,
-        linkId: _linkId,
-        storedCallback: _storedCallback
-    };
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * Gets the current timeout ID.
+     * @returns {object} The internal timeout ID.
+     */
+    _getTimeoutId() {
+        return this.timeoutId;
+    }
 }

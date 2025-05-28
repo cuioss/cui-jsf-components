@@ -1,7 +1,44 @@
 // Assuming jQuery ($) and faces are globally available from the test environment / browser
 
-// Module-scoped variable for state
-let _onIdleArray = [];
+// --- CuiIdleHandler Class ---
+export class CuiIdleHandler {
+    constructor() {
+        this.onIdleArray = [];
+    }
+
+    /**
+     * Registers a callback to be executed when an idle event occurs.
+     * @param {function} callback - The callback function.
+     */
+    register(callback) {
+        if (typeof callback === 'function') {
+            this.onIdleArray.push(callback);
+        }
+    }
+
+    /**
+     * Executes all registered onIdle callbacks and shows timeout modals.
+     */
+    execute() {
+        // $ is assumed global
+        if (typeof $ === 'function') {
+            const modalEl = $('.modal');
+            if (modalEl && typeof modalEl.modal === 'function') modalEl.modal('hide');
+
+            const confirmDialog = $('[data-modal-dialog-id=confirmDialogTimeout]');
+            if (confirmDialog && typeof confirmDialog.modal === 'function') confirmDialog.modal('show');
+
+            const bodyEl = $(document.body);
+            if (bodyEl && typeof bodyEl.addClass === 'function') bodyEl.addClass('modal-timeout');
+        }
+
+        this.onIdleArray.forEach((callback) => {
+            if (typeof callback === 'function') callback();
+        });
+    }
+}
+
+// --- Standalone Utility Functions ---
 
 // Private helper function for getData
 function _decodeText(text) {
@@ -87,13 +124,13 @@ function _handleAjaxError() {
 export function addErrorMessage() {
     // faces is assumed global
     if (typeof faces !== "undefined" && faces.ajax && typeof faces.ajax.addOnError === 'function') {
-        faces.ajax.addOnError((data) => {
+        faces.ajax.addOnError((data) => { // data is unused but part of API
             _handleAjaxError();
         });
     }
     // $ is assumed global
     if (typeof $ === 'function' && typeof $(document).on === 'function') {
-        $(document).on("pfAjaxError", function (event, xhr) {
+        $(document).on("pfAjaxError", function (event, xhr ) {
             const statusText = 'statusText';
             if (xhr && xhr[statusText] !== 'abort') {
                 _handleAjaxError();
@@ -147,37 +184,6 @@ export function registerComponentEnabler(callback) {
 }
 
 /**
- * Registers a callback to be executed when an idle event occurs.
- * @param {function} callback - The callback function.
- */
-export function registerOnIdle(callback) {
-    if (typeof callback === 'function') {
-        _onIdleArray.push(callback);
-    }
-}
-
-/**
- * Executes all registered onIdle callbacks and shows timeout modals.
- */
-export function executeOnIdle() {
-    // $ is assumed global
-    if (typeof $ === 'function') {
-        const modalEl = $('.modal');
-        if (modalEl && typeof modalEl.modal === 'function') modalEl.modal('hide');
-
-        const confirmDialog = $('[data-modal-dialog-id=confirmDialogTimeout]');
-        if (confirmDialog && typeof confirmDialog.modal === 'function') confirmDialog.modal('show');
-
-        const bodyEl = $(document.body);
-        if (bodyEl && typeof bodyEl.addClass === 'function') bodyEl.addClass('modal-timeout');
-    }
-
-    _onIdleArray.forEach((callback) => {
-        if (typeof callback === 'function') callback();
-    });
-}
-
-/**
  * Opens a URL in a new window/tab.
  * @param {string} applicationUrl - The URL to open.
  */
@@ -195,21 +201,5 @@ export function openExternalApplicationInNewWindow(applicationUrl) {
     }
 }
 
-/**
- * FOR TESTING PURPOSES ONLY.
- * Resets the internal state of the core module.
- */
-export function _resetCoreState() {
-    _onIdleArray = [];
-}
-
-/**
- * FOR TESTING PURPOSES ONLY.
- * Gets the current internal state.
- * @returns {object} The internal state.
- */
-export function _getCoreState() {
-    return {
-        onIdleArray: _onIdleArray
-    };
-}
+// Removed _resetCoreState and _getCoreState as per instructions
+// Removed _onIdleArray, registerOnIdle, executeOnIdle as they are now part of CuiIdleHandler

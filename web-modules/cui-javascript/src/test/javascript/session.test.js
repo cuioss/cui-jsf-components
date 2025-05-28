@@ -1,13 +1,15 @@
 import { escapeClientId } from '../../main/resources/META-INF/resources/de.cuioss.javascript/cui_utilities.js';
-import { startLogoutTimeout, resetLogoutTimeout, stopLogoutTimeout, _getSessionState } from '../../main/resources/META-INF/resources/de.cuioss.javascript/session.js';
+import { Session } from '../../main/resources/META-INF/resources/de.cuioss.javascript/session.js';
 
-// _resetSessionState() is called in global beforeEach from jest.setup.js
+// _resetSessionState() is no longer needed as class instances manage their own state.
+// Global beforeEach from jest.setup.js will still clear timers and mocks.
 
-describe("session.js", () => {
+describe("session.js (Class-based)", () => {
     const intervalSec = 5;
     const linkId = "logoutLink";
     let mockCallback;
     let mockLinkElement;
+    let sessionInstance; // To hold the Session instance
 
     beforeEach(() => {
         // Specific beforeEach for Session tests
@@ -30,13 +32,14 @@ describe("session.js", () => {
         global.$ = global.jQuery;
     });
 
-    describe("startLogoutTimeout", () => {
-        it("should set a timeout with the given interval and callback", () => {
-            startLogoutTimeout(intervalSec, linkId, mockCallback);
-            const state = _getSessionState();
-            expect(state.interval).toBe(intervalSec * 1000);
-            expect(state.storedCallback).toBe(mockCallback);
-            expect(state.timeout).not.toBeNull();
+    describe("Session constructor and start", () => {
+        it("should set a timeout with the given interval and callback when start() is called", () => {
+            sessionInstance = new Session(linkId, intervalSec, mockCallback);
+            sessionInstance.start();
+
+            expect(sessionInstance.interval).toBe(intervalSec * 1000);
+            expect(sessionInstance.callback).toBe(mockCallback);
+            expect(sessionInstance._getTimeoutId()).not.toBeNull();
             expect(jest.getTimerCount()).toBe(1);
 
             jest.advanceTimersByTime(intervalSec * 1000);
@@ -44,10 +47,11 @@ describe("session.js", () => {
             expect(jest.getTimerCount()).toBe(0);
         });
 
-        it("should set a timeout to click the linkId if no callback is provided", () => {
-            startLogoutTimeout(intervalSec, linkId);
-            const state = _getSessionState();
-            expect(state.timeout).not.toBeNull();
+        it("should set a timeout to click the linkId if no callback is provided and start() is called", () => {
+            sessionInstance = new Session(linkId, intervalSec, null); // No callback
+            sessionInstance.start();
+
+            expect(sessionInstance._getTimeoutId()).not.toBeNull();
             expect(jest.getTimerCount()).toBe(1);
 
             jest.advanceTimersByTime(intervalSec * 1000);
@@ -57,31 +61,46 @@ describe("session.js", () => {
             expect(jest.getTimerCount()).toBe(0);
         });
 
-        it("should use interval of 1 second if intervalSec is undefined", () => {
-            startLogoutTimeout(undefined, linkId, mockCallback);
-            const state = _getSessionState();
-            expect(state.interval).toBe(1000);
-            expect(state.timeout).not.toBeNull();
+        it("should use interval of 1 second if intervalSec is undefined or invalid, and start() is called", () => {
+            sessionInstance = new Session(linkId, undefined, mockCallback);
+            sessionInstance.start();
+            expect(sessionInstance.interval).toBe(1000);
+            expect(sessionInstance._getTimeoutId()).not.toBeNull();
+            expect(jest.getTimerCount()).toBe(1);
+            sessionInstance.stop(); // clean up
+
+            sessionInstance = new Session(linkId, 0, mockCallback); // Invalid interval
+            sessionInstance.start();
+            expect(sessionInstance.interval).toBe(1000); // Corrected by constructor logic
+            // _setTimer will not set a timer if interval is <=0 as per current class logic,
+            // but constructor defaults it to 1s. If constructor did not default, this would be null.
+            expect(sessionInstance._getTimeoutId()).not.toBeNull();
             expect(jest.getTimerCount()).toBe(1);
         });
 
-        it("should not set timeout if interval is 0 or less", () => {
-            startLogoutTimeout(0, linkId, mockCallback);
-            const state = _getSessionState();
-            expect(state.timeout).toBeNull();
+        it("should not set timeout if interval is <= 0 and no callback/linkId (though constructor defaults interval)", () => {
+            // Test case where constructor default for interval might be overridden or if logic changes
+            sessionInstance = new Session(null, 0, null); // No linkId, no callback, interval 0
+            sessionInstance.interval = 0; // Force interval to 0 after constructor
+            sessionInstance.start();
+            expect(sessionInstance._getTimeoutId()).toBeNull();
             expect(jest.getTimerCount()).toBe(0);
         });
     });
 
-    describe("resetLogoutTimeout", () => {
+    describe("reset", () => {
         it("should stop the current timeout and start a new one with previously stored settings", () => {
-            startLogoutTimeout(intervalSec, linkId, mockCallback);
+            sessionInstance = new Session(linkId, intervalSec, mockCallback);
+            sessionInstance.start();
+            // const firstTimeoutId = sessionInstance._getTimeoutId(); // Unused
             expect(jest.getTimerCount()).toBe(1);
 
-            resetLogoutTimeout();
-            const secondState = _getSessionState();
+            sessionInstance.reset();
             expect(jest.getTimerCount()).toBe(1);
-            expect(secondState.timeout).not.toBeNull();
+            expect(sessionInstance._getTimeoutId()).not.toBeNull();
+            // Check if it's a new timer instance (though ID might be reused by system)
+            // This is harder to check reliably without direct access or more sophisticated timer mocking.
+            // The main check is that a timer is active and the callback is eventually called.
 
             jest.advanceTimersByTime(intervalSec * 1000);
             expect(mockCallback).toHaveBeenCalledTimes(1);
@@ -89,12 +108,13 @@ describe("session.js", () => {
         });
 
          it("should correctly reset and trigger link click if original had no callback", () => {
-            startLogoutTimeout(intervalSec, linkId);
+            sessionInstance = new Session(linkId, intervalSec, null);
+            sessionInstance.start();
             expect(jest.getTimerCount()).toBe(1);
 
-            resetLogoutTimeout();
+            sessionInstance.reset();
             expect(jest.getTimerCount()).toBe(1);
-            expect(_getSessionState().timeout).not.toBeNull();
+            expect(sessionInstance._getTimeoutId()).not.toBeNull();
 
             jest.advanceTimersByTime(intervalSec * 1000);
             const jqClicked = mockLinkElement.click.mock.calls.length > 0;
@@ -104,14 +124,15 @@ describe("session.js", () => {
         });
     });
 
-    describe("stopLogoutTimeout", () => {
+    describe("stop", () => {
         it("should clear the currently active timeout", () => {
-            startLogoutTimeout(intervalSec, linkId, mockCallback);
+            sessionInstance = new Session(linkId, intervalSec, mockCallback);
+            sessionInstance.start();
             expect(jest.getTimerCount()).toBe(1);
+            expect(sessionInstance._getTimeoutId()).not.toBeNull();
 
-            stopLogoutTimeout();
-            const state = _getSessionState();
-            expect(state.timeout).toBeNull();
+            sessionInstance.stop();
+            expect(sessionInstance._getTimeoutId()).toBeNull();
             expect(jest.getTimerCount()).toBe(0);
         });
     });

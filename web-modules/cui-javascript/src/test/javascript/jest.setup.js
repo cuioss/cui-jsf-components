@@ -1,7 +1,7 @@
 // Imports for resetting state
-import { _resetCoreState } from '../../main/resources/META-INF/resources/de.cuioss.javascript/cui.js';
-import { _resetSessionState } from '../../main/resources/META-INF/resources/de.cuioss.javascript/session.js';
-import { _resetTabControlState } from '../../main/resources/META-INF/resources/de.cuioss.javascript/tabcontrol.js';
+// import { _resetCoreState } from '../../main/resources/META-INF/resources/de.cuioss.javascript/cui.js'; // No longer needed
+// import { _resetSessionState } from '../../main/resources/META-INF/resources/de.cuioss.javascript/session.js'; // No longer needed, Session is a class
+// import { _resetTabControlState } from '../../main/resources/META-INF/resources/de.cuioss.javascript/tabcontrol.js'; // No longer needed, TabControl is a class
 
 // --- Global Mocks for jQuery, faces, window, document ---
 
@@ -139,9 +139,9 @@ beforeEach(() => {
   jest.clearAllMocks();
 
   // Reset states for each imported module
-  _resetCoreState();
-  _resetSessionState();
-  _resetTabControlState();
+  // _resetCoreState(); // No longer needed
+  // _resetSessionState(); // No longer needed
+  // _resetTabControlState(); // No longer needed, TabControl is a class
 
   // Reset global test states
   global.currentWindowName = 'initialWindowName'; // Use global
