@@ -1,6 +1,27 @@
 name: cui-jsf-components
-pages-reference: cui-jsf-components
-sonar-project-key: cuioss_cui-jsf-components
+
 release:
   current-version: 1.0.0
   next-version: 1.1.0-SNAPSHOT
+  create-github-release: true
+
+maven-build:
+  java-versions: '["21","25"]'
+  java-version: '21'
+  enable-snapshot-deploy: true
+  maven-profiles-snapshot: 'release-snapshot,javadoc'
+  maven-profiles-release: 'release,javadoc'
+  npm-cache: false
+
+sonar:
+  project-key: cuioss_cui-jsf-components
+  enabled: true
+  skip-on-dependabot: true
+
+pages:
+  reference: cui-jsf-components
+  deploy-at-release: true
+
+github-automation:
+  auto-merge-build-versions: true
+  auto-merge-build-timeout: 300
