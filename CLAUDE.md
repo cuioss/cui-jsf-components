@@ -8,6 +8,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 # Full build (all modules)
 ./mvnw clean install
 
+# Code cleanup with OpenRewrite
+./mvnw clean install -Ppre-commit
+
 # Run all tests
 ./mvnw test
 
