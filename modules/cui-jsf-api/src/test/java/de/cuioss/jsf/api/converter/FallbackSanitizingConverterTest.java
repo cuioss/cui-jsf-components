@@ -17,6 +17,7 @@ package de.cuioss.jsf.api.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import de.cuioss.jsf.api.common.logging.JsfApiLogMessages;
 import de.cuioss.test.jsf.config.decorator.ApplicationConfigDecorator;
 import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import de.cuioss.test.juli.LogAsserts;
@@ -91,7 +92,8 @@ class FallbackSanitizingConverterTest {
             // Assert
             assertEquals("", result,
                     "Output components without escaping should have dangerous content sanitized");
-            LogAsserts.assertSingleLogMessagePresentContaining(TestLogLevel.WARN, "Text not correct escaped or sanitized");
+            LogAsserts.assertSingleLogMessagePresentContaining(TestLogLevel.WARN,
+                    JsfApiLogMessages.WARN.TEXT_NOT_SANITIZED.resolveIdentifierString());
         }
     }
 }

@@ -18,13 +18,24 @@ package de.cuioss.jsf.bootstrap.taginput;
 import static de.cuioss.jsf.bootstrap.taginput.TagInputRendererTest.CODE_TYPE_1;
 import static de.cuioss.jsf.bootstrap.taginput.TagInputRendererTest.CODE_TYPE_2;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableSortedSet;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import de.cuioss.jsf.bootstrap.common.logging.BootstrapLogMessages;
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
+import de.cuioss.test.juli.LogAsserts;
+import de.cuioss.test.juli.TestLogLevel;
+import de.cuioss.test.juli.junit5.EnableTestLogger;
 import de.cuioss.uimodel.model.conceptkey.ConceptKeyType;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.ConverterException;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
+@EnableTestLogger
 class ConceptKeyStringConverterTest extends AbstractConverterTest<ConceptKeyStringConverter, Set<ConceptKeyType>> {
 
     public ConceptKeyStringConverterTest() {
@@ -37,5 +48,18 @@ class ConceptKeyStringConverterTest extends AbstractConverterTest<ConceptKeyStri
         testItems.addValidObjectWithStringResult(immutableSortedSet(CODE_TYPE_1, CODE_TYPE_2),
                 "6964656e74696669657231,6964656e74696669657232");
         testItems.addValidObject(Set.of(new TestConceptKey()));
+    }
+
+    @Test
+    @DisplayName("Should log error for invalid component type")
+    void shouldLogErrorForInvalidComponentType(FacesContext facesContext) {
+        // Arrange
+        var converter = new ConceptKeyStringConverter();
+
+        // Act & Assert
+        assertThrows(ConverterException.class,
+                () -> converter.getAsObject(facesContext, new HtmlInputText(), "someValue"));
+        LogAsserts.assertSingleLogMessagePresentContaining(TestLogLevel.ERROR,
+                BootstrapLogMessages.ERROR.INVALID_COMPONENT_TYPE.resolveIdentifierString());
     }
 }

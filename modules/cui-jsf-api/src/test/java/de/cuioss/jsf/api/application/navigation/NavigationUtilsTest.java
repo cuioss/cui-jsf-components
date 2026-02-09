@@ -18,9 +18,13 @@ package de.cuioss.jsf.api.application.navigation;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 import static org.junit.jupiter.api.Assertions.*;
 
+import de.cuioss.jsf.api.common.logging.JsfApiLogMessages;
 import de.cuioss.test.jsf.config.decorator.ApplicationConfigDecorator;
 import de.cuioss.test.jsf.config.decorator.RequestConfigDecorator;
 import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
+import de.cuioss.test.juli.LogAsserts;
+import de.cuioss.test.juli.TestLogLevel;
+import de.cuioss.test.juli.junit5.EnableTestLogger;
 import de.cuioss.tools.net.UrlParameter;
 import jakarta.faces.application.Application;
 import jakarta.faces.context.FacesContext;
@@ -36,6 +40,7 @@ import java.util.Collections;
 import java.util.List;
 
 @EnableJsfEnvironment
+@EnableTestLogger
 @DisplayName("Tests for NavigationUtils")
 class NavigationUtilsTest {
 
@@ -125,6 +130,8 @@ class NavigationUtilsTest {
             // Act & Assert
             assertNull(NavigationUtils.extractRequestUri("No servlet request"),
                     "Should return null for non-servlet request");
+            LogAsserts.assertSingleLogMessagePresentContaining(TestLogLevel.WARN,
+                    JsfApiLogMessages.WARN.UNEXPECTED_ENVIRONMENT.resolveIdentifierString());
         }
     }
 
@@ -224,8 +231,10 @@ class NavigationUtilsTest {
             // Act - attempt second redirect
             NavigationUtils.sendRedirect(facesContext, urlTwo, false);
 
-            // Assert - still shows first redirect
+            // Assert - still shows first redirect and warning was logged
             verifyRedirect(CONTEXT_PATH + urlOne, facesContext);
+            LogAsserts.assertSingleLogMessagePresentContaining(TestLogLevel.WARN,
+                    JsfApiLogMessages.WARN.RESPONSE_ALREADY_COMMITTED.resolveIdentifierString());
         }
     }
 
