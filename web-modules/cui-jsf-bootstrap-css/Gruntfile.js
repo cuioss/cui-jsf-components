@@ -2,7 +2,7 @@ module.exports = function (grunt) {
 
   // Keep in sync with maven-property 'plugin.resources.cui_css.target'
   const sassOutput = 'target/sass_target/**.*';
-  const sass = require('node-sass');
+  const sass = require('sass');
 
   // Project configuration.
   grunt.initConfig({

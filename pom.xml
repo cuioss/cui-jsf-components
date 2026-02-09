@@ -4,7 +4,7 @@
     <parent>
         <groupId>de.cuioss</groupId>
         <artifactId>cui-java-parent</artifactId>
-        <version>1.0.1</version>
+        <version>1.4.1</version>
         <relativePath />
     </parent>
     <groupId>de.cuioss.jsf</groupId>
@@ -30,7 +30,7 @@
     <properties>
         <!-- Needed for js / css -->
         <version.nodejs>v20.11.1</version.nodejs>
-        <version.cui.portal.core>1.3.0</version.cui.portal.core>
+        <version.cui.portal.core>1.4.0</version.cui.portal.core>
     </properties>
     <modules>
         <module>bom</module>
