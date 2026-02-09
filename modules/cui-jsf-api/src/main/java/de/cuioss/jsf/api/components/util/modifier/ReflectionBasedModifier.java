@@ -95,7 +95,7 @@ public class ReflectionBasedModifier implements ComponentModifier {
         if (!supportsAttribute(attributeName).isWriteable()) {
             throw new UnsupportedOperationException("Attribute not supported " + attributeName);
         }
-        PropertyUtil.writeProperty(getComponent(), attributeName, value);
+        PropertyUtil.setProperty(getComponent(), attributeName, value);
     }
 
     @Override
