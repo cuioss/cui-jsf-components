@@ -63,6 +63,7 @@ public interface ListItem extends Serializable {
      *
      * @return the display name provider for this item's title (should not be null)
      */
+    @SuppressWarnings("java:S1452") // Wildcard return type required by public API
     IDisplayNameProvider<?> getTitle();
 
     /**

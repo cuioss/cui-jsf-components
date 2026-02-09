@@ -252,6 +252,7 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
      *
      * @return The notification box display text provider
      */
+    @SuppressWarnings("java:S1452") // Wildcard return type required by public API
     public IDisplayNameProvider<?> getNotificationBoxValue() {
         return state.get(NOTIFICATION_BOX_VALUE_KEY);
     }
@@ -262,6 +263,7 @@ public class LazyLoadingComponent extends UICommand implements ComponentBridge, 
      *
      * @return The notification box value to be displayed
      */
+    @SuppressWarnings("java:S1452") // Wildcard return type required by public API
     public IDisplayNameProvider<?> evaluateNotificationBoxValue() {
         if (null != getViewModel()) {
             return getViewModel().getNotificationBoxValue();

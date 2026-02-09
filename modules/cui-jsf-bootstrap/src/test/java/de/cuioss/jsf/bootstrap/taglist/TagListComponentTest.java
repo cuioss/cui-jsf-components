@@ -88,6 +88,7 @@ class TagListComponentTest extends AbstractComponentTest<TagListComponent> {
         assertEquals(count, values.size());
     }
 
+    @SuppressWarnings("java:S5778") // Multiple setup steps in assertThrows
     @Test
     void shouldFailWithLocaleValue() {
         var underTest = anyComponent();
@@ -95,6 +96,7 @@ class TagListComponentTest extends AbstractComponentTest<TagListComponent> {
         assertThrows(IllegalArgumentException.class, () -> TagHelper.getValueAsSet(underTest.getValue()));
     }
 
+    @SuppressWarnings("java:S5778") // Multiple setup steps in assertThrows
     @Test
     void shouldFailWithLocaleCollection() {
         var underTest = anyComponent();

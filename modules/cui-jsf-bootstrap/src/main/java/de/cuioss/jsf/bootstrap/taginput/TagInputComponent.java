@@ -87,7 +87,7 @@ import java.util.stream.Collectors;
  */
 @FacesComponent(BootstrapFamily.TAG_INPUT_COMPONENT)
 @ResourceDependency(library = "javascript.enabler", name = "enabler.selectize.js", target = "head")
-@SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
+@SuppressWarnings({"squid:MaximumInheritanceDepth", "java:S3740"}) // Artifact of Jsf-structure; Raw type in generic framework utilities by design
 public class TagInputComponent extends BaseCuiHtmlInputComponent implements StyleClassResolver {
 
     private static final CuiLogger LOGGER = new CuiLogger(TagInputComponent.class);

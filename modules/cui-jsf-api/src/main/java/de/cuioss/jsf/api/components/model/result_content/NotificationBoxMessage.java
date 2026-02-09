@@ -59,6 +59,7 @@ import java.io.Serializable;
  * @see ContextState
  * @see IDisplayNameProvider
  */
+@SuppressWarnings("java:S3740") // Raw type in generic framework utilities by design
 @Value
 public class NotificationBoxMessage implements Serializable {
 

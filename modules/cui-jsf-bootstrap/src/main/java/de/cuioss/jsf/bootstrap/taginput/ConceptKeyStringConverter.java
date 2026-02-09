@@ -73,6 +73,7 @@ import java.util.*;
  * @see ConceptKeyType
  * @see MissingTagConceptKeyCategory
  */
+@SuppressWarnings("java:S3740") // Raw type in generic framework utilities by design
 @FacesConverter("ConceptKeyStringConverter")
 public class ConceptKeyStringConverter extends AbstractConverter<Collection<ConceptKeyType>> {
 

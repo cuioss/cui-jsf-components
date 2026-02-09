@@ -66,6 +66,7 @@ public class AccordionRenderer extends BaseDecoratorRenderer<AccordionComponent>
         writer.withAttribute(AttributeName.ARIA_MULTISELECTABLE, String.valueOf(component.isMultiselectable()));
     }
 
+    @SuppressWarnings("java:S1135")
     @Override
     protected void doEncodeChildren(final FacesContext context,
             final DecoratingResponseWriter<AccordionComponent> writer, final AccordionComponent component)

@@ -86,6 +86,7 @@ public interface ListItemWidgetModel extends WidgetModel {
      *
      * @return a non-null list of items to display
      */
+    @SuppressWarnings("java:S1452") // Wildcard return type required by public API
     List<? extends ListItem> getItems();
 
     /**

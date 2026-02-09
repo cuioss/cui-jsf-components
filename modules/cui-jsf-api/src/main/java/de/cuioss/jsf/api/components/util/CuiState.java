@@ -104,6 +104,7 @@ public class CuiState extends State {
      * @param key   The unique key to identify the state value, must not be null
      * @param value The boolean value to store in the component's state
      */
+    @SuppressWarnings("java:S1185") // Primitive-specific override for API clarity
     public void put(final Serializable key, final boolean value) {
         super.put(key, value);
     }
@@ -146,6 +147,7 @@ public class CuiState extends State {
      * @param key   The unique key to identify the state value, must not be null
      * @param value The integer value to store in the component's state
      */
+    @SuppressWarnings("java:S1185") // Primitive-specific override for API clarity
     public void put(final Serializable key, final int value) {
         super.put(key, value);
     }

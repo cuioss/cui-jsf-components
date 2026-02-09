@@ -101,6 +101,7 @@ import java.util.List;
  * @see ResultErrorHandler
  * @see NotificationBoxMessage
  */
+@SuppressWarnings("java:S1874") // ResultObject from external dependency; migration out of scope
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
