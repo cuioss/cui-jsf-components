@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,8 +40,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @DisplayName("Tests for ModalDialogRenderer")
 class ModalDialogRendererTest extends AbstractComponentRendererTest<ModalDialogRenderer> {
@@ -61,7 +59,7 @@ class ModalDialogRendererTest extends AbstractComponentRendererTest<ModalDialogR
 
         @Test
         @DisplayName("Should render minimal component correctly")
-        void shouldRenderMinimalComponent(FacesContext facesContext) throws IOException {
+        void shouldRenderMinimalComponent(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = getComponent();
             final var expected = new HtmlTreeBuilder();
@@ -77,7 +75,7 @@ class ModalDialogRendererTest extends AbstractComponentRendererTest<ModalDialogR
 
         @Test
         @DisplayName("Should render component with children correctly")
-        void shouldRenderWithChildren(FacesContext facesContext) throws IOException {
+        void shouldRenderWithChildren(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = getComponent();
             component.getChildren().add(new CuiMockComponent());
@@ -100,7 +98,7 @@ class ModalDialogRendererTest extends AbstractComponentRendererTest<ModalDialogR
 
         @Test
         @DisplayName("Should render component with header value correctly")
-        void shouldRenderWithHeaderValue(FacesContext facesContext) throws IOException {
+        void shouldRenderWithHeaderValue(FacesContext facesContext) throws Exception {
             // Arrange
             final var string = strings.next();
             final var component = getComponent();
@@ -120,7 +118,7 @@ class ModalDialogRendererTest extends AbstractComponentRendererTest<ModalDialogR
 
         @Test
         @DisplayName("Should render component with header facet correctly")
-        void shouldRenderWithHeaderFacet(FacesContext facesContext) throws IOException {
+        void shouldRenderWithHeaderFacet(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = getComponent();
             component.getFacets().put("header", new CuiMockComponent());
@@ -143,7 +141,7 @@ class ModalDialogRendererTest extends AbstractComponentRendererTest<ModalDialogR
 
         @Test
         @DisplayName("Should render component with footer value correctly")
-        void shouldRenderWithFooterValue(FacesContext facesContext) throws IOException {
+        void shouldRenderWithFooterValue(FacesContext facesContext) throws Exception {
             // Arrange
             final var string = strings.next();
             final var component = getComponent();
@@ -164,7 +162,7 @@ class ModalDialogRendererTest extends AbstractComponentRendererTest<ModalDialogR
 
         @Test
         @DisplayName("Should render component with footer facet correctly")
-        void shouldRenderWithFooterFacet(FacesContext facesContext) throws IOException {
+        void shouldRenderWithFooterFacet(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = getComponent();
             component.getFacets().put("footer", new CuiMockComponent());
@@ -189,7 +187,7 @@ class ModalDialogRendererTest extends AbstractComponentRendererTest<ModalDialogR
 
         @Test
         @DisplayName("Should render component without close button when closable is false")
-        void shouldRenderWithoutCloseButton(FacesContext facesContext) throws IOException {
+        void shouldRenderWithoutCloseButton(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = getComponent();
             component.setClosable(false);
@@ -209,7 +207,7 @@ class ModalDialogRendererTest extends AbstractComponentRendererTest<ModalDialogR
 
         @Test
         @DisplayName("Should render component with specified size correctly")
-        void shouldRenderWithSpecifiedSize(FacesContext facesContext) throws IOException {
+        void shouldRenderWithSpecifiedSize(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = getComponent();
             component.setSize("fluid");

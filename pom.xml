@@ -28,6 +28,7 @@
         <system>GitHub Issues</system>
     </issueManagement>
     <properties>
+        <maven.compiler.release>21</maven.compiler.release>
         <!-- Needed for js / css -->
         <version.nodejs>v20.11.1</version.nodejs>
         <version.cui.portal.core>1.4.0</version.cui.portal.core>

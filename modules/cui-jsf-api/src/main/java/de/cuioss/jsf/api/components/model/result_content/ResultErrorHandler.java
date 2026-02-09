@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -94,16 +94,16 @@ public class ResultErrorHandler {
         var cause = detail.getCause();
         switch (state) {
             case ERROR:
-                log.error(cause.orElse(null), ERROR.ERROR_HANDLED_SILENT::format);
+                log.error(cause.orElse(null), ERROR.ERROR_HANDLED_SILENT);
                 contextState = ContextState.DANGER;
                 errorController.setRenderContent(false);
                 break;
             case WARNING:
-                cause.ifPresent(throwable -> log.warn(throwable, WARN.ERROR_HANDLED_SILENT::format));
+                cause.ifPresent(throwable -> log.warn(throwable, WARN.ERROR_HANDLED_SILENT));
                 contextState = ContextState.WARNING;
                 break;
             case INFO:
-                cause.ifPresent(throwable -> log.info(throwable, INFO.ERROR_HANDLED_SILENT::format));
+                cause.ifPresent(throwable -> log.info(throwable, INFO.ERROR_HANDLED_SILENT));
                 contextState = ContextState.INFO;
                 break;
             case VALID:

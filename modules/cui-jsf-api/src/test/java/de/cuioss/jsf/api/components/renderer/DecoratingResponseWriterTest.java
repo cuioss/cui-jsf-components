@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,7 +38,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.io.StringWriter;
 
 @EnableJsfEnvironment
@@ -115,7 +114,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should write a simple div element")
-        void shouldWriteSimpleDiv() throws IOException {
+        void shouldWriteSimpleDiv() throws Exception {
             // Act
             responseWriter.withStartElement(Node.DIV).withEndElement(Node.DIV);
 
@@ -125,7 +124,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should write a nested div with span element")
-        void shouldWriteNestedDivWithSpan() throws IOException {
+        void shouldWriteNestedDivWithSpan() throws Exception {
             // Act
             responseWriter.withStartElement(Node.DIV)
                     .withStartElement(Node.SPAN)
@@ -138,7 +137,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should write an input text element")
-        void shouldWriteInputText() throws IOException {
+        void shouldWriteInputText() throws Exception {
             // Act
             responseWriter.withStartElement(Node.INPUT)
                     .withAttribute(AttributeName.TYPE, AttributeValue.INPUT_TEXT)
@@ -155,7 +154,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should write nested div with style class provider")
-        void shouldWriteNestedDivWithStyleClassProvider() throws IOException {
+        void shouldWriteNestedDivWithStyleClassProvider() throws Exception {
             // Act
             responseWriter.withStartElement(Node.DIV)
                     .withStartElement(Node.SPAN)
@@ -169,7 +168,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should write nested div with style class builder")
-        void shouldWriteNestedDivWithStyleClassBuilder() throws IOException {
+        void shouldWriteNestedDivWithStyleClassBuilder() throws Exception {
             // Act
             responseWriter.withStartElement(Node.DIV)
                     .withStartElement(Node.SPAN)
@@ -183,7 +182,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should write nested div with class attribute")
-        void shouldWriteNestedDivWithAttribute() throws IOException {
+        void shouldWriteNestedDivWithAttribute() throws Exception {
             // Act
             responseWriter.withStartElement(Node.DIV)
                     .withStartElement(Node.SPAN)
@@ -202,7 +201,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should write nested div with client ID")
-        void shouldWriteNestedDivWithClientId() throws IOException {
+        void shouldWriteNestedDivWithClientId() throws Exception {
             // Act
             responseWriter.withStartElement(Node.DIV)
                     .withStartElement(Node.SPAN)
@@ -216,7 +215,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should write nested div with suffixed client ID")
-        void shouldWriteNestedDivWithSuffixedClientId() throws IOException {
+        void shouldWriteNestedDivWithSuffixedClientId() throws Exception {
             // Act
             responseWriter.withStartElement(Node.DIV)
                     .withStartElement(Node.SPAN)
@@ -230,7 +229,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should not write client ID if not set")
-        void shouldNotWriteClientIdIfNotSet() throws IOException {
+        void shouldNotWriteClientIdIfNotSet() throws Exception {
             // Arrange
             component.setId(null);
             responseWriter.withStartElement(Node.DIV);
@@ -245,7 +244,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should write client ID if set")
-        void shouldWriteClientIdIfSet() throws IOException {
+        void shouldWriteClientIdIfSet() throws Exception {
             // Arrange
             component.setId(COMPONENT_ID);
             responseWriter.withStartElement(Node.DIV);
@@ -260,7 +259,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should not write client ID if ID is generated")
-        void shouldNotWriteClientIdIfIDIsGenerated() throws IOException {
+        void shouldNotWriteClientIdIfIDIsGenerated() throws Exception {
             // Arrange
             component.setId(UIViewRoot.UNIQUE_ID_PREFIX);
             responseWriter.withStartElement(Node.DIV);
@@ -275,7 +274,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should write client ID for client behavior")
-        void shouldWriteClientIdForClientBehavior(FacesContext facesContext) throws IOException {
+        void shouldWriteClientIdForClientBehavior(FacesContext facesContext) throws Exception {
             // Arrange
             final var htmlInputText = new HtmlInputText();
             htmlInputText.addClientBehavior("click", new AjaxBehavior());
@@ -298,7 +297,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should write div with unescaped text content")
-        void shouldWriteDivWithUnescapedTextChild() throws IOException {
+        void shouldWriteDivWithUnescapedTextChild() throws Exception {
             // Act
             responseWriter.withStartElement(Node.DIV)
                     .withTextContent(TEXT_CONTENT, false)
@@ -311,7 +310,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should not write text content if empty")
-        void shouldNotWriteTextIfEmpty() throws IOException {
+        void shouldNotWriteTextIfEmpty() throws Exception {
             // Arrange
             responseWriter.withStartElement(Node.DIV);
 
@@ -325,7 +324,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should write div with escaped text content")
-        void shouldWriteDivWithEscapedTextChild() throws IOException {
+        void shouldWriteDivWithEscapedTextChild() throws Exception {
             // Act
             responseWriter.withStartElement(Node.DIV)
                     .withTextContent(TEXT_CONTENT, true)
@@ -342,7 +341,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should not write pass-through attributes if not set")
-        void shouldNotWritePassThroughAttributesIfNotSet() throws IOException {
+        void shouldNotWritePassThroughAttributesIfNotSet() throws Exception {
             // Act
             responseWriter.withStartElement(Node.DIV);
             responseWriter.withPassThroughAttributes();
@@ -354,7 +353,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should write pass-through attributes")
-        void shouldWritePassThroughAttributes() throws IOException {
+        void shouldWritePassThroughAttributes() throws Exception {
             // Arrange
             component.getPassThroughAttributes().put(PASS_THROUGH_NAME, PASS_THROUGH_VALUE);
 
@@ -369,7 +368,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should write pass-through attributes with EL expression")
-        void shouldWritePassThroughAttributesWithEl(FacesContext facesContext) throws IOException {
+        void shouldWritePassThroughAttributesWithEl(FacesContext facesContext) throws Exception {
             // Arrange
             var mockValueExpression = new MockValueExpression("#{test.expression}", Integer.class);
             mockValueExpression.setValue(facesContext.getELContext(), 1);
@@ -391,7 +390,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should write hidden field")
-        void shouldWriteHiddenField() throws IOException {
+        void shouldWriteHiddenField() throws Exception {
             // Act
             responseWriter.withHiddenField(INPUT_HIDDEN_SUFFIX, "value");
 
@@ -406,7 +405,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should write title attribute")
-        void shouldWriteTitleAttribute() throws IOException {
+        void shouldWriteTitleAttribute() throws Exception {
             // Act
             responseWriter.withStartElement(Node.DIV);
             responseWriter.withAttributeTitle(TITLE);
@@ -418,7 +417,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should not write title if null")
-        void shouldNotWriteTitleIfNull() throws IOException {
+        void shouldNotWriteTitleIfNull() throws Exception {
             // Act
             responseWriter.withStartElement(Node.DIV);
             responseWriter.withAttributeTitle((String) null);
@@ -435,7 +434,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should not write style if null")
-        void shouldNotWriteStyleIfNull() throws IOException {
+        void shouldNotWriteStyleIfNull() throws Exception {
             // Act
             responseWriter.withStartElement(Node.DIV);
             responseWriter.withAttributeStyle((String) null);
@@ -447,7 +446,7 @@ class DecoratingResponseWriterTest {
 
         @Test
         @DisplayName("Should write style attribute")
-        void shouldWriteStyleAttribute() throws IOException {
+        void shouldWriteStyleAttribute() throws Exception {
             // Act
             responseWriter.withStartElement(Node.DIV);
             responseWriter.withAttributeStyle("style");

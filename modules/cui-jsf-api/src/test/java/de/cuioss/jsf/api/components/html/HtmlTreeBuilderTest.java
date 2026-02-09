@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.apache.myfaces.test.mock.MockResponseWriter;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.io.StringWriter;
 
 class HtmlTreeBuilderTest {
@@ -92,7 +91,7 @@ class HtmlTreeBuilderTest {
     }
 
     @Test
-    void shouldRenderNestedElementsToResponseWriter() throws IOException {
+    void shouldRenderNestedElementsToResponseWriter() throws Exception {
         var sink = new StringWriter();
         var mockWriter = new MockResponseWriter(sink);
         final var builder = new HtmlTreeBuilder(NESTED_DIV_WITH_ATTRIBUTES);
@@ -109,7 +108,7 @@ class HtmlTreeBuilderTest {
     public static final String PARTIAL_WRAPPED_RENDER_END = "<div name=\"footer\"></div></div>";
 
     @Test
-    void shouldStartSimpleElementsToResponseWriter() throws IOException {
+    void shouldStartSimpleElementsToResponseWriter() throws Exception {
         var sink = new StringWriter();
         var mockWriter = new MockResponseWriter(sink);
         createSimplePartialRenderBuilder().writeToResponseWriterUntilChildBreakpoint(mockWriter);
@@ -117,7 +116,7 @@ class HtmlTreeBuilderTest {
     }
 
     @Test
-    void shouldEndSimpleElementsToResponseWriter() throws IOException {
+    void shouldEndSimpleElementsToResponseWriter() throws Exception {
         var sink = new StringWriter();
         var mockWriter = new MockResponseWriter(sink);
         createSimplePartialRenderBuilder().writeToResponseWriterFromChildBreakpointOn(mockWriter);
@@ -125,7 +124,7 @@ class HtmlTreeBuilderTest {
     }
 
     @Test
-    void shouldStartWrappedElementsToResponseWriter() throws IOException {
+    void shouldStartWrappedElementsToResponseWriter() throws Exception {
         var sink = new StringWriter();
         var mockWriter = new MockResponseWriter(sink);
         createWrappedPartialRenderBuilder().writeToResponseWriterUntilChildBreakpoint(mockWriter);

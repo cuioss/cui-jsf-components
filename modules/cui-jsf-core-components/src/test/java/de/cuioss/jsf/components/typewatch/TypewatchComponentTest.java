@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -74,7 +74,7 @@ class TypewatchComponentTest extends AbstractComponentTest<TypewatchComponent> {
 
             // Verify initial state
             assertEquals(1, parent.getParent().getChildren().size(), "Parent should have one child");
-            assertEquals(0, parent.getParent().getChildren().get(0).getPassThroughAttributes().size(),
+            assertEquals(0, parent.getParent().getChildren().getFirst().getPassThroughAttributes().size(),
                     "No pass-through attributes should be set initially");
 
             // Act
@@ -82,7 +82,7 @@ class TypewatchComponentTest extends AbstractComponentTest<TypewatchComponent> {
 
             // Assert
             assertEquals(1, parent.getParent().getChildren().size(), "Parent should still have one child");
-            final var pt = parent.getParent().getChildren().get(0).getPassThroughAttributes();
+            final var pt = parent.getParent().getChildren().getFirst().getPassThroughAttributes();
             assertEquals("data-typewatch", pt.get("data-typewatch"), "Should have data-typewatch attribute");
             assertEquals(false, pt.get("data-typewatch-allowsubmit"), "Allow submit should be false by default");
             assertEquals(false, pt.get("data-typewatch-highlight"), "Highlight should be false by default");
@@ -102,7 +102,7 @@ class TypewatchComponentTest extends AbstractComponentTest<TypewatchComponent> {
             underTest.processEvent(expectedEvent);
 
             // Assert
-            final var pt = parent.getParent().getChildren().get(0).getPassThroughAttributes();
+            final var pt = parent.getParent().getChildren().getFirst().getPassThroughAttributes();
             assertEquals("data-typewatch", pt.get("data-typewatch"), "Should have data-typewatch attribute");
             assertEquals(true, pt.get("data-typewatch-allowsubmit"), "Allow submit should be true");
             assertEquals(666, pt.get("data-typewatch-wait"), "Wait should be 666");

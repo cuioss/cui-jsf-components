@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,8 +39,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 /**
  * Tests for {@link LazyLoadingRenderer}
  */
@@ -69,7 +67,7 @@ class LazyLoadingRendererTest extends AbstractComponentRendererTest<LazyLoadingR
 
         @Test
         @DisplayName("Should render minimal component correctly")
-        void shouldRenderMinimal(FacesContext facesContext) throws IOException {
+        void shouldRenderMinimal(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = getComponent();
             component.getClientId();
@@ -87,7 +85,7 @@ class LazyLoadingRendererTest extends AbstractComponentRendererTest<LazyLoadingR
 
         @Test
         @DisplayName("Should render component with additional style class")
-        void shouldRenderAdditionalStyleClass(FacesContext facesContext) throws IOException {
+        void shouldRenderAdditionalStyleClass(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = getComponent();
             var styleClass = "additiv";
@@ -108,7 +106,7 @@ class LazyLoadingRendererTest extends AbstractComponentRendererTest<LazyLoadingR
 
         @Test
         @DisplayName("Should render spinner correctly")
-        void shouldRenderSpinner(FacesContext facesContext) throws IOException {
+        void shouldRenderSpinner(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = createComponentWithContent();
             component.getClientId();
@@ -126,7 +124,7 @@ class LazyLoadingRendererTest extends AbstractComponentRendererTest<LazyLoadingR
     }
 
     @Test
-    void shouldRenderContent(FacesContext facesContext) throws IOException {
+    void shouldRenderContent(FacesContext facesContext) throws Exception {
         final var component = createComponentWithContent();
         component.getClientId();
         component.setInitialized(true);
@@ -144,7 +142,7 @@ class LazyLoadingRendererTest extends AbstractComponentRendererTest<LazyLoadingR
     }
 
     @Test
-    void shouldRenderContentAfterDecode(FacesContext facesContext) throws IOException {
+    void shouldRenderContentAfterDecode(FacesContext facesContext) throws Exception {
         final var component = createComponentWithContent();
         component.getClientId();
         facesContext.getViewRoot().getChildren().add(component);
@@ -165,7 +163,7 @@ class LazyLoadingRendererTest extends AbstractComponentRendererTest<LazyLoadingR
     }
 
     @Test
-    void shouldRenderNotificationBox(FacesContext facesContext) throws IOException {
+    void shouldRenderNotificationBox(FacesContext facesContext) throws Exception {
         final var component = createComponentWithContent();
         component.getClientId();
         component.setInitialized(true);
