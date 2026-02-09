@@ -9,7 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ./mvnw clean install
 
 # Code cleanup with OpenRewrite
-./mvnw clean install -Ppre-commit
+./mvnw clean verify -Ppre-commit
 
 # Run all tests
 ./mvnw test
@@ -19,19 +19,26 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 # Build a specific module (from repo root)
 ./mvnw clean install -pl modules/cui-jsf-api
-
-# Javadoc cleanup (fix all reported errors/warnings)
-./mvnw clean install -Pjavadoc-mm-reporting
-
-# Code cleanup with OpenRewrite, then verify
-./mvnw -Prewrite rewrite:run
-./mvnw clean install
-
-# Generate site documentation
-./mvnw site
 ```
 
 Web modules (cui-javascript, cui-jsf-bootstrap-css) use frontend-maven-plugin which automatically runs Node.js/Grunt during `mvnw install` -- no separate npm commands needed for normal builds.
+
+## Git Workflow
+
+All cuioss repositories have branch protection on `main`. Direct pushes to `main` are never allowed. Always use this workflow:
+
+1. Create a feature branch: `git checkout -b <branch-name>`
+2. Commit changes: `git add <files> && git commit -m "<message>"`
+3. Push the branch: `git push -u origin <branch-name>`
+4. Create a PR: `gh pr create --repo cuioss/cui-jsf-components --head <branch-name> --base main --title "<title>" --body "<body>"`
+5. Wait for CI + Gemini review (waits until checks complete): `gh pr checks --watch`
+6. **Handle Gemini review comments** — fetch with `gh api repos/cuioss/cui-jsf-components/pulls/<pr-number>/comments` and for each:
+    - If clearly valid and fixable: fix it, commit, push, then reply explaining the fix and resolve the comment
+    - If disagree or out of scope: reply explaining why, then resolve the comment
+    - If uncertain (not 100% confident): **ask the user** before acting
+    - Every comment MUST get a reply (reason for fix or reason for not fixing) and MUST be resolved
+7. Do **NOT** enable auto-merge unless explicitly instructed. Wait for user approval.
+8. Return to main: `git checkout main && git pull`
 
 ## Project Architecture
 
