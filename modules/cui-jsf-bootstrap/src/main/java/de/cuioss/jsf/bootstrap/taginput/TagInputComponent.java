@@ -431,7 +431,6 @@ public class TagInputComponent extends BaseCuiHtmlInputComponent implements Styl
         for (final ConceptKeyType codeType : codeTypes) {
             final String label;
             if (getItemConverter().isPresent()) {
-                // getItemConverter().get().getAsString(facesContext(), this, codeType);
                 label = codeType.getResolved(locale);
             } else {
                 label = CuiSanitizer.PLAIN_TEXT.apply(codeType.getResolved(locale));

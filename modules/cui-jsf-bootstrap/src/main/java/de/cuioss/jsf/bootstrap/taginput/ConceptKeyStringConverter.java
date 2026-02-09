@@ -206,7 +206,6 @@ public class ConceptKeyStringConverter extends AbstractConverter<Collection<Conc
         // create new custom tag
         final var userTag = createNewUserTagIfClientCreated(element, context, component, itemConverter);
         if (userTag.isPresent()) {
-            // source.add(clientCreatedConceptKey);
             clientCreated.add(userTag.get());
             return userTag.get();
         }

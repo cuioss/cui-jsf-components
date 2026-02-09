@@ -27,7 +27,7 @@ public class DeferredLoadingWidgetMock extends BaseDeferredLoadingWidget<String>
 
     @Override
     protected void doInit() {
-
+        // No-op - test mock
     }
 
     @Override

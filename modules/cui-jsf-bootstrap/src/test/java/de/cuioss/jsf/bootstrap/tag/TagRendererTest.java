@@ -159,14 +159,6 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> {
         hiddenInput.setAttribute("name", "disposedInfo");
         hiddenInput.setAttribute("value", "false");
         current.getChildren().add(hiddenInput);
-        // Hidden input
-        /*
-         * final String inputId = computeSuffixedAttribute(component,
-         * TagComponent.DISPOSE_INFO_SUFFIX); expected.withNode(Node.INPUT)
-         * .withAttribute(AttributeName.TYPE, AttributeValue.HIDDEN)
-         * .withAttribute(AttributeName.ID, inputId) .withAttribute(AttributeName.NAME,
-         * inputId) .withAttribute(AttributeName.VALUE, Boolean.FALSE.toString());
-         */
         assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
