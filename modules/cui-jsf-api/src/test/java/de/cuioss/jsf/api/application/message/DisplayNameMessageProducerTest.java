@@ -36,8 +36,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("java:S1874")
-// ResultObject from external dependency; migration out of scope
 @EnableJSFCDIEnvironment
 @EnableResourceBundleSupport
 @AddBeanClasses(MessageProducerMock.class)

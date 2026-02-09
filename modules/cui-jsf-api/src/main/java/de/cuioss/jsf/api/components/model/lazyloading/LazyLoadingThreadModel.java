@@ -52,7 +52,6 @@ import de.cuioss.uimodel.result.ResultObject;
  * @see LazyLoadingModel
  * @see ResultObject
  */
-@SuppressWarnings("java:S1874") // ResultObject from external dependency; migration out of scope
 public interface LazyLoadingThreadModel<T> extends LazyLoadingModel {
 
     /**

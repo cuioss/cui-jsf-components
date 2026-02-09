@@ -55,8 +55,6 @@ import java.io.Serializable;
  * @author Matthias Walliczek
  * @since 1.0
  */
-@SuppressWarnings("java:S1874")
-// ResultObject from external dependency; migration out of scope
 @RequestScoped
 @EqualsAndHashCode(exclude = {"messageProducer"})
 @ToString(exclude = {"messageProducer"})
