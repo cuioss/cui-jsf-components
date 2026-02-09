@@ -19,13 +19,13 @@ import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.jsf.api.components.base.BaseCuiInputComponent;
-import de.cuioss.jsf.bootstrap.common.logging.BootstrapLogMessages;
 import de.cuioss.jsf.api.components.events.ModelPayloadEvent;
 import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.jsf.bootstrap.button.CloseCommandButton;
+import de.cuioss.jsf.bootstrap.common.logging.BootstrapLogMessages;
 import de.cuioss.tools.logging.CuiLogger;
 import jakarta.el.MethodExpression;
 import jakarta.faces.application.ResourceDependency;
@@ -223,7 +223,7 @@ public class TagComponent extends BaseCuiInputComponent
         if (button.isPresent()) {
             button.get().addClientBehavior(eventName, behavior);
         } else {
-            LOGGER.warn(BootstrapLogMessages.WARN.INVALID_CLIENT_BEHAVIOR_CONFIG.format(getClientId()));
+            LOGGER.warn(BootstrapLogMessages.WARN.INVALID_CLIENT_BEHAVIOR_CONFIG, getClientId());
         }
     }
 

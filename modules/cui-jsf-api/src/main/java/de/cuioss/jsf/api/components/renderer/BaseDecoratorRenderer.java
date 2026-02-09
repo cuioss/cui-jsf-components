@@ -173,9 +173,9 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
             try {
                 final var application = context.getApplication();
                 converter = application.createConverter(converterType);
-            // cui-rewrite:disable InvalidExceptionUsageRecipe
+                // cui-rewrite:disable InvalidExceptionUsageRecipe
             } catch (final Exception e) {
-                LOGGER.error(e, JsfApiLogMessages.ERROR.CONVERTER_INSTANTIATION_FAILED.format(converterType, e.getMessage()));
+                LOGGER.error(e, JsfApiLogMessages.ERROR.CONVERTER_INSTANTIATION_FAILED, converterType, e.getMessage());
                 return null;
             }
         } else if (null == converter) {

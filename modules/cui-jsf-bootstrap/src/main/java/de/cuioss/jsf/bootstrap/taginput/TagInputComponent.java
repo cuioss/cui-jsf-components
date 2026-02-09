@@ -29,7 +29,6 @@ import de.cuioss.jsf.api.components.partial.DisabledComponentProvider;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.api.security.CuiSanitizer;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
-import de.cuioss.jsf.bootstrap.tag.support.TagHelper;
 import de.cuioss.tools.codec.Hex;
 import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.tools.string.Joiner;

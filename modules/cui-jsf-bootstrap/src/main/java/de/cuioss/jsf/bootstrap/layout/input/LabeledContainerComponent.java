@@ -19,7 +19,6 @@ import static de.cuioss.jsf.api.components.util.ComponentUtility.findNearestNami
 import static de.cuioss.jsf.bootstrap.layout.input.ContainerFacets.*;
 
 import de.cuioss.jsf.api.components.base.BaseCuiNamingContainer;
-import de.cuioss.jsf.bootstrap.common.logging.BootstrapLogMessages;
 import de.cuioss.jsf.api.components.css.StyleClassBuilder;
 import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.api.components.support.OneTimeCheck;
@@ -29,6 +28,7 @@ import de.cuioss.jsf.api.components.util.styleclass.StyleClassModifierFactory;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
+import de.cuioss.jsf.bootstrap.common.logging.BootstrapLogMessages;
 import de.cuioss.jsf.bootstrap.common.partial.ContentColumnProvider;
 import de.cuioss.jsf.bootstrap.common.partial.LabelColumnProvider;
 import de.cuioss.jsf.bootstrap.common.partial.LayoutModeProvider;
@@ -295,10 +295,10 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
                         } else if (isApplicationInProductionStage()) {
                             LOGGER.debug("LabeledContainer '%s' does not contain an input component with id '%s'. Please check if you want to render an input element and did not adapt the id of this element. If you want to use it for output text, you can ignore this message", getClientId(), forId.get());
                         } else if (shouldNotRenderComplexOutput()) {
-                            LOGGER.info(BootstrapLogMessages.INFO.NO_INPUT_COMPONENT.format(getClientId(), forId.get()));
+                            LOGGER.info(BootstrapLogMessages.INFO.NO_INPUT_COMPONENT, getClientId(), forId.get());
                         }
                     }
-                // cui-rewrite:disable InvalidExceptionUsageRecipe
+                    // cui-rewrite:disable InvalidExceptionUsageRecipe
                 } catch (Exception e) {
                     LOGGER.debug("Exception during logging: ", e);
                 }

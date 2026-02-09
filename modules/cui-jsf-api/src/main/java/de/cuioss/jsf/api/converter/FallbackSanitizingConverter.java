@@ -139,7 +139,7 @@ public class FallbackSanitizingConverter extends AbstractConverter<String> {
 
         // Log warning in development mode to help identify components that should have proper escaping
         if (new CuiProjectStageAccessor().getValue().isDevelopment()) {
-            LOGGER.warn(JsfApiLogMessages.WARN.TEXT_NOT_SANITIZED.format(value, component.toString(), component.getId()));
+            LOGGER.warn(JsfApiLogMessages.WARN.TEXT_NOT_SANITIZED, value, component.toString(), component.getId());
         }
 
         // Apply sanitization as a fallback protection

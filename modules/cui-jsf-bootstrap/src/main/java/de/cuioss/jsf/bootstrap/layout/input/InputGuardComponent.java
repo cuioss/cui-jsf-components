@@ -30,7 +30,6 @@ import de.cuioss.jsf.bootstrap.layout.input.support.GuardButtonAttributes;
 import de.cuioss.jsf.bootstrap.layout.input.support.ResetGuardButtonAttributes;
 import de.cuioss.tools.logging.CuiLogger;
 import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.EditableValueHolder;
 import jakarta.faces.component.FacesComponent;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;

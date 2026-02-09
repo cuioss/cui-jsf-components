@@ -33,8 +33,8 @@ public class ExplodingModel implements Serializable {
     /**
      * Throws a {@link RuntimeException}
      */
-    @SuppressWarnings("CopyConstructorMissesField")
     // cui-rewrite:disable InvalidExceptionUsageRecipe
+    @SuppressWarnings("CopyConstructorMissesField")
     public ExplodingModel(final ExplodingModel other) {
         throw new RuntimeException();
     }

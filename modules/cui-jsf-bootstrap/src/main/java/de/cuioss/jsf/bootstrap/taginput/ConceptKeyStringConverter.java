@@ -124,7 +124,7 @@ public class ConceptKeyStringConverter extends AbstractConverter<Collection<Conc
         requireNonNull(component);
         if (!(component instanceof TagInputComponent)) {
             final var msg = "Component must be of type " + TagInputComponent.class.getSimpleName();
-            LOGGER.error(BootstrapLogMessages.ERROR.INVALID_COMPONENT_TYPE.format(TagInputComponent.class.getSimpleName()));
+            LOGGER.error(BootstrapLogMessages.ERROR.INVALID_COMPONENT_TYPE, TagInputComponent.class.getSimpleName());
             throw new ConverterException(msg);
         }
     }
@@ -220,11 +220,11 @@ public class ConceptKeyStringConverter extends AbstractConverter<Collection<Conc
                 return userTagDecoded.get();
             }
         } catch (final DecoderException e) {
-            LOGGER.error(e, BootstrapLogMessages.ERROR.HEX_DECODE_ERROR.format(element));
+            LOGGER.error(e, BootstrapLogMessages.ERROR.HEX_DECODE_ERROR, element);
         }
 
         final var msg = "Unable to match element with name: " + element;
-        LOGGER.error(BootstrapLogMessages.ERROR.UNABLE_TO_MATCH_ELEMENT.format(element));
+        LOGGER.error(BootstrapLogMessages.ERROR.UNABLE_TO_MATCH_ELEMENT, element);
         throw new ConverterException(msg);
     }
 
@@ -245,7 +245,7 @@ public class ConceptKeyStringConverter extends AbstractConverter<Collection<Conc
             final var name = value.substring(CLIENT_CREATED_SUFFIX.length());
             if (MoreStrings.isEmpty(name)) {
                 final var msg = "Invalid input value found: " + value;
-                LOGGER.error(BootstrapLogMessages.ERROR.INVALID_INPUT_VALUE.format(value));
+                LOGGER.error(BootstrapLogMessages.ERROR.INVALID_INPUT_VALUE, value);
                 throw new ConverterException(msg);
             }
 

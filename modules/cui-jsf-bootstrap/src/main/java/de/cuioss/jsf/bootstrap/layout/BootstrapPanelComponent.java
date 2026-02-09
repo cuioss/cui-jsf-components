@@ -16,11 +16,11 @@
 package de.cuioss.jsf.bootstrap.layout;
 
 import de.cuioss.jsf.api.application.message.MessageProducer;
-import de.cuioss.jsf.bootstrap.common.logging.BootstrapLogMessages;
 import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.api.components.util.ComponentUtility;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
+import de.cuioss.jsf.bootstrap.common.logging.BootstrapLogMessages;
 import de.cuioss.portal.common.cdi.PortalBeanManager;
 import de.cuioss.tools.logging.CuiLogger;
 import jakarta.faces.application.FacesMessage;
@@ -162,7 +162,7 @@ public class BootstrapPanelComponent extends BasicBootstrapPanelComponent {
     @Override
     public void processEvent(final ComponentSystemEvent event) {
         if (event instanceof PreRenderComponentEvent && mustAddForm()) {
-            LOGGER.error(BootstrapLogMessages.ERROR.COMPONENT_REQUIRES_FORM.format(getClientId()));
+            LOGGER.error(BootstrapLogMessages.ERROR.COMPONENT_REQUIRES_FORM, getClientId());
             PortalBeanManager.resolveRequiredBean(MessageProducer.class)
                     .setFacesMessage("message.error.component.noform", FacesMessage.SEVERITY_ERROR, getClientId());
         }

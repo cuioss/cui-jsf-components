@@ -18,7 +18,6 @@ package de.cuioss.jsf.test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.application.message.MessageProducer;
-import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.tools.base.Preconditions;
 import de.cuioss.tools.collect.MoreCollections;
 import de.cuioss.tools.logging.CuiLogger;

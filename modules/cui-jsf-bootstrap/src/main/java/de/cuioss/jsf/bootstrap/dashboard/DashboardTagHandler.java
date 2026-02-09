@@ -139,7 +139,7 @@ public class DashboardTagHandler extends TagHandler {
             nextHandler.apply(ctx, parent);
             ctx.includeFacelet(parent, f.toURI().toURL());
         } catch (final IOException e) {
-            LOGGER.warn(e, BootstrapLogMessages.WARN.FACELET_INCLUDE_FAILED.format(f.getAbsolutePath()));
+            LOGGER.warn(e, BootstrapLogMessages.WARN.FACELET_INCLUDE_FAILED, f.getAbsolutePath());
         }
         f.deleteOnExit();
     }

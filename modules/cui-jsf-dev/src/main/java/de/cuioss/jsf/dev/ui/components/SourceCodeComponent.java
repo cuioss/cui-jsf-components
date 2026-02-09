@@ -18,8 +18,8 @@ package de.cuioss.jsf.dev.ui.components;
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
 import de.cuioss.jsf.api.application.navigation.NavigationUtils;
-import de.cuioss.jsf.dev.common.logging.DevLogMessages;
 import de.cuioss.jsf.api.components.base.BaseCuiNamingContainer;
+import de.cuioss.jsf.dev.common.logging.DevLogMessages;
 import de.cuioss.portal.common.util.PortalResourceLoader;
 import de.cuioss.tools.base.Preconditions;
 import de.cuioss.tools.collect.CollectionBuilder;
@@ -318,8 +318,8 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
                     return found;
                 }
             }
-            LOGGER.warn(DevLogMessages.WARN.RESOURCE_PATH_RESOLVED.format(getClass().getResource(path)));
-            LOGGER.warn(DevLogMessages.WARN.NO_RELATIVE_PATH.format(path));
+            LOGGER.warn(DevLogMessages.WARN.RESOURCE_PATH_RESOLVED, getClass().getResource(path));
+            LOGGER.warn(DevLogMessages.WARN.NO_RELATIVE_PATH, path);
             return Optional.empty();
         }
         LOGGER.debug("Assuming absolute path for '%s'", path);
@@ -364,7 +364,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
             throw new IllegalStateException("Did not find any element with id=" + sourceContainerId);
         }
         if (filteredElements.size() > 1) {
-            LOGGER.warn(DevLogMessages.WARN.MULTIPLE_ELEMENTS_FOUND.format(viewId, sourceContainerId));
+            LOGGER.warn(DevLogMessages.WARN.MULTIPLE_ELEMENTS_FOUND, viewId, sourceContainerId);
         }
 
         final var outputter = new XMLOutputter();
@@ -389,7 +389,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
                 return found;
             }
         }
-        LOGGER.warn(DevLogMessages.WARN.NO_VIEW_FOUND.format(candidates));
+        LOGGER.warn(DevLogMessages.WARN.NO_VIEW_FOUND, candidates);
         return Optional.empty();
     }
 

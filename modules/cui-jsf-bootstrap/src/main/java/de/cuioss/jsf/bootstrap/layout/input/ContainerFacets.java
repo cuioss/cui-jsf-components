@@ -74,7 +74,7 @@ public enum ContainerFacets {
                 return Optional.of(facet);
             }
         }
-        LOGGER.error(BootstrapLogMessages.ERROR.INVALID_FACET_NAME.format(Arrays.asList(values())));
+        LOGGER.error(BootstrapLogMessages.ERROR.INVALID_FACET_NAME, Arrays.asList(values()));
         return Optional.empty();
     }
 

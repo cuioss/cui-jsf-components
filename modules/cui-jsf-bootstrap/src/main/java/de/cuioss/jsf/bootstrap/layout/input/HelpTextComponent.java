@@ -16,7 +16,6 @@
 package de.cuioss.jsf.bootstrap.layout.input;
 
 import de.cuioss.jsf.api.components.JsfComponentIdentifier;
-import de.cuioss.jsf.bootstrap.common.logging.BootstrapLogMessages;
 import de.cuioss.jsf.api.components.base.BaseCuiHtmlHiddenInputComponent;
 import de.cuioss.jsf.api.components.base.BaseCuiPanel;
 import de.cuioss.jsf.api.components.partial.ContentProvider;
@@ -27,6 +26,7 @@ import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
 import de.cuioss.jsf.bootstrap.button.Button;
+import de.cuioss.jsf.bootstrap.common.logging.BootstrapLogMessages;
 import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.tools.string.MoreStrings;
 import jakarta.faces.application.ResourceDependency;
@@ -174,7 +174,7 @@ public class HelpTextComponent extends BaseCuiHtmlHiddenInputComponent implement
                 outputText.setEscape(contentProvider.getContentEscape());
                 helpTextBlock.getChildren().add(outputText);
             } else {
-                LOGGER.info(BootstrapLogMessages.INFO.NO_HELP_TEXT_CONTENT::format);
+                LOGGER.info(BootstrapLogMessages.INFO.NO_HELP_TEXT_CONTENT);
             }
             return Optional.of(helpTextBlock);
         }

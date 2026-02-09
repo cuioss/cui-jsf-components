@@ -47,7 +47,6 @@ public class ActiveIndexManagerProvider {
     private static final CuiLogger LOGGER = new CuiLogger(ActiveIndexManagerProvider.class);
 
 
-
     /**
      * The key for the {@link StateHelper}
      */
@@ -91,9 +90,9 @@ public class ActiveIndexManagerProvider {
                 }
                 return Collections.emptyList();
             }
-        // cui-rewrite:disable InvalidExceptionUsageRecipe
+            // cui-rewrite:disable InvalidExceptionUsageRecipe
         } catch (Exception e) {
-            LOGGER.warn(e, JsfApiLogMessages.WARN.ACTIVE_INDEX_MANAGER_ERROR::format);
+            LOGGER.warn(e, JsfApiLogMessages.WARN.ACTIVE_INDEX_MANAGER_ERROR);
         }
         return immutableList(0);
     }

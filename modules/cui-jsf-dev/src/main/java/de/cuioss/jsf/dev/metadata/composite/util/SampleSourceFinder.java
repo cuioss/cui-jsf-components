@@ -325,13 +325,13 @@ public class SampleSourceFinder {
                 result = result.substring(0, result.length() - 11);
             }
         } catch (final IOException e) {
-            LOGGER.error(e, DevLogMessages.ERROR.SAMPLE_SOURCE_IO_ERROR.format(file.getPath()));
+            LOGGER.error(e, DevLogMessages.ERROR.SAMPLE_SOURCE_IO_ERROR, file.getPath());
             result = EMPTY;
         } catch (final ParserConfigurationException e) {
-            LOGGER.error(e, DevLogMessages.ERROR.PARSER_CONFIG_ERROR.format(id));
+            LOGGER.error(e, DevLogMessages.ERROR.PARSER_CONFIG_ERROR, id);
             result = EMPTY;
         } catch (final SAXException | XPathExpressionException e) {
-            LOGGER.error(e, DevLogMessages.ERROR.PARSER_EXCEPTION.format(file.getPath()));
+            LOGGER.error(e, DevLogMessages.ERROR.PARSER_EXCEPTION, file.getPath());
             result = EMPTY;
         }
         return result.trim();
