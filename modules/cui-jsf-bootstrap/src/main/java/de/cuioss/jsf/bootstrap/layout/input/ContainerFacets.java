@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,6 +18,7 @@ package de.cuioss.jsf.bootstrap.layout.input;
 import static de.cuioss.tools.collect.CollectionLiterals.immutableSet;
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
+import de.cuioss.jsf.bootstrap.common.logging.BootstrapLogMessages;
 import de.cuioss.tools.logging.CuiLogger;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -54,7 +55,7 @@ public enum ContainerFacets {
     /** Used for providing custom help texts. */
     HELP_TEXT("helpText");
 
-    private static final CuiLogger log = new CuiLogger(ContainerFacets.class);
+    private static final CuiLogger LOGGER = new CuiLogger(ContainerFacets.class);
 
     @Getter
     private final String name;
@@ -73,7 +74,7 @@ public enum ContainerFacets {
                 return Optional.of(facet);
             }
         }
-        log.error("Invalid name given, expected one of '{}' (Case Insensitive)", Arrays.asList(values()));
+        LOGGER.error(BootstrapLogMessages.ERROR.INVALID_FACET_NAME, Arrays.asList(values()));
         return Optional.empty();
     }
 

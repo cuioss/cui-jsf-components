@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,7 +30,6 @@ import de.cuioss.jsf.bootstrap.layout.input.support.GuardButtonAttributes;
 import de.cuioss.jsf.bootstrap.layout.input.support.ResetGuardButtonAttributes;
 import de.cuioss.tools.logging.CuiLogger;
 import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.EditableValueHolder;
 import jakarta.faces.component.FacesComponent;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
@@ -91,7 +90,7 @@ import java.util.Optional;
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
 public class InputGuardComponent extends BaseCuiHtmlHiddenInputComponent implements ContainerPlugin {
 
-    private static final CuiLogger log = new CuiLogger(InputGuardComponent.class);
+    private static final CuiLogger LOGGER = new CuiLogger(InputGuardComponent.class);
 
     /** "data-guarded-input-button". */
     public static final String DATA_GUARDED_BUTTON = "data-input-guard-button";
@@ -200,7 +199,7 @@ public class InputGuardComponent extends BaseCuiHtmlHiddenInputComponent impleme
         }
         var value = getValue();
         if (null == value) {
-            log.trace("value not set, defaulting to true");
+            LOGGER.trace("value not set, defaulting to true");
             state.put(CURRENT_VALUE_KEY, Boolean.TRUE);
             setValue(Boolean.TRUE);
             return Boolean.TRUE;
@@ -226,7 +225,7 @@ public class InputGuardComponent extends BaseCuiHtmlHiddenInputComponent impleme
             // AjaxRequest from rendered Button
             var newValue = parameterMap.get(clientId);
             if (isEmpty(newValue)) {
-                log.debug("No value submitted, ignoring");
+                LOGGER.debug("No value submitted, ignoring");
                 return;
             }
             var newValueBoolean = Boolean.valueOf(newValue);

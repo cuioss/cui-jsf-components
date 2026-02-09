@@ -129,7 +129,9 @@
 }
 
 option[disabled], select[disabled], textarea[disabled], input[readonly], select[readonly], textarea[readonly] {
-  @extend .form-control[disabled];
+  cursor: $cursor-disabled;
+  background-color: $input-bg-disabled;
+  opacity: 1;
 }
 
 .fc-breadcrumb {

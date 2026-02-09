@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +19,7 @@ import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
 import de.cuioss.jsf.api.application.navigation.NavigationUtils;
 import de.cuioss.jsf.api.components.base.BaseCuiNamingContainer;
+import de.cuioss.jsf.dev.common.logging.DevLogMessages;
 import de.cuioss.portal.common.util.PortalResourceLoader;
 import de.cuioss.tools.base.Preconditions;
 import de.cuioss.tools.collect.CollectionBuilder;
@@ -131,7 +132,7 @@ import javax.xml.XMLConstants;
 @FacesComponent(SourceCodeComponent.COMPONENT_ID)
 public class SourceCodeComponent extends BaseCuiNamingContainer {
 
-    private static final CuiLogger log = new CuiLogger(SourceCodeComponent.class);
+    private static final CuiLogger LOGGER = new CuiLogger(SourceCodeComponent.class);
 
     /**
      * <p>
@@ -310,18 +311,18 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
     private Optional<URL> resolvePath(final String path) {
         if (!path.startsWith("/")) {
             for (var candidate : determineViewRelativePath(path)) {
-                log.debug("Checking candidate '%s'", candidate);
+                LOGGER.debug("Checking candidate '%s'", candidate);
                 var found = PortalResourceLoader.getResource(candidate, getClass());
                 if (found.isPresent()) {
-                    log.debug("Found candidate '%s'", candidate);
+                    LOGGER.debug("Found candidate '%s'", candidate);
                     return found;
                 }
             }
-            log.warn("%s", getClass().getResource(path));
-            log.warn("No relative path found for '%s'", path);
+            LOGGER.warn(DevLogMessages.WARN.RESOURCE_PATH_RESOLVED, getClass().getResource(path));
+            LOGGER.warn(DevLogMessages.WARN.NO_RELATIVE_PATH, path);
             return Optional.empty();
         }
-        log.debug("Assuming absolute path for '%s'", path);
+        LOGGER.debug("Assuming absolute path for '%s'", path);
         return Optional.ofNullable(getClass().getResource(path));
     }
 
@@ -329,11 +330,11 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         final var requestPath = NavigationUtils.getCurrentView(getFacesContext()).getViewId();
         final var currentFolder = requestPath.substring(0, requestPath.lastIndexOf('/') + 1);
         var candidates = new CollectionBuilder<String>();
-        log.debug("META-INF candidate (portal-default) for '%s'", path);
+        LOGGER.debug("META-INF candidate (portal-default) for '%s'", path);
         candidates.add("/META-INF%s%s".formatted(currentFolder, path));
-        log.debug("META-INF/resources candidate (myfaces/quarkus) for '%s'", path);
+        LOGGER.debug("META-INF/resources candidate (myfaces/quarkus) for '%s'", path);
         candidates.add("/META-INF/resources%s%s".formatted(currentFolder, path));
-        log.debug("direct candidate (not within META-INF) for '%s'", path);
+        LOGGER.debug("direct candidate (not within META-INF) for '%s'", path);
         candidates.add("%s%s".formatted(currentFolder, path));
         return candidates.toImmutableSet();
     }
@@ -357,29 +358,28 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
         final var root = document.getRootElement();
         final var query = "//*[@id='%s']".formatted(sourceContainerId);
         final XPathExpression<Element> xpath = XPathFactory.instance().compile(query, Filters.element());
-        log.debug("Created xPathExpression: {}", xpath);
+        LOGGER.debug("Created xPathExpression: %s", xpath);
         final var filteredElements = xpath.evaluate(root);
         if (filteredElements.isEmpty()) {
             throw new IllegalStateException("Did not find any element with id=" + sourceContainerId);
         }
         if (filteredElements.size() > 1) {
-            log.warn("More than one element found on view='{}' with id='{}' found, choosing the first one",
-                    viewId, sourceContainerId);
+            LOGGER.warn(DevLogMessages.WARN.MULTIPLE_ELEMENTS_FOUND, viewId, sourceContainerId);
         }
 
         final var outputter = new XMLOutputter();
         outputter.setXMLOutputProcessor(NO_NAMESPACES);
         outputter.setFormat(Format.getPrettyFormat());
-        if (filteredElements.iterator().next().getChildren().isEmpty()) {
+        if (filteredElements.getFirst().getChildren().isEmpty()) {
             return Joiner.on(System.lineSeparator())
-                    .join(Splitter.on('\n').splitToList(filteredElements.iterator().next().getText()));
+                    .join(Splitter.on('\n').splitToList(filteredElements.getFirst().getText()));
         }
-        return outputter.outputString(filteredElements.iterator().next().getChildren());
+        return outputter.outputString(filteredElements.getFirst().getChildren());
     }
 
     private Optional<URL> determineViewUrlResource() {
         var viewId = getFacesContext().getViewRoot().getViewId();
-        if (viewId.startsWith(("/"))) {
+        if (viewId.startsWith("/")) {
             viewId = viewId.substring(1);
         }
         List<String> candidates = CollectionLiterals.mutableList(META_INF_PREFIX + "resources/" + viewId, META_INF_PREFIX + viewId, viewId);
@@ -389,7 +389,7 @@ public class SourceCodeComponent extends BaseCuiNamingContainer {
                 return found;
             }
         }
-        log.warn("No view found, candidates='{}", candidates);
+        LOGGER.warn(DevLogMessages.WARN.NO_VIEW_FOUND, candidates);
         return Optional.empty();
     }
 

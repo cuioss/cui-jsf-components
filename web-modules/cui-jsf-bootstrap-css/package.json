@@ -11,11 +11,7 @@
     "grunt": "^1.6.1",
     "grunt-cli": "^1.4.3",
     "grunt-contrib-clean": "^2.0.1",
-    "grunt-sass": "^3.1.0",
-    "node-sass": "^9.0.0"
-  },
-  "dependencies": {
-    "bootstrap": "^5.2.3",
-    "bootstrap-icons": "^1.10.5"
+    "grunt-sass-modern": "^3.3.0",
+    "sass": "^1.97.0"
   }
 }

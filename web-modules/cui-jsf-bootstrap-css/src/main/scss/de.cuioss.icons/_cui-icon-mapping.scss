@@ -2322,19 +2322,19 @@
 }
 
 .alert-success::after {
-  @extend .cui-icon-ok_2:before;
+  content: "\e96b"; // cui-icon-ok_2
 }
 
 .alert-info::after {
-  @extend .cui-icon-circle_info:before;
+  content: "\e86c"; // cui-icon-circle_info
 }
 
 .alert-warning::after {
-  @extend .cui-icon-circle_exclamation_mark:before;
+  content: "\e86b"; // cui-icon-circle_exclamation_mark
 }
 
 .alert-danger::after {
-  @extend .cui-icon-warning_sign:before;
+  content: "\ea37"; // cui-icon-warning_sign
 }
 
 .cui-tag-dispose-button {

@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,6 +20,7 @@ import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.api.components.util.ComponentUtility;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
+import de.cuioss.jsf.bootstrap.common.logging.BootstrapLogMessages;
 import de.cuioss.portal.common.cdi.PortalBeanManager;
 import de.cuioss.tools.logging.CuiLogger;
 import jakarta.faces.application.FacesMessage;
@@ -109,7 +110,7 @@ import lombok.experimental.Delegate;
 @SuppressWarnings("squid:MaximumInheritanceDepth") // Artifact of Jsf-structure
 public class BootstrapPanelComponent extends BasicBootstrapPanelComponent {
 
-    private static final CuiLogger log = new CuiLogger(BootstrapPanelComponent.class);
+    private static final CuiLogger LOGGER = new CuiLogger(BootstrapPanelComponent.class);
 
     private static final String ASYNCUPDATE_KEY = "asyncUpdate";
 
@@ -161,7 +162,7 @@ public class BootstrapPanelComponent extends BasicBootstrapPanelComponent {
     @Override
     public void processEvent(final ComponentSystemEvent event) {
         if (event instanceof PreRenderComponentEvent && mustAddForm()) {
-            log.error("The UI component '{}' needs to have a form tag in its ancestry.", getClientId());
+            LOGGER.error(BootstrapLogMessages.ERROR.COMPONENT_REQUIRES_FORM, getClientId());
             PortalBeanManager.resolveRequiredBean(MessageProducer.class)
                     .setFacesMessage("message.error.component.noform", FacesMessage.SEVERITY_ERROR, getClientId());
         }

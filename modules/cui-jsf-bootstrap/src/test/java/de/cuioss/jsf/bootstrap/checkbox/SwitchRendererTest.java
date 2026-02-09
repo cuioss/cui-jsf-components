@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,8 +33,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @DisplayName("Tests for SwitchRenderer")
@@ -87,7 +85,7 @@ class SwitchRendererTest extends AbstractComponentRendererTest<SwitchRenderer> {
 
         @Test
         @DisplayName("Should render minimal switch component")
-        void shouldRenderMinimal(FacesContext facesContext) throws IOException {
+        void shouldRenderMinimal(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = (SwitchComponent) getComponent();
             component.processEvent(new PostAddToViewEvent(component));
@@ -100,7 +98,7 @@ class SwitchRendererTest extends AbstractComponentRendererTest<SwitchRenderer> {
 
         @Test
         @DisplayName("Should render disabled switch component")
-        void shouldRenderDisabled(FacesContext facesContext) throws IOException {
+        void shouldRenderDisabled(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = (SwitchComponent) getComponent();
             component.setDisabled(true);
@@ -131,7 +129,7 @@ class SwitchRendererTest extends AbstractComponentRendererTest<SwitchRenderer> {
                 .withAttribute(AttributeName.TITLE, TITLE_VALUE).withNode(Node.INPUT)
                 .withAttributeNameAndId("testComponent").currentHierarchyUp().withNode(Node.SPAN)
                 .withAttribute(AttributeName.CLASS, "slider round").currentHierarchyUp().currentHierarchyUp()
-                .withNode(Node.SPAN).withAttribute(AttributeName.CLASS, "switch-text" + (!isActive ? " hidden" : ""))
+                .withNode(Node.SPAN).withAttribute(AttributeName.CLASS, "switch-text" + (isActive ? "" : " hidden"))
                 .withAttribute(AttributeName.DATA_ITEM_ACTIVE, "true").withTextContent(ON_TEXT).currentHierarchyUp()
                 .withNode(Node.SPAN).withAttribute(AttributeName.CLASS, "switch-text" + (isActive ? " hidden" : ""))
                 .withAttribute(AttributeName.DATA_ITEM_ACTIVE, "false").withTextContent(OFF_TEXT).currentHierarchyUp()

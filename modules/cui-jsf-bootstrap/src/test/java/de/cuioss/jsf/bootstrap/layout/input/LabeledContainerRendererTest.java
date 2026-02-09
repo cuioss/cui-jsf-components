@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,8 +42,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
 
 /**
  * Expectation for renderer cycle :
@@ -94,7 +92,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
 
         @Test
         @DisplayName("Should render minimal component correctly")
-        void shouldRenderMinimal(FacesContext facesContext) throws IOException {
+        void shouldRenderMinimal(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = new LabeledContainerComponent();
             component.processEvent(new PostAddToViewEvent(component));
@@ -112,7 +110,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
 
         @Test
         @DisplayName("Should render component with input correctly")
-        void shouldRenderMinimalWithInput(FacesContext facesContext) throws IOException {
+        void shouldRenderMinimalWithInput(FacesContext facesContext) throws Exception {
             // Arrange
             final var htmlInputText = new HtmlInputText();
             htmlInputText.setId(INPUT);
@@ -136,7 +134,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
 
         @Test
         @DisplayName("Should render component with non-rendered input correctly")
-        void shouldRenderMinimalWithInputRenderedFalse(FacesContext facesContext) throws IOException {
+        void shouldRenderMinimalWithInputRenderedFalse(FacesContext facesContext) throws Exception {
             // Arrange
             final var htmlInputText = new HtmlInputText();
             htmlInputText.setId(INPUT);
@@ -158,7 +156,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
 
         @Test
         @DisplayName("Should render component with hidden input correctly")
-        void shouldRenderMinimalWithHiddenInput(FacesContext facesContext) throws IOException {
+        void shouldRenderMinimalWithHiddenInput(FacesContext facesContext) throws Exception {
             // Arrange
             final var htmlInputText = new HtmlInputHidden();
             htmlInputText.setId(INPUT);
@@ -186,7 +184,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
 
         @Test
         @DisplayName("Should render component with disabled flag correctly")
-        void shouldRenderDisabledFlag(FacesContext facesContext) throws IOException {
+        void shouldRenderDisabledFlag(FacesContext facesContext) throws Exception {
             // Arrange
             final var htmlInputText = new HtmlInputText();
             htmlInputText.setId(INPUT);
@@ -228,7 +226,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
 
         @Test
         @DisplayName("Should render component with title attribute correctly")
-        void shouldRenderTitle(FacesContext facesContext) throws IOException {
+        void shouldRenderTitle(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = new LabeledContainerComponent();
             final var titleValue = "titleValue";
@@ -254,7 +252,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
 
         @Test
         @DisplayName("Should render component with checkbox correctly")
-        void shouldRenderMinimalWithCheckbox(FacesContext facesContext) throws IOException {
+        void shouldRenderMinimalWithCheckbox(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = new LabeledContainerComponent();
             final var htmlInputText = new HtmlSelectBooleanCheckbox();
@@ -282,7 +280,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
 
         @Test
         @DisplayName("Should render component with ID and input correctly")
-        void shouldRenderIdIfSetWithInput(FacesContext facesContext) throws IOException {
+        void shouldRenderIdIfSetWithInput(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = new LabeledContainerComponent();
             component.setId(LABELED_CONTAINER_ID);
@@ -315,7 +313,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
 
         @Test
         @DisplayName("Should render component with ID and prepend facet correctly")
-        void shouldRenderIdIfSetWithInputAndPrependFacet(FacesContext facesContext) throws IOException {
+        void shouldRenderIdIfSetWithInputAndPrependFacet(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = new LabeledContainerComponent();
             component.setId(LABELED_CONTAINER_ID);
@@ -353,7 +351,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
 
         @Test
         @DisplayName("Should render component with ID and label facet correctly")
-        void shouldRenderIdIfSetWithInputAndLabelFacet(FacesContext facesContext, ComponentConfigDecorator componentConfig) throws IOException {
+        void shouldRenderIdIfSetWithInputAndLabelFacet(FacesContext facesContext, ComponentConfigDecorator componentConfig) throws Exception {
             // Arrange
             final var component = new LabeledContainerComponent();
             component.setId(LABELED_CONTAINER_ID);
@@ -394,7 +392,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
 
         @Test
         @DisplayName("Should render component with invalid input correctly")
-        void shouldRenderWithInvalidInput(FacesContext facesContext) throws IOException {
+        void shouldRenderWithInvalidInput(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = new LabeledContainerComponent();
             component.setId(LABELED_CONTAINER_ID);
@@ -429,7 +427,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
 
         @Test
         @DisplayName("Should render component with PLAIN layout mode correctly")
-        void shouldRenderWithLayoutModePlain(FacesContext facesContext) throws IOException {
+        void shouldRenderWithLayoutModePlain(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = new LabeledContainerComponent();
             component.setId(LABELED_CONTAINER_ID);
@@ -451,7 +449,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
 
         @Test
         @DisplayName("Should render component with PLAIN layout mode and input correctly")
-        void shouldRenderWithLayoutModePlainWithInput(FacesContext facesContext) throws IOException {
+        void shouldRenderWithLayoutModePlainWithInput(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = new LabeledContainerComponent();
             component.setId(LABELED_CONTAINER_ID);
@@ -479,7 +477,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
 
         @Test
         @DisplayName("Should render component with LABEL_SR_ONLY layout mode correctly")
-        void shouldRenderWithLayoutModeLabelSrOnly(FacesContext facesContext) throws IOException {
+        void shouldRenderWithLayoutModeLabelSrOnly(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = new LabeledContainerComponent();
             component.setId(LABELED_CONTAINER_ID);
@@ -503,7 +501,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
 
         @Test
         @DisplayName("Should render component with LABEL_SR_ONLY layout mode and input correctly")
-        void shouldRenderWithLayoutModeLabelSrOnlyWithInput(FacesContext facesContext) throws IOException {
+        void shouldRenderWithLayoutModeLabelSrOnlyWithInput(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = new LabeledContainerComponent();
             component.setId(LABELED_CONTAINER_ID);
@@ -533,7 +531,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
 
         @Test
         @DisplayName("Should render component with FORMGROUP layout mode correctly")
-        void shouldRenderWithLayoutModeFormGroup(FacesContext facesContext) throws IOException {
+        void shouldRenderWithLayoutModeFormGroup(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = new LabeledContainerComponent();
             component.setId(LABELED_CONTAINER_ID);
@@ -555,7 +553,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
 
         @Test
         @DisplayName("Should render component with FORMGROUP layout mode and input correctly")
-        void shouldRenderWithLayoutModeFormGroupWithInput(FacesContext facesContext) throws IOException {
+        void shouldRenderWithLayoutModeFormGroupWithInput(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = new LabeledContainerComponent();
             component.setId(LABELED_CONTAINER_ID);
@@ -588,7 +586,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
 
         @Test
         @DisplayName("Should render component with help block correctly")
-        void shouldRenderMinimalWithHelpBlock(FacesContext facesContext) throws IOException {
+        void shouldRenderMinimalWithHelpBlock(FacesContext facesContext) throws Exception {
             // Arrange
             final var htmlInputText = new HtmlInputText();
             htmlInputText.setId(INPUT);

@@ -2,7 +2,7 @@ module.exports = function (grunt) {
 
   // Keep in sync with maven-property 'plugin.resources.cui_css.target'
   const sassOutput = 'target/sass_target/**.*';
-  const sass = require('node-sass');
+  const sass = require('sass');
 
   // Project configuration.
   grunt.initConfig({
@@ -11,8 +11,10 @@ module.exports = function (grunt) {
     sass: {
       options: {
         implementation: sass,
+        api: 'modern',
         sourceMap: true,
-        style: 'expanded'
+        style: 'expanded',
+        loadPaths: ['.']
       },
       dist: {
           files: {
@@ -24,7 +26,7 @@ module.exports = function (grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-sass');
+  grunt.loadNpmTasks('grunt-sass-modern');
 
   // Default task(s).
   grunt.registerTask('default', ['clean', 'sass']);

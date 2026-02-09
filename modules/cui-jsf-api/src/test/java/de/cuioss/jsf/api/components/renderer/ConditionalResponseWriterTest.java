@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.io.StringWriter;
 
 @DisplayName("Tests for ConditionalResponseWriter")
@@ -45,7 +44,7 @@ class ConditionalResponseWriterTest {
 
         @Test
         @DisplayName("Should render start part of simple partial render")
-        void shouldRenderSimpleStartPart() throws IOException {
+        void shouldRenderSimpleStartPart() throws Exception {
             // Arrange
             var builder = createSimplePartialRenderBuilder();
             var sink = new StringWriter();
@@ -62,7 +61,7 @@ class ConditionalResponseWriterTest {
 
         @Test
         @DisplayName("Should render end part of simple partial render")
-        void shouldRenderSimpleEndPart() throws IOException {
+        void shouldRenderSimpleEndPart() throws Exception {
             // Arrange
             var builder = createSimplePartialRenderBuilder();
             var sink = new StringWriter();
@@ -84,7 +83,7 @@ class ConditionalResponseWriterTest {
 
         @Test
         @DisplayName("Should render start part of wrapped partial render")
-        void shouldRenderWrappedStartPart() throws IOException {
+        void shouldRenderWrappedStartPart() throws Exception {
             // Arrange
             var builder = createWrappedPartialRenderBuilder();
             var sink = new StringWriter();
@@ -101,7 +100,7 @@ class ConditionalResponseWriterTest {
 
         @Test
         @DisplayName("Should render end part of wrapped partial render")
-        void shouldRenderWrappedEndPart() throws IOException {
+        void shouldRenderWrappedEndPart() throws Exception {
             // Arrange
             var builder = createWrappedPartialRenderBuilder();
             var sink = new StringWriter();

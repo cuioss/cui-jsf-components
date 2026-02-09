@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -70,7 +70,7 @@ import java.util.List;
  */
 public final class NavigationUtils implements Serializable {
 
-    private static final CuiLogger log = new CuiLogger(NavigationUtils.class);
+    private static final CuiLogger LOGGER = new CuiLogger(NavigationUtils.class);
 
     /**
      * JSF file extension used for web-accessible views.
@@ -228,8 +228,8 @@ public final class NavigationUtils implements Serializable {
                     handleViewIdSuffix(url) + createParameterString(encode, parameters);
 
             redirect(facesContext, fullUrl);
-        } else if (log.isWarnEnabled()) {
-            log.warn(WARN.RESPONSE_ALREADY_COMMITTED::format);
+        } else if (LOGGER.isWarnEnabled()) {
+            LOGGER.warn(WARN.RESPONSE_ALREADY_COMMITTED);
         }
     }
 
@@ -348,7 +348,7 @@ public final class NavigationUtils implements Serializable {
         if (request instanceof HttpServletRequest servletRequest) {
             return UrlParameter.fromQueryString(Servlets.getRequestQueryString(servletRequest));
         }
-        log.warn(WARN.UNEXPECTED_ENVIRONMENT.format(request));
+        LOGGER.warn(WARN.UNEXPECTED_ENVIRONMENT, request);
         return Collections.emptyList();
     }
 
@@ -388,8 +388,8 @@ public final class NavigationUtils implements Serializable {
         if (!response.isCommitted()) {
             final var fullUrl = response.encodeRedirectURL(calculatedUrl);
             redirect(facesContext, fullUrl);
-        } else if (log.isWarnEnabled()) {
-            log.warn(WARN.RESPONSE_ALREADY_COMMITTED::format);
+        } else if (LOGGER.isWarnEnabled()) {
+            LOGGER.warn(WARN.RESPONSE_ALREADY_COMMITTED);
         }
     }
 
@@ -408,7 +408,7 @@ public final class NavigationUtils implements Serializable {
             return nullToEmpty(servletRequest.getRequestURI())
                     .replaceFirst(nullToEmpty(servletRequest.getContextPath()), "");
         }
-        log.warn(WARN.UNEXPECTED_ENVIRONMENT.format(request));
+        LOGGER.warn(WARN.UNEXPECTED_ENVIRONMENT, request);
         return null;
     }
 

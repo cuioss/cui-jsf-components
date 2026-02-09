@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -45,7 +45,7 @@ class BaseDecoratorRendererTest extends AbstractRendererTestBase<MockDecoratorRe
 
         @Test
         @DisplayName("Should render component with children")
-        void shouldRenderComponentWithChildren(FacesContext facesContext) throws IOException {
+        void shouldRenderComponentWithChildren(FacesContext facesContext) throws Exception {
             // Arrange
             var component = getComponent();
             var renderer = new MockDecoratorRenderer(true);
@@ -61,7 +61,7 @@ class BaseDecoratorRendererTest extends AbstractRendererTestBase<MockDecoratorRe
 
         @Test
         @DisplayName("Should render component without children")
-        void shouldRenderComponentWithoutChildren(FacesContext facesContext) throws IOException {
+        void shouldRenderComponentWithoutChildren(FacesContext facesContext) throws Exception {
             // Arrange
             var component = getComponent();
             var renderer = new MockDecoratorRenderer(false);
@@ -77,7 +77,7 @@ class BaseDecoratorRendererTest extends AbstractRendererTestBase<MockDecoratorRe
 
         @Test
         @DisplayName("Should not render component when rendered property is false")
-        void shouldNotRenderWhenRenderedIsFalse(FacesContext facesContext) throws IOException {
+        void shouldNotRenderWhenRenderedIsFalse(FacesContext facesContext) throws Exception {
             // Arrange
             final var component = getComponent();
             component.setRendered(false);

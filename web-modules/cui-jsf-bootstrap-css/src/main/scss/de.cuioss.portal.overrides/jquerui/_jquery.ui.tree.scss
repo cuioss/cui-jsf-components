@@ -47,7 +47,9 @@ $size-tree-toggler: 18px !default;
 
   .ui-tree {
     .ui-treenode-disabled {
-      @extend .form-control[disabled];
+      cursor: $cursor-disabled;
+      background-color: $input-bg-disabled;
+      opacity: 1;
     }
   }
 }

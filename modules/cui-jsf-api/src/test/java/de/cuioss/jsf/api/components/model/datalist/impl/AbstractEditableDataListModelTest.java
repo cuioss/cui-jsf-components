@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -63,7 +63,7 @@ class AbstractEditableDataListModelTest extends ValueObjectTest<SomeModelEditabl
     @Test
     void shouldEditData() {
         final var underTest = anyValueObject();
-        final var edit = underTest.getDisplayItems().iterator().next();
+        final var edit = underTest.getDisplayItems().getFirst();
         underTest.editItem(edit);
         assertFalse(underTest.isEveryItemSavedOrCanceled());
         edit.getWrapped().setName(strings.next());
@@ -76,7 +76,7 @@ class AbstractEditableDataListModelTest extends ValueObjectTest<SomeModelEditabl
     @Test
     void shouldCancelEditData() {
         final var underTest = anyValueObject();
-        final var edit = underTest.getDisplayItems().iterator().next();
+        final var edit = underTest.getDisplayItems().getFirst();
         final var initial = new SomeModel(edit.getWrapped());
         underTest.editItem(edit);
         edit.getWrapped().setName(strings.next());
@@ -135,7 +135,7 @@ class AbstractEditableDataListModelTest extends ValueObjectTest<SomeModelEditabl
     @Test
     void shouldRemoveData() {
         final var underTest = anyValueObject();
-        final var delete = underTest.getDisplayItems().iterator().next();
+        final var delete = underTest.getDisplayItems().getFirst();
         underTest.markForDelete(delete);
         assertNull(getEditElement(underTest));
         assertEquals(1, underTest.getDeletedItems().size());
@@ -146,7 +146,7 @@ class AbstractEditableDataListModelTest extends ValueObjectTest<SomeModelEditabl
     void shouldEmitModifiedEvent() {
         final var underTest = anyValueObject();
         underTest.resetEventData();
-        final var edit = underTest.getDisplayItems().iterator().next();
+        final var edit = underTest.getDisplayItems().getFirst();
         // First Check: Event should not be called if no change has happened
         underTest.editItem(edit);
         underTest.saveEditItem(edit);
@@ -180,7 +180,7 @@ class AbstractEditableDataListModelTest extends ValueObjectTest<SomeModelEditabl
     void shouldEmitDeleteEvent() {
         final var underTest = anyValueObject();
         underTest.resetEventData();
-        final var delete = underTest.getDisplayItems().iterator().next();
+        final var delete = underTest.getDisplayItems().getFirst();
         // Now check for changes
         underTest.markForDelete(delete);
         assertNull(underTest.getNewValue());
@@ -197,7 +197,7 @@ class AbstractEditableDataListModelTest extends ValueObjectTest<SomeModelEditabl
     void shouldTrackChangesForDelete() {
         final var underTest = anyValueObject();
         assertFalse(underTest.hasChanges());
-        final var delete = underTest.getDisplayItems().iterator().next();
+        final var delete = underTest.getDisplayItems().getFirst();
         underTest.markForDelete(delete);
         assertTrue(underTest.hasChanges());
         underTest.undoMarkForDelete(delete);
@@ -208,7 +208,7 @@ class AbstractEditableDataListModelTest extends ValueObjectTest<SomeModelEditabl
     void shouldTrackChangesForEdit() {
         final var underTest = anyValueObject();
         assertFalse(underTest.hasChanges());
-        final var edit = underTest.getDisplayItems().iterator().next();
+        final var edit = underTest.getDisplayItems().getFirst();
         // First Check: Event should not be called if no change has happened
         underTest.editItem(edit);
         edit.getWrapped().setAge(1 + edit.getWrapped().getAge());

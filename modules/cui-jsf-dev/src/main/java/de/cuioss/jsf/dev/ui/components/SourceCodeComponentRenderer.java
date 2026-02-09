@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -95,7 +95,7 @@ import java.util.List;
 @FacesRenderer(componentFamily = SourceCodeComponent.COMPONENT_FAMILY_FIELD, rendererType = SourceCodeComponent.RENDERER_TYPE)
 public class SourceCodeComponentRenderer extends BaseDecoratorRenderer<SourceCodeComponent> {
 
-    private static final CuiLogger log = new CuiLogger(SourceCodeComponentRenderer.class);
+    private static final CuiLogger LOGGER = new CuiLogger(SourceCodeComponentRenderer.class);
 
     /**
      * Line separator used for rendering the source code
@@ -200,8 +200,7 @@ public class SourceCodeComponentRenderer extends BaseDecoratorRenderer<SourceCod
             writer.withTextContent(component.getDescription().formatted(), true);
             writer.withEndElement(Node.P);
         }
-        @SuppressWarnings("RedundantStringFormatCall")
-        final var resolvedSource = component.resolveSource().replace("%", "%%").formatted().replace("%n",
+        @SuppressWarnings("RedundantStringFormatCall") final var resolvedSource = component.resolveSource().replace("%", "%%").formatted().replace("%n",
                 LINE_SEPARATOR);
         if (component.isEnableClipboard()) {
             renderCopyElements(writer, resolvedSource);
@@ -319,7 +318,7 @@ public class SourceCodeComponentRenderer extends BaseDecoratorRenderer<SourceCod
         final var indent = computeIndent(line);
         final var splitted = Splitter.on(' ').trimResults().splitToList(line.trim());
         if (splitted.size() < 2) {
-            log.debug("No Whitespace found to split on line {}", line);
+            LOGGER.debug("No Whitespace found to split on line %s", line);
             result.add(line);
             return;
         }

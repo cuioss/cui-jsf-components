@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,8 +40,6 @@ import jakarta.faces.context.FacesContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class NavigationMenuRendererTest extends AbstractComponentRendererTest<NavigationMenuRenderer> {
 
@@ -73,7 +71,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     }
 
     @Test
-    void shouldRenderMinimalWithCommand(FacesContext facesContext) throws IOException {
+    void shouldRenderMinimalWithCommand(FacesContext facesContext) throws Exception {
         final var menuModelItem = new NavigationMenuItemSingleImpl(10);
         menuModelItem.setOutcome(OUTCOME_HOME);
         menuModelItem.setLabelValue(RESOLVED_LABEL);
@@ -85,7 +83,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     }
 
     @Test
-    void shouldRenderMinimalWithActiveState(FacesContext facesContext) throws IOException {
+    void shouldRenderMinimalWithActiveState(FacesContext facesContext) throws Exception {
         final var menuModelItem = new NavigationMenuItemSingleImpl(10);
         menuModelItem.setOutcome(OUTCOME_HOME);
         menuModelItem.setLabelValue(RESOLVED_LABEL);
@@ -102,7 +100,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     }
 
     @Test
-    void shouldRenderMinimalWithExternalHref(FacesContext facesContext) throws IOException {
+    void shouldRenderMinimalWithExternalHref(FacesContext facesContext) throws Exception {
         final var menuModelItem = new NavigationMenuItemExternalSingleImpl(10);
         menuModelItem.setHRef("http://www.google.de");
         menuModelItem.setLabelValue(RESOLVED_LABEL);
@@ -119,7 +117,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     }
 
     @Test
-    void shouldRenderMinimalWithTarget(FacesContext facesContext) throws IOException {
+    void shouldRenderMinimalWithTarget(FacesContext facesContext) throws Exception {
         final var menuModelItem = new NavigationMenuItemSingleImpl(10);
         menuModelItem.setOutcome(OUTCOME_HOME);
         menuModelItem.setLabelValue(RESOLVED_LABEL);
@@ -135,7 +133,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     }
 
     @Test
-    void shouldRenderMinimalWithCommandAndIcon(FacesContext facesContext) throws IOException {
+    void shouldRenderMinimalWithCommandAndIcon(FacesContext facesContext) throws Exception {
         final var menuModelItem = new NavigationMenuItemSingleImpl(10);
         menuModelItem.setOutcome(OUTCOME_HOME);
         menuModelItem.setLabelValue(RESOLVED_LABEL);
@@ -152,7 +150,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     }
 
     @Test
-    void shouldRenderMinimalWithSeparator(FacesContext facesContext) throws IOException {
+    void shouldRenderMinimalWithSeparator(FacesContext facesContext) throws Exception {
         final var component = new NavigationMenuComponent();
         component.setModel(new NavigationMenuItemSeparatorImpl(10));
         final var builder = new HtmlTreeBuilder().withNode(Node.LI).withAttributeNameAndId(CLIENT_ID)
@@ -161,7 +159,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     }
 
     @Test
-    void shouldRenderMinimalWithContainer(FacesContext facesContext) throws IOException {
+    void shouldRenderMinimalWithContainer(FacesContext facesContext) throws Exception {
         final var component = new NavigationMenuComponent();
         component.setId("foo");
         var navigationMenuItemContainer = new NavigationMenuItemContainerImpl(10);
@@ -177,7 +175,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
      * expected icons: south, east, east Structure: C1 > C2 > C3 > Single
      */
     @Test
-    void shouldRenderNestedContainers(FacesContext facesContext) throws IOException {
+    void shouldRenderNestedContainers(FacesContext facesContext) throws Exception {
         final var component = new NavigationMenuComponent();
         NavigationMenuItemContainer container1 = new NavigationMenuItemContainerImpl(10);
         NavigationMenuItemContainer container2 = new NavigationMenuItemContainerImpl(10);
@@ -209,7 +207,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
      * children.
      */
     @Test
-    void shouldRenderComplexMenuItem(FacesContext facesContext) throws IOException {
+    void shouldRenderComplexMenuItem(FacesContext facesContext) throws Exception {
         final var menuModelItem = new NavigationMenuItemContainerImpl(10);
         final var id = "linkId_0";
         final var topLevelText = "parentlabelValue";
@@ -246,7 +244,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     }
 
     @Test
-    void shouldRenderModelItemsWithMultipleElements(FacesContext facesContext) throws IOException {
+    void shouldRenderModelItemsWithMultipleElements(FacesContext facesContext) throws Exception {
         final var component = new NavigationMenuComponent();
         final NavigationMenuItemContainer menuModelItem1 = new NavigationMenuItemContainerImpl(10);
         final var menuModelItem2 = new NavigationMenuItemSingleImpl(10);
@@ -262,7 +260,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     }
 
     @Test
-    void shouldRenderModelItemsWithOneElement(FacesContext facesContext) throws IOException {
+    void shouldRenderModelItemsWithOneElement(FacesContext facesContext) throws Exception {
         final var menuModelItem = new NavigationMenuItemContainerImpl(10);
         menuModelItem.setIconStyleClass("fooicon");
         final var child1 = new NavigationMenuItemSingleImpl(10);
@@ -292,7 +290,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
      * children with separator.
      */
     @Test
-    void shouldRenderComplexMenuItemWithSeparator(FacesContext facesContext) throws IOException {
+    void shouldRenderComplexMenuItemWithSeparator(FacesContext facesContext) throws Exception {
         final var menuModelItem = new NavigationMenuItemContainerImpl(10);
         final var id = "linkId";
         final var topLevelText = "parentLabelValue";
@@ -335,7 +333,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
     }
 
     @Test
-    void shouldRenderSeparator(FacesContext facesContext) throws IOException {
+    void shouldRenderSeparator(FacesContext facesContext) throws Exception {
         final var component = (NavigationMenuComponent) getComponent();
         component.setId("compid");
         component.setModel(new NavigationMenuItemSeparatorImpl(10));

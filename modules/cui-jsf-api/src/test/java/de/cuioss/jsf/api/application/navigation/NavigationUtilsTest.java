@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,7 +31,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
@@ -151,9 +151,9 @@ class NavigationUtilsTest {
 
         @Test
         @DisplayName("Should send redirect with URL object")
-        void shouldSendRedirectWithUrl(FacesContext facesContext) throws MalformedURLException {
+        void shouldSendRedirectWithUrl(FacesContext facesContext) throws Exception {
             // Arrange
-            final var url = new URL(CUIOSS_DE);
+            final var url = URI.create(CUIOSS_DE).toURL();
 
             // Act
             NavigationUtils.executeRedirect(url);
@@ -169,7 +169,7 @@ class NavigationUtilsTest {
             NavigationUtils.sendRedirectParameterList(facesContext, SOMEWHERE_JSF, parameters);
 
             // Assert
-            verifyRedirect(CONTEXT_PATH + SOMEWHERE_JSF + UrlParameter.createParameterString(parameters.get(0)),
+            verifyRedirect(CONTEXT_PATH + SOMEWHERE_JSF + UrlParameter.createParameterString(parameters.getFirst()),
                     facesContext);
         }
 
@@ -180,7 +180,7 @@ class NavigationUtilsTest {
             NavigationUtils.sendRedirectOutcomeParameterList(facesContext, OUTCOME_NAVIGATED, parameters);
 
             // Assert
-            verifyRedirect(CONTEXT_PATH + VIEW_NAVIGATED + UrlParameter.createParameterString(parameters.get(0)),
+            verifyRedirect(CONTEXT_PATH + VIEW_NAVIGATED + UrlParameter.createParameterString(parameters.getFirst()),
                     facesContext);
         }
 
@@ -264,9 +264,9 @@ class NavigationUtilsTest {
             assertEquals(SOMEWHERE_XHTML, descriptor.getViewId(), "View ID should match set view");
             assertEquals(SOMEWHERE_JSF, descriptor.getLogicalViewId(), "Logical view ID should be converted to JSF");
             assertFalse(descriptor.getUrlParameter().isEmpty(), "URL parameters should not be empty");
-            assertEquals(PARAM_NAME, descriptor.getUrlParameter().get(0).getName(),
+            assertEquals(PARAM_NAME, descriptor.getUrlParameter().getFirst().getName(),
                     "Parameter name should match");
-            assertEquals(PARAM_VALUE, descriptor.getUrlParameter().get(0).getValue(),
+            assertEquals(PARAM_VALUE, descriptor.getUrlParameter().getFirst().getValue(),
                     "Parameter value should match");
         }
 
@@ -291,9 +291,9 @@ class NavigationUtilsTest {
             assertFalse(descriptor.getUrlParameter().isEmpty(), "URL parameters should not be empty");
 
             // Verify first parameter
-            assertEquals(PARAM_NAME, descriptor.getUrlParameter().get(0).getName(),
+            assertEquals(PARAM_NAME, descriptor.getUrlParameter().getFirst().getName(),
                     "First parameter name should match");
-            assertEquals(PARAM_VALUE, descriptor.getUrlParameter().get(0).getValue(),
+            assertEquals(PARAM_VALUE, descriptor.getUrlParameter().getFirst().getValue(),
                     "First parameter value should match");
 
             // Verify second parameter

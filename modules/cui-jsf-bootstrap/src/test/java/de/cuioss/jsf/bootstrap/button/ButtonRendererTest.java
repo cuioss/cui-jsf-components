@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,8 +39,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @DisplayName("Tests for ButtonRenderer")
 class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> {
@@ -70,7 +68,7 @@ class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> {
 
         @Test
         @DisplayName("Should render minimal button")
-        void shouldRenderMinimal(FacesContext facesContext) throws IOException {
+        void shouldRenderMinimal(FacesContext facesContext) throws Exception {
             // Arrange
             var component = getComponent();
 
@@ -97,7 +95,7 @@ class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> {
 
         @Test
         @DisplayName("Should handle state property")
-        void shouldHandleState(FacesContext facesContext) throws IOException {
+        void shouldHandleState(FacesContext facesContext) throws Exception {
             // Arrange
             var component = new Button();
             component.setState("info");
@@ -109,7 +107,7 @@ class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> {
 
         @Test
         @DisplayName("Should handle size property")
-        void shouldHandleSize(FacesContext facesContext) throws IOException {
+        void shouldHandleSize(FacesContext facesContext) throws Exception {
             // Arrange
             var component = new Button();
             component.setSize("lg");
@@ -126,7 +124,7 @@ class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> {
 
         @Test
         @DisplayName("Should handle title property")
-        void shouldHandleTitle(FacesContext facesContext) throws IOException {
+        void shouldHandleTitle(FacesContext facesContext) throws Exception {
             // Arrange
             var component = new Button();
             component.setTitleValue(TEXT_VALUE);
@@ -139,7 +137,7 @@ class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> {
 
         @Test
         @DisplayName("Should handle text value")
-        void shouldHandleTextValue(FacesContext facesContext) throws IOException {
+        void shouldHandleTextValue(FacesContext facesContext) throws Exception {
             // Arrange
             var component = new Button();
             component.setLabelValue(TEXT_VALUE);
@@ -153,7 +151,7 @@ class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> {
 
         @Test
         @DisplayName("Should handle icon on left")
-        void shouldHandleIconOnLeft(FacesContext facesContext) throws IOException {
+        void shouldHandleIconOnLeft(FacesContext facesContext) throws Exception {
             // Arrange
             var component = new Button();
             component.setLabelValue(TEXT_VALUE);
@@ -168,7 +166,7 @@ class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> {
 
         @Test
         @DisplayName("Should handle icon on right")
-        void shouldHandleIconOnRight(FacesContext facesContext) throws IOException {
+        void shouldHandleIconOnRight(FacesContext facesContext) throws Exception {
             // Arrange
             var component = new Button();
             component.setLabelValue(TEXT_VALUE);
@@ -184,7 +182,7 @@ class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> {
 
         @Test
         @DisplayName("Should handle icon only")
-        void shouldHandleIconOnly(FacesContext facesContext) throws IOException {
+        void shouldHandleIconOnly(FacesContext facesContext) throws Exception {
             // Arrange
             var component = new Button();
             component.setIcon(ANY_ICON);
@@ -202,7 +200,7 @@ class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> {
 
         @Test
         @DisplayName("Should handle key binding")
-        void shouldHandleKeyBinding(FacesContext facesContext) throws IOException {
+        void shouldHandleKeyBinding(FacesContext facesContext) throws Exception {
             // Arrange
             var component = new Button();
             component.setKeyBinding(KEY_BINDING);

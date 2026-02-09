@@ -97,10 +97,21 @@
     margin-bottom: 0;
     padding-right: 25px;
     &::before {
-      @extend .alert::before;
+      bottom: 0;
+      content: "";
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: $font-size-h2 + $alert-padding + $alert-padding;
     }
     &::after {
-      @extend .alert::after;
+      font-family: "cui-icon-font";
+      font-size: $font-size-h2;
+      left: $alert-padding / 2;
+      line-height: 1;
+      margin-top: -0.5em;
+      position: absolute;
+      top: 50%;
     }
   }
 }

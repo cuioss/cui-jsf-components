@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,6 +15,7 @@
  */
 package de.cuioss.jsf.dev.metadata.composite.util;
 
+import de.cuioss.jsf.dev.common.logging.DevLogMessages;
 import de.cuioss.tools.logging.CuiLogger;
 import org.w3c.dom.Node;
 import org.w3c.dom.ls.DOMImplementationLS;
@@ -76,7 +77,7 @@ public class SampleSourceFinder {
      * Used for logging errors during source code extraction and debugging information.
      * </p>
      */
-    private static final CuiLogger log = new CuiLogger(SampleSourceFinder.class);
+    private static final CuiLogger LOGGER = new CuiLogger(SampleSourceFinder.class);
 
     /**
      * <p>
@@ -285,7 +286,7 @@ public class SampleSourceFinder {
         try (var bis = new BufferedInputStream(new FileInputStream(file))) {
             // read xhtml into string
             var read = bis.read(buffer);
-            log.debug("Read bytes '{}'", read);
+            LOGGER.debug("Read bytes '%s'", read);
             var src = new String(buffer);
             // reduce it with content only
             src = Pattern.compile(UI_DEFINE_NAME_CONTENT).split(src)[1];
@@ -324,13 +325,13 @@ public class SampleSourceFinder {
                 result = result.substring(0, result.length() - 11);
             }
         } catch (final IOException e) {
-            log.error("Sample source not found in ".concat(file.getPath()), e);
+            LOGGER.error(e, DevLogMessages.ERROR.SAMPLE_SOURCE_IO_ERROR, file.getPath());
             result = EMPTY;
         } catch (final ParserConfigurationException e) {
-            log.error("Parser configuration exception in sample source of component ".concat(id), e);
+            LOGGER.error(e, DevLogMessages.ERROR.PARSER_CONFIG_ERROR, id);
             result = EMPTY;
         } catch (final SAXException | XPathExpressionException e) {
-            log.error("Parser exception in ".concat(file.getPath()), e);
+            LOGGER.error(e, DevLogMessages.ERROR.PARSER_EXCEPTION, file.getPath());
             result = EMPTY;
         }
         return result.trim();
