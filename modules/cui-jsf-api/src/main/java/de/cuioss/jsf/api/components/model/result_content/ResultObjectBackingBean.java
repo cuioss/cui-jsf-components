@@ -53,7 +53,8 @@ import jakarta.faces.component.UINamingContainer;
  * 
  * @author Oliver Wolff
  */
-@SuppressWarnings({"java:S1874", "java:S3740"}) // ResultObject from external dependency; raw type in generic framework utilities by design
+@SuppressWarnings({"java:S1874", "java:S3740"})
+// ResultObject from external dependency; raw type in generic framework utilities by design
 @FacesComponent("de.cuioss.jsf.api.components.model.resultContent.ResultObjectBackingBean")
 public class ResultObjectBackingBean extends UINamingContainer {
 

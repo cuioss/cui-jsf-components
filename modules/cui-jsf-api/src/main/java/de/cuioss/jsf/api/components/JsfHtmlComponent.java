@@ -64,7 +64,8 @@ import java.util.Collection;
  * @see Renderer
  * @see ComponentUtility
  */
-@SuppressWarnings("java:S3740") // Raw type in generic framework utilities by design
+@SuppressWarnings("java:S3740")
+// Raw type in generic framework utilities by design
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class JsfHtmlComponent<T extends UIComponent> {
 

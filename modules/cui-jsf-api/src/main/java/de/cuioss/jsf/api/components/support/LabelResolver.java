@@ -48,7 +48,8 @@ import java.io.Serializable;
  *
  * @author Oliver Wolff
  */
-@SuppressWarnings("java:S3740") // Raw type in generic framework utilities by design
+@SuppressWarnings("java:S3740")
+// Raw type in generic framework utilities by design
 @Builder(setterPrefix = "with")
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class LabelResolver {
