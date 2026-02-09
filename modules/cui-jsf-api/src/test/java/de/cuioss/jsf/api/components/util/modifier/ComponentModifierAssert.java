@@ -50,7 +50,9 @@ public class ComponentModifierAssert {
 
     public static void assertEditableValueHolder(final ComponentModifier componentModifier) {
         if (componentModifier.isEditableValueHolder()) {
-            // FIXME owolff componentModifier.isDisabled();
+            if (componentModifier.isSupportsDisabled()) {
+                componentModifier.isDisabled();
+            }
             componentModifier.isRequired();
         } else {
             assertThrows(UnsupportedOperationException.class, componentModifier::isRequired);

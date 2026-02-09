@@ -64,6 +64,7 @@ public interface WidgetModel extends LazyLoadingModel {
      *
      * @return the display name provider for the widget's title, never null
      */
+    @SuppressWarnings("java:S1452") // Wildcard return type required by public API
     IDisplayNameProvider<?> getTitle();
 
     /**
@@ -123,6 +124,7 @@ public interface WidgetModel extends LazyLoadingModel {
      *
      * @return the display name provider for the primary action's title, or null if not applicable
      */
+    @SuppressWarnings("java:S1452") // Wildcard return type required by public API
     IDisplayNameProvider<?> getPrimaryActionTitle();
 
     /**

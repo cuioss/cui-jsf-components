@@ -166,7 +166,7 @@ public class TagComponent extends BaseCuiInputComponent
             return Optional.empty();
         }
 
-        final var hiddenInput = getChildren().stream().filter(component -> component instanceof UIInput).findFirst();
+        final var hiddenInput = getChildren().stream().filter(UIInput.class::isInstance).findFirst();
 
         if (hiddenInput.isPresent()) {
             return Optional.of((UIInput) hiddenInput.get());
@@ -194,7 +194,7 @@ public class TagComponent extends BaseCuiInputComponent
             return Optional.empty();
         }
 
-        final var found = getChildren().stream().filter(component -> component instanceof CloseCommandButton)
+        final var found = getChildren().stream().filter(CloseCommandButton.class::isInstance)
                 .findFirst();
 
         if (found.isPresent()) {

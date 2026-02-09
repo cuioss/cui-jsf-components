@@ -72,10 +72,8 @@ public class ReflectionBasedModifier implements ComponentModifier {
     }
 
     private PropertyReadWrite supportsAttribute(final String attributeName) {
-        if (!description.containsKey(attributeName)) {
-            description.put(attributeName, PropertyReadWrite.resolveForBean(getComponent().getClass(), attributeName));
-        }
-        return description.get(attributeName);
+        return description.computeIfAbsent(attributeName,
+                key -> PropertyReadWrite.resolveForBean(getComponent().getClass(), key));
     }
 
     private Object readAttribute(final String attributeName) {
@@ -97,7 +95,7 @@ public class ReflectionBasedModifier implements ComponentModifier {
         if (!supportsAttribute(attributeName).isWriteable()) {
             throw new UnsupportedOperationException("Attribute not supported " + attributeName);
         }
-        PropertyUtil.writeProperty(getComponent(), attributeName, value);
+        PropertyUtil.setProperty(getComponent(), attributeName, value);
     }
 
     @Override

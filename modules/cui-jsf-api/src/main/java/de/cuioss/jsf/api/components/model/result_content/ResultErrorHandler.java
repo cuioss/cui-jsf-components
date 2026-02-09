@@ -87,6 +87,7 @@ public class ResultErrorHandler {
      * @param log the logger to use for logging error details
      * @throws UnsupportedOperationException if an unsupported result state is provided
      */
+    @SuppressWarnings("java:S4449") // Null parameter handled internally via null-check
     public void handleResultDetail(ResultState state, ResultDetail detail, Enum<?> errorCode,
             ErrorController errorController, CuiLogger log) {
         ContextState contextState;

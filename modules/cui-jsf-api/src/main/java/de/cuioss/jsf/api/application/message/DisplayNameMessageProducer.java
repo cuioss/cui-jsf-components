@@ -55,6 +55,8 @@ import java.io.Serializable;
  * @author Matthias Walliczek
  * @since 1.0
  */
+@SuppressWarnings("java:S1874")
+// ResultObject from external dependency; migration out of scope
 @RequestScoped
 @EqualsAndHashCode(exclude = {"messageProducer"})
 @ToString(exclude = {"messageProducer"})
@@ -78,8 +80,17 @@ public class DisplayNameMessageProducer implements Serializable {
     /**
      * The underlying message producer used to create and add faces messages.
      */
+    private final MessageProducer messageProducer;
+
+    /**
+     * Constructs a new DisplayNameMessageProducer with the specified message producer.
+     *
+     * @param messageProducer the message producer to delegate to, must not be null
+     */
     @Inject
-    MessageProducer messageProducer;
+    public DisplayNameMessageProducer(final MessageProducer messageProducer) {
+        this.messageProducer = messageProducer;
+    }
 
     /**
      * Creates and adds a global faces message using the detail information from the provided

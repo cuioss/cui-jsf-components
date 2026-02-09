@@ -93,14 +93,25 @@ public class MessageProducerBean implements MessageProducer {
     /**
      * The resource bundle wrapper used to look up message templates.
      */
-    @Inject
-    private ResourceBundleWrapper resourceBundle;
+    private final ResourceBundleWrapper resourceBundle;
 
     /**
      * Provider for the FacesContext to ensure availability during request processing.
      */
+    private final Provider<FacesContext> facesContextProvider;
+
+    /**
+     * Constructs a new MessageProducerBean with the specified dependencies.
+     *
+     * @param resourceBundle the resource bundle wrapper for message lookups, must not be null
+     * @param facesContextProvider the provider for the FacesContext, must not be null
+     */
     @Inject
-    private Provider<FacesContext> facesContextProvider;
+    public MessageProducerBean(final ResourceBundleWrapper resourceBundle,
+            final Provider<FacesContext> facesContextProvider) {
+        this.resourceBundle = resourceBundle;
+        this.facesContextProvider = facesContextProvider;
+    }
 
     /**
      * {@inheritDoc}

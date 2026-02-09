@@ -105,6 +105,7 @@ public interface LazyLoadingModel extends ActionListener, Serializable {
      *         notification should be displayed
      * @see #getNotificationBoxState()
      */
+    @SuppressWarnings("java:S1452") // Wildcard return type required by public API
     IDisplayNameProvider<?> getNotificationBoxValue();
 
     /**

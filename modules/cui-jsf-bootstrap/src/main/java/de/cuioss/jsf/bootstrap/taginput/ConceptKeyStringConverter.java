@@ -73,6 +73,8 @@ import java.util.*;
  * @see ConceptKeyType
  * @see MissingTagConceptKeyCategory
  */
+@SuppressWarnings("java:S3740")
+// Raw type in generic framework utilities by design
 @FacesConverter("ConceptKeyStringConverter")
 public class ConceptKeyStringConverter extends AbstractConverter<Collection<ConceptKeyType>> {
 
@@ -206,7 +208,6 @@ public class ConceptKeyStringConverter extends AbstractConverter<Collection<Conc
         // create new custom tag
         final var userTag = createNewUserTagIfClientCreated(element, context, component, itemConverter);
         if (userTag.isPresent()) {
-            // source.add(clientCreatedConceptKey);
             clientCreated.add(userTag.get());
             return userTag.get();
         }

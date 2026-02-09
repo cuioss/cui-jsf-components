@@ -86,8 +86,7 @@ class ConceptKeyTypeMenuModelTest extends ValueObjectTest<ConceptKeyTypeMenuMode
 
             // Act & Assert - null value change
             sut.processValueChange(new ValueChangeEvent(new HtmlInputText(), null, null));
-            // No assertion as the commented line suggests this behavior is expected
-            // Assertions.assertEquals(selected, sut.getSelectedValue());
+            // After null value change, selected value is set to null
 
             // Act & Assert - valid value change
             final var selected2 = TEST_CODE2;

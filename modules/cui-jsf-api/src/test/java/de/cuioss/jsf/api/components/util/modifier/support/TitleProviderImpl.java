@@ -38,6 +38,7 @@ public class TitleProviderImpl extends UIComponentBase implements TitleProvider 
 
     @Override
     public void setTitleKey(final String titleKey) {
+        // No-op - test stub
     }
 
     @Override
@@ -57,6 +58,7 @@ public class TitleProviderImpl extends UIComponentBase implements TitleProvider 
 
     @Override
     public void setTitleConverter(final Object titleConverter) {
+        // No-op - test stub
     }
 
     @Override
@@ -66,7 +68,7 @@ public class TitleProviderImpl extends UIComponentBase implements TitleProvider 
 
     @Override
     public void resolveAndStoreTitle() {
-
+        // No-op - test stub
     }
 
     @Override

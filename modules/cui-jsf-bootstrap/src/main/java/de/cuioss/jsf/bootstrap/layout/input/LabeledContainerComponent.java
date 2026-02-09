@@ -281,6 +281,7 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
      * related to.
      * It returns null if none could be found.
      */
+    @SuppressWarnings("java:S3776") // Complexity from debug logging in JSF renderer
     UIComponent findRelatedComponent() {
         final var forId = forIdentifierProvider.resolveFirstIdentifier();
         UIComponent found = null;

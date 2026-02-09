@@ -105,6 +105,8 @@ public class LazyLoadingRenderer extends BaseDecoratorRenderer<LazyLoadingCompon
         writer.withEndElement(Node.DIV);
     }
 
+    @SuppressWarnings("java:S3776")
+    // Complexity from debug logging in JSF renderer
     @Override
     protected void doEncodeChildren(final FacesContext context,
             final DecoratingResponseWriter<LazyLoadingComponent> writer, final LazyLoadingComponent component)

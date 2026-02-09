@@ -31,6 +31,7 @@ import java.util.List;
  * @author Oliver Wolff
  * @param <T> enum bounded type
  */
+@SuppressWarnings("java:S3740") // Raw type in generic framework utilities by design
 public class EnumSelectMenuModel<T extends Enum<T>> extends AbstractSelectMenuModel<T> {
 
     @Serial

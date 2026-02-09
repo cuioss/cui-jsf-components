@@ -64,14 +64,17 @@ public class MockEditableDataListModel implements EditableDataListModel<Serializ
 
     @Override
     public void editItem(final ItemWrapper<Serializable> item) {
+        // No-op - test mock
     }
 
     @Override
     public void cancelEditItem(final ItemWrapper<Serializable> item) {
+        // No-op - test mock
     }
 
     @Override
     public void saveEditItem(final ItemWrapper<Serializable> item) {
+        // No-op - test mock
     }
 
     /**
@@ -88,10 +91,12 @@ public class MockEditableDataListModel implements EditableDataListModel<Serializ
 
     @Override
     public void markForDelete(final ItemWrapper<Serializable> item) {
+        // No-op - test mock
     }
 
     @Override
     public void undoMarkForDelete(final ItemWrapper<Serializable> item) {
+        // No-op - test mock
     }
 
     @Override

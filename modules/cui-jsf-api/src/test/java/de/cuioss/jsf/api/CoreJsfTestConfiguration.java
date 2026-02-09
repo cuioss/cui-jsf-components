@@ -37,6 +37,7 @@ import jakarta.faces.render.Renderer;
  *
  * @author Oliver Wolff
  */
+@SuppressWarnings("java:S1874") // ResultObject from external dependency; migration out of scope
 public class CoreJsfTestConfiguration extends BasicApplicationConfiguration implements ComponentConfigurator {
 
     /** Test resource bundle path */

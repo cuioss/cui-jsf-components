@@ -148,7 +148,7 @@ public abstract class AbstractSelectMenuModelAndConverter<T extends Serializable
      * @return A map with string identifiers as keys and object values as values
      */
     private Map<String, T> getMapping(final Set<T> values) {
-        final Map<String, T> result = new HashMap<>(values.size());
+        final Map<String, T> result = HashMap.newHashMap(values.size());
         for (final T value : values) {
             result.put(getIdentifier(value), value);
         }

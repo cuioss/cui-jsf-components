@@ -168,7 +168,7 @@ public class InputGuardComponent extends BaseCuiHtmlHiddenInputComponent impleme
 
     @Override
     public PluginStateInfo provideContainerStateInfo() {
-        if (!isRendered() || resolveValue()) {
+        if (!isRendered() || Boolean.TRUE.equals(resolveValue())) {
             return PluginStateInfo.NO_STATE_INFO;
         }
         return PluginStateInfo.WARNING;

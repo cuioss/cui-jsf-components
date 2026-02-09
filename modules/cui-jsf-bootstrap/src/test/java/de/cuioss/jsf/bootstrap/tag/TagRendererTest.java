@@ -159,14 +159,6 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> {
         hiddenInput.setAttribute("name", "disposedInfo");
         hiddenInput.setAttribute("value", "false");
         current.getChildren().add(hiddenInput);
-        // Hidden input
-        /*
-         * final String inputId = computeSuffixedAttribute(component,
-         * TagComponent.DISPOSE_INFO_SUFFIX); expected.withNode(Node.INPUT)
-         * .withAttribute(AttributeName.TYPE, AttributeValue.HIDDEN)
-         * .withAttribute(AttributeName.ID, inputId) .withAttribute(AttributeName.NAME,
-         * inputId) .withAttribute(AttributeName.VALUE, Boolean.FALSE.toString());
-         */
         assertRenderResult(component, expected.getDocument(), facesContext);
     }
 
@@ -175,7 +167,7 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> {
     }
 
     @Test
-    void shouldNotRenderIfDisposed(FacesContext facesContext) throws Exception {
+    void shouldNotRenderIfDisposed(FacesContext facesContext) {
         final var component = new TagComponent();
         component.setModel(SOME_CONTENT_VALUE);
         component.setDisposable(true);
@@ -196,7 +188,7 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> {
     }
 
     private static UIInput getHiddenInput(final TagComponent component) {
-        return (UIInput) component.getChildren().stream().filter(child -> child instanceof UIInput).findFirst()
+        return (UIInput) component.getChildren().stream().filter(UIInput.class::isInstance).findFirst()
                 .orElseThrow(
                         () -> new IllegalStateException("Hidden input is missing but should be available as child"));
     }

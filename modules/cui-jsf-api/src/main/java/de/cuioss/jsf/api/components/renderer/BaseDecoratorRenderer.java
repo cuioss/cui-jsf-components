@@ -40,6 +40,7 @@ import java.io.IOException;
  *            {@link UIComponent}
  * @author Oliver Wolff
  */
+@SuppressWarnings("java:S3740") // Raw type in generic framework utilities by design
 public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
 
     private static final String JAVAX_FACES_SOURCE = "jakarta.faces.source";

@@ -27,7 +27,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings({"java:S1874", "java:S3740"})
+// Test stub implementing external ConceptKeyType API
 @EqualsAndHashCode
 @ToString(callSuper = true)
 public class TestConceptKey implements ConceptKeyType {

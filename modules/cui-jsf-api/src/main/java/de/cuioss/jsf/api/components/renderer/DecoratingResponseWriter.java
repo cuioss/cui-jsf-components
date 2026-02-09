@@ -358,7 +358,7 @@ public class DecoratingResponseWriter<T extends UIComponent> extends ResponseWri
      * @see <a href="https://learn.jquery.com/using-jquery-core/faq/how-do-i-select-an-element-by-an-id-that-has-characters-used-in-css-notation/">jQuery FAQ</a>
      */
     public static String escapeJavaScriptIdentifier(final String id) {
-        return id.replaceAll("(:|\\.|\\[|\\]|,|=|@)", "\\\\$1");
+        return id.replaceAll("([:.\\[\\],=@])", "\\\\$1");
     }
 
     /**
