@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,6 +16,7 @@
 package de.cuioss.jsf.api.converter;
 
 import de.cuioss.jsf.api.common.accessor.CuiProjectStageAccessor;
+import de.cuioss.jsf.api.common.logging.JsfApiLogMessages;
 import de.cuioss.jsf.api.security.CuiSanitizer;
 import de.cuioss.tools.logging.CuiLogger;
 import jakarta.faces.component.UIComponent;
@@ -71,7 +72,7 @@ public class FallbackSanitizingConverter extends AbstractConverter<String> {
      * Logger for this class, used to log warnings about improperly configured components
      * in development mode.
      */
-    private final CuiLogger log = new CuiLogger(FallbackSanitizingConverter.class);
+    private static final CuiLogger LOGGER = new CuiLogger(FallbackSanitizingConverter.class);
 
     /**
      * The sanitizer used for applying security filtering to potentially unsafe content.
@@ -138,8 +139,7 @@ public class FallbackSanitizingConverter extends AbstractConverter<String> {
 
         // Log warning in development mode to help identify components that should have proper escaping
         if (new CuiProjectStageAccessor().getValue().isDevelopment()) {
-            log.warn("CUI-101: Text not correct escaped or sanitized: '{}' in {} (component id {})", value,
-                    component.toString(), component.getId());
+            LOGGER.warn(JsfApiLogMessages.WARN.TEXT_NOT_SANITIZED.format(value, component.toString(), component.getId()));
         }
 
         // Apply sanitization as a fallback protection

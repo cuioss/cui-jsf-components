@@ -163,6 +163,24 @@ public final class JsfApiLogMessages {
                 .prefix(PREFIX)
                 .identifier(103)
                 .build();
+
+        /**
+         * Log message for ActiveIndexManager evaluation failures.
+         */
+        public static final LogRecord ACTIVE_INDEX_MANAGER_ERROR = LogRecordModel.builder()
+                .template("Could not evaluate accordions active indexes from ActiveIndexManager. Returning list with entry {0}.")
+                .prefix(PREFIX)
+                .identifier(104)
+                .build();
+
+        /**
+         * Log message for text not correctly escaped or sanitized.
+         */
+        public static final LogRecord TEXT_NOT_SANITIZED = LogRecordModel.builder()
+                .template("Text not correct escaped or sanitized: '%s' in %s (component id %s)")
+                .prefix(PREFIX)
+                .identifier(105)
+                .build();
     }
 
     /**
@@ -200,6 +218,15 @@ public final class JsfApiLogMessages {
                 .template(ERROR_OCCURRED_BUT_WAS_HANDLED_SILENT)
                 .prefix(PREFIX)
                 .identifier(201)
+                .build();
+
+        /**
+         * Log message for converter instantiation failures.
+         */
+        public static final LogRecord CONVERTER_INSTANTIATION_FAILED = LogRecordModel.builder()
+                .template("Unable to instantiate converter for %s, due to %s")
+                .prefix(PREFIX)
+                .identifier(202)
                 .build();
     }
 }

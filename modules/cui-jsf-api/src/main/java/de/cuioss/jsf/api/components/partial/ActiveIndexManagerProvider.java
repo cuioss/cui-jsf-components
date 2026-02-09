@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,6 +17,7 @@ package de.cuioss.jsf.api.components.partial;
 
 import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
+import de.cuioss.jsf.api.common.logging.JsfApiLogMessages;
 import de.cuioss.jsf.api.components.support.ActiveIndexManager;
 import de.cuioss.jsf.api.components.util.CuiState;
 import de.cuioss.tools.logging.CuiLogger;
@@ -43,9 +44,9 @@ import java.util.List;
  */
 public class ActiveIndexManagerProvider {
 
-    private static final CuiLogger log = new CuiLogger(ActiveIndexManagerProvider.class);
+    private static final CuiLogger LOGGER = new CuiLogger(ActiveIndexManagerProvider.class);
 
-    private static final String MANAGER_EVALUATION_ERROR_MSG = "Portal-114: Could not evaluate accordions active indexes from ActiveIndexManager. Returning list with entry {0}.";
+
 
     /**
      * The key for the {@link StateHelper}
@@ -90,8 +91,9 @@ public class ActiveIndexManagerProvider {
                 }
                 return Collections.emptyList();
             }
+        // cui-rewrite:disable InvalidExceptionUsageRecipe
         } catch (Exception e) {
-            log.warn(MANAGER_EVALUATION_ERROR_MSG, e);
+            LOGGER.warn(e, JsfApiLogMessages.WARN.ACTIVE_INDEX_MANAGER_ERROR::format);
         }
         return immutableList(0);
     }

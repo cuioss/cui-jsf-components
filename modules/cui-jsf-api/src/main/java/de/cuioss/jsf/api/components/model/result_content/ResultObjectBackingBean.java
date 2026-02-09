@@ -82,7 +82,7 @@ public class ResultObjectBackingBean extends UINamingContainer {
      */
     public ResultContent getResultContent() {
         if (null == resultContent) {
-            resultContent = new ResultContent(modelAccessor.value(getAttributes()), log);
+            resultContent = new ResultContent(modelAccessor.value(getAttributes()), LOGGER);
         }
         return resultContent;
     }

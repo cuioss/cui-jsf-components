@@ -91,7 +91,7 @@ class FallbackSanitizingConverterTest {
             // Assert
             assertEquals("", result,
                     "Output components without escaping should have dangerous content sanitized");
-            LogAsserts.assertSingleLogMessagePresentContaining(TestLogLevel.WARN, "CUI-101");
+            LogAsserts.assertSingleLogMessagePresentContaining(TestLogLevel.WARN, "Text not correct escaped or sanitized");
         }
     }
 }

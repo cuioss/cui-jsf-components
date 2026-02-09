@@ -44,7 +44,7 @@ class ResultContentTest {
 
     @Test
     void valid() {
-        var underTest = new ResultContent(new ResultObject<>("", ResultState.VALID), log);
+        var underTest = new ResultContent(new ResultObject<>("", ResultState.VALID), LOGGER);
         assertEquals(underTest, SerializableContractImpl.serializeAndDeserialize(underTest));
         assertNotNull(underTest.getNotificationBoxMessages());
         assertTrue(underTest.getNotificationBoxMessages().isEmpty());
@@ -54,7 +54,7 @@ class ResultContentTest {
     @Test
     void error() {
         var underTest = new ResultContent(
-                new ResultObject<>("", ResultState.ERROR, new ResultDetail(new DisplayName("Test")), null), log);
+                new ResultObject<>("", ResultState.ERROR, new ResultDetail(new DisplayName("Test")), null), LOGGER);
         assertEquals(underTest, SerializableContractImpl.serializeAndDeserialize(underTest));
         assertNotNull(underTest.getNotificationBoxMessages());
         assertFalse(underTest.getNotificationBoxMessages().isEmpty());

@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +19,7 @@ import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.jsf.api.components.base.BaseCuiInputComponent;
+import de.cuioss.jsf.bootstrap.common.logging.BootstrapLogMessages;
 import de.cuioss.jsf.api.components.events.ModelPayloadEvent;
 import de.cuioss.jsf.api.components.partial.*;
 import de.cuioss.jsf.api.components.util.CuiState;
@@ -85,7 +86,7 @@ import java.util.Optional;
 public class TagComponent extends BaseCuiInputComponent
         implements TitleProvider, ClientBehaviorHolder, ValueChangeListener {
 
-    private static final CuiLogger log = new CuiLogger(TagComponent.class);
+    private static final CuiLogger LOGGER = new CuiLogger(TagComponent.class);
 
     /**
      * Suffix for clientId
@@ -218,13 +219,11 @@ public class TagComponent extends BaseCuiInputComponent
     @Override
     public void addClientBehavior(final String eventName, final ClientBehavior behavior) {
         final var button = accessCloseButton();
-        log.debug("Adding client Behavior name='{}', type = behavior='{}'", eventName, behavior);
+        LOGGER.debug("Adding client Behavior name='%s', type = behavior='%s'", eventName, behavior);
         if (button.isPresent()) {
             button.get().addClientBehavior(eventName, behavior);
         } else {
-            log.warn(
-                    "Invalid configuration: In order to use a client-behavior you need to set disposable=true, clientid='{}'",
-                    getClientId());
+            LOGGER.warn(BootstrapLogMessages.WARN.INVALID_CLIENT_BEHAVIOR_CONFIG.format(getClientId()));
         }
     }
 
