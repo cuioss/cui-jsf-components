@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 @EnableTestLogger
 class ResultContentTest {
 
-    private static final CuiLogger log = new CuiLogger(ResultContentTest.class);
+    private static final CuiLogger LOGGER = new CuiLogger(ResultContentTest.class);
 
     @Test
     void empty() {
@@ -44,7 +44,7 @@ class ResultContentTest {
 
     @Test
     void valid() {
-        var underTest = new ResultContent(new ResultObject<>("", ResultState.VALID), log);
+        var underTest = new ResultContent(new ResultObject<>("", ResultState.VALID), LOGGER);
         assertEquals(underTest, SerializableContractImpl.serializeAndDeserialize(underTest));
         assertNotNull(underTest.getNotificationBoxMessages());
         assertTrue(underTest.getNotificationBoxMessages().isEmpty());
@@ -54,7 +54,7 @@ class ResultContentTest {
     @Test
     void error() {
         var underTest = new ResultContent(
-                new ResultObject<>("", ResultState.ERROR, new ResultDetail(new DisplayName("Test")), null), log);
+                new ResultObject<>("", ResultState.ERROR, new ResultDetail(new DisplayName("Test")), null), LOGGER);
         assertEquals(underTest, SerializableContractImpl.serializeAndDeserialize(underTest));
         assertNotNull(underTest.getNotificationBoxMessages());
         assertFalse(underTest.getNotificationBoxMessages().isEmpty());

@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -48,7 +48,6 @@ import jakarta.faces.convert.ConverterException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -97,7 +96,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
             "[" + DEFAULT_OPTIONS + "]");
 
     @Test
-    void shouldRenderMinimal(FacesContext facesContext) throws IOException {
+    void shouldRenderMinimal(FacesContext facesContext) throws Exception {
         final var component = new TagInputComponent();
         final var expected = createInputNodeWithoutValue();
         addDataAttributes(expected, component, null);
@@ -105,7 +104,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
     }
 
     @Test
-    void shouldRenderDisabled(FacesContext facesContext) throws IOException {
+    void shouldRenderDisabled(FacesContext facesContext) throws Exception {
         final var component = new TagInputComponent();
         component.setDisabled(true);
         component.setValue(Set.of(CODE_TYPE_1));
@@ -117,7 +116,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
     }
 
     @Test
-    void shouldConsiderUserCreate(FacesContext facesContext) throws IOException {
+    void shouldConsiderUserCreate(FacesContext facesContext) throws Exception {
         final var component = new TagInputComponent();
         final var expected = createInputNodeWithoutValue();
         component.setLetUserCreateTags(false);
@@ -126,7 +125,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
     }
 
     @Test
-    void shouldConsiderSourceSet(FacesContext facesContext) throws IOException {
+    void shouldConsiderSourceSet(FacesContext facesContext) throws Exception {
         final var component = new TagInputComponent();
         final var expected = createInputNodeWithoutValue();
         final Set<ConceptKeyType> sourceSet = immutableSet(CODE_TYPE_1, CODE_TYPE_2);
@@ -137,7 +136,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
     }
 
     @Test
-    void shouldSanitizeOutput(FacesContext facesContext) throws IOException {
+    void shouldSanitizeOutput(FacesContext facesContext) throws Exception {
         final var component = new TagInputComponent();
         final var expected = createInputNodeWithoutValue();
         final Set<ConceptKeyType> sourceSet = immutableSet(CODE_TYPE_1_HARMFUL, CODE_TYPE_2);
@@ -151,7 +150,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
     }
 
     @Test
-    void shouldSetIdentifierAsValue(FacesContext facesContext) throws IOException {
+    void shouldSetIdentifierAsValue(FacesContext facesContext) throws Exception {
         final var component = new TagInputComponent();
         final var expected = createInputNodeWithoutValue().withAttribute(AttributeName.VALUE,
                 immutableList(CODE_TYPE_1, CODE_TYPE_2).toString());
@@ -164,7 +163,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
     }
 
     @Test
-    void shouldAddUndefinedToIdentifierAsValue(FacesContext facesContext) throws IOException {
+    void shouldAddUndefinedToIdentifierAsValue(FacesContext facesContext) throws Exception {
         final var component = new TagInputComponent();
         final Set<ConceptKeyType> value = immutableSortedSet(CODE_TYPE_1, CODE_TYPE_2, CODE_TYPE_3_UNDEFINED);
         final var expected = createInputNodeWithoutValue().withAttribute(AttributeName.VALUE, value.toString());
@@ -192,8 +191,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
         requestConfig.setRequestParameter(component.getClientId(), IDENTIFIER1_HEX);
         getRenderer().decode(facesContext, component);
         assertNotNull(component.getSubmittedValue());
-        @SuppressWarnings("unchecked")
-        final var submitted = (Set<CodeType>) component.getConvertedValue(facesContext,
+        @SuppressWarnings("unchecked") final var submitted = (Set<CodeType>) component.getConvertedValue(facesContext,
                 component.getSubmittedValue());
         assertEquals(1, submitted.size());
         assertEquals(CODE_TYPE_1, submitted.iterator().next());
@@ -208,8 +206,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
                 IDENTIFIER1_HEX + "," + IDENTIFIER2_HEX);
         getRenderer().decode(facesContext, component);
         assertNotNull(component.getSubmittedValue());
-        @SuppressWarnings("unchecked")
-        final var submitted = (Set<CodeType>) getRenderer().getConvertedValue(facesContext, component,
+        @SuppressWarnings("unchecked") final var submitted = (Set<CodeType>) getRenderer().getConvertedValue(facesContext, component,
                 component.getSubmittedValue());
         assertEquals(2, submitted.size());
         assertEquals(sourceSet, submitted);
@@ -224,8 +221,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
                 IDENTIFIER1_HEX + "," + IDENTIFIER2_HEX);
         getRenderer().decode(facesContext, component);
         assertNotNull(component.getSubmittedValue());
-        @SuppressWarnings("unchecked")
-        final var submitted = (Set<CodeType>) component.getConvertedValue(facesContext,
+        @SuppressWarnings("unchecked") final var submitted = (Set<CodeType>) component.getConvertedValue(facesContext,
                 component.getSubmittedValue());
         assertEquals(2, submitted.size());
         assertEquals(sourceSet, submitted);
@@ -241,8 +237,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
                 IDENTIFIER1_HEX + "," + Hex.encodeHexString("identifier3".getBytes()));
         getRenderer().decode(facesContext, component);
         assertNotNull(component.getSubmittedValue());
-        @SuppressWarnings("unchecked")
-        final var submitted = (Set<ConceptKeyType>) component.getConvertedValue(facesContext,
+        @SuppressWarnings("unchecked") final var submitted = (Set<ConceptKeyType>) component.getConvertedValue(facesContext,
                 component.getSubmittedValue());
         assertEquals(2, submitted.size());
         final var iterator = submitted.iterator();
@@ -259,8 +254,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
                 IDENTIFIER1_HEX + "," + IDENTIFIER2_HEX + ",");
         getRenderer().decode(facesContext, component);
         assertNotNull(component.getSubmittedValue());
-        @SuppressWarnings("unchecked")
-        final var submitted = (Set<CodeType>) component.getConvertedValue(facesContext,
+        @SuppressWarnings("unchecked") final var submitted = (Set<CodeType>) component.getConvertedValue(facesContext,
                 component.getSubmittedValue());
         assertEquals(2, submitted.size());
         assertEquals(sourceSet, submitted);
@@ -301,7 +295,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
     }
 
     @Test
-    void shouldDecodeClientCreatedTags(FacesContext facesContext, RequestConfigDecorator requestConfig) throws IOException {
+    void shouldDecodeClientCreatedTags(FacesContext facesContext, RequestConfigDecorator requestConfig) throws Exception {
         final var component = new TagInputComponent();
         final Set<ConceptKeyType> sourceSet = immutableSet(CODE_TYPE_1, CODE_TYPE_2);
         component.setSourceSet(sourceSet);
@@ -310,8 +304,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
                 CODE_TYPE_CLIENT_CREATED.getIdentifier());
         getRenderer().decode(facesContext, component);
         assertNotNull(component.getSubmittedValue());
-        @SuppressWarnings("unchecked")
-        final var submitted = (Set<ConceptKeyType>) component.getConvertedValue(facesContext,
+        @SuppressWarnings("unchecked") final var submitted = (Set<ConceptKeyType>) component.getConvertedValue(facesContext,
                 component.getSubmittedValue());
         assertEquals(1, submitted.size());
         assertEquals(CODE_TYPE_CLIENT_CREATED, submitted.iterator().next());
@@ -329,7 +322,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
     }
 
     @Test
-    void shouldConsiderMaxItems(FacesContext facesContext) throws IOException {
+    void shouldConsiderMaxItems(FacesContext facesContext) throws Exception {
         final var component = new TagInputComponent();
         final var expected = createInputNodeWithoutValue();
         final int maxItems = numberGenerator.next();
@@ -339,7 +332,7 @@ class TagInputRendererTest extends AbstractComponentRendererTest<TagInputRendere
     }
 
     @Test
-    void shouldConsiderRemoveButton(FacesContext facesContext) throws IOException {
+    void shouldConsiderRemoveButton(FacesContext facesContext) throws Exception {
         final var component = new TagInputComponent();
         final var expected = createInputNodeWithoutValue();
         component.setDisplayRemoveButton(false);

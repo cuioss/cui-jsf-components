@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,6 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +52,7 @@ class SourceCodeComponentRendererTest extends AbstractComponentRendererTest<Sour
     }
 
     @Test
-    void shouldRenderMinimal(FacesContext facesContext) throws IOException {
+    void shouldRenderMinimal(FacesContext facesContext) throws Exception {
         final var component = new SourceCodeComponent();
         component.setSource(MINIMAL_CONTENT);
         component.setEnableClipboard(false);
@@ -64,7 +63,7 @@ class SourceCodeComponentRendererTest extends AbstractComponentRendererTest<Sour
     }
 
     @Test
-    void shouldRenderWithDescription(FacesContext facesContext) throws IOException {
+    void shouldRenderWithDescription(FacesContext facesContext) throws Exception {
         final var component = new SourceCodeComponent();
         component.setSource(MINIMAL_CONTENT);
         component.setDescription(MINIMAL_DESCRIPTION);
@@ -79,7 +78,7 @@ class SourceCodeComponentRendererTest extends AbstractComponentRendererTest<Sour
     }
 
     @Test
-    void shouldRenderWithCopyButton(FacesContext facesContext) throws IOException {
+    void shouldRenderWithCopyButton(FacesContext facesContext) throws Exception {
         final var component = new SourceCodeComponent();
         component.setSource(MINIMAL_CONTENT);
         component.setEnableClipboard(true);
@@ -147,7 +146,7 @@ class SourceCodeComponentRendererTest extends AbstractComponentRendererTest<Sour
     }
 
     @Test
-    void shouldSanitizeLineBreaks(FacesContext facesContext) throws IOException {
+    void shouldSanitizeLineBreaks(FacesContext facesContext) throws Exception {
         final var component = new SourceCodeComponent();
         component.setEnableClipboard(false);
         component.setSource("1\n2\r3\n\r4\r\n5%n6");

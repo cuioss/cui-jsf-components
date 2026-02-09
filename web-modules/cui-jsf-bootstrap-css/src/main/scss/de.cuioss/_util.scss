@@ -85,7 +85,9 @@
 // In case of disabled this component renders a span. In order
 // to display this consistently we need to apply this class to the corresponding commandLinks.
 span.cui-span-disabled {
-  @extend .form-control[disabled];
+  cursor: $cursor-disabled;
+  background-color: $input-bg-disabled;
+  opacity: 1;
 }
 
 .cui-small-right-padding {

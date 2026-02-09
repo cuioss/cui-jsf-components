@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,8 +25,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
 
 @DisplayName("Tests for DashboardTagHandler")
 class DashboardTagHandlerTest {
@@ -54,7 +52,7 @@ class DashboardTagHandlerTest {
 
         @Test
         @DisplayName("Should handle empty widget list")
-        void shouldHandleEmptyWidgetList() throws IOException {
+        void shouldHandleEmptyWidgetList() throws Exception {
             // Arrange
             EasyMock.expect(tagAttribute.getObject(EasyMock.anyObject(FaceletContext.class))).andReturn(mutableList());
             EasyMock.replay(tagAttribute);
@@ -77,7 +75,7 @@ class DashboardTagHandlerTest {
 
         @Test
         @DisplayName("Should handle widget list with one item")
-        void shouldHandleWidgetListWithOneItem() throws IOException {
+        void shouldHandleWidgetListWithOneItem() throws Exception {
             // Arrange
             EasyMock.expect(dashboardWidgetModel.getCompositeComponentId()).andReturn("abc:def").anyTimes();
             EasyMock.replay(dashboardWidgetModel);

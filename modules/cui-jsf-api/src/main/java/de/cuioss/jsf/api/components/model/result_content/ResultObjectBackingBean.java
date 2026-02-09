@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -56,7 +56,7 @@ import jakarta.faces.component.UINamingContainer;
 @FacesComponent("de.cuioss.jsf.api.components.model.resultContent.ResultObjectBackingBean")
 public class ResultObjectBackingBean extends UINamingContainer {
 
-    private static final CuiLogger log = new CuiLogger(ResultObjectBackingBean.class);
+    private static final CuiLogger LOGGER = new CuiLogger(ResultObjectBackingBean.class);
 
     /**
      * The attribute accessor used to retrieve the ResultObject model from the component's attributes.
@@ -82,7 +82,7 @@ public class ResultObjectBackingBean extends UINamingContainer {
      */
     public ResultContent getResultContent() {
         if (null == resultContent) {
-            resultContent = new ResultContent(modelAccessor.value(getAttributes()), log);
+            resultContent = new ResultContent(modelAccessor.value(getAttributes()), LOGGER);
         }
         return resultContent;
     }

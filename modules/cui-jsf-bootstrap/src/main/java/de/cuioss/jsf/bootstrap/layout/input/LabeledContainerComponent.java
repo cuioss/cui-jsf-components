@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,6 +28,7 @@ import de.cuioss.jsf.api.components.util.styleclass.StyleClassModifierFactory;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.CssCuiBootstrap;
+import de.cuioss.jsf.bootstrap.common.logging.BootstrapLogMessages;
 import de.cuioss.jsf.bootstrap.common.partial.ContentColumnProvider;
 import de.cuioss.jsf.bootstrap.common.partial.LabelColumnProvider;
 import de.cuioss.jsf.bootstrap.common.partial.LayoutModeProvider;
@@ -112,7 +113,7 @@ import java.util.*;
 @FacesComponent(BootstrapFamily.LABELED_CONTAINER_COMPONENT)
 public class LabeledContainerComponent extends BaseCuiNamingContainer implements TitleProvider {
 
-    private static final CuiLogger log = new CuiLogger(LabeledContainerComponent.class);
+    private static final CuiLogger LOGGER = new CuiLogger(LabeledContainerComponent.class);
 
     /**
      * "data-labeled-container".
@@ -286,32 +287,24 @@ public class LabeledContainerComponent extends BaseCuiNamingContainer implements
         if (forId.isPresent()) {
             final var namingContainer = (UIComponent) findNearestNamingContainer(this);
             found = namingContainer.findComponent(forId.get());
-            if (log.isDebugEnabled()) {
+            if (LOGGER.isDebugEnabled()) {
                 try {
                     if (null == found && null == contentProvider.resolveContent() && isRendered()) {
                         if (getChildren().isEmpty()) {
-                            log.debug("LabeledContainer '{}' does not contain any children and no content.");
+                            LOGGER.debug("LabeledContainer '%s' does not contain any children and no content.", getClientId());
                         } else if (isApplicationInProductionStage()) {
-                            log.debug("""
-                                LabeledContainer '{}' does not contain an input component with id '{}'. \
-                                Please check if you want to render an input element and did not \
-                                adapt the id of this element. If you want to use it for output \
-                                text, you can ignore this message""", getClientId(), forId.get());
+                            LOGGER.debug("LabeledContainer '%s' does not contain an input component with id '%s'. Please check if you want to render an input element and did not adapt the id of this element. If you want to use it for output text, you can ignore this message", getClientId(), forId.get());
                         } else if (shouldNotRenderComplexOutput()) {
-                            log.info("""
-                                    LabeledContainer '{}' does not contain an input component with id '{}' and is \
-                                    not configured for complex output. Please check if you want to \
-                                    render an input element and did not adapt the id of this element. \
-                                    If you want to use it for output text, you can ignore this message""",
-                                    getClientId(), forId.get());
+                            LOGGER.info(BootstrapLogMessages.INFO.NO_INPUT_COMPONENT, getClientId(), forId.get());
                         }
                     }
+                    // cui-rewrite:disable InvalidExceptionUsageRecipe
                 } catch (Exception e) {
-                    log.debug("Exception during logging: ", e);
+                    LOGGER.debug("Exception during logging: ", e);
                 }
             }
         } else {
-            log.debug("forId is not present for '{}'", getClientId());
+            LOGGER.debug("forId is not present for '%s'", getClientId());
         }
         return found;
     }

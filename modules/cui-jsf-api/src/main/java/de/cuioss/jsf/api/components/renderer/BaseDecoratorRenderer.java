@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,6 +17,7 @@ package de.cuioss.jsf.api.components.renderer;
 
 import static de.cuioss.tools.string.MoreStrings.isEmpty;
 
+import de.cuioss.jsf.api.common.logging.JsfApiLogMessages;
 import de.cuioss.jsf.api.components.util.ComponentWrapper;
 import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.tools.string.MoreStrings;
@@ -43,7 +44,7 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
 
     private static final String JAVAX_FACES_SOURCE = "jakarta.faces.source";
     private static final String JAVAX_FACES_BEHAVIOR_EVENT = "jakarta.faces.behavior.event";
-    private static final CuiLogger log = new CuiLogger(BaseDecoratorRenderer.class);
+    private static final CuiLogger LOGGER = new CuiLogger(BaseDecoratorRenderer.class);
     private final boolean renderChildren;
 
     /**
@@ -172,8 +173,9 @@ public class BaseDecoratorRenderer<T extends UIComponent> extends Renderer {
             try {
                 final var application = context.getApplication();
                 converter = application.createConverter(converterType);
+                // cui-rewrite:disable InvalidExceptionUsageRecipe
             } catch (final Exception e) {
-                log.error("Unable to instantiate converter for {}, due to {}", converterType, e.getMessage(), e);
+                LOGGER.error(e, JsfApiLogMessages.ERROR.CONVERTER_INSTANTIATION_FAILED, converterType, e.getMessage());
                 return null;
             }
         } else if (null == converter) {

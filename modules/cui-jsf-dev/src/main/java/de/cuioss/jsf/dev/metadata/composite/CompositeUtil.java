@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -71,7 +71,7 @@ import java.beans.BeanInfo;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class CompositeUtil {
 
-    private static final CuiLogger log = new CuiLogger(CompositeUtil.class);
+    private static final CuiLogger LOGGER = new CuiLogger(CompositeUtil.class);
 
     /**
      * <p>
@@ -149,7 +149,7 @@ public final class CompositeUtil {
         metadata = facesContext.getApplication().getViewHandler()
                 .getViewDeclarationLanguage(facesContext, FACELET_SUFFIX)
                 .getComponentMetadata(facesContext, compositeComponentResource);
-        log.trace("Lazy loaded metadata for Composite Component %s:%s", libraryName, compositeName);
+        LOGGER.trace("Lazy loaded metadata for Composite Component %s:%s", libraryName, compositeName);
         return metadata;
     }
 }

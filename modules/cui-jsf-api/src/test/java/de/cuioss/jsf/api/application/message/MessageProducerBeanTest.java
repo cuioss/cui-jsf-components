@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -82,7 +82,7 @@ class MessageProducerBeanTest implements ShouldHandleObjectContracts<MessageProd
         // Assert
         final var messages = facesContext.getMessageList(COMPONENT_ID);
         assertEquals(1, messages.size(), "Should add exactly one message to the component");
-        final var facesMessage = messages.get(0);
+        final var facesMessage = messages.getFirst();
         assertEquals(FacesMessage.SEVERITY_ERROR, facesMessage.getSeverity(),
                 "Message should have ERROR severity");
         assertEquals(MESSAGE_PARAMETER, facesMessage.getDetail(),
@@ -149,7 +149,7 @@ class MessageProducerBeanTest implements ShouldHandleObjectContracts<MessageProd
 
         // Assert
         final var messages = facesContext.getMessageList(COMPONENT_ID);
-        final var facesMessage = messages.get(0);
+        final var facesMessage = messages.getFirst();
         assertEquals(FacesMessage.SEVERITY_INFO, facesMessage.getSeverity(),
                 "Message should have INFO severity");
         assertEquals(DETAIL_MESSAGE, facesMessage.getDetail(),
@@ -172,7 +172,7 @@ class MessageProducerBeanTest implements ShouldHandleObjectContracts<MessageProd
     private void assertMessageContent(FacesContext facesContext, final FacesMessage.Severity severity, final String detailText) {
         final var messages = facesContext.getMessageList();
         assertEquals(1, messages.size(), "Should have exactly one message");
-        final var facesMessage = messages.get(0);
+        final var facesMessage = messages.getFirst();
         assertEquals(severity, facesMessage.getSeverity(), "Message should have the expected severity");
         assertEquals(detailText, facesMessage.getDetail(), "Message detail should match expected text");
     }

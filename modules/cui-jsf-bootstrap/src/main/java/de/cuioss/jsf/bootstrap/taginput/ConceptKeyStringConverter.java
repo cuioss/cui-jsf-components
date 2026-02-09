@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,6 +22,7 @@ import static java.util.Objects.requireNonNull;
 
 import de.cuioss.jsf.api.converter.AbstractConverter;
 import de.cuioss.jsf.api.security.CuiSanitizer;
+import de.cuioss.jsf.bootstrap.common.logging.BootstrapLogMessages;
 import de.cuioss.jsf.bootstrap.tag.support.MissingTagConceptKeyCategory;
 import de.cuioss.tools.codec.DecoderException;
 import de.cuioss.tools.codec.Hex;
@@ -75,7 +76,7 @@ import java.util.*;
 @FacesConverter("ConceptKeyStringConverter")
 public class ConceptKeyStringConverter extends AbstractConverter<Collection<ConceptKeyType>> {
 
-    private static final CuiLogger log = new CuiLogger(ConceptKeyStringConverter.class);
+    private static final CuiLogger LOGGER = new CuiLogger(ConceptKeyStringConverter.class);
 
     /**
      * Converts a collection of ConceptKeyType objects to a delimited string.
@@ -123,7 +124,7 @@ public class ConceptKeyStringConverter extends AbstractConverter<Collection<Conc
         requireNonNull(component);
         if (!(component instanceof TagInputComponent)) {
             final var msg = "Component must be of type " + TagInputComponent.class.getSimpleName();
-            log.error(msg);
+            LOGGER.error(BootstrapLogMessages.ERROR.INVALID_COMPONENT_TYPE, TagInputComponent.class.getSimpleName());
             throw new ConverterException(msg);
         }
     }
@@ -219,11 +220,11 @@ public class ConceptKeyStringConverter extends AbstractConverter<Collection<Conc
                 return userTagDecoded.get();
             }
         } catch (final DecoderException e) {
-            log.error("Could not decode: " + element, e);
+            LOGGER.error(e, BootstrapLogMessages.ERROR.HEX_DECODE_ERROR, element);
         }
 
         final var msg = "Unable to match element with name: " + element;
-        log.error(msg);
+        LOGGER.error(BootstrapLogMessages.ERROR.UNABLE_TO_MATCH_ELEMENT, element);
         throw new ConverterException(msg);
     }
 
@@ -244,7 +245,7 @@ public class ConceptKeyStringConverter extends AbstractConverter<Collection<Conc
             final var name = value.substring(CLIENT_CREATED_SUFFIX.length());
             if (MoreStrings.isEmpty(name)) {
                 final var msg = "Invalid input value found: " + value;
-                log.error(msg);
+                LOGGER.error(BootstrapLogMessages.ERROR.INVALID_INPUT_VALUE, value);
                 throw new ConverterException(msg);
             }
 

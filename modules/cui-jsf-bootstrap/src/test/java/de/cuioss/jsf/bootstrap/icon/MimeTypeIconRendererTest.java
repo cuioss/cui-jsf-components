@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,8 +29,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @DisplayName("Tests for MimeTypeIconRenderer")
 class MimeTypeIconRendererTest extends AbstractComponentRendererTest<MimeTypeIconRenderer> {
@@ -43,7 +41,7 @@ class MimeTypeIconRendererTest extends AbstractComponentRendererTest<MimeTypeIco
 
         @Test
         @DisplayName("Should render minimal component with default settings")
-        void shouldRenderMinimalComponent(FacesContext facesContext) throws IOException {
+        void shouldRenderMinimalComponent(FacesContext facesContext) throws Exception {
             // Arrange
             var component = getComponent();
 
@@ -73,7 +71,7 @@ class MimeTypeIconRendererTest extends AbstractComponentRendererTest<MimeTypeIco
 
         @Test
         @DisplayName("Should render component with custom decorator class")
-        void shouldRenderWithCustomDecorator(FacesContext facesContext) throws IOException {
+        void shouldRenderWithCustomDecorator(FacesContext facesContext) throws Exception {
             // Arrange
             var component = new MimeTypeIconComponent();
             component.setDecoratorClass(TITLE);
@@ -103,7 +101,7 @@ class MimeTypeIconRendererTest extends AbstractComponentRendererTest<MimeTypeIco
 
         @Test
         @DisplayName("Should render component with specific mime type")
-        void shouldRenderWithSpecificMimeType(FacesContext facesContext) throws IOException {
+        void shouldRenderWithSpecificMimeType(FacesContext facesContext) throws Exception {
             // Arrange
             var component = new MimeTypeIconComponent();
             component.setMimeTypeIcon(MimeTypeIcon.AUDIO_BASIC);
@@ -133,7 +131,7 @@ class MimeTypeIconRendererTest extends AbstractComponentRendererTest<MimeTypeIco
 
         @Test
         @DisplayName("Should render component with custom size")
-        void shouldRenderWithCustomSize(FacesContext facesContext) throws IOException {
+        void shouldRenderWithCustomSize(FacesContext facesContext) throws Exception {
             // Arrange
             var component = new MimeTypeIconComponent();
             component.setSize(ContextSize.LG.name());
@@ -164,7 +162,7 @@ class MimeTypeIconRendererTest extends AbstractComponentRendererTest<MimeTypeIco
 
         @Test
         @DisplayName("Should render component with title attribute")
-        void shouldRenderWithTitleAttribute(FacesContext facesContext) throws IOException {
+        void shouldRenderWithTitleAttribute(FacesContext facesContext) throws Exception {
             // Arrange
             var component = new MimeTypeIconComponent();
             component.setTitleValue(TITLE);

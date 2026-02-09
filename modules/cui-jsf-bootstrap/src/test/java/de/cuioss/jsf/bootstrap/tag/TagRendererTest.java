@@ -1,12 +1,12 @@
 /*
- * Copyright 2023 the original author or authors.
- * <p>
+ * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -48,8 +48,6 @@ import org.jdom2.Element;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @EnableJSFCDIEnvironment
 @EnableResourceBundleSupport
@@ -70,7 +68,7 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> {
     private static final String SOME_KEY = "some.key";
 
     @Test
-    void shouldRenderMinimal(FacesContext facesContext) throws IOException {
+    void shouldRenderMinimal(FacesContext facesContext) throws Exception {
         final var component = new TagComponent();
         component.setContentKey(SOME_KEY);
         final var expected = new HtmlTreeBuilder().withNode(Node.DIV).withStyleClass(LABEL_PRIMARY_STYLE_CLASS)
@@ -79,7 +77,7 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> {
     }
 
     @Test
-    void shouldRenderTitleFromBundle(FacesContext facesContext) throws IOException {
+    void shouldRenderTitleFromBundle(FacesContext facesContext) throws Exception {
         final var component = new TagComponent();
         component.setContentValue(SOME_CONTENT_VALUE);
         component.setTitleKey(SOME_KEY);
@@ -107,7 +105,7 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> {
     }
 
     @Test
-    void shouldRenderState(FacesContext facesContext) throws IOException {
+    void shouldRenderState(FacesContext facesContext) throws Exception {
         final var component = new TagComponent();
         component.setContentValue(SOME_CONTENT_VALUE);
         component.setState(ContextState.DANGER.name());
@@ -119,7 +117,7 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> {
     }
 
     @Test
-    void shouldRenderSize(FacesContext facesContext) throws IOException {
+    void shouldRenderSize(FacesContext facesContext) throws Exception {
         final var component = new TagComponent();
         component.setContentValue(SOME_CONTENT_VALUE);
         component.setSize(ContextSize.LG.name());
@@ -131,7 +129,7 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> {
     }
 
     @Test
-    void shouldRenderDisposeButtonAndHiddenInput(FacesContext facesContext) throws IOException {
+    void shouldRenderDisposeButtonAndHiddenInput(FacesContext facesContext) throws Exception {
         final var component = new TagComponent();
         component.setId("tagComp");
         component.setModel(SOME_CONTENT_VALUE);
@@ -177,7 +175,7 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> {
     }
 
     @Test
-    void shouldNotRenderIfDisposed(FacesContext facesContext) throws IOException {
+    void shouldNotRenderIfDisposed(FacesContext facesContext) throws Exception {
         final var component = new TagComponent();
         component.setModel(SOME_CONTENT_VALUE);
         component.setDisposable(true);
