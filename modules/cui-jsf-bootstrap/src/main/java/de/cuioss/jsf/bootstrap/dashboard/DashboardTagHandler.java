@@ -60,80 +60,34 @@ public class DashboardTagHandler extends TagHandler {
         styleAttr = getAttribute("style");
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void apply(final FaceletContext ctx, final UIComponent parent) throws IOException {
         if (null == widgetsAttr) {
             throw new IllegalArgumentException("Property widgets not set!");
         }
 
-        String styleClass;
-        String widgetStyleClass;
-        final String style;
-
-        if (null == styleClassAttr) {
-            styleClass = null;
-        } else {
-            styleClass = (String) styleClassAttr.getObject(ctx);
-        }
-        if (MoreStrings.isEmpty(styleClass)) {
-            styleClass = "dashboard-wrapper";
-        }
-
-        if (null == widgetStyleClassAttr) {
-            widgetStyleClass = null;
-        } else {
-            widgetStyleClass = (String) widgetStyleClassAttr.getObject(ctx);
-        }
-        if (MoreStrings.isEmpty(widgetStyleClass)) {
-            widgetStyleClass = "col-sm-12 col-md-6 col-lg-4";
-        }
-
-        if (null == styleAttr) {
-            style = null;
-        } else {
-            style = (String) styleAttr.getObject(ctx);
-        }
+        var styleClass = resolveAttribute(styleClassAttr, ctx, "dashboard-wrapper");
+        var widgetStyleClass = resolveAttribute(widgetStyleClassAttr, ctx, "col-sm-12 col-md-6 col-lg-4");
+        var style = resolveAttribute(styleAttr, ctx, null);
 
         final var widgetList = (List<DashboardWidgetModel>) widgetsAttr.getObject(ctx);
         final var f = new File(System.getProperty("java.io.tmpdir"), "dashboard" + widgetList.hashCode() + ".xhtml");
         if (!f.exists()) {
-            final var writer = new PrintWriter(f, StandardCharsets.UTF_8);
-            final List<String> taglibRegistry = new ArrayList<>();
-            writer.println(
-                    "<ui:component xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:ui=\"http://xmlns.jcp.org/jsf/facelets\"");
-            for (final DashboardWidgetModel widget : widgetList) {
-                final var currentComponentNS = widget.getCompositeComponentId().substring(0,
-                        widget.getCompositeComponentId().lastIndexOf(':'));
-                if (!taglibRegistry.contains(currentComponentNS)) {
-                    taglibRegistry.add(currentComponentNS);
-                    writer.println("xmlns:" + currentComponentNS + "=\"http://xmlns.jcp.org/jsf/composite/"
-                            + currentComponentNS + "\"");
+            try (var writer = new PrintWriter(f, StandardCharsets.UTF_8)) {
+                writer.println(
+                        "<ui:component xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:ui=\"http://xmlns.jcp.org/jsf/facelets\"");
+                writeNamespaceDeclarations(writer, widgetList);
+                writer.println(">");
+                writer.print("<div class=\"" + styleClass);
+                if (!MoreStrings.isEmpty(style)) {
+                    writer.print("\" style=\"" + style);
                 }
-            }
-            writer.println(">");
-            writer.print("<div class=\"" + styleClass);
-            if (!MoreStrings.isEmpty(style)) {
-                writer.print("\" style=\"" + style);
-            }
-            writer.println("\">");
-            var widgetIndex = 0;
-            for (final DashboardWidgetModel widget : widgetList) {
-                writer.println("<div class=\"" + widgetStyleClass + "\">");
-                final var currentComponentNS = widget.getCompositeComponentId().substring(0,
-                        widget.getCompositeComponentId().lastIndexOf(':'));
-                final var componentName = widget.getCompositeComponentId()
-                        .substring(widget.getCompositeComponentId().lastIndexOf(':') + 1);
-                final var beanValExpStr = widgetsAttr.getValue().substring(0, widgetsAttr.getValue().lastIndexOf('}'))
-                        + ".get(" + widgetIndex + ")}";
-                widgetIndex++;
-                writer.println("<" + currentComponentNS + ":" + componentName + " id=\"" + widget.getId()
-                        + "\" model=\"" + beanValExpStr + "\" />");
+                writer.println("\">");
+                writeWidgetElements(writer, widgetList, widgetStyleClass);
                 writer.println("</div>");
+                writer.println("</ui:component>");
             }
-
-            writer.println("</div>");
-            writer.println("</ui:component>");
-            writer.close();
         }
         try {
             nextHandler.apply(ctx, parent);
@@ -142,5 +96,49 @@ public class DashboardTagHandler extends TagHandler {
             LOGGER.warn(e, BootstrapLogMessages.WARN.FACELET_INCLUDE_FAILED, f.getAbsolutePath());
         }
         f.deleteOnExit();
+    }
+
+    private static String resolveAttribute(final TagAttribute attribute, final FaceletContext ctx,
+            final String defaultValue) {
+        if (null == attribute) {
+            return defaultValue;
+        }
+        var value = (String) attribute.getObject(ctx);
+        if (MoreStrings.isEmpty(value)) {
+            return defaultValue;
+        }
+        return value;
+    }
+
+    private static void writeNamespaceDeclarations(final PrintWriter writer,
+            final List<DashboardWidgetModel> widgetList) {
+        final List<String> taglibRegistry = new ArrayList<>();
+        for (final DashboardWidgetModel widget : widgetList) {
+            final var currentComponentNS = widget.getCompositeComponentId().substring(0,
+                    widget.getCompositeComponentId().lastIndexOf(':'));
+            if (!taglibRegistry.contains(currentComponentNS)) {
+                taglibRegistry.add(currentComponentNS);
+                writer.println("xmlns:" + currentComponentNS + "=\"http://xmlns.jcp.org/jsf/composite/"
+                        + currentComponentNS + "\"");
+            }
+        }
+    }
+
+    private void writeWidgetElements(final PrintWriter writer, final List<DashboardWidgetModel> widgetList,
+            final String widgetStyleClass) {
+        var widgetIndex = 0;
+        for (final DashboardWidgetModel widget : widgetList) {
+            writer.println("<div class=\"" + widgetStyleClass + "\">");
+            final var currentComponentNS = widget.getCompositeComponentId().substring(0,
+                    widget.getCompositeComponentId().lastIndexOf(':'));
+            final var componentName = widget.getCompositeComponentId()
+                    .substring(widget.getCompositeComponentId().lastIndexOf(':') + 1);
+            final var beanValExpStr = widgetsAttr.getValue().substring(0, widgetsAttr.getValue().lastIndexOf('}'))
+                    + ".get(" + widgetIndex + ")}";
+            widgetIndex++;
+            writer.println("<" + currentComponentNS + ":" + componentName + " id=\"" + widget.getId()
+                    + "\" model=\"" + beanValExpStr + "\" />");
+            writer.println("</div>");
+        }
     }
 }
