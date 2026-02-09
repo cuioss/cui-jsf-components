@@ -78,8 +78,17 @@ public class DisplayNameMessageProducer implements Serializable {
     /**
      * The underlying message producer used to create and add faces messages.
      */
+    private final MessageProducer messageProducer;
+
+    /**
+     * Constructs a new DisplayNameMessageProducer with the specified message producer.
+     *
+     * @param messageProducer the message producer to delegate to, must not be null
+     */
     @Inject
-    MessageProducer messageProducer;
+    public DisplayNameMessageProducer(final MessageProducer messageProducer) {
+        this.messageProducer = messageProducer;
+    }
 
     /**
      * Creates and adds a global faces message using the detail information from the provided
