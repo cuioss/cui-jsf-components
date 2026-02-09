@@ -28,8 +28,6 @@ import de.cuioss.uimodel.result.ResultObject;
 import de.cuioss.uimodel.result.ResultState;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("java:S1874")
-// ResultObject from external dependency; migration out of scope
 @EnableTestLogger
 class ResultContentTest {
 
