@@ -175,7 +175,7 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> {
     }
 
     @Test
-    void shouldNotRenderIfDisposed(FacesContext facesContext) throws Exception {
+    void shouldNotRenderIfDisposed(FacesContext facesContext) {
         final var component = new TagComponent();
         component.setModel(SOME_CONTENT_VALUE);
         component.setDisposable(true);
@@ -196,7 +196,7 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> {
     }
 
     private static UIInput getHiddenInput(final TagComponent component) {
-        return (UIInput) component.getChildren().stream().filter(child -> child instanceof UIInput).findFirst()
+        return (UIInput) component.getChildren().stream().filter(UIInput.class::isInstance).findFirst()
                 .orElseThrow(
                         () -> new IllegalStateException("Hidden input is missing but should be available as child"));
     }

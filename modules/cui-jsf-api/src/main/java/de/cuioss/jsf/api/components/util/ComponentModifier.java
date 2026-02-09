@@ -18,8 +18,6 @@ package de.cuioss.jsf.api.components.util;
 import jakarta.faces.component.EditableValueHolder;
 import jakarta.faces.component.UIComponent;
 
-import java.util.Map;
-
 /**
  * <p>This interface provides a unified abstraction layer for manipulating common JSF component 
  * properties and attributes across different component types. It offers a consistent API for 

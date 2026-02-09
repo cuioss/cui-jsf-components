@@ -68,7 +68,7 @@ class LayoutComponentRendererTest extends AbstractComponentRendererTest<LayoutCo
 
         @Test
         @DisplayName("Should handle rendered set to false correctly")
-        void shouldHandleRenderedSetToFalse(FacesContext facesContext, ComponentConfigDecorator componentConfig) throws Exception {
+        void shouldHandleRenderedSetToFalse(FacesContext facesContext, ComponentConfigDecorator componentConfig) {
             // Arrange
             var component = new RowComponent();
             component.setRendered(false);

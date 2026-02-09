@@ -32,7 +32,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
-import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
