@@ -51,6 +51,7 @@ class BootstrapPanelComponentTest extends AbstractUiComponentTest<BootstrapPanel
 
     @BeforeEach
     void configureComponents(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
         decorator.registerUIComponent(BootstrapPanelComponent.class)
                 .registerMockRenderer(BootstrapFamily.COMPONENT_FAMILY, BootstrapFamily.PANEL_RENDERER);
     }

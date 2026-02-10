@@ -21,10 +21,12 @@ import de.cuioss.jsf.bootstrap.CssBootstrap;
 import de.cuioss.jsf.bootstrap.common.partial.ColumnCssResolver;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.html.HtmlOutputText;
 import jakarta.faces.context.FacesContext;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -32,6 +34,11 @@ import org.junit.jupiter.api.Test;
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @DisplayName("Tests for ControlGroupRenderer")
 class ControlGroupRendererTest extends AbstractComponentRendererTest<ControlGroupRenderer> {
+
+    @BeforeEach
+    void configureCuiComponents(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
+    }
 
     private static final String MINIMAL_COLUMN_CSS = ColumnCssResolver.COL_PREFIX + "8";
 

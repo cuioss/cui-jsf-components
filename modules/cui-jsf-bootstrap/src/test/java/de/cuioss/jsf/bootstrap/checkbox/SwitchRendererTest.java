@@ -60,6 +60,7 @@ class SwitchRendererTest extends AbstractComponentRendererTest<SwitchRenderer> {
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
         decorator.registerUIComponent(ColumnComponent.class).registerRenderer(LayoutComponentRenderer.class);
     }
 

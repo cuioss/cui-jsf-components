@@ -23,6 +23,8 @@ import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.component.AbstractUiComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -32,6 +34,11 @@ import org.junit.jupiter.api.Test;
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @DisplayName("Tests for MimeTypeIconComponent")
 class MimeTypeIconComponentTest extends AbstractUiComponentTest<MimeTypeIconComponent> {
+
+    @BeforeEach
+    void configureCuiComponents(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
+    }
 
     @Nested
     @DisplayName("Default behavior tests")

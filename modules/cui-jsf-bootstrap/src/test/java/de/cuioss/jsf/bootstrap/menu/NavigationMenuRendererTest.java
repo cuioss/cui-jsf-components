@@ -61,6 +61,7 @@ class NavigationMenuRendererTest extends AbstractComponentRendererTest<Navigatio
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
         decorator.registerUIComponent(HtmlOutcomeTargetLink.COMPONENT_TYPE, HtmlOutcomeTargetLink.class)
                 .registerMockRenderer(UIOutcomeTarget.COMPONENT_FAMILY, "jakarta.faces.Link");
         decorator.registerUIComponent(HtmlOutputLink.COMPONENT_TYPE, HtmlOutputLink.class)

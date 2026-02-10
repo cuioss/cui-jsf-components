@@ -29,6 +29,7 @@ import de.cuioss.test.jsf.mocks.ReverseConverter;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.NumberConverter;
 import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -40,6 +41,11 @@ import org.junit.jupiter.api.Test;
 @ExplicitParamInjection
 @DisplayName("Tests for LabelResolver")
 class LabelResolverTest {
+
+    @BeforeEach
+    void configureCuiComponents(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
+    }
 
     protected static final String MESSAGE_KEY = "de.cuioss.common.email.invalid";
 

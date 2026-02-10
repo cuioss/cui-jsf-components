@@ -76,26 +76,32 @@ class ActiveIndexManagerProviderImplTest extends AbstractPartialComponentTest {
 
             @Override
             public void setActiveIndexesString(String s) {
+                // No-op: stub for testing error handling in getActiveIndexes()
             }
 
             @Override
             public void resetToDefaultIndex() {
+                // No-op: stub for testing error handling in getActiveIndexes()
             }
 
             @Override
             public void setActiveIndex(Integer... i) {
+                // No-op: stub for testing error handling in getActiveIndexes()
             }
 
             @Override
             public void setActiveIndex(List<Integer> i) {
+                // No-op: stub for testing error handling in getActiveIndexes()
             }
 
             @Override
             public void setDefaultIndex(List<Integer> i) {
+                // No-op: stub for testing error handling in getActiveIndexes()
             }
 
             @Override
             public void toggleSingleIndex() {
+                // No-op: stub for testing error handling in getActiveIndexes()
             }
 
             @Override

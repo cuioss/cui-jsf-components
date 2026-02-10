@@ -18,12 +18,10 @@ package de.cuioss.jsf.api;
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.jsf.api.converter.ObjectToStringConverter;
 import de.cuioss.jsf.api.converter.StringIdentConverter;
-import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.defaults.BasicApplicationConfiguration;
 import de.cuioss.test.jsf.mocks.CuiMockRenderer;
 import jakarta.faces.convert.NumberConverter;
-import jakarta.faces.render.Renderer;
 
 /**
  * Defines a base setup for testing. Implicitly uses
@@ -31,13 +29,13 @@ import jakarta.faces.render.Renderer;
  * <ul>
  * <li>Registers {@link StringIdentConverter} {@link ObjectToStringConverter}
  * and {@link NumberConverter}</li>
- * <li>Registers a number of default components and {@link Renderer} derived
+ * <li>Registers a number of default components and renderers derived
  * from {@link JsfHtmlComponent}</li>
  * </ul>
  *
  * @author Oliver Wolff
  */
-public class CoreJsfTestConfiguration extends BasicApplicationConfiguration implements ComponentConfigurator {
+public class CoreJsfTestConfiguration extends BasicApplicationConfiguration {
 
     /** Test resource bundle path */
     public static final String TEST_BUNDLE_BASE_PATH = "de.cuioss.jsf.components.bundle.";
@@ -45,8 +43,7 @@ public class CoreJsfTestConfiguration extends BasicApplicationConfiguration impl
     /** cui-messages bundle path */
     public static final String CUI_BUNDLE_BASE_PATH = "de.cuioss.jsf.api.core.l18n.";
 
-    @Override
-    public void configureComponents(final ComponentConfigDecorator decorator) {
+    public static void configureComponents(final ComponentConfigDecorator decorator) {
         decorator.registerConverter(StringIdentConverter.class);
         decorator.registerConverter(NumberConverter.class, NumberConverter.CONVERTER_ID);
         decorator.registerConverter(ObjectToStringConverter.class);

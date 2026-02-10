@@ -50,6 +50,7 @@ class ModalDialogRendererTest extends AbstractComponentRendererTest<ModalDialogR
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
         decorator.registerCuiMockComponentWithRenderer();
     }
 

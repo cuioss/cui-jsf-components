@@ -24,6 +24,8 @@ import de.cuioss.test.generator.Generators;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -33,6 +35,11 @@ import org.junit.jupiter.api.Test;
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @DisplayName("Tests for SwitchComponent")
 class SwitchComponentTest extends AbstractComponentTest<SwitchComponent> {
+
+    @BeforeEach
+    void configureCuiComponents(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
+    }
 
     @Nested
     @DisplayName("Metadata tests")

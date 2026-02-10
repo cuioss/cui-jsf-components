@@ -55,6 +55,7 @@ class CommandButtonRendererTest extends AbstractComponentRendererTest<CommandBut
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
         decorator
                 .registerRenderer(UICommand.COMPONENT_FAMILY, JsfComponentIdentifier.BUTTON_RENDERER_TYPE,
                         new CuiMockRenderer("input"))

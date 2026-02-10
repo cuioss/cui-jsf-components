@@ -23,11 +23,13 @@ import de.cuioss.jsf.api.components.html.HtmlTreeBuilder;
 import de.cuioss.jsf.api.components.html.Node;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.mocks.CuiMockMethodExpression;
 import de.cuioss.test.jsf.renderer.AbstractComponentRendererTest;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.html.HtmlForm;
 import jakarta.faces.context.FacesContext;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -35,6 +37,11 @@ import org.junit.jupiter.api.Test;
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @DisplayName("Tests for NotificationBoxRenderer")
 class NotificationBoxRendererTest extends AbstractComponentRendererTest<NotificationBoxRenderer> {
+
+    @BeforeEach
+    void configureCuiComponents(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
+    }
 
     private static final String CLIENT_ID = "j_id__v_0:j_id0";
 

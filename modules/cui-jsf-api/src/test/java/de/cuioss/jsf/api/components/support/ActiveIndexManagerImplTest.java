@@ -20,15 +20,24 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
+import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+@EnableJsfEnvironment
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 @DisplayName("Tests for ActiveIndexManagerImpl")
 class ActiveIndexManagerImplTest {
+
+    @BeforeEach
+    void configureCuiComponents(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
+    }
 
     @Nested
     @DisplayName("Tests for default index handling")

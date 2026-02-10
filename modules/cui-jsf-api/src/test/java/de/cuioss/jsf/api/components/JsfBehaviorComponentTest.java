@@ -23,11 +23,17 @@ import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import jakarta.faces.component.behavior.AjaxBehavior;
 import jakarta.faces.context.FacesContext;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @EnableJsfEnvironment
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class JsfBehaviorComponentTest {
+
+    @BeforeEach
+    void configureCuiComponents(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
+    }
 
     @Test
     void shouldProvideAjaxBehavior(FacesContext facesContext, ComponentConfigDecorator decorator) {

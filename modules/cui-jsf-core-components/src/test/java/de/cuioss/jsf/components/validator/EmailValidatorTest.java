@@ -22,11 +22,13 @@ import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.jsf.test.EnableJSFCDIEnvironment;
 import de.cuioss.jsf.test.EnableResourceBundleSupport;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.validator.AbstractValidatorTest;
 import de.cuioss.test.jsf.validator.TestItems;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.validator.ValidatorException;
 import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -37,6 +39,11 @@ import org.junit.jupiter.api.Test;
 @ExplicitParamInjection
 @DisplayName("Tests for EmailValidator")
 class EmailValidatorTest extends AbstractValidatorTest<EmailValidator, String> {
+
+    @BeforeEach
+    void configureCuiComponents(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
+    }
 
     @Override
     @DisplayName("Configure test items for email validation")

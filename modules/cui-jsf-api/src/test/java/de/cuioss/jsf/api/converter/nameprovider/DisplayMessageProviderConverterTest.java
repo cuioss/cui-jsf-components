@@ -19,11 +19,13 @@ import de.cuioss.jsf.api.CoreJsfTestConfiguration;
 import de.cuioss.jsf.api.EnableJSFCDIEnvironment;
 import de.cuioss.jsf.api.EnableResourceBundleSupport;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.converter.AbstractConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
 import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import de.cuioss.uimodel.nameprovider.DisplayMessageProvider;
 import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 
 @EnableJsfEnvironment
@@ -34,6 +36,11 @@ import org.junit.jupiter.api.DisplayName;
 @DisplayName("Tests for DisplayMessageProviderConverter")
 class DisplayMessageProviderConverterTest
         extends AbstractConverterTest<DisplayMessageProviderConverter, DisplayMessageProvider> {
+
+    @BeforeEach
+    void configureCuiComponents(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
+    }
 
     // Message key to be resolved from resource bundle
     protected static final String MESSAGE_KEY = "de.cuioss.common.email.invalid";

@@ -23,6 +23,7 @@ import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import jakarta.faces.component.html.HtmlOutcomeTargetButton;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.ComponentSystemEvent;
@@ -37,6 +38,11 @@ import org.junit.jupiter.api.Test;
 @VerifyComponentProperties(of = {"action", "event", "for"}, defaultValued = {"action", "event"})
 @DisplayName("Tests for ModalControl")
 class ModalControlTest extends AbstractComponentTest<ModalControl> {
+
+    @BeforeEach
+    void configureCuiComponents(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
+    }
 
     private static final String FOR_ID = "forId";
 

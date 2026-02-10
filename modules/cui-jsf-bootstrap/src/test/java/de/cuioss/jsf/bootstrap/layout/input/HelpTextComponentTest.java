@@ -49,6 +49,7 @@ class HelpTextComponentTest extends AbstractComponentTest<HelpTextComponent> {
 
     @BeforeEach
     void configureComponents(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
         decorator.registerUIComponent(CommandButton.class)
                 .registerUIComponent(CuiMessageComponent.class)
                 .registerRenderer(CuiMessageRenderer.class)

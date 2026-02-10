@@ -273,6 +273,7 @@ class BootstrapPanelRendererTest extends AbstractComponentRendererTest<Bootstrap
 
     @BeforeEach
     void configureComponents(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
         decorator.registerUIComponent(CuiMessageComponent.class).registerRenderer(CuiMessageRenderer.class)
                 .registerMockRendererForHtmlForm().registerUIComponent(WaitingIndicatorComponent.class)
                 .registerMockRenderer(BootstrapFamily.COMPONENT_FAMILY, BootstrapFamily.WAITING_INDICATOR_RENDERER);

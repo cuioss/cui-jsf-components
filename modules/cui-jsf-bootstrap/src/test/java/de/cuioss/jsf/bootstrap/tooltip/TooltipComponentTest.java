@@ -25,6 +25,7 @@ import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import jakarta.faces.component.html.HtmlInputText;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.PostAddToViewEvent;
@@ -34,6 +35,11 @@ import org.junit.jupiter.api.Test;
 
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class TooltipComponentTest extends AbstractComponentTest<TooltipComponent> {
+
+    @BeforeEach
+    void configureCuiComponents(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
+    }
 
     @Getter
     private TooltipComponent underTest;
