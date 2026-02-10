@@ -263,17 +263,17 @@ class EditableDataListComponentTest extends AbstractComponentTest<EditableDataLi
 
         @Test
         @DisplayName("Should throw exception when required validation fails")
-        @SuppressWarnings("java:S5778") // Multiple setup steps in assertThrows
         void shouldValidateRequired(FacesContext facesContext) {
             // Arrange
             var model = new MockEditableDataListModel();
             var underTest = anyComponent();
             underTest.getAttributes().put("model", model);
             underTest.getAttributes().put("required", true);
+            var component = new HtmlInputText();
 
             // Act & Assert
             assertThrows(ValidatorException.class,
-                    () -> underTest.validate(facesContext, new HtmlInputText(), "irrelevant"),
+                    () -> underTest.validate(facesContext, component, "irrelevant"),
                     "Should throw ValidatorException when required=true and model is empty");
         }
 

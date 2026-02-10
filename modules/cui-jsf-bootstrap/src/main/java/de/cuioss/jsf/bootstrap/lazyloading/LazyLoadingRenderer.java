@@ -106,7 +106,7 @@ public class LazyLoadingRenderer extends BaseDecoratorRenderer<LazyLoadingCompon
     }
 
     @SuppressWarnings("java:S3776")
-    // Complexity from debug logging in JSF renderer
+    // Cognitive complexity from JSF renderer lifecycle: waiting indicator, notification box, and child rendering branches
     @Override
     protected void doEncodeChildren(final FacesContext context,
             final DecoratingResponseWriter<LazyLoadingComponent> writer, final LazyLoadingComponent component)

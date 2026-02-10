@@ -24,6 +24,7 @@ import de.cuioss.jsf.api.common.accessor.ConverterAccessor;
 import de.cuioss.jsf.api.components.support.DummyComponent;
 import de.cuioss.tools.logging.CuiLogger;
 import de.cuioss.uimodel.nameprovider.IDisplayNameProvider;
+import de.cuioss.uimodel.result.ResultDetail;
 import de.cuioss.uimodel.result.ResultObject;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
@@ -107,25 +108,24 @@ public class DisplayNameMessageProducer implements Serializable {
      *                            must not be {@code null}
      * @throws NullPointerException if requestResultObject is null
      */
-    @SuppressWarnings("squid:S3655")
     public void showAsGlobalMessageAndLog(final ResultObject<?> requestResultObject) {
         FacesMessage.Severity severity = switch (requestResultObject.getState()) {
             case ERROR -> {
-                if (requestResultObject.getResultDetail().get().getCause().isPresent()) {
-                    LOGGER.error(requestResultObject.getResultDetail().get().getCause().get(), ERROR.SILENT_ERROR);
-                }
+                requestResultObject.getResultDetail()
+                        .flatMap(ResultDetail::getCause)
+                        .ifPresent(cause -> LOGGER.error(cause, ERROR.SILENT_ERROR));
                 yield FacesMessage.SEVERITY_ERROR;
             }
             case WARNING -> {
-                if (requestResultObject.getResultDetail().get().getCause().isPresent()) {
-                    LOGGER.warn(requestResultObject.getResultDetail().get().getCause().get(), WARN.SILENT_ERROR);
-                }
+                requestResultObject.getResultDetail()
+                        .flatMap(ResultDetail::getCause)
+                        .ifPresent(cause -> LOGGER.warn(cause, WARN.SILENT_ERROR));
                 yield FacesMessage.SEVERITY_WARN;
             }
             case INFO -> {
-                if (requestResultObject.getResultDetail().get().getCause().isPresent()) {
-                    LOGGER.info(requestResultObject.getResultDetail().get().getCause().get(), INFO.SILENT_ERROR);
-                }
+                requestResultObject.getResultDetail()
+                        .flatMap(ResultDetail::getCause)
+                        .ifPresent(cause -> LOGGER.info(cause, INFO.SILENT_ERROR));
                 yield FacesMessage.SEVERITY_INFO;
             }
             case VALID -> FacesMessage.SEVERITY_INFO;

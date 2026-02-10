@@ -226,19 +226,6 @@ public class SampleSourceFinder {
 
     /**
      * <p>
-     * Private default constructor to prevent instantiation without parameters.
-     * </p>
-     * <p>
-     * This class requires a file and component ID to function properly.
-     * </p>
-     */
-    @SuppressWarnings("unused")
-    private SampleSourceFinder() {
-        // Private constructor to prevent instantiation without parameters
-    }
-
-    /**
-     * <p>
      * Creates a new SampleSourceFinder with the specified XHTML file and component ID.
      * </p>
      * <p>
