@@ -30,7 +30,7 @@ import org.junit.jupiter.api.BeforeEach;
 class DisplayNameConverterTest extends AbstractSanitizingConverterTest<DisplayNameConverter, DisplayName> {
 
     @BeforeEach
-    void configureCuiComponents(ComponentConfigDecorator decorator) {
+    void setUp(ComponentConfigDecorator decorator) {
         CoreJsfTestConfiguration.configureComponents(decorator);
     }
 

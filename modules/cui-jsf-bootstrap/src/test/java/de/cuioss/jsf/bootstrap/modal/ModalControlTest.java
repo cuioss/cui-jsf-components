@@ -39,11 +39,6 @@ import org.junit.jupiter.api.Test;
 @DisplayName("Tests for ModalControl")
 class ModalControlTest extends AbstractComponentTest<ModalControl> {
 
-    @BeforeEach
-    void configureCuiComponents(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
-    }
-
     private static final String FOR_ID = "forId";
 
     @Getter
@@ -54,7 +49,8 @@ class ModalControlTest extends AbstractComponentTest<ModalControl> {
     private ComponentSystemEvent expectedEvent;
 
     @BeforeEach
-    void before(FacesContext facesContext) {
+    void setUp(ComponentConfigDecorator decorator, FacesContext facesContext) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
         underTest = new ModalControl();
         parent = JsfHtmlComponent.createComponent(facesContext, JsfHtmlComponent.BUTTON);
         underTest.setParent(parent);

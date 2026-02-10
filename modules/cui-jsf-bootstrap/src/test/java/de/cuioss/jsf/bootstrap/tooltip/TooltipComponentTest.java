@@ -36,11 +36,6 @@ import org.junit.jupiter.api.Test;
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class TooltipComponentTest extends AbstractComponentTest<TooltipComponent> {
 
-    @BeforeEach
-    void configureCuiComponents(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
-    }
-
     @Getter
     private TooltipComponent underTest;
 
@@ -51,7 +46,8 @@ class TooltipComponentTest extends AbstractComponentTest<TooltipComponent> {
     private final TypedGenerator<String> names = Generators.letterStrings(2, 5);
 
     @BeforeEach
-    void before() {
+    void setUp(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
         underTest = new TooltipComponent();
         parent = new HtmlInputText();
         underTest.setParent(parent);

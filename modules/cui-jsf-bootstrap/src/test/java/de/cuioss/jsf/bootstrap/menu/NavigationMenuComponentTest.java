@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 class NavigationMenuComponentTest extends AbstractUiComponentTest<NavigationMenuComponent> {
 
     @BeforeEach
-    void configureCuiComponents(ComponentConfigDecorator decorator) {
+    void setUp(ComponentConfigDecorator decorator) {
         CoreJsfTestConfiguration.configureComponents(decorator);
     }
 

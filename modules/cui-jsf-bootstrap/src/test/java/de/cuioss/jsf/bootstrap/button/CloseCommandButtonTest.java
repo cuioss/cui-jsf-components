@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
 class CloseCommandButtonTest extends AbstractComponentTest<CloseCommandButton> {
 
     @BeforeEach
-    void configureCuiComponents(ComponentConfigDecorator decorator) {
+    void setUp(ComponentConfigDecorator decorator) {
         CoreJsfTestConfiguration.configureComponents(decorator);
     }
 

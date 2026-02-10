@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 class LayoutComponentRendererTest extends AbstractComponentRendererTest<LayoutComponentRenderer> {
 
     @BeforeEach
-    void configureCuiComponents(ComponentConfigDecorator decorator) {
+    void setUp(ComponentConfigDecorator decorator) {
         CoreJsfTestConfiguration.configureComponents(decorator);
     }
 

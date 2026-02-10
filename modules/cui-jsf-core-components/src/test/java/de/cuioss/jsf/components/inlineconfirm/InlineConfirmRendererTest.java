@@ -42,7 +42,7 @@ import org.junit.jupiter.api.Test;
 class InlineConfirmRendererTest extends AbstractComponentRendererTest<InlineConfirmRenderer> {
 
     @BeforeEach
-    void configureCuiComponents(ComponentConfigDecorator decorator) {
+    void setUp(ComponentConfigDecorator decorator) {
         CoreJsfTestConfiguration.configureComponents(decorator);
     }
 

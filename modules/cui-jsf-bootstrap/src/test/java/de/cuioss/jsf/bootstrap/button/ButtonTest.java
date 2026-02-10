@@ -38,7 +38,7 @@ import org.junit.jupiter.api.Test;
 class ButtonTest extends AbstractComponentTest<Button> {
 
     @BeforeEach
-    void configureCuiComponents(ComponentConfigDecorator decorator) {
+    void setUp(ComponentConfigDecorator decorator) {
         CoreJsfTestConfiguration.configureComponents(decorator);
     }
 

@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
 class SwitchComponentTest extends AbstractComponentTest<SwitchComponent> {
 
     @BeforeEach
-    void configureCuiComponents(ComponentConfigDecorator decorator) {
+    void setUp(ComponentConfigDecorator decorator) {
         CoreJsfTestConfiguration.configureComponents(decorator);
     }
 

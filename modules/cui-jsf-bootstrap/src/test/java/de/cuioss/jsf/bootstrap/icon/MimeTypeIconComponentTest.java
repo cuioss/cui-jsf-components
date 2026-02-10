@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 class MimeTypeIconComponentTest extends AbstractUiComponentTest<MimeTypeIconComponent> {
 
     @BeforeEach
-    void configureCuiComponents(ComponentConfigDecorator decorator) {
+    void setUp(ComponentConfigDecorator decorator) {
         CoreJsfTestConfiguration.configureComponents(decorator);
     }
 

@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 class WaitingIndicatorRendererTest extends AbstractComponentRendererTest<WaitingIndicatorRenderer> {
 
     @BeforeEach
-    void configureCuiComponents(ComponentConfigDecorator decorator) {
+    void setUp(ComponentConfigDecorator decorator) {
         CoreJsfTestConfiguration.configureComponents(decorator);
     }
 

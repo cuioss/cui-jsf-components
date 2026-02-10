@@ -38,7 +38,7 @@ class DisplayMessageProviderConverterTest
         extends AbstractConverterTest<DisplayMessageProviderConverter, DisplayMessageProvider> {
 
     @BeforeEach
-    void configureCuiComponents(ComponentConfigDecorator decorator) {
+    void setUp(ComponentConfigDecorator decorator) {
         CoreJsfTestConfiguration.configureComponents(decorator);
     }
 

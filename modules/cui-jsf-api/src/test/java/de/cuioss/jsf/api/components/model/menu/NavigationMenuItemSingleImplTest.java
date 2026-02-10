@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 class NavigationMenuItemSingleImplTest extends ValueObjectTest<NavigationMenuItemSingleImpl> {
 
     @BeforeEach
-    void configureCuiComponents(ComponentConfigDecorator decorator) {
+    void setUp(ComponentConfigDecorator decorator) {
         CoreJsfTestConfiguration.configureComponents(decorator);
     }
 

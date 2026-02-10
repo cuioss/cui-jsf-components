@@ -47,7 +47,7 @@ import org.junit.jupiter.api.Test;
 class IconRendererTest extends AbstractComponentRendererTest<IconRenderer> {
 
     @BeforeEach
-    void configureCuiComponents(ComponentConfigDecorator decorator) {
+    void setUp(ComponentConfigDecorator decorator) {
         CoreJsfTestConfiguration.configureComponents(decorator);
     }
 

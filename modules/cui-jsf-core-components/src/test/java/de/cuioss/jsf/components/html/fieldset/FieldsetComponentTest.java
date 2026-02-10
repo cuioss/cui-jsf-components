@@ -42,7 +42,7 @@ import org.junit.jupiter.api.Test;
 class FieldsetComponentTest extends AbstractComponentTest<FieldsetComponent> {
 
     @BeforeEach
-    void configureCuiComponents(ComponentConfigDecorator decorator) {
+    void setUp(ComponentConfigDecorator decorator) {
         CoreJsfTestConfiguration.configureComponents(decorator);
     }
 

@@ -41,7 +41,7 @@ import org.junit.jupiter.api.Test;
 class EmailValidatorTest extends AbstractValidatorTest<EmailValidator, String> {
 
     @BeforeEach
-    void configureCuiComponents(ComponentConfigDecorator decorator) {
+    void setUp(ComponentConfigDecorator decorator) {
         CoreJsfTestConfiguration.configureComponents(decorator);
     }
 

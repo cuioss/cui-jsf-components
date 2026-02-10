@@ -37,7 +37,7 @@ import org.junit.jupiter.api.BeforeEach;
 class LabeledKeyConverterTest extends AbstractConverterTest<LabeledKeyConverter, LabeledKey> {
 
     @BeforeEach
-    void configureCuiComponents(ComponentConfigDecorator decorator) {
+    void setUp(ComponentConfigDecorator decorator) {
         CoreJsfTestConfiguration.configureComponents(decorator);
     }
 

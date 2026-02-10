@@ -39,7 +39,7 @@ import org.junit.jupiter.api.Test;
 class NotificationBoxRendererTest extends AbstractComponentRendererTest<NotificationBoxRenderer> {
 
     @BeforeEach
-    void configureCuiComponents(ComponentConfigDecorator decorator) {
+    void setUp(ComponentConfigDecorator decorator) {
         CoreJsfTestConfiguration.configureComponents(decorator);
     }
 

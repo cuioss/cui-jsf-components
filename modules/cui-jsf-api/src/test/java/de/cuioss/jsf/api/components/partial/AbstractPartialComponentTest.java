@@ -36,7 +36,7 @@ import org.junit.jupiter.api.BeforeEach;
 public abstract class AbstractPartialComponentTest extends AbstractComponentTest<MockPartialComponent> {
 
     @BeforeEach
-    void configureCuiComponents(ComponentConfigDecorator decorator) {
+    void setUp(ComponentConfigDecorator decorator) {
         CoreJsfTestConfiguration.configureComponents(decorator);
     }
 
