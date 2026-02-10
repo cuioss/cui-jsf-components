@@ -200,8 +200,7 @@ public class SourceCodeComponentRenderer extends BaseDecoratorRenderer<SourceCod
             writer.withTextContent(component.getDescription().formatted(), true);
             writer.withEndElement(Node.P);
         }
-        @SuppressWarnings("RedundantStringFormatCall") final var resolvedSource = component.resolveSource().replace("%", "%%").formatted().replace("%n",
-                LINE_SEPARATOR);
+        final var resolvedSource = component.resolveSource().replace("%n", LINE_SEPARATOR);
         if (component.isEnableClipboard()) {
             renderCopyElements(writer, resolvedSource);
         }
@@ -240,7 +239,7 @@ public class SourceCodeComponentRenderer extends BaseDecoratorRenderer<SourceCod
         var result = nullToEmpty(text);
         result = result.replace("&", "&amp;");
         result = result.replace("\"", "&quot;");
-        result = result.replace("\\", "&#39;");
+        result = result.replace("'", "&#39;");
         result = result.replace("<", "&lt;");
         return result.replace(">", "&gt;");
     }

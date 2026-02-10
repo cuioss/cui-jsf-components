@@ -40,20 +40,18 @@ class ReflectionBasedEditableDataListModelTest {
         assertThrows(IllegalStateException.class, model::createEmptyItem);
     }
 
-    @SuppressWarnings("java:S5778")
-    // Multiple setup steps in assertThrows
     @Test
     void shouldHandleMissingCopyConstructor() {
         var model = new ReflectionBasedEditableDataListModel<>(MissingCopyConstructor.class, null);
-        assertThrows(IllegalStateException.class, () -> model.createCopy(new MissingCopyConstructor("")));
+        var item = new MissingCopyConstructor("");
+        assertThrows(IllegalStateException.class, () -> model.createCopy(item));
     }
 
-    @SuppressWarnings("java:S5778")
-    // Multiple setup steps in assertThrows
     @Test
     void shouldHandleExplodingCopyConstructor() {
         var model = new ReflectionBasedEditableDataListModel<>(ExplodingModel.class, null);
-        assertThrows(IllegalStateException.class, () -> model.createCopy(new ExplodingModel("")));
+        var item = new ExplodingModel("");
+        assertThrows(IllegalStateException.class, () -> model.createCopy(item));
     }
 
     @Test
