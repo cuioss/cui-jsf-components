@@ -18,7 +18,6 @@ package de.cuioss.jsf.test;
 import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.jsf.api.converter.ObjectToStringConverter;
 import de.cuioss.jsf.api.converter.StringIdentConverter;
-import de.cuioss.test.jsf.config.ComponentConfigurator;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.defaults.BasicApplicationConfiguration;
 import de.cuioss.test.jsf.mocks.CuiMockRenderer;
@@ -56,7 +55,7 @@ import jakarta.faces.convert.NumberConverter;
  * @author Oliver Wolff
  * @since 1.0
  */
-public class CoreJsfTestConfiguration extends BasicApplicationConfiguration implements ComponentConfigurator {
+public class CoreJsfTestConfiguration extends BasicApplicationConfiguration {
 
     /**
      * Path to test resource bundle.
@@ -86,8 +85,7 @@ public class CoreJsfTestConfiguration extends BasicApplicationConfiguration impl
      *                  components, converters, and renderers with the test environment.
      *                  Must not be null.
      */
-    @Override
-    public void configureComponents(final ComponentConfigDecorator decorator) {
+    public static void configureComponents(final ComponentConfigDecorator decorator) {
         decorator.registerConverter(StringIdentConverter.class);
         decorator.registerConverter(NumberConverter.class, NumberConverter.CONVERTER_ID);
         decorator.registerConverter(ObjectToStringConverter.class);

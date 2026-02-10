@@ -25,6 +25,7 @@ import de.cuioss.test.generator.Generators;
 import de.cuioss.test.generator.TypedGenerator;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import jakarta.faces.component.html.HtmlInputText;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.PostAddToViewEvent;
@@ -45,7 +46,8 @@ class TooltipComponentTest extends AbstractComponentTest<TooltipComponent> {
     private final TypedGenerator<String> names = Generators.letterStrings(2, 5);
 
     @BeforeEach
-    void before() {
+    void setUp(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
         underTest = new TooltipComponent();
         parent = new HtmlInputText();
         underTest.setParent(parent);

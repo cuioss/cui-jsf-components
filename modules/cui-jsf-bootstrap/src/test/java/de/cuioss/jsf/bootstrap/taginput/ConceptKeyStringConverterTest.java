@@ -57,8 +57,9 @@ class ConceptKeyStringConverterTest extends AbstractConverterTest<ConceptKeyStri
         var converter = new ConceptKeyStringConverter();
 
         // Act & Assert
+        var invalidComponent = new HtmlInputText();
         assertThrows(ConverterException.class,
-                () -> converter.getAsObject(facesContext, new HtmlInputText(), "someValue"));
+                () -> converter.getAsObject(facesContext, invalidComponent, "someValue"));
         LogAsserts.assertSingleLogMessagePresentContaining(TestLogLevel.ERROR,
                 BootstrapLogMessages.ERROR.INVALID_COMPONENT_TYPE.resolveIdentifierString());
     }

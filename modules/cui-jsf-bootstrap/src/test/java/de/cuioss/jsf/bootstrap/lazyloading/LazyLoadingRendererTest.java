@@ -55,6 +55,7 @@ class LazyLoadingRendererTest extends AbstractComponentRendererTest<LazyLoadingR
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
         decorator.registerUIComponent(NotificationBoxComponent.class).registerRenderer(NotificationBoxRenderer.class)
                 .registerConverter(DisplayNameConverter.class)
                 .registerMockRenderer(BootstrapFamily.COMPONENT_FAMILY, BootstrapFamily.WAITING_INDICATOR_RENDERER)

@@ -151,6 +151,7 @@ class HelpTextRendererTest extends AbstractComponentRendererTest<LabeledContaine
 
     @BeforeEach
     void configureComponents(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
         decorator.registerUIComponent(CuiMessageComponent.class).registerRenderer(CuiMessageRenderer.class)
                 .registerUIComponent(Button.class)
                 .registerMockRenderer(BootstrapFamily.COMPONENT_FAMILY, BootstrapFamily.BUTTON_RENDERER);

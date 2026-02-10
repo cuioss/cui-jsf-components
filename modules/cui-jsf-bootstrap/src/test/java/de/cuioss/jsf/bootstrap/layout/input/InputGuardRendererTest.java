@@ -143,6 +143,7 @@ class InputGuardRendererTest extends AbstractComponentRendererTest<LabeledContai
 
     @BeforeEach
     void configureComponents(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
         decorator.registerUIComponent(CuiMessageComponent.class).registerRenderer(CuiMessageRenderer.class)
                 .registerUIComponent(CommandButton.class)
                 .registerMockRenderer(BootstrapFamily.COMPONENT_FAMILY, BootstrapFamily.COMMAND_BUTTON_RENDERER);

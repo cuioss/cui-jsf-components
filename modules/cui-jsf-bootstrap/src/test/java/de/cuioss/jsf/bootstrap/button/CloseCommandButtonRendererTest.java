@@ -43,6 +43,7 @@ class CloseCommandButtonRendererTest extends AbstractComponentRendererTest<Close
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
         decorator.registerRenderer(UICommand.COMPONENT_FAMILY, JsfComponentIdentifier.BUTTON_RENDERER_TYPE,
                 new CuiMockRenderer("input")).registerUIComponent(IconComponent.class);
     }

@@ -165,6 +165,7 @@ public class DisplayNameMessageProducer implements Serializable {
      * @throws NullPointerException if content is null
      * @throws IllegalStateException if no suitable converter is found for the content
      */
+    @SuppressWarnings("java:S3740") // Raw type unavoidable: Class<?> from getClass() loses generic info
     public static String resolve(final IDisplayNameProvider<?> content) {
         final Class<?> targetType = content.getClass();
         final var converterAccessor = new ConverterAccessor();

@@ -24,8 +24,10 @@ import de.cuioss.jsf.test.EnableResourceBundleSupport;
 import de.cuioss.test.jsf.component.AbstractUiComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.uimodel.model.Gender;
 import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -37,6 +39,11 @@ import org.junit.jupiter.api.Test;
 @ExplicitParamInjection
 @DisplayName("Tests for GenderIconComponent")
 class GenderIconComponentTest extends AbstractUiComponentTest<GenderIconComponent> {
+
+    @BeforeEach
+    void setUp(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
+    }
 
     private static final String ICON_PREFIX = "cui-icon ";
     private static final String GENDER_UNKNOWN = ICON_PREFIX + Gender.UNKNOWN.getCssClass();

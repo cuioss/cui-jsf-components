@@ -21,15 +21,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import de.cuioss.jsf.api.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import de.cuioss.test.valueobjects.ValueObjectTest;
 import de.cuioss.test.valueobjects.api.contracts.VerifyConstructor;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @VerifyConstructor(of = "order")
 @EnableJsfEnvironment
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class NavigationMenuItemExternalSingleImplTest extends ValueObjectTest<NavigationMenuItemExternalSingleImpl> {
+
+    @BeforeEach
+    void setUp(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
+    }
 
     @Test
     void shouldResolveLabelValue() {

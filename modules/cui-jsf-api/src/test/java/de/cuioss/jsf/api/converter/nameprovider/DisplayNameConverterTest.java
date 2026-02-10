@@ -18,14 +18,21 @@ package de.cuioss.jsf.api.converter.nameprovider;
 import de.cuioss.jsf.api.CoreJsfTestConfiguration;
 import de.cuioss.test.generator.Generators;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.converter.AbstractSanitizingConverterTest;
 import de.cuioss.test.jsf.converter.TestItems;
 import de.cuioss.test.jsf.junit5.EnableJsfEnvironment;
 import de.cuioss.uimodel.nameprovider.DisplayName;
+import org.junit.jupiter.api.BeforeEach;
 
 @EnableJsfEnvironment
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
 class DisplayNameConverterTest extends AbstractSanitizingConverterTest<DisplayNameConverter, DisplayName> {
+
+    @BeforeEach
+    void setUp(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
+    }
 
     @Override
     public void populate(final TestItems<DisplayName> testItems) {

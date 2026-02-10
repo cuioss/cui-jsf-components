@@ -23,6 +23,7 @@ import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import jakarta.faces.component.html.HtmlOutcomeTargetButton;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.ComponentSystemEvent;
@@ -48,7 +49,8 @@ class ModalControlTest extends AbstractComponentTest<ModalControl> {
     private ComponentSystemEvent expectedEvent;
 
     @BeforeEach
-    void before(FacesContext facesContext) {
+    void setUp(ComponentConfigDecorator decorator, FacesContext facesContext) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
         underTest = new ModalControl();
         parent = JsfHtmlComponent.createComponent(facesContext, JsfHtmlComponent.BUTTON);
         underTest.setParent(parent);

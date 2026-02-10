@@ -43,6 +43,7 @@ class InputGroupComponentTest extends AbstractUiComponentTest<InputGroupComponen
 
     @BeforeEach
     void configureComponents(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
         decorator.registerUIComponent(InputGroupComponent.class)
                 .registerMockRenderer(BootstrapFamily.COMPONENT_FAMILY, BootstrapFamily.LAYOUT_RENDERER);
     }

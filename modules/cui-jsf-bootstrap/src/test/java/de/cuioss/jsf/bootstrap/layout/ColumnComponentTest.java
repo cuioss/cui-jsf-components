@@ -53,6 +53,7 @@ class ColumnComponentTest extends AbstractUiComponentTest<ColumnComponent> {
 
     @BeforeEach
     void configureComponents(ComponentConfigDecorator decorator) {
+        CoreJsfTestConfiguration.configureComponents(decorator);
         decorator.registerUIComponent(ColumnComponent.class)
                 .registerMockRenderer(BootstrapFamily.COMPONENT_FAMILY, BootstrapFamily.LAYOUT_RENDERER);
     }
