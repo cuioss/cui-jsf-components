@@ -22,12 +22,17 @@ import de.cuioss.jsf.api.components.JsfHtmlComponent;
 import de.cuioss.jsf.api.components.events.ModelPayloadEvent;
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
 import de.cuioss.jsf.bootstrap.button.CloseCommandButton;
+import de.cuioss.jsf.bootstrap.common.logging.BootstrapLogMessages;
 import de.cuioss.jsf.bootstrap.layout.input.support.MockUIInput;
 import de.cuioss.test.jsf.component.AbstractUiComponentTest;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
 import de.cuioss.test.jsf.mocks.CuiMockMethodExpression;
+import de.cuioss.test.juli.LogAsserts;
+import de.cuioss.test.juli.TestLogLevel;
+import de.cuioss.test.juli.junit5.EnableTestLogger;
 import jakarta.faces.component.UIInput;
+import jakarta.faces.component.behavior.AjaxBehavior;
 import jakarta.faces.event.PostAddToViewEvent;
 import jakarta.faces.event.ValueChangeEvent;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,6 +41,7 @@ import org.junit.jupiter.api.Test;
 
 @VerifyComponentProperties(of = {"model", "disposable", "contentKey", "contentValue", "size", "state", "titleKey",
         "titleValue", "contentEscape"})
+@EnableTestLogger
 @DisplayName("Tests for TagComponent")
 class TagComponentTest extends AbstractUiComponentTest<TagComponent> {
 
@@ -110,4 +116,17 @@ class TagComponentTest extends AbstractUiComponentTest<TagComponent> {
         assertFalse(expression.isInvoked());
     }
 
+    @Test
+    @DisplayName("Should log warning when adding client behavior without disposable=true")
+    void shouldLogWarningWhenAddingBehaviorWithoutDisposable() {
+        // Arrange - component without disposable=true
+        var component = new TagComponent();
+
+        // Act
+        component.addClientBehavior("click", new AjaxBehavior());
+
+        // Assert
+        LogAsserts.assertSingleLogMessagePresentContaining(TestLogLevel.WARN,
+                BootstrapLogMessages.WARN.INVALID_CLIENT_BEHAVIOR_CONFIG.resolveIdentifierString());
+    }
 }

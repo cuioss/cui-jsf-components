@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.cuioss.jsf.api.components.JsfComponentIdentifier;
 import de.cuioss.jsf.bootstrap.button.CommandButton;
+import de.cuioss.jsf.bootstrap.common.logging.BootstrapLogMessages;
 import de.cuioss.jsf.bootstrap.layout.messages.CuiMessageComponent;
 import de.cuioss.jsf.bootstrap.layout.messages.CuiMessageRenderer;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
@@ -27,6 +28,9 @@ import de.cuioss.test.jsf.component.AbstractComponentTest;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
+import de.cuioss.test.juli.LogAsserts;
+import de.cuioss.test.juli.TestLogLevel;
+import de.cuioss.test.juli.junit5.EnableTestLogger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -39,6 +43,7 @@ import org.junit.jupiter.api.Test;
 @VerifyComponentProperties(of = {"titleKey", "titleValue", "contentKey", "contentValue", "contentEscape",
         "buttonAlign", "renderButton"})
 @JsfTestConfiguration(CoreJsfTestConfiguration.class)
+@EnableTestLogger
 @DisplayName("Tests for HelpTextComponent")
 class HelpTextComponentTest extends AbstractComponentTest<HelpTextComponent> {
 
@@ -85,6 +90,25 @@ class HelpTextComponentTest extends AbstractComponentTest<HelpTextComponent> {
             // Act & Assert
             assertEquals(FIXED_ID, component.getId(),
                     "Component ID should match FIXED_ID constant");
+        }
+    }
+
+    @Nested
+    @DisplayName("Tests for log messages")
+    class LogMessageTests {
+
+        @Test
+        @DisplayName("Should log info when no help text content is defined")
+        void shouldLogInfoWhenNoHelpTextContent() {
+            // Arrange
+            var component = new HelpTextComponent();
+
+            // Act
+            component.provideFacetContent(ContainerFacets.HELP_TEXT);
+
+            // Assert
+            LogAsserts.assertSingleLogMessagePresentContaining(TestLogLevel.INFO,
+                    BootstrapLogMessages.INFO.NO_HELP_TEXT_CONTENT.resolveIdentifierString());
         }
     }
 }

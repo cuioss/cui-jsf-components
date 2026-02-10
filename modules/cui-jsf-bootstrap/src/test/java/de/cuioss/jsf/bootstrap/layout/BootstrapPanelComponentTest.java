@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.cuioss.jsf.bootstrap.BootstrapFamily;
+import de.cuioss.jsf.bootstrap.common.logging.BootstrapLogMessages;
 import de.cuioss.jsf.test.CoreJsfTestConfiguration;
 import de.cuioss.jsf.test.EnableJSFCDIEnvironment;
 import de.cuioss.jsf.test.EnableResourceBundleSupport;
@@ -69,7 +70,8 @@ class BootstrapPanelComponentTest extends AbstractUiComponentTest<BootstrapPanel
             component.processEvent(new PreRenderComponentEvent(component));
 
             // Assert
-            LogAsserts.assertLogMessagePresentContaining(TestLogLevel.ERROR, "needs to have a form tag in its ancestry");
+            LogAsserts.assertLogMessagePresentContaining(TestLogLevel.ERROR,
+                    BootstrapLogMessages.ERROR.COMPONENT_REQUIRES_FORM.resolveIdentifierString());
         }
 
         @Test

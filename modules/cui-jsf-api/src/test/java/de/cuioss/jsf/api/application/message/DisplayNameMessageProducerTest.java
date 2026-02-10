@@ -20,9 +20,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import de.cuioss.jsf.api.CoreJsfTestConfiguration;
 import de.cuioss.jsf.api.EnableJSFCDIEnvironment;
 import de.cuioss.jsf.api.EnableResourceBundleSupport;
+import de.cuioss.jsf.api.common.logging.JsfApiLogMessages;
 import de.cuioss.jsf.api.converter.nameprovider.LabeledKeyConverter;
 import de.cuioss.test.jsf.config.JsfTestConfiguration;
 import de.cuioss.test.jsf.config.decorator.ComponentConfigDecorator;
+import de.cuioss.test.juli.LogAsserts;
+import de.cuioss.test.juli.TestLogLevel;
+import de.cuioss.test.juli.junit5.EnableTestLogger;
 import de.cuioss.test.valueobjects.junit5.contracts.ShouldHandleObjectContracts;
 import de.cuioss.uimodel.nameprovider.LabeledKey;
 import de.cuioss.uimodel.result.ResultDetail;
@@ -40,6 +44,7 @@ import org.junit.jupiter.api.Test;
 @EnableResourceBundleSupport
 @AddBeanClasses(MessageProducerMock.class)
 @JsfTestConfiguration({CoreJsfTestConfiguration.class})
+@EnableTestLogger
 @ExplicitParamInjection
 @DisplayName("Tests for DisplayNameMessageProducer")
 class DisplayNameMessageProducerTest
@@ -122,6 +127,57 @@ class DisplayNameMessageProducerTest
             // Assert
             assertEquals(0, messageProducerMock.getGlobalMessages().size(),
                     "Should not add any global messages for VALID state");
+        }
+
+        @Test
+        @DisplayName("Should log error for ERROR state with cause")
+        void shouldLogErrorForErrorStateWithCause(ComponentConfigDecorator componentConfig) {
+            // Arrange
+            componentConfig.registerConverter(LabeledKeyConverter.class, LabeledKey.class);
+            var cause = new IllegalStateException("test error");
+            var result = new ResultObject<>(STRING_RESULT, ResultState.ERROR,
+                    new ResultDetail(DETAIL, cause));
+
+            // Act
+            underTest.showAsGlobalMessageAndLog(result);
+
+            // Assert
+            LogAsserts.assertSingleLogMessagePresentContaining(TestLogLevel.ERROR,
+                    JsfApiLogMessages.ERROR.SILENT_ERROR.resolveIdentifierString());
+        }
+
+        @Test
+        @DisplayName("Should log warning for WARNING state with cause")
+        void shouldLogWarningForWarningStateWithCause(ComponentConfigDecorator componentConfig) {
+            // Arrange
+            componentConfig.registerConverter(LabeledKeyConverter.class, LabeledKey.class);
+            var cause = new IllegalStateException("test warning");
+            var result = new ResultObject<>(STRING_RESULT, ResultState.WARNING,
+                    new ResultDetail(DETAIL, cause));
+
+            // Act
+            underTest.showAsGlobalMessageAndLog(result);
+
+            // Assert
+            LogAsserts.assertSingleLogMessagePresentContaining(TestLogLevel.WARN,
+                    JsfApiLogMessages.WARN.SILENT_ERROR.resolveIdentifierString());
+        }
+
+        @Test
+        @DisplayName("Should log info for INFO state with cause")
+        void shouldLogInfoForInfoStateWithCause(ComponentConfigDecorator componentConfig) {
+            // Arrange
+            componentConfig.registerConverter(LabeledKeyConverter.class, LabeledKey.class);
+            var cause = new IllegalStateException("test info");
+            var result = new ResultObject<>(STRING_RESULT, ResultState.INFO,
+                    new ResultDetail(DETAIL, cause));
+
+            // Act
+            underTest.showAsGlobalMessageAndLog(result);
+
+            // Assert
+            LogAsserts.assertSingleLogMessagePresentContaining(TestLogLevel.INFO,
+                    JsfApiLogMessages.INFO.SILENT_ERROR.resolveIdentifierString());
         }
     }
 }

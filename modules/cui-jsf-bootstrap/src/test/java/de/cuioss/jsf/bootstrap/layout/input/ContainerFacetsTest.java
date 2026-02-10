@@ -17,12 +17,17 @@ package de.cuioss.jsf.bootstrap.layout.input;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import de.cuioss.jsf.bootstrap.common.logging.BootstrapLogMessages;
+import de.cuioss.test.juli.LogAsserts;
+import de.cuioss.test.juli.TestLogLevel;
+import de.cuioss.test.juli.junit5.EnableTestLogger;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
+@EnableTestLogger
 @DisplayName("Tests for ContainerFacets")
 class ContainerFacetsTest {
 
@@ -54,6 +59,18 @@ class ContainerFacetsTest {
             assertFalse(ContainerFacets.parse(null).isPresent(), "Should handle null value");
             assertFalse(ContainerFacets.parse("").isPresent(), "Should handle empty string");
             assertFalse(ContainerFacets.parse("null").isPresent(), "Should handle 'null' string");
+        }
+
+        @Test
+        @DisplayName("Should log error when parsing non-matching name")
+        void shouldLogErrorForInvalidFacetName() {
+            // Arrange & Act
+            var result = ContainerFacets.parse("invalidFacetName");
+
+            // Assert
+            assertFalse(result.isPresent(), "Should return empty for invalid facet name");
+            LogAsserts.assertSingleLogMessagePresentContaining(TestLogLevel.ERROR,
+                    BootstrapLogMessages.ERROR.INVALID_FACET_NAME.resolveIdentifierString());
         }
     }
 }

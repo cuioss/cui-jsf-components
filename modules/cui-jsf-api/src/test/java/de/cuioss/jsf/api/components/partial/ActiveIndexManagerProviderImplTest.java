@@ -19,14 +19,21 @@ import static de.cuioss.tools.collect.CollectionLiterals.immutableList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import de.cuioss.jsf.api.common.logging.JsfApiLogMessages;
+import de.cuioss.jsf.api.components.support.ActiveIndexManager;
 import de.cuioss.jsf.api.components.support.ActiveIndexManagerImpl;
 import de.cuioss.test.jsf.config.component.VerifyComponentProperties;
+import de.cuioss.test.juli.LogAsserts;
+import de.cuioss.test.juli.TestLogLevel;
+import de.cuioss.test.juli.junit5.EnableTestLogger;
 import org.jboss.weld.junit5.ExplicitParamInjection;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 @VerifyComponentProperties
+@EnableTestLogger
 @ExplicitParamInjection
 class ActiveIndexManagerProviderImplTest extends AbstractPartialComponentTest {
 
@@ -49,5 +56,60 @@ class ActiveIndexManagerProviderImplTest extends AbstractPartialComponentTest {
         assertEquals(immutableList(10, 11), any.resolveActiveIndexes());
         any.getActiveIndexManager().resetToDefaultIndex();
         assertEquals(indexes, any.resolveActiveIndexes());
+    }
+
+    @Test
+    @DisplayName("Should log warning when ActiveIndexManager throws exception")
+    void shouldLogWarningOnActiveIndexManagerError() {
+        // Arrange
+        var any = anyComponent();
+        any.setActiveIndexManager(new ActiveIndexManager() {
+            @Override
+            public List<Integer> getActiveIndexes() {
+                throw new IllegalStateException("test error");
+            }
+
+            @Override
+            public String getActiveIndexesString() {
+                return null;
+            }
+
+            @Override
+            public void setActiveIndexesString(String s) {
+            }
+
+            @Override
+            public void resetToDefaultIndex() {
+            }
+
+            @Override
+            public void setActiveIndex(Integer... i) {
+            }
+
+            @Override
+            public void setActiveIndex(List<Integer> i) {
+            }
+
+            @Override
+            public void setDefaultIndex(List<Integer> i) {
+            }
+
+            @Override
+            public void toggleSingleIndex() {
+            }
+
+            @Override
+            public boolean hasActiveIndex() {
+                return false;
+            }
+        });
+
+        // Act
+        var result = any.resolveActiveIndexes();
+
+        // Assert
+        assertEquals(immutableList(0), result, "Should return fallback index list");
+        LogAsserts.assertSingleLogMessagePresentContaining(TestLogLevel.WARN,
+                JsfApiLogMessages.WARN.ACTIVE_INDEX_MANAGER_ERROR.resolveIdentifierString());
     }
 }
