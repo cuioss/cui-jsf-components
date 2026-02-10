@@ -56,7 +56,7 @@ class ResultErrorHandlerTest {
                 new de.cuioss.uimodel.nameprovider.DisplayName("Error occurred"), cause);
 
         // Act
-        underTest.handleResultDetail(ResultState.ERROR, detail, null, errorController, LOG);
+        underTest.handleResultDetail(ResultState.ERROR, detail, null, errorController, LOGGER);
 
         // Assert
         assertFalse(errorController.renderContent, "Content should not be rendered for ERROR state");
@@ -73,7 +73,7 @@ class ResultErrorHandlerTest {
                 new de.cuioss.uimodel.nameprovider.DisplayName("Warning occurred"), cause);
 
         // Act
-        underTest.handleResultDetail(ResultState.WARNING, detail, null, errorController, LOG);
+        underTest.handleResultDetail(ResultState.WARNING, detail, null, errorController, LOGGER);
 
         // Assert
         assertTrue(errorController.renderContent, "Content should be rendered for WARNING state");
@@ -90,7 +90,7 @@ class ResultErrorHandlerTest {
                 new de.cuioss.uimodel.nameprovider.DisplayName("Info occurred"), cause);
 
         // Act
-        underTest.handleResultDetail(ResultState.INFO, detail, null, errorController, LOG);
+        underTest.handleResultDetail(ResultState.INFO, detail, null, errorController, LOGGER);
 
         // Assert
         assertTrue(errorController.renderContent, "Content should be rendered for INFO state");
@@ -106,7 +106,7 @@ class ResultErrorHandlerTest {
                 new de.cuioss.uimodel.nameprovider.DisplayName("Valid result"));
 
         // Act
-        underTest.handleResultDetail(ResultState.VALID, detail, null, errorController, LOG);
+        underTest.handleResultDetail(ResultState.VALID, detail, null, errorController, LOGGER);
 
         // Assert
         assertTrue(errorController.renderContent, "Content should be rendered for VALID state");
