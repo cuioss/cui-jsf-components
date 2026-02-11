@@ -22,7 +22,7 @@
         </build.dependency.unpack>
         <!-- Output from grunt-uglify task-->
         <plugin.resources.cuijs.src>${project.build.directory}/uglify</plugin.resources.cuijs.src>
-        <version.webjar.jquery>3.7.1</version.webjar.jquery>
+        <version.webjar.jquery>4.0.0</version.webjar.jquery>
     </properties>
     <dependencyManagement>
         <dependencies>
