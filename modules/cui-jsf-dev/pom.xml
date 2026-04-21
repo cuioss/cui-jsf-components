@@ -9,7 +9,7 @@
     <name>cui dev components</name>
     <description>Components for creating the developer documentation</description>
     <properties>
-        <version.jaxen>2.0.0</version.jaxen>
+        <version.jaxen>2.0.1</version.jaxen>
         <sonar.skip>true</sonar.skip>
         <maven.jar.plugin.automatic.module.name>de.cuioss.jsf.dev</maven.jar.plugin.automatic.module.name>
     </properties>
