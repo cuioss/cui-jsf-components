@@ -8,7 +8,7 @@
     "url": "https://github.com/cuioss/cui-jsf-components.git"
   },
   "devDependencies": {
-    "grunt": "^1.6.1",
+    "grunt": "^1.6.2",
     "grunt-cli": "^1.4.3",
     "grunt-contrib-clean": "^2.0.1",
     "grunt-sass-modern": "^3.3.0",
