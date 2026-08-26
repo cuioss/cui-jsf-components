@@ -47,7 +47,7 @@ class TooltipComponentTest extends AbstractComponentTest<TooltipComponent> {
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
+        new CoreJsfTestConfiguration().configureComponents(decorator);
         underTest = new TooltipComponent();
         parent = new HtmlInputText();
         underTest.setParent(parent);

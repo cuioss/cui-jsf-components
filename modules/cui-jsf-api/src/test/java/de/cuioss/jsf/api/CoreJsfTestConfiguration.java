@@ -43,7 +43,8 @@ public class CoreJsfTestConfiguration extends BasicApplicationConfiguration {
     /** cui-messages bundle path */
     public static final String CUI_BUNDLE_BASE_PATH = "de.cuioss.jsf.api.core.l18n.";
 
-    public static void configureComponents(final ComponentConfigDecorator decorator) {
+    @Override
+    public void configureComponents(final ComponentConfigDecorator decorator) {
         decorator.registerConverter(StringIdentConverter.class);
         decorator.registerConverter(NumberConverter.class, NumberConverter.CONVERTER_ID);
         decorator.registerConverter(ObjectToStringConverter.class);

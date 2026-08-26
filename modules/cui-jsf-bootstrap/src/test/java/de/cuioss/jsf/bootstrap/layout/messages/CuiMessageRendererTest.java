@@ -47,7 +47,7 @@ class CuiMessageRendererTest extends AbstractComponentRendererTest<CuiMessageRen
 
     @BeforeEach
     void configureComponents(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
+        new CoreJsfTestConfiguration().configureComponents(decorator);
         decorator.registerMockRenderer(UIPanel.COMPONENT_FAMILY, new HtmlPanelGrid().getRendererType());
     }
 

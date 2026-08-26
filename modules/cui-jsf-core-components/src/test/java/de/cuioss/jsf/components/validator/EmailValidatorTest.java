@@ -42,7 +42,7 @@ class EmailValidatorTest extends AbstractValidatorTest<EmailValidator, String> {
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
+        new CoreJsfTestConfiguration().configureComponents(decorator);
     }
 
     @Override

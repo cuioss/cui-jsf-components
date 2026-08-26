@@ -37,7 +37,7 @@ public abstract class AbstractPartialComponentTest extends AbstractComponentTest
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
+        new CoreJsfTestConfiguration().configureComponents(decorator);
     }
 
     protected static final String MESSAGE_KEY = "de.cuioss.common.email.invalid";

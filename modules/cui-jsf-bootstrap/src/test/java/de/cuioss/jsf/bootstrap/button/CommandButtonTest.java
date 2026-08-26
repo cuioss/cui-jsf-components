@@ -39,7 +39,7 @@ class CommandButtonTest extends AbstractComponentTest<CommandButton> {
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
+        new CoreJsfTestConfiguration().configureComponents(decorator);
     }
 
     private static final String KEY_BINDING = AttributeValue.CUI_CLICK_BINDING.getContent();

@@ -85,7 +85,7 @@ class TagListRendererTest extends AbstractComponentRendererTest<TagListRenderer>
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
+        new CoreJsfTestConfiguration().configureComponents(decorator);
         decorator.registerMockRenderer(BootstrapFamily.COMPONENT_FAMILY, BootstrapFamily.TAG_COMPONENT_RENDERER);
     }
 }

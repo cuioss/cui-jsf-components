@@ -56,7 +56,7 @@ class TagRendererTest extends AbstractComponentRendererTest<TagRenderer> {
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
+        new CoreJsfTestConfiguration().configureComponents(decorator);
         decorator.registerUIComponent(CloseCommandButton.class).registerRenderer(CloseCommandButtonRenderer.class);
     }
 

@@ -85,7 +85,8 @@ public class CoreJsfTestConfiguration extends BasicApplicationConfiguration {
      *                  components, converters, and renderers with the test environment.
      *                  Must not be null.
      */
-    public static void configureComponents(final ComponentConfigDecorator decorator) {
+    @Override
+    public void configureComponents(final ComponentConfigDecorator decorator) {
         decorator.registerConverter(StringIdentConverter.class);
         decorator.registerConverter(NumberConverter.class, NumberConverter.CONVERTER_ID);
         decorator.registerConverter(ObjectToStringConverter.class);

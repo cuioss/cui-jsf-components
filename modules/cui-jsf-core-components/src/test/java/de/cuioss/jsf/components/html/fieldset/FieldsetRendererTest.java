@@ -39,7 +39,7 @@ class FieldsetRendererTest extends AbstractComponentRendererTest<FieldsetRendere
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
+        new CoreJsfTestConfiguration().configureComponents(decorator);
     }
 
     private static final String LEGEND_TEXT = "Some Legend";

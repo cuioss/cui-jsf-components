@@ -40,7 +40,7 @@ class NotificationBoxRendererTest extends AbstractComponentRendererTest<Notifica
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
+        new CoreJsfTestConfiguration().configureComponents(decorator);
     }
 
     private static final String CLIENT_ID = "j_id__v_0:j_id0";
