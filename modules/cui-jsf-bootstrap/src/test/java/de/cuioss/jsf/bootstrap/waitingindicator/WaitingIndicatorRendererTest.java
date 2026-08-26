@@ -31,7 +31,7 @@ class WaitingIndicatorRendererTest extends AbstractComponentRendererTest<Waiting
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
+        new CoreJsfTestConfiguration().configureComponents(decorator);
     }
 
     @Test

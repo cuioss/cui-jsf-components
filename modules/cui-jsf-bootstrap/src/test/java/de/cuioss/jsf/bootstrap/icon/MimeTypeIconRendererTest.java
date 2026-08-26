@@ -37,7 +37,7 @@ class MimeTypeIconRendererTest extends AbstractComponentRendererTest<MimeTypeIco
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
+        new CoreJsfTestConfiguration().configureComponents(decorator);
     }
 
     private static final String TITLE = "someTitle";

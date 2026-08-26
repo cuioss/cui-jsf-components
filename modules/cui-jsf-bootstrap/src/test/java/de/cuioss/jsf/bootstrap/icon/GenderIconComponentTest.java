@@ -42,7 +42,7 @@ class GenderIconComponentTest extends AbstractUiComponentTest<GenderIconComponen
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
+        new CoreJsfTestConfiguration().configureComponents(decorator);
     }
 
     private static final String ICON_PREFIX = "cui-icon ";

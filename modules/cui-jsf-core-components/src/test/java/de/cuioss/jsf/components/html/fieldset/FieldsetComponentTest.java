@@ -43,7 +43,7 @@ class FieldsetComponentTest extends AbstractComponentTest<FieldsetComponent> {
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
+        new CoreJsfTestConfiguration().configureComponents(decorator);
     }
 
     protected static final String MESSAGE_KEY = "some.key";

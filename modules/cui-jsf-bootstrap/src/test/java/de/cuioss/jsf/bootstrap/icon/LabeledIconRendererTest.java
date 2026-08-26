@@ -38,7 +38,7 @@ class LabeledIconRendererTest extends AbstractComponentRendererTest<LabeledIconR
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
+        new CoreJsfTestConfiguration().configureComponents(decorator);
     }
 
     private static final String ICON = "cui-icon-alarm";

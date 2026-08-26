@@ -624,7 +624,7 @@ class LabeledContainerRendererTest extends AbstractComponentRendererTest<Labeled
 
     @BeforeEach
     void configureComponents(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
+        new CoreJsfTestConfiguration().configureComponents(decorator);
         decorator.registerUIComponent(CuiMessageComponent.class).registerRenderer(CuiMessageRenderer.class);
     }
 }

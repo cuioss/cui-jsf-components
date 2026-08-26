@@ -38,7 +38,7 @@ class LabeledKeyConverterTest extends AbstractConverterTest<LabeledKeyConverter,
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
+        new CoreJsfTestConfiguration().configureComponents(decorator);
     }
 
     protected static final String MESSAGE_KEY = "de.cuioss.common.email.invalid";

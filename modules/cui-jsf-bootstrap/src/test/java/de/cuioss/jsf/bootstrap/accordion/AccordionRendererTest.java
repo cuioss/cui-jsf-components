@@ -61,7 +61,7 @@ class AccordionRendererTest extends AbstractComponentRendererTest<AccordionRende
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
+        new CoreJsfTestConfiguration().configureComponents(decorator);
         decorator.registerRenderer(BootstrapPanelRenderer.class);
     }
 

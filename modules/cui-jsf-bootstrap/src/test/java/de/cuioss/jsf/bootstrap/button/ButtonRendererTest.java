@@ -55,7 +55,7 @@ class ButtonRendererTest extends AbstractComponentRendererTest<ButtonRenderer> {
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
+        new CoreJsfTestConfiguration().configureComponents(decorator);
         decorator
                 .registerRenderer(UIOutcomeTarget.COMPONENT_FAMILY, JsfComponentIdentifier.BUTTON_RENDERER_TYPE,
                         new CuiMockRenderer("input"))

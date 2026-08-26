@@ -50,7 +50,7 @@ class ModalControlTest extends AbstractComponentTest<ModalControl> {
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator, FacesContext facesContext) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
+        new CoreJsfTestConfiguration().configureComponents(decorator);
         underTest = new ModalControl();
         parent = JsfHtmlComponent.createComponent(facesContext, JsfHtmlComponent.BUTTON);
         underTest.setParent(parent);

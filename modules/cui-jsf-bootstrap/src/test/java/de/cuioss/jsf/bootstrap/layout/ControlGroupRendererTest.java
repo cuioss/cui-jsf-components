@@ -37,7 +37,7 @@ class ControlGroupRendererTest extends AbstractComponentRendererTest<ControlGrou
 
     @BeforeEach
     void setUp(ComponentConfigDecorator decorator) {
-        CoreJsfTestConfiguration.configureComponents(decorator);
+        new CoreJsfTestConfiguration().configureComponents(decorator);
     }
 
     private static final String MINIMAL_COLUMN_CSS = ColumnCssResolver.COL_PREFIX + "8";
