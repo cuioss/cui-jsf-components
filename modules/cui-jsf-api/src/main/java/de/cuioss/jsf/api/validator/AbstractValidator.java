@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ * Copyright © 2023-present CUI-OpenSource-Software (info@cuioss.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,37 +26,37 @@ import jakarta.faces.validator.Validator;
 import jakarta.faces.validator.ValidatorException;
 
 /**
-     * <p>Abstract base class for JSF validators that implements the {@link Validator} interface
-     * with type-safe value handling. This class provides a robust foundation for creating custom
-     * validators in JSF applications.</p>
-     * 
-     * <p>Key features:</p>
-     * <ul>
-     *   <li>Type-safe validation through generic parameter</li>
-     *   <li>Proper null handling</li>
-     *   <li>JSF API conformance with appropriate null checks</li>
-     *   <li>Helper methods for error message creation and exception handling</li>
-     * </ul>
-     * 
-     * <p>To use this class, extend it with a concrete implementation specifying the type
-     * of value to be validated, and implement the {@link #validateTypeSave(FacesContext, UIComponent, Object)}
-     * method with your validation logic:</p>
-     * 
-     * <pre>
-     * public class EmailValidator extends AbstractValidator&lt;String&gt; {
-     *     
-     *     &#64;Override
-     *     protected void validateTypeSave(FacesContext context, UIComponent component, String value) {
-     *         if (value != null &amp;&amp; !value.contains("@")) {
-     *             throwValidatorException("invalid_email", value);
-     *         }
-     *     }
-     * }
-     * </pre>
-     *
-     * @author Eugen Fischer
-     * @param <T> the type of value to be validated, providing type safety in the validation method
-     */
+ * <p>Abstract base class for JSF validators that implements the {@link Validator} interface
+ * with type-safe value handling. This class provides a robust foundation for creating custom
+ * validators in JSF applications.</p>
+ * 
+ * <p>Key features:</p>
+ * <ul>
+ *   <li>Type-safe validation through generic parameter</li>
+ *   <li>Proper null handling</li>
+ *   <li>JSF API conformance with appropriate null checks</li>
+ *   <li>Helper methods for error message creation and exception handling</li>
+ * </ul>
+ * 
+ * <p>To use this class, extend it with a concrete implementation specifying the type
+ * of value to be validated, and implement the {@link #validateTypeSave(FacesContext, UIComponent, Object)}
+ * method with your validation logic:</p>
+ * 
+ * <pre>
+ * public class EmailValidator extends AbstractValidator&lt;String&gt; {
+ *     
+ *     &#64;Override
+ *     protected void validateTypeSave(FacesContext context, UIComponent component, String value) {
+ *         if (value != null &amp;&amp; !value.contains("@")) {
+ *             throwValidatorException("invalid_email", value);
+ *         }
+ *     }
+ * }
+ * </pre>
+ *
+ * @author Eugen Fischer
+ * @param <T> the type of value to be validated, providing type safety in the validation method
+ */
 public abstract class AbstractValidator<T> implements Validator<Object> {
 
     /**

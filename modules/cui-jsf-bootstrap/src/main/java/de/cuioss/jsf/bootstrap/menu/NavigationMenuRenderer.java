@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ * Copyright © 2023-present CUI-OpenSource-Software (info@cuioss.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -141,21 +141,19 @@ public class NavigationMenuRenderer extends BaseDecoratorRenderer<NavigationMenu
                     menuItem.getId());
             i++;
 
-            if (menuItem instanceof NavigationMenuItemSingle single) {
-                NavigationMenuSingleRenderer.render(context, writer, single, component, componentId);
-
-            } else if (menuItem instanceof NavigationMenuItemExternalSingle single) {
-                NavigationMenuExternalSingleRenderer.render(context, writer, single, component, componentId);
-
-            } else if (menuItem instanceof NavigationMenuItemSeparator separator) {
-                NavigationMenuSeparatorRenderer.render(writer, separator, component, componentId);
-
-            } else if (menuItem instanceof NavigationMenuItemContainer containerModel) {
-                NavigationMenuContainerRenderer.renderBegin(context, writer, containerModel, component,
-                        parentIsContainer, componentId);
-                renderNavigationMenuItems(containerModel.getChildren(), context, writer, component, true,
-                        componentId + "_");
-                NavigationMenuContainerRenderer.renderEnd(writer, containerModel);
+            switch (menuItem) {
+                case NavigationMenuItemSingle single -> NavigationMenuSingleRenderer.render(context, writer, single, component, componentId);
+                case NavigationMenuItemExternalSingle single -> NavigationMenuExternalSingleRenderer.render(context, writer, single, component, componentId);
+                case NavigationMenuItemSeparator separator -> NavigationMenuSeparatorRenderer.render(writer, separator, component, componentId);
+                case NavigationMenuItemContainer containerModel -> {
+                    NavigationMenuContainerRenderer.renderBegin(context, writer, containerModel, component,
+                            parentIsContainer, componentId);
+                    renderNavigationMenuItems(containerModel.getChildren(), context, writer, component, true,
+                            componentId + "_");
+                    NavigationMenuContainerRenderer.renderEnd(writer, containerModel);
+                }
+                case null, default -> {
+                }
             }
         }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ * Copyright © 2023-present CUI-OpenSource-Software (info@cuioss.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -140,19 +140,23 @@ public class PrettyTimeConverter extends AbstractConverter<Object> {
     protected String convertToString(final FacesContext context, final UIComponent component, final Object value)
             throws ConverterException {
         Date toBeConverted = null;
-        if (value instanceof Date date) {
-            toBeConverted = date;
-        } else if (value instanceof Calendar calendar) {
-            toBeConverted = calendar.getTime();
-        } else if (value instanceof ZonedDateTime zDate) {
-            var instant = zDate.toInstant();
-            toBeConverted = Date.from(instant);
-        } else if (value instanceof LocalDateTime lDate) {
-            var instant = lDate.atZone(ZoneId.systemDefault()).toInstant();
-            toBeConverted = Date.from(instant);
-        } else if (value instanceof LocalDate lDate) {
-            var instant = lDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
-            toBeConverted = Date.from(instant);
+        switch (value) {
+            case Date date -> toBeConverted = date;
+            case Calendar calendar -> toBeConverted = calendar.getTime();
+            case ZonedDateTime zDate -> {
+                var instant = zDate.toInstant();
+                toBeConverted = Date.from(instant);
+            }
+            case LocalDateTime lDate -> {
+                var instant = lDate.atZone(ZoneId.systemDefault()).toInstant();
+                toBeConverted = Date.from(instant);
+            }
+            case LocalDate lDate -> {
+                var instant = lDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+                toBeConverted = Date.from(instant);
+            }
+            case null, default -> {
+            }
         }
 
         if (null == toBeConverted) {

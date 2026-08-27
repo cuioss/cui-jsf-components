@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 CUI-OpenSource-Software (info@cuioss.de)
+ * Copyright © 2023-present CUI-OpenSource-Software (info@cuioss.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -104,7 +104,9 @@ public class ReflectionBasedEditableDataListModel<T extends Serializable> extend
     public T createEmptyItem() {
         try {
             return modelClass.getDeclaredConstructor().newInstance();
-        } catch (InstantiationException | IllegalAccessException | RuntimeException | InvocationTargetException
+        }
+        /*TODO: Catch specific not RuntimeException. Suppress: // cui-rewrite:disable InvalidExceptionUsageRecipe*/
+        catch (InstantiationException | IllegalAccessException | RuntimeException | InvocationTargetException
                 | NoSuchMethodException e) {
             throw new IllegalStateException(
                     "Unable to create an Instances using the default constructor, offending class: " + modelClass, e);
